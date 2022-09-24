@@ -1,1 +1,126 @@
 @import "./normalize";
+@import "./variables";
+@import "./fonts";
+
+html {
+  font-size: 62.5%; /* 1rem = 10px */
+
+  /* Fix IOS 11 Safari - problems with the Notch */
+  @supports (padding: max(0px)) {
+    padding-left: min(0vmin, env(safe-area-inset-left));
+    padding-right: min(0vmin, env(safe-area-inset-right));
+  }
+}
+
+body {
+  font-family: $font_family;
+  font-weight: $font_regular;
+  font-size: $font_size_1_6;
+  line-height: $line_height_2_4;
+  color: $color_black_37;
+  -webkit-tap-highlight-color: $color_transparent; /* Remove the tap highlight */
+
+  @media screen and (min-width: $screen-md) {
+    font-weight: $font_medium;
+    font-size: $font_size_2_4;
+    line-height: $line_height_3_4;
+  }
+}
+
+p,
+ul,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0; /* Remove the default margin for all the header elements */
+}
+
+h1 {
+  font-weight: $font_bold;
+  font-size: $font_size_3_6;
+  line-height: $line_height_4_4;
+  padding-bottom: $spacing_2_4;
+
+  @media screen and (min-width: $screen-md) {
+    font-size: $font_size_4_8;
+    line-height: $line_height_5_6;
+    padding-bottom: $spacing_3_2;
+  }
+
+  @media screen and (min-width: $screen-lg) {
+    font-size: $font_size_5_6;
+    line-height: $line_height_6_4;
+  }
+}
+
+h2 {
+  font-weight: $font_bold;
+  font-size: $font_size_2_8;
+  line-height: $line_height_3_4;
+  padding-bottom: $spacing_1_6;
+
+  @media screen and (min-width: $screen-md) {
+    font-size: $font_size_3_6;
+    line-height: $line_height_4_4;
+    padding-bottom: $spacing_2_4;
+  }
+
+  @media screen and (min-width: $screen-lg) {
+    font-size: $font_size_4_8;
+    line-height: $line_height_5_6;
+  }
+}
+
+h3 {
+  font-weight: $font_semi_bold;
+  font-size: $font_size_2_4;
+  line-height: $line_height_2_4;
+  padding-bottom: $spacing_1_6;
+
+  @media screen and (min-width: $screen-md) {
+    font-size: $font_size_2_8;
+    line-height: $line_height_3_4;
+    padding-bottom: $spacing_2_4;
+  }
+}
+
+h4 {
+  font-weight: $font_semi_bold;
+  font-size: $font_size_2_4;
+  line-height: $line_height_2_4;
+  padding-bottom: $spacing_1_6;
+
+  @media screen and (min-width: $screen-md) {
+    font-size: $font_size_3_6;
+    line-height: $line_height_3_4;
+    padding-bottom: $spacing_2_4;
+  }
+}
+
+h5 {
+  font-weight: $font_regular;
+  font-size: $font_size_2_0;
+  line-height: $line_height_2_4;
+  padding-bottom: $spacing_1_2;
+
+  @media screen and (min-width: $screen-md) {
+    font-size: $font_size_2_4;
+    line-height: $line_height_2_4;
+    padding-bottom: $spacing_1_6;
+  }
+}
+
+h6 {
+  font-weight: $font_regular;
+  font-size: $font_size_1_6;
+  line-height: $line_height_1_6;
+  padding-bottom: $spacing_0_8;
+}
+
+a {
+  text-decoration: none;
+  color: $color_black_37;
+}
