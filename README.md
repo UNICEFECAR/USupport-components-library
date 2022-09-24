@@ -1,6 +1,6 @@
 # Welcome
 
-Repository for the USupport Components Library
+Repository for the USupport Components Library.
 
 ## Usage
 
