@@ -1,3 +1,20 @@
+# v0.1.2 (Sun Sep 25 2022)
+
+#### 🐛 Bug Fix
+
+- Automate creation of new component groups and components [#6](https://github.com/UNICEFECAR/USupport-components-library/pull/6) ([@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT) [@sebastian-7DIGIT](https://github.com/sebastian-7DIGIT))
+- Automate components and component groups creation [#5](https://github.com/UNICEFECAR/USupport-components-library/pull/5) ([@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT) [@sebastian-7DIGIT](https://github.com/sebastian-7DIGIT))
+- Merge development into staging [#4](https://github.com/UNICEFECAR/USupport-components-library/pull/4) ([@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT) runner@fv-az424-215.i1gjr3zuz4qevjy1zin2gin2ih.gx.internal.cloudapp.net)
+- Merge main into development [#3](https://github.com/UNICEFECAR/USupport-components-library/pull/3) ([@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT) runner@fv-az424-215.i1gjr3zuz4qevjy1zin2gin2ih.gx.internal.cloudapp.net)
+
+#### Authors: 3
+
+- [@sebastian-7DIGIT](https://github.com/sebastian-7DIGIT)
+- 7DIGIT LLC (runner@fv-az424-215.i1gjr3zuz4qevjy1zin2gin2ih.gx.internal.cloudapp.net)
+- Vasilen Tsvetkov ([@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+
+---
+
 # v0.1.1 (Sun Sep 25 2022)
 
 #### 🐛 Bug Fix
