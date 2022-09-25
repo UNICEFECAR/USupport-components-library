@@ -55,5 +55,9 @@
   "publishConfig": {
     "access": "public",
     "cache": "cache/.npm"
+  },
+  "dependencies": {
+    "auto": "^10.37.6",
+    "rollup": "^2.79.1"
   }
 }
