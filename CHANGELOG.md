@@ -1,3 +1,23 @@
+# v0.1.1 (Sun Sep 25 2022)
+
+#### 🐛 Bug Fix
+
+- Finalise the initial setup of the USupport Components Library [#2](https://github.com/UNICEFECAR/USupport-components-library/pull/2) ([@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+- Refactor: README file [#1](https://github.com/UNICEFECAR/USupport-components-library/pull/1) ([@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+
+#### ⚠️ Pushed to `main`
+
+- Fix: auto package not installed ([@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+- Fix: rollup package not installed ([@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+- Fix: problem with node modules caching ([@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+- Fix: wrong package manager used within the push.yml file ([@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+
+#### Authors: 1
+
+- Vasilen Tsvetkov ([@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+
+---
+
 # v0.0.3 (Sun Sep 25 2022)
 
 #### ⚠️ Pushed to `main`
