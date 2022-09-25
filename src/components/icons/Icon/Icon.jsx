@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { Color, hexToRgb, Solver } from "../../utils/generateSvgFilter";
+import { Color, hexToRgb, Solver } from "../utils/ColorSolver";
 
-import sprite from "./sprite.svg";
+import sprite from "../assets/sprite.svg";
 
 import "./icon.scss";
 
