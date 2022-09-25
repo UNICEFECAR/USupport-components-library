@@ -3,21 +3,32 @@ import React from "react";
 import { Icon } from "./Icon";
 
 export default {
-  title: "Icons/Icon",
+  title: "Components Library/icons/Icon",
   component: Icon,
   argTypes: {
     color: { control: "color" },
   },
 };
 
-const Template = (args) => <Icon {...args} />;
+// Add each new icon to the list below
+const icons = ["filter", "phone-emergency"];
 
-export const Filter = Template.bind({});
-Filter.args = {
-  name: "filter",
-};
-
-export const PhoneEmergency = Template.bind({});
-PhoneEmergency.args = {
-  name: "phone-emergency",
-};
+export const All = (args) => (
+  <div style={{ display: "flex" }}>
+    {icons.map((icon) => {
+      return (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            padding: "0 1rem",
+          }}
+        >
+          <Icon name={icon} {...args} />
+          <h6 style={{ paddingTop: "0.5rem" }}>{icon}</h6>
+        </div>
+      );
+    })}
+  </div>
+);
