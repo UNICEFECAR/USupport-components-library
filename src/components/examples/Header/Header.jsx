@@ -6,7 +6,7 @@ import "./header.scss";
 
 export const Header = ({ user, onLogin, onLogout, onCreateAccount }) => (
   <header>
-    <div className="wrapper">
+    <div className="example-header">
       <div>
         <svg
           width="32"
@@ -29,7 +29,7 @@ export const Header = ({ user, onLogin, onLogout, onCreateAccount }) => (
             />
           </g>
         </svg>
-        <h1>Acme</h1>
+        <h3>Acme</h3>
       </div>
       <div>
         {user ? (

@@ -1,35 +1,35 @@
 @import "../../../styles/theme";
 
-.storybook-button {
-  font-family: "Nunito Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: 700;
+.example-button {
+  font-weight: $font_bold;
   border: 0;
-  border-radius: 3em;
+  border-radius: $border_radius_2_4;
   cursor: pointer;
   display: inline-block;
-  line-height: 1;
 
   &--primary {
-    color: white;
-    background-color: #1ea7fd;
+    color: $color_white_ff;
+    background-color: $color_primary_20809e;
   }
 
   &--secondary {
-    color: #333;
-    background-color: transparent;
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;
+    color: $color_white_ff;
+    background-color: $color_secondary_9749fa;
+    box-shadow: $shadow_1;
   }
 
   &--small {
-    font-size: 12px;
-    padding: 10px 16px;
+    font-size: $font_size_0_8;
+    padding: $spacing_1_2 $spacing_1_6;
   }
+
   &--medium {
-    font-size: 14px;
-    padding: 11px 20px;
+    font-size: $font_size_1_2;
+    padding: $spacing_1_6 $spacing_2_4;
   }
+
   &--large {
-    font-size: 16px;
-    padding: 12px 24px;
+    font-size: $font_size_1_6;
+    padding: $spacing_1_6 $spacing_3_2;
   }
 }

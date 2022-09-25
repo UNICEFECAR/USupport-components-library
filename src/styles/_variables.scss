@@ -1,0 +1,104 @@
+// Screen sizes
+$screen-md: 768px;
+$screen-lg: 1440px;
+
+// Font Family
+$font_family: "Nunito Sans", sans-serif;
+
+// Font Weights
+$font_ultra_light: 200;
+$font_regular: 300;
+$font_medium: 400;
+$font_semi_bold: 600;
+$font_bold: 700;
+$font_extra_bold: 800;
+$font_black: 900;
+
+// Font Sizes
+$font_size_0_4: 0.4rem;
+$font_size_0_8: 0.8rem;
+$font_size_1_2: 1.2rem;
+$font_size_1_6: 1.6rem;
+$font_size_2_0: 2rem;
+$font_size_2_4: 2.4rem;
+$font_size_2_8: 2.8rem;
+$font_size_3_6: 3.6rem;
+$font_size_4_8: 4.8rem;
+$font_size_5_6: 5.6rem;
+
+// Line Heights
+$line_height_1_6: 1.6rem;
+$line_height_2_4: 2.4rem;
+$line_height_3_4: 3.4rem;
+$line_height_4_4: 4.4rem;
+$line_height_5_6: 5.6rem;
+$line_height_6_4: 6.4rem;
+
+// Border Radius
+$border_radius_0_8: 0.8rem;
+$border_radius_1_6: 1.6rem;
+$border_radius_2_4: 2.4rem;
+$border_radius_3_2: 3.2rem;
+
+// Spacing
+$spacing_0_4: 0.4rem;
+$spacing_0_8: 0.8rem;
+$spacing_1_2: 1.2rem;
+$spacing_1_6: 1.6rem;
+$spacing_2_4: 2.4rem;
+$spacing_2_8: 2.8rem;
+$spacing_3_2: 3.2rem;
+$spacing_4_0: 4rem;
+$spacing_4_8: 4.8rem;
+$spacing_5_6: 5.6rem;
+$spacing_6_4: 6.4rem;
+$spacing_7_2: 7.2rem;
+$spacing_8_0: 8rem;
+
+// Colors
+$color_primary_20809e: #20809e;
+$color_primary_pressed_156f8c: #156f8c;
+$color_primary_pressed_0c5f7a: #0c5f7a;
+
+$color_secondary_9749fa: #9749fa;
+$color_secondary_pressed_7f2ee5: #7f2ee5;
+$color_secondary_pressed_6c16d9: #6c16d9;
+
+$color_black_00: #000000;
+$color_black_37: #373737;
+
+$color_white_ff: #ffffff;
+
+$color_transparent: rgba(0, 0, 0, 0);
+
+$color_gray_ea: #eaeaea;
+$color_gray_a6b4b8: #a6b4b8;
+$color_gray_66768d: #66768d;
+
+$color_green_54cfd9: #54cfd9;
+$color_green_c1eaea: #c1eaea;
+$color_green_f4f7fe: #f4f7fe;
+
+$color_purple_dac3f6: #dac3f6;
+$color_purple_c39af9: #c39af9;
+
+$color_blue_2a54bc: #2a54bc;
+
+// Gradients
+$gradient_primary: linear-gradient(
+  80.08deg,
+  #20809e -27.58%,
+  rgba(32, 128, 158, 0.23) 60.24%,
+  #20809e 133.62%
+);
+$gradient_secondary: linear-gradient(
+  270deg,
+  #0daeb2 1.31%,
+  #d6d2ff 42.92%,
+  #814afd 93.14%
+);
+
+// Shadows
+$shadow_1: 2px 2px 12px rgba(104, 77, 253, 0.1);
+$shadow_2: 0px 2px 18px rgba(104, 77, 253, 0.2);
+$shadow_3: 0px 2px 24px rgba(104, 77, 253, 0.3);
