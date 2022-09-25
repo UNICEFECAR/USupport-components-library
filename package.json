@@ -8,7 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "build-lib": "rollup -c"
+    "build-lib": "rollup -c",
+    "release": "auto shipit --base-branch=main"
   },
   "repository": {
     "type": "git",
@@ -52,6 +53,7 @@
     "react-dom": ">=18.2.0"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "cache": "cache/.npm"
   }
 }
