@@ -8,14 +8,12 @@ import "./button.scss";
  */
 export const Button = ({ primary, backgroundColor, size, label, ...props }) => {
   const mode = primary
-    ? "storybook-button--primary"
-    : "storybook-button--secondary";
+    ? "example-button--primary"
+    : "example-button--secondary";
   return (
     <button
       type="button"
-      className={["storybook-button", `storybook-button--${size}`, mode].join(
-        " "
-      )}
+      className={["example-button", `example-button--${size}`, mode].join(" ")}
       style={backgroundColor && { backgroundColor }}
       {...props}
     >
