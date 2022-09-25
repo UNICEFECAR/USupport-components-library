@@ -1,6 +1,6 @@
 {
   "name": "usupport-components-library",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "USupport Components Library",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
@@ -55,5 +55,9 @@
   "publishConfig": {
     "access": "public",
     "cache": "cache/.npm"
+  },
+  "dependencies": {
+    "auto": "^10.37.6",
+    "rollup": "^2.79.1"
   }
 }
