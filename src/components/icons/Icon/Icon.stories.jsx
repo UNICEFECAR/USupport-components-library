@@ -11,10 +11,69 @@ export default {
 };
 
 // Add each new icon to the list below
-const icons = ["filter", "phone-emergency"];
+const icons = [
+  "filter",
+  "phone-emergency",
+  "comment",
+  "info",
+  "fingerprint",
+  "star",
+  "document",
+  "notifications",
+  "share",
+  "hangup",
+  "stop-camera",
+  "stop-mic",
+  "view",
+  "hide",
+  "arrow-chevron-up",
+  "arrow-chevron-down",
+  "search",
+  "close-x",
+  "microphone",
+  "tag",
+  "heart",
+  "person",
+  "two-people",
+  "hashtag",
+  "three-people",
+  "share-back",
+  "time",
+  "cart",
+  "bag",
+  "calendar",
+  "call",
+  "schedule",
+  "read-book",
+  "home",
+  "two-hands",
+  "flash",
+  "back-arrow",
+  "forward-arrow",
+  "arrow-chevron-back",
+  "arrow-chevron-forward",
+  "arrow-caret-back",
+  "arrow-caret-forward",
+  "arrow-select",
+  "arrow-down",
+  "arrow-up",
+  "arrow-caret-up",
+  "arrow-caret-down",
+  "export",
+  "actions-plus",
+  "action-minus",
+  "circle-actions-success",
+  "circle-actions-close",
+  "circle-actions-alert-info",
+  "circle-actions-alert-question",
+  "check",
+  "mail",
+  "sound-playing",
+  "sound-muted",
+];
 
 export const All = (args) => (
-  <div style={{ display: "flex" }}>
+  <div style={{ display: "flex", flexWrap: "wrap" }}>
     {icons.map((icon) => {
       return (
         <div
