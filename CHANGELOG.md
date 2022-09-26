@@ -1,3 +1,16 @@
+# v0.1.3 (Mon Sep 26 2022)
+
+#### ⚠️ Pushed to `main`
+
+- Fix: add prop-types to the peerDependencies of the library as well ([@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+- Fix: move prop-types to dependencies of the library ([@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+
+#### Authors: 1
+
+- Vasilen Tsvetkov ([@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+
+---
+
 # v0.1.2 (Sun Sep 25 2022)
 
 #### 🐛 Bug Fix
