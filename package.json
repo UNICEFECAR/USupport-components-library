@@ -38,7 +38,6 @@
     "babel-loader": "^8.2.5",
     "postcss": "^8.4.16",
     "postcss-color-rebeccapurple": "^7.1.1",
-    "prop-types": "^15.8.1",
     "react": ">=18.2.0",
     "react-dom": ">=18.2.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
@@ -48,7 +47,6 @@
     "storybook-addon-sass-postcss": "^0.1.3"
   },
   "peerDependencies": {
-    "prop-types": "^15.8.1",
     "react": ">=18.2.0",
     "react-dom": ">=18.2.0"
   },
@@ -58,6 +56,7 @@
   },
   "dependencies": {
     "auto": "^10.37.6",
+    "prop-types": "^15.8.1",
     "rollup": "^2.79.1"
   }
 }
