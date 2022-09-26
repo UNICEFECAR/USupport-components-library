@@ -73,7 +73,7 @@ const icons = [
 ];
 
 export const All = (args) => (
-  <div style={{ display: "flex" }}>
+  <div style={{ display: "flex", flexWrap: "wrap" }}>
     {icons.map((icon) => {
       return (
         <div
