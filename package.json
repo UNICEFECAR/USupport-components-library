@@ -1,6 +1,6 @@
 {
   "name": "usupport-components-library",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "USupport Components Library",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
