@@ -62,6 +62,12 @@ The steps which the bash script executes are the following:
 
 Note: For more information on directory structure, conventions, and sample components, please refer to the `/src/component/examples` directory.
 
+## Please follow these naming conventions for your branches
+
+- Features `feature/{JIRA_ID}-{branch_name}
+- Bugs `bug/{JIRA_ID}-{branch_name}
+- Hotfixes `hotfix/{JIRA_ID}-{branch_name}
+
 ## Guidelines for writing a commit message when committing changes to the USupport Components Library
 
 - Create: `[commit message]` (create a new component)
