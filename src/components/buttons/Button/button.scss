@@ -1,0 +1,139 @@
+@import "../../../styles/variables";
+
+.btn{
+    border: 0;
+    border-radius: $border_radius_1_6;
+    padding: .4rem 1.6rem;
+    cursor: pointer;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.2rem;
+    line-height: 2.2rem;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover &:active{
+        font-weight: 800;
+    }
+    
+    &--disabled{
+        opacity: 0.6;
+    }
+
+    //Sizes
+    &--xsmall {
+        width: 8.8rem;
+    }
+
+    &--small {
+        width: 14.8rem;
+    }
+
+    &--medium {
+        width: 16.8rem;
+    }
+
+    &--large {
+        width: 34.3rem;
+    }
+    
+    //Modes: Primary, Secondary, Ghost and Emergency 
+    &--primary{
+        background-color: $color_primary_20809e;
+        color: $color_white_ff;
+    
+        &:hover {
+                background-color: $color_primary_pressed_156f8c;
+            }
+         
+        &:active {
+                background-color: $color_primary_pressed_0c5f7a;
+            }    
+            
+        &.btn--purple {
+            background-color: $color_secondary_9749fa;
+        
+            &:hover {
+                background-color: $color_secondary_pressed_7f2ee5;
+            }
+    
+            &:active {
+                background-color: $color_secondary_pressed_6c16d9;
+            }
+        }
+    }
+    
+    &--secondary{
+        background-color: $color_white_ff;
+        color: $color_primary_20809e;
+        
+        &:hover{
+            border: 0.1rem solid $color_primary_pressed_156f8c;
+            color: $color_primary_pressed_156f8c;
+        }
+        
+        &:active{
+            border: 0.1rem solid $color_primary_pressed_0c5f7a;
+            color: $color_primary_pressed_0c5f7a;
+        }
+    
+        &.btn--purple{
+            color: $color_secondary_9749fa;
+            background-color: $color_white_ff;
+    
+            &:hover {
+                    border: 0.1rem solid $color_secondary_pressed_7f2ee5;
+                    color: $color_secondary_pressed_7f2ee5;
+            }
+    
+            &:active {
+                    border: 0.1rem solid $color_secondary_pressed_6c16d9;
+                    color: $color_secondary_pressed_6c16d9;
+            }
+        }
+    }
+    
+    &--ghost{
+    
+        background-color: transparent;
+        color: $color_primary_20809e;
+    
+        &:hover{
+            color: $color_primary_pressed_156f8c;
+        }
+    
+        &:active{
+            color: $color_primary_pressed_0c5f7a;
+        }
+    
+        &.btn--purple{
+            color: $color_secondary_9749fa;
+    
+            &:hover {
+                    color: $color_secondary_pressed_7f2ee5;
+                }
+    
+            &:active {
+                    color: $color_secondary_pressed_6c16d9;
+                }    
+        }
+    }
+    
+    &--emergency{
+        background-color: $color_secondary_9749fa;
+        color: $color_white_ff;
+        width: 5.6rem !important;
+        height: 5.6rem !important;
+        border-radius: 50%;
+    
+        &:hover{
+            background-color: $color_secondary_pressed_7f2ee5;
+        }
+    
+        &:active{
+            background-color: $color_secondary_pressed_6c16d9;
+        }
+    }
+}
