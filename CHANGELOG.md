@@ -1,3 +1,18 @@
+# v0.1.4 (Tue Sep 27 2022)
+
+#### 🐛 Bug Fix
+
+- Development [#8](https://github.com/UNICEFECAR/USupport-components-library/pull/8) ([@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT) [@GGanchev16](https://github.com/GGanchev16))
+- Add: icons in the sprite [#7](https://github.com/UNICEFECAR/USupport-components-library/pull/7) ([@GGanchev16](https://github.com/GGanchev16) [@georgiganchev-7DIGIT](https://github.com/georgiganchev-7DIGIT))
+
+#### Authors: 3
+
+- [@GGanchev16](https://github.com/GGanchev16)
+- Georgi Ganchev ([@georgiganchev-7DIGIT](https://github.com/georgiganchev-7DIGIT))
+- Vasilen Tsvetkov ([@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+
+---
+
 # v0.1.3 (Mon Sep 26 2022)
 
 #### ⚠️ Pushed to `main`
