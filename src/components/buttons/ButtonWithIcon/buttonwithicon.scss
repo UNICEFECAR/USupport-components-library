@@ -1,0 +1,18 @@
+@import "../../../styles/theme";
+
+.btn--with-icon {
+  .icon {
+    margin-right: $spacing_0_6;
+  }
+
+  &.only--icon {
+    min-width: unset;
+    width: 5.6rem;
+    height: 5.6rem;
+    border-radius: 50%;
+    padding: 0;
+    .icon {
+      margin: 0;
+    }
+  }
+}
