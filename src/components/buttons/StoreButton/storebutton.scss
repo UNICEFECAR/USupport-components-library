@@ -1,0 +1,15 @@
+@import "../../../styles/theme";
+
+.btn--store {
+  .content-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    .text-container {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
