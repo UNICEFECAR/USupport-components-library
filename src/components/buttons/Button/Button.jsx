@@ -1,92 +1,66 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Icon } from "../../icons/Icon/Icon";
 
 import "./button.scss";
 
 /**
  * Button
  *
- * All buttons used in the app
+ * Base Button component
  *
  * @return {jsx}
  */
 export const Button = ({
-  /* Add props here */
-  text,
-  iconName,
+  children,
+  label,
+  type,
   size,
   color,
-  secondary,
-  ghost,
-  emergency,
   disabled,
+  web,
+  classes,
   onClick,
   ...rest
 }) => {
-  const mode = secondary
-    ? "btn--secondary"
-    : ghost
-    ? "btn--ghost"
-    : emergency
-    ? "btn--emergency"
-    : "btn--primary";
-
   return (
     <button
       className={[
-        `btn btn--${size} btn--${color}`,
-        mode,
+        `btn btn--${size} btn--${color} btn--${type}`,
         disabled && "btn--disabled",
+        web && "btn--web",
+        ...classes,
       ].join(" ")}
       onClick={onClick}
       {...rest}
     >
-      {emergency ? (
-        <Icon name="phone-emergency" color={"#ffffff"} size={"large"} />
-      ) : iconName ? (
-        <Icon name={iconName} color={"#ffffff"} size={"medium"} />
-      ) : null}
-      {text ? <span>{text}</span> : null}
+      <div className={"btn-content-container"}>
+        {children}
+        {label}
+      </div>
     </button>
   );
 };
 
 Button.propTypes = {
   /**
-   * Text to render in the Button component
+   *Label to render in the Button component
    * */
-  text: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  label: PropTypes.string,
 
   /**
-   * Icon to render in the Button component
+   * Button type, the default is primary
    **/
-  icon: PropTypes.oneOfType([PropTypes.element, PropTypes.bool]),
+  type: PropTypes.oneOf(["primary", "secondary", "ghost", "label"]),
 
   /**
-   * Size of the button, the default is medium
+   * Size of the button, the default is md
    * */
-  size: PropTypes.oneOf(["small", "medium", "large", "xsmall"]),
+  size: PropTypes.oneOf(["sm", "md", "lg", "xs"]),
 
   /**
    * Predifned colors for the button, the default is green
    **/
   color: PropTypes.oneOf(["green", "purple"]),
-
-  /**
-   * Is the button a secondary button?
-   * */
-  secondary: PropTypes.bool,
-
-  /**
-   * Is the button ghost mode?
-   * */
-  ghost: PropTypes.bool,
-
-  /**
-   * Is the button emergency bytton?
-   * */
-  emergency: PropTypes.bool,
 
   /**
    * Is the button disabled?
@@ -97,14 +71,24 @@ Button.propTypes = {
    * OnClick function to be called when the button is clicked
    * */
   onClick: PropTypes.func,
+
+  /**
+   * Is the button rendered in a web platform?
+   **/
+  web: PropTypes.bool,
+
+  /**
+   * Additional classes to be added to the button
+   **/
+  classes: PropTypes.arrayOf(PropTypes.string),
 };
 
 Button.defaultProps = {
   color: null,
-  secondary: false,
-  emergency: false,
-  ghost: false,
+  type: "primary",
   disabled: false,
-  size: "medium",
+  size: "md",
   onClick: undefined,
+  web: false,
+  classes: [],
 };
