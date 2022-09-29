@@ -1,0 +1,22 @@
+@import "../../../styles/theme";
+
+.btn--store {
+  .btn__text-container {
+    display: flex;
+    flex-direction: column;
+    padding-left: $spacing_1_2;
+
+    .download {
+      font-size: $font_size_1_2;
+      font-weight: $font_medium;
+      line-height: $line_height_1_8;
+      color: $color_gray_66768d;
+    }
+
+    .label {
+      font-size: $font_size_1_6;
+      font-weight: $font_semi_bold;
+      line-height: $line_height_2_2;
+    }
+  }
+}
