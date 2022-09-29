@@ -34,6 +34,6 @@ TextButton.args = {
 };
 
 export const GhostGreen = Template.bind({});
-GhostButton.args = {
+GhostGreen.args = {
   type: "ghost",
 };

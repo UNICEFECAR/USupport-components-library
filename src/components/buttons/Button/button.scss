@@ -12,7 +12,6 @@
   display: block;
   width: auto;
 
-  &:hover,
   &:active {
     font-weight: $font_extra_bold;
   }
@@ -26,7 +25,6 @@
   &--sm {
     min-width: 14.8rem;
     padding: $spacing_0_4 $spacing_1_6;
-    border-radius: $border_radius_4_8;
   }
 
   &--md {
@@ -44,25 +42,28 @@
 
   //Modes: Primary, Secondary, Ghost and Emergency
   &--primary {
-    background-color: $color_primary_20809e;
     color: $color_white_ff;
 
-    &:hover {
-      background-color: $color_primary_pressed_156f8c;
-    }
+    &.btn--green {
+      background-color: $color_primary_20809e;
 
-    &:active {
-      background-color: $color_primary_pressed_0c5f7a;
+      &:hover:enabled {
+        background-color: $color_primary_pressed_156f8c;
+      }
+
+      &:active:enabled {
+        background-color: $color_primary_pressed_0c5f7a;
+      }
     }
 
     &.btn--purple {
       background-color: $color_secondary_9749fa;
 
-      &:hover {
+      &:hover:enabled {
         background-color: $color_secondary_pressed_7f2ee5;
       }
 
-      &:active {
+      &:active:enabled {
         background-color: $color_secondary_pressed_6c16d9;
       }
     }
@@ -70,28 +71,30 @@
 
   &--secondary {
     background-color: $color_white_ff;
-    color: $color_primary_20809e;
 
-    &:hover {
-      border: 0.1rem solid $color_primary_pressed_156f8c;
-      color: $color_primary_pressed_156f8c;
-    }
+    &.btn--green {
+      color: $color_primary_20809e;
 
-    &:active {
-      border: 0.1rem solid $color_primary_pressed_0c5f7a;
-      color: $color_primary_pressed_0c5f7a;
+      &:hover:enabled {
+        border: 0.1rem solid $color_primary_pressed_156f8c;
+        color: $color_primary_pressed_156f8c;
+      }
+
+      &:active:enabled {
+        border: 0.1rem solid $color_primary_pressed_0c5f7a;
+        color: $color_primary_pressed_0c5f7a;
+      }
     }
 
     &.btn--purple {
       color: $color_secondary_9749fa;
-      background-color: $color_white_ff;
 
-      &:hover {
+      &:hover:enabled {
         border: 0.1rem solid $color_secondary_pressed_7f2ee5;
         color: $color_secondary_pressed_7f2ee5;
       }
 
-      &:active {
+      &:active:enabled {
         border: 0.1rem solid $color_secondary_pressed_6c16d9;
         color: $color_secondary_pressed_6c16d9;
       }
@@ -100,25 +103,28 @@
 
   &--ghost {
     background-color: transparent;
-    color: $color_primary_20809e;
     box-shadow: none;
 
-    &:hover {
-      color: $color_primary_pressed_156f8c;
-    }
+    &.btn--green {
+      color: $color_primary_20809e;
 
-    &:active {
-      color: $color_primary_pressed_0c5f7a;
+      &:hover:enabled {
+        color: $color_primary_pressed_156f8c;
+      }
+
+      &:active:enabled {
+        color: $color_primary_pressed_0c5f7a;
+      }
     }
 
     &.btn--purple {
       color: $color_secondary_9749fa;
 
-      &:hover {
+      &:hover:enabled {
         color: $color_secondary_pressed_7f2ee5;
       }
 
-      &:active {
+      &:active:enabled {
         color: $color_secondary_pressed_6c16d9;
       }
     }
@@ -126,29 +132,51 @@
 
   &--text {
     background-color: transparent;
-    color: $color_primary_20809e;
     box-shadow: none;
     padding: 0;
+    min-width: auto;
 
-    &:hover {
-      color: $color_primary_pressed_156f8c;
+    &.btn--green {
+      color: $color_primary_20809e;
+
+      &:hover:enabled {
+        color: $color_primary_pressed_156f8c;
+      }
+
+      &:active:enabled {
+        color: $color_primary_pressed_0c5f7a;
+      }
     }
 
-    &:active {
-      color: $color_primary_pressed_0c5f7a;
+    &.btn--purple {
+      color: $color_secondary_9749fa;
+
+      &:hover:enabled {
+        color: $color_secondary_pressed_7f2ee5;
+      }
+
+      &:active:enabled {
+        color: $color_secondary_pressed_6c16d9;
+      }
     }
   }
 
-  & > .btn-content-container {
+  & > .btn__content-container {
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  &--disabled {
+  &:disabled {
+    cursor: default;
     opacity: 0.6;
   }
 
+  /* 
+   * TODO:
+   * needs to be changed once we have the final web design system,
+   * as these are not covering all the cases from the web buttons currently.
+  */
   &--web {
     padding: $spacing_1_3 $spacing_2_4;
     border-radius: $border_radius_4_0;

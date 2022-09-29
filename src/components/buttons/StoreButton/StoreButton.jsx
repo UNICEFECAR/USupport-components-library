@@ -1,10 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-
-import "./storebutton.scss";
-
 import { Icon } from "../../icons/Icon/Icon";
 import { Button } from "../Button/Button";
+
+import "./storebutton.scss";
 
 /**
  * StoreButton
@@ -18,13 +17,11 @@ export const StoreButton = ({ store, ...rest }) => {
   const label = store === "google-play" ? "Google Play" : "App Store";
 
   return (
-    <Button type="secondary" classes={["btn--store"]} {...rest}>
-      <div className="content-container">
-        <Icon name={icon} size="lg" />
-        <div className="text-container">
-          <p>Download from</p>
-          <p>{label}</p>
-        </div>
+    <Button type="secondary" classes="btn--store" {...rest}>
+      <Icon name={icon} size="lg" />
+      <div className="btn__text-container">
+        <p className="download">Download from</p>
+        <p className="label">{label}</p>
       </div>
     </Button>
   );
@@ -35,8 +32,4 @@ StoreButton.propTypes = {
    * Store to render in the StoreButton component
    **/
   store: PropTypes.oneOf(["google-play", "app-store"]).isRequired,
-};
-
-StoreButton.defaultProps = {
-  // Add defaultProps here
 };

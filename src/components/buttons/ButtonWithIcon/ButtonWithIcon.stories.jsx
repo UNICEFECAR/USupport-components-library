@@ -12,8 +12,8 @@ export default {
 
 const Template = (args) => <ButtonWithIcon {...args} />;
 
-export const SmallButtonWithIcon = Template.bind({});
-SmallButtonWithIcon.args = {
+export const ButtonWithIconGreen = Template.bind({});
+ButtonWithIconGreen.args = {
   label: "Button",
   iconName: "phone-emergency",
   iconSize: "md",
@@ -21,18 +21,8 @@ SmallButtonWithIcon.args = {
   size: "xs",
 };
 
-export const SmallButtonWithIconPurple = Template.bind({});
-SmallButtonWithIconPurple.args = {
-  label: "Button",
-  iconName: "phone-emergency",
-  iconSize: "md",
-  iconColor: "#fff",
-  size: "xs",
-  color: "purple",
-};
-
-export const EmergencyButton = Template.bind({});
-EmergencyButton.args = {
+export const ButtonOnlyIcon = Template.bind({});
+ButtonOnlyIcon.args = {
   iconName: "phone-emergency",
   iconSize: "lg",
   iconColor: "#fff",

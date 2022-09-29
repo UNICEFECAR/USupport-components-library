@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 
 import "./button.scss";
 
@@ -20,20 +21,20 @@ export const Button = ({
   web,
   classes,
   onClick,
-  ...rest
+  ...props
 }) => {
   return (
     <button
       className={[
         `btn btn--${size} btn--${color} btn--${type}`,
-        disabled && "btn--disabled",
-        web && "btn--web",
-        ...classes,
+        web ? "btn--web" : "",
+        classNames(classes),
       ].join(" ")}
-      onClick={onClick}
-      {...rest}
+      onClick={disabled ? () => {} : onClick}
+      disabled={disabled}
+      {...props}
     >
-      <div className={"btn-content-container"}>
+      <div className={"btn__content-container"}>
         {children}
         {label}
       </div>
@@ -50,12 +51,12 @@ Button.propTypes = {
   /**
    * Button type, the default is primary
    **/
-  type: PropTypes.oneOf(["primary", "secondary", "ghost", "label"]),
+  type: PropTypes.oneOf(["primary", "secondary", "ghost", "text"]),
 
   /**
    * Size of the button, the default is md
    * */
-  size: PropTypes.oneOf(["sm", "md", "lg", "xs"]),
+  size: PropTypes.oneOf(["xs", "sm", "md", "lg"]),
 
   /**
    * Predifned colors for the button, the default is green
@@ -80,15 +81,18 @@ Button.propTypes = {
   /**
    * Additional classes to be added to the button
    **/
-  classes: PropTypes.arrayOf(PropTypes.string),
+  classes: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string),
+  ]),
 };
 
 Button.defaultProps = {
-  color: null,
+  color: "green",
   type: "primary",
   disabled: false,
   size: "md",
   onClick: undefined,
   web: false,
-  classes: [],
+  classes: "",
 };
