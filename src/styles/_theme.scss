@@ -31,92 +31,52 @@ ul,
 h1,
 h2,
 h3,
-h4,
-h5,
-h6 {
+h4 {
   margin: 0; /* Remove the default margin for all header elements */
+  font-weight: $font_semi_bold;
 }
 
 h1 {
-  font-weight: $font_bold;
-  font-size: $font_size_3_6;
-  line-height: $line_height_4_4;
-  padding-bottom: $spacing_2_4;
-
-  @media screen and (min-width: $screen-md) {
-    font-size: $font_size_4_8;
-    line-height: $line_height_5_6;
-    padding-bottom: $spacing_3_2;
-  }
-
-  @media screen and (min-width: $screen-lg) {
-    font-size: $font_size_5_6;
-    line-height: $line_height_6_4;
-  }
+  font-size: $font_size_6_4;
+  line-height: $line_height_7_7;
+  letter-spacing: 0.02em;
 }
 
 h2 {
-  font-weight: $font_bold;
-  font-size: $font_size_2_8;
-  line-height: $line_height_3_4;
-  padding-bottom: $spacing_1_6;
-
-  @media screen and (min-width: $screen-md) {
-    font-size: $font_size_3_6;
-    line-height: $line_height_4_4;
-    padding-bottom: $spacing_2_4;
-  }
-
-  @media screen and (min-width: $screen-lg) {
-    font-size: $font_size_4_8;
-    line-height: $line_height_5_6;
-  }
+  font-size: $font_size_4_0;
+  line-height: $line_height_4_8;
 }
 
 h3 {
-  font-weight: $font_semi_bold;
-  font-size: $font_size_2_4;
-  line-height: $line_height_2_4;
-  padding-bottom: $spacing_1_6;
-
-  @media screen and (min-width: $screen-md) {
-    font-size: $font_size_2_8;
-    line-height: $line_height_3_4;
-    padding-bottom: $spacing_2_4;
-  }
+  font-size: $font_size_3_2;
+  line-height: $line_height_3_8;
 }
 
 h4 {
-  font-weight: $font_semi_bold;
-  font-size: $font_size_2_4;
-  line-height: $line_height_2_4;
-  padding-bottom: $spacing_1_6;
-
-  @media screen and (min-width: $screen-md) {
-    font-size: $font_size_3_6;
-    line-height: $line_height_3_4;
-    padding-bottom: $spacing_2_4;
-  }
-}
-
-h5 {
-  font-weight: $font_regular;
   font-size: $font_size_2_0;
   line-height: $line_height_2_4;
-  padding-bottom: $spacing_1_2;
-
-  @media screen and (min-width: $screen-md) {
-    font-size: $font_size_2_4;
-    line-height: $line_height_2_4;
-    padding-bottom: $spacing_1_6;
-  }
 }
 
-h6 {
+.paragraph,
+.text,
+.small-text {
   font-weight: $font_regular;
+}
+
+.paragraph {
+  font-size: $font_size_2_0;
+  line-height: $line_height_2_8;
+  letter-spacing: -0.02em;
+}
+
+.text {
   font-size: $font_size_1_6;
-  line-height: $line_height_1_6;
-  padding-bottom: $spacing_0_8;
+  line-height: $line_height_2_4;
+}
+
+.small-text {
+  font-size: $font_size_1_2;
+  line-height: $line_height_1_8;
 }
 
 a {
