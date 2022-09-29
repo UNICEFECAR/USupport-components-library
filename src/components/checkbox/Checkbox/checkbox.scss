@@ -9,6 +9,7 @@
     margin-left: $spacing_0_8;
     font-size: $font_size_1_4;
     font-weight: $font_medium;
+    color: &color_black_37;
   }
 
   & > input {
@@ -18,10 +19,10 @@
     width: 2rem;
     height: 2rem;
     border-radius: 0.5rem;
-    border: $color_gray_92989b 0.15rem solid;
+    border: $color_gray_92989b 0.2rem solid;
 
     &:hover {
-      border: $color_secondary_9749fa 0.15rem solid;
+      border: $color_secondary_9749fa 0.2rem solid;
     }
 
     &.checked {
