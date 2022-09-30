@@ -33,28 +33,28 @@ export const RadioButton = ({
 
 RadioButton.propTypes = {
   /**
-   * Label for the checkbox if needed
+   * Label for the radio button if needed
    */
   text: PropTypes.string,
 
   /**
-   * If the checkbox is disabled
+   * If the radio button is disabled
    * @default false
    * */
   disabled: PropTypes.bool,
 
   /**
-   * If the checkbox is checked
+   * If the radio button is checked
    **/
   isChecked: PropTypes.bool,
 
   /**
-   * Function to set the checkbox state
+   * Function to set the radio button state
    * */
   setIsChecked: PropTypes.func,
 
   /**
-   *
+   * Additional props to pass to the radio button
    * */
   rest: PropTypes.any,
 };
