@@ -11,7 +11,7 @@ import "./checkbox.scss";
  * @return {jsx}
  */
 export const Checkbox = ({
-  text,
+  label,
   isChecked,
   setIsChecked,
   disabled,
@@ -26,7 +26,7 @@ export const Checkbox = ({
         className={[isChecked ? "checked" : ""]}
         {...rest}
       />
-      {text ? <p className="text">{text}</p> : null}
+      {label ? <p className="label">{label}</p> : null}
     </div>
   );
 };

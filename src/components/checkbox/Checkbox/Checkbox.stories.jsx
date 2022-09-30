@@ -20,5 +20,5 @@ Default.args = {};
 
 export const CheckBoxWithLabel = Template.bind({});
 CheckBoxWithLabel.args = {
-  text: "label",
+  label: "label",
 };
