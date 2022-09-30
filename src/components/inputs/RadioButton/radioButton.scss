@@ -5,11 +5,16 @@
   align-items: center;
   cursor: pointer;
 
-  .text {
+  .label {
     margin-left: $spacing_0_8;
     font-size: $font_size_1_4;
     font-weight: $font_medium;
     color: &color_black_37;
+  }
+
+  & > input:disabled + .label {
+    opacity: 0.6;
+    cursor: default;
   }
 
   & > input {
@@ -20,20 +25,20 @@
 
     width: 2rem;
     height: 2rem;
-    border: $color_gray_92989b 0.2rem solid;
+    border: $color_gray_92989b 0.15rem solid;
     border-radius: 50%;
 
     display: grid;
     place-content: center;
 
-    &:hover {
-      border: $color_secondary_9749fa 0.2rem solid;
+    &:hover:enabled {
+      border: $color_secondary_9749fa 0.15rem solid;
     }
 
     &.checked {
       border: 0;
       background-color: $color_white_ff;
-      border: $color_secondary_9749fa 0.2rem solid;
+      border: $color_secondary_9749fa 0.15rem solid;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -45,16 +50,6 @@
       height: 0.8rem;
       background-color: $color_secondary_9749fa;
       border-radius: 50%;
-    }
-  }
-
-  &.disabled {
-    opacity: 0.6;
-
-    & > input {
-      &:hover {
-        border: $color_gray_92989b 0.15rem solid;
-      }
     }
   }
 }

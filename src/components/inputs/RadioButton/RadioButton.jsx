@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import "./radioButton.scss";
+import "./radiobutton.scss";
 
 /**
  * Radio Button component
@@ -9,24 +9,23 @@ import "./radioButton.scss";
  * @return {jsx}
  */
 export const RadioButton = ({
-  text,
+  label,
   disabled,
   isChecked,
   setIsChecked,
   ...rest
 }) => {
   return (
-    <div
-      className={["radiobutton-wrapper", disabled ? "disabled" : ""].join(" ")}
-    >
+    <div className={"radiobutton-wrapper"}>
       <input
         type="radio"
         checked={isChecked}
         onChange={disabled ? () => {} : () => setIsChecked(!isChecked)}
         className={[isChecked ? "checked" : ""]}
+        disabled={disabled}
         {...rest}
       />
-      {text ? <p className="text">{text}</p> : null}
+      {label ? <p className="label">{label}</p> : null}
     </div>
   );
 };
@@ -35,7 +34,7 @@ RadioButton.propTypes = {
   /**
    * Label for the radio button if needed
    */
-  text: PropTypes.string,
+  label: PropTypes.string,
 
   /**
    * If the radio button is disabled

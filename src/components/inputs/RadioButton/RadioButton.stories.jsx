@@ -26,5 +26,5 @@ Default.args = {};
 
 export const RadioButtonWithText = Template.bind({});
 RadioButtonWithText.args = {
-  text: "Radio Button",
+  label: "Radio Button",
 };
