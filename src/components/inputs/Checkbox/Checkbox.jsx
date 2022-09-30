@@ -10,7 +10,7 @@ import "./checkbox.scss";
  *
  * @return {jsx}
  */
-export const Checkbox = ({
+export const CheckBox = ({
   label,
   isChecked,
   setIsChecked,
@@ -18,12 +18,13 @@ export const Checkbox = ({
   ...rest
 }) => {
   return (
-    <div className={["checkbox-wrapper", disabled ? "disabled" : ""].join(" ")}>
+    <div className={["checkbox-wrapper"].join(" ")}>
       <input
         type="checkbox"
         checked={isChecked}
         onChange={disabled ? () => {} : () => setIsChecked(!isChecked)}
         className={[isChecked ? "checked" : ""]}
+        disabled={disabled}
         {...rest}
       />
       {label ? <p className="label">{label}</p> : null}

@@ -12,6 +12,11 @@
     color: &color_black_37;
   }
 
+  & > input:disabled + .label {
+    opacity: 0.6;
+    cursor: default;
+  }
+
   & > input {
     -webkit-appearance: none;
     appearance: none;
@@ -19,10 +24,10 @@
     width: 2rem;
     height: 2rem;
     border-radius: 0.5rem;
-    border: $color_gray_92989b 0.2rem solid;
+    border: $color_gray_92989b 0.15rem solid;
 
-    &:hover {
-      border: $color_secondary_9749fa 0.2rem solid;
+    &:hover:enabled {
+      border: $color_secondary_9749fa 0.15rem solid;
     }
 
     &.checked {
@@ -41,16 +46,6 @@
       border-width: 0 0.2rem 0.2rem 0;
       transform: rotate(45deg);
       margin-bottom: 0.3rem;
-    }
-  }
-
-  &.disabled {
-    opacity: 0.6;
-
-    & > input {
-      &:hover {
-        border: $color_gray_92989b 0.15rem solid;
-      }
     }
   }
 }
