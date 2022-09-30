@@ -4,9 +4,9 @@ import PropTypes from "prop-types";
 import "./checkbox.scss";
 
 /**
- * Checkbox
+ * CheckBox
  *
- * Checkbox component
+ * CheckBox component
  *
  * @return {jsx}
  */
@@ -31,7 +31,7 @@ export const Checkbox = ({
   );
 };
 
-Checkbox.propTypes = {
+CheckBox.propTypes = {
   /**
    * Label for the checkbox if needed
    **/
@@ -59,6 +59,6 @@ Checkbox.propTypes = {
   rest: PropTypes.object,
 };
 
-Checkbox.defaultProps = {
+CheckBox.defaultProps = {
   disabled: false,
 };

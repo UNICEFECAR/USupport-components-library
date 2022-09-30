@@ -1,17 +1,17 @@
 import React from "react";
 
-import { Checkbox } from "./Checkbox";
+import { CheckBox } from "./CheckBox";
 
 export default {
-  title: "Components Library/checkbox/Checkbox",
-  component: Checkbox,
+  title: "Components Library/inputs/CheckBox",
+  component: CheckBox,
   argTypes: {},
 };
 
 const Template = (args) => {
   const [isChecked, setIsChecked] = React.useState(false);
   return (
-    <Checkbox isChecked={isChecked} setIsChecked={setIsChecked} {...args} />
+    <CheckBox isChecked={isChecked} setIsChecked={setIsChecked} {...args} />
   );
 };
 
