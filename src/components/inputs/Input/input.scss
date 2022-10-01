@@ -1,0 +1,68 @@
+@import "../../../styles/theme";
+
+.input-container {
+  width: 34.3rem;
+
+  &.disabled {
+    opacity: 0.6;
+
+    .input {
+      background-color: $color_white_ff;
+    }
+  }
+
+  &.error {
+    .input {
+      border-color: #eb5757;
+    }
+  }
+
+  .label {
+    font-size: $font_size_1_4;
+    line-height: $line_height_2_2;
+    margin-bottom: $spacing_0_4;
+    font-weight: $font_semi_bold;
+  }
+
+  .input-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: $border_radius_4_0;
+    box-shadow: $shadow_4;
+    border: 0.1rem solid transparent;
+    background-color: $color_white_ff;
+
+    .input {
+      border: 0;
+      color: $color_black_37;
+      font-size: $font_size_1_4;
+      line-height: $line_height_2_2;
+      padding: $spacing_1_0 $spacing_2_4;
+      background-color: $color_white_ff;
+      border-radius: $border_radius_4_0;
+
+      &::placeholder {
+        color: $color_gray_a6b4b8;
+      }
+
+      &:hover,
+      &:focus {
+        outline: none;
+      }
+    }
+    &:hover &.input:not(disabled),
+    &:focus &.input:not(disabled) {
+      border: 0.1rem solid $color_secondary_9749fa;
+      outline: none;
+    }
+  }
+}
+.error-message {
+  color: red;
+  font-size: $font_size_1_4;
+  font-weight: $font_medium;
+  line-height: $line_height_2_2;
+  margin-left: $spacing_2_4;
+  margin-top: $spacing_0_4;
+}
