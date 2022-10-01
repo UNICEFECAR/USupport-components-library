@@ -16,6 +16,7 @@ $font_extra_bold: 800;
 // Font Sizes
 $font_size_0_8: 0.8rem;
 $font_size_1_2: 1.2rem;
+$font_size_1_4: 1.4rem;
 $font_size_1_6: 1.6rem;
 $font_size_2_0: 2rem;
 $font_size_2_4: 2.4rem;
@@ -45,10 +46,12 @@ $spacing_0_2: 0.2rem;
 $spacing_0_4: 0.4rem;
 $spacing_0_6: 0.6rem;
 $spacing_0_8: 0.8rem;
+$spacing_1_0: 1rem;
 $spacing_1_1: 1.1rem;
 $spacing_1_2: 1.2rem;
 $spacing_1_3: 1.3rem;
 $spacing_1_6: 1.6rem;
+$spacing_1_8: 1.8rem;
 $spacing_2_4: 2.4rem;
 $spacing_2_8: 2.8rem;
 $spacing_3_2: 3.2rem;
@@ -80,6 +83,7 @@ $color_transparent: rgba(0, 0, 0, 0);
 $color_gray_ea: #eaeaea;
 $color_gray_a6b4b8: #a6b4b8;
 $color_gray_66768d: #66768d;
+$color_gray_a6b4b8: #a6b4b8;
 
 $color_green_54cfd9: #54cfd9;
 $color_green_c1eaea: #c1eaea;
@@ -108,3 +112,4 @@ $gradient_secondary: linear-gradient(
 $shadow_1: 2px 2px 12px rgba(104, 77, 253, 0.1);
 $shadow_2: 0px 2px 18px rgba(104, 77, 253, 0.2);
 $shadow_3: 0px 2px 24px rgba(104, 77, 253, 0.3);
+$shadow_4: 3px 4px 5px rgba(104, 77, 253, 0.06);
