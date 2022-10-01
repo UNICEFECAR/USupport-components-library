@@ -16,6 +16,7 @@ export const Input = ({
   disabled,
   errorMessage,
   children,
+  preInput,
   ...rest
 }) => {
   return (
@@ -29,6 +30,7 @@ export const Input = ({
       >
         {label ? <p className="label">{label}</p> : null}
         <div className="input-wrapper">
+          {preInput ? preInput : null}
           <input type={type} disabled={disabled} className="input" {...rest} />
           {children ? children : null}
         </div>
