@@ -81,6 +81,9 @@ export const Card = ({
               : "primary"
           }
           label={"Read more"}
+          onClick={() => {
+            onClick && onClick();
+          }}
         />
       </div>
       <div></div>
