@@ -49,7 +49,20 @@ export const Tabs = ({ options, handleSelect, handleShowMore }) => {
 };
 
 Tabs.propTypes = {
-  // Add propTypes here
+  /**
+   * options to be displayed
+   * */
+  options: PropTypes.arrayOf(obj),
+
+  /**
+   * handleSelect function to be called when an option is selected
+   **/
+  handleSelect: PropTypes.func,
+
+  /**
+   *  handleShowMore function to be called when show more is clicked
+   **/
+  handleShowMore: PropTypes.func,
 };
 
 Tabs.defaultProps = {
