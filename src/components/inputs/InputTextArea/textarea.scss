@@ -1,0 +1,40 @@
+@import "../../../styles/theme";
+
+.text-area--container {
+  .label {
+    font-size: $font_size_1_4;
+    line-height: $line_height_2_2;
+    margin-bottom: $spacing_0_4;
+    font-weight: $font_semi_bold;
+    color: #3d527b;
+  }
+
+  .text-area {
+    -webkit-appearance: none;
+    appearance: none;
+    padding: $spacing_1_2 $spacing_2_4;
+    border-radius: 3.2rem;
+    width: 34.3rem;
+    height: 12rem;
+    font-size: $font_size_1_4;
+    font-weight: $font_medium;
+    border: 0.1rem solid transparent;
+    color: $color_black_37;
+    box-shadow: $shadow_4;
+    resize: none;
+
+    &:disabled {
+      opacity: 0.6;
+    }
+
+    &::placeholder {
+      color: $color_gray_a6b4b8;
+    }
+
+    &:enabled:hover,
+    &:enabled:focus {
+      outline: none;
+      border: 0.1rem solid $color_secondary_9749fa;
+    }
+  }
+}
