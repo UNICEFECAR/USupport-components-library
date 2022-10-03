@@ -6,14 +6,10 @@
   &.disabled {
     opacity: 0.6;
 
-    .input {
-      background-color: $color_white_ff;
-    }
-  }
-
-  &.error {
-    .input {
-      border-color: #eb5757;
+    .input-wrapper {
+      &:hover {
+        border: 1px solid transparent;
+      }
     }
   }
 
@@ -52,10 +48,13 @@
         outline: none;
       }
     }
-    &:hover &.input:not(disabled),
-    &:focus &.input:not(disabled) {
-      border: 0.1rem solid $color_secondary_9749fa;
-      outline: none;
+
+    &:hover {
+      border: 1px solid $color_secondary_9749fa;
+    }
+
+    &.error {
+      border: 0.1rem solid #ee2e24;
     }
   }
 }

@@ -21,15 +21,9 @@ export const Input = ({
 }) => {
   return (
     <>
-      <div
-        className={[
-          "input-container",
-          disabled && "disabled",
-          errorMessage && "error",
-        ].join(" ")}
-      >
+      <div className={["input-container", disabled && "disabled"].join(" ")}>
         {label ? <p className="label">{label}</p> : null}
-        <div className="input-wrapper">
+        <div className={["input-wrapper", errorMessage && "error"].join(" ")}>
           {preInput ? preInput : null}
           <input type={type} disabled={disabled} className="input" {...rest} />
           {children ? children : null}
