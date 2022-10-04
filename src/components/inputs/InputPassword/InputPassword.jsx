@@ -12,11 +12,11 @@ import { Icon } from "../../icons/Icon/Icon";
  *
  * @return {jsx}
  */
-export const InputPassword = ({ ...rest }) => {
+export const InputPassword = ({ ...props }) => {
   const [inputType, setInputType] = React.useState("password");
 
   return (
-    <Input type={inputType} {...rest}>
+    <Input type={inputType} {...props}>
       <div
         onClick={() =>
           setInputType(inputType === "password" ? "text" : "password")

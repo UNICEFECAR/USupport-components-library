@@ -85,7 +85,7 @@ export const All = (args) => (
             padding: "0 1rem",
           }}
         >
-          <Icon name={icon} {...args} />
+          <Icon name={icon} {...props} />
           <p className="text" style={{ paddingTop: "0.5rem" }}>
             {icon}
           </p>

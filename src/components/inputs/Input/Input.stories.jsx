@@ -8,7 +8,7 @@ export default {
   argTypes: {},
 };
 
-const Template = (args) => <Input placeholder={"Placeholder"} {...args} />;
+const Template = (args) => <Input placeholder={"Placeholder"} {...props} />;
 
 export const Default = Template.bind({});
 Default.args = {

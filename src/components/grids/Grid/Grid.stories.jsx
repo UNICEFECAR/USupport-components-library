@@ -9,7 +9,7 @@ export default {
 };
 
 const Template = (args) => (
-  <Grid {...args}>
+  <Grid {...props}>
     <div
       style={{ gridColumn: "span 1", backgroundColor: "red", color: "white" }}
     >

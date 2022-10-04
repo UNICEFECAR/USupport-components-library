@@ -9,7 +9,7 @@ export default {
 };
 
 const Template = (args) => (
-  <Box {...args} style={{ width: "50rem", height: "50rem" }} />
+  <Box {...props} style={{ width: "50rem", height: "50rem" }} />
 );
 
 export const BorderSmall = Template.bind({});

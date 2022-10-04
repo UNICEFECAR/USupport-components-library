@@ -8,7 +8,7 @@ export default {
   argTypes: {},
 };
 
-const Template = (args) => <Label text={"Text 1"} {...args} />;
+const Template = (args) => <Label text={"Text 1"} {...props} />;
 
 export const Default = Template.bind({});
 Default.args = {};

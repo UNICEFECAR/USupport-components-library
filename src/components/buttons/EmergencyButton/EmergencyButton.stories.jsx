@@ -8,7 +8,7 @@ export default {
   argTypes: {},
 };
 
-const Template = (args) => <EmergencyButton {...args} />;
+const Template = (args) => <EmergencyButton {...props} />;
 
 export const Default = Template.bind({});
 Default.args = {

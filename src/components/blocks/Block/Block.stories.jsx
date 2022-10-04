@@ -16,7 +16,7 @@ const box = (
 
 const style = { backgroundColor: "blue" };
 
-const Template = (args) => <Block {...args} />;
+const Template = (args) => <Block {...props} />;
 
 export const Default = Template.bind({});
 Default.args = {

@@ -11,7 +11,7 @@ import "./box.scss";
  *
  * @return {jsx}
  */
-export const Box = ({ borderSize, boxShadow, classes, children, ...args }) => {
+export const Box = ({ borderSize, boxShadow, classes, children, ...props }) => {
   return (
     <div
       className={[
@@ -20,7 +20,7 @@ export const Box = ({ borderSize, boxShadow, classes, children, ...args }) => {
         `box--box-shadow-${boxShadow}`,
         classNames(classes),
       ].join(" ")}
-      {...args}
+      {...props}
     >
       {children}
     </div>

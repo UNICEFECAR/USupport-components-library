@@ -7,7 +7,7 @@ export default {
   component: Button,
 };
 
-const Template = (args) => <Button label={"Button"} {...args} />;
+const Template = (args) => <Button label={"Button"} {...props} />;
 
 export const PrimaryGreen = Template.bind({});
 PrimaryGreen.args = {};

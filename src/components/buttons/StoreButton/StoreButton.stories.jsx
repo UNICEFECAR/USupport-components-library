@@ -8,7 +8,7 @@ export default {
   argTypes: {},
 };
 
-const Template = (args) => <StoreButton {...args} />;
+const Template = (args) => <StoreButton {...props} />;
 
 export const GooglePlay = Template.bind({});
 GooglePlay.args = {
