@@ -33,9 +33,7 @@ export const Collapsible = ({
         {heading}
         <Icon name={"arrow-chevron-down"} size={iconSize} color={iconColor} />
       </div>
-      <div className="collapsible-content">
-        <div className="">{collapsibleContent}</div>
-      </div>
+      <div className="collapsible-content">{collapsibleContent}</div>
     </div>
   );
 };
