@@ -11,7 +11,7 @@ export default {
 const Template = (args) => (
   <Collapsible
     heading={<p>Germany</p>}
-    collapsiblePart={<p>Text</p>}
+    collapsibleContent={<p>Text</p>}
     {...args}
   />
 );
