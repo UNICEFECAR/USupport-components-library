@@ -1,0 +1,13 @@
+@import "../../../styles/theme";
+
+.faq-header {
+  color: #3d527b;
+}
+
+.collapsible--expanded {
+  .heading {
+    .faq-header {
+      color: $color_primary_20809e;
+    }
+  }
+}
