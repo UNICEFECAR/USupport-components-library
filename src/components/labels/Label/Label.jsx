@@ -32,6 +32,11 @@ Label.propTypes = {
    * Function to call when clicked
    */
   onClick: PropTypes.func,
+
+  /**
+   * classes to add to the component
+   */
+  classes: PropTypes.string,
 };
 
 Label.defaultProps = {
