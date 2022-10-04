@@ -90,7 +90,9 @@ export const All = (args) => (
           }}
         >
           <Icon name={icon} {...args} />
-          <p style={{ paddingTop: "0.5rem" }}>{icon}</p>
+          <p className="text" style={{ paddingTop: "0.5rem" }}>
+            {icon}
+          </p>
         </div>
       );
     })}
