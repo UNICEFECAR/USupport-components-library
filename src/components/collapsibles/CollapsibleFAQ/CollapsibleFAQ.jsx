@@ -15,10 +15,6 @@ export const CollapsibleFAQ = ({ question }) => {
   const header = <h4 className="faq-header">{question.heading}</h4>;
   const text = <p className="text">{question.text}</p>;
 
-  const renderAllQuestions = () => {
-    question;
-  };
-
   return (
     <Collapsible
       heading={header}
@@ -30,7 +26,10 @@ export const CollapsibleFAQ = ({ question }) => {
 };
 
 CollapsibleFAQ.propTypes = {
-  // Add propTypes here
+  /**
+   * Question object
+   * */
+  question: PropTypes.object,
 };
 
 CollapsibleFAQ.defaultProps = {
