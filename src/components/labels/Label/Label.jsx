@@ -13,7 +13,10 @@ import "./label.scss";
  */
 export const Label = ({ text, onClick, classes }) => {
   return (
-    <div className={["label", classNames(classes)].join(" ")} onClick={onClick}>
+    <div
+      className={["label-component", classNames(classes)].join(" ")}
+      onClick={onClick}
+    >
       <p className="small-text">{text}</p>
     </div>
   );
