@@ -34,11 +34,16 @@ Label.propTypes = {
   onClick: PropTypes.func,
 
   /**
-   * classes to add to the component
-   */
-  classes: PropTypes.string,
+   * Additional classes to be added to the Label component
+   **/
+  classes: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string),
+  ]),
 };
 
 Label.defaultProps = {
-  // Add defaultProps here
+  text: "",
+  onClick: () => {},
+  classes: null,
 };
