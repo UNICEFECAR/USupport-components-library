@@ -11,7 +11,7 @@ import "./label.scss";
  *
  * @return {jsx}
  */
-export const Label = ({ text, onClick }) => {
+export const Label = ({ text, onClick, classes }) => {
   return (
     <div className={["label", classNames(classes)].join(" ")} onClick={onClick}>
       <p className="small-text">{text}</p>
