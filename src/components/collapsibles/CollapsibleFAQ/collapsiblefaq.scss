@@ -1,13 +1,21 @@
 @import "../../../styles/theme";
 
-.faq-header {
-  color: #3d527b;
-}
+.collapsible-faq {
+  color: $color_gray_66768d;
 
-.collapsible--expanded {
   .heading {
+    margin-bottom: $spacing_0_8;
+
     .faq-header {
-      color: $color_primary_20809e;
+      color: $color_blue_3d527b;
+    }
+  }
+
+  &--expanded {
+    .heading {
+      .faq-header {
+        color: $color_primary_20809e;
+      }
     }
   }
 }
