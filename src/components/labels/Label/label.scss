@@ -1,0 +1,12 @@
+@import "../../../styles/theme";
+
+.label {
+  border: 0.1rem solid $color_primary_20809e;
+  border-radius: 1.6rem;
+  padding: $spacing_0_4 $spacing_1_6;
+  width: fit-content;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  color: $color_primary_20809e;
+}
