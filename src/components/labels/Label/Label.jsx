@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 
 import "./label.scss";
 
@@ -12,7 +13,7 @@ import "./label.scss";
  */
 export const Label = ({ text, onClick }) => {
   return (
-    <div className="label" onClick={onClick}>
+    <div className={["label", classNames(classes)].join(" ")} onClick={onClick}>
       <p className="small-text">{text}</p>
     </div>
   );
