@@ -1,7 +1,8 @@
 // Screen sizes
-$screen-sm: 320px;
+$screen-sm: 375px;
 $screen-md: 768px;
 $screen-lg: 1366px;
+$screen-xl: 1920px;
 
 // Font Family
 $font_family: "Nunito", sans-serif;
@@ -96,6 +97,7 @@ $color_purple_dac3f6: #dac3f6;
 $color_purple_c39af9: #c39af9;
 
 $color_blue_2a54bc: #2a54bc;
+$color_blue_3d527b: #3d527b;
 
 // Gradients
 $gradient_primary: linear-gradient(
@@ -109,6 +111,18 @@ $gradient_secondary: linear-gradient(
   #0daeb2 1.31%,
   #d6d2ff 42.92%,
   #814afd 93.14%
+);
+
+$radial_gradient_purple: radial-gradient(
+  50% 50% at 50% 50%,
+  rgba(129, 74, 253, 0.3) 0%,
+  rgba(129, 74, 253, 0) 100%
+);
+
+$radial_gradient_blue: radial-gradient(
+  50% 50% at 50% 50%,
+  rgba(84, 207, 217, 0.3) 0%,
+  rgba(84, 207, 217, 0) 100%
 );
 
 // Shadows
