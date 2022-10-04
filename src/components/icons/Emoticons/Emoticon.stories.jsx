@@ -8,7 +8,7 @@ export default {
   argTypes: {},
 };
 
-const emoticons = ["happy", "good", "notgood", "bad", "verybad"];
+const emoticons = ["happy", "good", "not-good", "bad", "very-bad"];
 
 export const All = (args) => (
   <div style={{ display: "flex", flexWrap: "wrap" }}>
@@ -23,8 +23,10 @@ export const All = (args) => (
             padding: "0 1rem",
           }}
         >
-          <Emoticon name={`emoji-${emoticon}`} size={"sm"} />
-          <h6 style={{ paddingTop: "0.5rem" }}>{emoticon}</h6>
+          <Emoticon name={`emoticon-${emoticon}`} {...args} />
+          <p className="text" style={{ paddingTop: "0.5rem" }}>
+            {emoticon}
+          </p>
         </div>
       );
     })}

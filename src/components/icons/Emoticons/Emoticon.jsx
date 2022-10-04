@@ -5,12 +5,15 @@ import "./emoticon.scss";
 import { Icon } from "../Icon/Icon";
 
 /**
- * Emoteicon component
+ * Emoticon component
  *
  * @return {jsx}
  */
 export const Emoticon = ({ name, size }) => {
-  return <Icon name={name} classes={`emoticon emoticon--${size}`} />;
+  /// TODO: lg icon not working due to the linear gradient
+  return (
+    <Icon name={`${name}-${size}`} classes={`emoticon emoticon--${size}`} />
+  );
 };
 
 Emoticon.propTypes = {
@@ -18,12 +21,13 @@ Emoticon.propTypes = {
    * Name of the icon to render from the sprite file (e.g. "filter")
    * */
   name: PropTypes.string.isRequired,
+
   /**
    * Size of the icon
    * */
-  size: PropTypes.oneOf(["small", "large"]),
+  size: PropTypes.oneOf(["sm", "lg"]),
 };
 
 Emoticon.defaultProps = {
-  // Add default props here
+  size: "sm",
 };

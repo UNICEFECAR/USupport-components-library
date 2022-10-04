@@ -35,7 +35,7 @@ export const Icon = ({ name, size, color, classes, ...props }) => {
       style={{ WebkitFilter: svgFilter ? svgFilter : "" }}
       {...props}
     >
-      <use xlinkHref={`${sprite}#icon-${name}`} />
+      <use href={`${sprite}#icon-${name}`} />
     </svg>
   );
 };
@@ -45,10 +45,12 @@ Icon.propTypes = {
    * Name of the icon to render from the sprite file (e.g. "filter")
    * */
   name: PropTypes.string.isRequired,
+
   /**
    * Size of the icon
    * */
   size: PropTypes.oneOf(["sm", "md", "lg"]),
+
   /**
    * Color of the icon in HEX format (does not work for all types of icons)
    * */
@@ -57,7 +59,10 @@ Icon.propTypes = {
   /**
    * Additional classes to add to the icon
    */
-  classes: PropTypes.arrayOf(PropTypes.string),
+  classes: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string),
+  ]),
 
   /**
    * Additional props to add to the icon
@@ -66,7 +71,7 @@ Icon.propTypes = {
 };
 
 Icon.defaultProps = {
-  size: "medium",
+  size: "md",
   color: null,
   classes: [],
 };
