@@ -70,6 +70,10 @@ const icons = [
   "mail",
   "sound-playing",
   "sound-muted",
+  "app-store",
+  "community",
+  "therapy",
+  "self-care",
 ];
 
 export const All = (args) => (
