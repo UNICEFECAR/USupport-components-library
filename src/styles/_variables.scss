@@ -1,6 +1,8 @@
 // Screen sizes
+$screen-sm: 375px;
 $screen-md: 768px;
-$screen-lg: 1440px;
+$screen-lg: 1366px;
+$screen-xl: 1920px;
 
 // Font Family
 $font_family: "Nunito", sans-serif;
@@ -38,6 +40,8 @@ $line_height_7_7: 7.7rem;
 // Border Radius
 $border_radius_1_6: 1.6rem;
 $border_radius_4_0: 4rem;
+$border_radius_2_4: 2.4rem;
+$border_radius_4_8: 2.4rem;
 
 // Spacing
 $spacing_0_2: 0.2rem;
@@ -58,8 +62,10 @@ $spacing_4_0: 4rem;
 $spacing_4_8: 4.8rem;
 $spacing_5_6: 5.6rem;
 $spacing_6_4: 6.4rem;
+$spacing_6_5: 6.5rem;
 $spacing_7_2: 7.2rem;
 $spacing_8_0: 8rem;
+$spacing_11_5: 11.5rem;
 $spacing_14_6: 14.6rem;
 
 // Colors
@@ -91,6 +97,7 @@ $color_purple_dac3f6: #dac3f6;
 $color_purple_c39af9: #c39af9;
 
 $color_blue_2a54bc: #2a54bc;
+$color_blue_3d527b: #3d527b;
 
 // Gradients
 $gradient_primary: linear-gradient(
@@ -104,6 +111,18 @@ $gradient_secondary: linear-gradient(
   #0daeb2 1.31%,
   #d6d2ff 42.92%,
   #814afd 93.14%
+);
+
+$radial_gradient_purple: radial-gradient(
+  50% 50% at 50% 50%,
+  rgba(129, 74, 253, 0.3) 0%,
+  rgba(129, 74, 253, 0) 100%
+);
+
+$radial_gradient_blue: radial-gradient(
+  50% 50% at 50% 50%,
+  rgba(84, 207, 217, 0.3) 0%,
+  rgba(84, 207, 217, 0) 100%
 );
 
 // Shadows
