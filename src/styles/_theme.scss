@@ -13,16 +13,16 @@ html {
 
 body {
   font-family: $font_family;
-  font-weight: $font_regular;
+  font-weight: $font_medium;
   font-size: $font_size_1_6;
   line-height: $line_height_2_4;
   color: $color_black_37;
   -webkit-tap-highlight-color: $color_transparent; /* Remove the tap highlight */
 
   @media screen and (min-width: $screen-md) {
-    font-weight: $font_medium;
-    font-size: $font_size_2_4;
-    line-height: $line_height_3_4;
+    font-size: $font_size_2_0;
+    line-height: $line_height_2_8;
+    letter-spacing: -0.02rem;
   }
 }
 
@@ -33,23 +33,44 @@ h2,
 h3,
 h4 {
   margin: 0; /* Remove the default margin for all header elements */
+}
+
+h1,
+h2,
+h3,
+h4 {
   font-weight: $font_semi_bold;
 }
 
 h1 {
-  font-size: $font_size_6_4;
-  line-height: $line_height_7_7;
-  letter-spacing: 0.02em;
+  font-size: $font_size_4_0;
+  line-height: $line_height_4_8;
+
+  @media screen and (min-width: $screen-md) {
+    font-size: $font_size_6_4;
+    line-height: $line_height_7_7;
+    letter-spacing: 0.02rem;
+  }
 }
 
 h2 {
-  font-size: $font_size_4_0;
-  line-height: $line_height_4_8;
+  font-size: $font_size_3_2;
+  line-height: $line_height_3_8;
+
+  @media screen and (min-width: $screen-md) {
+    font-size: $font_size_4_0;
+    line-height: $line_height_4_8;
+  }
 }
 
 h3 {
-  font-size: $font_size_3_2;
-  line-height: $line_height_3_8;
+  font-size: $font_size_2_0;
+  line-height: $line_height_2_4;
+
+  @media screen and (min-width: $screen-md) {
+    font-size: $font_size_3_2;
+    line-height: $line_height_3_8;
+  }
 }
 
 h4 {
@@ -60,13 +81,18 @@ h4 {
 .paragraph,
 .text,
 .small-text {
-  font-weight: $font_regular;
+  font-weight: $font_medium;
 }
 
 .paragraph {
-  font-size: $font_size_2_0;
-  line-height: $line_height_2_8;
-  letter-spacing: -0.02em;
+  font-size: $font_size_1_6;
+  line-height: $line_height_2_4;
+
+  @media screen and (min-width: $screen-md) {
+    font-size: $font_size_2_0;
+    line-height: $line_height_2_8;
+    letter-spacing: -0.02rem;
+  }
 }
 
 .text {
