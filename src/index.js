@@ -6,3 +6,4 @@ export * from "./components/labels";
 export * from "./components/cards";
 export * from "./components/grids";
 export * from "./components/blocks";
+export * from './components/boxes';
