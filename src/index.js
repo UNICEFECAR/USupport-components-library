@@ -5,3 +5,4 @@ export * from "./components/cards";
 export * from "./components/inputs";
 export * from "./components/grids";
 export * from "./components/blocks";
+export * from "./components/collapsibles";

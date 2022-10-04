@@ -1,0 +1,33 @@
+.collapsible {
+  width: 100%;
+
+  .heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .icon--arrow-chevron-down {
+      transition: transform 0.3s ease-in-out;
+    }
+  }
+
+  .collapsible-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+  }
+
+  &--expanded {
+    .heading {
+      .icon--arrow-chevron-down {
+        transform: rotate(180deg);
+      }
+    }
+
+    .collapsible-content {
+      max-height: 1000px;
+      transition: max-height 0.7s ease-in-out;
+    }
+  }
+}
