@@ -72,7 +72,7 @@ const icons = [
   "sound-muted",
 ];
 
-export const All = (args) => (
+export const All = (props) => (
   <div style={{ display: "flex", flexWrap: "wrap" }}>
     {icons.map((icon, index) => {
       return (

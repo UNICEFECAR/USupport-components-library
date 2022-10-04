@@ -113,7 +113,7 @@ export default {
   argTypes: {},
 };
 
-const Template = (args) => <$component_name {...props} />;
+const Template = (props) => <$component_name {...props} />;
 
 export const Default = Template.bind({});
 Default.args = {};" >> "src/components/$component_group/$component_name/$component_name.stories.jsx"

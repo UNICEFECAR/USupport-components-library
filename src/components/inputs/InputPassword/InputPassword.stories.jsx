@@ -8,7 +8,7 @@ export default {
   argTypes: {},
 };
 
-const Template = (args) => <InputPassword {...props} />;
+const Template = (props) => <InputPassword {...props} />;
 
 export const Default = Template.bind({});
 Default.args = {};

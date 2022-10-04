@@ -8,7 +8,7 @@ export default {
   argTypes: {},
 };
 
-const Template = (args) => (
+const Template = (props) => (
   <Grid {...props}>
     <div
       style={{ gridColumn: "span 1", backgroundColor: "red", color: "white" }}

@@ -10,7 +10,7 @@ export default {
 
 const emoticons = ["happy", "good", "not-good", "bad", "very-bad"];
 
-export const All = (args) => (
+export const All = (props) => (
   <div style={{ display: "flex", flexWrap: "wrap" }}>
     {emoticons.map((emoticon, index) => {
       return (

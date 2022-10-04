@@ -8,7 +8,7 @@ export default {
   argTypes: {},
 };
 
-const Template = (args) => (
+const Template = (props) => (
   <Box {...props} style={{ width: "50rem", height: "50rem" }} />
 );
 
