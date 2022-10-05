@@ -1,19 +1,19 @@
 @import "../../../styles/theme";
 .block {
-  padding: $spacing_1_6;
-  min-width: 37.5rem;
+  padding: 0 $spacing_1_6;
+  min-width: $screen-sm;
 
   @media screen and (min-width: $screen-md) {
-    padding: $spacing_2_8 $spacing_2_4;
+    padding: 0 $spacing_3_6;
   }
 
   @media screen and (min-width: $screen-lg) {
-    padding: $spacing_5_6 $spacing_11_5 $spacing_6_5 $spacing_11_5;
+    padding: 0 $spacing_11_5;
   }
 
   & .container {
     max-width: $screen-xl;
-    min-width: $screen-sm;
+    min-width: calc($screen-sm - 2 * $spacing_1_6);
     overflow: visible;
     margin: 0 auto;
   }
