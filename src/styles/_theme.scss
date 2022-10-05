@@ -19,7 +19,7 @@ body {
   color: $color_gray_66768d;
   -webkit-tap-highlight-color: $color_transparent; /* Remove the tap highlight */
 
-  @media screen and (min-width: $screen-md) {
+  @media screen and (min-width: $screen-lg) {
     font-size: $font_size_2_0;
     line-height: $line_height_2_8;
     letter-spacing: -0.02rem;
@@ -47,7 +47,7 @@ h1 {
   font-size: $font_size_4_0;
   line-height: $line_height_4_8;
 
-  @media screen and (min-width: $screen-md) {
+  @media screen and (min-width: $screen-lg) {
     font-size: $font_size_6_4;
     line-height: $line_height_7_7;
     letter-spacing: 0.02rem;
@@ -58,7 +58,7 @@ h2 {
   font-size: $font_size_3_2;
   line-height: $line_height_3_8;
 
-  @media screen and (min-width: $screen-md) {
+  @media screen and (min-width: $screen-lg) {
     font-size: $font_size_4_0;
     line-height: $line_height_4_8;
   }
@@ -68,7 +68,7 @@ h3 {
   font-size: $font_size_2_0;
   line-height: $line_height_2_4;
 
-  @media screen and (min-width: $screen-md) {
+  @media screen and (min-width: $screen-lg) {
     font-size: $font_size_3_2;
     line-height: $line_height_3_8;
   }
@@ -89,7 +89,7 @@ h4 {
   font-size: $font_size_1_6;
   line-height: $line_height_2_4;
 
-  @media screen and (min-width: $screen-md) {
+  @media screen and (min-width: $screen-lg) {
     font-size: $font_size_2_0;
     line-height: $line_height_2_8;
     letter-spacing: -0.02rem;
