@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import "./inputpassword.scss";
+import "./input-password.scss";
 import { Input } from "../Input/Input";
 import { Icon } from "../../icons/Icon/Icon";
 
