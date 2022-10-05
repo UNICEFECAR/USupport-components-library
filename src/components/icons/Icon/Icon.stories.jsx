@@ -76,7 +76,7 @@ const icons = [
   "self-care",
 ];
 
-export const All = (args) => (
+export const All = (props) => (
   <div style={{ display: "flex", flexWrap: "wrap" }}>
     {icons.map((icon, index) => {
       return (
@@ -89,7 +89,7 @@ export const All = (args) => (
             padding: "0 1rem",
           }}
         >
-          <Icon name={icon} {...args} />
+          <Icon name={icon} {...props} />
           <p className="text" style={{ paddingTop: "0.5rem" }}>
             {icon}
           </p>

@@ -12,7 +12,7 @@ import "./inputsearch.scss";
  *
  * @return {jsx}
  */
-export const InputSearch = ({ onChange, ...rest }) => {
+export const InputSearch = ({ onChange, ...props }) => {
   const [inputEmpty, setinputEmpty] = React.useState(false);
 
   const preInput = (
@@ -41,7 +41,7 @@ export const InputSearch = ({ onChange, ...rest }) => {
       type={"text"}
       preInput={preInput}
       onChange={(newValue) => handleInputChange(newValue.currentTarget.value)}
-      {...rest}
+      {...props}
     >
       {inputEmpty && (
         <div className="icon-wrapper">

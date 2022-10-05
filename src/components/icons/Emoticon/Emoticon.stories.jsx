@@ -10,7 +10,7 @@ export default {
 
 const emoticons = ["happy", "good", "not-good", "bad", "very-bad"];
 
-export const All = (args) => (
+export const All = (props) => (
   <div style={{ display: "flex", flexWrap: "wrap" }}>
     {emoticons.map((emoticon, index) => {
       return (
@@ -23,7 +23,7 @@ export const All = (args) => (
             padding: "0 1rem",
           }}
         >
-          <Emoticon name={`emoticon-${emoticon}`} {...args} />
+          <Emoticon name={`emoticon-${emoticon}`} {...props} />
           <p className="text" style={{ paddingTop: "0.5rem" }}>
             {emoticon}
           </p>

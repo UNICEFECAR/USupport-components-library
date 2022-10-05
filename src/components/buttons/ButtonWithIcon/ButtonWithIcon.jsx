@@ -18,12 +18,12 @@ export const ButtonWithIcon = ({
   iconColor,
   onlyIcon,
   classes,
-  ...rest
+  ...props
 }) => {
   return (
     <Button
       classes={["btn--with-icon", onlyIcon ? "btn--only-icon" : "", classes]}
-      {...rest}
+      {...props}
     >
       <Icon name={iconName} size={iconSize} color={iconColor} />
     </Button>
