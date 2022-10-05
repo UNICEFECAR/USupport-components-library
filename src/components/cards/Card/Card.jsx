@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import { Button } from "../../buttons/Button/Button";
 import { Icon } from "../../icons/Icon/Icon";
-import useWindowDimensions from "../utils/useWindowDimension";
+import useWindowDimensions from "../../../utils/useWindowDimensions";
 
 import "./card.scss";
 
