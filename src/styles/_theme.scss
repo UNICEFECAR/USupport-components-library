@@ -16,7 +16,7 @@ body {
   font-weight: $font_medium;
   font-size: $font_size_1_6;
   line-height: $line_height_2_4;
-  color: $color_black_37;
+  color: $color_gray_66768d;
   -webkit-tap-highlight-color: $color_transparent; /* Remove the tap highlight */
 
   @media screen and (min-width: $screen-md) {
@@ -40,6 +40,7 @@ h2,
 h3,
 h4 {
   font-weight: $font_semi_bold;
+  color: $color_blue_3d527b;
 }
 
 h1 {
