@@ -39,7 +39,7 @@ GridItem.propTypes = {
   /**
    * Number of columns to span on large screens
    */
-  xl: PropTypes.oneOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]),
+  lg: PropTypes.oneOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]),
 
   /**
    * Additional classes to be added to the grid item
