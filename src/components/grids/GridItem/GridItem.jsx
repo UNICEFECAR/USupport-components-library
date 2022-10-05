@@ -51,7 +51,7 @@ GridItem.propTypes = {
 };
 
 GridItem.defaultProps = {
-  xs: 1,
+  xs: 4,
   md: null,
   lg: null,
 };
