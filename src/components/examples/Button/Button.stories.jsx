@@ -12,11 +12,11 @@ export default {
   },
 };
 
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template = (args) => <Button {...args} />;
+// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-props
+const Template = (props) => <Button {...props} />;
 
 export const Primary = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
+// More on props: https://storybook.js.org/docs/react/writing-stories/props
 Primary.args = {
   primary: true,
   label: "Button",

@@ -11,7 +11,7 @@ export default {
   },
 };
 
-const Template = (args) => <Header {...args} />;
+const Template = (props) => <Header {...props} />;
 
 export const LoggedIn = Template.bind({});
 LoggedIn.args = {

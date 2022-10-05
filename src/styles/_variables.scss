@@ -1,6 +1,8 @@
 // Screen sizes
+$screen-sm: 375px;
 $screen-md: 768px;
-$screen-lg: 1440px;
+$screen-lg: 1366px;
+$screen-xl: 1600px;
 
 // Font Family
 $font_family: "Nunito", sans-serif;
@@ -37,27 +39,35 @@ $line_height_7_7: 7.7rem;
 
 // Border Radius
 $border_radius_1_6: 1.6rem;
+$border_radius_2_4: 2.4rem;
+$border_radius_3_2: 3.2rem;
 $border_radius_4_0: 4rem;
+$border_radius_4_8: 4.8rem;
 
 // Spacing
 $spacing_0_2: 0.2rem;
 $spacing_0_4: 0.4rem;
 $spacing_0_6: 0.6rem;
 $spacing_0_8: 0.8rem;
+$spacing_1_0: 1rem;
 $spacing_1_1: 1.1rem;
 $spacing_1_2: 1.2rem;
 $spacing_1_3: 1.3rem;
 $spacing_1_6: 1.6rem;
+$spacing_1_8: 1.8rem;
 $spacing_2_4: 2.4rem;
 $spacing_2_8: 2.8rem;
 $spacing_3_2: 3.2rem;
 $spacing_3_4: 3.4rem;
+$spacing_3_6: 3.6rem;
 $spacing_4_0: 4rem;
 $spacing_4_8: 4.8rem;
 $spacing_5_6: 5.6rem;
 $spacing_6_4: 6.4rem;
+$spacing_6_5: 6.5rem;
 $spacing_7_2: 7.2rem;
 $spacing_8_0: 8rem;
+$spacing_11_5: 11.5rem;
 $spacing_14_6: 14.6rem;
 
 // Colors
@@ -80,6 +90,7 @@ $color_gray_ea: #eaeaea;
 $color_gray_92989b: #92989b;
 $color_gray_a6b4b8: #a6b4b8;
 $color_gray_66768d: #66768d;
+$color_gray_a6b4b8: #a6b4b8;
 
 $color_green_54cfd9: #54cfd9;
 $color_green_c1eaea: #c1eaea;
@@ -89,6 +100,7 @@ $color_purple_dac3f6: #dac3f6;
 $color_purple_c39af9: #c39af9;
 
 $color_blue_2a54bc: #2a54bc;
+$color_blue_3d527b: #3d527b;
 
 // Gradients
 $gradient_primary: linear-gradient(
@@ -104,7 +116,20 @@ $gradient_secondary: linear-gradient(
   #814afd 93.14%
 );
 
+$radial_gradient_purple: radial-gradient(
+  50% 50% at 50% 50%,
+  rgba(129, 74, 253, 0.3) 0%,
+  rgba(129, 74, 253, 0) 100%
+);
+
+$radial_gradient_blue: radial-gradient(
+  50% 50% at 50% 50%,
+  rgba(84, 207, 217, 0.3) 0%,
+  rgba(84, 207, 217, 0) 100%
+);
+
 // Shadows
 $shadow_1: 2px 2px 12px rgba(104, 77, 253, 0.1);
 $shadow_2: 0px 2px 18px rgba(104, 77, 253, 0.2);
 $shadow_3: 0px 2px 24px rgba(104, 77, 253, 0.3);
+$shadow_4: 3px 4px 5px rgba(104, 77, 253, 0.06);
