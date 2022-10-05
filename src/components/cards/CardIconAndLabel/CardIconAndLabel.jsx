@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import "./cardiconandlabel.scss";
+import "./card-icon-and-label.scss";
 import { Icon } from "../../icons/Icon";
 import classNames from "classnames";
 

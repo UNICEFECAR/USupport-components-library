@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Icon } from "../../icons/Icon/Icon";
 import { Button } from "../Button/Button";
 
-import "./storebutton.scss";
+import "./store-button.scss";
 
 /**
  * StoreButton
