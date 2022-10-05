@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import "./radiobutton.scss";
+import "./radio-button.scss";
 
 /**
  * Radio Button component
