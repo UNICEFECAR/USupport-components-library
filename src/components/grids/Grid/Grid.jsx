@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import { Box } from "../../boxes/Box/Box";
 
 import "./grid.scss";
 
@@ -13,9 +14,9 @@ import "./grid.scss";
  */
 export const Grid = ({ classes, style, children, ...props }) => {
   return (
-    <div className={`grid ${classNames(classes)}`} style={style} {...props}>
+    <Box classes={`grid ${classNames(classes)}`} style={style} {...props}>
       {children}
-    </div>
+    </Box>
   );
 };
 
