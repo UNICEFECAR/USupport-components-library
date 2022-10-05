@@ -22,14 +22,15 @@ export const Grid = ({ classes, style, children, ...props }) => {
 Grid.propTypes = {
   /**
    * Additional classes to be added to the grid
-   **/
+   */
   classes: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.arrayOf(PropTypes.string),
   ]),
+
   /**
    * Additional styles to be added to the Grid
-   **/
+   */
   style: PropTypes.object,
 };
 

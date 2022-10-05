@@ -3,7 +3,6 @@
   display: grid;
   grid-gap: $spacing_0_8;
   grid-template-columns: repeat(4, 1fr);
-  margin: 0 auto;
 
   @media screen and (min-width: $screen-md) {
     grid-gap: $spacing_1_2;
@@ -14,6 +13,4 @@
     grid-gap: $spacing_1_6;
     grid-template-columns: repeat(12, 1fr);
   }
-
-  max-width: $screen-lg;
 }
