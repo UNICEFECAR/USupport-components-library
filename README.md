@@ -36,7 +36,7 @@ To run the project use:
 npm run storybook
 ```
 
-## Creating a new component to the USupport Components Library
+## Adding a new component to the USupport Components Library
 
 To create a new component, please use the provided bash script `create-component.bash`. By executing the following command from the root directory of the project:
 

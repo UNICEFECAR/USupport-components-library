@@ -70,9 +70,15 @@ const icons = [
   "mail",
   "sound-playing",
   "sound-muted",
+  "app-store",
+  "community",
+  "therapy",
+  "self-care",
+  "consultation",
+  "calm",
 ];
 
-export const All = (args) => (
+export const All = (props) => (
   <div style={{ display: "flex", flexWrap: "wrap" }}>
     {icons.map((icon, index) => {
       return (
@@ -85,8 +91,10 @@ export const All = (args) => (
             padding: "0 1rem",
           }}
         >
-          <Icon name={icon} {...args} />
-          <p style={{ paddingTop: "0.5rem" }}>{icon}</p>
+          <Icon name={icon} {...props} />
+          <p className="text" style={{ paddingTop: "0.5rem" }}>
+            {icon}
+          </p>
         </div>
       );
     })}

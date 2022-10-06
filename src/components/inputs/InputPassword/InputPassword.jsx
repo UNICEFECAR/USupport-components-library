@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import "./inputpassword.scss";
+import "./input-password.scss";
 import { Input } from "../Input/Input";
 import { Icon } from "../../icons/Icon/Icon";
 
@@ -12,11 +12,11 @@ import { Icon } from "../../icons/Icon/Icon";
  *
  * @return {jsx}
  */
-export const InputPassword = ({ ...rest }) => {
+export const InputPassword = ({ ...props }) => {
   const [inputType, setInputType] = React.useState("password");
 
   return (
-    <Input type={inputType} {...rest}>
+    <Input type={inputType} {...props}>
       <div
         onClick={() =>
           setInputType(inputType === "password" ? "text" : "password")
