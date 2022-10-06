@@ -44,7 +44,9 @@ export const Input = ({
           {children ? children : null}
         </div>
       </div>
-      {errorMessage ? <p className="error-message">{errorMessage}</p> : null}
+      {errorMessage ? (
+        <p className="small-text error-message">{errorMessage}</p>
+      ) : null}
     </>
   );
 };

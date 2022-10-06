@@ -3,6 +3,10 @@
 .input-container {
   width: 34.3rem;
 
+  @media screen and (min-width: $screen-lg) {
+    width: 36.8rem;
+  }
+
   &.disabled {
     opacity: 0.6;
 
@@ -58,9 +62,6 @@
 }
 .error-message {
   color: red;
-  font-size: $font_size_1_4;
-  font-weight: $font_medium;
-  line-height: $line_height_2_2;
   margin-left: $spacing_2_4;
   margin-top: $spacing_0_4;
 }
