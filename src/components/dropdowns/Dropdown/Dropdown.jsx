@@ -25,6 +25,7 @@ export const Dropdown = ({ options, selected, setSelected, errorMessage }) => {
   };
 
   const renderAllOptions = () => {
+    if (!isOpen) return <div />;
     return (
       options &&
       options.map((option, index) => {
@@ -34,14 +35,16 @@ export const Dropdown = ({ options, selected, setSelected, errorMessage }) => {
               "option-container",
               selected
                 ? selected.label === option.label && "option-selected"
-                : null,
+                : "",
               option.isDisabled && "disabled",
             ].join(" ")}
             onClick={
               option.isDisabled ? () => {} : () => handleChooseOption(option)
             }
           >
-            <p key={index}>{option.label}</p>
+            <p className="text dropdown-content__single-option" key={index}>
+              {option.label}
+            </p>
           </div>
         );
       })
@@ -66,9 +69,7 @@ export const Dropdown = ({ options, selected, setSelected, errorMessage }) => {
           )}
           <Icon name="arrow-chevron-down" />
         </div>
-        {isOpen ? (
-          <div className="dropdown-content">{renderAllOptions()}</div>
-        ) : null}
+        <div className="dropdown-content">{renderAllOptions()}</div>
       </Box>
       {errorMessage ? <p className="error-message">{errorMessage}</p> : null}
     </>
