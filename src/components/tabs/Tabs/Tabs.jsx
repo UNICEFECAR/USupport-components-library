@@ -22,8 +22,8 @@ export const Tabs = ({ options, handleSelect, handleShowMore }) => {
               <div
                 className={[
                   "tab",
-                  option.isSelected && "tab--selected",
-                  option.isInactive && "tab--inactive",
+                  option.isSelected ? "tab--selected" : "",
+                  option.isInactive ? "tab--inactive" : "",
                 ].join(" ")}
                 onClick={() => (option.isInactive ? {} : handleSelect(index))}
                 key={index}
@@ -52,7 +52,7 @@ Tabs.propTypes = {
   /**
    * options to be displayed
    * */
-  options: PropTypes.arrayOf(obj),
+  options: PropTypes.arrayOf(PropTypes.object),
 
   /**
    * handleSelect function to be called when an option is selected
