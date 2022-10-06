@@ -12,7 +12,13 @@ import { Icon } from "../../icons/Icon/Icon";
  *
  * @return {jsx}
  */
-export const Dropdown = ({ options, selected, setSelected, errorMessage }) => {
+export const Dropdown = ({
+  options,
+  selected,
+  setSelected,
+  errorMessage,
+  placeholder,
+}) => {
   const [isOpen, setIsOpen] = React.useState(false);
 
   const handleOnClick = () => {
@@ -65,7 +71,7 @@ export const Dropdown = ({ options, selected, setSelected, errorMessage }) => {
           {selected ? (
             <p>{selected.label}</p>
           ) : (
-            <p className="placeholder">Select</p>
+            <p className="placeholder">{placeholder}</p>
           )}
           <Icon name="arrow-chevron-down" />
         </div>
@@ -97,6 +103,11 @@ Dropdown.propTypes = {
    * Error message
    * */
   errorMessage: PropTypes.string,
+
+  /**
+   * Placeholder
+   * */
+  placeholder: PropTypes.string,
 };
 
 Dropdown.defaultProps = {
@@ -104,4 +115,5 @@ Dropdown.defaultProps = {
   selected: null,
   setSelected: () => {},
   errorMessage: "",
+  placeholder: "Select",
 };
