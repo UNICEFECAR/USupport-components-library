@@ -37,6 +37,7 @@ export const Dropdown = ({
       options.map((option, index) => {
         return (
           <div
+            key={index}
             className={[
               "option-container",
               selected
@@ -60,9 +61,9 @@ export const Dropdown = ({
   return (
     <>
       <Box
-        boxShadow={1}
+        boxShadow={"1"}
         borderSize="md"
-        classes={["dropdown", isOpen && "dropdown--expanded"]}
+        classes={["dropdown", isOpen ? "dropdown--expanded" : ""]}
         onClick={handleOnClick}
       >
         <div
@@ -77,7 +78,9 @@ export const Dropdown = ({
         </div>
         <div className="dropdown-content">{renderAllOptions()}</div>
       </Box>
-      {errorMessage ? <p className="error-message">{errorMessage}</p> : null}
+      {errorMessage ? (
+        <p className="small-text error-message">{errorMessage}</p>
+      ) : null}
     </>
   );
 };
