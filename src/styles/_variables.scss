@@ -1,6 +1,8 @@
 // Screen sizes
+$screen-sm: 375px;
 $screen-md: 768px;
-$screen-lg: 1440px;
+$screen-lg: 1366px;
+$screen-xl: 1600px;
 
 // Font Family
 $font_family: "Nunito", sans-serif;
@@ -22,7 +24,7 @@ $font_size_2_0: 2rem;
 $font_size_2_4: 2.4rem;
 $font_size_3_2: 3.2rem;
 $font_size_4_0: 4rem;
-$font_size_6_4: 5.6rem;
+$font_size_6_4: 6.4rem;
 
 // Line Heights
 $line_height_1_6: 1.6rem;
@@ -37,7 +39,10 @@ $line_height_7_7: 7.7rem;
 
 // Border Radius
 $border_radius_1_6: 1.6rem;
+$border_radius_2_4: 2.4rem;
+$border_radius_3_2: 3.2rem;
 $border_radius_4_0: 4rem;
+$border_radius_4_8: 4.8rem;
 
 // Spacing
 $spacing_0_2: 0.2rem;
@@ -54,13 +59,22 @@ $spacing_2_4: 2.4rem;
 $spacing_2_8: 2.8rem;
 $spacing_3_2: 3.2rem;
 $spacing_3_4: 3.4rem;
+$spacing_3_6: 3.6rem;
 $spacing_4_0: 4rem;
 $spacing_4_8: 4.8rem;
+$spacing_5_0: 5rem;
 $spacing_5_6: 5.6rem;
 $spacing_6_4: 6.4rem;
+$spacing_6_5: 6.5rem;
 $spacing_7_2: 7.2rem;
 $spacing_8_0: 8rem;
+$spacing_9_0: 9rem;
+$spacing_10_0: 10rem;
+$spacing_11_5: 11.5rem;
+$spacing_12_0: 12rem;
 $spacing_14_6: 14.6rem;
+$spacing_16_0: 16rem;
+$spacing_24_0: 24rem;
 
 // Colors
 $color_primary_20809e: #20809e;
@@ -81,7 +95,6 @@ $color_transparent: rgba(0, 0, 0, 0);
 $color_gray_ea: #eaeaea;
 $color_gray_a6b4b8: #a6b4b8;
 $color_gray_66768d: #66768d;
-$color_gray_a6b4b8: #a6b4b8;
 
 $color_green_54cfd9: #54cfd9;
 $color_green_c1eaea: #c1eaea;
@@ -91,6 +104,7 @@ $color_purple_dac3f6: #dac3f6;
 $color_purple_c39af9: #c39af9;
 
 $color_blue_2a54bc: #2a54bc;
+$color_blue_3d527b: #3d527b;
 
 // Gradients
 $gradient_primary: linear-gradient(
@@ -104,6 +118,25 @@ $gradient_secondary: linear-gradient(
   #0daeb2 1.31%,
   #d6d2ff 42.92%,
   #814afd 93.14%
+);
+
+$gradient_secondary_0_1_opacity: linear-gradient(
+  270deg,
+  rgba(13, 174, 178, 0.1) 1.31%,
+  rgba(214, 210, 255, 0.1) 42.92%,
+  rgba(129, 74, 253, 0.1) 93.14%
+);
+
+$radial_gradient_purple: radial-gradient(
+  50% 50% at 50% 50%,
+  rgba(129, 74, 253, 0.3) 0%,
+  rgba(129, 74, 253, 0) 100%
+);
+
+$radial_gradient_blue: radial-gradient(
+  50% 50% at 50% 50%,
+  rgba(84, 207, 217, 0.3) 0%,
+  rgba(84, 207, 217, 0) 100%
 );
 
 // Shadows

@@ -12,7 +12,7 @@ function onChange(value) {
   console.log(value);
 }
 
-const Template = (args) => <InputSearch placeholder={"Search"} {...args} />;
+const Template = (props) => <InputSearch placeholder={"Search"} {...props} />;
 
 export const Default = Template.bind({});
 Default.args = {

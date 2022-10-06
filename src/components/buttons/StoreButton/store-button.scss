@@ -1,6 +1,18 @@
 @import "../../../styles/theme";
 
 .btn--store {
+  &.btn {
+    min-width: 34.3rem;
+
+    @media screen and (min-width: $screen-md) {
+      min-width: 21rem;
+    }
+
+    @media screen and (min-width: $screen-lg) {
+      min-width: 27.2rem;
+    }
+  }
+
   .btn__text-container {
     display: flex;
     flex-direction: column;

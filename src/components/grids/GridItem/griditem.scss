@@ -1,0 +1,102 @@
+@import "../../../styles/theme";
+.grid-item {
+  &.xs-1 {
+    grid-column: span 1;
+  }
+
+  &.xs-2 {
+    grid-column: span 2;
+  }
+
+  &.xs-3 {
+    grid-column: span 3;
+  }
+
+  &.xs-4 {
+    grid-column: span 4;
+  }
+
+  @media screen and (min-width: $screen-md) {
+    &.md-1 {
+      grid-column: span 1;
+    }
+
+    &.md-2 {
+      grid-column: span 2;
+    }
+
+    &.md-3 {
+      grid-column: span 3;
+    }
+
+    &.md-4 {
+      grid-column: span 4;
+    }
+
+    &.md-5 {
+      grid-column: span 5;
+    }
+
+    &.md-6 {
+      grid-column: span 6;
+    }
+
+    &.md-7 {
+      grid-column: span 7;
+    }
+
+    &.md-8 {
+      grid-column: span 8;
+    }
+  }
+
+  @media screen and (min-width: $screen-lg) {
+    &.lg-1 {
+      grid-column: span 1;
+    }
+
+    &.lg-2 {
+      grid-column: span 2;
+    }
+
+    &.lg-3 {
+      grid-column: span 3;
+    }
+
+    &.lg-4 {
+      grid-column: span 4;
+    }
+
+    &.lg-5 {
+      grid-column: span 5;
+    }
+
+    &.lg-6 {
+      grid-column: span 6;
+    }
+
+    &.lg-7 {
+      grid-column: span 7;
+    }
+
+    &.lg-8 {
+      grid-column: span 8;
+    }
+
+    &.lg-9 {
+      grid-column: span 9;
+    }
+
+    &.lg-10 {
+      grid-column: span 10;
+    }
+
+    &.lg-11 {
+      grid-column: span 11;
+    }
+
+    &.lg-12 {
+      grid-column: span 12;
+    }
+  }
+}

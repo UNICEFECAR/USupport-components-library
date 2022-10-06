@@ -10,7 +10,7 @@ export default {
   },
 };
 
-const Template = (args) => <ButtonWithIcon {...args} />;
+const Template = (props) => <ButtonWithIcon {...props} />;
 
 export const ButtonWithIconGreen = Template.bind({});
 ButtonWithIconGreen.args = {
