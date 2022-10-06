@@ -36,10 +36,10 @@
   }
 
   &-content {
-    padding: $spacing_1_0 $spacing_0_8;
-    max-height: 16.4rem;
-    overflow-y: auto;
+    max-height: 0;
     margin-right: $spacing_1_6;
+    overflow-y: auto;
+    transition: max-height 0.3s ease-in-out;
 
     .option-container {
       padding: $spacing_0_8;
@@ -50,6 +50,12 @@
 
       &.disabled {
         color: $color_gray_a6b4b8;
+      }
+    }
+
+    &__single-option {
+      &:hover {
+        cursor: pointer;
       }
     }
 
@@ -73,11 +79,18 @@
     border-top: 0;
     border-top-left-radius: 2.6rem;
     border-top-right-radius: 2.6rem;
+
     .heading {
       border: 0.1rem solid $color-secondary-9749fa;
       .icon--arrow-chevron-down {
         transform: rotate(180deg);
       }
+    }
+
+    .dropdown-content {
+      padding: $spacing_1_0 $spacing_0_8;
+      max-height: 16.4rem;
+      transition: max-height 0.3s ease-in-out;
     }
   }
 }
