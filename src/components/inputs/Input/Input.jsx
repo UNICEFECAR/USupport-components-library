@@ -17,15 +17,30 @@ export const Input = ({
   errorMessage,
   children,
   preInput,
+  value,
+  onChange,
   ...props
 }) => {
   return (
     <>
-      <div className={["input-container", disabled && "disabled"].join(" ")}>
-        {label ? <p className="label">{label}</p> : null}
-        <div className={["input-wrapper", errorMessage && "error"].join(" ")}>
+      <div
+        className={[
+          "input-container",
+          disabled && "disabled",
+          errorMessage && "error",
+        ].join(" ")}
+      >
+        {label ? <p className="text label">{label}</p> : null}
+        <div className="input-wrapper">
           {preInput ? preInput : null}
-          <input type={type} disabled={disabled} className="input" {...props} />
+          <input
+            value={value}
+            onChange={(e) => onChange(e.currentTarget.value)}
+            type={type}
+            disabled={disabled}
+            className="input"
+            {...props}
+          />
           {children ? children : null}
         </div>
       </div>
