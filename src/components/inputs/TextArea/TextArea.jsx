@@ -4,9 +4,9 @@ import PropTypes from "prop-types";
 import "./textarea.scss";
 
 /**
- * InputTextArea
+ * TextArea
  *
- * Input TextArea component
+ * TextArea component
  *
  * @return {jsx}
  */
@@ -19,13 +19,13 @@ export const TextArea = ({ label, ...rest }) => {
   );
 };
 
-InputTextArea.propTypes = {
+TextArea.propTypes = {
   /**
    * Input label
    **/
   label: PropTypes.string,
 };
 
-InputTextArea.defaultProps = {
+TextArea.defaultProps = {
   // Add defaultProps here
 };
