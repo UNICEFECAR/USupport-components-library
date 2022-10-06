@@ -31,5 +31,46 @@
     font-size: $font_size_1_4;
     font-weight: $font_medium;
     cursor: pointer;
+
+    &-selected {
+      color: $color_secondary_pressed_6c16d9;
+      font-weight: $font_semi_bold;
+    }
+  }
+}
+
+.show-more-container {
+  margin-top: $spacing_0_8;
+  padding: $spacing_0_8 0;
+  width: 34.3rem;
+  border: 0.1rem solid rgba(217, 217, 217, 0.63);
+
+  .show-more-option-container {
+    padding: $spacing_1_0 $spacing_1_6;
+    overflow-y: auto;
+    margin-right: $spacing_1_6;
+    max-height: 22rem;
+
+    .option-container {
+      padding: $spacing_0_8;
+
+      &-inactive {
+        opacity: 0.2;
+      }
+    }
+
+    &::-webkit-scrollbar {
+      width: 0.3rem;
+    }
+
+    &::-webkit-scrollbar-track {
+      margin: $spacing_2_4;
+      background: rgba(217, 217, 217, 0.63);
+      border-radius: 0.3rem;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: $color_secondary_9749fa;
+      border-radius: 0.3rem;
+    }
   }
 }

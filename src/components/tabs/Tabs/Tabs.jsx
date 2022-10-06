@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import "./tabs.scss";
+import { Box } from "../../boxes/Box/Box";
 
 /**
  * Tabs
@@ -10,8 +11,15 @@ import "./tabs.scss";
  *
  * @return {jsx}
  */
-export const Tabs = ({ options, handleSelect, handleShowMore }) => {
-  const renderAllOptions = () => {
+export const Tabs = ({ options, handleSelect }) => {
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  const handleOnSelect = (option) => {
+    handleSelect(option);
+    setIsOpen(false);
+  };
+
+  const renderOptions = () => {
     if (options) {
       return options
         ? options.map((option, index) => {
@@ -36,14 +44,47 @@ export const Tabs = ({ options, handleSelect, handleShowMore }) => {
     }
   };
 
+  const renderAllOptions = () => {
+    if (options) {
+      return options.map((option, index) => {
+        return (
+          <div
+            className={[
+              "option-container",
+              option.isInactive ? "option-container-inactive" : "",
+            ].join(" ")}
+            onClick={
+              option.isInactive ? () => {} : (option) => handleOnSelect(option)
+            }
+          >
+            <p className="paragraph">{option.label}</p>
+          </div>
+        );
+      });
+    }
+  };
+
   return (
-    <div className="tabs-container">
-      {renderAllOptions()}
-      {options.length > 4 && (
-        <p className="show-more-text" onClick={handleShowMore}>
-          +{options.length - 4} more
-        </p>
-      )}
+    <div>
+      <div className="tabs-container">
+        {renderOptions()}
+        {options.length > 4 && (
+          <p
+            className={[
+              "show-more-text",
+              isOpen && "show-more-text-selected",
+            ].join(" ")}
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            +{options.length - 4} more
+          </p>
+        )}
+      </div>
+      {isOpen ? (
+        <Box shadow={1} classes="show-more-container">
+          <div className="show-more-option-container">{renderAllOptions()}</div>
+        </Box>
+      ) : null}
     </div>
   );
 };
@@ -58,13 +99,6 @@ Tabs.propTypes = {
    * handleSelect function to be called when an option is selected
    **/
   handleSelect: PropTypes.func,
-
-  /**
-   *  handleShowMore function to be called when show more is clicked
-   **/
-  handleShowMore: PropTypes.func,
 };
 
-Tabs.defaultProps = {
-  // Add defaultProps here
-};
+Tabs.defaultProps = {};
