@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import { Icon } from "../../icons/Icon/Icon";
 
 import "./collapsible.scss";
-import { Icon } from "../../icons/Icon/Icon";
 
 /**
  * Collapsible
