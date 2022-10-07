@@ -18,6 +18,9 @@ component_name=$(echo $component_name | tr '[:lower:]' '[:upper:]' | cut -c1)$(e
 # Transform the component name to lowercase
 component_name_lower=$(echo $component_name | tr '[:upper:]' '[:lower:]')
 
+# Transform the name to caterpillar-case
+component_name_kebab=$(echo $component_name | sed -r 's/([a-z0-9])([A-Z])/\1-\2/g' | tr '[:upper:]' '[:lower:]')
+
 # Read the description of the component from the user input
 echo -n "Enter component description: "
 read component_description
@@ -63,7 +66,7 @@ mkdir "src/components/$component_group/$component_name"
 # Create the component files
 touch "src/components/$component_group/$component_name/index.js"
 touch "src/components/$component_group/$component_name/$component_name.jsx"
-touch "src/components/$component_group/$component_name/$component_name_lower.scss"
+touch "src/components/$component_group/$component_name/$component_name_kebab.scss"
 touch "src/components/$component_group/$component_name/$component_name.stories.jsx"
 
 # Add the component to the component index file
@@ -77,7 +80,7 @@ echo "export * from './$component_name';" >> "src/components/$component_group/in
 echo "import React from 'react';
 import PropTypes from 'prop-types';
 
-import './$component_name_lower.scss';
+import './$component_name_kebab.scss';
 
 /**
  * $component_name
@@ -113,7 +116,7 @@ export default {
   argTypes: {},
 };
 
-const Template = (args) => <$component_name {...args} />;
+const Template = (props) => <$component_name {...props} />;
 
 export const Default = Template.bind({});
 Default.args = {};" >> "src/components/$component_group/$component_name/$component_name.stories.jsx"

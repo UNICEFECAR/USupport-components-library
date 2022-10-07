@@ -71,6 +71,7 @@
 
   &--secondary {
     background-color: $color_white_ff;
+    border: 0.1rem solid $color_white_ff;
 
     &.btn--green {
       color: $color_primary_20809e;

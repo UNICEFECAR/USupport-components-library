@@ -22,7 +22,7 @@ const data = {
   readingTime: 5,
 };
 
-const Template = (args) => <Card {...args} />;
+const Template = (props) => <Card {...props} />;
 
 export const Default = Template.bind({});
 Default.args = {

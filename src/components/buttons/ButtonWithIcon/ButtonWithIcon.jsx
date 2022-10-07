@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Button } from "../Button/Button";
 import { Icon } from "../../icons/Icon/Icon";
 
-import "./buttonwithicon.scss";
+import "./button-with-icon.scss";
 
 /**
  * ButtonWithIcon
@@ -18,12 +18,12 @@ export const ButtonWithIcon = ({
   iconColor,
   onlyIcon,
   classes,
-  ...rest
+  ...props
 }) => {
   return (
     <Button
       classes={["btn--with-icon", onlyIcon ? "btn--only-icon" : "", classes]}
-      {...rest}
+      {...props}
     >
       <Icon name={iconName} size={iconSize} color={iconColor} />
     </Button>

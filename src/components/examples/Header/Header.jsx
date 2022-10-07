@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button } from "../Button";
 
 import "./header.scss";
 
@@ -37,18 +36,9 @@ export const Header = ({ user, onLogin, onLogout, onCreateAccount }) => (
             <span className="welcome">
               Welcome, <b>{user.name}</b>!
             </span>
-            <Button size="small" onClick={onLogout} label="Log out" />
           </>
         ) : (
-          <>
-            <Button size="small" onClick={onLogin} label="Log in" />
-            <Button
-              primary
-              size="small"
-              onClick={onCreateAccount}
-              label="Sign up"
-            />
-          </>
+          <></>
         )}
       </div>
     </div>
