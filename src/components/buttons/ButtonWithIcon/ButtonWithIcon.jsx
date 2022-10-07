@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Button } from "../Button/Button";
 import { Icon } from "../../icons/Icon/Icon";
 
-import "./buttonwithicon.scss";
+import "./button-with-icon.scss";
 
 /**
  * ButtonWithIcon
@@ -17,12 +17,13 @@ export const ButtonWithIcon = ({
   iconSize,
   iconColor,
   onlyIcon,
-  ...rest
+  classes,
+  ...props
 }) => {
   return (
     <Button
-      classes={["btn--with-icon", onlyIcon ? "btn--only-icon" : ""]}
-      {...rest}
+      classes={["btn--with-icon", onlyIcon ? "btn--only-icon" : "", classes]}
+      {...props}
     >
       <Icon name={iconName} size={iconSize} color={iconColor} />
     </Button>
@@ -49,10 +50,19 @@ ButtonWithIcon.propTypes = {
    *  Should the button only render the icon?
    **/
   onlyIcon: PropTypes.bool,
+
+  /**
+   * Additional classes to add to the button
+   * */
+  classes: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string),
+  ]),
 };
 
 ButtonWithIcon.defaultProps = {
   iconSize: "md",
   iconColor: null,
   onlyIcon: false,
+  classes: "",
 };

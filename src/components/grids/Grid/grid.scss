@@ -1,0 +1,16 @@
+@import "../../../styles/theme";
+.grid {
+  display: grid;
+  grid-gap: $spacing_0_8;
+  grid-template-columns: repeat(4, 1fr);
+
+  @media screen and (min-width: $screen-md) {
+    grid-gap: $spacing_1_2;
+    grid-template-columns: repeat(8, 1fr);
+  }
+
+  @media screen and (min-width: $screen-lg) {
+    grid-gap: $spacing_1_6;
+    grid-template-columns: repeat(12, 1fr);
+  }
+}

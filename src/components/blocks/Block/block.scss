@@ -1,0 +1,20 @@
+@import "../../../styles/theme";
+.block {
+  padding: 0 $spacing_1_6;
+  min-width: $screen-sm;
+
+  @media screen and (min-width: $screen-md) {
+    padding: 0 $spacing_3_6;
+  }
+
+  @media screen and (min-width: $screen-lg) {
+    padding: 0 $spacing_11_5;
+  }
+
+  & .container {
+    max-width: $screen-xl;
+    min-width: calc($screen-sm - 2 * $spacing_1_6);
+    overflow: visible;
+    margin: 0 auto;
+  }
+}
