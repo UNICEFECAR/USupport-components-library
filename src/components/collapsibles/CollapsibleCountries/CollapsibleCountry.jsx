@@ -6,7 +6,7 @@ import { IconFlag } from "../../icons/IconFlag/IconFlag";
 import "./collapsiblecountry.scss";
 
 /**
- * ComponentNew
+ * CollapsibleCounrty
  *
  * Component
  *
