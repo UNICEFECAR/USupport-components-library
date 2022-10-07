@@ -3,6 +3,10 @@
 .input-container {
   width: 34.3rem;
 
+  @media screen and (min-width: $screen-lg) {
+    width: 36.8rem;
+  }
+
   &.disabled {
     opacity: 0.6;
 
@@ -14,10 +18,8 @@
   }
 
   .label {
-    font-size: $font_size_1_4;
-    line-height: $line_height_2_2;
+    color: $color_blue_3d527b;
     margin-bottom: $spacing_0_4;
-    font-weight: $font_semi_bold;
   }
 
   .input-wrapper {
@@ -60,9 +62,6 @@
 }
 .error-message {
   color: $color_red_eb5757;
-  font-size: $font_size_1_4;
-  font-weight: $font_medium;
-  line-height: $line_height_2_2;
   margin-left: $spacing_2_4;
   margin-top: $spacing_0_4;
 }
