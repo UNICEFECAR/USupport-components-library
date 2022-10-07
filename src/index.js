@@ -9,3 +9,4 @@ export * from "./components/blocks";
 export * from "./components/boxes";
 export * from "./components/dropdowns";
 export * from "./components/collapsibles";
+export * from './components/separators';
