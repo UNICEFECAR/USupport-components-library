@@ -13,11 +13,7 @@ import { Collapsible } from "../Collapsible/Collapsible";
  */
 export const CollapsibleFAQ = ({ question }) => {
   const header = <h4 className="faq-header">{question.heading}</h4>;
-  const text = (
-    <p className="text" classes="faq-text">
-      {question.text}
-    </p>
-  );
+  const text = <p className="text faq-text">{question.text}</p>;
 
   return (
     <Collapsible

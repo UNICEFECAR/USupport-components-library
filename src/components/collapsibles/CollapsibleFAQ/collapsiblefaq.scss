@@ -1,7 +1,7 @@
 @import "../../../styles/theme";
 
 .collapsible-faq {
-  color: $color_gray_66768d;
+  text-align: left;
 
   .heading {
     margin-bottom: $spacing_0_8;
@@ -11,11 +11,9 @@
     }
   }
 
-  &--expanded {
-    .heading {
-      .faq-header {
-        color: $color_primary_20809e;
-      }
+  .collapsible-content {
+    .faq-text {
+      color: $color_gray_66768d;
     }
   }
 }
