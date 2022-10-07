@@ -6,5 +6,6 @@ export * from "./components/labels";
 export * from "./components/cards";
 export * from "./components/grids";
 export * from "./components/blocks";
-export * from './components/boxes';
-export * from './components/dropdowns';
+export * from "./components/boxes";
+export * from "./components/dropdowns";
+export * from "./components/collapsibles";
