@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-
-import "./collapsiblecountry.scss";
 import { Collapsible } from "../Collapsible/Collapsible";
 import { IconFlag } from "../../icons/IconFlag/IconFlag";
+
+import "./collapsiblecountry.scss";
 
 /**
  * ComponentNew
