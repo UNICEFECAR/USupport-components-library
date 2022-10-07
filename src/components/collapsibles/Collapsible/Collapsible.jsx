@@ -53,7 +53,7 @@ Collapsible.propTypes = {
    * Size of the icon
    * @see Icon
    **/
-  iconSize: PropTypes.oneOf("sm", "md", "lg"),
+  iconSize: PropTypes.oneOf(["sm", "md", "lg"]),
 
   /**
    *  Color of the icon
