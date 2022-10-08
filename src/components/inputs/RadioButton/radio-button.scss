@@ -42,6 +42,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
+
+      + .label {
+        color: $color_blue_3d527b;
+      }
     }
 
     &.checked::before {

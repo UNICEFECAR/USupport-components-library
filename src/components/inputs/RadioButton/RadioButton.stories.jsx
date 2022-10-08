@@ -8,12 +8,12 @@ export default {
   argTypes: {},
 };
 
-const Template = (args) => {
+const Template = (props) => {
   const [isChecked, setIsChecked] = React.useState(false);
   return (
     <div>
       <RadioButton
-        {...args}
+        {...props}
         isChecked={isChecked}
         setIsChecked={setIsChecked}
       />

@@ -13,7 +13,7 @@ export const RadioButton = ({
   disabled,
   isChecked,
   setIsChecked,
-  ...rest
+  ...props
 }) => {
   return (
     <div className={"radiobutton-wrapper"}>
@@ -23,7 +23,7 @@ export const RadioButton = ({
         onChange={disabled ? () => {} : () => setIsChecked(!isChecked)}
         className={[isChecked ? "checked" : ""]}
         disabled={disabled}
-        {...rest}
+        {...props}
       />
       {label ? <p className="label">{label}</p> : null}
     </div>
