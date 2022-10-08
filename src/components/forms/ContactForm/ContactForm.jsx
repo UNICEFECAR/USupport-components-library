@@ -98,9 +98,12 @@ export const ContactForm = ({ classes }) => {
 
 ContactForm.propTypes = {
   /**
-   * Additional classes
+   * Additional classes to be added to the Contact Form
    **/
-  classes: PropTypes.string,
+  classes: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string),
+  ]),
 };
 
 ContactForm.defaultProps = {
