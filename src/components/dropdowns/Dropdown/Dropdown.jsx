@@ -60,7 +60,7 @@ export const Dropdown = ({
   };
 
   return (
-    <OutsideClickHandler onOutsideClick={() => handleOnClick()}>
+    <OutsideClickHandler onOutsideClick={() => setIsOpen(false)}>
       <Box
         boxShadow={"1"}
         borderSize="md"
