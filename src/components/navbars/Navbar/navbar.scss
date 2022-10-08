@@ -78,12 +78,6 @@
     display: flex;
     cursor: pointer;
 
-    &:hover p {
-      padding-bottom: $spacing_0_2;
-      border-bottom: 2px solid $color_primary_20809e;
-      color: $color_primary_20809e;
-    }
-
     @media screen and (min-width: 900px) {
       padding: 0 1.2rem 0 0;
     }
@@ -91,17 +85,36 @@
     @media screen and (min-width: 1050px) {
       padding: 0 3.2rem 0 0;
     }
-  }
 
-  &__item p {
-    text-align: left;
-    margin-bottom: $spacing_2_4;
-    padding: 0 $spacing_0_8 $spacing_0_4 0;
+    & p {
+      text-align: left;
+      margin-bottom: $spacing_2_4;
+      padding: 0 $spacing_0_8 $spacing_0_4 0;
+      position: relative;
 
-    @media screen and (min-width: 900px) {
-      text-align: center;
-      padding: 0 $spacing_0_4 0 $spacing_0_4;
-      margin-bottom: 0;
+      @media screen and (min-width: 900px) {
+        text-align: center;
+        padding: 0 $spacing_0_4 0 $spacing_0_4;
+        margin-bottom: 0;
+      }
+
+      &::after {
+        border-bottom: 2px solid $color_primary_20809e;
+        bottom: -$spacing_0_2;
+        content: "";
+        padding-top: 12px;
+        position: absolute;
+        left: 0;
+        transition: width 0.3s;
+        width: 0%;
+      }
+    }
+
+    &:hover p {
+      color: $color_primary_20809e;
+      &::after {
+        width: 100%;
+      }
     }
   }
 

@@ -22,6 +22,7 @@ import logo from "../../../assets/logo.png";
 export const Navbar = ({ pages, countries }) => {
   const navigateTo = useNavigate();
   let { width } = useWindowDimensions();
+  const scrollTop = () => window.scrollTo(0, 0);
 
   const [isNavbarExpanded, setIsNavbarExpanded] = useState(false);
 
@@ -40,6 +41,7 @@ export const Navbar = ({ pages, countries }) => {
           <p className="paragraph">{page.name}</p>
         </NavLink>
       ),
+      onClick: scrollTop,
     });
   });
 
@@ -66,6 +68,7 @@ export const Navbar = ({ pages, countries }) => {
       classes="nav__login"
       onClick={() => {
         navigateTo("/login");
+        scrollTop();
       }}
       web={width >= 900}
     >
@@ -96,6 +99,7 @@ export const Navbar = ({ pages, countries }) => {
           alt="logo"
           onClick={() => {
             navigateTo("/");
+            scrollTop();
           }}
         />
         <div className="nav__clickable-area" onClick={toggleNavbar}>
