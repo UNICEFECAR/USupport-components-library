@@ -11,7 +11,7 @@ export default {
 // Add each new icon to the list below
 const icons = ["kazakhstan", "bulgaria", "germany", "swiss"];
 
-export const All = (args) => (
+export const All = (props) => (
   <div style={{ display: "flex", flexWrap: "wrap" }}>
     {icons.map((icon, index) => {
       return (
@@ -24,7 +24,7 @@ export const All = (args) => (
             padding: "0 1rem",
           }}
         >
-          <IconFlag flagName={icon} {...args} />
+          <IconFlag flagName={icon} {...props} />
           <p style={{ paddingTop: "0.5rem" }}>{icon}</p>
         </div>
       );
