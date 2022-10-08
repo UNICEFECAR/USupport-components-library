@@ -3,6 +3,7 @@
 .dropdown {
   width: 34.3rem;
   border-radius: $border_radius_2_4;
+  cursor: pointer;
 
   @media screen and (min-width: $screen-lg) {
     width: 36.8rem;
@@ -43,6 +44,7 @@
 
     .option-container {
       padding: $spacing_0_8;
+
       &.option-selected {
         border-radius: 0.8rem;
         background-color: #e6f1f4;
