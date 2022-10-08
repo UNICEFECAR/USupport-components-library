@@ -1,0 +1,8 @@
+@import "../../../styles/theme";
+
+.dropdown-with-label {
+  &__label {
+    padding-bottom: $spacing_0_4;
+    color: $color_blue_3d527b;
+  }
+}

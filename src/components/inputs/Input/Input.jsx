@@ -43,7 +43,7 @@ export const Input = ({
 Input.propTypes = {
   /**
    * Input type
-   *@default "text"
+   *
    **/
   type: PropTypes.oneOf(["text"]),
 
@@ -54,9 +54,27 @@ Input.propTypes = {
 
   /**
    * Input disabled
-   * @default false
+   *
    **/
   disabled: PropTypes.bool,
+
+  /**
+   * Input error message
+   *
+   * */
+  errorMessage: PropTypes.string,
+
+  /**
+   * Input children
+   *
+   * */
+  children: PropTypes.node,
+
+  /**
+   * Input preInput
+   *
+   * */
+  preInput: PropTypes.node,
 };
 
 Input.defaultProps = {

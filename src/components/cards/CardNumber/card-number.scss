@@ -1,0 +1,39 @@
+@import "../../../styles/theme";
+
+.card-number {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 27.2rem;
+  height: 16rem;
+  background: $gradient_secondary_0_1_opacity;
+  padding-bottom: 2rem;
+
+  &__number {
+    font-size: $font_size_6_4;
+    line-height: $line_height_7_7;
+    font-weight: 600;
+    letter-spacing: 0.02rem;
+    color: $color_secondary_9749fa;
+    margin-top: calc(-1 * $line_height_7_7 / 2);
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    max-width: 14rem;
+  }
+
+  &__icon .icon {
+    width: 5rem;
+    height: 4.5rem;
+  }
+
+  &__text {
+    color: $color_blue_3d527b;
+    text-align: center;
+  }
+}
