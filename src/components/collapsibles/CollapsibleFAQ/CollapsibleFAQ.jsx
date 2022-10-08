@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Collapsible } from "../Collapsible/Collapsible";
 
 import "./collapsiblefaq.scss";
-import { Collapsible } from "../Collapsible/Collapsible";
 
 /**
  * CollapsibleFAQ
@@ -18,7 +18,7 @@ export const CollapsibleFAQ = ({ question }) => {
   return (
     <Collapsible
       heading={header}
-      collapsibleContent={text}
+      content={text}
       classes="collapsible-faq"
       iconColor={"#20809E"}
       iconSize="md"

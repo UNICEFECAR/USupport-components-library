@@ -21,21 +21,19 @@ export const Input = ({
 }) => {
   return (
     <>
-      <div
-        className={[
-          "input-container",
-          disabled && "disabled",
-          errorMessage && "error",
-        ].join(" ")}
-      >
+      <div className={["input-container", disabled && "disabled"].join(" ")}>
         {label ? <p className="label">{label}</p> : null}
-        <div className="input-wrapper">
+        <div
+          className={["input-wrapper", errorMessage ? "error" : ""].join(" ")}
+        >
           {preInput ? preInput : null}
           <input type={type} disabled={disabled} className="input" {...props} />
           {children ? children : null}
         </div>
       </div>
-      {errorMessage ? <p className="error-message">{errorMessage}</p> : null}
+      {errorMessage && !disabled ? (
+        <p className="error-message">{errorMessage}</p>
+      ) : null}
     </>
   );
 };
@@ -43,7 +41,7 @@ export const Input = ({
 Input.propTypes = {
   /**
    * Input type
-   *@default "text"
+   *
    **/
   type: PropTypes.oneOf(["text"]),
 
@@ -54,9 +52,27 @@ Input.propTypes = {
 
   /**
    * Input disabled
-   * @default false
+   *
    **/
   disabled: PropTypes.bool,
+
+  /**
+   * Input error message
+   *
+   * */
+  errorMessage: PropTypes.string,
+
+  /**
+   * Input children
+   *
+   * */
+  children: PropTypes.node,
+
+  /**
+   * Input preInput
+   *
+   * */
+  preInput: PropTypes.node,
 };
 
 Input.defaultProps = {

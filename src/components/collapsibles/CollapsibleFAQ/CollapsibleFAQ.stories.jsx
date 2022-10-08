@@ -13,7 +13,7 @@ const question = {
   text: "Download the app in AppStore for iOS or GooglePlay Store for Android.",
 };
 
-const Template = (args) => <CollapsibleFAQ question={question} {...args} />;
+const Template = (props) => <CollapsibleFAQ question={question} {...props} />;
 
 export const Default = Template.bind({});
 Default.args = {};

@@ -8,12 +8,8 @@ export default {
   argTypes: {},
 };
 
-const Template = (args) => (
-  <Collapsible
-    heading={<p>Germany</p>}
-    collapsibleContent={<p>Text</p>}
-    {...args}
-  />
+const Template = (props) => (
+  <Collapsible heading={<p>Germany</p>} content={<p>Text</p>} {...props} />
 );
 
 export const Default = Template.bind({});

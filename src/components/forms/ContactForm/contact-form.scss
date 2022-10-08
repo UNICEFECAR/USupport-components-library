@@ -1,0 +1,28 @@
+@import "../../../styles/theme";
+
+.contact-form {
+  padding-top: $spacing_2_4;
+  max-width: 34.3rem;
+
+  @media screen and (min-width: $screen-lg) {
+    max-width: 36.8rem;
+  }
+
+  &__subject,
+  &__message {
+    padding-top: $spacing_2_4;
+  }
+
+  &__button {
+    margin-top: $spacing_3_2;
+
+    @media screen and (min-width: $screen_lg) {
+      width: 36.8rem;
+    }
+  }
+
+  &__reply-time {
+    color: $color_blue_3d527b;
+    padding-top: $spacing_1_2;
+  }
+}
