@@ -3,17 +3,18 @@
 .collapsible-faq {
   text-align: left;
 
-  .heading {
-    margin-bottom: $spacing_0_8;
+  .faq-header {
+    color: $color_blue_3d527b;
+  }
 
+  &.collapsible--expanded {
     .faq-header {
-      color: $color_blue_3d527b;
+      color: $color_primary_20809e;
     }
   }
 
-  .collapsible-content {
-    .faq-text {
-      color: $color_gray_66768d;
-    }
+  .faq-text {
+    color: $color_gray_66768d;
+    padding-top: $spacing_0_8;
   }
 }
