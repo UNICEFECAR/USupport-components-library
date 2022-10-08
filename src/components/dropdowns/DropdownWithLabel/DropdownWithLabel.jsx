@@ -45,7 +45,10 @@ DropdownWithLabel.propTypes = {
    * Additional classes for the dropdown
    *
    * */
-  classes: PropTypes.string,
+  classes: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string),
+  ]),
 
   /**
    * Additional classes for the label
