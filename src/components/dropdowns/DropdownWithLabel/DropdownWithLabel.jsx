@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-
-import "./dropdown-with-label.scss";
 import classNames from "classnames";
 import { Dropdown } from "../Dropdown/Dropdown";
+
+import "./dropdown-with-label.scss";
 
 /**
  * DropdownWithLabel
@@ -35,7 +35,23 @@ export const DropdownWithLabel = ({
 };
 
 DropdownWithLabel.propTypes = {
-  // Add propTypes here
+  /**
+   * Label text for the dropdown
+   *
+   * */
+  label: PropTypes.string,
+
+  /**
+   * Additional classes for the dropdown
+   *
+   * */
+  classes: PropTypes.string,
+
+  /**
+   * Additional classes for the label
+   *
+   * */
+  labelClasses: PropTypes.string,
 };
 
 DropdownWithLabel.defaultProps = {

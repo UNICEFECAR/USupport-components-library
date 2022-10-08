@@ -76,6 +76,12 @@ const icons = [
   "self-care",
   "consultation",
   "calm",
+  "flag-kazakhstan",
+  "flag-bulgaria",
+  "flag-germany",
+  "flag-swiss",
+  "navbar-burger",
+  "globe",
 ];
 
 export const All = (props) => (

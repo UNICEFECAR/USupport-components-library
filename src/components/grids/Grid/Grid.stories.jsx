@@ -17,8 +17,8 @@ const gridItemStyle = {
   justifyContent: "center",
 };
 
-const Template = (args) => (
-  <Grid {...args}>
+const Template = (props) => (
+  <Grid {...props}>
     <GridItem xs={3} style={gridItemStyle}>
       xs=3{" "}
     </GridItem>
