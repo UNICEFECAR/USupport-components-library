@@ -1,6 +1,6 @@
 @import "../../../styles//theme";
 
-.tabs-container {
+.tabs {
   display: flex;
   flex-direction: "row";
   align-items: center;
@@ -14,48 +14,57 @@
     font-size: $font_size_1_4;
     font-weight: $font_medium;
     color: $color_black_37;
+    border: 1px solid transparent;
 
     &--selected {
-      background-color: $color_primary_20809e;
-      color: $color_white_ff;
+      background-color: $color_white_ff;
+      border: 1px solid $color_secondary_9749fa;
     }
 
     &--inactive {
       cursor: normal;
       opacity: 0.2;
+      cursor: default;
     }
   }
 
-  .show-more-text {
+  .show-more__text {
     color: $color_primary_20809e;
-    font-size: $font_size_1_4;
-    font-weight: $font_medium;
     cursor: pointer;
+    text-decoration: underline;
+    padding-left: $spacing_0_8;
+    white-space: nowrap;
 
-    &-selected {
+    &--selected {
       color: $color_secondary_pressed_6c16d9;
       font-weight: $font_semi_bold;
     }
   }
 }
 
-.show-more-container {
-  margin-top: $spacing_0_8;
+.show-more {
+  margin: $spacing_0_8 0 0 $spacing_1_6;
   padding: $spacing_0_8 0;
   width: 34.3rem;
   border: 0.1rem solid rgba(217, 217, 217, 0.63);
 
-  .show-more-option-container {
+  &__options {
     padding: $spacing_0_8 $spacing_1_6;
     overflow-y: auto;
     margin-right: $spacing_1_6;
     max-height: 22rem;
 
-    .option-container {
+    .option {
       padding: $spacing_0_8;
+      cursor: pointer;
 
-      &-inactive {
+      &--selected {
+        color: $color_secondary_9749fa;
+      }
+
+      &--inactive {
         opacity: 0.2;
+        cursor: default;
       }
     }
 

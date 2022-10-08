@@ -31,6 +31,10 @@ const Template = (args) => {
   const handleOnPress = (index) => {
     const optionsCopy = [...options];
 
+    optionsCopy.forEach((option) => {
+      option.isSelected = false;
+    });
+
     optionsCopy[index].isSelected = !optionsCopy[index].isSelected;
 
     setOptions(optionsCopy);

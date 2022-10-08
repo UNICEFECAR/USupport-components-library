@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
+import OutsideClickHandler from "react-outside-click-handler";
+import { Box } from "../../boxes/Box/Box";
 
 import "./tabs.scss";
-import { Box } from "../../boxes/Box/Box";
 
 /**
  * Tabs
@@ -12,10 +13,12 @@ import { Box } from "../../boxes/Box/Box";
  * @return {jsx}
  */
 export const Tabs = ({ options, handleSelect }) => {
-  const [isOpen, setIsOpen] = React.useState(false);
+  const NO_OPTIONS_TO_RENDER = 4;
+  const [isOpen, setIsOpen] = useState(false);
+  const [isMoreOptionSelected, setIsMoreOptionSelected] = useState(false);
 
   const handleOnSelect = (option) => {
-    handleSelect(option);
+    handleSelect ? handleSelect(option) : () => {};
     setIsOpen(false);
   };
 
@@ -23,7 +26,7 @@ export const Tabs = ({ options, handleSelect }) => {
     if (options) {
       return options
         ? options.map((option, index) => {
-            if (index >= 4) {
+            if (index >= NO_OPTIONS_TO_RENDER) {
               return;
             }
             return (
@@ -33,10 +36,17 @@ export const Tabs = ({ options, handleSelect }) => {
                   option.isSelected ? "tab--selected" : "",
                   option.isInactive ? "tab--inactive" : "",
                 ].join(" ")}
-                onClick={() => (option.isInactive ? {} : handleSelect(index))}
+                onClick={
+                  option.isInactive
+                    ? () => {}
+                    : () => {
+                        handleSelect(index);
+                        setIsMoreOptionSelected(false);
+                      }
+                }
                 key={index}
               >
-                <p>{option.label}</p>
+                <p className="paragraph">{option.label}</p>
               </div>
             );
           })
@@ -44,48 +54,58 @@ export const Tabs = ({ options, handleSelect }) => {
     }
   };
 
-  const renderAllOptions = () => {
+  const renderShowMoreOptions = () => {
     if (options) {
       return options.map((option, index) => {
-        return (
-          <div
-            className={[
-              "option-container",
-              option.isInactive ? "option-container-inactive" : "",
-            ].join(" ")}
-            onClick={
-              option.isInactive ? () => {} : (option) => handleOnSelect(option)
-            }
-          >
-            <p className="paragraph">{option.label}</p>
-          </div>
-        );
+        if (index > NO_OPTIONS_TO_RENDER) {
+          return (
+            <div
+              className={[
+                "option",
+                option.isSelected ? "option--selected" : "",
+                option.isInactive ? "option--inactive" : "",
+              ].join(" ")}
+              onClick={
+                option.isInactive
+                  ? () => {}
+                  : () => {
+                      handleOnSelect(index);
+                      setIsMoreOptionSelected(option.isSelected);
+                    }
+              }
+              key={index}
+            >
+              <p className="paragraph">{option.label}</p>
+            </div>
+          );
+        }
       });
     }
   };
 
   return (
-    <div>
-      <div className="tabs-container">
+    <OutsideClickHandler onOutsideClick={() => setIsOpen(false)}>
+      <div className="tabs">
         {renderOptions()}
-        {options.length > 4 && (
+        {options.length > NO_OPTIONS_TO_RENDER && (
           <p
             className={[
-              "show-more-text",
-              isOpen && "show-more-text-selected",
+              "text",
+              "show-more__text",
+              isMoreOptionSelected ? "show-more__text--selected" : "",
             ].join(" ")}
             onClick={() => setIsOpen(!isOpen)}
           >
-            +{options.length - 4} more
+            +{options.length - NO_OPTIONS_TO_RENDER} more
           </p>
         )}
       </div>
       {isOpen ? (
-        <Box shadow={1} classes="show-more-container">
-          <div className="show-more-option-container">{renderAllOptions()}</div>
+        <Box shadow={1} classes="show-more">
+          <div className="show-more__options">{renderShowMoreOptions()}</div>
         </Box>
       ) : null}
-    </div>
+    </OutsideClickHandler>
   );
 };
 
