@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Collapsible } from "../Collapsible/Collapsible";
+import { Line } from "../../separators/Line/Line";
 
 import "./collapsiblefaq.scss";
 
@@ -11,19 +12,21 @@ import "./collapsiblefaq.scss";
  *
  * @return {jsx}
  */
-export const CollapsibleFAQ = ({ question }) => {
-  const header = <h4 className="faq-header">{question.heading}</h4>;
-  const text = <p className="text faq-text">{question.text}</p>;
-
-  return (
-    <Collapsible
-      heading={header}
-      content={text}
-      classes="collapsible-faq"
-      iconColor={"#20809E"}
-      iconSize="md"
-    />
-  );
+export const CollapsibleFAQ = ({ questions }) => {
+  return questions.map((question, index) => {
+    return (
+      <React.Fragment key={index}>
+        <Collapsible
+          heading={<h4 className="faq-header">{question.heading}</h4>}
+          content={<p className="text faq-text">{question.text}</p>}
+          classes="collapsible-faq"
+          iconColor={"#20809E"}
+          iconSize="md"
+        />
+        <Line />
+      </React.Fragment>
+    );
+  });
 };
 
 CollapsibleFAQ.propTypes = {
