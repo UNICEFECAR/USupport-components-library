@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import "./tabsunderlined.scss";
+import "./tabs-underlined.scss";
 
 /**
  * TabsUnderlined
@@ -19,8 +19,8 @@ export const TabsUnderlined = ({ options, handleSelect }) => {
               <div
                 className={[
                   "tab",
-                  option.isSelected && "tab--selected",
-                  option.isInactive && "tab--inactive",
+                  option.isSelected ? "tab--selected" : "",
+                  option.isInactive ? "tab--inactive" : "",
                 ].join(" ")}
                 onClick={() => (option.isInactive ? {} : handleSelect(index))}
                 key={index}
@@ -40,7 +40,7 @@ TabsUnderlined.propTypes = {
   /**
    * options to be displayed
    */
-  options: PropTypes.arrayOf(obj),
+  options: PropTypes.arrayOf(PropTypes.object),
 
   /**
    *handleSelect function to be called when an option is selected

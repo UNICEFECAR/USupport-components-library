@@ -8,7 +8,7 @@ export default {
   argTypes: {},
 };
 
-const Template = (args) => {
+const Template = (props) => {
   const [options, setOptions] = React.useState([
     { label: "Adolescence", isSelected: false },
     { label: "Parental panel", isSelected: false },
@@ -29,7 +29,7 @@ const Template = (args) => {
   };
 
   return (
-    <TabsUnderlined options={options} handleSelect={handleOnPress} {...args} />
+    <TabsUnderlined options={options} handleSelect={handleOnPress} {...props} />
   );
 };
 

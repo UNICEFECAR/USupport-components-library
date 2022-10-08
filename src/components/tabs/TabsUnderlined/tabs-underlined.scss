@@ -8,18 +8,19 @@
   .tab {
     padding: $spacing_1_2 $spacing_1_2;
     margin: 0 $spacing_0_8;
-    color: $color_gray_66768d;
     border-bottom: 0.2rem solid transparent;
+    cursor: pointer;
 
     .label {
       font-weight: $font_medium;
+      color: $color_gray_66768d;
     }
 
     &--selected {
-      color: $color_primary_20809e;
       border-bottom: 0.2rem solid $color_primary_20809e;
 
       .label {
+        color: $color_primary_20809e;
         font-weight: $font_bold;
       }
     }
