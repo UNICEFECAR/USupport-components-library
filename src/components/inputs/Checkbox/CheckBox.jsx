@@ -15,7 +15,7 @@ export const CheckBox = ({
   isChecked,
   setIsChecked,
   disabled,
-  ...rest
+  ...props
 }) => {
   return (
     <div className={["checkbox-wrapper"].join(" ")}>
@@ -25,9 +25,9 @@ export const CheckBox = ({
         onChange={disabled ? () => {} : () => setIsChecked(!isChecked)}
         className={[isChecked ? "checked" : ""]}
         disabled={disabled}
-        {...rest}
+        {...props}
       />
-      {label ? <p className="label">{label}</p> : null}
+      {label ? <p className="text label">{label}</p> : null}
     </div>
   );
 };
@@ -50,7 +50,7 @@ CheckBox.propTypes = {
 
   /**
    * If the checkbox is disabled
-   * @default false
+   *
    **/
   disabled: PropTypes.bool,
 

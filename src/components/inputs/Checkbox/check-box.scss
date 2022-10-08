@@ -7,9 +7,6 @@
 
   .label {
     margin-left: $spacing_0_8;
-    font-size: $font_size_1_4;
-    font-weight: $font_medium;
-    color: &color_black_37;
   }
 
   & > input:disabled + .label {
@@ -36,6 +33,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
+
+      + .label {
+        color: $color_blue_3d527b;
+      }
     }
 
     &.checked::before {

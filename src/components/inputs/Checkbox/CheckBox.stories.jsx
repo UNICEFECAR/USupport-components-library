@@ -8,10 +8,10 @@ export default {
   argTypes: {},
 };
 
-const Template = (args) => {
+const Template = (props) => {
   const [isChecked, setIsChecked] = React.useState(false);
   return (
-    <CheckBox isChecked={isChecked} setIsChecked={setIsChecked} {...args} />
+    <CheckBox isChecked={isChecked} setIsChecked={setIsChecked} {...props} />
   );
 };
 
