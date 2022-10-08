@@ -1,7 +1,8 @@
 .collapsible {
   width: 100%;
+  cursor: pointer;
 
-  .heading {
+  &__heading {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -12,7 +13,7 @@
     }
   }
 
-  .collapsible-content {
+  &__content {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease-in-out;
@@ -21,11 +22,11 @@
   &--expanded {
     .heading {
       .icon--arrow-chevron-down {
-        transform: rotate(180deg);
+        transform: rotate(-180deg);
       }
     }
 
-    .collapsible-content {
+    .collapsible__content {
       max-height: 1000px;
       transition: max-height 0.7s ease-in-out;
     }
