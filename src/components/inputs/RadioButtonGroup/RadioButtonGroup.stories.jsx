@@ -9,9 +9,9 @@ export default {
 };
 
 const options = [
-  { lable: "Under 18", value: "under18" },
-  { lable: "Between 18 and 25", value: "under25" },
-  { lable: "Above 25", value: "above25" },
+  { label: "Coding", value: "coding" },
+  { label: "Music", value: "music" },
+  { label: "Games", value: "games" },
 ];
 
 const Template = (props) => {

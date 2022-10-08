@@ -12,13 +12,14 @@ import { RadioButton } from "../RadioButton/RadioButton";
  */
 export const RadioButtonGroup = ({ name, options, selected, setSelected }) => {
   const renderAllOptions = () => {
-    return options.map((option) => {
+    return options.map((option, index) => {
       return (
         <RadioButton
           name={name}
-          label={option.lable}
+          label={option.label}
           isChecked={selected === option.value}
           setIsChecked={() => setSelected(option.value)}
+          key={index}
         />
       );
     });
