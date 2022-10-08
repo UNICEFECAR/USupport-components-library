@@ -1,0 +1,26 @@
+@import "/USupport-components-library/styles";
+
+.radial-background {
+  width: 25rem;
+  height: 30rem;
+  position: absolute;
+  opacity: 0.6;
+  z-index: -1;
+
+  &.purple {
+    background: $radial_gradient_purple;
+    bottom: 0;
+    left: 0;
+  }
+
+  &.blue {
+    background: $radial_gradient_blue;
+    top: 0;
+    right: 0;
+  }
+
+  @media screen and (min-width: $screen-md) {
+    height: 50rem;
+    width: 50rem;
+  }
+}

@@ -14,3 +14,4 @@ export * from "./components/separators";
 export * from "./components/lists";
 export * from "./components/navbars";
 export * from "./components/forms";
+export * from './components/radials';
