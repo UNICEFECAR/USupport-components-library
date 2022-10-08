@@ -25,7 +25,7 @@ export const RadioButton = ({
         disabled={disabled}
         {...props}
       />
-      {label ? <p className="label">{label}</p> : null}
+      {label ? <p className="text label">{label}</p> : null}
     </div>
   );
 };
