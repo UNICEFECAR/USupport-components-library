@@ -21,7 +21,7 @@ export const StoreButton = ({ store, ...props }) => {
       <Icon name={icon} size="lg" />
       <div className="btn__text-container">
         <p className="download">Download from</p>
-        <p className="label">{label}</p>
+        <p className="text label">{label}</p>
       </div>
     </Button>
   );
