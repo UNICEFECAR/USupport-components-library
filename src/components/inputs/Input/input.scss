@@ -9,12 +9,6 @@
 
   &.disabled {
     opacity: 0.6;
-
-    .input-wrapper {
-      &:hover {
-        border: 1px solid transparent;
-      }
-    }
   }
 
   .label {
@@ -27,7 +21,7 @@
     justify-content: space-between;
     align-items: center;
     border-radius: $border_radius_4_0;
-    box-shadow: $shadow_4;
+    box-shadow: $shadow_1;
     border: 0.1rem solid transparent;
     background-color: $color_white_ff;
 
@@ -51,11 +45,12 @@
       }
     }
 
-    &:hover {
-      border: 1px solid $color_secondary_9749fa;
+    &:hover:not(&.error):has(input:enabled),
+    &:not(&.error):has(input:focus-within:enabled) {
+      border: 0.1rem solid $color_secondary_9749fa;
     }
 
-    &.error {
+    &.error > input:enabled {
       border: 0.1rem solid $color_red_eb5757;
     }
   }
