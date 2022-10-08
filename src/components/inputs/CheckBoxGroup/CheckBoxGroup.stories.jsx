@@ -10,9 +10,9 @@ export default {
 
 const Template = (props) => {
   const [options, setOptions] = React.useState([
-    { lable: "Coding", value: "coding", isSelected: false },
-    { lable: "Music", value: "music", isSelected: false },
-    { lable: "Games", value: "games", isSelected: false },
+    { label: "Coding", value: "coding", isSelected: false },
+    { label: "Music", value: "music", isSelected: false },
+    { label: "Games", value: "games", isSelected: false },
   ]);
 
   return (

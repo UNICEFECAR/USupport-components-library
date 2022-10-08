@@ -27,15 +27,16 @@ export const CheckBoxGroup = ({ name, options, setOptions }) => {
   const renderAllOptions = () => {
     return (
       options &&
-      options.map((option) => {
+      options.map((option, index) => {
         return (
           <CheckBox
             name={name}
-            label={option.lable}
+            label={option.label}
             isChecked={option.isSelected}
             setIsChecked={() => {
               handleSelect(option.value);
             }}
+            key={index}
           />
         );
       })
