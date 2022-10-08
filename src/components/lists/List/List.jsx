@@ -21,7 +21,7 @@ export const List = ({ items, inline = false, classes, ...props }) => {
       ].join(" ")}
       {...props}
     >
-      {items ? (
+      {items &&
         items.map((item, index) => (
           <li
             key={index}
@@ -30,10 +30,7 @@ export const List = ({ items, inline = false, classes, ...props }) => {
           >
             {item.value}
           </li>
-        ))
-      ) : (
-        <p className="text-small error-message "></p>
-      )}
+        ))}
     </ul>
   );
 };
@@ -42,13 +39,13 @@ List.propTypes = {
   /**
    * An array of item objects -> {onClick?: function, value: string}
    **/
-  value: PropTypes.arrayOf(
+  items: PropTypes.arrayOf(
     PropTypes.shape({
       onClick: PropTypes.func,
       value: PropTypes.oneOfType([PropTypes.string, PropTypes.element])
         .isRequired,
     })
-  ),
+  ).isRequired,
 
   /**
    * Whether the list should be inline or not

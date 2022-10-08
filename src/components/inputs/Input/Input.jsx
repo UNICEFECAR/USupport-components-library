@@ -22,7 +22,7 @@ export const Input = ({
   return (
     <>
       <div className={["input-container", disabled && "disabled"].join(" ")}>
-        {label ? <p className="label">{label}</p> : null}
+        {label ? <p className="text label">{label}</p> : null}
         <div
           className={["input-wrapper", errorMessage ? "error" : ""].join(" ")}
         >
@@ -32,7 +32,7 @@ export const Input = ({
         </div>
       </div>
       {errorMessage && !disabled ? (
-        <p className="error-message">{errorMessage}</p>
+        <p className="small-text error-message">{errorMessage}</p>
       ) : null}
     </>
   );

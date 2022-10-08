@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Box } from "../../boxes/Box/Box";
 import { Icon } from "../../icons/Icon/Icon";
+import OutsideClickHandler from "react-outside-click-handler";
 
 import "./dropdown.scss";
 
@@ -59,7 +60,7 @@ export const Dropdown = ({
   };
 
   return (
-    <>
+    <OutsideClickHandler onOutsideClick={() => handleOnClick()}>
       <Box
         boxShadow={"1"}
         borderSize="md"
@@ -81,7 +82,7 @@ export const Dropdown = ({
       {errorMessage ? (
         <p className="small-text error-message">{errorMessage}</p>
       ) : null}
-    </>
+    </OutsideClickHandler>
   );
 };
 

@@ -21,7 +21,7 @@ export const TextArea = ({
 }) => {
   return (
     <div className={["text-area--container", classNames(classes)].join(" ")}>
-      <p className="label">{label}</p>
+      <p className="text label">{label}</p>
       <textarea
         className="text-area"
         value={value}
