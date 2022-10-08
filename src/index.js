@@ -10,3 +10,4 @@ export * from "./components/boxes";
 export * from "./components/dropdowns";
 export * from "./components/collapsibles";
 export * from './components/lists';
+export * from './components/navbars';
