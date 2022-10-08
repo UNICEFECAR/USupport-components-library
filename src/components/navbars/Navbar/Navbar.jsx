@@ -67,6 +67,7 @@ export const Navbar = ({ pages, countries }) => {
       onClick={() => {
         navigateTo("/login");
       }}
+      web={width >= 900}
     >
       Go to app
     </Button>
