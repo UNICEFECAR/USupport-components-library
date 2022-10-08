@@ -65,6 +65,7 @@ $spacing_3_2: 3.2rem;
 $spacing_3_4: 3.4rem;
 $spacing_3_6: 3.6rem;
 $spacing_4_0: 4rem;
+$spacing_4_6: 4.6rem;
 $spacing_4_8: 4.8rem;
 $spacing_5_0: 5rem;
 $spacing_5_6: 5.6rem;
@@ -160,3 +161,10 @@ $shadow_1: 2px 2px 12px rgba(104, 77, 253, 0.1);
 $shadow_2: 0px 2px 18px rgba(104, 77, 253, 0.2);
 $shadow_3: 0px 2px 24px rgba(104, 77, 253, 0.3);
 $shadow_4: 3px 4px 5px rgba(104, 77, 253, 0.06);
+
+// Z-indexes
+$z_index_negative: -1;
+$z_index_1: 1;
+$z_index_2: 2;
+$z_index_navbar: 99;
+$z_index_emergency_button: 99;
