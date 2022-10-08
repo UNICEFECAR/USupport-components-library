@@ -21,21 +21,19 @@ export const Input = ({
 }) => {
   return (
     <>
-      <div
-        className={[
-          "input-container",
-          disabled && "disabled",
-          errorMessage && "error",
-        ].join(" ")}
-      >
-        {label ? <p className="text label">{label}</p> : null}
-        <div className="input-wrapper">
+      <div className={["input-container", disabled && "disabled"].join(" ")}>
+        {label ? <p className="label">{label}</p> : null}
+        <div
+          className={["input-wrapper", errorMessage ? "error" : ""].join(" ")}
+        >
           {preInput ? preInput : null}
           <input type={type} disabled={disabled} className="input" {...props} />
           {children ? children : null}
         </div>
       </div>
-      {errorMessage ? <p className="error-message">{errorMessage}</p> : null}
+      {errorMessage && !disabled ? (
+        <p className="error-message">{errorMessage}</p>
+      ) : null}
     </>
   );
 };
