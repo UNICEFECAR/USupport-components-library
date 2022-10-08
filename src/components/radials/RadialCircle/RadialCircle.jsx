@@ -12,7 +12,11 @@ import "./radial-circle.scss";
  * @return {jsx}
  */
 export const RadialCircle = ({ color, classes }) => {
-  return <div className={classNames(["radial-background", color, classes])} />;
+  return (
+    <div
+      className={["radial-background", color, classNames(classes)].join(" ")}
+    />
+  );
 };
 
 RadialCircle.propTypes = {
@@ -20,9 +24,10 @@ RadialCircle.propTypes = {
    * Color of the radial circle
    * */
   color: PropTypes.oneOf(["blue", "purple"]),
+
   /**
-   * Additional classes to be added to the grid item
-   */
+   * Additional classes to be added to the radial circle
+   * */
   classes: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.arrayOf(PropTypes.string),
