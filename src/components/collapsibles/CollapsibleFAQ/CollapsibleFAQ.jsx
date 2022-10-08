@@ -23,7 +23,7 @@ export const CollapsibleFAQ = ({ questions }) => {
           iconColor={"#20809E"}
           iconSize="md"
         />
-        <Line />
+        {index < questions.length - 1 && <Line />}
       </React.Fragment>
     );
   });
