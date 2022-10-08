@@ -20,10 +20,8 @@
   }
 
   &--expanded {
-    .heading {
-      .icon--arrow-chevron-down {
-        transform: rotate(-180deg);
-      }
+    & > .collapsible__heading .icon--arrow-chevron-down {
+      transform: rotate(180deg);
     }
 
     .collapsible__content {
