@@ -4,9 +4,9 @@ import { Button } from "../../buttons/Button";
 import { Input } from "../../inputs/Input";
 import { TextArea } from "../../inputs/TextArea";
 import { DropdownWithLabel } from "../../dropdowns/DropdownWithLabel";
-import "./contact-form.scss";
 import classNames from "classnames";
 
+import "./contact-form.scss";
 /**
  * ContactForm
  *
