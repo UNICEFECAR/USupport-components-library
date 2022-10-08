@@ -3,25 +3,17 @@
 .input-container {
   width: 34.3rem;
 
-  &.disabled {
-    opacity: 0.6;
-
-    .input {
-      background-color: $color_white_ff;
-    }
+  @media screen and (min-width: $screen-lg) {
+    width: 36.8rem;
   }
 
-  &.error {
-    .input {
-      border-color: #eb5757;
-    }
+  &.disabled {
+    opacity: 0.6;
   }
 
   .label {
-    font-size: $font_size_1_4;
-    line-height: $line_height_2_2;
+    color: $color_blue_3d527b;
     margin-bottom: $spacing_0_4;
-    font-weight: $font_semi_bold;
   }
 
   .input-wrapper {
@@ -29,7 +21,7 @@
     justify-content: space-between;
     align-items: center;
     border-radius: $border_radius_4_0;
-    box-shadow: $shadow_4;
+    box-shadow: $shadow_1;
     border: 0.1rem solid transparent;
     background-color: $color_white_ff;
 
@@ -52,18 +44,19 @@
         outline: none;
       }
     }
-    &:hover &.input:not(disabled),
-    &:focus &.input:not(disabled) {
+
+    &:hover:not(&.error):has(input:enabled),
+    &:not(&.error):has(input:focus-within:enabled) {
       border: 0.1rem solid $color_secondary_9749fa;
-      outline: none;
+    }
+
+    &.error > input:enabled {
+      border: 0.1rem solid $color_red_eb5757;
     }
   }
 }
 .error-message {
-  color: red;
-  font-size: $font_size_1_4;
-  font-weight: $font_medium;
-  line-height: $line_height_2_2;
+  color: $color_red_eb5757;
   margin-left: $spacing_2_4;
   margin-top: $spacing_0_4;
 }
