@@ -82,6 +82,12 @@ const icons = [
   "flag-swiss",
   "navbar-burger",
   "globe",
+  "linkedin",
+  "facebook",
+  "twitter",
+  "call-2",
+  "pin",
+  "mail-2",
 ];
 
 export const All = (props) => (
