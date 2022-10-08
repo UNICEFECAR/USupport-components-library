@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-
-import "./dropdown.scss";
 import { Box } from "../../boxes/Box/Box";
 import { Icon } from "../../icons/Icon/Icon";
+
+import "./dropdown.scss";
 
 /**
  * Dropdown

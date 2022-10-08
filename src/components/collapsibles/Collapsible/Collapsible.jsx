@@ -14,26 +14,29 @@ import "./collapsible.scss";
  */
 export const Collapsible = ({
   heading,
-  collapsibleContent,
+  content,
   iconSize,
   iconColor,
   classes,
 }) => {
-  const [isCollapsed, setIsCollapsed] = React.useState(false);
+  const [isExpanded, setIsExpanded] = React.useState(false);
 
   return (
     <div
       className={[
         "collapsible",
         classNames(classes),
-        isCollapsed ? "collapsible--expanded" : "",
+        isExpanded ? "collapsible--expanded" : "",
       ].join(" ")}
     >
-      <div className="heading" onClick={() => setIsCollapsed(!isCollapsed)}>
+      <div
+        className="collapsible__heading"
+        onClick={() => setIsExpanded(!isExpanded)}
+      >
         {heading}
         <Icon name={"arrow-chevron-down"} size={iconSize} color={iconColor} />
       </div>
-      <div className="collapsible-content">{collapsibleContent}</div>
+      <div className="collapsible__content">{content}</div>
     </div>
   );
 };
@@ -47,13 +50,16 @@ Collapsible.propTypes = {
   /**
    * Collapsible part
    * */
-  collapsibleContent: PropTypes.element,
+  content: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.element),
+  ]),
 
   /**
    * Size of the icon
    * @see Icon
    **/
-  iconSize: PropTypes.oneOf("sm", "md", "lg"),
+  iconSize: PropTypes.oneOf(["sm", "md", "lg"]),
 
   /**
    *  Color of the icon

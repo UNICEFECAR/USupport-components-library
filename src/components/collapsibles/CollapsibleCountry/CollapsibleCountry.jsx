@@ -12,7 +12,7 @@ import "./collapsiblecountry.scss";
  *
  * @return {jsx}
  */
-export const CollapsibleCountry = ({ country, handleOnClickLanguage }) => {
+export const CollapsibleCountry = ({ country, onLanguageClick }) => {
   const renderCountryHeading = () => {
     return (
       <div className="country-details">
@@ -27,9 +27,15 @@ export const CollapsibleCountry = ({ country, handleOnClickLanguage }) => {
   const renderLanguages = () => {
     return (
       <div className="languages">
-        {country.languages.map((language) => {
+        {country.languages.map((language, index) => {
           return (
-            <p className="text" onClick={handleOnClickLanguage}>
+            <p
+              className="text"
+              onClick={
+                onLanguageClick ? () => onLanguageClick(language) : () => {}
+              }
+              key={index}
+            >
               {language}
             </p>
           );
@@ -42,7 +48,7 @@ export const CollapsibleCountry = ({ country, handleOnClickLanguage }) => {
     <div className="country">
       <Collapsible
         heading={renderCountryHeading(country)}
-        collapsibleContent={renderLanguages(country)}
+        content={renderLanguages(country)}
         iconColor={"#20809E"}
         iconSize="md"
       />
@@ -59,9 +65,9 @@ CollapsibleCountry.propTypes = {
   /**
    * Function to handle click on language
    **/
-  handleOnClickLanguage: PropTypes.func,
+  onLanguageClick: PropTypes.func,
 };
 
 CollapsibleCountry.defaultProps = {
-  handleOnClickLanguage: () => {},
+  onLanguageClick: () => {},
 };

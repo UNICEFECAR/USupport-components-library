@@ -14,13 +14,7 @@ const country = {
   languages: ["German", "French", "Italian", "Romansh"],
 };
 
-const Template = (args) => (
-  <CollapsibleCountry
-    country={country}
-    handleOnClickLanguage={() => {}}
-    {...args}
-  />
-);
+const Template = () => <CollapsibleCountry country={country} />;
 
 export const Default = Template.bind({});
 Default.args = {};
