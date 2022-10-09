@@ -120,8 +120,17 @@
 
   &__item--current p {
     color: $color_primary_20809e;
-    padding-bottom: $spacing_0_2;
-    border-bottom: 2px solid $color_primary_20809e;
+
+    &::after {
+      border-bottom: 2px solid $color_primary_20809e;
+      bottom: -$spacing_0_2;
+      content: "";
+      padding-top: 12px;
+      position: absolute;
+      left: 0;
+      transition: width 0.3s;
+      width: 100%;
+    }
   }
 
   &__countries {
