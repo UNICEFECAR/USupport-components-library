@@ -1,5 +1,6 @@
 @import "./normalize";
 @import "./variables";
+@import "./mixins";
 
 html {
   font-size: 62.5%; /* 1rem = 10px */
@@ -108,5 +109,5 @@ h4 {
 
 a {
   text-decoration: none;
-  color: $color_black_37;
+  color: $color_gray_66768d;
 }

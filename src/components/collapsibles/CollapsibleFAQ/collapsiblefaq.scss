@@ -1,0 +1,20 @@
+@import "../../../styles/theme";
+
+.collapsible-faq {
+  text-align: left;
+
+  .faq-header {
+    color: $color_blue_3d527b;
+  }
+
+  &.collapsible--expanded {
+    .faq-header {
+      color: $color_primary_20809e;
+    }
+  }
+
+  .faq-text {
+    color: $color_gray_66768d;
+    padding-top: $spacing_0_8;
+  }
+}

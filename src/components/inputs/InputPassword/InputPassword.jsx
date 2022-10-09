@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import "./input-password.scss";
-import { Input } from "../Input/Input";
-import { Icon } from "../../icons/Icon/Icon";
+import { Input } from "../Input";
+import { Icon } from "../../icons/Icon";
 
 /**
  * InputPassword
@@ -26,7 +26,7 @@ export const InputPassword = ({ ...props }) => {
         <Icon
           name={inputType === "text" ? "hide" : "view"}
           size="md"
-          color={"#7F2EE5"}
+          color={"#7f2ee5"}
         />
       </div>
     </Input>

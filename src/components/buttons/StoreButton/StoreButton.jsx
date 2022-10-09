@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Icon } from "../../icons/Icon/Icon";
-import { Button } from "../Button/Button";
+import { Icon } from "../../icons/Icon";
+import { Button } from "../Button";
 
 import "./store-button.scss";
 
@@ -21,7 +21,7 @@ export const StoreButton = ({ store, ...props }) => {
       <Icon name={icon} size="lg" />
       <div className="btn__text-container">
         <p className="download">Download from</p>
-        <p className="label">{label}</p>
+        <p className="text label">{label}</p>
       </div>
     </Button>
   );

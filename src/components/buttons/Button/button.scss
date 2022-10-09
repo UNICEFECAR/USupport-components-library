@@ -2,9 +2,9 @@
 
 .btn {
   border: 0;
-  border-radius: $border_radius_1_6;
+  border-radius: $border_radius_4_0;
   cursor: pointer;
-  font-weight: $font_bold;
+  font-weight: $font_semi_bold;
   font-size: $font_size_1_2;
   line-height: $line_height_2_2;
   box-shadow: $shadow_1;
@@ -34,10 +34,8 @@
 
   &--lg {
     padding: $spacing_1_3 $spacing_2_4;
-    border-radius: $border_radius_4_0;
     min-width: 34.3rem;
     font-size: $font_size_1_6;
-    font-weight: $font_semi_bold;
   }
 
   //Modes: Primary, Secondary, Ghost and Emergency
@@ -173,13 +171,7 @@
     opacity: 0.6;
   }
 
-  /* 
-   * TODO:
-   * needs to be changed once we have the final web design system,
-   * as these are not covering all the cases from the web buttons currently.
-  */
   &--web {
-    padding: $spacing_1_3 $spacing_2_4;
-    border-radius: $border_radius_4_0;
+    padding: $spacing_0_8 $spacing_2_4;
   }
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Input } from "../Input/Input";
-import { Icon } from "../../icons/Icon/Icon";
+import { Input } from "../Input";
+import { Icon } from "../../icons/Icon";
 
 import "./input-search.scss";
 
@@ -21,7 +21,7 @@ export const InputSearch = ({ onChange, ...props }) => {
         id={"search-icon"}
         name={"search"}
         size="md"
-        color={inputEmpty ? "#373737" : "7F2EE5"}
+        color={inputEmpty ? "#373737" : "#7f2ee5"}
       />
     </div>
   );
@@ -48,7 +48,7 @@ export const InputSearch = ({ onChange, ...props }) => {
           <Icon
             name={"close-x"}
             size="md"
-            color={inputEmpty ? "#373737" : "7F2EE5"}
+            color={inputEmpty ? "#373737" : "#7f2ee5"}
           />
         </div>
       )}

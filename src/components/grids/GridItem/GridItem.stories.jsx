@@ -11,12 +11,12 @@ export default {
   argTypes: { control: "color" },
 };
 
-const Template = (args) => (
+const Template = (props) => (
   <Grid style={style}>
-    <GridItem {...args} />
-    <GridItem {...args} />
-    <GridItem {...args} />
-    <GridItem {...args} />
+    <GridItem {...props} />
+    <GridItem {...props} />
+    <GridItem {...props} />
+    <GridItem {...props} />
   </Grid>
 );
 

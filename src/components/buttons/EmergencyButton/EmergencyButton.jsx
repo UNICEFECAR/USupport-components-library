@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { ButtonWithIcon } from "../ButtonWithIcon/ButtonWithIcon";
+import { ButtonWithIcon } from "../ButtonWithIcon";
 import useWindowDimensions from "../../../utils/useWindowDimensions";
 
 /**
@@ -10,7 +10,7 @@ import useWindowDimensions from "../../../utils/useWindowDimensions";
  *
  * @return {jsx}
  */
-export const EmergencyButton = ({ classes }) => {
+export const EmergencyButton = ({ classes, ...props }) => {
   const { width } = useWindowDimensions();
   const isMobile = width < 768;
   return (
@@ -24,6 +24,7 @@ export const EmergencyButton = ({ classes }) => {
       size="md"
       classes={classes}
       web
+      {...props}
     />
   );
 };
