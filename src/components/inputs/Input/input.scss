@@ -1,0 +1,60 @@
+@import "../../../styles/theme";
+
+.input-container {
+  width: 34.3rem;
+
+  @media screen and (min-width: $screen-lg) {
+    width: 36.8rem;
+  }
+
+  &.disabled {
+    opacity: 0.6;
+  }
+
+  .label {
+    color: $color_blue_3d527b;
+    margin-bottom: $spacing_0_4;
+  }
+
+  .input-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: $border_radius_4_0;
+    box-shadow: $shadow_1;
+    border: 0.1rem solid transparent;
+    background-color: $color_white_ff;
+
+    .input {
+      width: 100%;
+      border: 0;
+      color: $color_black_37;
+      padding: $spacing_1_0 $spacing_2_4;
+      background-color: $color_white_ff;
+      border-radius: $border_radius_4_0;
+
+      &::placeholder {
+        color: $color_gray_a6b4b8;
+      }
+
+      &:hover,
+      &:focus {
+        outline: none;
+      }
+    }
+
+    &:hover:not(&.error):has(input:enabled),
+    &:not(&.error):has(input:focus-within:enabled) {
+      border: 0.1rem solid $color_secondary_9749fa;
+    }
+
+    &.error > input:enabled {
+      border: 0.1rem solid $color_red_eb5757;
+    }
+  }
+}
+.error-message {
+  color: $color_red_eb5757;
+  margin-left: $spacing_2_4;
+  margin-top: $spacing_0_4;
+}

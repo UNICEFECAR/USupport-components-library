@@ -1,3 +1,32 @@
+# v0.1.6 (Tue Sep 27 2022)
+
+#### 🏎 Performance
+
+- Development [#12](https://github.com/UNICEFECAR/USupport-components-library/pull/12) ([@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+
+#### Authors: 1
+
+- Vasilen Tsvetkov ([@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+
+---
+
+# v0.1.5 (Tue Sep 27 2022)
+
+#### 🐛 Bug Fix
+
+- Staging [#11](https://github.com/UNICEFECAR/USupport-components-library/pull/11) ([@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+- Development [#10](https://github.com/UNICEFECAR/USupport-components-library/pull/10) ([@sebastian-7DIGIT](https://github.com/sebastian-7DIGIT) runner@fv-az180-864.aibneqh1mxpuhl3tnnuy2ifbce.bx.internal.cloudapp.net [@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT) [@GGanchev16](https://github.com/GGanchev16))
+
+#### Authors: 5
+
+- [@GGanchev16](https://github.com/GGanchev16)
+- 7DIGIT LLC (runner@fv-az180-864.aibneqh1mxpuhl3tnnuy2ifbce.bx.internal.cloudapp.net)
+- 7DIGIT LLC (runner@fv-az206-925.3ku5f04kxp4ubmqdbfr0w1rgig.cx.internal.cloudapp.net)
+- Sebastian Galustyan ([@sebastian-7DIGIT](https://github.com/sebastian-7DIGIT))
+- Vasilen Tsvetkov ([@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+
+---
+
 # v0.1.4 (Tue Sep 27 2022)
 
 #### 🐛 Bug Fix

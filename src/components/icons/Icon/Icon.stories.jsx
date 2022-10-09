@@ -70,13 +70,32 @@ const icons = [
   "mail",
   "sound-playing",
   "sound-muted",
+  "app-store",
+  "community",
+  "therapy",
+  "self-care",
+  "consultation",
+  "calm",
+  "flag-kazakhstan",
+  "flag-bulgaria",
+  "flag-germany",
+  "flag-swiss",
+  "navbar-burger",
+  "globe",
+  "linkedin",
+  "facebook",
+  "twitter",
+  "call-filled",
+  "pin",
+  "mail-filled",
 ];
 
-export const All = (args) => (
+export const All = (props) => (
   <div style={{ display: "flex", flexWrap: "wrap" }}>
-    {icons.map((icon) => {
+    {icons.map((icon, index) => {
       return (
         <div
+          key={index}
           style={{
             display: "flex",
             flexDirection: "column",
@@ -84,8 +103,10 @@ export const All = (args) => (
             padding: "0 1rem",
           }}
         >
-          <Icon name={icon} {...args} />
-          <h6 style={{ paddingTop: "0.5rem" }}>{icon}</h6>
+          <Icon name={icon} {...props} />
+          <p className="text" style={{ paddingTop: "0.5rem" }}>
+            {icon}
+          </p>
         </div>
       );
     })}

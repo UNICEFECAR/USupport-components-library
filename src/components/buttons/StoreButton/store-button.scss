@@ -1,0 +1,28 @@
+@import "../../../styles/theme";
+
+.btn--store {
+  &.btn {
+    min-width: 34.3rem;
+
+    @media screen and (min-width: $screen-md) {
+      min-width: 21rem;
+    }
+
+    @media screen and (min-width: $screen-lg) {
+      min-width: 27.2rem;
+    }
+  }
+
+  .btn__text-container {
+    display: flex;
+    flex-direction: column;
+    padding-left: $spacing_1_2;
+
+    .download {
+      font-size: $font_size_1_2;
+      font-weight: $font_medium;
+      line-height: $line_height_1_8;
+      color: $color_gray_66768d;
+    }
+  }
+}

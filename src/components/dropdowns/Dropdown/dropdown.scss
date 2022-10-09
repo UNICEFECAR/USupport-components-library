@@ -1,0 +1,100 @@
+@import "../../../styles/theme";
+
+.dropdown {
+  width: 34.3rem;
+  border-radius: $border_radius_2_4;
+  cursor: pointer;
+  position: relative;
+  z-index: $z_index_1;
+
+  @media screen and (min-width: $screen-lg) {
+    width: 36.8rem;
+  }
+
+  .heading {
+    padding: $spacing_1_0 $spacing_1_6;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border: 0.1rem solid transparent;
+    border-radius: $border_radius_2_4;
+    background-color: $color_white_ff;
+
+    &-error {
+      border: 0.1rem solid $color_red_eb5757;
+    }
+
+    &:hover {
+      border: 0.1rem solid $color_secondary_9749fa;
+    }
+
+    .icon--arrow-chevron-down {
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .placeholder {
+      color: $color_gray_a6b4b8;
+    }
+  }
+
+  &-content {
+    margin-right: $spacing_1_6;
+    position: absolute;
+    width: 32.7rem;
+    background-color: $color_white_ff;
+    box-shadow: $shadow_1;
+    border-radius: $border_radius_2_4;
+
+    @media screen and (min-width: $screen-lg) {
+      width: 35.2rem;
+    }
+
+    &__options-container {
+      transition: max-height 0.3s ease-in-out;
+      max-height: 0;
+      overflow-y: auto;
+      @include scrollbar;
+    }
+
+    .option-container {
+      padding: $spacing_0_8;
+
+      &.option-selected {
+        background-color: $color_green_f4f7fe;
+      }
+
+      &.disabled {
+        color: $color_gray_a6b4b8;
+      }
+    }
+
+    &__single-option {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  &--expanded {
+    .heading {
+      border: 0.1rem solid $color-secondary-9749fa;
+
+      .icon--arrow-chevron-down {
+        transform: rotate(180deg);
+      }
+    }
+
+    .dropdown-content {
+      padding: $spacing_6_0 $spacing_0_8 $spacing_2_0 $spacing_0_8;
+      top: 0;
+      z-index: $z_index_negative;
+      max-height: 16.4rem;
+
+      &__options-container {
+        transition: max-height 0.3s ease-in-out;
+        max-height: 16.4rem;
+      }
+    }
+  }
+}
