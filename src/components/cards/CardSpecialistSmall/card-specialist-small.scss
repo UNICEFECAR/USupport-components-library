@@ -5,7 +5,11 @@
   display: flex;
   flex-direction: row;
   padding: $spacing_2_4;
-  width: 34.4rem;
+  width: calc(34.4rem - 2 * $spacing_2_4);
+
+  @media screen and (min-width: $screen_lg) {
+    width: calc(35.2rem - 2 * $spacing_2_4);
+  }
 
   & > img {
     border-radius: $border_radius_2_4;
@@ -20,9 +24,5 @@
     & > p {
       word-break: break-all;
     }
-  }
-
-  @media screen and (min-width: $screen-lg) {
-    width: 35.2rem;
   }
 }
