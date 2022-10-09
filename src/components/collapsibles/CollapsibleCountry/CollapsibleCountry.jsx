@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Collapsible } from "../Collapsible/Collapsible";
-import { IconFlag } from "../../icons/IconFlag/IconFlag";
+import { Collapsible } from "../Collapsible";
+import { IconFlag } from "../../icons/IconFlag";
 
 import "./collapsiblecountry.scss";
 

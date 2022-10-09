@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Icon } from "../Icon/Icon";
+import { Icon } from "../Icon";
 
 import "./icon-with-text.scss";
 

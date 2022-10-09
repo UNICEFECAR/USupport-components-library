@@ -1,6 +1,6 @@
 import React from "react";
 import propTypes from "prop-types";
-import { Animation } from "../../animations/Animation/Animation";
+import { Animation } from "../../animations/Animation";
 
 import "./loading.scss";
 

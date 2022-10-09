@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Collapsible } from "../Collapsible/Collapsible";
-import { Line } from "../../separators/Line/Line";
+import { Collapsible } from "../Collapsible";
+import { Line } from "../../separators/Line";
 
 import "./collapsiblefaq.scss";
 

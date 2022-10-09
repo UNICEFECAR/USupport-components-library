@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Input } from "../Input/Input";
-import { Icon } from "../../icons/Icon/Icon";
+import { Input } from "../Input";
+import { Icon } from "../../icons/Icon";
 
 import "./input-search.scss";
 

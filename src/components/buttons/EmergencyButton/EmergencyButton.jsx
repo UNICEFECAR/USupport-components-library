@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { ButtonWithIcon } from "../ButtonWithIcon/ButtonWithIcon";
+import { ButtonWithIcon } from "../ButtonWithIcon";
 import useWindowDimensions from "../../../utils/useWindowDimensions";
 
 /**

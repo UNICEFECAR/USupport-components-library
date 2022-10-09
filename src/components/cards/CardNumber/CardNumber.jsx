@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Box } from "../../boxes/Box/Box";
-import { Icon } from "../../icons/Icon/Icon";
+import { Box } from "../../boxes/Box";
+import { Icon } from "../../icons/Icon";
 
 import "./card-number.scss";
 

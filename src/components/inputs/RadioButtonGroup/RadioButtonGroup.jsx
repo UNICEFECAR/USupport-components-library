@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { RadioButton } from "../RadioButton/RadioButton";
+import { RadioButton } from "../RadioButton";
 
 /**
  * RadioButtonGroup

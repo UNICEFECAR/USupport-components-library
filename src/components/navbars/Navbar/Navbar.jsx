@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import useWindowDimensions from "../../../utils/useWindowDimensions";
-import { Icon } from "../../icons/Icon/Icon";
-import { List } from "../../lists/List/List";
-import { Button } from "../../buttons/Button/Button";
-import { CollapsibleCountry } from "../../collapsibles/CollapsibleCountry/CollapsibleCountry";
-import { Box } from "../../boxes/Box/Box";
+import { Icon } from "../../icons/Icon";
+import { List } from "../../lists/List";
+import { Button } from "../../buttons/Button";
+import { CollapsibleCountry } from "../../collapsibles/CollapsibleCountry";
+import { Box } from "../../boxes/Box";
 import OutsideClickHandler from "react-outside-click-handler";
 
 import "./navbar.scss";

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import "./emoticon.scss";
-import { Icon } from "../Icon/Icon";
+import { Icon } from "../Icon";
 
 /**
  * Emoticon component

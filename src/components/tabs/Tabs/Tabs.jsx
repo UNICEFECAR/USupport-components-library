@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import OutsideClickHandler from "react-outside-click-handler";
-import { Box } from "../../boxes/Box/Box";
+import { Box } from "../../boxes/Box";
 
 import "./tabs.scss";
 
