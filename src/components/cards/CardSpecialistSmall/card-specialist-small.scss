@@ -1,0 +1,28 @@
+@import "../../../styles/theme";
+
+.card-specialist-small {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  padding: $spacing_2_4;
+  width: 34.4rem;
+
+  & > img {
+    border-radius: $border_radius_2_4;
+    width: 8rem;
+    height: 8rem;
+  }
+
+  &__information {
+    padding-left: $spacing_1_6;
+
+    & > h4,
+    & > p {
+      word-break: break-all;
+    }
+  }
+
+  @media screen and (min-width: $screen-lg) {
+    width: 35.2rem;
+  }
+}
