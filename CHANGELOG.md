@@ -1,3 +1,47 @@
+# v0.2.0 (Sun Oct 09 2022)
+
+#### 🚀 Enhancement
+
+- Merge development into main [#33](https://github.com/UNICEFECAR/USupport-components-library/pull/33) ([@georgiganchev-7DIGIT](https://github.com/georgiganchev-7DIGIT) [@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT) [@sebastian-7DIGIT](https://github.com/sebastian-7DIGIT) [@georgipavlov-7DIGIT](https://github.com/georgipavlov-7DIGIT))
+
+#### 🐛 Bug Fix
+
+- Feature/us 182 meet our specialists block [#31](https://github.com/UNICEFECAR/USupport-components-library/pull/31) ([@georgipavlov-7DIGIT](https://github.com/georgipavlov-7DIGIT))
+- Feature/us 185 contact us designs [#30](https://github.com/UNICEFECAR/USupport-components-library/pull/30) ([@georgipavlov-7DIGIT](https://github.com/georgipavlov-7DIGIT) [@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+- Feature/us 217 collapsibles [#29](https://github.com/UNICEFECAR/USupport-components-library/pull/29) ([@sebastian-7DIGIT](https://github.com/sebastian-7DIGIT) [@georgiganchev-7DIGIT](https://github.com/georgiganchev-7DIGIT) [@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+- Feature/us 185 contact us designs [#27](https://github.com/UNICEFECAR/USupport-components-library/pull/27) ([@georgipavlov-7DIGIT](https://github.com/georgipavlov-7DIGIT) [@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+- Feature/us 171 tabs [#17](https://github.com/UNICEFECAR/USupport-components-library/pull/17) ([@georgiganchev-7DIGIT](https://github.com/georgiganchev-7DIGIT) [@georgipavlov-7DIGIT](https://github.com/georgipavlov-7DIGIT) [@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+- Feature/us 141 inputs [#16](https://github.com/UNICEFECAR/USupport-components-library/pull/16) ([@georgiganchev-7DIGIT](https://github.com/georgiganchev-7DIGIT) [@georgipavlov-7DIGIT](https://github.com/georgipavlov-7DIGIT) [@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+- Feature/us-141 checkboxes and radiobuttons [#13](https://github.com/UNICEFECAR/USupport-components-library/pull/13) ([@georgiganchev-7DIGIT](https://github.com/georgiganchev-7DIGIT) [@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT) [@georgipavlov-7DIGIT](https://github.com/georgipavlov-7DIGIT))
+- Feature/us 217 collapsibles [#21](https://github.com/UNICEFECAR/USupport-components-library/pull/21) ([@georgiganchev-7DIGIT](https://github.com/georgiganchev-7DIGIT) [@sebastian-7DIGIT](https://github.com/sebastian-7DIGIT))
+- Feature/us 170 dropdowns [#26](https://github.com/UNICEFECAR/USupport-components-library/pull/26) ([@georgipavlov-7DIGIT](https://github.com/georgipavlov-7DIGIT))
+- Add: animation when expanding the Dropdown [#25](https://github.com/UNICEFECAR/USupport-components-library/pull/25) ([@georgipavlov-7DIGIT](https://github.com/georgipavlov-7DIGIT))
+- Feature/us 170 dropdowns [#24](https://github.com/UNICEFECAR/USupport-components-library/pull/24) ([@georgiganchev-7DIGIT](https://github.com/georgiganchev-7DIGIT) [@georgipavlov-7DIGIT](https://github.com/georgipavlov-7DIGIT))
+- Feature/us 218 grids [#22](https://github.com/UNICEFECAR/USupport-components-library/pull/22) ([@sebastian-7DIGIT](https://github.com/sebastian-7DIGIT) [@georgipavlov-7DIGIT](https://github.com/georgipavlov-7DIGIT))
+- Feature/us 214 cards [#23](https://github.com/UNICEFECAR/USupport-components-library/pull/23) ([@georgipavlov-7DIGIT](https://github.com/georgipavlov-7DIGIT) [@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+- Feature/us 163 assets [#14](https://github.com/UNICEFECAR/USupport-components-library/pull/14) ([@georgiganchev-7DIGIT](https://github.com/georgiganchev-7DIGIT) [@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+- Create: Label component [#18](https://github.com/UNICEFECAR/USupport-components-library/pull/18) ([@georgiganchev-7DIGIT](https://github.com/georgiganchev-7DIGIT) [@sebastian-7DIGIT](https://github.com/sebastian-7DIGIT))
+- Feature/us 167 buttons [#20](https://github.com/UNICEFECAR/USupport-components-library/pull/20) ([@georgipavlov-7DIGIT](https://github.com/georgipavlov-7DIGIT))
+- Feature/us 214 cards [#19](https://github.com/UNICEFECAR/USupport-components-library/pull/19) ([@sebastian-7DIGIT](https://github.com/sebastian-7DIGIT))
+- Feature/us 141 inputs - WIP [#15](https://github.com/UNICEFECAR/USupport-components-library/pull/15) ([@georgiganchev-7DIGIT](https://github.com/georgiganchev-7DIGIT) [@sebastian-7DIGIT](https://github.com/sebastian-7DIGIT))
+- Feature/us 167 buttons [#9](https://github.com/UNICEFECAR/USupport-components-library/pull/9) ([@georgiganchev-7DIGIT](https://github.com/georgiganchev-7DIGIT) [@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+
+#### ⚠️ Pushed to `main`
+
+- Fix: git not detecting case sensitive changes ([@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+- Fix: wrong imports ([@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+- Merge branch 'main' of github.com:UNICEFECAR/USupport-components-library into staging ([@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+- Fix: issues in package lock file ([@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+
+#### Authors: 4
+
+- Georgi Ganchev ([@georgiganchev-7DIGIT](https://github.com/georgiganchev-7DIGIT))
+- Georgi Pavlov ([@georgipavlov-7DIGIT](https://github.com/georgipavlov-7DIGIT))
+- Sebastian Galustyan ([@sebastian-7DIGIT](https://github.com/sebastian-7DIGIT))
+- Vasilen Tsvetkov ([@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+
+---
+
 # v0.1.6 (Tue Sep 27 2022)
 
 #### 🏎 Performance
