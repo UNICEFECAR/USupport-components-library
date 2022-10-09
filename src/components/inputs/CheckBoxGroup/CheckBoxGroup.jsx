@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { CheckBox } from "../Checkbox";
+import { CheckBox } from "../CheckBox";
 
 /**
  * CheckBoxGroup
