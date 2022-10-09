@@ -77,8 +77,11 @@ export const Dropdown = ({
           )}
           <Icon name="arrow-chevron-down" />
         </div>
-        {/* TODO: make the dropdown-content to be absolute so that the whole page does not jump */}
-        <div className="dropdown-content">{renderAllOptions()}</div>
+        <div className="dropdown-content">
+          <div className="dropdown-content__options-container">
+            {renderAllOptions()}
+          </div>
+        </div>
       </Box>
       {errorMessage ? (
         <p className="small-text error-message">{errorMessage}</p>

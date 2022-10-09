@@ -4,6 +4,8 @@
   width: 34.3rem;
   border-radius: $border_radius_2_4;
   cursor: pointer;
+  position: relative;
+  z-index: $z_index_1;
 
   @media screen and (min-width: $screen-lg) {
     width: 36.8rem;
@@ -37,17 +39,29 @@
   }
 
   &-content {
-    max-height: 0;
     margin-right: $spacing_1_6;
-    overflow-y: auto;
-    transition: max-height 0.3s ease-in-out;
+    position: absolute;
+    width: 32.7rem;
+    background-color: $color_white_ff;
+    box-shadow: $shadow_1;
+    border-radius: $border_radius_2_4;
+
+    @media screen and (min-width: $screen-lg) {
+      width: 35.2rem;
+    }
+
+    &__options-container {
+      transition: max-height 0.3s ease-in-out;
+      max-height: 0;
+      overflow-y: auto;
+      @include scrollbar;
+    }
 
     .option-container {
       padding: $spacing_0_8;
 
       &.option-selected {
-        border-radius: 0.8rem;
-        background-color: #e6f1f4;
+        background-color: $color_green_f4f7fe;
       }
 
       &.disabled {
@@ -60,27 +74,27 @@
         cursor: pointer;
       }
     }
-
-    @include scrollbar;
   }
 
   &--expanded {
-    border: 1px solid rgba(217, 217, 217, 0.63);
-    border-top: 0;
-    border-top-left-radius: 2.6rem;
-    border-top-right-radius: 2.6rem;
-
     .heading {
       border: 0.1rem solid $color-secondary-9749fa;
+
       .icon--arrow-chevron-down {
         transform: rotate(180deg);
       }
     }
 
     .dropdown-content {
-      padding: $spacing_1_0 $spacing_0_8;
+      padding: $spacing_6_0 $spacing_0_8 $spacing_2_0 $spacing_0_8;
+      top: 0;
+      z-index: $z_index_negative;
       max-height: 16.4rem;
-      transition: max-height 0.3s ease-in-out;
+
+      &__options-container {
+        transition: max-height 0.3s ease-in-out;
+        max-height: 16.4rem;
+      }
     }
   }
 }
