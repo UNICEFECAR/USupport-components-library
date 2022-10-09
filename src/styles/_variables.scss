@@ -4,6 +4,10 @@ $screen-md: 768px;
 $screen-lg: 1366px;
 $screen-xl: 1600px;
 
+// Navbar size
+$navbar-tight: 900px;
+$navbar-spread: 1050px;
+
 // Font Family
 $font_family: "Nunito", sans-serif;
 
@@ -16,9 +20,7 @@ $font_bold: 700;
 $font_extra_bold: 800;
 
 // Font Sizes
-$font_size_0_8: 0.8rem;
 $font_size_1_2: 1.2rem;
-$font_size_1_4: 1.4rem;
 $font_size_1_6: 1.6rem;
 $font_size_2_0: 2rem;
 $font_size_2_4: 2.4rem;
@@ -27,12 +29,10 @@ $font_size_4_0: 4rem;
 $font_size_6_4: 6.4rem;
 
 // Line Heights
-$line_height_1_6: 1.6rem;
 $line_height_1_8: 1.8rem;
 $line_height_2_2: 2.2rem;
 $line_height_2_4: 2.4rem;
 $line_height_2_8: 2.8rem;
-$line_height_3_4: 3.4rem;
 $line_height_3_8: 3.8rem;
 $line_height_4_8: 4.8rem;
 $line_height_7_7: 7.7rem;

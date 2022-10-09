@@ -5,8 +5,9 @@ import useWindowDimensions from "../../../utils/useWindowDimensions";
 import { Icon } from "../../icons/Icon/Icon";
 import { List } from "../../lists/List/List";
 import { Button } from "../../buttons/Button/Button";
-// import { Collapsible } from "../../collapsibles/Collapsible/Collapsible";
-// import { CollapsibleCountry } from "../../collapsibles/CollapsibleCountry/CollapsibleCountry";
+import { CollapsibleCountry } from "../../collapsibles/CollapsibleCountry/CollapsibleCountry";
+import { Box } from "../../boxes/Box/Box";
+import OutsideClickHandler from "react-outside-click-handler";
 
 import "./navbar.scss";
 
@@ -25,6 +26,7 @@ export const Navbar = ({ pages, countries }) => {
   const scrollTop = () => window.scrollTo(0, 0);
 
   const [isNavbarExpanded, setIsNavbarExpanded] = useState(false);
+  const [countriesShown, setCountriesShown] = useState(false);
 
   let items = [];
   pages.forEach((page) => {
@@ -49,12 +51,14 @@ export const Navbar = ({ pages, countries }) => {
     value: (
       <div
         className={[
-          "nav__countries",
+          "nav__globe",
           "nav__item",
-          width < 900 ? "collapsible__content" : "",
+          countriesShown ? "nav__globe--expanded" : "",
         ].join(" ")}
+        onClick={() => toggleCountries()}
       >
         <Icon name="globe" size="md" />
+        {width < 900 && <p className="paragraph">Country &amp; Language</p>}
         <Icon name="arrow-chevron-down" size="sm" color="#20809e" />
       </div>
     ),
@@ -77,12 +81,20 @@ export const Navbar = ({ pages, countries }) => {
   );
 
   function toggleNavbar() {
-    if (width < 900) setIsNavbarExpanded((prev) => !prev);
+    if (width < 900) {
+      setIsNavbarExpanded((prev) => !prev);
+      setCountriesShown(false);
+    }
   }
 
-  // function handleLanguageClick(language) {
-  //   console.log(`Change language to ${language}`);
-  // }
+  function handleLanguageClick(language) {
+    console.log(`Change language to ${language}`);
+    toggleCountries();
+  }
+
+  const toggleCountries = () => {
+    setCountriesShown((prev) => !prev);
+  };
 
   return (
     <>
@@ -118,24 +130,32 @@ export const Navbar = ({ pages, countries }) => {
         />
         {width >= 900 && ctaLogin}
       </nav>
-      {/* TODO: Add functionality for Countries & Languages */}
-      {/* <Collapsible
-        classes={["nav__countries", "nav__item"]}
-        heading={<Icon name="globe" size="md" />}
-        iconSize="sm"
-        iconColor="#20809e"
-        content={countries.map((country, index) => {
-          return (
-            <CollapsibleCountry
-              country={country}
-              onLanguageClick={(language) => {
-                handleLanguageClick(language);
-              }}
-              key={index}
-            />
-          );
-        })}
-      /> */}
+      <OutsideClickHandler onOutsideClick={() => setCountriesShown(false)}>
+        <div
+          className={`nav__countries ${
+            countriesShown ? "nav__countries--shown" : ""
+          }`}
+        >
+          <Box
+            classes={`nav__countries__content ${
+              countriesShown ? "nav__countries__content--shown" : ""
+            }`}
+          >
+            {width >= 900 && <h4>Country &amp; Language</h4>}
+            {countries.map((country, index) => {
+              return (
+                <CollapsibleCountry
+                  country={country}
+                  onLanguageClick={(language) => {
+                    handleLanguageClick(language);
+                  }}
+                  key={index}
+                />
+              );
+            })}
+          </Box>
+        </div>
+      </OutsideClickHandler>
     </>
   );
 };

@@ -18,7 +18,7 @@
   padding-top: $spacing_2_0;
   cursor: default;
 
-  @media screen and (min-width: 900px) {
+  @media screen and (min-width: $navbar-tight) {
     padding: $spacing_1_6 0;
     align-items: center;
     height: auto;
@@ -34,7 +34,7 @@
   &__toggler {
     margin: $spacing_0_4 0 0 $spacing_1_6;
 
-    @media screen and (min-width: 900px) {
+    @media screen and (min-width: $navbar-tight) {
       display: none;
     }
   }
@@ -43,13 +43,13 @@
     display: none;
     cursor: pointer;
 
-    @media screen and (min-width: 900px) {
+    @media screen and (min-width: $navbar-tight) {
       display: block;
       height: 3.8rem;
       padding-left: $spacing_2_4;
     }
 
-    @media screen and (min-width: 1050px) {
+    @media screen and (min-width: $navbar-spread) {
       height: 4.8rem;
     }
   }
@@ -66,7 +66,7 @@
     width: 100%;
     padding: $spacing_4_0 0 0 $spacing_1_6;
 
-    @media screen and (min-width: 900px) {
+    @media screen and (min-width: $navbar-tight) {
       width: auto;
       padding: 0;
       display: flex;
@@ -78,11 +78,11 @@
     display: flex;
     cursor: pointer;
 
-    @media screen and (min-width: 900px) {
+    @media screen and (min-width: $navbar-tight) {
       padding: 0 1.2rem 0 0;
     }
 
-    @media screen and (min-width: 1050px) {
+    @media screen and (min-width: $navbar-spread) {
       padding: 0 3.2rem 0 0;
     }
 
@@ -92,7 +92,7 @@
       padding: 0 $spacing_0_8 $spacing_0_4 0;
       position: relative;
 
-      @media screen and (min-width: 900px) {
+      @media screen and (min-width: $navbar-tight) {
         text-align: center;
         padding: 0 $spacing_0_4 0 $spacing_0_4;
         margin-bottom: 0;
@@ -133,8 +133,70 @@
     }
   }
 
-  &__countries {
+  &__globe {
     display: flex;
     align-items: center;
+
+    p {
+      padding: 0 $spacing_0_6;
+      margin: 0;
+    }
+
+    & > .icon--arrow-chevron-down {
+      transition: transform 0.3s ease-in-out;
+    }
+
+    &--expanded {
+      & > .icon--arrow-chevron-down {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  &__countries {
+    position: fixed;
+    z-index: $z_index_emergency_button;
+    left: 1rem;
+    top: 33rem;
+    opacity: 0;
+    transition: opacity 0.1s ease-in-out;
+
+    @media screen and (min-width: $navbar-tight) {
+      top: 7.5rem;
+      right: 0;
+      left: auto;
+    }
+
+    @media screen and (min-width: $navbar-spread) {
+      top: 8.5rem;
+      right: 3rem;
+    }
+
+    @media screen and (min-width: $screen-lg) {
+      right: 13rem;
+    }
+
+    &--shown {
+      opacity: 1;
+    }
+
+    &__content {
+      position: relative;
+      padding: $spacing_2_4;
+      max-height: 0;
+      transition: max-height 0.4s ease-in-out;
+      overflow-y: auto;
+      @include scrollbar;
+
+      &--shown {
+        height: 16rem;
+        max-height: 16rem;
+
+        @media screen and (min-width: $navbar-tight) {
+          height: 20rem;
+          max-height: 20rem;
+        }
+      }
+    }
   }
 }
