@@ -27,7 +27,12 @@ export const Input = ({
           className={["input-wrapper", errorMessage ? "error" : ""].join(" ")}
         >
           {preInput ? preInput : null}
-          <input type={type} disabled={disabled} className="input" {...props} />
+          <input
+            type={type}
+            disabled={disabled}
+            className="input text"
+            {...props}
+          />
           {children ? children : null}
         </div>
       </div>

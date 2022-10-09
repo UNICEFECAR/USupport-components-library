@@ -71,9 +71,9 @@ export const Dropdown = ({
           className={["heading", errorMessage ? "heading-error" : ""].join(" ")}
         >
           {selected ? (
-            <p>{selected.label}</p>
+            <p className="text">{selected.label}</p>
           ) : (
-            <p className="placeholder">{placeholder}</p>
+            <p className="text placeholder">{placeholder}</p>
           )}
           <Icon name="arrow-chevron-down" />
         </div>

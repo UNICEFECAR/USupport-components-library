@@ -61,19 +61,7 @@
       }
     }
 
-    &::-webkit-scrollbar {
-      width: 0.3rem;
-    }
-
-    &::-webkit-scrollbar-track {
-      margin: $spacing_2_4;
-      background: rgba(217, 217, 217, 0.63);
-      border-radius: 0.3rem;
-    }
-    &::-webkit-scrollbar-thumb {
-      background-color: $color_secondary_9749fa;
-      border-radius: 0.3rem;
-    }
+    @include scrollbar;
   }
 
   &--expanded {
