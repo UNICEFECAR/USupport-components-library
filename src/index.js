@@ -15,3 +15,4 @@ export * from "./components/navbars";
 export * from "./components/forms";
 export * from './components/radials';
 export * from './components/animations';
+export * from './components/loaders';
