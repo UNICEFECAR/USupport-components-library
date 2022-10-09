@@ -1,0 +1,29 @@
+@import "../../../styles/theme";
+
+.box {
+  background-color: $color_white_ff;
+
+  &--border-radius-sm {
+    border-radius: $border_radius_2_4;
+  }
+
+  &--border-radius-md {
+    border-radius: $border_radius_3_2;
+  }
+
+  &--border-radius-lg {
+    border-radius: $border_radius_4_8;
+  }
+
+  &--box-shadow-1 {
+    box-shadow: $shadow_1;
+  }
+
+  &--box-shadow-2 {
+    box-shadow: $shadow_2;
+  }
+
+  &--box-shadow-3 {
+    box-shadow: $shadow_3;
+  }
+}

@@ -1,0 +1,36 @@
+@import "../../../styles/theme";
+
+.country {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  &:not(:first-child) {
+    padding-top: $spacing_1_6;
+  }
+
+  .country-details {
+    display: flex;
+    flex-direction: row;
+
+    .flag-container {
+      width: 3rem;
+      height: 2.4rem;
+      margin-right: $spacing_0_8;
+    }
+
+    .country-name {
+      padding-top: $spacing_0_4;
+    }
+  }
+
+  .languages {
+    padding: $spacing_0_8 0 0 $spacing_4_8;
+
+    > p {
+      margin-top: $spacing_0_8;
+      text-align: left;
+    }
+  }
+}
