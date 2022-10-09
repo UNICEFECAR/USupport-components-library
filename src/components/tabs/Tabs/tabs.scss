@@ -1,4 +1,4 @@
-@import "../../../styles//theme";
+@import "../../../styles/theme";
 
 .tabs {
   display: flex;
@@ -8,11 +8,9 @@
   .tab {
     padding: $spacing_0_4 $spacing_2_4;
     cursor: pointer;
-    background-color: #f4f7fe;
+    background-color: $color_green_f4f7fe;
     border-radius: $border_radius_4_0;
     margin: 0 $spacing_0_4;
-    font-size: $font_size_1_4;
-    font-weight: $font_medium;
     color: $color_black_37;
     border: 1px solid transparent;
 
@@ -68,18 +66,6 @@
       }
     }
 
-    &::-webkit-scrollbar {
-      width: 0.3rem;
-    }
-
-    &::-webkit-scrollbar-track {
-      margin: $spacing_2_4;
-      background: rgba(217, 217, 217, 0.63);
-      border-radius: 0.3rem;
-    }
-    &::-webkit-scrollbar-thumb {
-      background-color: $color_secondary_9749fa;
-      border-radius: 0.3rem;
-    }
+    @include scrollbar;
   }
 }

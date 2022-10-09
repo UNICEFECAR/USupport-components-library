@@ -19,7 +19,7 @@ export const CollapsibleCountry = ({ country, onLanguageClick }) => {
         <div className="flag-container">
           <IconFlag flagName={country.flagName} />
         </div>
-        <p className="text">{country.name}</p>
+        <p className="text country-name">{country.name}</p>
       </div>
     );
   };
@@ -49,8 +49,8 @@ export const CollapsibleCountry = ({ country, onLanguageClick }) => {
       <Collapsible
         heading={renderCountryHeading(country)}
         content={renderLanguages(country)}
-        iconColor={"#20809E"}
-        iconSize="md"
+        iconColor={"#20809e"}
+        iconSize="sm"
       />
     </div>
   );

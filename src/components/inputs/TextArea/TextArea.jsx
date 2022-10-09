@@ -23,7 +23,7 @@ export const TextArea = ({
     <div className={["text-area--container", classNames(classes)].join(" ")}>
       <p className="text label">{label}</p>
       <textarea
-        className="text-area"
+        className="text-area text"
         value={value}
         onChange={(e) => onChange(e.currentTarget.value)}
         {...rest}
