@@ -26,7 +26,7 @@ export const InputPassword = ({ ...props }) => {
         <Icon
           name={inputType === "text" ? "hide" : "view"}
           size="md"
-          color={"#7F2EE5"}
+          color={"#7f2ee5"}
         />
       </div>
     </Input>

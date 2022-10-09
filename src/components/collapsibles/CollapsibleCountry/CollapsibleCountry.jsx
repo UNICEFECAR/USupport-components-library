@@ -49,7 +49,7 @@ export const CollapsibleCountry = ({ country, onLanguageClick }) => {
       <Collapsible
         heading={renderCountryHeading(country)}
         content={renderLanguages(country)}
-        iconColor={"#20809E"}
+        iconColor={"#20809e"}
         iconSize="sm"
       />
     </div>

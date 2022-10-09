@@ -21,7 +21,7 @@ export const InputSearch = ({ onChange, ...props }) => {
         id={"search-icon"}
         name={"search"}
         size="md"
-        color={inputEmpty ? "#373737" : "7F2EE5"}
+        color={inputEmpty ? "#373737" : "#7f2ee5"}
       />
     </div>
   );
@@ -48,7 +48,7 @@ export const InputSearch = ({ onChange, ...props }) => {
           <Icon
             name={"close-x"}
             size="md"
-            color={inputEmpty ? "#373737" : "7F2EE5"}
+            color={inputEmpty ? "#373737" : "#7f2ee5"}
           />
         </div>
       )}
