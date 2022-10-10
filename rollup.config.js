@@ -13,13 +13,14 @@ export default [
     input: "./src/index.js",
     output: [
       {
-        file: "dist/index.js",
+        dir: "dist",
         format: "cjs",
+        preserveModules: true,
       },
       {
-        file: "dist/index.es.js",
+        dir: "dist",
         format: "es",
-        exports: "named",
+        preserveModules: true,
       },
     ],
     plugins: [
