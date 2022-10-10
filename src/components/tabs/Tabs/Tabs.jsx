@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import OutsideClickHandler from "react-outside-click-handler";
+// import OutsideClickHandler from "react-outside-click-handler";
 import { Box } from "../../boxes/Box";
 
 import "./tabs.scss";
@@ -84,28 +84,28 @@ export const Tabs = ({ options, handleSelect }) => {
   };
 
   return (
-    <OutsideClickHandler onOutsideClick={() => setIsOpen(false)}>
-      <div className="tabs">
-        {renderOptions()}
-        {options.length > NO_OPTIONS_TO_RENDER && (
-          <p
-            className={[
-              "text",
-              "show-more__text",
-              isMoreOptionSelected ? "show-more__text--selected" : "",
-            ].join(" ")}
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            +{options.length - NO_OPTIONS_TO_RENDER} more
-          </p>
-        )}
-      </div>
-      {isOpen ? (
-        <Box shadow={1} classes="show-more">
-          <div className="show-more__options">{renderShowMoreOptions()}</div>
-        </Box>
-      ) : null}
-    </OutsideClickHandler>
+    // <OutsideClickHandler onOutsideClick={() => setIsOpen(false)}>
+    <div className="tabs">
+      {renderOptions()}
+      {options.length > NO_OPTIONS_TO_RENDER && (
+        <p
+          className={[
+            "text",
+            "show-more__text",
+            isMoreOptionSelected ? "show-more__text--selected" : "",
+          ].join(" ")}
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          +{options.length - NO_OPTIONS_TO_RENDER} more
+        </p>
+      )}
+    </div>
+    // {isOpen ? (
+    //   <Box shadow={1} classes="show-more">
+    //     <div className="show-more__options">{renderShowMoreOptions()}</div>
+    //   </Box>
+    // ) : null}
+    // </OutsideClickHandler>
   );
 };
 
