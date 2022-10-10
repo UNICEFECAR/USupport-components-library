@@ -7,24 +7,27 @@ import svg from 'rollup-plugin-svg'
 import image from "@rollup/plugin-image";
 import json from "@rollup/plugin-json";
 import commonjs from "@rollup/plugin-commonjs";
+import pkg from './package.json';
 
 export default [
   {
     input: "./src/index.js",
     output: [
       {
-        dir: "dist",
+        file: pkg.main,
         format: "cjs",
-        preserveModules: true,
       },
       {
-        dir: "dist",
+        file: pkg.module,
         format: "es",
-        preserveModules: true,
       },
     ],
+    external: [
+      ...Object.keys(pkg.dependencies || {}),
+      ...Object.keys(pkg.peerDependencies || {}),
+    ],
     plugins: [
-      external({ includeDependencies: true, }),
+      external(),
       babel({
         babelHelpers: "bundled",
         exclude: "node_modules",

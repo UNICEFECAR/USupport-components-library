@@ -4,6 +4,9 @@
   "description": "USupport Components Library",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
+  "files": [
+    "dist/**/*"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "start-storybook -p 6006",
@@ -52,39 +55,24 @@
     "rollup-plugin-scss": "^3.0.0",
     "rollup-plugin-svg": "^2.0.0",
     "rollup-plugin-terser": "^7.0.2",
-    "storybook-addon-sass-postcss": "^0.1.3"
+    "storybook-addon-sass-postcss": "^0.1.3",
+    "rollup": "^2.79.1"
   },
   "peerDependencies": {
-    "auto": "^10.37.6",
-    "classnames": "^2.3.2",
-    "joi": "^17.6.2",
-    "lottie-react": "^2.3.1",
-    "prop-types": "^15.8.1",
     "react": ">=18.2.0",
     "react-dom": ">=18.2.0",
-    "react-outside-click-handler": "^1.3.0",
     "react-router-dom": "^6.4.2",
-    "rollup": "^2.79.1"
+    "auto": "*",
+    "classnames": "*",
+    "joi": "*",
+    "lottie-react": "*",
+    "prop-types": "*",
+    "react-outside-0click-handler": "*"
   },
-  "dependencies": {
-    "auto": "^10.37.6",
-    "classnames": "^2.3.2",
-    "joi": "^17.6.2",
-    "lottie-react": "^2.3.1",
-    "prop-types": "^15.8.1",
-    "react-outside-click-handler": "^1.3.0",
-    "rollup": "^2.79.1"
-  },
+  "dependencies": {},
   "publishConfig": {
     "access": "public",
     "cache": "cache/.npm"
-  },
-  "overrides": {
-    "remark-parse": "9.0.0",
-    "glob-parent": "5.1.2",
-    "trim-newlines": "3.0.1",
-    "react": ">=18.2.0",
-    "react-dom": ">=18.2.0"
   },
   "readme": "https://github.com/UNICEFECAR/USupport-components-library#readme",
   "babel": {
