@@ -1,0 +1,36 @@
+@import "../../../styles/theme";
+
+//TODO: FIX: the background gradient
+
+.consultation-big-card {
+  padding: $spacing_1_6;
+  display: flex;
+  flex-direction: row;
+  max-width: 34.3rem;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(
+    80.08deg,
+    #0daeb2 -27.58%,
+    #bfeaea 60.24%,
+    #55d0da 133.62%
+  );
+
+  .now-text {
+    color: $color_black_37;
+  }
+
+  .specialist-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: $spacing_0_8;
+
+    .specialist-image {
+      width: 3.2rem;
+      height: 3.2rem;
+      border-radius: 50%;
+      margin-right: $spacing_0_8;
+    }
+  }
+}
