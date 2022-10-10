@@ -23,13 +23,13 @@ export default [
       },
     ],
     plugins: [
+      external({ includeDependencies: true, }),
       babel({
         babelHelpers: "bundled",
         exclude: "node_modules",
         presets: ["@babel/preset-react"],
       }),
       scss(),
-      external(),
       resolve(),
       terser(),
       svg(),
