@@ -2,6 +2,21 @@
 
 #### ⚠️ Pushed to `main`
 
+- 0.4.4 ([@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+- 0.4.3 ([@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+- Merge branch 'main' of github.com:UNICEFECAR/USupport-components-library ([@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+- 0.4.2 ([@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+
+#### Authors: 1
+
+- Vasilen Tsvetkov ([@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+
+---
+
+# v0.4.2 (Mon Oct 10 2022)
+
+#### ⚠️ Pushed to `main`
+
 - 0.4.2 (vasilen@7digit.io)
 
 #### Authors: 1
