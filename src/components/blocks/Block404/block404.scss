@@ -1,0 +1,48 @@
+@import "../../../styles/theme";
+
+.block-404 {
+  padding-top: $spacing_3_2;
+  padding-bottom: $spacing_12_0;
+  background-image: url("./assets/Background.png");
+  background-repeat: no-repeat;
+  background-blend-mode: lighten;
+  background-position: left;
+
+  @media screen and (min-width: $screen_md) {
+    padding-top: $spacing_16_0;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+
+    @media screen and (min-width: $screen_md) {
+      padding-top: $spacing_4_0;
+    }
+
+    .sub-heading {
+      margin-top: $spacing_2_4;
+    }
+
+    > Button {
+      margin-top: $spacing_4_0;
+    }
+  }
+
+  &__mascot-item {
+    display: flex;
+    justify-content: center;
+
+    .mascot {
+      width: 24rem;
+      height: 17.2rem;
+      margin-top: $spacing_10_0;
+
+      @media screen and (min-width: $screen_md) {
+        width: 42.4rem;
+        height: 29.8rem;
+        margin-top: 0;
+      }
+    }
+  }
+}
