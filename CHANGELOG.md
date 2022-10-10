@@ -10,6 +10,21 @@
 
 ---
 
+# v0.4.1 (Mon Oct 10 2022)
+
+#### ⚠️ Pushed to `main`
+
+- Fix: wrong dependencies ([@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+- Merge branch 'staging' of github.com:UNICEFECAR/USupport-components-library ([@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+- Fix: missing dependencies ([@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+- Fix: problem with chromatic ci ([@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+
+#### Authors: 1
+
+- Vasilen Tsvetkov ([@vasilen-7DIGIT](https://github.com/vasilen-7DIGIT))
+
+---
+
 # v0.2.0 (Sun Oct 09 2022)
 
 #### 🚀 Enhancement
