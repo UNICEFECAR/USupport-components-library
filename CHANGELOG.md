@@ -1,3 +1,15 @@
+# v0.4.2 (Mon Oct 10 2022)
+
+#### ⚠️ Pushed to `main`
+
+- 0.4.2 (vasilen@7digit.io)
+
+#### Authors: 1
+
+- Vasilen Tsvetkov (vasilen@7digit.io)
+
+---
+
 # v0.2.0 (Sun Oct 09 2022)
 
 #### 🚀 Enhancement
