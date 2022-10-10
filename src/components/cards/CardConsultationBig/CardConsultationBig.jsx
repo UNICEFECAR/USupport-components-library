@@ -50,7 +50,7 @@ export const CardConsultationBig = ({
           />
         )}
       </div>
-      <img src={mascot} />
+      <img src={mascot} className="consultation-big-card__mascot" />
     </Box>
   );
 };
