@@ -10,7 +10,8 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "build-lib": "rollup -c",
-    "release": "auto shipit --base-branch=main"
+    "release": "auto shipit --base-branch=main",
+    "build": "cross-env BABEL_ENV=production babel src -d dist"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
   },
   "homepage": "https://github.com/UNICEFECAR/USupport-components-library#readme",
   "devDependencies": {
+    "@babel/cli": "^7.19.3",
     "@babel/preset-react": "^7.18.6",
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-commonjs": "^23.0.0",
@@ -42,6 +44,7 @@
     "@storybook/testing-library": "^0.0.13",
     "autoprefixer": "^9.8.8",
     "babel-loader": "^8.2.5",
+    "cross-env": "^7.0.3",
     "postcss": "^8.4.16",
     "postcss-color-rebeccapurple": "^7.1.1",
     "react": ">=18.2.0",
@@ -53,25 +56,25 @@
     "storybook-addon-sass-postcss": "^0.1.3"
   },
   "peerDependencies": {
-    "prop-types": "^15.8.1",
-    "react": ">=18.2.0",
-    "react-dom": ">=18.2.0",
     "auto": "^10.37.6",
     "classnames": "^2.3.2",
     "joi": "^17.6.2",
     "lottie-react": "^2.3.1",
+    "prop-types": "^15.8.1",
+    "react": ">=18.2.0",
+    "react-dom": ">=18.2.0",
     "react-outside-click-handler": "^1.3.0",
     "react-router-dom": "^6.4.2",
     "rollup": "^2.79.1"
   },
   "dependencies": {
-    "react": ">=18.2.0",
-    "react-dom": ">=18.2.0",
     "auto": "^10.37.6",
     "classnames": "^2.3.2",
     "joi": "^17.6.2",
     "lottie-react": "^2.3.1",
     "prop-types": "^15.8.1",
+    "react": ">=18.2.0",
+    "react-dom": ">=18.2.0",
     "react-outside-click-handler": "^1.3.0",
     "react-router-dom": "^6.4.2",
     "rollup": "^2.79.1"
@@ -87,5 +90,12 @@
     "react": ">=18.2.0",
     "react-dom": ">=18.2.0"
   },
-  "readme": "https://github.com/UNICEFECAR/USupport-components-library#readme"
+  "readme": "https://github.com/UNICEFECAR/USupport-components-library#readme",
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-react"
+      ]
+    ]
+  }
 }
