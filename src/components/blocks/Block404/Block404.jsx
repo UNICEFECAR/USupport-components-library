@@ -23,14 +23,16 @@ export const Block404 = (
   return (
     <Block classes="block-404">
       <Grid>
-        <GridItem md={5} lg={4} classes="block-404__content">
-          <h3>Oops! We can't find the page you are looking for...</h3>
-          <p className="text sub-heading">
-            It seems this page is missing or is not available at the moment.
-          </p>
-          <Button label="Go to Homepage" size="lg" />
+        <GridItem md={6} lg={6}>
+          <GridItem md={4} lg={6} classes="block-404__content">
+            <h3>Oops! We can't find the page you are looking for...</h3>
+            <p className="text sub-heading">
+              It seems this page is missing or is not available at the moment.
+            </p>
+            <Button label="Go to Homepage" size="lg" />
+          </GridItem>
         </GridItem>
-        <GridItem md={3} lg={6} classes="block-404__mascot-item">
+        <GridItem md={2} lg={6} classes="block-404__mascot-item">
           <img src={mascot} alt="Mascot" className="mascot" />
         </GridItem>
       </Grid>

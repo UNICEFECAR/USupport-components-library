@@ -22,10 +22,12 @@
 
     .sub-heading {
       margin-top: $spacing_2_4;
+      color: $color_gray_66768d;
     }
 
     > Button {
       margin-top: $spacing_4_0;
+      max-width: 3.7rem;
     }
   }
 
