@@ -17,3 +17,4 @@ export * from './components/radials';
 export * from './components/animations';
 export * from './components/loaders';
 export * from './components/modals';
+export * from './components/calendar';

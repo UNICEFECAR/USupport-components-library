@@ -1,0 +1,22 @@
+@import "../../../styles/theme";
+
+.single-day {
+  padding: $spacing_0_8;
+  width: 9.8rem;
+  border-radius: 0.4rem;
+  background-color: #c1eaea;
+  border: 0.2rem solid transparent;
+
+  &__no-consultations {
+    background-color: $color_white_ff;
+  }
+
+  &__today {
+    border: 0.2rem solid $color_primary_20809e;
+    box-shadow: $shadow_1;
+  }
+
+  &__consultation-text {
+    margin-top: $spacing_1_8;
+  }
+}
