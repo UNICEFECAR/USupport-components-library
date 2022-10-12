@@ -1,6 +1,6 @@
 @import "../../../styles/theme";
 
-.block-404 {
+.block-not-found {
   padding-top: $spacing_3_2;
   padding-bottom: $spacing_12_0;
   background-image: url("./assets/Background.png");
@@ -15,9 +15,14 @@
   &__content {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
 
     @media screen and (min-width: $screen_md) {
       padding-top: $spacing_4_0;
+      justify-content: flex-start;
+      align-items: flex-start;
     }
 
     .sub-heading {
@@ -32,18 +37,21 @@
   }
 
   &__mascot-item {
-    display: flex;
-    justify-content: center;
+    @media screen and (min-width: $screen_md) {
+      justify-self: end;
+    }
 
-    .mascot {
-      width: 24rem;
-      height: 17.2rem;
+    > img {
+      width: 25rem;
       margin-top: $spacing_10_0;
 
       @media screen and (min-width: $screen_md) {
-        width: 42.4rem;
-        height: 29.8rem;
+        width: 30rem;
         margin-top: 0;
+      }
+
+      @media screen and (min-width: $screen_lg) {
+        width: 40rem;
       }
     }
   }
