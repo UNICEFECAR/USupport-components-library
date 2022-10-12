@@ -1,23 +1,16 @@
 @import "../../../styles/theme";
 
-.block-not-found {
+.not-found {
   padding-top: $spacing_3_2;
   padding-bottom: $spacing_12_0;
-  background-image: url("./assets/Background.png");
-  background-repeat: no-repeat;
-  background-blend-mode: lighten;
-  background-position: left;
 
   @media screen and (min-width: $screen_md) {
     padding-top: $spacing_16_0;
   }
 
-  &__content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  &__content-item {
     text-align: left;
+    justify-self: center;
 
     @media screen and (min-width: $screen_md) {
       padding-top: $spacing_4_0;
@@ -25,18 +18,22 @@
       align-items: flex-start;
     }
 
-    .sub-heading {
+    &__text {
       margin-top: $spacing_2_4;
-      color: $color_gray_66768d;
     }
 
-    > Button {
-      margin-top: $spacing_4_0;
-      max-width: 3.7rem;
+    .btn {
+      margin: 4rem auto 0 auto;
+
+      @media screen and (min-width: $screen_md) {
+        margin-left: 0;
+      }
     }
   }
 
   &__mascot-item {
+    justify-self: center;
+
     @media screen and (min-width: $screen_md) {
       justify-self: end;
     }
