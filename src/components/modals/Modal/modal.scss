@@ -1,0 +1,55 @@
+@import "../../../styles/theme";
+
+.base-modal {
+  background-color: $color_white_ff;
+  border-radius: $border_radius_2_4;
+  box-shadow: $shadow_1;
+  width: 100%;
+  min-width: 34.3rem;
+  max-width: 56rem;
+  padding: $spacing_2_4 $spacing_1_6;
+  margin: 0 $spacing_1_6;
+
+  @media screen and (min-width: $screen-md) {
+    padding: $spacing_2_4 $spacing_2_4;
+  }
+
+  &__overlay {
+    position: fixed;
+    inset: 0px;
+    background-color: $overlay_66768D;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &__title {
+      margin-right: $spacing_3_0;
+    }
+  }
+
+  &__body {
+    &__text {
+      margin-top: $spacing_1_6;
+
+      @media screen and (min-width: $screen-md) {
+        margin-top: $spacing_2_4;
+      }
+    }
+  }
+
+  &__footer {
+    .btn {
+      margin: $spacing_2_4 auto 0 auto;
+
+      @media screen and (min-width: $screen-md) {
+        margin-top: $spacing_4_4;
+      }
+    }
+  }
+}

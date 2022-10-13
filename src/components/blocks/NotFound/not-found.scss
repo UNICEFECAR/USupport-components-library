@@ -1,0 +1,55 @@
+@import "../../../styles/theme";
+
+.not-found {
+  padding-top: $spacing_3_2;
+  padding-bottom: $spacing_12_0;
+
+  @media screen and (min-width: $screen_md) {
+    padding-top: $spacing_16_0;
+  }
+
+  &__content-item {
+    text-align: left;
+    justify-self: center;
+
+    @media screen and (min-width: $screen_md) {
+      padding-top: $spacing_4_0;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+
+    &__text {
+      margin-top: $spacing_2_4;
+    }
+
+    .btn {
+      margin: 4rem auto 0 auto;
+
+      @media screen and (min-width: $screen_md) {
+        margin-left: 0;
+      }
+    }
+  }
+
+  &__mascot-item {
+    justify-self: center;
+
+    @media screen and (min-width: $screen_md) {
+      justify-self: end;
+    }
+
+    > img {
+      width: 25rem;
+      margin-top: $spacing_10_0;
+
+      @media screen and (min-width: $screen_md) {
+        width: 26rem;
+        margin-top: 0;
+      }
+
+      @media screen and (min-width: $screen_lg) {
+        width: 40rem;
+      }
+    }
+  }
+}

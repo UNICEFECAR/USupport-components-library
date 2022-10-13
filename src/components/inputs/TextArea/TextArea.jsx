@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
+import { Error } from "../../errors/Error";
 
 import "./textarea.scss";
-import classNames from "classnames";
 
 /**
  * TextArea
@@ -28,9 +29,7 @@ export const TextArea = ({
         onChange={(e) => onChange(e.currentTarget.value)}
         {...rest}
       />
-      {errorMessage ? (
-        <p className="small-text error-message">{errorMessage}</p>
-      ) : null}
+      {errorMessage ? <Error message={errorMessage} /> : null}
     </div>
   );
 };
