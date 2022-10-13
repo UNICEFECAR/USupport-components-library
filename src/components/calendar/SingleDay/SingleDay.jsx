@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes, { number } from "prop-types";
 
 import "./single-day.scss";
+import { getDayOfTheWeek } from "../../../utils";
 
 /**
  * SingleDay
@@ -11,9 +12,7 @@ import "./single-day.scss";
  * @return {jsx}
  */
 export const SingleDay = ({ date, numberOfConsultations }) => {
-  const isToday = false;
-
-  //TODO: Refactor to use real date
+  const isToday = new Date().toDateString() === date.toDateString();
 
   return (
     <div
@@ -23,7 +22,9 @@ export const SingleDay = ({ date, numberOfConsultations }) => {
         isToday && "single-day__today",
       ].join(" ")}
     >
-      <p className="text"> Mon</p>
+      <p className="text">{`${isToday ? "Today, " : ""}${getDayOfTheWeek(
+        date
+      )}`}</p>
       <h4>25</h4>
       <p className="small-text single-day__consultation-text">
         {numberOfConsultations} consultations
