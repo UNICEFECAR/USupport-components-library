@@ -100,6 +100,7 @@ export const ContactForm = ({ classes, sendEmail }) => {
             setReasons(initialReasons);
           } else {
             setErrors({ submit: raw.data.error.message });
+            setIsSubmitting(false);
           }
         });
 
