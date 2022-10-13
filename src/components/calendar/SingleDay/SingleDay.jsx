@@ -25,7 +25,7 @@ export const SingleDay = ({ date, numberOfConsultations }) => {
       <p className="text">{`${isToday ? "Today, " : ""}${getDayOfTheWeek(
         date
       )}`}</p>
-      <h4>25</h4>
+      <h4>{date.getDate()}</h4>
       <p className="small-text single-day__consultation-text">
         {numberOfConsultations} consultations
       </p>
