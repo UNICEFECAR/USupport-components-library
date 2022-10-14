@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Error } from "../../errors/Error";
 
 import "./input.scss";
 
@@ -36,9 +37,7 @@ export const Input = ({
           {children ? children : null}
         </div>
       </div>
-      {errorMessage && !disabled ? (
-        <p className="small-text error-message">{errorMessage}</p>
-      ) : null}
+      {errorMessage && !disabled ? <Error message={errorMessage} /> : null}
     </>
   );
 };

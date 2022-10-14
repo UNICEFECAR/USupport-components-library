@@ -32,6 +32,7 @@ export const Modal = ({
       className={["base-modal", classNames(classes)].join(" ")}
       bodyOpenClassName="base-modal--open"
       contentLabel="Base Modal"
+      appElement={document.getElementById("root")}
     >
       <div className="base-modal__header">
         <h4 className="base-modal__header__title">{title}</h4>
