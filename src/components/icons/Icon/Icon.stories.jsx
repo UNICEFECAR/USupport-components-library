@@ -74,7 +74,7 @@ const icons = [
   "community",
   "therapy",
   "self-care",
-  "consultation",
+  "coaching",
   "calm",
   "flag-kazakhstan",
   "flag-bulgaria",
