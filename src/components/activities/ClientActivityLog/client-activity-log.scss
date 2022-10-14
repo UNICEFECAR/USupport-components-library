@@ -1,0 +1,32 @@
+@import "../../../styles/theme";
+
+.client-activity-log {
+  padding: $spacing_1_6 $spacing_2_0;
+  width: calc(34.4rem - 2 * $spacing_2_0);
+
+  @media screen and (min-width: $screen_lg) {
+    padding: $spacing_3_2;
+    width: calc(75.2rem - 2 * $spacing_3_2);
+  }
+
+  &__no-activities {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: $spacing_1_6 0;
+  }
+
+  &__activities {
+    &__activity {
+      margin-top: $spacing_2_4;
+
+      @media screen and (min-width: $screen_lg) {
+        margin-top: $spacing_3_2;
+      }
+    }
+
+    &__activity:first-child {
+      margin-top: 0;
+    }
+  }
+}
