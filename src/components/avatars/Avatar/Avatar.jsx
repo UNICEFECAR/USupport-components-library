@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import "./avatar.scss";
 
 import { specialistPlaceholder } from "../../../assets";
+import { classNames } from "classnames";
 
 /**
  * Avatar
@@ -12,8 +13,14 @@ import { specialistPlaceholder } from "../../../assets";
  *
  * @return {jsx}
  */
-export const Avatar = ({ image, size }) => {
-  return <img src={image} alt="avatar" className={`avatar avatar--${size}`} />;
+export const Avatar = ({ image, size, classes }) => {
+  return (
+    <img
+      src={image}
+      alt="avatar"
+      className={[`avatar avatar--${size}`, classNames(classes)].join(" ")}
+    />
+  );
 };
 
 Avatar.propTypes = {
@@ -28,6 +35,14 @@ Avatar.propTypes = {
    * Default: md
    * */
   size: PropTypes.oneOf(["sm", "md", "lg"]),
+
+  /**
+   * Additional classes
+   * */
+  classes: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string),
+  ]),
 };
 
 Avatar.defaultProps = {
