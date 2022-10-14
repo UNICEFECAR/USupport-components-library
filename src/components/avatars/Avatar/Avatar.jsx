@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { classNames } from "classnames";
 
 import "./avatar.scss";
 
 import { specialistPlaceholder } from "../../../assets";
-import { classNames } from "classnames";
 
 /**
  * Avatar
