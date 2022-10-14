@@ -16,7 +16,18 @@
     box-shadow: $shadow_1;
   }
 
+  &__day-name--today {
+    color: $color_blue_3d527b;
+  }
+
+  &__date--today {
+    color: $color_black_37;
+  }
+
   &__consultation-text {
     margin-top: $spacing_1_8;
+    &--today {
+      color: $color_blue_3d527b;
+    }
   }
 }
