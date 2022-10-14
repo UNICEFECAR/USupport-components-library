@@ -13,6 +13,7 @@ import "./client-activity.scss";
  * @return {jsx}
  */
 export const ClientActivity = ({ iconName, text, date, classes }) => {
+  // TODO: Move this function inside date.js util
   const checkIfDateIsYesterday = (date) => {
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
@@ -27,6 +28,7 @@ export const ClientActivity = ({ iconName, text, date, classes }) => {
       ? "Yesterday"
       : date.toLocaleDateString();
 
+  // TODO: Move this function inside date.js util
   const hourText = date.toLocaleTimeString([], {
     hour: "2-digit",
     minute: "2-digit",

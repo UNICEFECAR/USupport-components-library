@@ -18,15 +18,13 @@
 
   &__activities {
     &__activity {
-      margin-top: $spacing_2_4;
+      &:not(:first-of-type) {
+        margin-top: $spacing_2_4;
 
-      @media screen and (min-width: $screen_lg) {
-        margin-top: $spacing_3_2;
+        @media screen and (min-width: $screen_lg) {
+          margin-top: $spacing_3_2;
+        }
       }
-    }
-
-    &__activity:first-child {
-      margin-top: 0;
     }
   }
 }

@@ -13,11 +13,10 @@ import { ClientActivity } from "../ClientActivity/ClientActivity";
  * @return {jsx}
  */
 export const ClientActivityLog = ({ activities }) => {
-  console.log(activities);
   const renderAllActivities = () => {
     return (
       <div className="client-activity-log__activities">
-        {activities.map((activity, index) => {
+        {activities?.map((activity, index) => {
           return (
             <ClientActivity
               text={activity.text}
@@ -40,7 +39,7 @@ export const ClientActivityLog = ({ activities }) => {
   };
 
   return (
-    <Box shadow={1} classes="client-activity-log">
+    <Box classes="client-activity-log">
       {activities?.length > 0 ? renderAllActivities() : renderNoActivities()}
     </Box>
   );
