@@ -74,7 +74,7 @@ const icons = [
   "community",
   "therapy",
   "self-care",
-  "consultation",
+  "coaching",
   "calm",
   "flag-kazakhstan",
   "flag-bulgaria",
@@ -88,6 +88,7 @@ const icons = [
   "call-filled",
   "pin",
   "mail-filled",
+  "consultation",
 ];
 
 export const All = (props) => (
