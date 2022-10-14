@@ -35,10 +35,12 @@ export const ClientActivity = ({ iconName, text, date, classes }) => {
   return (
     <div className={["client-activity", classNames(classes)].join(" ")}>
       <div className="client-activity__content">
-        <Icon name={iconName} classes="client-activity__content__icon" />
+        <div className="client-activity__content__icon">
+          <Icon name={iconName} size="md" />
+        </div>
         <p className="text">{text}</p>
       </div>
-      <p className="small-text">
+      <p className="small-text client-activity__time-text">
         {dateText} {hourText}
       </p>
     </div>
