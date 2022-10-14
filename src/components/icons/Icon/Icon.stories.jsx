@@ -88,6 +88,7 @@ const icons = [
   "call-filled",
   "pin",
   "mail-filled",
+  "consultation",
 ];
 
 export const All = (props) => (
