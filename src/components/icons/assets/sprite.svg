@@ -664,21 +664,6 @@
     </defs>
   </svg>
 
-  <svg id="icon-flag-bulgaria"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 23" fill="none">
-    <g clip-path="url(#clip0_549_5158)">
-      <path fill-rule="evenodd" clip-rule="evenodd" d="M0 15.25H30V22.75H0V15.25Z" fill="#D62612"/>
-      <path fill-rule="evenodd" clip-rule="evenodd" d="M0 0.25H30V7.75H0V0.25Z" fill="white"/>
-      <path fill-rule="evenodd" clip-rule="evenodd" d="M0 7.75H30V15.25H0V7.75Z" fill="#00966E"/>
-    </g>
-    <rect x="0.25" y="0.5" width="29.5" height="22" stroke="black" stroke-width="0.5"/>
-    <defs>
-      <clipPath id="clip0_549_5158">
-        <rect y="0.25" width="30" height="22.5" fill="white"/>
-      </clipPath>
-    </defs>
-  </svg>
-
   <svg id="icon-flag-germany"
     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 24" fill="none">
     <g clip-path="url(#clip0_423_3630)">
