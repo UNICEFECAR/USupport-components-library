@@ -18,9 +18,18 @@
     justify-content: space-between;
     margin-left: $spacing_1_6;
 
-    .text {
-      color: $color_primary_20809e;
-      font-weight: $font_bold;
+    &__text-content {
+      padding-right: $spacing_1_0;
     }
+  }
+
+  &__name {
+    color: $color_primary_20809e;
+    font-weight: $font_bold;
+    word-break: break-word;
+  }
+
+  &__specialities {
+    word-break: break-word;
   }
 }

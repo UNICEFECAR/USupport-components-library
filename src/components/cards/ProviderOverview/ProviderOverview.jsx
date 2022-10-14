@@ -26,12 +26,16 @@ export const ProviderOverview = ({
     <Box onClick={onClick} shadow={2} classes={"provider-overview"}>
       <Avatar image={image} size="sm" />
       <div className="provider-overview__content">
-        <div>
-          <p className="text">{name}</p>
-          <p className="small-text">{specialities}</p>
+        <div className="provider-overview__content__text-content">
+          <p className="provider-overview__name">{name}</p>
+          <p className="small-text provider-overview__specialities">
+            {specialities}
+          </p>
           <p className="small-text">{experience} years experience Overall</p>
         </div>
-        <Icon name="arrow-chevron-forward" size="md" color="#20809E" />
+        <div>
+          <Icon name="arrow-chevron-forward" size="md" color="#20809E" />
+        </div>
       </div>
     </Box>
   );
