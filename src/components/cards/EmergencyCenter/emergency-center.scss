@@ -1,0 +1,26 @@
+@import "../../../styles/theme";
+
+.emergency-center {
+  padding: $spacing_1_6;
+  width: calc(34.3rem - 2 * $spacing_1_6);
+
+  @media screen and (min-width: $screen_lg) {
+    width: calc(56rem - 2 * $spacing_1_6);
+  }
+
+  &__heading-text {
+    color: $color_blue_3d527b;
+    font-weight: $font_bold;
+  }
+
+  &__text {
+    margin-top: $spacing_0_4;
+  }
+
+  &__btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: $spacing_1_6;
+  }
+}
