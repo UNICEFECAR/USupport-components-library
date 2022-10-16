@@ -1,0 +1,52 @@
+@import "../../../styles/theme";
+
+.toggle {
+  position: relative;
+  display: inline-block;
+  width: 5.6rem;
+  height: 3.36rem;
+
+  &-disabled {
+    opacity: 0.5;
+  }
+
+  > input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  &__slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $color_gray_ea;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+    border-radius: $border_radius_1_6;
+
+    &:before {
+      position: absolute;
+      content: "";
+      height: 2.8rem;
+      width: 2.8rem;
+      left: 0.28rem;
+      bottom: 0.29rem;
+      background-color: $color_white_ff;
+      -webkit-transition: 0.4s;
+      transition: 0.4s;
+      border-radius: 50%;
+    }
+  }
+
+  input:checked + &__slider {
+    background-color: $color_secondary_9749fa;
+  }
+
+  input:checked + &__slider:before {
+    transform: translateX(2.2rem);
+  }
+}
