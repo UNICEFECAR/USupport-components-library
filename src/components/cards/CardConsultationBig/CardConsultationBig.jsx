@@ -6,7 +6,7 @@ import classNames from "classnames";
 
 import "./card-consultation-big.scss";
 import avatar from "../../../assets/SpecialistPlaceholderImage.png";
-import mascot from "../../../assets/Mascot.png";
+import mascot from "../../../assets/MascotHandsUp.png";
 
 /**
  * CardConsultationBig
@@ -29,11 +29,9 @@ export const CardConsultationBig = ({
         ) : (
           <p className="small-text">{consultationDate}</p>
         )}
-        <div className="specialist-container">
-          <img src={avatar} className="specialist-image" />
-          <p className="text" classes="specialist-name">
-            {specialistName}
-          </p>
+        <div className="consultation-big-card__specialist-container">
+          <img src={avatar} />
+          <p>{specialistName}</p>
         </div>
         {isLive ? (
           <Button
