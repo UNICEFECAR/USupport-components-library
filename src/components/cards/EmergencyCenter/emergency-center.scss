@@ -10,7 +10,9 @@
 
   &__heading-text {
     color: $color_blue_3d527b;
-    font-weight: $font_bold;
+    &.text {
+      font-weight: $font_bold;
+    }
   }
 
   &__description {
