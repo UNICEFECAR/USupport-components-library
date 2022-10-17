@@ -14,9 +14,9 @@ import "./emergency-center.scss";
  */
 export const EmergencyCenter = ({ title, text, btnLabel, onClick }) => {
   return (
-    <Box shadow={1} classes="emergency-center">
-      <p className="emergency-center__heading-text">{title}</p>
-      <p className="small-text emergency-center__text">{text}</p>
+    <Box shadow={1} borderSize="xs" classes="emergency-center">
+      <p className="text emergency-center__heading-text">{title}</p>
+      <p className="small-text emergency-center__description">{text}</p>
       <div className="emergency-center__btn-container">
         <Button color="purple" size="sm" label={btnLabel} onClick={onClick} />
       </div>
