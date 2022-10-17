@@ -9,3 +9,4 @@ export * from "./CheckBoxGroup";
 export * from './CheckBoxSelector';
 export * from './CheckBoxSelectorGroup';
 export * from './RadioButtonSelector';
+export * from './RadioButtonSelectorGroup';
