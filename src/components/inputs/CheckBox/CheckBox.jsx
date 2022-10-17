@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 
 import "./check-box.scss";
 
@@ -15,14 +16,17 @@ export const CheckBox = ({
   isChecked,
   setIsChecked,
   disabled,
+  classes,
   ...props
 }) => {
   return (
-    <div className={["checkbox-wrapper"].join(" ")}>
+    <div
+      className={["checkbox-wrapper", classNames(classes)].join(" ")}
+      onClick={disabled ? () => {} : () => setIsChecked(!isChecked)}
+    >
       <input
         type="checkbox"
         checked={isChecked}
-        onChange={disabled ? () => {} : () => setIsChecked(!isChecked)}
         className={[isChecked ? "checked" : ""]}
         disabled={disabled}
         {...props}
@@ -53,6 +57,11 @@ CheckBox.propTypes = {
    *
    **/
   disabled: PropTypes.bool,
+
+  /**
+   * Additional classes to add to the checkbox wrapper
+   * */
+  classes: PropTypes.string,
 
   /**
    * Additional props to pass to the checkbox

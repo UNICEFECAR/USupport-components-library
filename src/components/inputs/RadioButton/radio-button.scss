@@ -10,6 +10,12 @@
     color: &color_black_37;
   }
 
+  &:hover {
+    & > input:enabled {
+      border: $color_secondary_9749fa 0.15rem solid;
+    }
+  }
+
   & > input:disabled + .label {
     opacity: 0.6;
     cursor: default;
@@ -28,10 +34,6 @@
 
     display: grid;
     place-content: center;
-
-    &:hover:enabled {
-      border: $color_secondary_9749fa 0.15rem solid;
-    }
 
     &.checked {
       border: 0;
