@@ -18,7 +18,7 @@ export const TextArea = ({
   onChange,
   classes,
   errorMessage,
-  ...rest
+  ...props
 }) => {
   return (
     <div className={["text-area--container", classNames(classes)].join(" ")}>
@@ -27,7 +27,7 @@ export const TextArea = ({
         className="text-area text"
         value={value}
         onChange={(e) => onChange(e.currentTarget.value)}
-        {...rest}
+        {...props}
       />
       {errorMessage ? <Error message={errorMessage} /> : null}
     </div>
@@ -66,7 +66,7 @@ TextArea.propTypes = {
   /**
    * Additional props to be passed to the input
    * */
-  rest: PropTypes.object,
+  props: PropTypes.object,
 };
 
 TextArea.defaultProps = {
