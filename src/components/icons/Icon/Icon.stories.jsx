@@ -18,6 +18,7 @@ const icons = [
   "info",
   "fingerprint",
   "star",
+  "star-full",
   "document",
   "notifications",
   "share",

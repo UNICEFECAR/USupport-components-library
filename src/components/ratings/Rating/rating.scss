@@ -1,0 +1,14 @@
+@import "../../../styles/theme";
+
+.rating {
+  display: flex;
+  flex-direction: row;
+
+  &__star {
+    margin-left: $spacing_1_0;
+  }
+
+  &__star:first-child {
+    margin-left: 0;
+  }
+}
