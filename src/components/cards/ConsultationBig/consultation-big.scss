@@ -2,7 +2,7 @@
 
 //TODO: FIX: the background gradient
 
-.consultation-big-card {
+.consultation-big {
   padding: $spacing_1_6;
   display: flex;
   flex-direction: row;
@@ -18,6 +18,10 @@
 
   .now-text {
     color: $color_secondary_9749fa;
+  }
+
+  &__button {
+    margin-top: $spacing_1_8;
   }
 
   &__specialist-container {

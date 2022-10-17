@@ -1,14 +1,14 @@
 import React from "react";
 
-import { CardConsultationBig } from "./CardConsultationBig";
+import { ConsultationBig } from "./ConsultationBig";
 
 export default {
-  title: "Components Library/cards/CardConsultationBig",
-  component: CardConsultationBig,
+  title: "Components Library/cards/ConsultationBig",
+  component: ConsultationBig,
   argTypes: {},
 };
 
-const Template = (props) => <CardConsultationBig {...props} />;
+const Template = (props) => <ConsultationBig {...props} />;
 
 export const Default = Template.bind({});
 Default.args = {

@@ -4,7 +4,8 @@ import { Box } from "../../boxes/Box/Box";
 import { Button } from "../../buttons/Button/Button";
 import classNames from "classnames";
 
-import "./card-consultation-big.scss";
+import "./consultation-big.scss";
+
 import avatar from "../../../assets/SpecialistPlaceholderImage.png";
 import mascot from "../../../assets/MascotHandsUp.png";
 
@@ -15,45 +16,45 @@ import mascot from "../../../assets/MascotHandsUp.png";
  *
  * @return {jsx}
  */
-export const CardConsultationBig = ({
+export const ConsultationBig = ({
   specialistName,
   consultationDate,
   isLive,
   classes,
 }) => {
   return (
-    <Box classes={["consultation-big-card", classNames(classes)].join(" ")}>
-      <div className="consultation-big-content">
+    <Box classes={["consultation-big", classNames(classes)].join(" ")}>
+      <div>
         {isLive ? (
           <p className="small-text now-text">Now</p>
         ) : (
           <p className="small-text">{consultationDate}</p>
         )}
-        <div className="consultation-big-card__specialist-container">
-          <img src={avatar} />
+        <div className="consultation-big__specialist-container">
+          <img src={avatar} alt={"Specialist"} />
           <p>{specialistName}</p>
         </div>
         {isLive ? (
           <Button
             label="Join now"
             color="purple"
-            classes="consultation-card__button"
+            classes={"consultation-big__button"}
           />
         ) : (
           <Button
             label="Change"
             type="secondary"
             color="purple"
-            classes="consultation-card__button"
+            classes={"consultation-big__button"}
           />
         )}
       </div>
-      <img src={mascot} className="consultation-big-card__mascot" />
+      <img src={mascot} className="consultation-big__mascot" />
     </Box>
   );
 };
 
-CardConsultationBig.propTypes = {
+ConsultationBig.propTypes = {
   /**
    * Specialist name
    * */
@@ -78,7 +79,7 @@ CardConsultationBig.propTypes = {
   ]),
 };
 
-CardConsultationBig.defaultProps = {
+ConsultationBig.defaultProps = {
   specialistName: "",
   consultationDate: "",
   isLive: false,
