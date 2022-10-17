@@ -10,3 +10,4 @@ export * from './CheckBoxSelector';
 export * from './CheckBoxSelectorGroup';
 export * from './RadioButtonSelector';
 export * from './RadioButtonSelectorGroup';
+export * from './Toggle';
