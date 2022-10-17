@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-
+import classNames from "classnames";
 import { RadioButton } from "../RadioButton";
 
 /**
@@ -10,7 +10,13 @@ import { RadioButton } from "../RadioButton";
  *
  * @return {jsx}
  */
-export const RadioButtonGroup = ({ name, options, selected, setSelected }) => {
+export const RadioButtonGroup = ({
+  name,
+  options,
+  selected,
+  setSelected,
+  classes,
+}) => {
   const renderAllOptions = () => {
     return options.map((option, index) => {
       return (
@@ -25,7 +31,7 @@ export const RadioButtonGroup = ({ name, options, selected, setSelected }) => {
     });
   };
 
-  return <>{renderAllOptions()}</>;
+  return <div className={classNames(classes)}>{renderAllOptions()}</div>;
 };
 
 RadioButtonGroup.propTypes = {
