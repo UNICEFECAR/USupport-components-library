@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-
 import { CheckBox } from "../CheckBox";
+import classNames from "classnames";
 
 /**
  * CheckBoxGroup
@@ -10,7 +10,7 @@ import { CheckBox } from "../CheckBox";
  *
  * @return {jsx}
  */
-export const CheckBoxGroup = ({ name, options, setOptions }) => {
+export const CheckBoxGroup = ({ name, options, setOptions, classes }) => {
   const handleSelect = (value) => {
     let newOptions = [...options];
 
@@ -43,7 +43,7 @@ export const CheckBoxGroup = ({ name, options, setOptions }) => {
     );
   };
 
-  return <>{renderAllOptions()}</>;
+  return <div className={classNames(classes)}>{renderAllOptions()}</div>;
 };
 
 CheckBoxGroup.propTypes = {
@@ -61,6 +61,11 @@ CheckBoxGroup.propTypes = {
    * Function to set the options
    * */
   setOptions: PropTypes.func,
+
+  /**
+   *  Classes to add to the CheckBoxGroup
+   * */
+  classes: PropTypes.string,
 };
 
 CheckBoxGroup.defaultProps = {
