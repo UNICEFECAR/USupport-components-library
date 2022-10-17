@@ -18,16 +18,16 @@ export const TextArea = ({
   onChange,
   classes,
   errorMessage,
-  ...rest
+  ...props
 }) => {
   return (
     <div className={["text-area--container", classNames(classes)].join(" ")}>
-      <p className="text label">{label}</p>
+      {label ? <p className="text label">{label}</p> : null}
       <textarea
         className="text-area text"
         value={value}
         onChange={(e) => onChange(e.currentTarget.value)}
-        {...rest}
+        {...props}
       />
       {errorMessage ? <Error message={errorMessage} /> : null}
     </div>
@@ -39,6 +39,34 @@ TextArea.propTypes = {
    * Input label
    **/
   label: PropTypes.string,
+
+  /**
+   * Input value
+   */
+  value: PropTypes.string,
+
+  /**
+   * Function to be called when the input value changes
+   * */
+  onChange: PropTypes.func,
+
+  /**
+   * Additional classes to be added to the input
+   * */
+  classes: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string),
+  ]),
+
+  /**
+   * Error message to be displayed
+   * */
+  errorMessage: PropTypes.string,
+
+  /**
+   * Additional props to be passed to the input
+   * */
+  props: PropTypes.object,
 };
 
 TextArea.defaultProps = {

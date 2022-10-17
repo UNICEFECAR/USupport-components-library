@@ -17,4 +17,7 @@ export * from './components/radials';
 export * from './components/animations';
 export * from './components/loaders';
 export * from './components/modals';
+export * from './components/calendar';
 export * from './components/errors';
+export * from './components/activities';
+export * from './components/avatars';export * from './components/ratings';

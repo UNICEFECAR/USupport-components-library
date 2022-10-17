@@ -24,7 +24,7 @@ CardNumber1.args = {
 export const CardNumber2 = Template.bind({});
 CardNumber2.args = {
   number: "2",
-  iconName: "consultation",
+  iconName: "coaching",
   text: "Choose a kind of therapy",
 };
 
