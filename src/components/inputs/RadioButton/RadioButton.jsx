@@ -17,11 +17,13 @@ export const RadioButton = ({
   ...props
 }) => {
   return (
-    <div className={["radiobutton-wrapper", classNames(classes)].join(" ")}>
+    <div
+      className={["radiobutton-wrapper", classNames(classes)].join(" ")}
+      onClick={disabled ? () => {} : () => setIsChecked(!isChecked)}
+    >
       <input
         type="radio"
         checked={isChecked}
-        onChange={disabled ? () => {} : () => setIsChecked(!isChecked)}
         className={[isChecked ? "checked" : ""]}
         disabled={disabled}
         {...props}
