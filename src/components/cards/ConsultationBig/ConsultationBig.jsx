@@ -26,7 +26,7 @@ export const ConsultationBig = ({
     <Box classes={["consultation-big", classNames(classes)].join(" ")}>
       <div>
         {isLive ? (
-          <p className="small-text now-text">Now</p>
+          <p className="small-text consultation-big__now-text">Now</p>
         ) : (
           <p className="small-text">{consultationDate}</p>
         )}

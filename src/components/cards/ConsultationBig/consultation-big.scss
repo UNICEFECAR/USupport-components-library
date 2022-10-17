@@ -16,8 +16,9 @@
     #55d0da 133.62%
   );
 
-  .now-text {
+  &__now-text {
     color: $color_secondary_9749fa;
+    font-weight: $font_bold;
   }
 
   &__button {
