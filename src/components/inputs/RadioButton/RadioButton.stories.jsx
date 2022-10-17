@@ -11,13 +11,7 @@ export default {
 const Template = (props) => {
   const [isChecked, setIsChecked] = React.useState(false);
   return (
-    <div>
-      <RadioButton
-        {...props}
-        isChecked={isChecked}
-        setIsChecked={setIsChecked}
-      />
-    </div>
+    <RadioButton {...props} isChecked={isChecked} setIsChecked={setIsChecked} />
   );
 };
 
