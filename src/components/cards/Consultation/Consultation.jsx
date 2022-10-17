@@ -4,72 +4,60 @@ import { Button } from "../../buttons/Button/Button";
 import { Box } from "../../boxes/Box/Box";
 import classNames from "classnames";
 
-import "./card-consultation.scss";
+import "./consultation.scss";
+
 import avatar from "../../../assets/SpecialistPlaceholderImage.png";
 
 /**
- * CardConsultation
+ * Consultation
  *
- * CardConsultation component
+ * Consultation component
  *
  * @return {jsx}
  */
-export const CardConsultation = ({
+export const Consultation = ({
   specialistName,
   consultationDate,
   isLive,
   classes,
 }) => {
   return (
-    <Box
-      shadow={1}
-      classes={["consultation-card", classNames(classes)].join(" ")}
-    >
+    <Box shadow={1} classes={["consultation", classNames(classes)].join(" ")}>
       {specialistName && consultationDate ? (
-        <>
+        <div className="consultation__content">
           {isLive ? (
             <p className="small-text now-text">Now</p>
           ) : (
             <p className="small-text">{consultationDate}</p>
           )}
-          <div className="specialist-container">
+          <div className="consultation__content__specialist-container">
             <img src={avatar} className="specialist-image" />
-            <p className="text" classes="specialist-name">
-              {specialistName}
-            </p>
+            <p className="text">{specialistName}</p>
           </div>
           {isLive ? (
             <Button
               label="Join"
               color="purple"
-              classes="consultation-card__button"
+              size="sm"
+              classes="consultation__button"
             />
           ) : (
-            <Button
-              label="Change"
-              type="secondary"
-              color="purple"
-              classes="consultation-card__button"
-            />
+            <Button label="Change" type="secondary" size="sm" color="purple" />
           )}
-        </>
+        </div>
       ) : (
-        <>
+        <div className="consultation__no-consultation">
           <p className="small-text no-booking-text">
             Currently you do not have upcoming consultations
           </p>
-          <Button
-            label="Schedule"
-            color="purple"
-            classes="consultation-card__button"
-          />
-        </>
+          <Button size="sm" label="Schedule" color="purple" />
+        </div>
       )}
     </Box>
   );
 };
 
-CardConsultation.propTypes = {
+Consultation.propTypes = {
   /**
    * Specialist name
    * */
@@ -86,7 +74,7 @@ CardConsultation.propTypes = {
   isLive: PropTypes.bool,
 
   /**
-   * Additional classes to be added to the CardConsultation
+   * Additional classes to be added to the Consultation
    * */
   classes: PropTypes.oneOfType([
     PropTypes.string,
@@ -94,7 +82,7 @@ CardConsultation.propTypes = {
   ]),
 };
 
-CardConsultation.defaultProps = {
+Consultation.defaultProps = {
   specialistName: "",
   consultationDate: "",
   isLive: false,
