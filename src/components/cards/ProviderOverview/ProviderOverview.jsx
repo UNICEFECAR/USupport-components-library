@@ -20,18 +20,37 @@ export const ProviderOverview = ({
   name,
   specialities,
   experience,
+  date,
   onClick,
 }) => {
+  //TODO: Refactor this component to work with real dates
+
   return (
     <Box onClick={onClick} shadow={2} classes={"provider-overview"}>
       <Avatar image={image} size="sm" />
       <div className="provider-overview__content">
         <div className="provider-overview__content__text-content">
-          <p className="provider-overview__name">{name}</p>
-          <p className="small-text provider-overview__specialities">
-            {specialities}
+          <p className="provider-overview__content__text-content__name">
+            {name}
           </p>
-          <p className="small-text">{experience} years experience Overall</p>
+          {date ? (
+            <div className="provider-overview__content__text-content__date-container">
+              <Icon name="calendar" size="sm" color="#66768D" />
+              <div className="provider-overview__content__text-content__date-container__text">
+                <p className="small-text">Fri, 17.10.</p>
+                <p className="small-text">9:00-10:00</p>
+              </div>
+            </div>
+          ) : (
+            <>
+              <p className="small-text provider-overview__specialities">
+                {specialities}
+              </p>
+              <p className="small-text">
+                {experience} years experience Overall
+              </p>
+            </>
+          )}
         </div>
         <div>
           <Icon name="arrow-chevron-forward" size="md" color="#20809E" />

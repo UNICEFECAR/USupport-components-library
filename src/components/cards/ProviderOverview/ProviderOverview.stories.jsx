@@ -16,3 +16,9 @@ Default.args = {
   specialities: "Psychiatrist, Neuropsychiatrist, Psychotherapist",
   experience: 16,
 };
+
+export const WithDate = Template.bind({});
+WithDate.args = {
+  name: "Dr. Joanna Doe",
+  date: "Fri, 17.10.2022 9:00-10:00",
+};
