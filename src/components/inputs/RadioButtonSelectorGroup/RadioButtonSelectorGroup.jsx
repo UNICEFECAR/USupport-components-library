@@ -28,6 +28,7 @@ export const RadioButtonSelectorGroup = ({
           isChecked={selected === option.value}
           setIsChecked={() => setSelected(option.value)}
           key={index}
+          classes="radio-button-selector-group__radio-button"
         />
       );
     });

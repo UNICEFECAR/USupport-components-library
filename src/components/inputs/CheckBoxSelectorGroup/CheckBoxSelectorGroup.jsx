@@ -40,6 +40,7 @@ export const CheckBoxSelectorGroup = ({
             name={name}
             label={option.label}
             isChecked={option.isSelected}
+            classes="check-box-selector-group__checkbox"
             setIsChecked={() => {
               handleSelect(option.value);
             }}

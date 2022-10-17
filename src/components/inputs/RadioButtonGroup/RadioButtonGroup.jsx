@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import { RadioButton } from "../RadioButton";
 
+import "./radio-button-group.scss";
+
 /**
  * RadioButtonGroup
  *
@@ -26,12 +28,17 @@ export const RadioButtonGroup = ({
           isChecked={selected === option.value}
           setIsChecked={() => setSelected(option.value)}
           key={index}
+          classes="radio-button-group__radio-button"
         />
       );
     });
   };
 
-  return <div className={classNames(classes)}>{renderAllOptions()}</div>;
+  return (
+    <div className={["radio-button-group", classNames(classes)].join(" ")}>
+      {renderAllOptions()}
+    </div>
+  );
 };
 
 RadioButtonGroup.propTypes = {
