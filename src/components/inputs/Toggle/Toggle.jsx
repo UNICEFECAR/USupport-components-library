@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
@@ -11,7 +11,15 @@ import "./toggle.scss";
  *
  * @return {jsx}
  */
-export const Toggle = ({ isToggled, onToggle, isDisabled, classes }) => {
+export const Toggle = ({ isToggled, setParentState, isDisabled, classes }) => {
+  const [checked, setChecked] = useState(isToggled);
+
+  const handleChange = () => {
+    if (isDisabled) return;
+    setChecked(!checked);
+    setParentState(!checked);
+  };
+
   return (
     <label
       className={[
@@ -20,11 +28,7 @@ export const Toggle = ({ isToggled, onToggle, isDisabled, classes }) => {
         classNames(classes),
       ].join(" ")}
     >
-      <input
-        type="checkbox"
-        checked={isToggled}
-        onChange={isDisabled ? () => {} : onToggle}
-      />
+      <input type="checkbox" checked={checked} onChange={handleChange} />
       <span className="toggle__slider" />
     </label>
   );
@@ -40,6 +44,11 @@ Toggle.propTypes = {
    * Function to set the toggle checked state
    * */
   onToggle: PropTypes.func,
+
+  /**
+   * Set the toggle value in the parent component
+   */
+  setParentState: PropTypes.func,
 
   /**
    * If the toggle is disabled
@@ -58,4 +67,5 @@ Toggle.propTypes = {
 
 Toggle.defaultProps = {
   isDisabled: false,
+  setParentState: () => {},
 };

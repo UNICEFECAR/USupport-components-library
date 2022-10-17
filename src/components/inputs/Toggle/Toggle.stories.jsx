@@ -14,7 +14,7 @@ const Template = (props) => {
   return (
     <Toggle
       isToggled={isSelected}
-      onToggle={() => setIsSelected(!isSelected)}
+      setParentState={(val) => setIsSelected(val)}
       {...props}
     />
   );

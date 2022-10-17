@@ -1,13 +1,15 @@
 @import "../../../styles/theme";
 
 .toggle {
-  position: relative;
+  cursor: pointer;
   display: inline-block;
-  width: 5.6rem;
   height: 3.36rem;
+  position: relative;
+  width: 5.6rem;
 
   &-disabled {
     opacity: 0.5;
+    cursor: not-allowed;
   }
 
   > input {
@@ -17,28 +19,27 @@
   }
 
   &__slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
     background-color: $color_gray_ea;
-    -webkit-transition: 0.4s;
-    transition: 0.4s;
     border-radius: $border_radius_1_6;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: 0.4s;
 
     &:before {
-      position: absolute;
+      background-color: $color_white_ff;
+      border-radius: 50%;
+      bottom: 0.29rem;
       content: "";
       height: 2.8rem;
-      width: 2.8rem;
       left: 0.28rem;
-      bottom: 0.29rem;
-      background-color: $color_white_ff;
-      -webkit-transition: 0.4s;
+      position: absolute;
       transition: 0.4s;
-      border-radius: 50%;
+      width: 2.8rem;
+      -webkit-transition: 0.4s;
+      -webkit-transition: 0.4s;
     }
   }
 
