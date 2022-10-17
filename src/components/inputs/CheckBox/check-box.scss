@@ -14,6 +14,12 @@
     cursor: default;
   }
 
+  &:hover {
+    & > input:enabled {
+      border: $color_secondary_9749fa 0.15rem solid;
+    }
+  }
+
   & > input {
     -webkit-appearance: none;
     appearance: none;
@@ -22,10 +28,6 @@
     height: 2rem;
     border-radius: 0.5rem;
     border: $color_gray_92989b 0.15rem solid;
-
-    &:hover:enabled {
-      border: $color_secondary_9749fa 0.15rem solid;
-    }
 
     &.checked {
       border: 0;
