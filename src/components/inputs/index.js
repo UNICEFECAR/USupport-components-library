@@ -6,3 +6,4 @@ export * from "./RadioButton";
 export * from "./RadioButtonGroup";
 export * from "./CheckBox";
 export * from "./CheckBoxGroup";
+export * from './CheckBoxSelector';
