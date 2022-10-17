@@ -10,6 +10,7 @@ export default {
 
 const Template = (props) => {
   const [isChecked, setIsChecked] = React.useState(false);
+
   return (
     <RadioButton {...props} isChecked={isChecked} setIsChecked={setIsChecked} />
   );
@@ -21,4 +22,10 @@ Default.args = {};
 export const RadioButtonWithText = Template.bind({});
 RadioButtonWithText.args = {
   label: "Radio Button",
+};
+
+export const Disabled = Template.bind({});
+Disabled.args = {
+  label: "Radio Button",
+  disabled: true,
 };
