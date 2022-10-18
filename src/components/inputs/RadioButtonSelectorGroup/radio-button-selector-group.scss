@@ -1,0 +1,7 @@
+@import "../../../styles/theme";
+
+.radio-button-selector-group {
+  &__radio-button:not(:first-of-type) {
+    margin-top: $spacing_2_0;
+  }
+}

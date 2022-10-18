@@ -1,0 +1,7 @@
+@import "../../../styles/theme";
+
+.check-box-selector-group {
+  &__checkbox:not(:first-of-type) {
+    margin-top: $spacing_2_0;
+  }
+}

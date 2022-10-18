@@ -1,18 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import { RadioButton } from "../RadioButton";
+import { RadioButtonSelector } from "../RadioButtonSelector/RadioButtonSelector";
 
-import "./radio-button-group.scss";
+import "./radio-button-selector-group.scss";
 
 /**
- * RadioButtonGroup
+ * RadioButtonSelectorGroup
  *
- * RadioButtonGroup component
+ * RadioButtonSelectorGroup component
  *
  * @return {jsx}
  */
-export const RadioButtonGroup = ({
+export const RadioButtonSelectorGroup = ({
   name,
   options,
   selected,
@@ -22,26 +22,28 @@ export const RadioButtonGroup = ({
   const renderAllOptions = () => {
     return options.map((option, index) => {
       return (
-        <RadioButton
+        <RadioButtonSelector
           name={name}
           label={option.label}
           isChecked={selected === option.value}
           setIsChecked={() => setSelected(option.value)}
           key={index}
-          classes="radio-button-group__radio-button"
+          classes="radio-button-selector-group__radio-button"
         />
       );
     });
   };
 
   return (
-    <div className={["radio-button-group", classNames(classes)].join(" ")}>
+    <div
+      className={["radio-button-selector-group", classNames(classes)].join(" ")}
+    >
       {renderAllOptions()}
     </div>
   );
 };
 
-RadioButtonGroup.propTypes = {
+RadioButtonSelectorGroup.propTypes = {
   /**
    * Name of the radio button group
    * */
@@ -61,8 +63,17 @@ RadioButtonGroup.propTypes = {
    * Function to set the selected option
    * */
   setSelected: PropTypes.func,
-};
 
-RadioButtonGroup.defaultProps = {
-  selected: "",
+  /**
+   * Additional classes to pass to the radio button selector group
+   * */
+  classes: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string),
+  ]),
+
+  /**
+   * Additional props to pass to the radio button selector group
+   *  */
+  props: PropTypes.object,
 };
