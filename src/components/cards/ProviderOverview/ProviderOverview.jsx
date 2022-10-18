@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Box } from "../../boxes/Box/Box";
 import { Avatar } from "../../avatars/Avatar/Avatar";
 import { Icon } from "../../icons/Icon/Icon";
+import { getDayOfTheWeek } from "../../../utils";
 
 import "./provider-overview.scss";
 
@@ -23,7 +24,13 @@ export const ProviderOverview = ({
   date,
   onClick,
 }) => {
-  //TODO: Refactor this component to work with real dates
+  const dateText = date
+    ? `${getDayOfTheWeek(date)}, ${date.getDate()}.${date.getMonth()}.`
+    : "";
+
+  const timeText = date
+    ? `${date.getHours()}:00 - ${date.getHours() + 1}:00`
+    : "";
 
   return (
     <Box onClick={onClick} shadow={2} classes={"provider-overview"}>
@@ -37,8 +44,8 @@ export const ProviderOverview = ({
             <div className="provider-overview__content__text-content__date-container">
               <Icon name="calendar" size="sm" color="#66768D" />
               <div className="provider-overview__content__text-content__date-container__text">
-                <p className="small-text">Fri, 17.10.</p>
-                <p className="small-text">9:00-10:00</p>
+                <p className="small-text">{dateText}</p>
+                <p className="small-text">{timeText}</p>
               </div>
             </div>
           ) : (
@@ -80,6 +87,11 @@ ProviderOverview.propTypes = {
    * Experience of the specialist
    * */
   experience: PropTypes.number,
+
+  /**
+   * Date of the consultation
+   * */
+  date: PropTypes.Date,
 
   /**
    * On click handler

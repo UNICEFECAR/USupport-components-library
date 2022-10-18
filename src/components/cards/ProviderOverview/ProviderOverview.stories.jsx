@@ -20,5 +20,5 @@ Default.args = {
 export const WithDate = Template.bind({});
 WithDate.args = {
   name: "Dr. Joanna Doe",
-  date: "Fri, 17.10.2022 9:00-10:00",
+  date: new Date("2022-10-17 10:00"),
 };
