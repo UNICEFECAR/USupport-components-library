@@ -23,7 +23,10 @@ export const ProviderOverview = ({
   experience,
   date,
   onClick,
+  yearsOfExperienceText,
 }) => {
+  // TODO: Figure out a way to translate the days of the week
+  // Idea: Create a reuseable hook that takes a string e.g. "mon" and returns the day translated
   const dateText = date
     ? `${getDayOfTheWeek(date)}, ${date.getDate()}.${date.getMonth()}.`
     : "";
@@ -54,7 +57,7 @@ export const ProviderOverview = ({
                 {specialities}
               </p>
               <p className="small-text">
-                {experience} years experience Overall
+                {`${experience} ${yearsOfExperienceText}`}
               </p>
             </>
           )}
@@ -97,9 +100,15 @@ ProviderOverview.propTypes = {
    * On click handler
    * */
   onClick: PropTypes.func,
+
+  /**
+   * Text(translated in the used language) showing the years of experience of the provider
+   * */
+  yearsOfExperienceText: PropTypes.string,
 };
 
 ProviderOverview.defaultProps = {
   image: specialistPlaceholder,
   onClick: () => {},
+  yearsOfExperienceText: "years experience Overall",
 };

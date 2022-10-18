@@ -21,12 +21,15 @@ export const ConsultationBig = ({
   consultationDate,
   isLive,
   classes,
+  liveText,
+  joinButtonText,
+  changeButtonText,
 }) => {
   return (
     <Box classes={["consultation-big", classNames(classes)].join(" ")}>
       <div>
         {isLive ? (
-          <p className="small-text consultation-big__now-text">Now</p>
+          <p className="small-text consultation-big__now-text">{liveText}</p>
         ) : (
           <p className="small-text">{consultationDate}</p>
         )}
@@ -36,13 +39,13 @@ export const ConsultationBig = ({
         </div>
         {isLive ? (
           <Button
-            label="Join now"
+            label={joinButtonText}
             color="purple"
             classes={"consultation-big__button"}
           />
         ) : (
           <Button
-            label="Change"
+            label={changeButtonText}
             type="secondary"
             color="purple"
             classes={"consultation-big__button"}
@@ -66,7 +69,7 @@ ConsultationBig.propTypes = {
   consultationDate: PropTypes.string,
 
   /**
-   * Is live
+   * Is the consultation happening now
    **/
   isLive: PropTypes.bool,
 
@@ -77,6 +80,21 @@ ConsultationBig.propTypes = {
     PropTypes.string,
     PropTypes.arrayOf(PropTypes.string),
   ]),
+
+  /**
+   * Text(translated in the used language) to display when the consultation is live
+   * */
+  liveText: PropTypes.string,
+
+  /**
+   * Text(translated in the used language) to be displayed on the button when the consultation is live
+   */
+  joinButtonText: PropTypes.string,
+
+  /**
+   * Text(translated in the used language) to be displayed on the button when the user wants to change his consultation date/time?
+   */
+  changeButtonText: PropTypes.string,
 };
 
 ConsultationBig.defaultProps = {
@@ -84,4 +102,7 @@ ConsultationBig.defaultProps = {
   consultationDate: "",
   isLive: false,
   classes: "",
+  liveText: "Now",
+  changeButtonText: "Change",
+  joinButtonText: "Join now",
 };
