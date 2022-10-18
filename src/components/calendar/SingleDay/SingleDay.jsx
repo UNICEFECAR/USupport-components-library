@@ -12,8 +12,10 @@ import { getDayOfTheWeek } from "../../../utils";
  * @return {jsx}
  */
 export const SingleDay = ({ date, numberOfConsultations }) => {
-  // TODO: Do we take the Day string from the props or we translate here
+  // TODO: Figure out a way to translate the days of the week
+  // Idea: Create a reuseable hook that takes a string e.g. "mon" and returns the day translated
   const isToday = new Date().toDateString() === date.toDateString();
+  const dayOfTheWeek = getDayOfTheWeek(date);
 
   return (
     <div
@@ -27,7 +29,7 @@ export const SingleDay = ({ date, numberOfConsultations }) => {
         className={["text", isToday ? "single-day__day-name--today" : ""].join(
           " "
         )}
-      >{`${isToday ? "Today, " : ""}${getDayOfTheWeek(date)}`}</p>
+      >{`${isToday ? "Today, " : ""}${dayOfTheWeek}`}</p>
       <h4 className={isToday ? "single-day__date--today" : ""}>
         {date.getDate()}
       </h4>
