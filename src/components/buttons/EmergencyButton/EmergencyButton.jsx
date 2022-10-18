@@ -10,7 +10,7 @@ import useWindowDimensions from "../../../utils/useWindowDimensions";
  *
  * @return {jsx}
  */
-export const EmergencyButton = ({ classes, ...props }) => {
+export const EmergencyButton = ({ label, classes, ...props }) => {
   const { width } = useWindowDimensions();
   const isMobile = width < 768;
   return (
@@ -20,7 +20,7 @@ export const EmergencyButton = ({ classes, ...props }) => {
       iconSize="lg"
       iconColor="#fff"
       onlyIcon={isMobile}
-      label={isMobile ? "" : "SOS Center"}
+      label={isMobile ? "" : label}
       size="md"
       classes={classes}
       web
