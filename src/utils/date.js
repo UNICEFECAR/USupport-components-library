@@ -20,4 +20,8 @@ function getDayOfTheWeek(date) {
   }
 }
 
-export { getDayOfTheWeek };
+function isDateToday(date) {
+  return new Date().toDateString() === date.toDateString();
+}
+
+export { getDayOfTheWeek, isDateToday };
