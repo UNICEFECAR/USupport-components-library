@@ -21,3 +21,4 @@ export * from './components/calendar';
 export * from './components/errors';
 export * from './components/activities';
 export * from './components/avatars';export * from './components/ratings';
+export * from './components/notifications';
