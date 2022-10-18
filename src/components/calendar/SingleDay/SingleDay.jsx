@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { getDayOfTheWeek, isDateToday } from "../../../utils";
 
 import "./single-day.scss";
-import { getDayOfTheWeek } from "../../../utils";
 
 /**
  * SingleDay
@@ -13,7 +13,7 @@ import { getDayOfTheWeek } from "../../../utils";
  */
 export const SingleDay = ({ date, numberOfConsultations }) => {
   // TODO: Do we take the Day string from the props or we translate here
-  const isToday = new Date().toDateString() === date.toDateString();
+  const isToday = isDateToday(date);
 
   return (
     <div
