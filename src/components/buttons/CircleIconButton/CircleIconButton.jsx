@@ -1,26 +1,28 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { ButtonWithIcon } from "../ButtonWithIcon";
+
+import "./circle-icon-button.scss";
 import useWindowDimensions from "../../../utils/useWindowDimensions";
+import { ButtonWithIcon } from "../ButtonWithIcon";
 
 /**
- * EmergencyButton
+ * CircleIconButton
  *
- * Button with icon component
+ * Circlurar button with icon
  *
  * @return {jsx}
  */
-export const EmergencyButton = ({ label, classes, ...props }) => {
+export const CircleIconButton = ({ iconName, label, classes, ...props }) => {
   const { width } = useWindowDimensions();
   const isMobile = width < 768;
   return (
     <ButtonWithIcon
       color="purple"
-      iconName="phone-emergency"
+      iconName={iconName}
       iconSize="lg"
       iconColor="#fff"
-      onlyIcon={isMobile}
-      label={isMobile ? "" : label}
+      onlyIcon={isMobile || !label}
+      label={isMobile || !label ? "" : label}
       size="md"
       classes={classes}
       web
@@ -29,7 +31,15 @@ export const EmergencyButton = ({ label, classes, ...props }) => {
   );
 };
 
-EmergencyButton.propTypes = {
+CircleIconButton.propTypes = {
+  /**
+   * Name of the icon
+   */
+  iconName: PropTypes.string.isRequired,
+  /**
+   * Text to render inside the button
+   */
+  label: PropTypes.string,
   /**
    * Additional classes to add to the component
    */
@@ -39,6 +49,6 @@ EmergencyButton.propTypes = {
   ]),
 };
 
-EmergencyButton.defaultProps = {
-  classes: "",
+CircleIconButton.defaultProps = {
+  iconName: "phone-emergency",
 };
