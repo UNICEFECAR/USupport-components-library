@@ -18,10 +18,17 @@ export const TextArea = ({
   onChange,
   classes,
   errorMessage,
+  size,
   ...props
 }) => {
   return (
-    <div className={["text-area--container", classNames(classes)].join(" ")}>
+    <div
+      className={[
+        "text-area--container",
+        `text-area--container--${size}`,
+        classNames(classes),
+      ].join(" ")}
+    >
       {label ? <p className="text label">{label}</p> : null}
       <textarea
         className="text-area text"
@@ -64,11 +71,16 @@ TextArea.propTypes = {
   errorMessage: PropTypes.string,
 
   /**
+   * Size of the textarea
+   */
+  size: PropTypes.oneOf(["sm", "md"]),
+
+  /**
    * Additional props to be passed to the input
    * */
   props: PropTypes.object,
 };
 
 TextArea.defaultProps = {
-  // Add defaultProps here
+  size: "md",
 };
