@@ -127,6 +127,29 @@
         color: $color_secondary_pressed_6c16d9;
       }
     }
+
+    &.btn--red {
+      color: $color_red_eb5757;
+
+      &:hover:enabled {
+        color: $color_red_cc4c4c;
+        filter: $filter_red_cc4c4c;
+      }
+
+      &:active:enabled {
+        color: $color_red_a63d3d;
+        filter: $filter_red_a63d3d;
+      }
+    }
+
+    &.btn--transparent:not(:disabled) {
+      &:hover:enabled {
+        filter: brightness(1.2);
+      }
+      &:active:enabled {
+        filter: brightness(2);
+      }
+    }
   }
 
   &--text {
@@ -173,5 +196,9 @@
 
   &--web {
     padding: $spacing_0_8 $spacing_2_4;
+  }
+
+  &--transparent {
+    background-color: transparent;
   }
 }
