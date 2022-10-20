@@ -1,5 +1,5 @@
 import React from "react";
-
+import useState from "storybook-addon-state";
 import { InputSearch } from "./InputSearch";
 
 export default {
@@ -8,13 +8,22 @@ export default {
   argTypes: {},
 };
 
-function onChange(value) {
-  console.log(value);
-}
+const Template = (props) => {
+  const [value, setValue] = useState("");
 
-const Template = (props) => <InputSearch placeholder={"Search"} {...props} />;
+  function handleInputChange(value) {
+    setValue(value);
+    console.log(value);
+  }
+  return (
+    <InputSearch
+      placeholder={"Search"}
+      value={value}
+      onChange={handleInputChange}
+      {...props}
+    />
+  );
+};
 
 export const Default = Template.bind({});
-Default.args = {
-  onChange: onChange,
-};
+Default.args = {};
