@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
+import { Error } from "../../errors/Error";
 
 import "./textarea.scss";
-import classNames from "classnames";
 
 /**
  * TextArea
@@ -17,20 +18,25 @@ export const TextArea = ({
   onChange,
   classes,
   errorMessage,
-  ...rest
+  size,
+  ...props
 }) => {
   return (
-    <div className={["text-area--container", classNames(classes)].join(" ")}>
-      <p className="text label">{label}</p>
+    <div
+      className={[
+        "text-area--container",
+        `text-area--container--${size}`,
+        classNames(classes),
+      ].join(" ")}
+    >
+      {label ? <p className="text label">{label}</p> : null}
       <textarea
         className="text-area text"
         value={value}
         onChange={(e) => onChange(e.currentTarget.value)}
-        {...rest}
+        {...props}
       />
-      {errorMessage ? (
-        <p className="small-text error-message">{errorMessage}</p>
-      ) : null}
+      {errorMessage ? <Error message={errorMessage} /> : null}
     </div>
   );
 };
@@ -40,8 +46,41 @@ TextArea.propTypes = {
    * Input label
    **/
   label: PropTypes.string,
+
+  /**
+   * Input value
+   */
+  value: PropTypes.string,
+
+  /**
+   * Function to be called when the input value changes
+   * */
+  onChange: PropTypes.func,
+
+  /**
+   * Additional classes to be added to the input
+   * */
+  classes: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string),
+  ]),
+
+  /**
+   * Error message to be displayed
+   * */
+  errorMessage: PropTypes.string,
+
+  /**
+   * Size of the textarea
+   */
+  size: PropTypes.oneOf(["sm", "md"]),
+
+  /**
+   * Additional props to be passed to the input
+   * */
+  props: PropTypes.object,
 };
 
 TextArea.defaultProps = {
-  // Add defaultProps here
+  size: "md",
 };

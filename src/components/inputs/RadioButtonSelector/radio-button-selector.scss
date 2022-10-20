@@ -1,0 +1,25 @@
+@import "../../../styles/theme";
+
+.radio-button-selector {
+  cursor: pointer;
+
+  &__radio-button {
+    padding: $spacing_1_2 $spacing_1_6;
+  }
+
+  &--disabled {
+    opacity: 0.4;
+  }
+
+  &--sm {
+    width: calc(31.1rem - 2 * $spacing_1_6);
+  }
+
+  &--md {
+    width: calc(34.3rem - 2 * $spacing_1_6);
+  }
+
+  &--lg {
+    width: calc(36.7rem - 2 * $spacing_1_6);
+  }
+}

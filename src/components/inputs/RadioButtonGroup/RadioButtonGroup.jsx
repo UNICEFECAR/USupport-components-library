@@ -1,7 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-
+import classNames from "classnames";
 import { RadioButton } from "../RadioButton";
+
+import "./radio-button-group.scss";
 
 /**
  * RadioButtonGroup
@@ -10,7 +12,13 @@ import { RadioButton } from "../RadioButton";
  *
  * @return {jsx}
  */
-export const RadioButtonGroup = ({ name, options, selected, setSelected }) => {
+export const RadioButtonGroup = ({
+  name,
+  options,
+  selected,
+  setSelected,
+  classes,
+}) => {
   const renderAllOptions = () => {
     return options.map((option, index) => {
       return (
@@ -20,12 +28,17 @@ export const RadioButtonGroup = ({ name, options, selected, setSelected }) => {
           isChecked={selected === option.value}
           setIsChecked={() => setSelected(option.value)}
           key={index}
+          classes="radio-button-group__radio-button"
         />
       );
     });
   };
 
-  return <>{renderAllOptions()}</>;
+  return (
+    <div className={["radio-button-group", classNames(classes)].join(" ")}>
+      {renderAllOptions()}
+    </div>
+  );
 };
 
 RadioButtonGroup.propTypes = {

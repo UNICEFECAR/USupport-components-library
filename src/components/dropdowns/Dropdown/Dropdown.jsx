@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Box } from "../../boxes/Box";
 import { Icon } from "../../icons/Icon";
 import OutsideClickHandler from "react-outside-click-handler";
+import { Error } from "../../errors/Error";
 
 import "./dropdown.scss";
 
@@ -83,9 +84,7 @@ export const Dropdown = ({
           </div>
         </div>
       </Box>
-      {errorMessage ? (
-        <p className="small-text error-message">{errorMessage}</p>
-      ) : null}
+      {errorMessage ? <Error message={errorMessage} /> : null}
     </OutsideClickHandler>
   );
 };

@@ -1,10 +1,18 @@
 @import "../../../styles/theme";
 
 .text-area--container {
-  width: 34.3rem;
+  &--sm {
+    width: 31.1rem;
+  }
+
+  &--md {
+    width: 34.3rem;
+  }
 
   @media screen and (min-width: $screen-lg) {
-    width: 36.8rem;
+    &--md {
+      width: 36.8rem;
+    }
   }
 
   .label {
@@ -38,10 +46,4 @@
       border: 0.1rem solid $color_secondary_9749fa;
     }
   }
-}
-
-.error-message {
-  color: $color_red_eb5757;
-  margin-left: $spacing_2_4;
-  margin-top: $spacing_0_4;
 }

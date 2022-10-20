@@ -61,7 +61,7 @@ Button.propTypes = {
   /**
    * Predifned colors for the button, the default is green
    **/
-  color: PropTypes.oneOf(["green", "purple"]),
+  color: PropTypes.oneOf(["green", "purple", "red"]),
 
   /**
    * Is the button disabled?
