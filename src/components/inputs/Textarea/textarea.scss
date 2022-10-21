@@ -1,6 +1,6 @@
 @import "../../../styles/theme";
 
-.text-area--container {
+.textarea--container {
   &--sm {
     width: 31.1rem;
   }
@@ -20,7 +20,7 @@
     color: $color_blue_3d527b;
   }
 
-  .text-area {
+  .textarea {
     -webkit-appearance: none;
     appearance: none;
     border: 0.1rem solid transparent;
