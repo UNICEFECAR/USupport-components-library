@@ -3,3 +3,4 @@ export * from "./ButtonWithIcon";
 export * from "./StoreButton";
 export * from "./ButtonOnlyIcon";
 export * from "./CircleIconButton";
+export * from "./ButtonSelector";
