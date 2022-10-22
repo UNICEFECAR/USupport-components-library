@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { Footer } from "./Footer";
 
 export default {
-  title: "Website UI/blocks/Footer",
+  title: "Components Library/footers/Footer",
   component: Footer,
   argTypes: {},
 };
