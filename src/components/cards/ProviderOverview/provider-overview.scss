@@ -11,6 +11,12 @@
     width: calc(36.8rem - 2 * $spacing_1_6);
   }
 
+  &--date {
+    @media screen and (min-width: $screen_lg) {
+      width: calc(24.2rem - 2 * $spacing_1_6);
+    }
+  }
+
   &__content {
     display: flex;
     flex-direction: row;
