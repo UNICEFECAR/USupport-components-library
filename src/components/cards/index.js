@@ -5,5 +5,6 @@ export * from "./CardSpecialistSmall";
 export * from "./ProviderOverview";
 export * from "./Consultation";
 export * from "./ConsultationBig";
-export * from './EmergencyCenter';
-export * from './ProviderOverview';
+export * from "./EmergencyCenter";
+export * from "./ProviderOverview";
+export * from "./ProviderConsultation";
