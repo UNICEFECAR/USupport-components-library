@@ -5,11 +5,7 @@
   width: calc(34.3rem - 2 * $spacing_1_6);
 
   @media screen and (min-width: $screen_lg) {
-    width: calc(37rem - 2 * $spacing_1_6);
-  }
-
-  @media screen and (min-width: $screen_xl) {
-    width: calc(45rem - 2 * $spacing_1_6);
+    width: calc(56rem - 2 * $spacing_1_6);
   }
 
   &__heading-text {
