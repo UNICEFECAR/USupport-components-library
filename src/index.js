@@ -22,3 +22,4 @@ export * from "./components/radials";
 export * from "./components/ratings";
 export * from "./components/separators";
 export * from "./components/tabs";
+export * from './components/footers';
