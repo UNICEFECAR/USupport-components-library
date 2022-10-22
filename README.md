@@ -4,17 +4,11 @@ Repository for the USupport Components Library.
 
 ## Usage
 
-The USupport Components Library is deployed as an npm package called `usupport-components-library` (https://github.com/UNICEFECAR/USupport-components-library). It can be used as a standard npm package:
-
-```
-npm i usupport-components-library
-```
+The USupport Components Library will be used as a gitsubmodule library within all the Web UI interfaces of the USuppoort project.
 
 # Contribute
 
 ## Installation
-
-This is the USupport Components Library that will be used within all the USupport interfaces.
 
 To clone the source code use:
 
