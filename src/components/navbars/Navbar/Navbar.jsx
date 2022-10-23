@@ -29,6 +29,7 @@ export const Navbar = ({
   showCta,
   showProfile,
   showCountriesDropdown,
+  yourProfileText,
 }) => {
   const navigateTo = useNavigate();
   let { width } = useWindowDimensions();
@@ -110,7 +111,7 @@ export const Navbar = ({
         alt="profile-image"
         className="nav__profile__image"
       />
-      <p className="paragraph">Your profile</p>
+      <p className="paragraph">{yourProfileText}</p>
     </div>
   );
 
