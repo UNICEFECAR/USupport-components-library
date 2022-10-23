@@ -1,10 +1,10 @@
 import React from "react";
-import { BaseNavbar } from "./BaseNavbar";
+import { Navbar } from "./Navbar";
 import { BrowserRouter as Router } from "react-router-dom";
 
 export default {
   title: "Components Library/navbars/Navbar",
-  component: BaseNavbar,
+  component: Navbar,
   argTypes: {},
 };
 
@@ -26,7 +26,7 @@ const countries = [
 
 const Template = (props) => (
   <Router>
-    <BaseNavbar pages={pages} countries={countries} {...props} />
+    <Navbar pages={pages} countries={countries} {...props} />
   </Router>
 );
 
