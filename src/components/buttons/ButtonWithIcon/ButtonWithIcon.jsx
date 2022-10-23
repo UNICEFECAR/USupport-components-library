@@ -16,13 +16,19 @@ export const ButtonWithIcon = ({
   iconName,
   iconSize,
   iconColor,
+  circleSize,
   onlyIcon,
   classes,
   ...props
 }) => {
   return (
     <Button
-      classes={["btn--with-icon", onlyIcon ? "btn--only-icon" : "", classes]}
+      classes={[
+        "btn--with-icon",
+        onlyIcon ? "btn--only-icon" : "",
+        classes,
+        `btn--only-icon--${circleSize}`,
+      ]}
       {...props}
     >
       <Icon name={iconName} size={iconSize} color={iconColor} />
@@ -40,6 +46,11 @@ ButtonWithIcon.propTypes = {
    * Size of the icon
    */
   iconSize: PropTypes.oneOf(["sm", "md", "lg"]),
+
+  /**
+   * Size of the icon
+   */
+  circleSize: PropTypes.oneOf(["sm", "md"]),
 
   /**
    * Color of the icon
@@ -62,6 +73,7 @@ ButtonWithIcon.propTypes = {
 
 ButtonWithIcon.defaultProps = {
   iconSize: "md",
+  circleSize: "md",
   iconColor: null,
   onlyIcon: false,
   classes: "",

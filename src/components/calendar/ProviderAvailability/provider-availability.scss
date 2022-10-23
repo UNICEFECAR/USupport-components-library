@@ -1,0 +1,55 @@
+@import "../../../styles/theme";
+
+.provider-availability {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+
+  padding: $spacing_2_4 0 $spacing_2_4 $spacing_1_6;
+  width: 14.5rem;
+  border-radius: $border_radius_0_4;
+  box-shadow: $shadow_1;
+
+  &--available {
+    background-color: $color_white_ff;
+
+    & > p {
+      color: $color_blue_3d527b;
+    }
+  }
+
+  &--unavailable {
+    background-color: $color_gray_ea;
+  }
+
+  &__indicator-container {
+    display: flex;
+    align-items: center;
+    padding-bottom: $spacing_2_4;
+  }
+
+  &__circle-indicator {
+    height: 1.5rem;
+    width: 1.5rem;
+    border-radius: 50%;
+    margin-right: $spacing_0_8;
+
+    &--active {
+      background-color: $color_green_7ec680;
+    }
+
+    &--inactive {
+      background-color: $color_red_ed5657;
+    }
+  }
+
+  &__icon-container {
+    position: absolute;
+    top: $spacing_0_4;
+    right: 0;
+    & > .icon {
+      cursor: pointer;
+    }
+  }
+}

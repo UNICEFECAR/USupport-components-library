@@ -6,13 +6,13 @@ import { Error } from "../../errors/Error";
 import "./textarea.scss";
 
 /**
- * TextArea
+ * Textarea
  *
- * TextArea component
+ * Textarea component
  *
  * @return {jsx}
  */
-export const TextArea = ({
+export const Textarea = ({
   label,
   value,
   onChange,
@@ -24,14 +24,14 @@ export const TextArea = ({
   return (
     <div
       className={[
-        "text-area--container",
-        `text-area--container--${size}`,
+        "textarea--container",
+        `textarea--container--${size}`,
         classNames(classes),
       ].join(" ")}
     >
       {label ? <p className="text label">{label}</p> : null}
       <textarea
-        className="text-area text"
+        className="textarea text"
         value={value}
         onChange={(e) => onChange(e.currentTarget.value)}
         {...props}
@@ -41,7 +41,7 @@ export const TextArea = ({
   );
 };
 
-TextArea.propTypes = {
+Textarea.propTypes = {
   /**
    * Input label
    **/
@@ -81,6 +81,6 @@ TextArea.propTypes = {
   props: PropTypes.object,
 };
 
-TextArea.defaultProps = {
+Textarea.defaultProps = {
   size: "md",
 };

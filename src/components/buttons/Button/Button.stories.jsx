@@ -37,3 +37,8 @@ export const GhostGreen = Template.bind({});
 GhostGreen.args = {
   type: "ghost",
 };
+
+export const Link = Template.bind({});
+Link.args = {
+  type: "link",
+};

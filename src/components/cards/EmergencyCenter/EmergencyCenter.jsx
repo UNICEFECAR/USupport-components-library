@@ -12,13 +12,26 @@ import "./emergency-center.scss";
  *
  * @return {jsx}
  */
-export const EmergencyCenter = ({ title, text, btnLabel, onClick }) => {
+export const EmergencyCenter = ({ title, text, link, phone, btnLabel }) => {
+  const handleCall = () => {
+    if (phone) {
+      window.open(`tel:${phone}`);
+    } else if (link) {
+      window.open(link, "_blank");
+    }
+  };
+
   return (
     <Box shadow={1} borderSize="xs" classes="emergency-center">
       <p className="text emergency-center__heading-text">{title}</p>
       <p className="small-text emergency-center__description">{text}</p>
       <div className="emergency-center__btn-container">
-        <Button color="purple" size="sm" label={btnLabel} onClick={onClick} />
+        <Button
+          color="purple"
+          size="sm"
+          label={btnLabel}
+          onClick={handleCall}
+        />
       </div>
     </Box>
   );
@@ -36,14 +49,19 @@ EmergencyCenter.propTypes = {
   text: PropTypes.string,
 
   /**
+   * Link of the emergency center
+   */
+  link: PropTypes.string,
+
+  /**
+   * Phone number of the emergency center
+   */
+  phone: PropTypes.string,
+
+  /**
    * Label of the button
    * */
   btnLabel: PropTypes.string,
-
-  /**
-   * Function to be called when the button is clicked
-   * */
-  onClick: PropTypes.func,
 };
 
 EmergencyCenter.defaultProps = {

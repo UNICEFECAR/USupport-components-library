@@ -51,7 +51,7 @@ Button.propTypes = {
   /**
    * Button type, the default is primary
    **/
-  type: PropTypes.oneOf(["primary", "secondary", "ghost", "text"]),
+  type: PropTypes.oneOf(["primary", "secondary", "ghost", "text", "link"]),
 
   /**
    * Size of the button, the default is md

@@ -17,7 +17,12 @@ import mascot from "../../../assets/Mascot.png";
  *
  * @return {jsx}
  */
-export const NotFound = ({ headingText, subheadingText, handleClick }) => {
+export const NotFound = ({
+  headingText,
+  subheadingText,
+  buttonText,
+  handleClick,
+}) => {
   return (
     <Block classes="not-found">
       <Grid>
@@ -25,7 +30,7 @@ export const NotFound = ({ headingText, subheadingText, handleClick }) => {
           <h3>{headingText}</h3>
           <p className="text not-found__content-item__text">{subheadingText}</p>
           <Button
-            label="Go to Homepage"
+            label={buttonText}
             size="lg"
             onClick={handleClick ? handleClick : () => {}}
           />
@@ -40,6 +45,21 @@ export const NotFound = ({ headingText, subheadingText, handleClick }) => {
 };
 
 NotFound.propTypes = {
+  /**
+   * Heading text translated in the users language
+   */
+  headingText: PropTypes.string,
+
+  /**
+   * Subheading text translated in the users language
+   */
+  subheadingText: PropTypes.string,
+
+  /**
+   * Button text translated in the users language
+   */
+  buttonText: PropTypes.string,
+
   /**
    * Function to handle click event
    * */

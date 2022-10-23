@@ -28,7 +28,9 @@ export const ProviderOverview = ({
   // TODO: Figure out a way to translate the days of the week
   // Idea: Create a reuseable hook that takes a string e.g. "mon" and returns the day translated
   const dateText = date
-    ? `${getDayOfTheWeek(date)}, ${date.getDate()}.${date.getMonth()}.`
+    ? `${getDayOfTheWeek(date)}, ${date.getDate()}.${
+        date.getMonth() < 10 ? `0${date.getMonth()}` : date.getMonth()
+      }`
     : "";
 
   const timeText = date
@@ -36,11 +38,18 @@ export const ProviderOverview = ({
     : "";
 
   return (
-    <Box onClick={onClick} shadow={2} classes={"provider-overview"}>
+    <Box
+      onClick={onClick}
+      shadow={2}
+      classes={[
+        "provider-overview",
+        date ? "provider-overview--date" : "",
+      ].join(" ")}
+    >
       <Avatar image={image} size="sm" />
       <div className="provider-overview__content">
         <div className="provider-overview__content__text-content">
-          <p className="provider-overview__content__text-content__name">
+          <p className="text provider-overview__content__text-content__name">
             {name}
           </p>
           {date ? (
@@ -62,9 +71,11 @@ export const ProviderOverview = ({
             </>
           )}
         </div>
-        <div>
-          <Icon name="arrow-chevron-forward" size="md" color="#20809E" />
-        </div>
+        {!date && (
+          <div>
+            <Icon name="arrow-chevron-forward" size="md" color="#20809E" />
+          </div>
+        )}
       </div>
     </Box>
   );

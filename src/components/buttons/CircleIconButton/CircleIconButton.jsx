@@ -12,18 +12,26 @@ import { ButtonWithIcon } from "../ButtonWithIcon";
  *
  * @return {jsx}
  */
-export const CircleIconButton = ({ iconName, label, classes, ...props }) => {
+export const CircleIconButton = ({
+  iconName,
+  label,
+  circleSize,
+  iconSize,
+  classes,
+  ...props
+}) => {
   const { width } = useWindowDimensions();
   const isMobile = width < 768;
   return (
     <ButtonWithIcon
       color="purple"
       iconName={iconName}
-      iconSize="lg"
+      iconSize={iconSize}
       iconColor="#fff"
       onlyIcon={isMobile || !label}
       label={isMobile || !label ? "" : label}
       size="md"
+      circleSize={circleSize}
       classes={classes}
       web
       {...props}
@@ -40,6 +48,17 @@ CircleIconButton.propTypes = {
    * Text to render inside the button
    */
   label: PropTypes.string,
+
+  /**
+   * Size of the circle
+   */
+  circleSize: PropTypes.oneOf(["sm", "md"]),
+
+  /**
+   * Size of the icon
+   */
+  iconSize: PropTypes.oneOf(["sm", "md", "lg"]),
+
   /**
    * Additional classes to add to the component
    */
@@ -51,4 +70,6 @@ CircleIconButton.propTypes = {
 
 CircleIconButton.defaultProps = {
   iconName: "phone-emergency",
+  circleSize: "sm",
+  iconSize: "lg",
 };
