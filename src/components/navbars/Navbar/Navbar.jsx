@@ -11,8 +11,8 @@ import OutsideClickHandler from "react-outside-click-handler";
 
 import "./navbar.scss";
 
-import logo from "../../../assets/logo.png";
-import specialistPlaceholder from "../../../assets/SpecialistPlaceholderImage.png";
+import { logoHorizontalPng } from "../../../assets";
+import { specialistPlaceholder } from "../../../assets";
 
 /**
  * Navbar
@@ -175,7 +175,7 @@ export const Navbar = ({
       >
         <img
           className="nav__logo"
-          src={logo}
+          src={logoHorizontalPng}
           alt="logo"
           onClick={() => {
             navigateTo("/");
