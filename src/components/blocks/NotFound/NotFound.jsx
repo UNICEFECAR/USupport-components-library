@@ -17,17 +17,20 @@ import mascot from "../../../assets/Mascot.png";
  *
  * @return {jsx}
  */
-export const NotFound = ({ handleClick }) => {
+export const NotFound = ({
+  headingText,
+  subheadingText,
+  buttonText,
+  handleClick,
+}) => {
   return (
     <Block classes="not-found">
       <Grid>
         <GridItem md={6} lg={6} classes="not-found__content-item">
-          <h3>Oops! We can't find the page you are looking for...</h3>
-          <p className="text not-found__content-item__text">
-            It seems this page is missing or is not available at the moment.
-          </p>
+          <h3>{headingText}</h3>
+          <p className="text not-found__content-item__text">{subheadingText}</p>
           <Button
-            label="Go to Homepage"
+            label={buttonText}
             size="lg"
             onClick={handleClick ? handleClick : () => {}}
           />
@@ -42,6 +45,21 @@ export const NotFound = ({ handleClick }) => {
 };
 
 NotFound.propTypes = {
+  /**
+   * Heading text translated in the users language
+   */
+  headingText: PropTypes.string,
+
+  /**
+   * Subheading text translated in the users language
+   */
+  subheadingText: PropTypes.string,
+
+  /**
+   * Button text translated in the users language
+   */
+  buttonText: PropTypes.string,
+
   /**
    * Function to handle click event
    * */

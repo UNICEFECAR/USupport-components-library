@@ -1,0 +1,10 @@
+.btn--only-icon--transparent.btn {
+  background-color: unset;
+  box-shadow: unset;
+
+  &--primary.btn--green:hover {
+    background-color: unset;
+    box-shadow: unset;
+    filter: brightness(1.3);
+  }
+}

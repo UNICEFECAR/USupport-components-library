@@ -51,7 +51,7 @@ Button.propTypes = {
   /**
    * Button type, the default is primary
    **/
-  type: PropTypes.oneOf(["primary", "secondary", "ghost", "text"]),
+  type: PropTypes.oneOf(["primary", "secondary", "ghost", "text", "link"]),
 
   /**
    * Size of the button, the default is md
@@ -61,7 +61,7 @@ Button.propTypes = {
   /**
    * Predifned colors for the button, the default is green
    **/
-  color: PropTypes.oneOf(["green", "purple"]),
+  color: PropTypes.oneOf(["green", "purple", "red"]),
 
   /**
    * Is the button disabled?
