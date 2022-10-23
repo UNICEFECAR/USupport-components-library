@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Icon } from "../../icons/Icon/Icon";
 import classNames from "classnames";
+import { getTimeFromDate, isDateToday, isDateYesterday } from "../../../utils";
 
 import "./client-activity.scss";
 
@@ -13,26 +14,13 @@ import "./client-activity.scss";
  * @return {jsx}
  */
 export const ClientActivity = ({ iconName, text, date, classes }) => {
-  // TODO: Move this function inside date.js util
-  const checkIfDateIsYesterday = (date) => {
-    const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
+  const dateText = isDateToday(date)
+    ? ""
+    : isDateYesterday(date)
+    ? "Yesterday"
+    : date.toLocaleDateString();
 
-    return yesterday.toDateString() === date.toDateString();
-  };
-
-  const dateText =
-    new Date().toDateString() === date.toDateString()
-      ? ""
-      : checkIfDateIsYesterday(date)
-      ? "Yesterday"
-      : date.toLocaleDateString();
-
-  // TODO: Move this function inside date.js util
-  const hourText = date.toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+  const hourText = getTimeFromDate(date);
 
   return (
     <div className={["client-activity", classNames(classes)].join(" ")}>
