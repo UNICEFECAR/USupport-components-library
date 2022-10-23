@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { getDayOfTheWeek, isDateToday } from "../../../utils";
 
 import "./single-day.scss";
-import { getDayOfTheWeek } from "../../../utils";
 
 /**
  * SingleDay
