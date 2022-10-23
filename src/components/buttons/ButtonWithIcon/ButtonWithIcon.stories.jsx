@@ -29,3 +29,13 @@ ButtonOnlyIcon.args = {
   color: "purple",
   onlyIcon: true,
 };
+
+export const ButtonWithIconRed = Template.bind({});
+ButtonWithIconRed.args = {
+  iconName: "circle-close",
+  iconSize: "md",
+  iconColor: "#eb5757",
+  color: "red",
+  label: "Button",
+  type: "ghost",
+};

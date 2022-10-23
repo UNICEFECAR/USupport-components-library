@@ -199,4 +199,38 @@
       }
     }
   }
+
+  &__profile {
+    display: flex;
+    align-items: center;
+    padding-right: $spacing_2_4;
+
+    & > .paragraph {
+      cursor: pointer;
+    }
+
+    &__notification-icon {
+      margin-right: $spacing_2_4;
+      cursor: pointer;
+    }
+
+    &__image {
+      border-radius: 50%;
+      cursor: pointer;
+      height: 3.2rem;
+      margin-right: $spacing_0_8;
+      width: 3.2rem;
+    }
+  }
+
+  &__profile--mobile {
+    display: none;
+
+    &--shown {
+      display: block;
+      position: absolute;
+      bottom: 10%;
+      padding-left: $spacing_1_8;
+    }
+  }
 }

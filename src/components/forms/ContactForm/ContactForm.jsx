@@ -5,7 +5,7 @@ import Joi from "joi";
 import classNames from "classnames";
 import { Button } from "../../buttons/Button";
 import { Input } from "../../inputs/Input";
-import { TextArea } from "../../inputs/TextArea";
+import { Textarea } from "../../inputs/Textarea";
 import { DropdownWithLabel } from "../../dropdowns/DropdownWithLabel";
 import { Modal } from "../../modals/Modal";
 import { validate, validateProperty } from "../../../utils";
@@ -132,7 +132,7 @@ export const ContactForm = ({ classes, sendEmail }) => {
         classes="contact-form__subject"
         placeholder="Select a reason"
       />
-      <TextArea
+      <Textarea
         label="Message"
         value={data.message}
         errorMessage={errors.message}

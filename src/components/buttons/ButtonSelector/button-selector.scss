@@ -1,0 +1,56 @@
+@import "../../../styles/theme";
+
+.btn-selector {
+  align-items: center;
+  background-color: transparent;
+  border-color: transparent;
+  border-width: 1px;
+  border-radius: $border_radius_2_4;
+  box-shadow: $shadow_1;
+  cursor: pointer;
+  display: flex;
+  min-width: calc(34rem - 2 * $spacing_1_6);
+  padding: $spacing_0_8 $spacing_1_6;
+
+  &:hover:enabled {
+    border: 1px solid $color_primary_pressed_156f8c;
+  }
+
+  &:active:enabled {
+    border: 1px solid $color_primary_pressed_0c5f7a;
+    color: $color_primary_pressed_0c5f7a;
+    .btn-selector__label {
+      color: $color_primary_pressed_0c5f7a;
+    }
+  }
+
+  &__avatar {
+    width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 50%;
+    margin-right: $spacing_0_8;
+  }
+
+  &__label {
+    font-size: $font_size_1_2;
+    line-height: $line_height_2_2;
+    color: $color_black_37;
+    font-weight: $font_medium;
+  }
+
+  &__left-icon {
+    padding-right: $spacing_1_0;
+  }
+
+  &__right-icon-container {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.6;
+  }
+}

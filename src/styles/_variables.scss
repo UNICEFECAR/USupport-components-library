@@ -38,6 +38,7 @@ $line_height_4_8: 4.8rem;
 $line_height_7_7: 7.7rem;
 
 // Border Radius
+$border_radius_0_4: 0.4rem;
 $border_radius_1_6: 1.6rem;
 $border_radius_2_4: 2.4rem;
 $border_radius_3_2: 3.2rem;
@@ -47,14 +48,17 @@ $border_radius_4_8: 4.8rem;
 // Spacing
 $spacing_0_2: 0.2rem;
 $spacing_0_4: 0.4rem;
+$spacing_0_5: 0.5rem;
 $spacing_0_6: 0.6rem;
 $spacing_0_7: 0.7rem;
 $spacing_0_8: 0.8rem;
+$spacing_0_9: 0.9rem;
 $spacing_1_0: 1rem;
 $spacing_1_1: 1.1rem;
 $spacing_1_2: 1.2rem;
 $spacing_1_3: 1.3rem;
 $spacing_1_6: 1.6rem;
+$spacing_1_7: 1.7rem;
 $spacing_1_8: 1.8rem;
 $spacing_2_0: 2rem;
 $spacing_2_2: 2.2rem;
@@ -63,6 +67,7 @@ $spacing_2_5: 2.5rem;
 $spacing_2_8: 2.8rem;
 $spacing_3_0: 3rem;
 $spacing_3_2: 3.2rem;
+$spacing_3_3: 3.3rem;
 $spacing_3_4: 3.4rem;
 $spacing_3_6: 3.6rem;
 $spacing_4_0: 4rem;
@@ -70,6 +75,7 @@ $spacing_4_4: 4.4rem;
 $spacing_4_6: 4.6rem;
 $spacing_4_8: 4.8rem;
 $spacing_5_0: 5rem;
+$spacing_5_4: 5.4rem;
 $spacing_5_6: 5.6rem;
 $spacing_6_0: 6rem;
 $spacing_6_4: 6.4rem;
@@ -85,8 +91,10 @@ $spacing_10_0: 10rem;
 $spacing_11_5: 11.5rem;
 $spacing_12_0: 12rem;
 $spacing_14_6: 14.6rem;
+$spacing_15_3: 15.3rem;
 $spacing_16_0: 16rem;
 $spacing_24_0: 24rem;
+$spacing_30_7: 30.7rem;
 
 // Colors
 $color_primary_20809e: #20809e;
@@ -121,6 +129,11 @@ $color_blue_2a54bc: #2a54bc;
 $color_blue_3d527b: #3d527b;
 
 $color_red_eb5757: #eb5757;
+$color_red_cc4c4c: #cc4c4c;
+$color_red_a63d3d: #a63d3d;
+$color_red_ed5657: #ed5657;
+
+$color_green_7ec680: #7ec680;
 
 // Gradients
 $gradient_primary: linear-gradient(
@@ -176,4 +189,10 @@ $z_index_navbar: 99;
 $z_index_emergency_button: 99;
 
 // Overlays
-$overlay_66768D: rgba(102, 118, 141, 0.5); ;
+$overlay_66768D: rgba(102, 118, 141, 0.5);
+
+// Filters
+$filter_red_cc4c4c: brightness(0) saturate(100%) invert(34%) sepia(20%)
+  saturate(5420%) hue-rotate(336deg) brightness(96%) contrast(69%);
+$filter_red_a63d3d: brightness(0) saturate(100%) invert(34%) sepia(16%)
+  saturate(3193%) hue-rotate(320deg) brightness(87%) contrast(85%);

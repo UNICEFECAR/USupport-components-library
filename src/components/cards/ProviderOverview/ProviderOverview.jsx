@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Box } from "../../boxes/Box/Box";
 import { Avatar } from "../../avatars/Avatar/Avatar";
 import { Icon } from "../../icons/Icon/Icon";
+import { getDayOfTheWeek } from "../../../utils";
 
 import "./provider-overview.scss";
 
@@ -20,22 +21,61 @@ export const ProviderOverview = ({
   name,
   specialities,
   experience,
+  date,
   onClick,
+  yearsOfExperienceText,
 }) => {
+  // TODO: Figure out a way to translate the days of the week
+  // Idea: Create a reuseable hook that takes a string e.g. "mon" and returns the day translated
+  const dateText = date
+    ? `${getDayOfTheWeek(date)}, ${date.getDate()}.${
+        date.getMonth() < 10 ? `0${date.getMonth()}` : date.getMonth()
+      }`
+    : "";
+
+  const timeText = date
+    ? `${date.getHours()}:00 - ${date.getHours() + 1}:00`
+    : "";
+
   return (
-    <Box onClick={onClick} shadow={2} classes={"provider-overview"}>
+    <Box
+      onClick={onClick}
+      shadow={2}
+      classes={[
+        "provider-overview",
+        date ? "provider-overview--date" : "",
+      ].join(" ")}
+    >
       <Avatar image={image} size="sm" />
       <div className="provider-overview__content">
         <div className="provider-overview__content__text-content">
-          <p className="provider-overview__name">{name}</p>
-          <p className="small-text provider-overview__specialities">
-            {specialities}
+          <p className="text provider-overview__content__text-content__name">
+            {name}
           </p>
-          <p className="small-text">{experience} years experience Overall</p>
+          {date ? (
+            <div className="provider-overview__content__text-content__date-container">
+              <Icon name="calendar" size="sm" color="#66768D" />
+              <div className="provider-overview__content__text-content__date-container__text">
+                <p className="small-text">{dateText}</p>
+                <p className="small-text">{timeText}</p>
+              </div>
+            </div>
+          ) : (
+            <>
+              <p className="small-text provider-overview__specialities">
+                {specialities}
+              </p>
+              <p className="small-text">
+                {`${experience} ${yearsOfExperienceText}`}
+              </p>
+            </>
+          )}
         </div>
-        <div>
-          <Icon name="arrow-chevron-forward" size="md" color="#20809E" />
-        </div>
+        {!date && (
+          <div>
+            <Icon name="arrow-chevron-forward" size="md" color="#20809E" />
+          </div>
+        )}
       </div>
     </Box>
   );
@@ -63,12 +103,23 @@ ProviderOverview.propTypes = {
   experience: PropTypes.number,
 
   /**
+   * Date of the consultation
+   * */
+  date: PropTypes.Date,
+
+  /**
    * On click handler
    * */
   onClick: PropTypes.func,
+
+  /**
+   * Text(translated in the used language) showing the years of experience of the provider
+   * */
+  yearsOfExperienceText: PropTypes.string,
 };
 
 ProviderOverview.defaultProps = {
   image: specialistPlaceholder,
   onClick: () => {},
+  yearsOfExperienceText: "years experience Overall",
 };

@@ -12,7 +12,7 @@ import "./store-button.scss";
  *
  * @return {jsx}
  */
-export const StoreButton = ({ store, ...props }) => {
+export const StoreButton = ({ downloadText, store, ...props }) => {
   const icon = store === "google-play" ? "google-play" : "app-store";
   const label = store === "google-play" ? "Google Play" : "App Store";
 
@@ -20,7 +20,7 @@ export const StoreButton = ({ store, ...props }) => {
     <Button type="secondary" classes="btn--store" {...props}>
       <Icon name={icon} size="lg" />
       <div className="btn__text-container">
-        <p className="download">Download from</p>
+        <p className="download">{downloadText}</p>
         <p className="text label">{label}</p>
       </div>
     </Button>

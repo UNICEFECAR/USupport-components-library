@@ -6,25 +6,32 @@ import { Error } from "../../errors/Error";
 import "./textarea.scss";
 
 /**
- * TextArea
+ * Textarea
  *
- * TextArea component
+ * Textarea component
  *
  * @return {jsx}
  */
-export const TextArea = ({
+export const Textarea = ({
   label,
   value,
   onChange,
   classes,
   errorMessage,
+  size,
   ...props
 }) => {
   return (
-    <div className={["text-area--container", classNames(classes)].join(" ")}>
+    <div
+      className={[
+        "textarea--container",
+        `textarea--container--${size}`,
+        classNames(classes),
+      ].join(" ")}
+    >
       {label ? <p className="text label">{label}</p> : null}
       <textarea
-        className="text-area text"
+        className="textarea text"
         value={value}
         onChange={(e) => onChange(e.currentTarget.value)}
         {...props}
@@ -34,7 +41,7 @@ export const TextArea = ({
   );
 };
 
-TextArea.propTypes = {
+Textarea.propTypes = {
   /**
    * Input label
    **/
@@ -64,11 +71,16 @@ TextArea.propTypes = {
   errorMessage: PropTypes.string,
 
   /**
+   * Size of the textarea
+   */
+  size: PropTypes.oneOf(["sm", "md"]),
+
+  /**
    * Additional props to be passed to the input
    * */
   props: PropTypes.object,
 };
 
-TextArea.defaultProps = {
-  // Add defaultProps here
+Textarea.defaultProps = {
+  size: "md",
 };
