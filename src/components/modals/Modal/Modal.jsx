@@ -64,8 +64,10 @@ Modal.propTypes = {
   /**
    * Additional classes to add to the modal
    * */
-  classes: PropTypes.string,
-
+  classes: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string),
+  ]),
   /**
    * Title of the modal
    * */

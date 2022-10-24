@@ -61,7 +61,10 @@ CheckBox.propTypes = {
   /**
    * Additional classes to add to the checkbox wrapper
    * */
-  classes: PropTypes.string,
+  classes: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string),
+  ]),
 
   /**
    * Additional props to pass to the checkbox

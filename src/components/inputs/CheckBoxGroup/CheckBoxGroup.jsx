@@ -69,7 +69,10 @@ CheckBoxGroup.propTypes = {
   /**
    *  Classes to add to the CheckBoxGroup
    * */
-  classes: PropTypes.string,
+  classes: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string),
+  ]),
 };
 
 CheckBoxGroup.defaultProps = {
