@@ -150,7 +150,7 @@ CardMedia.propTypes = {
   /**
    * Reading time to be displayed
    * */
-  readingTime: PropTypes.number,
+  readingTime: PropTypes.string,
 
   /**
    * Additional classes to be added to the CardMedia component

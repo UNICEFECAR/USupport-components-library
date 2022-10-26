@@ -11,7 +11,8 @@ import OutsideClickHandler from "react-outside-click-handler";
 
 import "./navbar.scss";
 
-import logo from "../../../assets/logo.png";
+import { logoHorizontalPng } from "../../../assets";
+import { specialistPlaceholder } from "../../../assets";
 
 /**
  * Navbar
@@ -20,7 +21,16 @@ import logo from "../../../assets/logo.png";
  *
  * @return {jsx}
  */
-export const Navbar = ({ pages, countries }) => {
+export const Navbar = ({
+  pages,
+  countries,
+  dropdownText,
+  buttonText,
+  showCta,
+  showProfile,
+  showCountriesDropdown,
+  yourProfileText,
+}) => {
   const navigateTo = useNavigate();
   let { width } = useWindowDimensions();
   const scrollTop = () => window.scrollTo(0, 0);
@@ -47,22 +57,24 @@ export const Navbar = ({ pages, countries }) => {
     });
   });
 
-  items.push({
-    value: (
-      <div
-        className={[
-          "nav__globe",
-          "nav__item",
-          countriesShown ? "nav__globe--expanded" : "",
-        ].join(" ")}
-        onClick={() => toggleCountries()}
-      >
-        <Icon name="globe" size="md" />
-        {width < 900 && <p className="paragraph">Country &amp; Language</p>}
-        <Icon name="arrow-chevron-down" size="sm" color="#20809e" />
-      </div>
-    ),
-  });
+  if (showCountriesDropdown) {
+    items.push({
+      value: (
+        <div
+          className={[
+            "nav__globe",
+            "nav__item",
+            countriesShown ? "nav__globe--expanded" : "",
+          ].join(" ")}
+          onClick={() => toggleCountries()}
+        >
+          <Icon name="globe" size="md" />
+          {width < 900 && <p className="paragraph">Country &amp; Language</p>}
+          <Icon name="arrow-chevron-down" size="sm" color="#20809e" />
+        </div>
+      ),
+    });
+  }
 
   const ctaLogin = (
     <Button
@@ -76,8 +88,31 @@ export const Navbar = ({ pages, countries }) => {
       }}
       web={width >= 900}
     >
-      Go to app
+      {buttonText}
     </Button>
+  );
+
+  // TODO: Change the icon if there are unseen notifications
+  const notificationIcon = (
+    <div>
+      <Icon
+        classes="nav__profile__notification-icon"
+        name="notification-unread"
+        size="md"
+      />
+    </div>
+  );
+
+  const profileContainer = (
+    <div className="nav__profile">
+      {width >= 900 && notificationIcon}
+      <img
+        src={specialistPlaceholder}
+        alt="profile-image"
+        className="nav__profile__image"
+      />
+      <p className="paragraph">{yourProfileText}</p>
+    </div>
   );
 
   function toggleNavbar() {
@@ -96,6 +131,39 @@ export const Navbar = ({ pages, countries }) => {
     setCountriesShown((prev) => !prev);
   };
 
+  const renderCtaLoginMobile = () => {
+    if (width < 900 && showCta) return ctaLogin;
+  };
+
+  const renderCtaDesktop = () => {
+    if (width >= 900 && showCta) return ctaLogin;
+  };
+
+  const renderNotificationIconMobile = () => {
+    if (width < 900 && showProfile) return notificationIcon;
+  };
+
+  const renderProfileContainerMobile = () => {
+    if (width < 900 && showProfile) {
+      return (
+        <div
+          className={[
+            "nav__profile--mobile",
+            isNavbarExpanded ? "nav__profile--mobile--shown" : "",
+          ].join(" ")}
+        >
+          {profileContainer}
+        </div>
+      );
+    }
+  };
+
+  const renderProfileContainerDesktop = () => {
+    if (width >= 900 && showProfile) {
+      return profileContainer;
+    }
+  };
+
   return (
     <>
       <nav
@@ -107,7 +175,7 @@ export const Navbar = ({ pages, countries }) => {
       >
         <img
           className="nav__logo"
-          src={logo}
+          src={logoHorizontalPng}
           alt="logo"
           onClick={() => {
             navigateTo("/");
@@ -121,14 +189,19 @@ export const Navbar = ({ pages, countries }) => {
             size="md"
           />
         </div>
-        {width < 900 && ctaLogin}
+
+        {renderCtaLoginMobile()}
+        {renderNotificationIconMobile()}
+
         <List
           items={items}
           inline={width >= 900 ? true : false}
           classes={["nav__list", width < 900 ? "collapsible__content" : ""]}
           aria-expanded={isNavbarExpanded}
         />
-        {width >= 900 && ctaLogin}
+        {renderCtaDesktop()}
+        {renderProfileContainerDesktop()}
+        {renderProfileContainerMobile()}
       </nav>
       <OutsideClickHandler onOutsideClick={() => setCountriesShown(false)}>
         <div
@@ -141,7 +214,7 @@ export const Navbar = ({ pages, countries }) => {
               countriesShown ? "nav__countries__content--shown" : ""
             }`}
           >
-            {width >= 900 && <h4>Country &amp; Language</h4>}
+            {width >= 900 && <h4>{dropdownText}</h4>}
             {countries.map((country, index) => {
               return (
                 <CollapsibleCountry
@@ -181,4 +254,29 @@ Navbar.propTypes = {
       languages: PropTypes.arrayOf(PropTypes.string).isRequired,
     })
   ).isRequired,
+
+  /**
+   * The text to be displayed in the dropdown
+   */
+  dropdownText: PropTypes.string.isRequired,
+
+  /**
+   * The text to be displayed in the CTA button
+   */
+  buttonText: PropTypes.string.isRequired,
+
+  /**
+   * Whether to show the CTA button
+   */
+  showCta: PropTypes.bool,
+
+  /**
+   * Whether to show the profile container
+   */
+  showProfile: PropTypes.bool,
+
+  /**
+   * Whether to show the countries dropdown
+   */
+  showCountries: PropTypes.bool,
 };

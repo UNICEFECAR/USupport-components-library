@@ -1,3 +1,8 @@
+/**
+ * Get the day of the week from a Date object
+ * @param {Date} date
+ * @returns {String}
+ */
 function getDayOfTheWeek(date) {
   const day = date.getDay();
   switch (day) {
@@ -20,4 +25,37 @@ function getDayOfTheWeek(date) {
   }
 }
 
-export { getDayOfTheWeek };
+/**
+ *Return if date is today
+ * @param {Date} date
+ * @returns {Boolean}
+ */
+function isDateToday(date) {
+  return new Date().toDateString() === date.toDateString();
+}
+
+/**
+ *Return if date is yesterday
+ * @param {Date} date
+ * @returns {Boolean}
+ */
+const isDateYesterday = (date) => {
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+
+  return yesterday.toDateString() === date.toDateString();
+};
+
+/**
+ * Get time from Date object
+ * @param {Date} date
+ * @returns {String} in hh:mm format
+ */
+const getTimeFromDate = (date) => {
+  return date.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+};
+
+export { getDayOfTheWeek, isDateToday, isDateYesterday, getTimeFromDate };

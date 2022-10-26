@@ -57,7 +57,7 @@ export const Tabs = ({ options, handleSelect }) => {
   const renderShowMoreOptions = () => {
     if (options) {
       return options.map((option, index) => {
-        if (index > NO_OPTIONS_TO_RENDER) {
+        if (index >= NO_OPTIONS_TO_RENDER) {
           return (
             <div
               className={[

@@ -23,6 +23,10 @@ export const Modal = ({
   cta = true,
   ctaLabel,
   ctaHandleClick,
+  secondaryCta,
+  secondaryCtaLabel,
+  secondaryCtaHandleClick,
+  children,
 }) => {
   return (
     <ModalPackage
@@ -39,13 +43,20 @@ export const Modal = ({
         <Icon name="close-x" size="md" onClick={closeModal} />
       </div>
       <div className="base-modal__body">
-        <p className="text base-modal__body__text">{text}</p>
+        {text && <p className="text base-modal__body__text">{text}</p>}
+        {children}
       </div>
-      {cta && (
-        <div className="base-modal__footer">
-          <Button label={ctaLabel} onClick={ctaHandleClick} size="lg" />
-        </div>
-      )}
+      <div className="base-modal__footer">
+        {cta && <Button label={ctaLabel} onClick={ctaHandleClick} size="lg" />}
+        {secondaryCta && (
+          <Button
+            label={secondaryCtaLabel}
+            onClick={secondaryCtaHandleClick}
+            size="lg"
+            type="ghost"
+          />
+        )}
+      </div>
     </ModalPackage>
   );
 };
@@ -64,17 +75,19 @@ Modal.propTypes = {
   /**
    * Additional classes to add to the modal
    * */
-  classes: PropTypes.string,
-
+  classes: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string),
+  ]),
   /**
    * Title of the modal
    * */
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
 
   /**
    * Text to be displayed in the modal
    * */
-  text: PropTypes.string.isRequired,
+  text: PropTypes.string,
 
   /**
    * Should the modal have a CTA button
@@ -90,6 +103,26 @@ Modal.propTypes = {
    * Function to be called when the CTA button is clicked
    * */
   ctaHandleClick: PropTypes.func,
+
+  /**
+   * Should the modal have a secondary CTA button
+   */
+  secondaryCta: PropTypes.bool,
+
+  /**
+   * Label of the secondary CTA button
+   */
+  secondaryCtaLabel: PropTypes.string,
+
+  /**
+   * Function to be called when the secondary CTA button is clicked
+   */
+  secondaryCtaHandleClick: PropTypes.func,
+
+  /**
+   * Children to be rendered in the modal
+   */
+  children: PropTypes.node,
 };
 
 Modal.defaultProps = {

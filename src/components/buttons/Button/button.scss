@@ -36,6 +36,10 @@
     padding: $spacing_1_3 $spacing_2_4;
     min-width: 34.3rem;
     font-size: $font_size_1_6;
+
+    @media screen and (min-width: $screen_lg) {
+      min-width: 36.8rem;
+    }
   }
 
   //Modes: Primary, Secondary, Ghost and Emergency

@@ -44,7 +44,10 @@
   }
 
   &__footer {
-    .btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .btn:first-of-type {
       margin: $spacing_2_4 auto 0 auto;
 
       @media screen and (min-width: $screen-md) {

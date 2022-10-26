@@ -11,7 +11,7 @@ import { IconWithText } from "../../icons/IconWithText";
 
 import "./footer.scss";
 
-import { logo } from "../../../assets";
+import { logoHorizontalPng } from "../../../assets";
 
 /**
  * Footer
@@ -91,7 +91,7 @@ export const Footer = ({ lists, contactUsText }) => {
         <GridItem xs={4} md={8} lg={4}>
           <img
             className="footer__logo"
-            src={logo}
+            src={logoHorizontalPng}
             alt="logo"
             onClick={() => {
               navigateTo("/");

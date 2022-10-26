@@ -12,7 +12,7 @@ import { Icon } from "../../icons/Icon";
  *
  * @return {jsx}
  */
-export const ButtonOnlyIcon = ({ iconName, iconColor, ...rest }) => {
+export const ButtonOnlyIcon = ({ iconName, iconColor, iconSize, ...rest }) => {
   return (
     <Button
       classes="btn--transparent"
@@ -21,7 +21,7 @@ export const ButtonOnlyIcon = ({ iconName, iconColor, ...rest }) => {
       type="ghost"
       {...rest}
     >
-      <Icon color={iconColor} name={iconName} />
+      <Icon color={iconColor} name={iconName} size={iconSize} />
     </Button>
   );
 };
@@ -29,16 +29,25 @@ export const ButtonOnlyIcon = ({ iconName, iconColor, ...rest }) => {
 ButtonOnlyIcon.propTypes = {
   /**
    * Icon name
+   * @default "arrow-chevron-back"
    */
   iconName: PropTypes.string.isRequired,
 
   /**
    * Icon color
+   * @default "#20809E"
    * */
   iconColor: PropTypes.string,
+
+  /**
+   * Size of the icon
+   * @default "md"
+   * */
+  iconSize: PropTypes.oneOf(["sm", "md", "lg"]),
 };
 
 ButtonOnlyIcon.defaultProps = {
   iconName: "arrow-chevron-back",
+  iconSize: "md",
   iconColor: "#20809E",
 };
