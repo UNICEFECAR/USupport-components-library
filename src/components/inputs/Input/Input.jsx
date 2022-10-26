@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Error } from "../../errors/Error";
+import classNames from "classnames";
 
 import "./input.scss";
 
@@ -18,11 +19,18 @@ export const Input = ({
   errorMessage,
   children,
   preInput,
+  classes,
   ...props
 }) => {
   return (
     <>
-      <div className={["input-container", disabled && "disabled"].join(" ")}>
+      <div
+        className={[
+          "input-container",
+          disabled && "disabled",
+          classNames(classes),
+        ].join(" ")}
+      >
         {label ? <p className="text label">{label}</p> : null}
         <div
           className={["input-wrapper", errorMessage ? "error" : ""].join(" ")}
