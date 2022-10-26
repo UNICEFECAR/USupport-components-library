@@ -13,9 +13,23 @@ import LoadingAnimation from "./assets/Loading.json";
  *
  * @return {jsx}
  */
-export const Loading = ({ size }) => {
+export const Loading = ({
+  size,
+  height = "",
+  padding = "10rem",
+  margin = "0 auto",
+}) => {
+  const loadingContainerStyling = {
+    height: height,
+    margin: margin,
+    padding: padding,
+  };
+
   return (
-    <div className={["loading", `loading--${size}`].join(" ")}>
+    <div
+      className={["loading", `loading--${size}`].join(" ")}
+      style={loadingContainerStyling}
+    >
       <Animation json={LoadingAnimation} />
     </div>
   );
@@ -26,6 +40,21 @@ Loading.propTypes = {
    * Size of the loading animation
    * */
   size: propTypes.oneOf(["sm", "md", "lg"]),
+
+  /**
+   * Height of the loading container
+   * */
+  height: propTypes.string,
+
+  /**
+   * Padding of the loading container
+   * */
+  padding: propTypes.string,
+
+  /**
+   * Margin of the loading container
+   * */
+  margin: propTypes.string,
 };
 
 Loading.defaultProps = {

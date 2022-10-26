@@ -11,4 +11,9 @@ export default {
 const Template = (props) => <Loading {...props} />;
 
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+  size: "lg",
+  height: "10rem",
+  margin: "0 auto",
+  padding: "10rem",
+};
