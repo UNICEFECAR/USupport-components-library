@@ -263,7 +263,7 @@ Navbar.propTypes = {
   /**
    * The text to be displayed in the CTA button
    */
-  buttonText: PropTypes.string.isRequired,
+  buttonText: PropTypes.string,
 
   /**
    * Whether to show the CTA button
