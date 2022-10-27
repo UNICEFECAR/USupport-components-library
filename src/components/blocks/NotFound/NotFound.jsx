@@ -8,7 +8,7 @@ import { RadialCircle } from "../../radials/RadialCircle/RadialCircle";
 
 import "./not-found.scss";
 
-import mascot from "../../../assets/Mascot.png";
+import mascot from "../../../assets/mascot-confused-blue.png";
 
 /**
  * NotFound

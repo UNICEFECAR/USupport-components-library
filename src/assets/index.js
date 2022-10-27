@@ -11,3 +11,5 @@ export { default as logoHorizontalSvg } from "./logo-horizontal.svg";
 export { default as logoSquarePng } from "./logo-square.png";
 export { default as logoSquareSvg } from "./logo-square.svg";
 export { default as specialistPlaceholder } from "./SpecialistPlaceholderImage.png";
+export { default as mascotConfusedBlue } from "./mascot-confused-blue.png";
+export { default as mascotHappyBlue } from "./mascot-happy-blue.png";

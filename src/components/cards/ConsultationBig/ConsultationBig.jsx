@@ -7,7 +7,7 @@ import classNames from "classnames";
 import "./consultation-big.scss";
 
 import avatar from "../../../assets/SpecialistPlaceholderImage.png";
-import mascot from "../../../assets/MascotHandsUp.png";
+import mascot from "../../../assets/mascot-happy-blue.png";
 
 /**
  * CardConsultationBig
