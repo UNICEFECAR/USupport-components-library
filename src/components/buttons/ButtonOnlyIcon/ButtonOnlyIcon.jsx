@@ -14,13 +14,7 @@ import { Icon } from "../../icons/Icon";
  */
 export const ButtonOnlyIcon = ({ iconName, iconColor, iconSize, ...rest }) => {
   return (
-    <Button
-      classes="btn--transparent"
-      size="xs"
-      onlyIcon
-      type="ghost"
-      {...rest}
-    >
+    <Button classes="btn--transparent" size="xs" type="ghost" {...rest}>
       <Icon color={iconColor} name={iconName} size={iconSize} />
     </Button>
   );
