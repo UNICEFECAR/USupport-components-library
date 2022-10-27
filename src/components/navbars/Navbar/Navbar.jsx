@@ -253,12 +253,12 @@ Navbar.propTypes = {
       name: PropTypes.string.isRequired,
       languages: PropTypes.arrayOf(PropTypes.string).isRequired,
     })
-  ).isRequired,
+  ),
 
   /**
    * The text to be displayed in the dropdown
    */
-  dropdownText: PropTypes.string.isRequired,
+  dropdownText: PropTypes.string,
 
   /**
    * The text to be displayed in the CTA button
