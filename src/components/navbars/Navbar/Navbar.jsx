@@ -215,7 +215,7 @@ export const Navbar = ({
             }`}
           >
             {width >= 900 && <h4>{dropdownText}</h4>}
-            {countries.map((country, index) => {
+            {countries?.map((country, index) => {
               return (
                 <CollapsibleCountry
                   country={country}
