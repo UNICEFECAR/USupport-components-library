@@ -7,7 +7,6 @@ import svg from "rollup-plugin-svg";
 import image from "@rollup/plugin-image";
 import json from "@rollup/plugin-json";
 import commonjs from "@rollup/plugin-commonjs";
-import postcss from "rollup-plugin-postcss";
 
 export default [
   {
@@ -37,7 +36,6 @@ export default [
       image(),
       json(),
       commonjs(),
-      postcss(),
     ],
   },
 ];

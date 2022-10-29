@@ -1,9 +1,29 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
+import "./react-multi-carousel.scss"; // Styles needed for the react-multi-carousel library, as it cannot import them itself
+import classNames from "classnames";
 
 import "./custom-carousel.scss";
+
+const defaultBreakpointItems = {
+  desktop: {
+    breakpoint: { max: 5000, min: 1366 }, // 5000 is a hack to make sure it's the last breakpoint
+    items: 1,
+  },
+  smallLaptop: {
+    breakpoint: { max: 1366, min: 768 },
+    items: 1,
+  },
+  tablet: {
+    breakpoint: { max: 768, min: 375 },
+    items: 1,
+  },
+  mobile: {
+    breakpoint: { max: 375, min: 0 },
+    items: 1,
+  },
+};
 
 /**
  * CustomCarousel
@@ -12,12 +32,22 @@ import "./custom-carousel.scss";
  *
  * @return {jsx}
  */
-export const CustomCarousel = (
-  {
-    /* Add props here */
-  }
-) => {
-  return <Carousel></Carousel>;
+export const CustomCarousel = ({ classes, breakpointItems, children }) => {
+  return (
+    <div className={["custom-carousel", classNames(classes)].join(" ")}>
+      <Carousel
+        responsive={breakpointItems ? breakpointItems : defaultBreakpointItems}
+        renderDotsOutside={true}
+        autoPlay={true}
+        infinite={true}
+        showDots={true}
+        arrows={false}
+        autoPlaySpeed={3000}
+      >
+        {children}
+      </Carousel>
+    </div>
+  );
 };
 
 CustomCarousel.propTypes = {
