@@ -8,11 +8,12 @@
 
   &__labels {
     display: flex;
-    padding-bottom: $spacing_0_9;
+    flex-wrap: wrap;
   }
 
   & .card-media__label {
     padding: 0 $spacing_1_6;
+    margin-bottom: $spacing_0_8;
 
     &:not(:last-child) {
       margin-right: $spacing_0_8;
@@ -20,7 +21,7 @@
   }
 
   &__title {
-    padding-bottom: $spacing_0_4;
+    margin-bottom: $spacing_0_4;
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
