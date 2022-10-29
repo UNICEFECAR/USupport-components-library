@@ -9,7 +9,7 @@ function destructureArticleData(cmsHost, article) {
   const articleId = article.id;
   const articleData = article.attributes;
   const body = articleData.body;
-  const articleLabels = computeArticleLaels(articleData.labels.data);
+  const articleLabels = computeArticleLabels(articleData.labels.data);
   const articleReadingTime = articleData.reading_time;
   const articleThumbnailImage =
     CMS_HOST + article.attributes.image.data.attributes.formats.thumbnail.url;
@@ -41,7 +41,7 @@ function destructureArticleData(cmsHost, article) {
   };
 }
 
-function computeArticleLaels(labels) {
+function computeArticleLabels(labels) {
   return labels.map((label) => {
     return { name: label.attributes.Name };
   });
