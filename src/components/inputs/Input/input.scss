@@ -2,6 +2,7 @@
 
 .input-container {
   width: 34.3rem;
+  text-align: left;
 
   @media screen and (min-width: $screen-lg) {
     width: 36.8rem;
@@ -48,7 +49,7 @@
       border: 0.1rem solid $color_secondary_9749fa;
     }
 
-    &.error > input:enabled {
+    &.error {
       border: 0.1rem solid $color_red_eb5757;
     }
   }

@@ -58,4 +58,44 @@ const getTimeFromDate = (date) => {
   });
 };
 
-export { getDayOfTheWeek, isDateToday, isDateYesterday, getTimeFromDate };
+/**
+ * Get the starting and ending day of the week
+ *
+ * @param {Date} day
+ * @returns {{ firstDayOfWeek, lastDayOfWeek }} Date objects for the first and last days of the week
+ */
+function getStartAndEndOfWeek(day) {
+  const weekMap = [6, 0, 1, 2, 3, 4, 5];
+  var now = day;
+  now.setHours(0, 0, 0, 0);
+  var firstDayOfWeek = new Date(now);
+  firstDayOfWeek.setDate(
+    firstDayOfWeek.getDate() - weekMap[firstDayOfWeek.getDay()]
+  );
+  var lastDayOfWeek = new Date(now);
+  lastDayOfWeek.setDate(
+    lastDayOfWeek.getDate() - weekMap[lastDayOfWeek.getDay()] + 6
+  );
+  lastDayOfWeek.setHours(23, 59, 59, 999);
+  return { first: firstDayOfWeek, last: lastDayOfWeek };
+}
+
+function getDatesInRange(start, end) {
+  const dates = [];
+  const currDate = start;
+  const lastDate = end;
+  while (currDate <= lastDate) {
+    dates.push(new Date(currDate));
+    currDate.setDate(currDate.getDate() + 1);
+  }
+  return dates;
+}
+
+export {
+  getDayOfTheWeek,
+  isDateToday,
+  isDateYesterday,
+  getTimeFromDate,
+  getStartAndEndOfWeek,
+  getDatesInRange,
+};

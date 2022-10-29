@@ -17,6 +17,7 @@ export const RadioButtonSelectorGroup = ({
   options,
   selected,
   setSelected,
+  label,
   classes,
 }) => {
   const renderAllOptions = () => {
@@ -28,6 +29,7 @@ export const RadioButtonSelectorGroup = ({
           isChecked={selected === option.value}
           setIsChecked={() => setSelected(option.value)}
           key={index}
+          size="lg" //Refactor, if needed to receive size as prop
           classes="radio-button-selector-group__radio-button"
         />
       );
@@ -38,6 +40,7 @@ export const RadioButtonSelectorGroup = ({
     <div
       className={["radio-button-selector-group", classNames(classes)].join(" ")}
     >
+      {label ? <p className="text">{label}</p> : null}
       {renderAllOptions()}
     </div>
   );
@@ -63,6 +66,11 @@ RadioButtonSelectorGroup.propTypes = {
    * Function to set the selected option
    * */
   setSelected: PropTypes.func,
+
+  /**
+   * Label for the radio button group
+   * */
+  label: PropTypes.string,
 
   /**
    * Additional classes to pass to the radio button selector group
