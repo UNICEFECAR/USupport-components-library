@@ -12,6 +12,7 @@ import "./rating.scss";
  * @return {jsx}
  */
 export const Rating = ({
+  label,
   maxStars,
   rating,
   changeOnHoverEnabled,
@@ -53,20 +54,23 @@ export const Rating = ({
 
   return (
     <div className="rating">
-      {stars.map((star, index) => {
-        return (
-          <Icon
-            key={index}
-            name={star}
-            color={star === "star" ? "#66768D" : "#9749fa"}
-            size="lg"
-            classes="rating__star"
-            onMouseEnter={
-              changeOnHoverEnabled ? () => onStarHover(index) : () => {}
-            }
-          />
-        );
-      })}
+      {label ? <p className="text rating__label">{label}</p> : null}
+      <div className="rating__stars-container">
+        {stars.map((star, index) => {
+          return (
+            <Icon
+              key={index}
+              name={star}
+              color={star === "star" ? "#66768D" : "#9749fa"}
+              size="lg"
+              classes="rating__stars-container__star"
+              onMouseEnter={
+                changeOnHoverEnabled ? () => onStarHover(index) : () => {}
+              }
+            />
+          );
+        })}
+      </div>
     </div>
   );
 };
