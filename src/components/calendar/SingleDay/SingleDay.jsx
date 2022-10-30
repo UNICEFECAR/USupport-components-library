@@ -49,7 +49,7 @@ SingleDay.propTypes = {
   /**
    * Date
    **/
-  date: PropTypes.Date,
+  date: PropTypes.instanceOf(Date),
 
   /**
    * Number of consultations

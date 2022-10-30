@@ -95,7 +95,7 @@ ProviderConsultation.propTypes = {
   /**
    * Date of the consultation
    */
-  date: PropTypes.Date,
+  date: PropTypes.instanceOf(Date),
 
   /**
    * Period of the consultation
