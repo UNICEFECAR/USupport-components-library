@@ -6,6 +6,7 @@
   padding: $spacing_0_8 $spacing_1_6;
   align-items: center;
   width: calc(34.3rem - 2 * $spacing_1_6);
+  text-align: left;
 
   @media screen and (min-width: $screen_lg) {
     width: calc(36.8rem - 2 * $spacing_1_6);
