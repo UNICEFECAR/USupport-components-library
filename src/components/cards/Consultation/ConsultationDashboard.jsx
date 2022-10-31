@@ -4,18 +4,18 @@ import { Button } from "../../buttons/Button/Button";
 import { Box } from "../../boxes/Box/Box";
 import classNames from "classnames";
 
-import "./consultation.scss";
+import "./consultation-dashboard.scss";
 
 import avatar from "../../../assets/SpecialistPlaceholderImage.png";
 
 /**
- * Consultation
+ * ConsultationDashboard
  *
- * Consultation component
+ * ConsultationDashboard component
  *
  * @return {jsx}
  */
-export const Consultation = ({
+export const ConsultationDashboard = ({
   specialistName,
   consultationDate,
   isLive,
@@ -65,14 +65,14 @@ export const Consultation = ({
   );
 };
 
-Consultation.propTypes = {
+ConsultationDashboard.propTypes = {
   /**
    * Specialist name
    * */
   specialistName: PropTypes.string,
 
   /**
-   * Consultation date
+   * ConsultationDashboard date
    * */
   consultationDate: PropTypes.string,
 
@@ -82,7 +82,7 @@ Consultation.propTypes = {
   isLive: PropTypes.bool,
 
   /**
-   * Additional classes to be added to the Consultation
+   * Additional classes to be added to the ConsultationDashboard
    * */
   classes: PropTypes.oneOfType([
     PropTypes.string,
@@ -115,7 +115,7 @@ Consultation.propTypes = {
   scheduleButtonText: PropTypes.string,
 };
 
-Consultation.defaultProps = {
+ConsultationDashboard.defaultProps = {
   specialistName: "",
   consultationDate: "",
   isLive: false,
