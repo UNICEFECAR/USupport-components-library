@@ -20,21 +20,25 @@ export const ButtonSelector = ({
   avatar,
   disabled,
   classes,
+  onClick,
+  ...props
 }) => {
   return (
     <button
       disabled={disabled}
       className={["btn-selector", classNames(classes)].join(" ")}
+      onClick={disabled ? () => {} : onClick}
+      {...props}
     >
       {iconName && (
         <Icon
           classes="btn-selector__left-icon"
-          name="share"
+          name={iconName}
           color="#A6B4B8"
-          size="sm"
+          size="md"
         />
       )}
-      {avatar && (
+      {!iconName && avatar && (
         <img className="btn-selector__avatar" src={specialistPlaceholder} />
       )}
       <p className="btn-selector__label">{label}</p>
