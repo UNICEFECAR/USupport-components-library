@@ -8,22 +8,33 @@
 
   &__labels {
     display: flex;
-    padding-bottom: $spacing_0_9;
+    flex-wrap: wrap;
   }
 
   & .card-media__label {
+    margin-bottom: $spacing_0_8;
+    max-width: 90%;
+    overflow: hidden;
     padding: 0 $spacing_1_6;
 
     &:not(:last-child) {
       margin-right: $spacing_0_8;
     }
+
+    & > p {
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      display: -webkit-box;
+      text-overflow: ellipsis;
+      word-break: break-all;
+    }
   }
 
   &__title {
-    padding-bottom: $spacing_0_4;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    display: -webkit-box;
+    margin-bottom: $spacing_0_4;
     overflow: hidden;
   }
 

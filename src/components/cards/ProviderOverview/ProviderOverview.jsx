@@ -105,7 +105,7 @@ ProviderOverview.propTypes = {
   /**
    * Date of the consultation
    * */
-  date: PropTypes.Date,
+  date: PropTypes.instanceOf(Date),
 
   /**
    * On click handler

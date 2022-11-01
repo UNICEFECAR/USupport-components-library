@@ -92,6 +92,8 @@ const icons = [
   "consultation",
   "google-login",
   "facebook-login",
+  "copy",
+  "exit",
 ];
 
 export const All = (props) => (
