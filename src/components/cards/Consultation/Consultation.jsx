@@ -1,64 +1,145 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button } from "../../buttons/Button/Button";
-import { Box } from "../../boxes/Box/Box";
 import classNames from "classnames";
+import { Box } from "../../boxes/Box";
+import { Avatar } from "../../avatars/Avatar";
+import { Icon } from "../../icons/Icon";
+import { Button } from "../../buttons/Button";
+import { getDayOfTheWeek, isDateBetweenTwoDates } from "../../../utils";
 
 import "./consultation.scss";
 
-import avatar from "../../../assets/SpecialistPlaceholderImage.png";
-
+import { specialistPlaceholder } from "../../../assets";
 /**
  * Consultation
  *
- * Consultation component
+ * Consultation card component
  *
  * @return {jsx}
  */
 export const Consultation = ({
+  joinLabel,
+  editLabel,
+  cancelLabel,
+  acceptLabel,
+  detailsLabel,
+  activeLabel,
   specialistName,
-  consultationDate,
-  isLive,
+  image,
+  startDate,
+  endDate,
+  overview,
+  requested,
+  onClick,
   classes,
-  liveText,
-  noConsultationsText,
-  joinButtonText,
-  changeButtonText,
-  scheduleButtonText,
 }) => {
+  // TODO: Figure out a way to translate the days of the week
+  // Idea: Create a reuseable hook that takes a string e.g. "mon" and returns the day translated
+  const dateText = startDate
+    ? `${getDayOfTheWeek(startDate)}, ${startDate.getDate()}.${
+        startDate.getMonth() < 10
+          ? `0${startDate.getMonth()}`
+          : startDate.getMonth()
+      }`
+    : "";
+
+  const today = new Date();
+
+  let buttonLabel, buttonAction;
+  // TODO: @Georgi / @Vasilen - Test if this works in different timezones!!!
+  if (isDateBetweenTwoDates(today, startDate, endDate)) {
+    buttonLabel = joinLabel;
+    buttonAction = "join";
+  } else if (today > endDate) {
+    buttonLabel = detailsLabel;
+    buttonAction = "details";
+  } else {
+    buttonLabel = editLabel;
+    buttonAction = "edit";
+  }
+
+  // TODO: @Joro - Make this in the format "DD.MM.YY", so "1.10" to become "01.10.22"
+  const timeText = startDate
+    ? `${startDate.getHours()}:00 - ${endDate.getHours()}:00`
+    : "";
+
+  const handleAcceptRequest = () => {
+    console.log("Accept request");
+  };
+
+  const handleCancelRequest = () => {
+    console.log("Cancel request");
+  };
+
+  const handleJoin = () => {
+    console.log("Join");
+  };
+
   return (
-    <Box shadow={1} classes={["consultation", classNames(classes)].join(" ")}>
-      {specialistName && consultationDate ? (
-        <div className="consultation__content">
-          {isLive ? (
-            <p className="small-text now-text">{liveText}</p>
-          ) : (
-            <p className="small-text">{consultationDate}</p>
-          )}
-          <div className="consultation__content__specialist-container">
-            <img src={avatar} className="specialist-image" />
-            <p className="text">{specialistName}</p>
+    <Box
+      onClick={onClick}
+      shadow={2}
+      classes={[
+        "consultation",
+        buttonAction === "join" && "consultation--purple",
+        classNames(classes),
+      ].join(" ")}
+    >
+      <div className="consultation__content">
+        <Avatar image={image} size="sm" />
+        <div className="consultation__content__text-container">
+          <div className="consultation__content__text-container__name-container">
+            <p
+              className={[
+                "text",
+                buttonAction === "join" && "text--purple",
+              ].join(" ")}
+            >
+              {specialistName}
+            </p>
+            <div className="consultation__content__text-container__date-container">
+              <Icon
+                name="calendar"
+                size="sm"
+                color={buttonAction === "join" ? "#9749fa" : "#66768D"}
+              />
+              <div className="consultation__content__text-container__date-container__text">
+                <p className="small-text">{dateText}</p>
+                <p className="small-text">{timeText}</p>
+              </div>
+            </div>
           </div>
-          {isLive ? (
-            <Button
-              label={joinButtonText}
-              color="purple"
-              size="sm"
-              classes="consultation__button"
-            />
-          ) : (
-            <Button
-              label={changeButtonText}
-              type="secondary"
-              size="sm"
-              color="purple"
-            />
-          )}
         </div>
-      ) : (
-        <div className="consultation__no-consultation">
-          <p className="small-text no-booking-text">{noConsultationsText}</p>
-          <Button size="sm" label={scheduleButtonText} color="purple" />
+      </div>
+      {!overview && !requested && (
+        <div className="consultation__button-container">
+          {buttonAction === "join" && (
+            <p className="text consultation__button-container__now-text">
+              {activeLabel}
+            </p>
+          )}
+          <Button
+            onClick={() => handleJoin()}
+            label={buttonLabel}
+            type={buttonAction === "join" ? "primary" : "secondary"}
+            color={buttonAction === "join" ? "purple" : "green"}
+            size="sm"
+          />
+        </div>
+      )}
+      {!overview && requested && (
+        <div className="consultation__request-container">
+          <Button
+            onClick={() => handleAcceptRequest()}
+            label={acceptLabel}
+            size="sm"
+          />
+          <Button
+            onClick={() => handleCancelRequest()}
+            label={cancelLabel}
+            type="secondary"
+            size="sm"
+          />
         </div>
       )}
     </Box>
@@ -67,61 +148,88 @@ export const Consultation = ({
 
 Consultation.propTypes = {
   /**
-   * Specialist name
-   * */
-  specialistName: PropTypes.string,
+   * Translation for the join button
+   */
+  joinLabel: PropTypes.string,
 
   /**
-   * Consultation date
-   * */
-  consultationDate: PropTypes.string,
+   * Translation for the edit button
+   */
+  editLabel: PropTypes.string,
 
   /**
-   * Is the consultation happening now
-   **/
-  isLive: PropTypes.bool,
+   * Translation for the cancel button
+   */
+  cancelLabel: PropTypes.string,
 
   /**
-   * Additional classes to be added to the Consultation
+   * Translation for the accept button
+   */
+  acceptLabel: PropTypes.string,
+
+  /**
+   * Translation for the active text
+   */
+  activeLabel: PropTypes.string,
+
+  /**
+   * Translation for the details text
+   */
+  detailsLabel: PropTypes.string,
+
+  /**
+   * Specialist name of the specialist
    * */
+  specialistName: PropTypes.string.isRequired,
+
+  /**
+   * Image url
+   */
+  image: PropTypes.string.isRequired,
+
+  /**
+   * Start date of the consultation
+   */
+  startDate: PropTypes.instanceOf(Date).isRequired,
+
+  /**
+   * End date of the consultation
+   */
+  endDate: PropTypes.instanceOf(Date).isRequired,
+
+  /**
+   *  Is the card overview? If "true" show the "See details" button
+   */
+  overview: PropTypes.bool,
+
+  /**
+   * Is the card request? If "true" show to "Accept consultation" and "Cancel suggestion" buttons
+   */
+  requested: PropTypes.bool,
+
+  /**
+   * OnClick function to be called when the card is clicked
+   */
+  onClick: PropTypes.func,
+
+  /**
+   * Additional classes to be added to the card
+   */
   classes: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.arrayOf(PropTypes.string),
   ]),
-
-  /**
-   * Text(translated in the used language) to display when the consultation is live
-   * */
-  liveText: PropTypes.string,
-
-  /**
-   * Text(translated in the used language) to be displayed when there are no consultations
-   */
-  noConsultationsText: PropTypes.string,
-
-  /**
-   * Text(translated in the used language) to be displayed on the button when the consultation is live
-   */
-  joinButtonText: PropTypes.string,
-
-  /**
-   * Text(translated in the used language) to be displayed on the button when the user wants to change his consultation date/time?
-   */
-  changeButtonText: PropTypes.string,
-
-  /**
-   * Text(translated in the used language) to be displayed on the button when the user wants to schedule a consultation
-   */
-  scheduleButtonText: PropTypes.string,
 };
 
 Consultation.defaultProps = {
-  specialistName: "",
-  consultationDate: "",
-  isLive: false,
-  liveText: "Now",
-  noConsultationsText: "Currently you do not have upcoming consultations",
-  joinButtonText: "Join",
-  changeButtonText: "Change",
-  scheduleButtonText: "Schedule",
+  joinLabel: "Join",
+  editLabel: "Edit",
+  cancelLabel: "Cancel suggestion",
+  acceptLabel: "Accept consultation",
+  activeLabel: "Now",
+  detailsLabel: "See details",
+  image: specialistPlaceholder,
+  overview: true,
+  requested: false,
+  onClick: () => {},
 };
