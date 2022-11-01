@@ -26,8 +26,8 @@ export const ButtonWithIcon = ({
       classes={[
         "btn--with-icon",
         onlyIcon ? "btn--only-icon" : "",
+        onlyIcon ? `btn--only-icon--${circleSize}` : "",
         classes,
-        `btn--only-icon--${circleSize}`,
       ]}
       {...props}
     >
