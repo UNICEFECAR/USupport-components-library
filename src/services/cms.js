@@ -124,6 +124,28 @@ async function getNewestArticles(limit, locale) {
 }
 
 /**
+ * send request to get the most read articles
+ *
+ * @param {string} limit - the number of articles to return
+ * @param {string} locale - the locale for which to retrieve articles
+ *
+ * @returns {object} the articles data
+ */
+async function getMostReadArticles(limit, locale) {
+  const querryString = generateQuerryString({
+    limit: limit,
+    locale: locale,
+    sortBy: "read_count",
+    sortOrder: "desc",
+    populate: true,
+  });
+
+  const { data } = await http.get(`${articlesEndpoint}${querryString}`);
+
+  return data;
+}
+
+/**
  * send request to get the similar articles
  *
  * @param {string} limit - the number of articles to return
@@ -183,6 +205,7 @@ export default {
   getArticles,
   getArticleById,
   getNewestArticles,
+  getMostReadArticles,
   getSimilarArticles,
   getCategories,
   getAgeGroups,
