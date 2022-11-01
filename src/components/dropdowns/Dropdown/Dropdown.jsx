@@ -43,7 +43,7 @@ export const Dropdown = ({
             className={[
               "option-container",
               selected
-                ? selected.label === option.label && "option-selected"
+                ? selected.value === option.value && "option-selected"
                 : "",
               option.isDisabled && "disabled",
             ].join(" ")}

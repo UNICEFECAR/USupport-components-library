@@ -20,14 +20,14 @@ export const Modal = ({
   classes,
   title,
   text,
-  cta = true,
   ctaLabel,
   ctaHandleClick,
-  secondaryCta,
   secondaryCtaLabel,
   secondaryCtaHandleClick,
   children,
 }) => {
+  const hasButtons = ctaLabel || secondaryCtaLabel;
+
   return (
     <ModalPackage
       isOpen={isOpen}
@@ -42,21 +42,30 @@ export const Modal = ({
         <h4 className="base-modal__header__title">{title}</h4>
         <Icon name="close-x" size="md" onClick={closeModal} />
       </div>
-      <div className="base-modal__body">
-        {text && <p className="text base-modal__body__text">{text}</p>}
+      {text && <p className="text base-modal__text">{text}</p>}
+      <div
+        className={[
+          "base-modal__body",
+          !hasButtons ? "backdrop__children--full-height" : "",
+        ].join(" ")}
+      >
         {children}
       </div>
-      <div className="base-modal__footer">
-        {cta && <Button label={ctaLabel} onClick={ctaHandleClick} size="lg" />}
-        {secondaryCta && (
-          <Button
-            label={secondaryCtaLabel}
-            onClick={secondaryCtaHandleClick}
-            size="lg"
-            type="ghost"
-          />
-        )}
-      </div>
+      {hasButtons && (
+        <div className="base-modal__footer">
+          {ctaLabel && (
+            <Button label={ctaLabel} onClick={ctaHandleClick} size="lg" />
+          )}
+          {secondaryCtaLabel && (
+            <Button
+              label={secondaryCtaLabel}
+              onClick={secondaryCtaHandleClick}
+              size="lg"
+              type="ghost"
+            />
+          )}
+        </div>
+      )}
     </ModalPackage>
   );
 };
@@ -90,11 +99,6 @@ Modal.propTypes = {
   text: PropTypes.string,
 
   /**
-   * Should the modal have a CTA button
-   * */
-  cta: PropTypes.bool,
-
-  /**
    * Label of the CTA button
    * */
   ctaLabel: PropTypes.string,
@@ -103,11 +107,6 @@ Modal.propTypes = {
    * Function to be called when the CTA button is clicked
    * */
   ctaHandleClick: PropTypes.func,
-
-  /**
-   * Should the modal have a secondary CTA button
-   */
-  secondaryCta: PropTypes.bool,
 
   /**
    * Label of the secondary CTA button

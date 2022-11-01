@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-
-import "./backdrop.scss";
 import useWindowDimensions from "../../../utils/useWindowDimensions";
 import { Modal } from "../Modal/Modal";
 import { Icon } from "../../icons/Icon";
 import { Button } from "../../buttons/Button";
+
+import "./backdrop.scss";
 
 /**
  * Backdrop
@@ -19,10 +19,9 @@ export const Backdrop = ({
   onClose,
   classes,
   title,
-  cta = true,
+  text,
   ctaLabel,
   ctaHandleClick,
-  secondaryCta = true,
   secondaryCtaLabel,
   secondaryCtaHandleClick,
   children,
@@ -40,49 +39,66 @@ export const Backdrop = ({
   }, [isOpen]);
 
   const { width } = useWindowDimensions();
-  const hasButtons = cta || secondaryCta;
+  const hasButtons = ctaLabel || secondaryCtaLabel;
 
   const handleClose = () => {
     onClose();
   };
 
   return width < 768 ? (
-    <div className={`backdrop ${isOpen ? "backdrop__shown" : ""}`}>
-      <div className="backdrop__header">
-        <h4 className="backdrop__header-title">{title}</h4>
-        <Icon size="md" name="close-x" color="#20809E" onClick={handleClose} />
-      </div>
+    <>
       <div
-        className={[
-          "backdrop__children",
-          !hasButtons ? "backdrop__children--full-height" : "",
-        ].join(" ")}
-      >
-        {children}
-      </div>
-      {hasButtons && (
-        <div className="backdrop__buttons-container">
-          {cta && (
-            <Button
-              label={ctaLabel}
-              onClick={ctaHandleClick}
-              color="green"
-              size="lg"
-              type="primary"
-            />
-          )}
-          {secondaryCta && (
-            <Button
-              label={secondaryCtaLabel}
-              onClick={secondaryCtaHandleClick}
-              color="green"
-              size="lg"
-              type="ghost"
-            />
-          )}
+        className={`backdrop__overlay ${
+          isOpen ? "backdrop__overlay--shown" : ""
+        }`}
+        onClick={handleClose}
+      />
+      <div className={`backdrop ${isOpen ? "backdrop__shown" : ""}`}>
+        <div className="backdrop__header">
+          <h4 className="backdrop__header-title">{title}</h4>
+          <Icon
+            size="md"
+            name="close-x"
+            color="#20809E"
+            onClick={handleClose}
+          />
         </div>
-      )}
-    </div>
+
+        {text && <p className="text backdrop__text">{text}</p>}
+
+        <div
+          className={[
+            "backdrop__children",
+            !hasButtons ? "backdrop__children--full-height" : "",
+          ].join(" ")}
+        >
+          {children}
+        </div>
+
+        {hasButtons && (
+          <div className="backdrop__buttons-container">
+            {ctaLabel && (
+              <Button
+                label={ctaLabel}
+                onClick={ctaHandleClick}
+                color="green"
+                size="lg"
+                type="primary"
+              />
+            )}
+            {secondaryCtaLabel && (
+              <Button
+                label={secondaryCtaLabel}
+                onClick={secondaryCtaHandleClick}
+                color="green"
+                size="lg"
+                type="ghost"
+              />
+            )}
+          </div>
+        )}
+      </div>
+    </>
   ) : (
     <Modal
       {...{
@@ -90,11 +106,9 @@ export const Backdrop = ({
         closeModal: onClose,
         classes,
         title,
-        text: "Kur",
-        cta,
+        text,
         ctaLabel,
         ctaHandleClick,
-        secondaryCta,
         secondaryCtaLabel,
         secondaryCtaHandleClick,
       }}
@@ -126,11 +140,6 @@ Backdrop.propTypes = {
   title: PropTypes.string,
 
   /**
-   * Should the backdrop/modal have a CTA button
-   * */
-  cta: PropTypes.bool,
-
-  /**
    * Label of the CTA button
    * */
   ctaLabel: PropTypes.string,
@@ -139,11 +148,6 @@ Backdrop.propTypes = {
    * Function to be called when the CTA button is clicked
    * */
   ctaHandleClick: PropTypes.func,
-
-  /**
-   * Should the backdrop/modal have a secondary CTA button
-   */
-  secondaryCta: PropTypes.bool,
 
   /**
    * Label of the secondary CTA button
@@ -159,10 +163,4 @@ Backdrop.propTypes = {
    * Children to be rendered in the backdrop/modal
    */
   children: PropTypes.node,
-};
-
-Backdrop.defaultProps = {
-  title: "Specialist filter",
-  ctaLabel: "Button",
-  secondaryCtaLabel: "Secondary button",
 };

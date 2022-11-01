@@ -215,7 +215,7 @@ export const Navbar = ({
             }`}
           >
             {width >= 900 && <h4>{dropdownText}</h4>}
-            {countries.map((country, index) => {
+            {countries?.map((country, index) => {
               return (
                 <CollapsibleCountry
                   country={country}
@@ -253,17 +253,17 @@ Navbar.propTypes = {
       name: PropTypes.string.isRequired,
       languages: PropTypes.arrayOf(PropTypes.string).isRequired,
     })
-  ).isRequired,
+  ),
 
   /**
    * The text to be displayed in the dropdown
    */
-  dropdownText: PropTypes.string.isRequired,
+  dropdownText: PropTypes.string,
 
   /**
    * The text to be displayed in the CTA button
    */
-  buttonText: PropTypes.string.isRequired,
+  buttonText: PropTypes.string,
 
   /**
    * Whether to show the CTA button
