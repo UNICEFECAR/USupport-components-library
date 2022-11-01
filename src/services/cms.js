@@ -9,52 +9,52 @@ const categoriesEndpoint = CMS_API_URL + "/categories";
 /**
  * generate a querry string from an object
  *
- * @param {object} querryObj - the object to generate the querry string from
- * @param {string} querryObj.limit  - the number of documents to return
- * @param {number} querryObj.populate - whether to populate the data fully or not
- * @param {number} querryObj.startFrom - the starting index of the document to return
- * @param {string} querryObj.contains - the string to search for in the document title
- * @param {string} querryObj.ageGroupId - the age group id to filter by
- * @param {string} querryObj.categoryId - the category id to filter by
- * @param {string} querryObj.locale - the locale to filter by
- * @param {string} querryObj.sortBy - the field to sort by
- * @param {string} querryObj.sortOrder - the order to sort by, possible values are "asc" and "desc"
- * @param {string} querryObj.excludeId - the id to exclude from the results
+ * @param {object} queryObj - the object to generate the querry string from
+ * @param {string} queryObj.limit  - the number of documents to return
+ * @param {number} queryObj.populate - whether to populate the data fully or not
+ * @param {number} queryObj.startFrom - the starting index of the document to return
+ * @param {string} queryObj.contains - the string to search for in the document title
+ * @param {string} queryObj.ageGroupId - the age group id to filter by
+ * @param {string} queryObj.categoryId - the category id to filter by
+ * @param {string} queryObj.locale - the locale to filter by
+ * @param {string} queryObj.sortBy - the field to sort by
+ * @param {string} queryObj.sortOrder - the order to sort by, possible values are "asc" and "desc"
+ * @param {string} queryObj.excludeId - the id to exclude from the results
  *
  */
-function generateQuerryString(querryObj) {
-  let querry = `?locale=${querryObj.locale}`;
+function generateQuerryString(queryObj) {
+  let querry = `?locale=${queryObj.locale}`;
 
-  if (querryObj.populate) {
+  if (queryObj.populate) {
     querry += "&populate=*";
   }
 
-  if (querryObj.limit) {
-    querry += `&pagination[limit]=${querryObj.limit}`;
+  if (queryObj.limit) {
+    querry += `&pagination[limit]=${queryObj.limit}`;
   }
 
-  if (querryObj.startFrom) {
-    querry += `&pagination[start]=${querryObj.startFrom}`;
+  if (queryObj.startFrom) {
+    querry += `&pagination[start]=${queryObj.startFrom}`;
   }
 
-  if (querryObj.contains && querryObj.contains !== "") {
-    querry += `&filters[title][$containsi]=${querryObj.contains}`;
+  if (queryObj.contains && queryObj.contains !== "") {
+    querry += `&filters[title][$containsi]=${queryObj.contains}`;
   }
 
-  if (querryObj.ageGroupId) {
-    querry += `&filters[age_groups][id][$in]=${querryObj.ageGroupId}`;
+  if (queryObj.ageGroupId) {
+    querry += `&filters[age_groups][id][$in]=${queryObj.ageGroupId}`;
   }
 
-  if (querryObj.categoryId) {
-    querry += `&filters[category][id][$in]=${querryObj.categoryId}`;
+  if (queryObj.categoryId) {
+    querry += `&filters[category][id][$in]=${queryObj.categoryId}`;
   }
 
-  if (querryObj.sortBy && querryObj.sortOrder) {
-    querry += `&sort[0]=${querryObj.sortBy}%3A${querryObj.sortOrder}`;
+  if (queryObj.sortBy && queryObj.sortOrder) {
+    querry += `&sort[0]=${queryObj.sortBy}%3A${queryObj.sortOrder}`;
   }
 
-  if (querryObj.excludeId) {
-    querry += `&filters[id][$notIn]=${querryObj.excludeId}`;
+  if (queryObj.excludeId) {
+    querry += `&filters[id][$notIn]=${queryObj.excludeId}`;
   }
 
   return querry;
@@ -63,22 +63,22 @@ function generateQuerryString(querryObj) {
 /**
  * send request to get multiple articles
  *
- * @param {object} querryObj - the object to generate the querry string from
- * @param {string} querryObj.limit  - the number of documents to return
- * @param {number} querryObj.populate - whether to populate the data fully or not
- * @param {number} querryObj.startFrom - the starting index of the document to return
- * @param {string} querryObj.contains - the string to search for in the document title
- * @param {string} querryObj.ageGroupId - the age group id to filter by
- * @param {string} querryObj.categoryId - the category id to filter by
- * @param {string} querryObj.locale - the locale to filter by
- * @param {string} querryObj.sortBy - the field to sort by
- * @param {string} querryObj.sortOrder - the order to sort by, possible values are "asc" and "desc"
- * @param {string} querryObj.excludeId - the id to exclude from the results
+ * @param {object} queryObj - the object to generate the querry string from
+ * @param {string} queryObj.limit  - the number of documents to return
+ * @param {number} queryObj.populate - whether to populate the data fully or not
+ * @param {number} queryObj.startFrom - the starting index of the document to return
+ * @param {string} queryObj.contains - the string to search for in the document title
+ * @param {string} queryObj.ageGroupId - the age group id to filter by
+ * @param {string} queryObj.categoryId - the category id to filter by
+ * @param {string} queryObj.locale - the locale to filter by
+ * @param {string} queryObj.sortBy - the field to sort by
+ * @param {string} queryObj.sortOrder - the order to sort by, possible values are "asc" and "desc"
+ * @param {string} queryObj.excludeId - the id to exclude from the results
  *
  */
 
-async function getArticles(querryObj) {
-  const querryString = generateQuerryString(querryObj);
+async function getArticles(queryObj) {
+  const querryString = generateQuerryString(queryObj);
 
   const { data } = await http.get(`${articlesEndpoint}${querryString}`);
 
