@@ -10,21 +10,26 @@ export default {
 
 const Template = (props) => <Consultation {...props} />;
 
-export const Default = Template.bind({});
-Default.args = {
-  specialistName: "Joanna Doe",
-  consultationDate: "15th May, 12:30 PM",
+export const Overview = Template.bind({});
+Overview.args = {
+  specialistName: "Dr. Joanna Doe",
+  startDate: new Date("2022-12-4 9:00"),
+  endDate: new Date("2022-12-4 10:00"),
 };
 
-export const Live = Template.bind({});
-Live.args = {
-  specialistName: "Joanna Doe",
-  consultationDate: "15th May, 12:30 PM",
-  isLive: true,
+export const OverviewFalse = Template.bind({});
+OverviewFalse.args = {
+  specialistName: "Dr. Joanna Doe",
+  startDate: new Date("2022-11-1 15:00"),
+  endDate: new Date("2022-11-1 16:00"),
+  overview: false,
 };
 
-export const NoBooking = Template.bind({});
-NoBooking.args = {
-  specialistName: "",
-  consultationDate: "",
+export const Request = Template.bind({});
+Request.args = {
+  specialistName: "Dr. Joanna Doe",
+  startDate: new Date("2022-11-6 15:00"),
+  endDate: new Date("2022-11-6 16:00"),
+  overview: false,
+  requested: true,
 };

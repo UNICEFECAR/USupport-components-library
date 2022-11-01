@@ -78,6 +78,11 @@ ButtonSelector.propTypes = {
     PropTypes.string,
     PropTypes.arrayOf(PropTypes.string),
   ]),
+
+  /**
+   * Function to be called when the button is clicked
+   * */
+  onClick: PropTypes.func,
 };
 
 ButtonSelector.defaultProps = {
