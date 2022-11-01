@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Box } from "../../boxes/Box/Box";
 import classNames from "classnames";
+import { Box } from "../../boxes/Box";
+import { Avatar } from "../../avatars/Avatar";
+import { Icon } from "../../icons/Icon";
+import { Button } from "../../buttons/Button";
 import { getDayOfTheWeek, isDateBetweenTwoDates } from "../../../utils";
-import { Avatar } from "../../avatars/Avatar/Avatar";
-import { Icon } from "../../icons/Icon/Icon";
-import { Button } from "../../buttons/Button/Button";
 
 import "./consultation.scss";
 
@@ -18,6 +18,12 @@ import { specialistPlaceholder } from "../../../assets";
  * @return {jsx}
  */
 export const Consultation = ({
+  joinLabel,
+  editLabel,
+  cancelLabel,
+  acceptLabel,
+  detailsLabel,
+  activeLabel,
   specialistName,
   image,
   startDate,
@@ -37,12 +43,22 @@ export const Consultation = ({
       }`
     : "";
 
-  const buttonLabel = isDateBetweenTwoDates(new Date(), startDate, endDate)
-    ? "Join"
-    : new Date() > endDate
-    ? "See details"
-    : "Edit";
+  const today = new Date();
 
+  let buttonLabel, buttonAction;
+  // TODO: @Georgi / @Vasilen - Test if this works in different timezones!!!
+  if (isDateBetweenTwoDates(today, startDate, endDate)) {
+    buttonLabel = joinLabel;
+    buttonAction = "join";
+  } else if (today > endDate) {
+    buttonLabel = detailsLabel;
+    buttonAction = "details";
+  } else {
+    buttonLabel = editLabel;
+    buttonAction = "edit";
+  }
+
+  // TODO: @Joro - Make this in the format "DD.MM.YY", so "1.10" to become "01.10.22"
   const timeText = startDate
     ? `${startDate.getHours()}:00 - ${endDate.getHours()}:00`
     : "";
@@ -65,7 +81,7 @@ export const Consultation = ({
       shadow={2}
       classes={[
         "consultation",
-        buttonLabel === "Join" && "consultation--purple",
+        buttonAction === "join" && "consultation--purple",
         classNames(classes),
       ].join(" ")}
     >
@@ -76,7 +92,7 @@ export const Consultation = ({
             <p
               className={[
                 "text",
-                buttonLabel === "Join" && "text--purple",
+                buttonAction === "join" && "text--purple",
               ].join(" ")}
             >
               {specialistName}
@@ -85,7 +101,7 @@ export const Consultation = ({
               <Icon
                 name="calendar"
                 size="sm"
-                color={buttonLabel === "Join" ? "#9749fa" : "#66768D"}
+                color={buttonAction === "join" ? "#9749fa" : "#66768D"}
               />
               <div className="consultation__content__text-container__date-container__text">
                 <p className="small-text">{dateText}</p>
@@ -97,14 +113,16 @@ export const Consultation = ({
       </div>
       {!overview && !requested && (
         <div className="consultation__button-container">
-          {buttonLabel === "Join" && (
-            <p className="text consultation__button-container__now-text">Now</p>
+          {buttonAction === "join" && (
+            <p className="text consultation__button-container__now-text">
+              {activeLabel}
+            </p>
           )}
           <Button
             onClick={() => handleJoin()}
             label={buttonLabel}
-            type={buttonLabel === "Join" ? "primary" : "secondary"}
-            color={buttonLabel === "Join" ? "purple" : "green"}
+            type={buttonAction === "join" ? "primary" : "secondary"}
+            color={buttonAction === "join" ? "purple" : "green"}
             size="sm"
           />
         </div>
@@ -113,12 +131,12 @@ export const Consultation = ({
         <div className="consultation__request-container">
           <Button
             onClick={() => handleAcceptRequest()}
-            label="Accept consultation"
+            label={acceptLabel}
             size="sm"
           />
           <Button
             onClick={() => handleCancelRequest()}
-            label="Cancel suggestion"
+            label={cancelLabel}
             type="secondary"
             size="sm"
           />
@@ -130,32 +148,62 @@ export const Consultation = ({
 
 Consultation.propTypes = {
   /**
+   * Translation for the join button
+   */
+  joinLabel: PropTypes.string,
+
+  /**
+   * Translation for the edit button
+   */
+  editLabel: PropTypes.string,
+
+  /**
+   * Translation for the cancel button
+   */
+  cancelLabel: PropTypes.string,
+
+  /**
+   * Translation for the accept button
+   */
+  acceptLabel: PropTypes.string,
+
+  /**
+   * Translation for the active text
+   */
+  activeLabel: PropTypes.string,
+
+  /**
+   * Translation for the details text
+   */
+  detailsLabel: PropTypes.string,
+
+  /**
    * Specialist name of the specialist
    * */
-  specialistName: PropTypes.string,
+  specialistName: PropTypes.string.isRequired,
 
   /**
    * Image url
    */
-  image: PropTypes.string,
+  image: PropTypes.string.isRequired,
 
   /**
    * Start date of the consultation
    */
-  startDate: PropTypes.instanceOf(Date),
+  startDate: PropTypes.instanceOf(Date).isRequired,
 
   /**
    * End date of the consultation
    */
-  endDate: PropTypes.instanceOf(Date),
+  endDate: PropTypes.instanceOf(Date).isRequired,
 
   /**
-   *  Is the card overview?
+   *  Is the card overview? If "true" show the "See details" button
    */
   overview: PropTypes.bool,
 
   /**
-   * Is the card request?
+   * Is the card request? If "true" show to "Accept consultation" and "Cancel suggestion" buttons
    */
   requested: PropTypes.bool,
 
@@ -174,6 +222,12 @@ Consultation.propTypes = {
 };
 
 Consultation.defaultProps = {
+  joinLabel: "Join",
+  editLabel: "Edit",
+  cancelLabel: "Cancel suggestion",
+  acceptLabel: "Accept consultation",
+  activeLabel: "Now",
+  detailsLabel: "See details",
   image: specialistPlaceholder,
   overview: true,
   requested: false,

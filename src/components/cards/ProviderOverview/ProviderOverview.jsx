@@ -31,14 +31,12 @@ export const ProviderOverview = ({
           <p className="text provider-overview__content__text-content__name">
             {name}
           </p>
-          <>
-            <p className="small-text provider-overview__specialities">
-              {specialities}
-            </p>
-            <p className="small-text">
-              {`${experience} ${yearsOfExperienceText}`}
-            </p>
-          </>
+          <p className="small-text provider-overview__specialities">
+            {specialities}
+          </p>
+          <p className="small-text">
+            {`${experience} ${yearsOfExperienceText}`}
+          </p>
         </div>
         <div>
           <Icon name="arrow-chevron-forward" size="md" color="#20809E" />

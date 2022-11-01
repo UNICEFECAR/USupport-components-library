@@ -1,7 +1,7 @@
 @import "../../../styles/theme";
 
 .consultation {
-  padding: $spacing_0_8 $spacing_1_6;
+  padding: $spacing_1_6;
   align-items: center;
   width: calc(34.3rem - 2 * $spacing_1_6);
   text-align: left;
@@ -25,7 +25,7 @@
 
       &__name-container {
         & > .text {
-          color: $color_primary_20809e;
+          color: $color_blue_3d527b;
           font-weight: $font_bold;
           word-break: break-word;
         }
@@ -57,7 +57,7 @@
 
     &__now-text {
       position: absolute;
-      left: 2.5rem;
+      left: $spacing_3_0;
       color: $color_secondary_9749fa;
       font-weight: $font_bold;
     }
