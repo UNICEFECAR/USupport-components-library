@@ -1,0 +1,72 @@
+@import "../../../styles/theme";
+
+.consultation {
+  padding: $spacing_0_8 $spacing_1_6;
+  align-items: center;
+  width: calc(34.3rem - 2 * $spacing_1_6);
+  text-align: left;
+
+  @media screen and (min-width: $screen_lg) {
+    width: calc(36.8rem - 2 * $spacing_1_6);
+  }
+
+  &--purple {
+    color: $color_secondary_9749fa;
+    border: 0.1rem solid $color_secondary_9749fa;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+    &__text-container {
+      padding-left: $spacing_1_6;
+
+      &__name-container {
+        & > .text {
+          color: $color_primary_20809e;
+          font-weight: $font_bold;
+          word-break: break-word;
+        }
+        & > .text--purple {
+          color: $color_secondary_9749fa;
+        }
+      }
+
+      &__date-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        &__text {
+          display: flex;
+          flex-direction: column;
+          margin-left: $spacing_0_6;
+        }
+      }
+    }
+  }
+
+  &__button-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: $spacing_0_8 0;
+
+    &__now-text {
+      position: absolute;
+      left: 2.5rem;
+      color: $color_secondary_9749fa;
+      font-weight: $font_bold;
+    }
+  }
+
+  &__request-container {
+    display: flex;
+    flex-direction: "row";
+    justify-content: space-between;
+    padding-top: $spacing_0_8;
+  }
+}

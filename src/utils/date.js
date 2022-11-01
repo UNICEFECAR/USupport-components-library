@@ -91,6 +91,17 @@ function getDatesInRange(start, end) {
   return dates;
 }
 
+/**
+ * Return if date is between two dates
+ * @param {Date} date
+ * @param {Date} startDate
+ * @param {Date} endDate
+ * @returns {Boolean}
+ */
+function isDateBetweenTwoDates(date, startDate, endDate) {
+  return date >= startDate && date <= endDate;
+}
+
 export {
   getDayOfTheWeek,
   isDateToday,
@@ -98,4 +109,5 @@ export {
   getTimeFromDate,
   getStartAndEndOfWeek,
   getDatesInRange,
+  isDateBetweenTwoDates,
 };

@@ -7,3 +7,4 @@ export * from "./ConsultationBig";
 export * from "./EmergencyCenter";
 export * from "./ProviderOverview";
 export * from "./ProviderConsultation";
+export * from './Consultation';
