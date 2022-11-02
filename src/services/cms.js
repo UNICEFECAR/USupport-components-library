@@ -96,6 +96,11 @@ async function getArticles(queryObj) {
 async function getArticleById(id, locale) {
   const querryString = generateQuerryString({ locale: locale, populate: true });
 
+  try {
+    // Increment read count for the given article id
+    await addArticleReadCount(id);
+  } catch (error) {}
+
   const { data } = await http.get(`${articlesEndpoint}/${id}?${querryString}`);
 
   return data;
@@ -201,6 +206,19 @@ async function getAgeGroups(locale) {
   return data;
 }
 
+//--------------------- PUT Requests ---------------------//;
+/**
+ * send request toincrement article count
+ *
+ * @param {string} id - the id of the article
+ *
+ * @returns {object} the ageGroups data
+ */
+async function addArticleReadCount(id) {
+  console.log("made a request");
+  return http.put(`${articlesEndpoint}/addReadCount/${id}`);
+}
+
 export default {
   getArticles,
   getArticleById,
@@ -209,4 +227,5 @@ export default {
   getSimilarArticles,
   getCategories,
   getAgeGroups,
+  addArticleReadCount,
 };
