@@ -185,6 +185,12 @@ $radial_gradient_blue: radial-gradient(
   rgba(84, 207, 217, 0) 100%
 );
 
+$gradient_transparent: linear-gradient(
+  180deg,
+  rgba(255, 255, 255, 0) 0%,
+  #ffffff 100%
+);
+
 // Shadows
 $shadow_1: 2px 2px 12px rgba(104, 77, 253, 0.1);
 $shadow_2: 0px 2px 18px rgba(104, 77, 253, 0.2);
