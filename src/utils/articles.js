@@ -9,7 +9,7 @@ function destructureArticleData(cmsHost, article) {
   const articleId = article.id;
   const articleData = article.attributes;
   const body = articleData.body;
-  const articleLabels = computeArticleLabels(articleData.labels.data);
+  const articleLabels = computeArticleLabels(articleData.labels?.data);
   const articleReadingTime = articleData.reading_time;
   const articleThumbnailImage =
     CMS_HOST + article.attributes.image.data.attributes.formats.thumbnail.url;
@@ -17,7 +17,7 @@ function destructureArticleData(cmsHost, article) {
     CMS_HOST + article.attributes.image.data.attributes.formats.medium.url;
   const articleImageSmall =
     CMS_HOST + article.attributes.image.data.attributes.formats.small.url;
-  const categoryId = articleData.category.data.id;
+  const categoryId = articleData.category?.data?.id;
   const description = articleData.description;
   const creator =
     articleData.createdBy.data.attributes.firstname +
