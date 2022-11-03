@@ -18,7 +18,7 @@ export const Modal = ({
   isOpen,
   closeModal,
   classes,
-  title,
+  heading,
   text,
   ctaLabel,
   ctaHandleClick,
@@ -39,7 +39,7 @@ export const Modal = ({
       appElement={document.getElementById("root")}
     >
       <div className="base-modal__header">
-        <h4 className="base-modal__header__title">{title}</h4>
+        <h4 className="base-modal__header__text">{heading}</h4>
         <Icon name="close-x" size="md" onClick={closeModal} />
       </div>
       {text && <p className="text base-modal__text">{text}</p>}
@@ -89,9 +89,9 @@ Modal.propTypes = {
     PropTypes.arrayOf(PropTypes.string),
   ]),
   /**
-   * Title of the modal
+   * heading of the modal
    * */
-  title: PropTypes.string,
+  heading: PropTypes.string,
 
   /**
    * Text to be displayed in the modal
