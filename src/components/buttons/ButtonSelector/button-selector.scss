@@ -9,6 +9,7 @@
   box-shadow: $shadow_1;
   cursor: pointer;
   display: flex;
+  align-items: center;
   min-width: calc(34rem - 2 * $spacing_1_6);
   padding: $spacing_0_8 $spacing_1_6;
 
@@ -39,7 +40,7 @@
   }
 
   &__left-icon {
-    padding-right: $spacing_1_0;
+    padding: $spacing_0_4 $spacing_1_0 $spacing_0_4 0;
   }
 
   &__right-icon-container {

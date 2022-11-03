@@ -12,7 +12,13 @@ import "./check-box-group.scss";
  *
  * @return {jsx}
  */
-export const CheckBoxGroup = ({ name, options, setOptions, classes }) => {
+export const CheckBoxGroup = ({
+  name,
+  options,
+  setOptions,
+  label,
+  classes,
+}) => {
   const handleSelect = (value) => {
     let newOptions = [...options];
 
@@ -33,7 +39,7 @@ export const CheckBoxGroup = ({ name, options, setOptions, classes }) => {
           name={name}
           label={option.label}
           isChecked={option.isSelected}
-          classes="checkbox-group__checkbox"
+          classes="checkbox-group__options-container__checkbox"
           setIsChecked={() => {
             handleSelect(option.value);
           }}
@@ -45,7 +51,10 @@ export const CheckBoxGroup = ({ name, options, setOptions, classes }) => {
 
   return (
     <div className={["checkbox-group", classNames(classes)].join(" ")}>
-      {renderAllOptions()}
+      {label && <p className={["text checkbox-group__label"]}>{label}</p>}
+      <div className="checkbox-group__options-container">
+        {renderAllOptions()}
+      </div>
     </div>
   );
 };
@@ -65,6 +74,11 @@ CheckBoxGroup.propTypes = {
    * Function to set the options
    * */
   setOptions: PropTypes.func,
+
+  /**
+   * Label for the CheckBoxGroup
+   * */
+  label: PropTypes.string,
 
   /**
    *  Classes to add to the CheckBoxGroup

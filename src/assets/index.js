@@ -15,3 +15,4 @@ export { default as mascotCalmBlue } from "./mascot-calm-blue.png";
 export { default as mascotHappyBlue } from "./mascot-happy-blue.png";
 export { default as mascotHappyBlueClipped } from "./mascot-happy-blue-clipped.png";
 export { default as mascotConfusedBlue } from "./mascot-confused-blue.png";
+export { default as mascotHappyPurple } from "./mascot-happy-purple.png";

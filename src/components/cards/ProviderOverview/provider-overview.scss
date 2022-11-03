@@ -1,26 +1,22 @@
 @import "../../../styles/theme";
 
 .provider-overview {
+  align-items: center;
+  cursor: pointer;
   display: flex;
   flex-direction: row;
   padding: $spacing_0_8 $spacing_1_6;
-  align-items: center;
+  text-align: left;
   width: calc(34.3rem - 2 * $spacing_1_6);
 
   @media screen and (min-width: $screen_lg) {
     width: calc(36.8rem - 2 * $spacing_1_6);
   }
 
-  &--date {
-    @media screen and (min-width: $screen_lg) {
-      width: calc(24.2rem - 2 * $spacing_1_6);
-    }
-  }
-
   &__content {
+    align-items: center;
     display: flex;
     flex-direction: row;
-    align-items: center;
     justify-content: space-between;
     margin-left: $spacing_1_6;
     width: 100%;
@@ -32,18 +28,6 @@
         color: $color_primary_20809e;
         font-weight: $font_bold;
         word-break: break-word;
-      }
-
-      &__date-container {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-
-        &__text {
-          display: flex;
-          flex-direction: column;
-          margin-left: $spacing_0_6;
-        }
       }
     }
   }

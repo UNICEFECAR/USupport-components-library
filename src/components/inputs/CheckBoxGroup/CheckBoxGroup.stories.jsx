@@ -27,3 +27,8 @@ const Template = (props) => {
 
 export const Default = Template.bind({});
 Default.args = {};
+
+export const WithLabel = Template.bind({});
+WithLabel.args = {
+  label: "Hobbies",
+};
