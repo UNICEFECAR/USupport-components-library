@@ -29,6 +29,7 @@ export const CheckBox = ({
         checked={isChecked}
         className={[isChecked ? "checked" : ""]}
         disabled={disabled}
+        onChange={() => {}}
         {...props}
       />
       {label ? <p className="text label">{label}</p> : null}
