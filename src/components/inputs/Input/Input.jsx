@@ -13,6 +13,7 @@ import "./input.scss";
  * @return {jsx}
  */
 export const Input = ({
+  value,
   type,
   label,
   disabled,
@@ -23,34 +24,36 @@ export const Input = ({
   ...props
 }) => {
   return (
-    <>
-      <div
-        className={[
-          "input-container",
-          disabled && "disabled",
-          classNames(classes),
-        ].join(" ")}
-      >
-        {label ? <p className="text label">{label}</p> : null}
-        <div
-          className={["input-wrapper", errorMessage ? "error" : ""].join(" ")}
-        >
-          {preInput ? preInput : null}
-          <input
-            type={type}
-            disabled={disabled}
-            className="input text"
-            {...props}
-          />
-          {children ? children : null}
-        </div>
+    <div
+      className={[
+        "input-container",
+        disabled && "disabled",
+        classNames(classes),
+      ].join(" ")}
+    >
+      {label ? <p className="text label">{label}</p> : null}
+      <div className={["input-wrapper", errorMessage ? "error" : ""].join(" ")}>
+        {preInput ? preInput : null}
+        <input
+          type={type}
+          disabled={disabled}
+          className="input text"
+          value={value}
+          {...props}
+        />
+        {children ? children : null}
       </div>
       {errorMessage && !disabled ? <Error message={errorMessage} /> : null}
-    </>
+    </div>
   );
 };
 
 Input.propTypes = {
+  /**
+   * The value of the input
+   */
+  value: PropTypes.string.isRequired,
+
   /**
    * Input type
    *
