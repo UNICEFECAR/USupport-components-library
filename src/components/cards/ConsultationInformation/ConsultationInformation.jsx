@@ -42,7 +42,7 @@ export const ConsultationInformation = ({
     <div
       className={["consultation-information", classNames(classes)].join(" ")}
     >
-      <Avatar src={providerImage} size="md" />
+      <Avatar src={providerImage} size="sm" />
       <div className="consultation-information__content">
         <p className="text consultation-information__content__name-text">
           {providerName}
