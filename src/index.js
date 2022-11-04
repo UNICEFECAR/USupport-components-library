@@ -31,5 +31,4 @@ export * from "./components/separators";
 export * from "./components/tabs";
 export * from "./components/footers";
 export * from "./components/carousels";
-export * from './components/markdown';
-export * from './components/card';
+export * from "./components/markdown";
