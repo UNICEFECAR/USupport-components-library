@@ -5,6 +5,7 @@ const CMS_API_URL = `${import.meta.env.VITE_CMS_API_URL}`;
 const articlesEndpoint = CMS_API_URL + "/articles";
 const ageGroupsEndpoint = CMS_API_URL + "/age-groups";
 const categoriesEndpoint = CMS_API_URL + "/categories";
+const policiesEndpoint = CMS_API_URL + "/policies";
 
 /**
  * generate a querry string from an object
@@ -20,6 +21,7 @@ const categoriesEndpoint = CMS_API_URL + "/categories";
  * @param {string} queryObj.sortBy - the field to sort by
  * @param {string} queryObj.sortOrder - the order to sort by, possible values are "asc" and "desc"
  * @param {string} queryObj.excludeId - the id to exclude from the results
+ * @param {string} queryObj.countryAlpha2 - the country alpha2 code to filter by
  *
  */
 function generateQuerryString(queryObj) {
@@ -55,6 +57,11 @@ function generateQuerryString(queryObj) {
 
   if (queryObj.excludeId) {
     querry += `&filters[id][$notIn]=${queryObj.excludeId}`;
+  }
+
+  //This was added for the policies
+  if (queryObj.countryAlpha2) {
+    querry += `&filters[country][$in]=${queryObj.countryAlpha2}`;
   }
 
   return querry;
@@ -219,6 +226,25 @@ async function addArticleReadCount(id) {
   return http.put(`${articlesEndpoint}/addReadCount/${id}`);
 }
 
+//--------------------- Policies ---------------------//;
+/**
+ * send request to get privacy policies
+ * @param {string} locale - the locale for which to retrieve policies
+ * @returns {object} countryAlpha2 - the country 2 characters ISO-3166 code for which to retrieve policies
+ * @returns {object} the policies data
+ *
+ */
+async function getPolicies(locale, countryAlpha2) {
+  const querryString = generateQuerryString({
+    locale: locale,
+    countryAlpha2: countryAlpha2,
+  });
+
+  const { data } = await http.get(`${policiesEndpoint}${querryString}`);
+
+  return data;
+}
+
 export default {
   getArticles,
   getArticleById,
@@ -228,4 +254,5 @@ export default {
   getCategories,
   getAgeGroups,
   addArticleReadCount,
+  getPolicies,
 };
