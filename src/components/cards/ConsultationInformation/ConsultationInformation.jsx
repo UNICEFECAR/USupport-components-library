@@ -44,7 +44,9 @@ export const ConsultationInformation = ({
     >
       <Avatar src={providerImage} size="md" />
       <div className="consultation-information__content">
-        <p className="text">{providerName}</p>
+        <p className="text consultation-information__content__name-text">
+          {providerName}
+        </p>
         <div className="consultation-information__content__date-item">
           <Icon name="calendar" size="sm" color={"#66768D"} />
           <div className="consultation-information__content__date-item__text-container">
