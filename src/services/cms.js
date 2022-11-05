@@ -6,6 +6,7 @@ const articlesEndpoint = CMS_API_URL + "/articles";
 const ageGroupsEndpoint = CMS_API_URL + "/age-groups";
 const categoriesEndpoint = CMS_API_URL + "/categories";
 const policiesEndpoint = CMS_API_URL + "/policies";
+const faqsEndpoint = CMS_API_URL + "/faqs";
 
 /**
  * generate a querry string from an object
@@ -62,6 +63,10 @@ function generateQuerryString(queryObj) {
   //This was added for the policies
   if (queryObj.countryAlpha2) {
     querry += `&filters[country][$in]=${queryObj.countryAlpha2}`;
+  }
+
+  if (queryObj.global) {
+    querry += `&filters[global][$in]=${queryObj.global}`;
   }
 
   return querry;
@@ -245,6 +250,26 @@ async function getPolicies(locale, countryAlpha2) {
   return data;
 }
 
+//--------------------- FAQs ---------------------//;
+/**
+ * send request to get FAQs
+ *
+ * @param {string} locale - the locale for which to retrieve policies
+ * @returns {object} global - the global status for which to retrieve policies e.g true or false
+ * @returns {object} the policies data
+ *
+ */
+async function getFAQs(locale, global) {
+  const querryString = generateQuerryString({
+    locale: locale,
+    global: global,
+  });
+
+  const { data } = await http.get(`${faqsEndpoint}${querryString}`);
+
+  return data;
+}
+
 export default {
   getArticles,
   getArticleById,
@@ -255,4 +280,5 @@ export default {
   getAgeGroups,
   addArticleReadCount,
   getPolicies,
+  getFAQs,
 };
