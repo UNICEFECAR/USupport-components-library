@@ -47,12 +47,14 @@ async function refreshToken(refreshToken) {
   return response;
 }
 
-async function login({ userType, email, password }) {
-  const response = await http.post(`${API_ENDPOINT}/login`, {
-    userType,
-    email,
-    password,
-  });
+async function login({ userType, email, password, userAccessToken }) {
+  const payload = { userType, password };
+  if (userAccessToken) {
+    payload.userAccessToken = userAccessToken;
+  } else {
+    payload.email = email;
+  }
+  const response = await http.post(`${API_ENDPOINT}/login`, payload);
   return response;
 }
 
