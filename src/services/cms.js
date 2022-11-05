@@ -235,17 +235,25 @@ async function addArticleReadCount(id) {
 /**
  * send request to get privacy policies
  * @param {string} locale - the locale for which to retrieve policies
- * @returns {object} countryAlpha2 - the country 2 characters ISO-3166 code for which to retrieve policies
+ * @returns {string} countryAlpha2 - the country 2 characters ISO-3166 code for which to retrieve policies
+ * @returns {string} uiInterface - the uiInterface for which to retrieve policies e.g website, client or provider
  * @returns {object} the policies data
  *
  */
-async function getPolicies(locale, countryAlpha2) {
+async function getPolicies(locale, countryAlpha2, uiInterface) {
   const querryString = generateQuerryString({
     locale: locale,
     countryAlpha2: countryAlpha2,
   });
+  let { data } = await http.get(`${policiesEndpoint}${querryString}`);
 
-  const { data } = await http.get(`${policiesEndpoint}${querryString}`);
+  let newData = null;
+
+  if (data.data.length > 0) {
+    newData = data.data[0].attributes[uiInterface];
+  }
+
+  data.data = newData;
 
   return data;
 }
@@ -255,7 +263,7 @@ async function getPolicies(locale, countryAlpha2) {
  * send request to get FAQs
  *
  * @param {string} locale - the locale for which to retrieve policies
- * @returns {object} global - the global status for which to retrieve policies e.g true or false
+ * @returns {boolean} global - the global status for which to retrieve policies e.g true or false
  * @returns {object} the policies data
  *
  */
