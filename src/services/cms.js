@@ -5,7 +5,7 @@ const CMS_API_URL = `${import.meta.env.VITE_CMS_API_URL}`;
 const articlesEndpoint = CMS_API_URL + "/articles";
 const ageGroupsEndpoint = CMS_API_URL + "/age-groups";
 const categoriesEndpoint = CMS_API_URL + "/categories";
-const policiesEndpoint = CMS_API_URL + "/policies";
+const policiesEndpoint = CMS_API_URL + "/privacy-policies";
 const faqsEndpoint = CMS_API_URL + "/faqs";
 
 /**
