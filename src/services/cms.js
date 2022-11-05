@@ -265,7 +265,19 @@ async function getFAQs(locale, global) {
     global: global,
   });
 
-  const { data } = await http.get(`${faqsEndpoint}${querryString}`);
+  let { data } = await http.get(`${faqsEndpoint}${querryString}`);
+  let newData = null;
+  if (data.data.length > 0) {
+    newData = [];
+    data.data.map((faq) => {
+      newData.push({
+        question: faq.attributes.question,
+        answer: faq.attributes.answer,
+      });
+    });
+  }
+
+  data.data = newData;
 
   return data;
 }
