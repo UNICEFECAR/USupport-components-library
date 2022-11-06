@@ -51,6 +51,7 @@ export const Consultation = ({
 
   let buttonLabel, buttonAction;
   // TODO: @Georgi / @Vasilen - Test if this works in different timezones!!!
+  // And test the logic of the if statements
   if (isDateBetweenTwoDates(today, startDate, endDate)) {
     buttonLabel = joinLabel;
     buttonAction = "join";
@@ -62,7 +63,6 @@ export const Consultation = ({
     buttonAction = "edit";
   }
 
-  // TODO: @Joro - Make this in the format "DD.MM.YY", so "1.10" to become "01.10.22"
   const timeText = startDate
     ? `${startDate.getHours()}:00 - ${endDate.getHours()}:00`
     : "";
