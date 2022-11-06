@@ -314,7 +314,7 @@ async function getSOSCenters(locale, global) {
       newData.push({
         title: faq.attributes.title,
         text: faq.attributes.text,
-        link: faq.attributes.link,
+        link: faq.attributes.url,
         phone: faq.attributes.phone,
       });
     });
