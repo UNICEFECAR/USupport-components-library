@@ -39,6 +39,7 @@ $line_height_7_7: 7.7rem;
 
 // Border Radius
 $border_radius_0_4: 0.4rem;
+$border_radius_0_7: 0.7rem;
 $border_radius_0_8: 0.8rem;
 $border_radius_1_6: 1.6rem;
 $border_radius_2_4: 2.4rem;
@@ -58,6 +59,7 @@ $spacing_1_0: 1rem;
 $spacing_1_1: 1.1rem;
 $spacing_1_2: 1.2rem;
 $spacing_1_3: 1.3rem;
+$spacing_1_5: 1.5rem;
 $spacing_1_6: 1.6rem;
 $spacing_1_7: 1.7rem;
 $spacing_1_8: 1.8rem;
@@ -76,6 +78,7 @@ $spacing_4_4: 4.4rem;
 $spacing_4_6: 4.6rem;
 $spacing_4_8: 4.8rem;
 $spacing_5_0: 5rem;
+$spacing_5_2: 5.2rem;
 $spacing_5_4: 5.4rem;
 $spacing_5_6: 5.6rem;
 $spacing_6_0: 6rem;
@@ -94,10 +97,13 @@ $spacing_12_0: 12rem;
 $spacing_12_8: 12.8rem;
 $spacing_14_6: 14.6rem;
 $spacing_15_3: 15.3rem;
+$spacing_15_6: 15.6rem;
 $spacing_16_0: 16rem;
+$spacing_20_0: 20rem;
 $spacing_23_0: 23rem;
 $spacing_24_0: 24rem;
 $spacing_30_7: 30.7rem;
+$spacing_40_3: 40.3rem;
 
 // Colors
 $color_primary_20809e: #20809e;
@@ -166,6 +172,13 @@ $gradient_secondary_0_1_opacity: linear-gradient(
   rgba(129, 74, 253, 0.1) 93.14%
 );
 
+$gradient_secondary_0_3_opacity: linear-gradient(
+  270deg,
+  rgba(13, 174, 178, 0.4) 1.31%,
+  rgba(214, 210, 255, 0.4) 42.92%,
+  rgba(129, 74, 253, 0.2) 93.14%
+);
+
 $radial_gradient_purple: radial-gradient(
   50% 50% at 50% 50%,
   rgba(129, 74, 253, 0.3) 0%,
@@ -176,6 +189,12 @@ $radial_gradient_blue: radial-gradient(
   50% 50% at 50% 50%,
   rgba(84, 207, 217, 0.3) 0%,
   rgba(84, 207, 217, 0) 100%
+);
+
+$gradient_transparent: linear-gradient(
+  180deg,
+  rgba(255, 255, 255, 0) 0%,
+  #ffffff 100%
 );
 
 // Shadows

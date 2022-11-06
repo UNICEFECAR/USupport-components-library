@@ -5,7 +5,7 @@ import Joi from "joi";
 import classNames from "classnames";
 import { Button } from "../../buttons/Button";
 import { Input } from "../../inputs/Input";
-import { Textarea } from "../../inputs/Textarea";
+import { Textarea } from "../../inputs/TextArea";
 import { DropdownWithLabel } from "../../dropdowns/DropdownWithLabel";
 import { Modal } from "../../modals/Modal";
 import { validate, validateProperty } from "../../../utils";
@@ -160,7 +160,7 @@ export const ContactForm = ({ classes, sendEmail }) => {
       <Modal
         isOpen={isSuccessEmailModalOpen}
         closeModal={closeSuccessEmailModal}
-        title="Your message was successfully sent"
+        heading="Your message was successfully sent"
         text="We will get back to you as soon as possible"
         ctaLabel="Go back to Home"
         ctaHandleClick={handleEmailSuccessCtaClick}

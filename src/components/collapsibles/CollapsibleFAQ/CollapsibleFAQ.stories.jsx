@@ -8,26 +8,30 @@ export default {
   argTypes: {},
 };
 
-const questions = [
+const faqs = [
   {
-    heading: "Do I need to identify my mental problems by myself?",
-    text: "Lorem ipsum odor amet, consectetuer adipiscing elit. Ac purus in massa egestas mollis varius dignissim elementum.",
+    question: "Do I need to identify my mental problems by myself?",
+    answer:
+      "Lorem ipsum odor amet, consectetuer adipiscing elit. Ac purus in massa egestas mollis varius dignissim elementum.",
   },
   {
-    heading: "Can I pick my own therapists?",
-    text: "Lorem ipsum odor amet, consectetuer adipiscing elit. Ac purus in massa egestas mollis varius dignissim elementum.",
+    question: "Can I pick my own therapists?",
+    answer:
+      "Lorem ipsum odor amet, consectetuer adipiscing elit. Ac purus in massa egestas mollis varius dignissim elementum.",
   },
   {
-    heading: "Do I need to prepare something before video consultations?",
-    text: "Lorem ipsum odor amet, consectetuer adipiscing elit. Ac purus in massa egestas mollis varius dignissim elementum.",
+    question: "Do I need to prepare something before video consultations?",
+    answer:
+      "Lorem ipsum odor amet, consectetuer adipiscing elit. Ac purus in massa egestas mollis varius dignissim elementum.",
   },
   {
-    heading: "How do I get help?",
-    text: "Download the app in AppStore for iOS or GooglePlay Store for Android.",
+    question: "How do I get help?",
+    answer:
+      "Download the app in AppStore for iOS or GooglePlay Store for Android.",
   },
 ];
 
-const Template = () => <CollapsibleFAQ questions={questions} />;
+const Template = () => <CollapsibleFAQ data={faqs} />;
 
 export const Default = Template.bind({});
 Default.args = {};

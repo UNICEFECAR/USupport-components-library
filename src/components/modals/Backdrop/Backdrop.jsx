@@ -18,7 +18,7 @@ export const Backdrop = ({
   isOpen,
   onClose,
   classes,
-  title,
+  heading,
   text,
   ctaLabel,
   ctaHandleClick,
@@ -55,7 +55,7 @@ export const Backdrop = ({
       />
       <div className={`backdrop ${isOpen ? "backdrop__shown" : ""}`}>
         <div className="backdrop__header">
-          <h4 className="backdrop__header-title">{title}</h4>
+          <h4 className="backdrop__header-text">{heading}</h4>
           <Icon
             size="md"
             name="close-x"
@@ -105,7 +105,7 @@ export const Backdrop = ({
         isOpen,
         closeModal: onClose,
         classes,
-        title,
+        heading,
         text,
         ctaLabel,
         ctaHandleClick,
@@ -135,9 +135,9 @@ Backdrop.propTypes = {
   classes: PropTypes.string,
 
   /**
-   * Title of the backdrop/modal
+   * Heading of the backdrop/modal
    */
-  title: PropTypes.string,
+  heading: PropTypes.string,
 
   /**
    * Label of the CTA button

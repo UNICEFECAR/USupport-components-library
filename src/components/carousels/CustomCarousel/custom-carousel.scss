@@ -1,0 +1,26 @@
+@import "../../../styles/theme";
+
+.custom-carousel {
+  .react-multi-carousel-dot-list {
+    position: relative;
+    padding-top: $spacing_3_2;
+  }
+
+  .react-multi-carousel-dot {
+    button {
+      background-color: $color_gray_a6b4b8;
+      border: none;
+      width: 1rem;
+      height: 1rem;
+      border-radius: $border_radius_0_7;
+      transition: all 0.5s ease-in-out;
+    }
+
+    &--active {
+      button {
+        background-color: $color_secondary_9749fa;
+        width: 2rem;
+      }
+    }
+  }
+}

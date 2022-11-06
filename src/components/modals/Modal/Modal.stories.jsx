@@ -30,7 +30,7 @@ export const Default = (props) => {
         {...props}
         isOpen={isOpen}
         closeModal={closeModal}
-        title="This is some really really long title here."
+        heading="This is some really really long title here."
         text="This is a base modal."
         ctaLabel="Go back to home page."
         ctaHandleClick={handleClick}

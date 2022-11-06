@@ -15,7 +15,7 @@
   &--lg {
     width: calc(34.3rem - 2 * $spacing_1_6);
   }
-  @media screen and (min-width: $screen_md) {
+  @media screen and (min-width: $screen_lg) {
     &--lg {
       width: calc(36.8rem - 2 * $spacing_1_6);
     }

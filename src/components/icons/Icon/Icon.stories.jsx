@@ -78,7 +78,6 @@ const icons = [
   "coaching",
   "calm",
   "flag-kazakhstan",
-  "flag-bulgaria",
   "flag-germany",
   "flag-swiss",
   "navbar-burger",
@@ -94,6 +93,7 @@ const icons = [
   "facebook-login",
   "copy",
   "exit",
+  "video",
 ];
 
 export const All = (props) => (

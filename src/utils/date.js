@@ -91,6 +91,67 @@ function getDatesInRange(start, end) {
   return dates;
 }
 
+/**
+ * Return if date is between two dates
+ * @param {Date} date
+ * @param {Date} startDate
+ * @param {Date} endDate
+ * @returns {Boolean}
+ */
+function isDateBetweenTwoDates(date, startDate, endDate) {
+  return date >= startDate && date <= endDate;
+}
+
+/**
+ * Return the time as String
+ * @param {Date} date
+ * @returns {String} in hh:mm format
+ */
+function getTimeAsString(date) {
+  return date
+    ? `${date.getHours() > 9 ? date.getHours() : "0" + date.getHours()}:${
+        date.getMinutes() > 9 ? date.getMinutes() : "0" + date.getMinutes()
+      }`
+    : "";
+}
+
+/**
+ * Get the month name as String from a Date object
+ * @param {Date} date
+ * @returns {String}
+ */
+function getMonthName(date) {
+  const month = date.getMonth();
+  switch (month) {
+    case 0:
+      return "January";
+    case 1:
+      return "February";
+    case 2:
+      return "March";
+    case 3:
+      return "April";
+    case 4:
+      return "May";
+    case 5:
+      return "June";
+    case 6:
+      return "July";
+    case 7:
+      return "August";
+    case 8:
+      return "September";
+    case 9:
+      return "October";
+    case 10:
+      return "November";
+    case 11:
+      return "December";
+    default:
+      return "Unknown";
+  }
+}
+
 export {
   getDayOfTheWeek,
   isDateToday,
@@ -98,4 +159,7 @@ export {
   getTimeFromDate,
   getStartAndEndOfWeek,
   getDatesInRange,
+  isDateBetweenTwoDates,
+  getTimeAsString,
+  getMonthName,
 };
