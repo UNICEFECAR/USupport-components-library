@@ -33,3 +33,4 @@ export * from "./components/footers";
 export * from "./components/carousels";
 export * from "./components/markdown";
 export * from "./components/policies";
+export * from './components/consultation';
