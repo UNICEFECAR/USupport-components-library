@@ -7,6 +7,7 @@ const ageGroupsEndpoint = CMS_API_URL + "/age-groups";
 const categoriesEndpoint = CMS_API_URL + "/categories";
 const policiesEndpoint = CMS_API_URL + "/privacy-policies";
 const faqsEndpoint = CMS_API_URL + "/faqs";
+const sosCentersEndpoint = CMS_API_URL + "/sos-centers";
 
 /**
  * generate a querry string from an object
@@ -290,6 +291,40 @@ async function getFAQs(locale, global) {
   return data;
 }
 
+//--------------------- SOS Centers ---------------------//;
+/**
+ * send request to get SOS Centers
+ *
+ * @param {string} locale - the locale for which to retrieve SOS centers
+ * @returns {boolean} global - the global status for which to retrieve SOS centers e.g true or false
+ * @returns {object} the policies data
+ *
+ */
+async function getSOSCenters(locale, global) {
+  const querryString = generateQuerryString({
+    locale: locale,
+    global: global,
+  });
+
+  let { data } = await http.get(`${sosCentersEndpoint}${querryString}`);
+  let newData = null;
+  if (data.data.length > 0) {
+    newData = [];
+    data.data.map((faq) => {
+      newData.push({
+        title: faq.attributes.title,
+        text: faq.attributes.text,
+        link: faq.attributes.link,
+        phone: faq.attributes.phone,
+      });
+    });
+  }
+
+  data.data = newData;
+
+  return data;
+}
+
 export default {
   getArticles,
   getArticleById,
@@ -301,4 +336,5 @@ export default {
   addArticleReadCount,
   getPolicies,
   getFAQs,
+  getSOSCenters,
 };
