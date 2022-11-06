@@ -5,7 +5,7 @@ import Joi from "joi";
 import classNames from "classnames";
 import { Button } from "../../buttons/Button";
 import { Input } from "../../inputs/Input";
-import { Textarea } from "../../inputs/TextArea";
+import { Textarea } from "../../inputs/Textarea";
 import { DropdownWithLabel } from "../../dropdowns/DropdownWithLabel";
 import { Modal } from "../../modals/Modal";
 import { validate, validateProperty } from "../../../utils";
