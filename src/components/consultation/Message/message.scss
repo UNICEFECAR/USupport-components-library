@@ -1,0 +1,19 @@
+@import "../../../styles/theme";
+
+.message {
+  padding: $spacing_1_6 $spacing_2_4;
+  width: 46.4rem;
+  border-radius: $border_radius_2_4;
+
+  &__text {
+    color: $color_black_37;
+  }
+
+  &-sent {
+    background-color: $color_green_54cfd9;
+  }
+
+  &-received {
+    background-color: $color_green_e6f1f4;
+  }
+}
