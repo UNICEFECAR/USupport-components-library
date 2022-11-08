@@ -1,0 +1,16 @@
+@import "../../../styles/theme";
+
+.faq-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  text-align: left;
+
+  &__text-container {
+    margin-left: $spacing_0_8;
+
+    @media screen and (min-width: $screen_md) {
+      margin-left: $spacing_5_4;
+    }
+  }
+}

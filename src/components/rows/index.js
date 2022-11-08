@@ -1,1 +1,2 @@
-export * from './ArticleRow';
+export * from "./ArticleRow";
+export * from "./FAQRow";
