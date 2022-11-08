@@ -665,7 +665,7 @@
     </defs>
   </svg>
 
-  <svg id="icon-flag-kazakhstan"
+  <svg id="icon-flag-KZ"
     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 24" fill="none">
     <g clip-path="url(#clip0_549_13194)">
       <path fill-rule="evenodd" clip-rule="evenodd" d="M0 0.75H30V23.25H0V0.75Z" fill="#00ABC2"/>
@@ -690,35 +690,29 @@
     </defs>
   </svg>
 
-  <svg id="icon-flag-germany"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 24" fill="none">
-    <g clip-path="url(#clip0_423_3630)">
-      <path d="M0 15.75H30V23.25H0V15.75Z" fill="#FFCE00"/>
-      <path d="M0 0.75H30V8.25H0V0.75Z" fill="black"/>
-      <path d="M0 8.25H30V15.75H0V8.25Z" fill="#DD0000"/>
+  <svg id='icon-flag-BG' viewBox="0 0 30 24" fill="none"
+    xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_3237_20896)">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M0 15.75H30V23.25H0V15.75Z" fill="#D62612"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M0 0.75H30V8.25H0V0.75Z" fill="white"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M0 8.25H30V15.75H0V8.25Z" fill="#00966E"/>
     </g>
-    <rect x="0.25" y="1" width="29.5" height="22" stroke="black" stroke-width="0.5"/>
+    <rect x="0.25" y="1" width="29.5" height="22" stroke="#373737" stroke-width="0.5"/>
     <defs>
-      <clipPath id="clip0_423_3630">
+      <clipPath id="clip0_3237_20896">
         <rect y="0.75" width="30" height="22.5" fill="white"/>
       </clipPath>
     </defs>
   </svg>
 
-  <svg id="icon-flag-swiss"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 23" fill="none">
-    <g clip-path="url(#clip0_549_13240)">
-      <path fill-rule="evenodd" clip-rule="evenodd" d="M0 0.25H30V22.75H0V0.25Z" fill="#D52B1E"/>
-      <path fill-rule="evenodd" clip-rule="evenodd" d="M7.96875 9.39062H22.0312V13.6094H7.96875V9.39062Z" fill="white"/>
-      <path fill-rule="evenodd" clip-rule="evenodd" d="M12.8906 4.46875H17.1094V18.5312H12.8906V4.46875Z" fill="white"/>
-    </g>
-    <rect x="0.25" y="0.5" width="29.5" height="22" stroke="black" stroke-width="0.5"/>
-    <defs>
-      <clipPath id="clip0_549_13240">
-        <rect y="0.25" width="30" height="22.5" fill="white"/>
-      </clipPath>
-    </defs>
+  <svg id='icon-flag-KG' viewBox="0 0 50 37" fill="none"
+    xmlns="http://www.w3.org/2000/svg">
+    <rect width="50" height="35.7143" transform="translate(0 0.503906)" fill="#F93939"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M24.3002 23.0868C24.5312 23.1106 24.7645 23.1225 25.0002 23.1225C25.2383 23.1225 25.4693 23.1106 25.7002 23.0868L25.0002 21.3368L24.3002 23.0868ZM21.0717 21.7892C19.8264 20.8034 19.0479 19.3653 19.0479 17.7653C19.0479 15.8773 20.1336 14.2177 21.7717 13.2653L23.8098 18.3606L21.0717 21.7892ZM28.2288 13.2653C29.8669 14.2177 30.9526 15.8773 30.9526 17.7653C30.9526 19.3677 30.1717 20.8058 28.9288 21.7892L26.1907 18.3606L28.2288 13.2653ZM27.9907 13.132C27.1098 12.6701 26.0907 12.4082 25.0002 12.4082C23.9098 12.4082 22.8883 12.6701 22.0098 13.132L25.0002 16.8701L27.9907 13.132Z" fill="#FFDA2C"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M24.9999 29.0751C30.9166 29.0751 35.7142 24.2774 35.7142 18.3608C35.7142 12.4441 30.9166 7.64648 24.9999 7.64648C19.0833 7.64648 14.2856 12.4441 14.2856 18.3608C14.2856 24.2774 19.0833 29.0751 24.9999 29.0751ZM24.9999 26.6941C29.6023 26.6941 33.3333 22.9632 33.3333 18.3608C33.3333 13.7584 29.6023 10.0274 24.9999 10.0274C20.3975 10.0274 16.6666 13.7584 16.6666 18.3608C16.6666 22.9632 20.3975 26.6941 24.9999 26.6941Z" fill="#FFDA2C"/>
   </svg>
+
+
 
   <svg id="icon-navbar-burger" viewBox="0 0 24 24" fill="none"
     xmlns="http://www.w3.org/2000/svg">

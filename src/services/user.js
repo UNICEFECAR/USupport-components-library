@@ -47,14 +47,17 @@ async function refreshToken(refreshToken) {
   return response;
 }
 
-async function login({ userType, email, password, userAccessToken }) {
+async function login({ userType, email, password, userAccessToken, location }) {
   const payload = { userType, password };
   if (userAccessToken) {
     payload.userAccessToken = userAccessToken;
   } else {
     payload.email = email;
   }
-  const response = await http.post(`${API_ENDPOINT}/login`, payload);
+  const headers = { "x-location": location };
+  const response = await http.post(`${API_ENDPOINT}/login`, payload, {
+    headers,
+  });
   return response;
 }
 

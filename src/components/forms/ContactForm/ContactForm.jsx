@@ -114,6 +114,7 @@ export const ContactForm = ({ classes, sendEmail }) => {
       <Input
         label="Email"
         errorMessage={errors.email}
+        value={data.email}
         classes="contact-form__email-input"
         placeholder="name@mail.com"
         onChange={(newEmail) => {
