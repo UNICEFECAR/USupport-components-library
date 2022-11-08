@@ -1,0 +1,25 @@
+@import "../../../styles/theme";
+
+.sos-center-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  &__content {
+    display: flex;
+    flex: 1;
+  }
+
+  &__heading {
+    color: $color_blue_3d527b;
+  }
+
+  .heading.text {
+    font-weight: $font_bold;
+  }
+}
+
+.sos-center-row-line-separator {
+  margin: $spacing_1_2 0;
+}
