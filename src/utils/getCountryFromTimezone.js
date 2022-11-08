@@ -363,3 +363,5 @@ export default function getCountryFromTimezone() {
 
   return country;
 }
+
+export { getCountryFromTimezone };
