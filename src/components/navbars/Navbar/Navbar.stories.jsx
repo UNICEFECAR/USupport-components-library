@@ -18,8 +18,8 @@ const pages = [
 
 const countries = [
   {
-    name: "Switzerland",
-    flagName: "swiss",
+    name: "Kazakhstan",
+    flagName: "KZ",
     languages: ["German", "French", "Italian", "Romansh"],
   },
 ];

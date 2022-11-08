@@ -12,22 +12,11 @@ import "./collapsiblecountry.scss";
  *
  * @return {jsx}
  */
-export const CollapsibleCountry = ({ country, onLanguageClick }) => {
-  const renderCountryHeading = () => {
-    return (
-      <div className="country-details">
-        <div className="flag-container">
-          <IconFlag flagName={country.flagName} />
-        </div>
-        <p className="text country-name">{country.name}</p>
-      </div>
-    );
-  };
-
+export const CollapsibleCountry = ({ languages, onLanguageClick }) => {
   const renderLanguages = () => {
     return (
       <div className="languages">
-        {country.languages.map((language, index) => {
+        {languages.map((language, index) => {
           return (
             <p
               className="text"
@@ -47,8 +36,8 @@ export const CollapsibleCountry = ({ country, onLanguageClick }) => {
   return (
     <div className="country">
       <Collapsible
-        heading={renderCountryHeading(country)}
-        content={renderLanguages(country)}
+        heading={"Language"}
+        content={renderLanguages()}
         iconColor={"#20809e"}
         iconSize="sm"
       />

@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { CheckBox } from "../../inputs/CheckBox/CheckBox";
+import { Line } from "../../separators/Line/Line";
 
 import "./faq-row.scss";
 
@@ -13,13 +14,16 @@ import "./faq-row.scss";
  */
 export const FAQRow = ({ selected, setSelected, question, answer }) => {
   return (
-    <div className="faq-row">
-      <CheckBox isChecked={selected} setIsChecked={setSelected} />
-      <div className="faq-row__text-container">
-        <h4>{question}</h4>
-        <p className="text">{answer}</p>
+    <>
+      <div className="faq-row">
+        <CheckBox isChecked={selected} setIsChecked={setSelected} />
+        <div className="faq-row__text-container">
+          <h4>{question}</h4>
+          <p className="text">{answer}</p>
+        </div>
       </div>
-    </div>
+      <Line />
+    </>
   );
 };
 

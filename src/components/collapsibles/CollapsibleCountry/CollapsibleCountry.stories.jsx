@@ -9,8 +9,8 @@ export default {
 };
 
 const country = {
-  name: "Switzerland",
-  flagName: "swiss",
+  name: "Kazakhstan",
+  flagName: "KZ",
   languages: ["German", "French", "Italian", "Romansh"],
 };
 
