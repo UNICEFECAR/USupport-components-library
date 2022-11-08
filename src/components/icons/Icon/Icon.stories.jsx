@@ -94,6 +94,7 @@ const icons = [
   "copy",
   "exit",
   "video",
+  "menu",
 ];
 
 export const All = (props) => (
