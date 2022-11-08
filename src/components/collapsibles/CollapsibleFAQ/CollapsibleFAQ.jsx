@@ -13,7 +13,7 @@ import "./collapsiblefaq.scss";
  * @return {jsx}
  */
 export const CollapsibleFAQ = ({ data }) => {
-  return data.map((faq, index) => {
+  return data?.map((faq, index) => {
     return (
       <React.Fragment key={index}>
         <Collapsible
