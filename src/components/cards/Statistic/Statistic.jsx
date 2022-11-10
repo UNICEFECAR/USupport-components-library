@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Box } from "../../boxes/Box/Box";
+import { Box } from "../../boxes";
+import { Icon } from "../../icons";
 
 import "./statistic.scss";
-import { Icon } from "../../icons/Icon/Icon";
 
 /**
  * Statistic
@@ -12,8 +12,13 @@ import { Icon } from "../../icons/Icon/Icon";
  *
  * @return {jsx}
  */
-export const Statistic = ({ text, iconName, orientation, landscapeSize }) => {
-  console.log("orientation", orientation);
+export const Statistic = ({
+  textBold,
+  text,
+  iconName,
+  orientation,
+  landscapeSize,
+}) => {
   return (
     <Box
       classes={[
@@ -27,15 +32,28 @@ export const Statistic = ({ text, iconName, orientation, landscapeSize }) => {
           name={iconName}
           color="#9749FA"
           size="lg"
-          classes="statistic-card__icon-container__icon"
+          classes="statistic-card__icon"
         />
       </div>
-      <h4 className="paragraph statistic-card__text">{text}</h4>
+      {orientation === "portrait" ? (
+        <h3 className="statistic-card__text">
+          {textBold} <span>{text}</span>
+        </h3>
+      ) : (
+        <h4 className="statistic-card__text">
+          {textBold} <span>{text}</span>
+        </h4>
+      )}
     </Box>
   );
 };
 
 Statistic.propTypes = {
+  /**
+   * Text to be displayed in bold
+   */
+  textBold: PropTypes.string,
+
   /**
    * Text to display
    */

@@ -12,17 +12,20 @@ const Template = (props) => <Statistic {...props} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  text: "120 Booked consultations",
+  textBold: "120",
+  text: "Booked consultations",
 };
 
 export const Small = Template.bind({});
 Small.args = {
-  text: "120 Booked consultations",
+  textBold: "120",
+  text: "Booked consultations",
   landscapeSize: "sm",
 };
 
 export const Portrait = Template.bind({});
 Portrait.args = {
-  text: "120 Booked consultations",
+  textBold: "120",
+  text: "Booked consultations",
   orientation: "portrait",
 };
