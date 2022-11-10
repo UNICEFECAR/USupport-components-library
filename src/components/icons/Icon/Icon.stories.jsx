@@ -95,6 +95,8 @@ const icons = [
   "exit",
   "video",
   "menu",
+  "article",
+  "live-consultation",
 ];
 
 export const All = (props) => (
