@@ -9,4 +9,5 @@ export * from "./ProviderOverview";
 export * from "./ProviderConsultation";
 export * from "./Consultation";
 export * from "./ConsultationInformation";
-export * from './Statistic';
+export * from "./Statistic";
+export * from "./AccessToken";
