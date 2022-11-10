@@ -2,6 +2,12 @@ import http from "./http";
 
 const API_ENDPOINT = `${import.meta.env.VITE_API_ENDPOINT}/v1/user`;
 
+function logout() {
+  localStorage.removeItem("token");
+  localStorage.removeItem("token-expires-in");
+  localStorage.removeItem("refresh-token");
+}
+
 /**
  *
  * @param {string} userType the type of user - either "client" or "provider"
@@ -61,11 +67,29 @@ async function login({ userType, email, password, userAccessToken, location }) {
   return response;
 }
 
+async function changePassword({ oldPassword, newPassword }) {
+  const response = await http.patch(`${API_ENDPOINT}/password`, {
+    oldPassword,
+    newPassword,
+  });
+  return response;
+}
+
+async function uploadFile(content) {
+  const response = await http.post(`${API_ENDPOINT}/upload-file`, content, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return response;
+}
+
 const exportedFunctions = {
   signUp,
   generateClientAccesToken,
   refreshToken,
   login,
+  changePassword,
+  uploadFile,
+  logout,
 };
 
 export default exportedFunctions;
