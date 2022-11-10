@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import useWindowDimensions from "../../../utils/useWindowDimensions";
-import { Modal } from "../Modal/Modal";
-import { Icon } from "../../icons/Icon";
-import { Button } from "../../buttons/Button";
+import { Modal } from "../Modal";
+import { Icon } from "../../icons";
+import { Button } from "../../buttons";
+import { Error } from "../../errors";
 
 import "./backdrop.scss";
+import classNames from "classnames";
 
 /**
  * Backdrop
@@ -22,9 +24,12 @@ export const Backdrop = ({
   text,
   ctaLabel,
   ctaHandleClick,
+  isCtaDisabled,
   secondaryCtaLabel,
   secondaryCtaHandleClick,
+  secondaryCtaType = "ghost",
   children,
+  errorMessage,
 }) => {
   useEffect(() => {
     if (isOpen) {
@@ -53,7 +58,13 @@ export const Backdrop = ({
         }`}
         onClick={handleClose}
       />
-      <div className={`backdrop ${isOpen ? "backdrop__shown" : ""}`}>
+      <div
+        className={[
+          "backdrop",
+          isOpen ? "backdrop__shown" : "",
+          classNames(classes),
+        ].join(" ")}
+      >
         <div className="backdrop__header">
           <h4 className="backdrop__header-text">{heading}</h4>
           <Icon
@@ -77,6 +88,7 @@ export const Backdrop = ({
 
         {hasButtons && (
           <div className="backdrop__buttons-container">
+            {errorMessage ? <Error message={errorMessage} /> : null}
             {ctaLabel && (
               <Button
                 label={ctaLabel}
@@ -84,6 +96,7 @@ export const Backdrop = ({
                 color="green"
                 size="lg"
                 type="primary"
+                disabled={isCtaDisabled}
               />
             )}
             {secondaryCtaLabel && (
@@ -92,7 +105,7 @@ export const Backdrop = ({
                 onClick={secondaryCtaHandleClick}
                 color="green"
                 size="lg"
-                type="ghost"
+                type={secondaryCtaType}
               />
             )}
           </div>
@@ -109,8 +122,11 @@ export const Backdrop = ({
         text,
         ctaLabel,
         ctaHandleClick,
+        isCtaDisabled,
         secondaryCtaLabel,
         secondaryCtaHandleClick,
+        errorMessage,
+        secondaryCtaType,
       }}
     >
       {children}
@@ -150,6 +166,11 @@ Backdrop.propTypes = {
   ctaHandleClick: PropTypes.func,
 
   /**
+   * If the CTA button is disabled
+   */
+  isCtaDisabled: PropTypes.bool,
+
+  /**
    * Label of the secondary CTA button
    */
   secondaryCtaLabel: PropTypes.string,
@@ -158,6 +179,22 @@ Backdrop.propTypes = {
    * Function to be called when the secondary CTA button is clicked
    */
   secondaryCtaHandleClick: PropTypes.func,
+
+  /**
+   * Type of the secondary CTA button
+   */
+  secondaryCtaType: PropTypes.oneOf([
+    "primary",
+    "secondary",
+    "ghost",
+    "text",
+    "link",
+  ]),
+
+  /**
+   * Error message to be displayed
+   */
+  errorMessage: PropTypes.string,
 
   /**
    * Children to be rendered in the backdrop/modal
