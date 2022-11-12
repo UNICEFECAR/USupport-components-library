@@ -13,7 +13,26 @@ async function updateClientData(data) {
 }
 
 async function deleteClientProfile(password) {
-  const response = await http.delete(`${API_ENDPOINT}/`, { password });
+  const response = await http.delete(`${API_ENDPOINT}/`, {
+    data: { password },
+  });
+  return response;
+}
+
+async function changeImage() {
+  const response = await http.put(`${API_ENDPOINT}/image`);
+  return response;
+}
+
+async function changeDataProcessingAgreement(dataProcessing) {
+  const response = await http.put(`${API_ENDPOINT}/data-processing-agreement`, {
+    dataProcessing,
+  });
+  return response;
+}
+
+async function deleteImage() {
+  const response = await http.delete(`${API_ENDPOINT}/image`);
   return response;
 }
 
@@ -21,6 +40,9 @@ const exportedFunctions = {
   getClientData,
   updateClientData,
   deleteClientProfile,
+  deleteImage,
+  changeImage,
+  changeDataProcessingAgreement,
 };
 
 export default exportedFunctions;
