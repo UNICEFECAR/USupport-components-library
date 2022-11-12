@@ -1,17 +1,7 @@
 @import "../../../styles/theme";
 
 .sos-center-row {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
   text-align: left;
-
-  &__content {
-    display: flex;
-    flex: 1;
-  }
-
   &__heading {
     color: $color_blue_3d527b;
   }
