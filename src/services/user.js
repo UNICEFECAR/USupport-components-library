@@ -1,11 +1,20 @@
 import http from "./http";
-
+import jwtDecode from "jwt-decode";
 const API_ENDPOINT = `${import.meta.env.VITE_API_ENDPOINT}/v1/user`;
+
+function getUserID() {
+  const token = localStorage.getItem("token");
+  if (!token) return null;
+  const decoded = jwtDecode(token);
+  return decoded.sub;
+}
 
 function logout() {
   localStorage.removeItem("token");
   localStorage.removeItem("token-expires-in");
   localStorage.removeItem("refresh-token");
+
+  window.location.replace("/client/");
 }
 
 /**
@@ -67,6 +76,11 @@ async function login({ userType, email, password, userAccessToken, location }) {
   return response;
 }
 
+async function tmpLogin() {
+  const response = await http.post(`${API_ENDPOINT}/tmp-login`);
+  return response;
+}
+
 async function changePassword({ oldPassword, newPassword }) {
   const response = await http.patch(`${API_ENDPOINT}/password`, {
     oldPassword,
@@ -82,14 +96,57 @@ async function uploadFile(content) {
   return response;
 }
 
+async function getNotificationPreferences() {
+  const response = await http.get(`${API_ENDPOINT}/notification-preferences`);
+  return response;
+}
+/**
+ * 
+ * @param {Object} data
+ * @param {boolean} data.email
+ * @param {boolean} data.consultationReminder
+ * @param {Number} data.consultationReminderTime
+ * @param {boolean} data.inPlatform
+ * @param {boolean} data.push 
+ 
+ * @returns 
+ */
+async function updateNotificationPreferences(data) {
+  const response = await http.put(`${API_ENDPOINT}/notification-preferences`, {
+    ...data,
+  });
+  return response;
+}
+
+async function generateForgotPasswordLink(email) {
+  const response = await http.get(
+    `${API_ENDPOINT}/rescue/forgot-password?email=${email}`
+  );
+  return response;
+}
+
+async function resetPassword(password, token) {
+  const response = await http.post(`${API_ENDPOINT}/rescue/forgot-password`, {
+    token,
+    password,
+  });
+  return response;
+}
+
 const exportedFunctions = {
+  getUserID,
   signUp,
   generateClientAccesToken,
   refreshToken,
   login,
+  tmpLogin,
   changePassword,
   uploadFile,
   logout,
+  getNotificationPreferences,
+  updateNotificationPreferences,
+  generateForgotPasswordLink,
+  resetPassword,
 };
 
 export default exportedFunctions;
