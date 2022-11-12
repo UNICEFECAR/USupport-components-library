@@ -8,6 +8,8 @@ import "./provider-overview.scss";
 
 import { specialistPlaceholder } from "../../../assets";
 
+const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
+
 /**
  * ProviderOverview
  *
@@ -18,25 +20,28 @@ import { specialistPlaceholder } from "../../../assets";
 export const ProviderOverview = ({
   image,
   name,
-  specialities,
-  experience,
+  patronym,
+  surname,
+  types,
   onClick,
-  yearsOfExperienceText,
 }) => {
+  const displayName = patronym
+    ? `${name} ${patronym} ${surname}`
+    : `${name} ${surname}`;
   return (
     <Box onClick={onClick} shadow={2} classes={["provider-overview"].join(" ")}>
-      <Avatar image={image} size="sm" />
+      <Avatar image={AMAZON_S3_BUCKET + "/" + image} size="sm" />
       <div className="provider-overview__content">
         <div className="provider-overview__content__text-content">
           <p className="text provider-overview__content__text-content__name">
-            {name}
+            {displayName}
           </p>
-          <p className="small-text provider-overview__specialities">
-            {specialities}
+          <p className="small-text provider-overview__types">
+            {types.join(", ")}
           </p>
-          <p className="small-text">
+          {/* <p className="small-text">
             {`${experience} ${yearsOfExperienceText}`}
-          </p>
+          </p> */}
         </div>
         <div>
           <Icon name="arrow-chevron-forward" size="md" color="#20809E" />
