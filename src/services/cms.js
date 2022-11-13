@@ -72,6 +72,12 @@ function generateQuerryString(queryObj) {
     querry += `&filters[global][$in]=${queryObj.global}`;
   }
 
+  if (queryObj.listOfIds) {
+    for (let i = 0; i < queryObj.listOfIds.length; i++) {
+      querry += `&filters[id][$in]=${queryObj.listOfIds[i]}`;
+    }
+  }
+
   if (querry.includes("?&")) {
     querry = querry.replace("?&", "?");
   }
@@ -274,10 +280,11 @@ async function getPolicies(locale, countryAlpha2, uiInterface) {
  * @returns {object} the faqs data
  *
  */
-async function getFAQs(locale, populate) {
+async function getFAQs(locale, populate, listOfIds) {
   const querryString = generateQuerryString({
     locale: locale,
     populate: populate,
+    listOfIds: listOfIds,
   });
 
   let { data } = await http.get(`${faqsEndpoint}${querryString}`);
@@ -294,10 +301,11 @@ async function getFAQs(locale, populate) {
  * @returns {object} the sos centers data
  *
  */
-async function getSOSCenters(locale, populate) {
+async function getSOSCenters(locale, populate, listOfIds) {
   const querryString = generateQuerryString({
     locale: locale,
     populate: populate,
+    listOfIds: listOfIds,
   });
 
   let { data } = await http.get(`${sosCentersEndpoint}${querryString}`);
