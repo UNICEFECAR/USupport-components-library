@@ -70,6 +70,7 @@ export const Navbar = ({
     const res = await countrySvc.getActiveCountries();
     const usersCountry = getCountryFromTimezone();
     const validCountry = res.data.find((x) => x.alpha2 === usersCountry);
+    let hasSetDefaultCountry = false;
     const countries = res.data.map((x) => {
       const countryObject = {
         value: x.alpha2,
@@ -82,6 +83,7 @@ export const Navbar = ({
         setSelectedCountry(countryObject);
       } else if (!localStorageCountry) {
         if (validCountry?.alpha2 === x.alpha2) {
+          hasSetDefaultCountry = true;
           localStorage.setItem("country", x.alpha2);
           setSelectedCountry(countryObject);
         }
@@ -89,6 +91,15 @@ export const Navbar = ({
 
       return countryObject;
     });
+
+    if (!hasSetDefaultCountry && !localStorageCountry) {
+      localStorage.setItem("country", kazakhstanCountry.value);
+      localStorage.setItem(
+        "country_id",
+        countries.find((x) => x.value === kazakhstanCountry.value).countryID
+      );
+    }
+
     return countries;
   };
 
