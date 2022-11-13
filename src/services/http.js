@@ -2,13 +2,19 @@ import axios from "axios";
 import jwtDecode from "jwt-decode";
 import { log } from "./log";
 const API_ENDPOINT = `${import.meta.env.VITE_API_ENDPOINT}/v1/user`;
+const VITE_CMS_API_URL = import.meta.env.VITE_CMS_API_URL;
 
 // On every request add the JWT token, language and country to the headers
 axios.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
   config.headers["x-country-alpha-2"] = localStorage.getItem("country") || "";
   config.headers["x-language-alpha-2"] = localStorage.getItem("language") || "";
-  config.headers["Authorization"] = `Bearer ${token}`;
+
+  const requestURI = axios.getUri(config) || "VITE CMS API URL";
+
+  if (!requestURI.includes(VITE_CMS_API_URL)) {
+    const token = localStorage.getItem("token");
+    config.headers["Authorization"] = `Bearer ${token}`;
+  }
 
   return config;
 });
