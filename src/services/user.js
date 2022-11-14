@@ -138,20 +138,26 @@ async function resetPassword(password, token) {
   return response;
 }
 
+async function getWorkWithCategories() {
+  const response = await http.get(`${API_ENDPOINT}/work-with`);
+  return response;
+}
+
 const exportedFunctions = {
-  getUserID,
-  signUp,
-  generateClientAccesToken,
-  refreshToken,
-  login,
-  tmpLogin,
   changePassword,
-  uploadFile,
-  logout,
-  getNotificationPreferences,
-  updateNotificationPreferences,
+  generateClientAccesToken,
   generateForgotPasswordLink,
+  getNotificationPreferences,
+  getUserID,
+  getWorkWithCategories,
+  login,
+  logout,
+  refreshToken,
   resetPassword,
+  signUp,
+  tmpLogin,
+  updateNotificationPreferences,
+  uploadFile,
 };
 
 export default exportedFunctions;
