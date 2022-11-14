@@ -101,6 +101,7 @@ const icons = [
   "dollar",
   "edit",
   "delete",
+  "trash",
 ];
 
 export const All = (props) => (
