@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { Icon } from "../../icons/Icon";
+import { getDatesInRange, getStartAndEndOfWeek } from "../../../utils";
 
 import "./header.scss";
-import { Icon } from "../../icons/Icon";
-import {
-  getDatesInRange,
-  getStartAndEndOfWeek,
-  isDateToday,
-} from "../../../utils";
-import { useCallback } from "react";
 
 /**
  * Header
@@ -17,15 +12,8 @@ import { useCallback } from "react";
  *
  * @return {jsx}
  */
-export const Header = (
-  {
-    /* Add props here */
-  }
-) => {
+export const Header = ({ handleDayChange }) => {
   const [today, setToday] = useState(new Date());
-  const [month, setMonth] = useState(today.getMonth());
-  const [week, setWeek] = useState(today.get);
-  const [day, setDay] = useState(0);
 
   const [selectedDay, setSelectedDay] = useState(today);
 
@@ -33,8 +21,6 @@ export const Header = (
 
   useEffect(() => {
     const { first, last } = getStartAndEndOfWeek(today);
-    console.log(today);
-    console.log(first, last);
     setDaysOfWeek(getDatesInRange(first, last));
   }, [today]);
 
@@ -56,6 +42,7 @@ export const Header = (
 
   const handleSelectDay = (day) => {
     setSelectedDay(day);
+    handleDayChange(day);
   };
 
   const renderDaysOfWeek = () => {
@@ -129,9 +116,12 @@ export const Header = (
 };
 
 Header.propTypes = {
-  // Add propTypes here
+  /**
+   * Handle day change
+   * */
+  handleDayChange: PropTypes.func,
 };
 
 Header.defaultProps = {
-  // Add defaultProps here
+  handleDayChange: () => {},
 };

@@ -34,3 +34,4 @@ export * from "./components/carousels";
 export * from "./components/markdown";
 export * from "./components/policies";
 export * from './components/consultation';
+export * from './components/rows';

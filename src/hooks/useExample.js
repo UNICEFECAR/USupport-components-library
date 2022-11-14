@@ -22,6 +22,8 @@ export default function useExample() {
   });
 
   // Return the data and loading state
+  // NEVER DIRECTLY MODIFY "exampleData", if needed create a deep copy of it
+  // e.g. const exampleDataCopy = JSON.parse(JSON.stringify(exampleData)) or use lodash
   return { exampleData, setExampleData, data, isLoading, isError };
 }
 

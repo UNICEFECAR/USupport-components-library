@@ -60,7 +60,7 @@ RadioButtonSelectorGroup.propTypes = {
   /**
    * Selected option
    * */
-  selected: PropTypes.string,
+  selected: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
   /**
    * Function to set the selected option
