@@ -6,6 +6,12 @@
   padding: $spacing_1_6 $spacing_2_4;
   border: 0.1rem solid $color_primary_20809e;
   border-radius: $border_radius_2_4;
+  text-align: left;
+  width: calc(36.8rem - 2 * $spacing_2_4);
+
+  @media screen and (max-width: $screen_md) {
+    width: calc(24rem - 2 * $spacing_2_4);
+  }
 
   &__text-container {
     margin-left: $spacing_1_6;
