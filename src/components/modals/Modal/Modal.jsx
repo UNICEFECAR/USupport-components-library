@@ -4,6 +4,7 @@ import classNames from "classnames";
 import { default as ModalPackage } from "react-modal";
 import { Icon } from "../../icons/Icon";
 import { Button } from "../../buttons/Button";
+import { Error } from "../../errors";
 
 import "./modal.scss";
 
@@ -22,9 +23,12 @@ export const Modal = ({
   text,
   ctaLabel,
   ctaHandleClick,
+  isCtaDisabled,
   secondaryCtaLabel,
   secondaryCtaHandleClick,
+  secondaryCtaType,
   children,
+  errorMessage,
 }) => {
   const hasButtons = ctaLabel || secondaryCtaLabel;
 
@@ -55,15 +59,21 @@ export const Modal = ({
       </div>
       {hasButtons && (
         <div className="base-modal__footer">
+          {errorMessage ? <Error message={errorMessage} /> : null}
           {ctaLabel && (
-            <Button label={ctaLabel} onClick={ctaHandleClick} size="lg" />
+            <Button
+              label={ctaLabel}
+              disabled={isCtaDisabled}
+              onClick={ctaHandleClick}
+              size="lg"
+            />
           )}
           {secondaryCtaLabel && (
             <Button
               label={secondaryCtaLabel}
               onClick={secondaryCtaHandleClick}
               size="lg"
-              type="ghost"
+              type={secondaryCtaType}
             />
           )}
         </div>
@@ -111,6 +121,11 @@ Modal.propTypes = {
   ctaHandleClick: PropTypes.func,
 
   /**
+   * Is the CTA button disabled
+   */
+  isCtaDisabled: PropTypes.bool,
+
+  /**
    * Label of the secondary CTA button
    */
   secondaryCtaLabel: PropTypes.string,
@@ -119,6 +134,22 @@ Modal.propTypes = {
    * Function to be called when the secondary CTA button is clicked
    */
   secondaryCtaHandleClick: PropTypes.func,
+
+  /**
+   * Type of the secondary CTA button
+   */
+  secondaryCtaType: PropTypes.oneOf([
+    "primary",
+    "secondary",
+    "ghost",
+    "text",
+    "link",
+  ]),
+
+  /**
+   * Error message to be displayed
+   */
+  errorMessage: PropTypes.string,
 
   /**
    * Children to be rendered in the modal
@@ -130,4 +161,5 @@ Modal.defaultProps = {
   isOpen: false,
   setIsOpen: () => {},
   classes: "",
+  secondaryCtaType: "ghost",
 };

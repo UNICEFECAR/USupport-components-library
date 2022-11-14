@@ -27,7 +27,9 @@ const sosCentersEndpoint = CMS_API_URL + "/sos-centers";
  *
  */
 function generateQuerryString(queryObj) {
-  let querry = `?locale=${queryObj.locale}`;
+  let querry = `?`;
+
+  if (queryObj.locale) querry += `&locale=${queryObj.locale}`;
 
   if (queryObj.populate) {
     querry += "&populate=*";
@@ -68,6 +70,16 @@ function generateQuerryString(queryObj) {
 
   if (queryObj.global) {
     querry += `&filters[global][$in]=${queryObj.global}`;
+  }
+
+  if (queryObj.listOfIds) {
+    for (let i = 0; i < queryObj.listOfIds.length; i++) {
+      querry += `&filters[id][$in]=${queryObj.listOfIds[i]}`;
+    }
+  }
+
+  if (querry.includes("?&")) {
+    querry = querry.replace("?&", "?");
   }
 
   return querry;
@@ -263,30 +275,19 @@ async function getPolicies(locale, countryAlpha2, uiInterface) {
 /**
  * send request to get FAQs
  *
- * @param {string} locale - the locale for which to retrieve policies
- * @returns {boolean} global - the global status for which to retrieve policies e.g true or false
- * @returns {object} the policies data
+ * @param {string} locale - the locale for which to retrieve FAQs
+ * @param {string} populate - the populate status for which to retrieve FAQs e.g true or false
+ * @returns {object} the faqs data
  *
  */
-async function getFAQs(locale, global) {
+async function getFAQs(locale, populate, listOfIds) {
   const querryString = generateQuerryString({
     locale: locale,
-    global: global,
+    populate: populate,
+    listOfIds: listOfIds,
   });
 
   let { data } = await http.get(`${faqsEndpoint}${querryString}`);
-  let newData = null;
-  if (data.data.length > 0) {
-    newData = [];
-    data.data.map((faq) => {
-      newData.push({
-        question: faq.attributes.question,
-        answer: faq.attributes.answer,
-      });
-    });
-  }
-
-  data.data = newData;
 
   return data;
 }
@@ -296,31 +297,18 @@ async function getFAQs(locale, global) {
  * send request to get SOS Centers
  *
  * @param {string} locale - the locale for which to retrieve SOS centers
- * @returns {boolean} global - the global status for which to retrieve SOS centers e.g true or false
- * @returns {object} the policies data
+ * @param {string} populate - the populate status for which to retrieve SOS centers e.g true or false
+ * @returns {object} the sos centers data
  *
  */
-async function getSOSCenters(locale, global) {
+async function getSOSCenters(locale, populate, listOfIds) {
   const querryString = generateQuerryString({
     locale: locale,
-    global: global,
+    populate: populate,
+    listOfIds: listOfIds,
   });
 
   let { data } = await http.get(`${sosCentersEndpoint}${querryString}`);
-  let newData = null;
-  if (data.data.length > 0) {
-    newData = [];
-    data.data.map((faq) => {
-      newData.push({
-        title: faq.attributes.title,
-        text: faq.attributes.text,
-        link: faq.attributes.url,
-        phone: faq.attributes.phone,
-      });
-    });
-  }
-
-  data.data = newData;
 
   return data;
 }

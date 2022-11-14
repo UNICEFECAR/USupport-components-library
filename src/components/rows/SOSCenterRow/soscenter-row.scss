@@ -1,0 +1,16 @@
+@import "../../../styles/theme";
+
+.sos-center-row {
+  text-align: left;
+  &__heading {
+    color: $color_blue_3d527b;
+  }
+
+  .heading.text {
+    font-weight: $font_bold;
+  }
+}
+
+.sos-center-row-line-separator {
+  margin: $spacing_1_2 0;
+}

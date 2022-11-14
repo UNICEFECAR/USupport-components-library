@@ -1,11 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-
-import "./button-selector.scss";
 import classNames from "classnames";
 import { Icon } from "../../icons/Icon";
 
-import { specialistPlaceholder } from "../../../assets";
+import "./button-selector.scss";
 
 /**
  * ButtonSelector
@@ -39,7 +37,7 @@ export const ButtonSelector = ({
         />
       )}
       {!iconName && avatar && (
-        <img className="btn-selector__avatar" src={specialistPlaceholder} />
+        <img className="btn-selector__avatar" src={avatar} alt="" />
       )}
       <p className="btn-selector__label">{label}</p>
       <div className="btn-selector__right-icon-container">
@@ -60,9 +58,8 @@ ButtonSelector.propTypes = {
    */
   iconName: PropTypes.string,
 
-  // TODO: Figure out what proptype an image should be
   /**
-   * Avatar image to render
+   * URL to the image that needs to be displayed
    */
   avatar: PropTypes.string,
 
@@ -83,10 +80,4 @@ ButtonSelector.propTypes = {
    * Function to be called when the button is clicked
    * */
   onClick: PropTypes.func,
-};
-
-ButtonSelector.defaultProps = {
-  iconName: "",
-  avatar: "has",
-  label: "Share the application",
 };
