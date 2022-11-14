@@ -7,7 +7,25 @@ async function getProviderData() {
   return response;
 }
 
+async function updateProviderData(data) {
+  const response = await http.put(`${API_ENDPOINT}/`, data);
+  return response;
+}
+
+async function changeImage() {
+  const response = await http.put(`${API_ENDPOINT}/image`);
+  return response;
+}
+
+async function deleteImage() {
+  const response = await http.delete(`${API_ENDPOINT}/image`);
+  return response;
+}
+
 const exportedFunctions = {
   getProviderData,
+  updateProviderData,
+  changeImage,
+  deleteImage,
 };
 export default exportedFunctions;
