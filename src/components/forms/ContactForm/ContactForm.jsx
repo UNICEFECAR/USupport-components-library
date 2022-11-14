@@ -74,7 +74,7 @@ export const ContactForm = ({ classes, sendEmail }) => {
   const handleReasonChange = (reason) => {
     const reasonsCopy = [...reasons];
     for (let i = 0; i < reasonsCopy.length; i++) {
-      if (reasonsCopy[i].label === reason.label) {
+      if (reasonsCopy[i].value === reason) {
         reasonsCopy[i].selected = true;
       } else {
         reasonsCopy[i].selected = false;
@@ -114,6 +114,7 @@ export const ContactForm = ({ classes, sendEmail }) => {
       <Input
         label="Email"
         errorMessage={errors.email}
+        value={data.email}
         classes="contact-form__email-input"
         placeholder="name@mail.com"
         onChange={(newEmail) => {

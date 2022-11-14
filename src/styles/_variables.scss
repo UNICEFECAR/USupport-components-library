@@ -5,8 +5,8 @@ $screen-lg: 1366px;
 $screen-xl: 1600px;
 
 // Navbar size
-$navbar-tight: 900px;
-$navbar-spread: 1050px;
+$navbar-tight: 950px;
+$navbar-spread: 1100px;
 
 // Font Family
 $font_family: "Nunito", sans-serif;
@@ -210,6 +210,7 @@ $z_index_2: 2;
 $z_index_backdrop: 98;
 $z_index_navbar: 99;
 $z_index_emergency_button: 99;
+$z_index_modal: 100;
 
 // Overlays
 $overlay_66768D: rgba(102, 118, 141, 0.5);
