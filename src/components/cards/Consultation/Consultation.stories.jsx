@@ -8,18 +8,51 @@ export default {
   argTypes: {},
 };
 
-const Template = (props) => <Consultation {...props} />;
+const Template = (props) => (
+  <Consultation
+    joinLabel="Join"
+    editLabel="Edit"
+    cancelLabel="Cancel suggestion"
+    {...props}
+  />
+);
 
 export const Overview = Template.bind({});
 Overview.args = {
-  specialistName: "Dr. Joanna Doe",
+  name: "Dr. Joanna Doe",
   startDate: new Date("2022-12-4 9:00"),
   endDate: new Date("2022-12-4 10:00"),
 };
 
+export const Live = Template.bind({});
+Live.args = {
+  name: "Dr. Joanna Doe",
+  startDate: new Date(),
+  endDate: new Date(new Date().setHours(new Date().getHours() + 1)),
+  overview: false,
+};
+
+export const Upcoming = Template.bind({});
+Upcoming.args = {
+  name: "Dr. Joanna Doe",
+  startDate: new Date("05/05/2024 12:00"),
+  endDate: new Date("05/05/2024 13:00"),
+  overview: false,
+  renderIn: "provider",
+};
+
+export const Past = Template.bind({});
+Past.args = {
+  name: "Dr. Joanna Doe",
+  startDate: new Date("05/05/2022 12:00"),
+  endDate: new Date("05/05/2022 13:00"),
+  overview: false,
+  renderIn: "provider",
+};
+
 export const OverviewFalse = Template.bind({});
 OverviewFalse.args = {
-  specialistName: "Dr. Joanna Doe",
+  name: "Dr. Joanna Doe",
   startDate: new Date("2022-11-1 15:00"),
   endDate: new Date("2022-11-1 16:00"),
   overview: false,
@@ -27,9 +60,18 @@ OverviewFalse.args = {
 
 export const Request = Template.bind({});
 Request.args = {
-  specialistName: "Dr. Joanna Doe",
+  name: "Dr. Joanna Doe",
   startDate: new Date("2022-11-6 15:00"),
   endDate: new Date("2022-11-6 16:00"),
   overview: false,
   requested: true,
+};
+
+export const WithMenu = Template.bind({});
+WithMenu.args = {
+  name: "Dr. Joanna Doe",
+  startDate: new Date("2022-11-6 15:00"),
+  endDate: new Date("2022-11-6 16:00"),
+  overview: false,
+  hasMenu: true,
 };
