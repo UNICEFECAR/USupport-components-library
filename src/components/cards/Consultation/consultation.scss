@@ -82,6 +82,7 @@
     position: absolute;
     right: 2.5%;
     bottom: -25%;
+    z-index: $z_index_2;
 
     &-live {
       border: 0.1rem solid $color_secondary_9749fa;
