@@ -45,9 +45,9 @@ export const Consultation = ({
           ? `0${startDate.getDate()}`
           : startDate.getDate()
       }.${
-        startDate.getMonth() < 10
-          ? `0${startDate.getMonth()}`
-          : startDate.getMonth()
+        startDate.getMonth() + 1 < 10
+          ? `0${startDate.getMonth() + 1}`
+          : startDate.getMonth() + 1
       }`
     : "";
 
