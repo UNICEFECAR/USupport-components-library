@@ -78,8 +78,13 @@ function generateQuerryString(queryObj) {
     }
   }
 
-  if (queryObj.ids) {
+  if (queryObj.ids && queryObj.ids.length > 0) {
     querry += `&ids=${queryObj.ids}`;
+  }
+
+  // This was added for the admin to prevent the server to filter the data by selected ids.
+  if (queryObj.isForAdmin) {
+    querry += `&isForAdmin=${queryObj.isForAdmin}`;
   }
 
   if (querry.includes("?&")) {
@@ -115,7 +120,7 @@ async function getArticles(queryObj) {
 
   const { data } = await http.get(`${articlesEndpoint}${querryString}`);
 
-  return data;
+  return { data };
 }
 
 /**
@@ -147,11 +152,6 @@ async function getArticleById(id, locale) {
  * @returns {object} all available article locales e.g. {"kk": 17,"en": 12,"ru": 18}
  */
 async function getArticleLocales(id) {
-  try {
-    // Increment read count for the given article id
-    await addArticleReadCount(id);
-  } catch (error) {}
-
   const { data } = await http.get(
     `${articlesEndpoint}/getArticleLocales/${id}`
   );
@@ -255,19 +255,26 @@ async function getPolicies(locale, countryAlpha2, uiInterface) {
 /**
  * send request to get FAQs
  *
- * @param {string} locale - the locale for which to retrieve FAQs
- * @param {string} populate - the populate status for which to retrieve FAQs e.g true or false
- * @returns {object} the faqs data
+ * @returns {object} the FAQs data
  *
  */
-async function getFAQs(locale, populate, listOfIds) {
-  const querryString = generateQuerryString({
-    locale: locale,
-    populate: populate,
-    listOfIds: listOfIds,
-  });
+async function getFAQs(queryObj) {
+  const querryString = generateQuerryString(queryObj);
 
-  let { data } = await http.get(`${faqsEndpoint}${querryString}`);
+  const { data } = await http.get(`${faqsEndpoint}${querryString}`);
+
+  return { data };
+}
+
+/**
+ * send request to get available locales for a specific FAQ, by id
+ *
+ * @param {string} id - the id of the FAQ
+ *
+ * @returns {object} all available FAQ locales e.g. {"kk": 17,"en": 12,"ru": 18}
+ */
+async function getFAQAvailableLocales(id) {
+  const { data } = await http.get(`${faqsEndpoint}/available-locales/${id}`);
 
   return data;
 }
@@ -276,19 +283,28 @@ async function getFAQs(locale, populate, listOfIds) {
 /**
  * send request to get SOS Centers
  *
- * @param {string} locale - the locale for which to retrieve SOS centers
- * @param {string} populate - the populate status for which to retrieve SOS centers e.g true or false
  * @returns {object} the sos centers data
  *
  */
-async function getSOSCenters(locale, populate, listOfIds) {
-  const querryString = generateQuerryString({
-    locale: locale,
-    populate: populate,
-    listOfIds: listOfIds,
-  });
+async function getSOSCenters(queryObj) {
+  const querryString = generateQuerryString(queryObj);
 
-  let { data } = await http.get(`${sosCentersEndpoint}${querryString}`);
+  const { data } = await http.get(`${sosCentersEndpoint}${querryString}`);
+
+  return { data };
+}
+
+/**
+ * send request to get available locales for a specific SOS Center, by id
+ *
+ * @param {string} id - the id of the SOS Center
+ *
+ * @returns {object} all available SOS Center locales e.g. {"kk": 17,"en": 12,"ru": 18}
+ */
+async function getSOSCenterAvailableLocales(id) {
+  const { data } = await http.get(
+    `${sosCentersEndpoint}/available-locales/${id}`
+  );
 
   return data;
 }
@@ -303,5 +319,7 @@ export default {
   addArticleReadCount,
   getPolicies,
   getFAQs,
+  getFAQAvailableLocales,
   getSOSCenters,
+  getSOSCenterAvailableLocales,
 };
