@@ -9,3 +9,4 @@ export * from "./useGetProviderData.js";
 export * from "./useGetCountryAndLanguages.js";
 export * from "./useGetWorkWithCategories.js";
 export * from "./useUpdateProviderData.js";
+export * from "./useEventListener.js";
