@@ -991,5 +991,10 @@
     <path d="M14 11V17" stroke="#EB5757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
 
+  <svg id='icon-share-front' viewBox="0 0 24 24" fill="none"
+    xmlns="http://www.w3.org/2000/svg">
+    <path d="M14.1739 9.19408V5L22 12.1299L14.1739 19.2599V15.0658C14.1739 15.0658 12 14.6464 8.08696 16.324C4.17391 18.0016 2 20 2 20C2 20 2.86956 15.1497 6.78261 12.1299C10.6957 9.1102 14.1739 9.19408 14.1739 9.19408Z" stroke="#373737" stroke-width="2"/>
+  </svg>
+
 
 </svg>

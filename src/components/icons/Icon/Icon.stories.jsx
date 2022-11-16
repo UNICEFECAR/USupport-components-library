@@ -102,6 +102,7 @@ const icons = [
   "edit",
   "delete",
   "trash",
+  "share-front",
 ];
 
 export const All = (props) => (
