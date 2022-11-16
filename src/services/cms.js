@@ -78,6 +78,10 @@ function generateQuerryString(queryObj) {
     }
   }
 
+  if (queryObj.ids) {
+    querry += `&ids=${queryObj.ids}`;
+  }
+
   if (querry.includes("?&")) {
     querry = querry.replace("?&", "?");
   }
@@ -99,6 +103,10 @@ function generateQuerryString(queryObj) {
  * @param {string} queryObj.sortBy - the field to sort by
  * @param {string} queryObj.sortOrder - the order to sort by, possible values are "asc" and "desc"
  * @param {string} queryObj.excludeId - the id to exclude from the results
+ * @param {string} queryObj.countryAlpha2 - the country alpha2 code to filter by
+ * @param {string} queryObj.global - the global flag to filter by
+ * @param {string} queryObj.listOfIds - the list of ids to filter by
+ * @param {string} queryObj.ids - the ids to filter by
  *
  */
 
@@ -119,82 +127,54 @@ async function getArticles(queryObj) {
  * @returns {object} the article data
  */
 async function getArticleById(id, locale) {
-  const querryString = generateQuerryString({ locale: locale, populate: true });
+  const querryString = generateQuerryString({ populate: true, locale: locale });
 
   try {
     // Increment read count for the given article id
     await addArticleReadCount(id);
   } catch (error) {}
 
-  const { data } = await http.get(`${articlesEndpoint}/${id}?${querryString}`);
+  const { data } = await http.get(`${articlesEndpoint}/${id}${querryString}`);
 
   return data;
 }
 
 /**
- * send request to get the newest articles
+ * send request to get available locales for a specific article, by id - Only used for testing from Postman
  *
- * @param {string} limit - the number of articles to return
- * @param {string} locale - the locale for which to retrieve articles
+ * @param {string} id - the id of the article
  *
- * @returns {object} the articles data
+ * @returns {object} all available article locales e.g. {"kk": 17,"en": 12,"ru": 18}
  */
-async function getNewestArticles(limit, locale) {
-  const querryString = generateQuerryString({
-    limit: limit,
-    locale: locale,
-    sortBy: "createdAt",
-    sortOrder: "desc",
-    populate: true,
-  });
+async function getArticleLocales(id) {
+  try {
+    // Increment read count for the given article id
+    await addArticleReadCount(id);
+  } catch (error) {}
 
-  const { data } = await http.get(`${articlesEndpoint}${querryString}`);
+  const { data } = await http.get(
+    `${articlesEndpoint}/getArticleLocales/${id}`
+  );
 
   return data;
 }
 
 /**
- * send request to get the most read articles
+ * send request to get available locales for all the articles ids within an array - Only used for testing from Postman
  *
- * @param {string} limit - the number of articles to return
- * @param {string} locale - the locale for which to retrieve articles
+ * @param {array} arrayOfArticleIds - array of article ids e.g [10,12]
  *
- * @returns {object} the articles data
+ * @returns {object} all available article locales e.g {"10": {"en": 10,"kk": 15},"12": {"en": 12,"kk": 17,"ru": 18}}
  */
-async function getMostReadArticles(limit, locale) {
-  const querryString = generateQuerryString({
-    limit: limit,
-    locale: locale,
-    sortBy: "read_count",
-    sortOrder: "desc",
-    populate: true,
-  });
+async function getArticleLocalesMapping(arrayOfArticleIds) {
+  try {
+    // Increment read count for the given article id
+    await addArticleReadCount(id);
+  } catch (error) {}
 
-  const { data } = await http.get(`${articlesEndpoint}${querryString}`);
-
-  return data;
-}
-
-/**
- * send request to get the similar articles
- *
- * @param {string} limit - the number of articles to return
- * @param {string} categoryId - the caterogy id for which to search articles
- * @param {string} articleIdToExclude - the id of the article to not be included
- * @param {string} locale - the locale for which to retrieve articles
- *
- * @returns {object} the articles data
- */
-async function getSimilarArticles(limit, categoryId, excludeId, locale) {
-  const querryString = generateQuerryString({
-    limit: limit,
-    categoryId: categoryId,
-    locale: locale,
-    excludeId: excludeId,
-    populate: true,
-  });
-
-  const { data } = await http.get(`${articlesEndpoint}${querryString}`);
+  const { data } = await http.get(
+    `${articlesEndpoint}/locales/mapping?ids=${arrayOfArticleIds}`
+  );
 
   return data;
 }
@@ -216,6 +196,19 @@ async function getCategories(locale) {
   return data;
 }
 
+//--------------------- PUT Requests ---------------------//;
+/**
+ * send request toincrement article count
+ *
+ * @param {string} id - the id of the article
+ *
+ * @returns {object} the ageGroups data
+ */
+async function addArticleReadCount(id) {
+  return http.put(`${articlesEndpoint}/addReadCount/${id}`);
+}
+
+//--------------------- Categories ---------------------//;
 /**
  * send request to get all ageGroups
  *
@@ -229,19 +222,6 @@ async function getAgeGroups(locale) {
   });
   const { data } = await http.get(`${ageGroupsEndpoint}${querryString}`);
   return data;
-}
-
-//--------------------- PUT Requests ---------------------//;
-/**
- * send request toincrement article count
- *
- * @param {string} id - the id of the article
- *
- * @returns {object} the ageGroups data
- */
-async function addArticleReadCount(id) {
-  console.log("made a request");
-  return http.put(`${articlesEndpoint}/addReadCount/${id}`);
 }
 
 //--------------------- Policies ---------------------//;
@@ -316,9 +296,8 @@ async function getSOSCenters(locale, populate, listOfIds) {
 export default {
   getArticles,
   getArticleById,
-  getNewestArticles,
-  getMostReadArticles,
-  getSimilarArticles,
+  getArticleLocales,
+  getArticleLocalesMapping,
   getCategories,
   getAgeGroups,
   addArticleReadCount,
