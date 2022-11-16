@@ -213,6 +213,8 @@ export const Navbar = ({
     setSelectedCountry(country);
     setCountriesShown(false);
     localStorage.setItem("country_id", country.countryID);
+    localStorage.setItem("country", country.value);
+    window.dispatchEvent(new Event("countryChanged"));
   };
 
   const handleLanguageClick = (language) => {
