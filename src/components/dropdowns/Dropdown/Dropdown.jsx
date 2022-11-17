@@ -20,6 +20,7 @@ export const Dropdown = ({
   setSelected,
   errorMessage,
   placeholder,
+  disabled,
 }) => {
   const [isOpen, setIsOpen] = React.useState(false);
 
@@ -27,6 +28,7 @@ export const Dropdown = ({
     options.find((option) => option.value === selected)?.label || "";
 
   const handleOnClick = () => {
+    if (disabled) return;
     setIsOpen(!isOpen);
   };
 
@@ -68,7 +70,11 @@ export const Dropdown = ({
       <Box
         boxShadow={"1"}
         borderSize="md"
-        classes={["dropdown", isOpen ? "dropdown--expanded" : ""]}
+        classes={[
+          "dropdown",
+          isOpen ? "dropdown--expanded" : "",
+          disabled ? "dropdown--disabled" : "",
+        ]}
         onClick={handleOnClick}
       >
         <div
@@ -126,4 +132,5 @@ Dropdown.defaultProps = {
   setSelected: () => {},
   errorMessage: "",
   placeholder: "Select",
+  disabled: false,
 };
