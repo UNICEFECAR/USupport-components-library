@@ -17,4 +17,5 @@ export { default as mascotHappyBlueClipped } from "./mascot-happy-blue-clipped.p
 export { default as mascotConfusedBlue } from "./mascot-confused-blue.png";
 export { default as mascotHappyPurple } from "./mascot-happy-purple.png";
 export { default as mascotHappyOrange } from "./mascot-happy-orange.png";
+export { default as mascotHappyPurpleFull } from "./mascot-happy-purple-full.png";
 export { default as articlePlaceholder } from "./article-placeholder.png";
