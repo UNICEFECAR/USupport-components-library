@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Icon } from "../../icons/Icon/Icon";
 
 import "./system-message.scss";
-import { getDateAsString, getTimeAsString } from "../../../utils/date";
+import { getDateView, getTimeAsString } from "../../../utils/date";
 
 /**
  * SystemMessage
@@ -21,7 +21,7 @@ export const SystemMessage = ({ iconName, title, date }) => {
           {title}
         </p>
         <p className="small-text">{getTimeAsString(date)}</p>
-        <p className="small-text">{getDateAsString(date)}</p>
+        <p className="small-text">{getDateView(date)}</p>
       </div>
     </div>
   );
