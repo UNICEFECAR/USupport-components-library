@@ -55,6 +55,7 @@ export const InputGroup = ({
     handleParentChange(data.filter((x) => x.value !== ""));
   };
 
+  // Add a new input only if the previous one has a value
   const handleAddOption = () => {
     const canAddMore = data.filter((x) => x.value !== "").length !== 0;
     if (canAddMore) {
@@ -63,6 +64,7 @@ export const InputGroup = ({
     }
   };
 
+  // Remove the option at the given index
   const handleRemove = (index) => {
     setInitialCount((prev) => prev - 1);
     let newData = [...data];
@@ -113,8 +115,38 @@ export const InputGroup = ({
 
 InputGroup.propTypes = {
   // Add propTypes here
-};
+  /**
+   * Array containing the options for the dropdowns
+   */
+  options: PropTypes.arrayOf(PropTypes.string),
 
-InputGroup.defaultProps = {
-  // Add defaultProps here
+  /**
+   * Number of dropdowns to show initially
+   */
+  initialShown: PropTypes.number,
+
+  /**
+   * Maximum number of dropdowns to show
+   */
+  maxShown: PropTypes.number,
+
+  /**
+   * Function to set the state of the parent component
+   */
+  handleChange: PropTypes.func,
+
+  /**
+   * Label for the dropdowns
+   */
+  label: PropTypes.string,
+
+  /**
+   * Text for the add more button
+   */
+  addMoreText: PropTypes.string,
+
+  /**
+   * Error message to display
+   */
+  errorMessage: PropTypes.string,
 };
