@@ -12,10 +12,6 @@ import "./dropdown-group.scss";
  *
  * Grooup of dropdowns with the option to add more dynamically
  *
- * @param {array} options objects with the following structure:
- *                {label:"Label", value:"value",selected:"false"}
- * @param {integer} maxShown the maximum ammount of dropdowns to display
- * @param {function} handleChange function to set the state of the parent component
  * @return {jsx}
  */
 export const DropdownGroup = ({
@@ -150,8 +146,38 @@ export const DropdownGroup = ({
 
 DropdownGroup.propTypes = {
   // Add propTypes here
-};
+  /**
+   * Array containing the options for the dropdowns
+   */
+  options: PropTypes.arrayOf(PropTypes.object),
 
-DropdownGroup.defaultProps = {
-  // Add defaultProps here
+  /**
+   * Number of dropdowns to show initially
+   */
+  initialShown: PropTypes.number,
+
+  /**
+   * Maximum number of dropdowns to show
+   */
+  maxShown: PropTypes.number,
+
+  /**
+   * Function to set the state of the parent component
+   */
+  handleChange: PropTypes.func,
+
+  /**
+   * Label for the dropdowns
+   */
+  label: PropTypes.string,
+
+  /**
+   * Text for the add more button
+   */
+  addMoreText: PropTypes.string,
+
+  /**
+   * Error message to display
+   */
+  errorMessage: PropTypes.string,
 };
