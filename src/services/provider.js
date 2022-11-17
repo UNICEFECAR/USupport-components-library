@@ -22,10 +22,65 @@ async function deleteImage() {
   return response;
 }
 
+/**
+ *
+ * @param {Number} startDate - start date in milliseconds in UTC
+ * @returns {array} - array of timestamps is milliseconds in UTC
+ */
+async function getAvailabilityForWeek(startDate) {
+  const response = await http.get(
+    `${API_ENDPOINT}/availability/single-week?startDate=${startDate}`
+  );
+  return response;
+}
+
+/**
+ *
+ * @param {Number} startDate - start date timestamp in milliseconds in UTC
+ * @param {Number} slot - slot timestamp in milliseconds in UTC
+ */
+async function addAvailableSlot(startDate, slot) {
+  const response = await http.put(`${API_ENDPOINT}/availability/single-week`, {
+    startDate: startDate.toString(),
+    slot: slot.toString(),
+  });
+  return response;
+}
+
+/**
+ *
+ * @param {Number} startDate - start date timestamp in milliseconds in UTC
+ * @param {Number} slot - slot timestamp in milliseconds in UTC
+ */
+async function removeAvailableSlot(startDate, slot) {
+  const response = await http.delete(
+    `${API_ENDPOINT}/availability/single-week`,
+    {
+      data: {
+        startDate: startDate.toString(),
+        slot: slot.toString(),
+      },
+    }
+  );
+  return response;
+}
+
+async function addTemplateAvailability(data) {
+  const response = await http.put(
+    `${API_ENDPOINT}/availability/template`,
+    data
+  );
+  return response;
+}
+
 const exportedFunctions = {
   getProviderData,
   updateProviderData,
   changeImage,
   deleteImage,
+  getAvailabilityForWeek,
+  addAvailableSlot,
+  removeAvailableSlot,
+  addTemplateAvailability,
 };
 export default exportedFunctions;
