@@ -9,12 +9,12 @@ function getUserID() {
   return decoded.sub;
 }
 
-function logout() {
+function logout(platform = "client") {
   localStorage.removeItem("token");
   localStorage.removeItem("token-expires-in");
   localStorage.removeItem("refresh-token");
 
-  window.location.replace("/client/");
+  window.location.replace(`/${platform}/`);
 }
 
 /**
