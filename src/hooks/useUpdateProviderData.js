@@ -42,9 +42,9 @@ export default function useUpdateProviderData(onSuccess, onError) {
   };
 
   const updateProviderDataMutation = useMutation(updateProviderData, {
-    onSucces: (data) => {
-      onSuccess(data),
-        queryClient.invalidateQueries({ queryKey: ["provider-data"] });
+    onSuccess: (data) => {
+      onSuccess(data);
+      queryClient.invalidateQueries({ queryKey: ["provider-data"] });
     },
     onError: (error) => {
       const { message: errorMessage } = useError(error);
