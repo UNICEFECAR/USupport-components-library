@@ -12,17 +12,30 @@ import "./header.scss";
  *
  * @return {jsx}
  */
-export const Header = ({ handleDayChange }) => {
+export const Header = ({ handleDayChange, setStartDate }) => {
+  const currentDay = new Date();
   const [today, setToday] = useState(new Date());
-
+  const [canChangeWeekBackwards, setCanChangeWeekBackwards] = useState(false);
   const [selectedDay, setSelectedDay] = useState(today);
-
+  const [startOfWeek, setStartOfWeek] = useState();
   const [daysOfWeek, setDaysOfWeek] = useState([]);
 
   useEffect(() => {
     const { first, last } = getStartAndEndOfWeek(today);
+    const isCurrentWeek = currentDay.getTime() > first.getTime();
+    setCanChangeWeekBackwards(!isCurrentWeek);
     setDaysOfWeek(getDatesInRange(first, last));
+    setStartOfWeek(first);
+    if (first && selectedDay) {
+      handleDayChange(first, selectedDay);
+    }
   }, [today]);
+
+  useEffect(() => {
+    if (startOfWeek && selectedDay) {
+      handleDayChange(startOfWeek, selectedDay);
+    }
+  }, [selectedDay]);
 
   const months = [
     "January",
@@ -42,7 +55,6 @@ export const Header = ({ handleDayChange }) => {
 
   const handleSelectDay = (day) => {
     setSelectedDay(day);
-    handleDayChange(day);
   };
 
   const renderDaysOfWeek = () => {
@@ -70,7 +82,6 @@ export const Header = ({ handleDayChange }) => {
 
   const handleMonthChange = (direction) => {
     const newMonth = new Date(today);
-    console.log(newMonth, "newMonth");
     newMonth.setMonth(newMonth.getMonth() + direction);
     newMonth.setDate(1);
     setToday(newMonth);
@@ -86,7 +97,11 @@ export const Header = ({ handleDayChange }) => {
     <div className="header">
       <div className="header__month-selector">
         <Icon
-          onClick={() => handleMonthChange(-1)}
+          onClick={() => {
+            if (canChangeWeekBackwards) {
+              handleMonthChange(-1);
+            }
+          }}
           size="md"
           name="arrow-chevron-back"
         />
@@ -100,7 +115,11 @@ export const Header = ({ handleDayChange }) => {
 
       <div className="header__week-selector">
         <Icon
-          onClick={() => handleWeekChange(-1)}
+          onClick={() => {
+            if (canChangeWeekBackwards) {
+              handleWeekChange(-1);
+            }
+          }}
           size="md"
           name="arrow-chevron-back"
         />
