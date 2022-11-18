@@ -11,3 +11,5 @@ export * from "./useGetWorkWithCategories.js";
 export * from "./useUpdateProviderData.js";
 export * from "./useEventListener.js";
 export * from "./useSendIssueEmail.js";
+export * from "./useBlockSlot.js";
+export * from "./useScheduleConsultation.js";
