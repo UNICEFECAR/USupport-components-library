@@ -8,6 +8,8 @@ const categoriesEndpoint = CMS_API_URL + "/categories";
 const policiesEndpoint = CMS_API_URL + "/privacy-policies";
 const faqsEndpoint = CMS_API_URL + "/faqs";
 const sosCentersEndpoint = CMS_API_URL + "/sos-centers";
+const cookiePolicyEndpoint = CMS_API_URL + "/policy-cookies";
+const termsOfUseEndpoint = CMS_API_URL + "/terms-of-uses";
 
 /**
  * generate a querry string from an object
@@ -65,7 +67,7 @@ function generateQuerryString(queryObj) {
 
   //This was added for the policies
   if (queryObj.countryAlpha2) {
-    querry += `&filters[country][$in]=${queryObj.countryAlpha2}`;
+    querry += `&country=${queryObj.countryAlpha2}`;
   }
 
   if (queryObj.global) {
@@ -85,6 +87,10 @@ function generateQuerryString(queryObj) {
   // This was added for the admin to prevent the server to filter the data by selected ids.
   if (queryObj.isForAdmin) {
     querry += `&isForAdmin=${queryObj.isForAdmin}`;
+  }
+
+  if (queryObj.platform) {
+    querry += `&platform=${queryObj.platform}`;
   }
 
   if (querry.includes("?&")) {
@@ -229,26 +235,59 @@ async function getAgeGroups(locale) {
  * send request to get privacy policies
  * @param {string} locale - the locale for which to retrieve policies
  * @returns {string} countryAlpha2 - the country 2 characters ISO-3166 code for which to retrieve policies
- * @returns {string} uiInterface - the uiInterface for which to retrieve policies e.g website, client or provider
+ * @returns {string} platform - the platform for which to retrieve policies e.g website, client or provider
  * @returns {object} the policies data
  *
  */
-async function getPolicies(locale, countryAlpha2, uiInterface) {
+async function getPolicies(locale, countryAlpha2, platform) {
   const querryString = generateQuerryString({
     locale: locale,
     countryAlpha2: countryAlpha2,
+    platform: platform,
   });
-  let { data } = await http.get(`${policiesEndpoint}${querryString}`);
+  let res = await http.get(`${policiesEndpoint}/find${querryString}`);
 
-  let newData = null;
+  return res;
+}
 
-  if (data.data.length > 0) {
-    newData = data.data[0].attributes[uiInterface];
-  }
+//--------------------- Cookie Policy ---------------------//;
+/**
+ * send request to Cookie Policy
+ * @param {string} locale - the locale for which to retrieve Cookie Policy
+ * @returns {string} countryAlpha2 - the country 2 characters ISO-3166 code for which to retrieve Cookie Policy
+ * @returns {string} platform - the platform for which to retrieve Cookie Policy e.g website, client or provider
+ * @returns {object} the Cookie Policy data
+ *
+ */
+async function getCookiePolicy(locale, countryAlpha2, platform) {
+  const querryString = generateQuerryString({
+    locale: locale,
+    countryAlpha2: countryAlpha2,
+    platform: platform,
+  });
+  let res = await http.get(`${cookiePolicyEndpoint}/find${querryString}`);
 
-  data.data = newData;
+  return res;
+}
 
-  return data;
+//--------------------- Terms Of Use ---------------------//;
+/**
+ * send request to terms of use
+ * @param {string} locale - the locale for which to retrieve Terms Of Use
+ * @returns {string} countryAlpha2 - the country 2 characters ISO-3166 code for which to retrieve Terms Of Use
+ * @returns {string} platform - the platform for which to retrieve Terms Of Use e.g website, client or provider
+ * @returns {object} the Terms Of Use data
+ *
+ */
+async function getTermsOfUse(locale, countryAlpha2, platform) {
+  const querryString = generateQuerryString({
+    locale: locale,
+    countryAlpha2: countryAlpha2,
+    platform: platform,
+  });
+  let res = await http.get(`${termsOfUseEndpoint}/find${querryString}`);
+
+  return res;
 }
 
 //--------------------- FAQs ---------------------//;
@@ -318,6 +357,8 @@ export default {
   getAgeGroups,
   addArticleReadCount,
   getPolicies,
+  getCookiePolicy,
+  getTermsOfUse,
   getFAQs,
   getFAQAvailableLocales,
   getSOSCenters,
