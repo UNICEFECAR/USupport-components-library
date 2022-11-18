@@ -22,7 +22,7 @@ export const ProviderOverview = ({
   name,
   patronym,
   surname,
-  types,
+  specializations,
   onClick,
 }) => {
   const displayName = patronym
@@ -37,11 +37,8 @@ export const ProviderOverview = ({
             {displayName}
           </p>
           <p className="small-text provider-overview__types">
-            {types.join(", ")}
+            {specializations?.join(", ")}
           </p>
-          {/* <p className="small-text">
-            {`${experience} ${yearsOfExperienceText}`}
-          </p> */}
         </div>
         <div>
           <Icon name="arrow-chevron-forward" size="md" color="#20809E" />
