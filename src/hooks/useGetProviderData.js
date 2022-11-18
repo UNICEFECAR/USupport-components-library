@@ -58,7 +58,7 @@ export default function useGetProviderData(id = null) {
     }
 
     const formattedData = {
-      providerDetailID: data.provider_detail_id || "",
+      providerDetailId: data.provider_detail_id || "",
       name: data.name || "",
       patronym: data.patronym || "",
       surname: data.surname || "",

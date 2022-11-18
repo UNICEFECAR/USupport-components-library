@@ -30,7 +30,7 @@ export default function useUpdateProviderData(onSuccess, onError) {
     newPayload.consultationPrice = Number(newPayload.consultationPrice);
     delete newPayload.workWith;
     delete newPayload.languages;
-    delete newPayload.providerDetailID;
+    delete newPayload.providerDetailId;
     delete newPayload.image;
     return newPayload;
   };
