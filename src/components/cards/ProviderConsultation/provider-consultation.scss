@@ -1,8 +1,55 @@
 @import "../../../styles/theme";
 
+.provider-consultation-container {
+  display: flex;
+  position: relative;
+  width: calc(32rem - 2 * $spacing_1_6);
+
+  &__menu {
+    border: 0.1rem solid $color_primary_20809e;
+    display: flex;
+    flex-direction: column;
+    padding: $spacing_1_6;
+    width: calc(19rem - 2 * $spacing_1_6);
+    border-radius: $border_radius_1_6;
+    background-color: $color_white_ff;
+    position: absolute;
+    right: 2.5%;
+    bottom: -25%;
+
+    &-live {
+      border: 0.1rem solid $color_secondary_9749fa;
+    }
+
+    &__option {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      &:not(:first-of-type) {
+        margin-top: $spacing_2_2;
+      }
+
+      &__icon {
+        margin-right: $spacing_1_0;
+      }
+    }
+  }
+}
+
 .provider-consultation {
   padding: $spacing_1_6 $spacing_1_6 $spacing_0_8 $spacing_1_6;
   width: calc(32rem - 2 * $spacing_1_6);
+
+  &:hover {
+    border: 0.1rem solid $color_primary_20809e;
+  }
+  &-live {
+    border: 0.1rem solid $color_secondary_9749fa;
+    &:hover {
+      border: 0.1rem solid $color_secondary_9749fa;
+    }
+  }
 
   &__information-container {
     align-items: center;
@@ -22,8 +69,10 @@
     align-self: flex-start;
     flex: 1;
     justify-content: flex-end;
-    & > .icon {
-      cursor: pointer;
+
+    & > button {
+      display: flex;
+      justify-content: flex-end;
     }
   }
 
