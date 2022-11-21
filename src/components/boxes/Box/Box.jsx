@@ -36,7 +36,7 @@ Box.propTypes = {
   /**
    * Which is the box shadow of the box?
    */
-  boxShadow: PropTypes.string,
+  boxShadow: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
   /**
    * Additional classes to be added to the box

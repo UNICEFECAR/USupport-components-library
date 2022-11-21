@@ -95,6 +95,14 @@ const icons = [
   "exit",
   "video",
   "menu",
+  "article",
+  "live-consultation",
+  "mail-admin",
+  "dollar",
+  "edit",
+  "delete",
+  "trash",
+  "share-front",
 ];
 
 export const All = (props) => (

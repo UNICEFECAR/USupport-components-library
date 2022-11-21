@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
@@ -11,14 +11,29 @@ import "./toggle.scss";
  *
  * @return {jsx}
  */
-export const Toggle = ({ isToggled, setParentState, isDisabled, classes }) => {
+export const Toggle = ({
+  isToggled,
+  setParentState,
+  shouldChangeState,
+  isDisabled,
+  classes,
+}) => {
   const [checked, setChecked] = useState(isToggled);
 
   const handleChange = () => {
     if (isDisabled) return;
-    setChecked(!checked);
+    if (shouldChangeState) {
+      setChecked(!checked);
+    }
     setParentState(!checked);
   };
+
+  // Always make sure that the checked state is in sync with the parent state
+  useEffect(() => {
+    if (isToggled !== checked) {
+      setChecked(isToggled);
+    }
+  }, [isToggled, checked]);
 
   return (
     <label
@@ -51,6 +66,11 @@ Toggle.propTypes = {
   setParentState: PropTypes.func,
 
   /**
+   * Should the toggle change state
+   */
+  shouldChangeState: PropTypes.bool,
+
+  /**
    * If the toggle is disabled
    * @default false
    * */
@@ -68,4 +88,5 @@ Toggle.propTypes = {
 Toggle.defaultProps = {
   isDisabled: false,
   setParentState: () => {},
+  shouldChangeState: true,
 };

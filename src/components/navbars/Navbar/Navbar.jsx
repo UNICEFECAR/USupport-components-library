@@ -12,10 +12,11 @@ import getCountryFromTimezone from "../../../utils/getCountryFromTimezone";
 import languageSvc from "../../../services/language";
 import countrySvc from "../../../services/country";
 
+const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
+
 import "./navbar.scss";
 
 import { logoHorizontalPng } from "../../../assets";
-import { specialistPlaceholder } from "../../../assets";
 
 const englishLanguage = {
   label: "English",
@@ -46,9 +47,14 @@ export const Navbar = ({
   showCountries = false,
   yourProfileText,
   i18n,
+  image,
+  isTmpUser,
+  isTmpUserAction,
 }) => {
-  const navigateTo = useNavigate();
+  const navigate = useNavigate();
   let { width } = useWindowDimensions();
+
+  const imageURL = AMAZON_S3_BUCKET + "/" + image;
 
   const localStorageCountry = localStorage.getItem("country");
   const localStorageLanguage = localStorage.getItem("language");
@@ -64,6 +70,7 @@ export const Navbar = ({
     const res = await countrySvc.getActiveCountries();
     const usersCountry = getCountryFromTimezone();
     const validCountry = res.data.find((x) => x.alpha2 === usersCountry);
+    let hasSetDefaultCountry = false;
     const countries = res.data.map((x) => {
       const countryObject = {
         value: x.alpha2,
@@ -76,6 +83,7 @@ export const Navbar = ({
         setSelectedCountry(countryObject);
       } else if (!localStorageCountry) {
         if (validCountry?.alpha2 === x.alpha2) {
+          hasSetDefaultCountry = true;
           localStorage.setItem("country", x.alpha2);
           setSelectedCountry(countryObject);
         }
@@ -83,6 +91,15 @@ export const Navbar = ({
 
       return countryObject;
     });
+
+    if (!hasSetDefaultCountry && !localStorageCountry) {
+      localStorage.setItem("country", kazakhstanCountry.value);
+      localStorage.setItem(
+        "country_id",
+        countries.find((x) => x.value === kazakhstanCountry.value).countryID
+      );
+    }
+
     return countries;
   };
 
@@ -110,17 +127,36 @@ export const Navbar = ({
   const languagesQuery = useQuery(["languages"], fetchLanguages);
 
   const scrollTop = () => window.scrollTo(0, 0);
+  const toggleNavbar = () => {
+    if (width < 950) {
+      setIsNavbarExpanded((prev) => !prev);
+      setLanguagesShown(false);
+    }
+  };
+  const getLink = (page) => {
+    if (isTmpUser && page.url === "/consultations") {
+      return "";
+    } else {
+      return page.url ? page.url : "#";
+    }
+  };
+
+  const handleNavbarLinkClick = (page) => {
+    if (isTmpUser && page.url === "/consultations") {
+      isTmpUserAction();
+    }
+  };
 
   let items = [];
   pages.forEach((page) => {
     items.push({
       value: (
         <NavLink
-          to={page.url ? page.url : "#"}
+          to={getLink(page)}
           className={({ isActive }) =>
             "nav__item" + (isActive ? " nav__item--current" : "")
           }
-          onClick={() => toggleNavbar()}
+          onClick={() => handleNavbarLinkClick(page)}
           end={page.exact ? page.exact : false}
         >
           <p className="paragraph">{page.name}</p>
@@ -173,17 +209,12 @@ export const Navbar = ({
     });
   }
 
-  function toggleNavbar() {
-    if (width < 950) {
-      setIsNavbarExpanded((prev) => !prev);
-      setLanguagesShown(false);
-    }
-  }
-
   const handleCountryClick = (country) => {
     setSelectedCountry(country);
     setCountriesShown(false);
     localStorage.setItem("country_id", country.countryID);
+    localStorage.setItem("country", country.value);
+    window.dispatchEvent(new Event("countryChanged"));
   };
 
   const handleLanguageClick = (language) => {
@@ -191,6 +222,10 @@ export const Navbar = ({
     setLanguagesShown(false);
     i18n.changeLanguage(language.value);
     localStorage.setItem("language", language.value);
+  };
+
+  const handleProfileClick = () => {
+    navigate("/profile");
   };
 
   const toggleLanguages = () => {
@@ -246,7 +281,7 @@ export const Navbar = ({
       color="green"
       classes="nav__login"
       onClick={() => {
-        navigateTo("/login");
+        navigate("/login");
         scrollTop();
       }}
       web={width >= 950}
@@ -255,6 +290,14 @@ export const Navbar = ({
     </Button>
   );
 
+  const handleNotificationIconClick = () => {
+    if (isTmpUser) {
+      setIsNavbarExpanded(false);
+      isTmpUserAction();
+    } else {
+      navigate("/notifications");
+    }
+  };
   // TODO: Change the icon if there are unseen notifications
   const notificationIcon = (
     <div>
@@ -262,6 +305,7 @@ export const Navbar = ({
         classes="nav__profile__notification-icon"
         name="notification-unread"
         size="md"
+        onClick={handleNotificationIconClick}
       />
     </div>
   );
@@ -269,12 +313,10 @@ export const Navbar = ({
   const profileContainer = (
     <div className="nav__profile">
       {width >= 950 && notificationIcon}
-      <img
-        src={specialistPlaceholder}
-        alt="profile-image"
-        className="nav__profile__image"
-      />
-      <p className="paragraph">{yourProfileText}</p>
+      <img src={imageURL} alt="profile-image" className="nav__profile__image" />
+      <p onClick={handleProfileClick} className="paragraph">
+        {yourProfileText}
+      </p>
     </div>
   );
 
@@ -338,7 +380,7 @@ export const Navbar = ({
           src={logoHorizontalPng}
           alt="logo"
           onClick={() => {
-            navigateTo("/");
+            navigate("/");
             scrollTop();
           }}
         />
@@ -463,4 +505,19 @@ Navbar.propTypes = {
    * The i18n instance
    */
   i18n: PropTypes.any,
+
+  /**
+   * Users image
+   */
+  image: PropTypes.string,
+
+  /**
+   * Is the user temporary
+   */
+  isTmpUser: PropTypes.bool,
+
+  /**
+   * The function to be called on a certain action if the user is temporary
+   */
+  onTmpUserAction: PropTypes.func,
 };

@@ -1,0 +1,24 @@
+@import "../../../styles/theme";
+
+.message {
+  padding: $spacing_1_6 $spacing_2_4;
+  max-width: calc(46.4rem - 2 * $spacing_2_4);
+  border-radius: $border_radius_2_4;
+  text-align: left;
+
+  @media screen and (max-width: $screen_md) {
+    max-width: 28rem;
+  }
+
+  &__text {
+    color: $color_black_37;
+  }
+
+  &-sent {
+    background-color: $color_green_54cfd9;
+  }
+
+  &-received {
+    background-color: $color_green_e6f1f4;
+  }
+}

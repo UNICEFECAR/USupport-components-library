@@ -99,4 +99,12 @@
       }
     }
   }
+
+  &--disabled {
+    cursor: unset;
+    .heading,
+    .heading:hover {
+      border: 0.1rem solid $color_gray_a6b4b8;
+    }
+  }
 }
