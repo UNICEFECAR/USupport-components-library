@@ -1,33 +1,84 @@
 @import "../../../styles/theme";
 
 .single-day {
-  padding: $spacing_0_8;
-  width: 9.8rem;
-  border-radius: 0.4rem;
-  background-color: #c1eaea;
-  border: 0.2rem solid transparent;
+  width: calc(4rem - 2 * $spacing_0_4);
+  height: calc(4rem - 2 * $spacing_0_4);
+  padding: $spacing_0_4;
+  border-radius: $spacing_0_4;
+  background-color: $color_green_c1eaea;
+  border: 0.1rem solid transparent;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
 
-  &__no-consultations {
-    background-color: $color_white_ff;
+  @media screen and (min-width: $screen_md) {
+    width: calc(9.6rem - 2 * $spacing_0_8);
+    height: calc(9.6rem - $spacing_1_6 - $spacing_0_8);
+    padding: $spacing_1_6 $spacing_0_8 $spacing_0_8 $spacing_0_8;
   }
 
-  &__today {
-    border: 0.2rem solid $color_primary_20809e;
-    box-shadow: $shadow_1;
-  }
-
-  &__day-name--today {
+  &__date-text.small-text {
+    line-height: 1.44rem;
+    font-weight: $font_semi_bold;
     color: $color_blue_3d527b;
   }
 
-  &__date--today {
-    color: $color_black_37;
+  &__consultation-text.small-text {
+    margin-top: $spacing_0_4;
+    font-weight: $font_semi_bold;
+    color: $color_gray_66768d;
   }
 
-  &__consultation-text {
-    margin-top: $spacing_1_8;
-    &--today {
-      color: $color_blue_3d527b;
+  &:hover {
+    border: 0.1rem solid $color_primary_20809e;
+  }
+
+  &:active {
+    border: 0.2rem solid $color_primary_20809e;
+
+    @media screen and (min-width: $screen_md) {
+      .consultation-text {
+        color: $color_blue_3d527b;
+      }
     }
+  }
+
+  .consultation-text {
+    color: $color_gray_66768d;
+  }
+
+  &-no-consultations {
+    background-color: $color_green_f4f7fe;
+  }
+
+  &-today {
+    @media screen and (min-width: $screen_md) {
+      height: calc(9.6rem - 2 * $spacing_0_8);
+      padding: $spacing_0_8;
+    }
+  }
+
+  &-unavailable {
+    background-color: $color_white_ff;
+    opacity: 0.5;
+
+    &:hover {
+      border: 0.1rem solid transparent;
+    }
+
+    &:active {
+      border: 0.1rem solid transparent;
+    }
+  }
+
+  &__consultation-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: flex-end;
+  }
+
+  .today-text {
+    color: $color_primary_20809e;
   }
 }
