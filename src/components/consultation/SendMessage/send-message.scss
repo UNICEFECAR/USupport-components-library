@@ -1,0 +1,16 @@
+@import "../../../styles/theme";
+
+.send-message {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  &__textarea textarea {
+    max-height: calc(4.8rem - 2 * $spacing_1_2);
+  }
+
+  &__send-button {
+    margin-left: $spacing_1_6;
+    transform: scaleX(-1);
+  }
+}
