@@ -16,6 +16,9 @@ export const SingleDay = ({
   numberOfConsultations,
   isAvailable,
   handleClick,
+  todayLabel,
+  consultationsLabel,
+  unavailableLabel,
 }) => {
   // TODO: Figure out a way to translate the days of the week
   // Idea: Create a reuseable hook that takes a string e.g. "mon" and returns the day translated
@@ -47,7 +50,7 @@ export const SingleDay = ({
               isToday && "today-text",
             ].join(" ")}
           >
-            {isToday ? "Today" : dateAsString}
+            {isToday ? todayLabel : dateAsString}
           </p>
           <p className="small-text single-day__consultation-text">
             {numberOfConsultations}
@@ -60,8 +63,8 @@ export const SingleDay = ({
           <div className="single-day__consultation-container">
             <p className="small-text consultation-text">
               {!isAvailable
-                ? "You are unavailable"
-                : numberOfConsultations + "\n consultations"}
+                ? unavailableLabel
+                : numberOfConsultations + "\n" + consultationsLabel}
             </p>
           </div>
         </>
@@ -91,6 +94,21 @@ SingleDay.propTypes = {
    * Handle click
    * */
   handleClick: PropTypes.func,
+
+  /**
+   * Today label
+   */
+  todayLabel: PropTypes.string,
+
+  /**
+   * Consultations label
+   * */
+  consultationsLabel: PropTypes.string,
+
+  /**
+   * Unavailable label
+   * */
+  unavailableLabel: PropTypes.string,
 };
 
 SingleDay.defaultProps = {
@@ -98,4 +116,7 @@ SingleDay.defaultProps = {
   numberOfConsultations: 0,
   isAvailable: true,
   handleClick: () => {},
+  todayLabel: "Today",
+  consultationsLabel: "Consultations",
+  unavailableLabel: "You are unavailable",
 };

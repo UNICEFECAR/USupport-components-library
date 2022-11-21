@@ -1,31 +1,32 @@
 @import "../../../styles/theme";
 
 .single-day {
-  width: calc(9.6rem - 2 * $spacing_0_8);
-  height: calc(9.6rem - $spacing_1_6 - $spacing_0_8);
-  padding: $spacing_1_6 $spacing_0_8 $spacing_0_8 $spacing_0_8;
+  width: calc(4rem - 2 * $spacing_0_4);
+  height: calc(4rem - 2 * $spacing_0_4);
+  padding: $spacing_0_4;
   border-radius: $spacing_0_4;
   background-color: $color_green_c1eaea;
   border: 0.1rem solid transparent;
   display: flex;
   flex-direction: column;
+  text-align: left;
 
-  @media screen and (max-width: $screen_md) {
-    width: calc(4rem - 2 * $spacing_0_4);
-    height: calc(4rem - 2 * $spacing_0_4);
-    padding: $spacing_0_4;
+  @media screen and (min-width: $screen_md) {
+    width: calc(9.6rem - 2 * $spacing_0_8);
+    height: calc(9.6rem - $spacing_1_6 - $spacing_0_8);
+    padding: $spacing_1_6 $spacing_0_8 $spacing_0_8 $spacing_0_8;
+  }
 
-    &__date-text.small-text {
-      line-height: 1.44rem;
-      font-weight: $font_semi_bold;
-      color: $color_blue_3d527b;
-    }
+  &__date-text.small-text {
+    line-height: 1.44rem;
+    font-weight: $font_semi_bold;
+    color: $color_blue_3d527b;
+  }
 
-    &__consultation-text.small-text {
-      margin-top: $spacing_0_4;
-      font-weight: $font_semi_bold;
-      color: $color_blue_3d527b;
-    }
+  &__consultation-text.small-text {
+    margin-top: $spacing_0_4;
+    font-weight: $font_semi_bold;
+    color: $color_gray_66768d;
   }
 
   &:hover {
@@ -40,6 +41,10 @@
         color: $color_blue_3d527b;
       }
     }
+  }
+
+  .consultation-text {
+    color: $color_gray_66768d;
   }
 
   &-no-consultations {
