@@ -52,13 +52,16 @@ Input.propTypes = {
   /**
    * The value of the input
    */
-  value: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([
+    PropTypes.string.isRequired,
+    PropTypes.number.isRequired,
+  ]),
 
   /**
    * Input type
    *
    **/
-  type: PropTypes.oneOf(["text", "password"]),
+  type: PropTypes.oneOf(["text", "password", "number"]),
 
   /**
    * Input label

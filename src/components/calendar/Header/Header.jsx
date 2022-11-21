@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { Icon } from "../../icons/Icon";
+import { getDatesInRange, getStartAndEndOfWeek } from "../../../utils";
 
 import "./header.scss";
-import { Icon } from "../../icons/Icon";
-import {
-  getDatesInRange,
-  getStartAndEndOfWeek,
-  isDateToday,
-} from "../../../utils";
-import { useCallback } from "react";
 
 /**
  * Header
@@ -17,26 +12,30 @@ import { useCallback } from "react";
  *
  * @return {jsx}
  */
-export const Header = (
-  {
-    /* Add props here */
-  }
-) => {
+export const Header = ({ handleDayChange, setStartDate }) => {
+  const currentDay = new Date();
   const [today, setToday] = useState(new Date());
-  const [month, setMonth] = useState(today.getMonth());
-  const [week, setWeek] = useState(today.get);
-  const [day, setDay] = useState(0);
-
+  const [canChangeWeekBackwards, setCanChangeWeekBackwards] = useState(false);
   const [selectedDay, setSelectedDay] = useState(today);
-
+  const [startOfWeek, setStartOfWeek] = useState();
   const [daysOfWeek, setDaysOfWeek] = useState([]);
 
   useEffect(() => {
     const { first, last } = getStartAndEndOfWeek(today);
-    console.log(today);
-    console.log(first, last);
+    const isCurrentWeek = currentDay.getTime() > first.getTime();
+    setCanChangeWeekBackwards(!isCurrentWeek);
     setDaysOfWeek(getDatesInRange(first, last));
+    setStartOfWeek(first);
+    if (first && selectedDay) {
+      handleDayChange(first, selectedDay);
+    }
   }, [today]);
+
+  useEffect(() => {
+    if (startOfWeek && selectedDay) {
+      handleDayChange(startOfWeek, selectedDay);
+    }
+  }, [selectedDay]);
 
   const months = [
     "January",
@@ -83,7 +82,6 @@ export const Header = (
 
   const handleMonthChange = (direction) => {
     const newMonth = new Date(today);
-    console.log(newMonth, "newMonth");
     newMonth.setMonth(newMonth.getMonth() + direction);
     newMonth.setDate(1);
     setToday(newMonth);
@@ -99,7 +97,11 @@ export const Header = (
     <div className="header">
       <div className="header__month-selector">
         <Icon
-          onClick={() => handleMonthChange(-1)}
+          onClick={() => {
+            if (canChangeWeekBackwards) {
+              handleMonthChange(-1);
+            }
+          }}
           size="md"
           name="arrow-chevron-back"
         />
@@ -113,7 +115,11 @@ export const Header = (
 
       <div className="header__week-selector">
         <Icon
-          onClick={() => handleWeekChange(-1)}
+          onClick={() => {
+            if (canChangeWeekBackwards) {
+              handleWeekChange(-1);
+            }
+          }}
           size="md"
           name="arrow-chevron-back"
         />
@@ -129,9 +135,12 @@ export const Header = (
 };
 
 Header.propTypes = {
-  // Add propTypes here
+  /**
+   * Handle day change
+   * */
+  handleDayChange: PropTypes.func,
 };
 
 Header.defaultProps = {
-  // Add defaultProps here
+  handleDayChange: () => {},
 };

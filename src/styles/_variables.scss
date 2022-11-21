@@ -5,8 +5,8 @@ $screen-lg: 1366px;
 $screen-xl: 1600px;
 
 // Navbar size
-$navbar-tight: 900px;
-$navbar-spread: 1050px;
+$navbar-tight: 950px;
+$navbar-spread: 1100px;
 
 // Font Family
 $font_family: "Nunito", sans-serif;
@@ -41,6 +41,7 @@ $line_height_7_7: 7.7rem;
 $border_radius_0_4: 0.4rem;
 $border_radius_0_7: 0.7rem;
 $border_radius_0_8: 0.8rem;
+$border_radius_1_2: 1.2rem;
 $border_radius_1_6: 1.6rem;
 $border_radius_2_4: 2.4rem;
 $border_radius_3_2: 3.2rem;
@@ -75,6 +76,7 @@ $spacing_3_4: 3.4rem;
 $spacing_3_6: 3.6rem;
 $spacing_4_0: 4rem;
 $spacing_4_4: 4.4rem;
+$spacing_4_2: 4.2rem;
 $spacing_4_6: 4.6rem;
 $spacing_4_8: 4.8rem;
 $spacing_5_0: 5rem;
@@ -125,6 +127,7 @@ $color_gray_ea: #eaeaea;
 $color_gray_92989b: #92989b;
 $color_gray_a6b4b8: #a6b4b8;
 $color_gray_66768d: #66768d;
+$color_gray_344054: #344054;
 
 $color_green_54cfd9: #54cfd9;
 $color_green_c1eaea: #c1eaea;
@@ -210,6 +213,7 @@ $z_index_2: 2;
 $z_index_backdrop: 98;
 $z_index_navbar: 99;
 $z_index_emergency_button: 99;
+$z_index_modal: 100;
 
 // Overlays
 $overlay_66768D: rgba(102, 118, 141, 0.5);

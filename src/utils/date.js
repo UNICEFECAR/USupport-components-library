@@ -1,3 +1,5 @@
+import { utcToZonedTime, zonedTimeToUtc } from "date-fns-tz";
+
 /**
  * Get the day of the week from a Date object
  * @param {Date} date
@@ -66,13 +68,13 @@ const getTimeFromDate = (date) => {
  */
 function getStartAndEndOfWeek(day) {
   const weekMap = [6, 0, 1, 2, 3, 4, 5];
-  var now = day;
+  const now = new Date(day);
   now.setHours(0, 0, 0, 0);
-  var firstDayOfWeek = new Date(now);
+  const firstDayOfWeek = new Date(now);
   firstDayOfWeek.setDate(
     firstDayOfWeek.getDate() - weekMap[firstDayOfWeek.getDay()]
   );
-  var lastDayOfWeek = new Date(now);
+  const lastDayOfWeek = new Date(now);
   lastDayOfWeek.setDate(
     lastDayOfWeek.getDate() - weekMap[lastDayOfWeek.getDay()] + 6
   );
@@ -82,8 +84,8 @@ function getStartAndEndOfWeek(day) {
 
 function getDatesInRange(start, end) {
   const dates = [];
-  const currDate = start;
-  const lastDate = end;
+  const currDate = new Date(start);
+  const lastDate = new Date(end);
   while (currDate <= lastDate) {
     dates.push(new Date(currDate));
     currDate.setDate(currDate.getDate() + 1);
@@ -152,6 +154,102 @@ function getMonthName(date) {
   }
 }
 
+function getDateView(date) {
+  const newDate = new Date(date);
+  const day = newDate.getDate();
+  const month = newDate.getMonth() + 1;
+  const fullYear = newDate.getFullYear();
+  const year = fullYear.toString().slice(-2);
+
+  return `${day < 10 ? `0${day}` : day}.${
+    month < 10 ? `0${month}` : month
+  }.${year}`;
+}
+
+/**
+ *
+ * @param {Date} day date object
+ * @param {string} hour - in format "HH:MM"
+ */
+function getDateAsFullString(day, hour) {
+  return new Date(`${getDateDashes(day)}T${hour}`).toString();
+}
+
+/**
+ * Format date from the js Date object Thu Mar 25 2021 00:00:00 GMT+0000 (Greenwich Mean Time) to YYYY-MM-DD
+ *
+ * @param {Date} date the formatted js Date object
+ * @returns {string} the formatted DB date YYYY-MM-DD
+ */
+function getDateDashes(date) {
+  let d = new Date(date),
+    month = "" + (d.getMonth() + 1),
+    day = "" + d.getDate(),
+    year = d.getFullYear();
+
+  if (month.length < 2) month = "0" + month;
+  if (day.length < 2) day = "0" + day;
+
+  return [year, month, day].join("-");
+}
+
+/**
+ * Get the timestamp as UTC
+ *
+ * @param {Date} date Date object
+ * @param {string} time format HH:MM
+ * @returns
+ */
+function getTimestamp(date, time = "00:00") {
+  return new Date(`${getDateDashes(date)}T${time}`).getTime() / 1000;
+}
+
+/**
+ * Get the timestamp from UTC date
+ *
+ * @param {Date} date Date object
+ * @param {string} time format HH:MM
+ * @returns
+ */
+function getTimestampFromUTC(date, time = "00:00") {
+  return new Date(`${getDateDashes(date)}T${time}Z`).getTime() / 1000;
+}
+
+function getXDaysInSeconds(x) {
+  const minute = 60;
+  const hour = minute * 60;
+  const day = hour * 24;
+
+  return x * day;
+}
+
+const hours = [
+  "00:00",
+  "01:00",
+  "02:00",
+  "03:00",
+  "04:00",
+  "05:00",
+  "06:00",
+  "07:00",
+  "08:00",
+  "09:00",
+  "10:00",
+  "11:00",
+  "12:00",
+  "13:00",
+  "14:00",
+  "15:00",
+  "16:00",
+  "17:00",
+  "18:00",
+  "19:00",
+  "20:00",
+  "21:00",
+  "22:00",
+  "23:00",
+];
+
 export {
   getDayOfTheWeek,
   isDateToday,
@@ -162,4 +260,11 @@ export {
   isDateBetweenTwoDates,
   getTimeAsString,
   getMonthName,
+  getDateView,
+  getDateDashes,
+  getTimestamp,
+  getTimestampFromUTC,
+  getDateAsFullString,
+  getXDaysInSeconds,
+  hours,
 };

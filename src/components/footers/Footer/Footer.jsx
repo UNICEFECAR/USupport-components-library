@@ -27,6 +27,7 @@ export const Footer = ({ lists, contactUsText }) => {
   function handleContactsClick(platform) {
     let link = "";
 
+    //TODO: Add links to the social media platforms
     switch (platform) {
       case "facebook":
         link = "https://www.facebook.com/";

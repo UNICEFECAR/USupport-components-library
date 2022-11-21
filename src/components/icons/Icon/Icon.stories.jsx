@@ -77,9 +77,9 @@ const icons = [
   "self-care",
   "coaching",
   "calm",
-  "flag-kazakhstan",
-  "flag-germany",
-  "flag-swiss",
+  "flag-KZ",
+  "flag-BG",
+  "flag-KG",
   "navbar-burger",
   "globe",
   "linkedin",
@@ -94,6 +94,15 @@ const icons = [
   "copy",
   "exit",
   "video",
+  "menu",
+  "article",
+  "live-consultation",
+  "mail-admin",
+  "dollar",
+  "edit",
+  "delete",
+  "trash",
+  "share-front",
 ];
 
 export const All = (props) => (
