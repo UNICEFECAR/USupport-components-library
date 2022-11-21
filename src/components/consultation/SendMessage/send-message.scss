@@ -11,5 +11,6 @@
 
   &__send-button {
     margin-left: $spacing_1_6;
+    transform: scaleX(-1);
   }
 }

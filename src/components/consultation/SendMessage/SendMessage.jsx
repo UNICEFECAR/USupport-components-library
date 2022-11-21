@@ -12,11 +12,12 @@ import "./send-message.scss";
  *
  * @return {jsx}
  */
-export const SendMessage = ({}) => {
+export const SendMessage = ({ handleSubmit }) => {
   const [message, setMessage] = useState("");
 
   const handleSend = () => {
     console.log(message);
+    handleSubmit(message);
     setMessage("");
   };
 
@@ -25,7 +26,6 @@ export const SendMessage = ({}) => {
       <Textarea
         value={message}
         onChange={(value) => setMessage(value)}
-        // rows="1"
         classes="send-message__textarea"
       />
       <ButtonWithIcon
@@ -41,6 +41,11 @@ export const SendMessage = ({}) => {
   );
 };
 
-SendMessage.propTypes = {};
+SendMessage.propTypes = {
+  /**
+   * Function to handle the submit of the message to the API
+   */
+  handleSubmit: PropTypes.func.isRequired,
+};
 
 SendMessage.defaultProps = {};
