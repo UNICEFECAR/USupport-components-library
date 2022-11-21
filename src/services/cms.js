@@ -8,6 +8,8 @@ const categoriesEndpoint = CMS_API_URL + "/categories";
 const policiesEndpoint = CMS_API_URL + "/privacy-policies";
 const faqsEndpoint = CMS_API_URL + "/faqs";
 const sosCentersEndpoint = CMS_API_URL + "/sos-centers";
+const cookiePolicyEndpoint = CMS_API_URL + "/policy-cookies";
+const termsOfUseEndpoint = CMS_API_URL + "/terms-of-uses";
 
 /**
  * generate a querry string from an object
@@ -27,7 +29,9 @@ const sosCentersEndpoint = CMS_API_URL + "/sos-centers";
  *
  */
 function generateQuerryString(queryObj) {
-  let querry = `?locale=${queryObj.locale}`;
+  let querry = `?`;
+
+  if (queryObj.locale) querry += `&locale=${queryObj.locale}`;
 
   if (queryObj.populate) {
     querry += "&populate=*";
@@ -63,11 +67,34 @@ function generateQuerryString(queryObj) {
 
   //This was added for the policies
   if (queryObj.countryAlpha2) {
-    querry += `&filters[country][$in]=${queryObj.countryAlpha2}`;
+    querry += `&country=${queryObj.countryAlpha2}`;
   }
 
   if (queryObj.global) {
     querry += `&filters[global][$in]=${queryObj.global}`;
+  }
+
+  if (queryObj.listOfIds) {
+    for (let i = 0; i < queryObj.listOfIds.length; i++) {
+      querry += `&filters[id][$in]=${queryObj.listOfIds[i]}`;
+    }
+  }
+
+  if (queryObj.ids && queryObj.ids.length > 0) {
+    querry += `&ids=${queryObj.ids}`;
+  }
+
+  // This was added for the admin to prevent the server to filter the data by selected ids.
+  if (queryObj.isForAdmin) {
+    querry += `&isForAdmin=${queryObj.isForAdmin}`;
+  }
+
+  if (queryObj.platform) {
+    querry += `&platform=${queryObj.platform}`;
+  }
+
+  if (querry.includes("?&")) {
+    querry = querry.replace("?&", "?");
   }
 
   return querry;
@@ -87,6 +114,10 @@ function generateQuerryString(queryObj) {
  * @param {string} queryObj.sortBy - the field to sort by
  * @param {string} queryObj.sortOrder - the order to sort by, possible values are "asc" and "desc"
  * @param {string} queryObj.excludeId - the id to exclude from the results
+ * @param {string} queryObj.countryAlpha2 - the country alpha2 code to filter by
+ * @param {string} queryObj.global - the global flag to filter by
+ * @param {string} queryObj.listOfIds - the list of ids to filter by
+ * @param {string} queryObj.ids - the ids to filter by
  *
  */
 
@@ -95,7 +126,7 @@ async function getArticles(queryObj) {
 
   const { data } = await http.get(`${articlesEndpoint}${querryString}`);
 
-  return data;
+  return { data };
 }
 
 /**
@@ -107,82 +138,49 @@ async function getArticles(queryObj) {
  * @returns {object} the article data
  */
 async function getArticleById(id, locale) {
-  const querryString = generateQuerryString({ locale: locale, populate: true });
+  const querryString = generateQuerryString({ populate: true, locale: locale });
 
   try {
     // Increment read count for the given article id
     await addArticleReadCount(id);
   } catch (error) {}
 
-  const { data } = await http.get(`${articlesEndpoint}/${id}?${querryString}`);
+  const { data } = await http.get(`${articlesEndpoint}/${id}${querryString}`);
 
   return data;
 }
 
 /**
- * send request to get the newest articles
+ * send request to get available locales for a specific article, by id - Only used for testing from Postman
  *
- * @param {string} limit - the number of articles to return
- * @param {string} locale - the locale for which to retrieve articles
+ * @param {string} id - the id of the article
  *
- * @returns {object} the articles data
+ * @returns {object} all available article locales e.g. {"kk": 17,"en": 12,"ru": 18}
  */
-async function getNewestArticles(limit, locale) {
-  const querryString = generateQuerryString({
-    limit: limit,
-    locale: locale,
-    sortBy: "createdAt",
-    sortOrder: "desc",
-    populate: true,
-  });
-
-  const { data } = await http.get(`${articlesEndpoint}${querryString}`);
+async function getArticleLocales(id) {
+  const { data } = await http.get(
+    `${articlesEndpoint}/getArticleLocales/${id}`
+  );
 
   return data;
 }
 
 /**
- * send request to get the most read articles
+ * send request to get available locales for all the articles ids within an array - Only used for testing from Postman
  *
- * @param {string} limit - the number of articles to return
- * @param {string} locale - the locale for which to retrieve articles
+ * @param {array} arrayOfArticleIds - array of article ids e.g [10,12]
  *
- * @returns {object} the articles data
+ * @returns {object} all available article locales e.g {"10": {"en": 10,"kk": 15},"12": {"en": 12,"kk": 17,"ru": 18}}
  */
-async function getMostReadArticles(limit, locale) {
-  const querryString = generateQuerryString({
-    limit: limit,
-    locale: locale,
-    sortBy: "read_count",
-    sortOrder: "desc",
-    populate: true,
-  });
+async function getArticleLocalesMapping(arrayOfArticleIds) {
+  try {
+    // Increment read count for the given article id
+    await addArticleReadCount(id);
+  } catch (error) {}
 
-  const { data } = await http.get(`${articlesEndpoint}${querryString}`);
-
-  return data;
-}
-
-/**
- * send request to get the similar articles
- *
- * @param {string} limit - the number of articles to return
- * @param {string} categoryId - the caterogy id for which to search articles
- * @param {string} articleIdToExclude - the id of the article to not be included
- * @param {string} locale - the locale for which to retrieve articles
- *
- * @returns {object} the articles data
- */
-async function getSimilarArticles(limit, categoryId, excludeId, locale) {
-  const querryString = generateQuerryString({
-    limit: limit,
-    categoryId: categoryId,
-    locale: locale,
-    excludeId: excludeId,
-    populate: true,
-  });
-
-  const { data } = await http.get(`${articlesEndpoint}${querryString}`);
+  const { data } = await http.get(
+    `${articlesEndpoint}/locales/mapping?ids=${arrayOfArticleIds}`
+  );
 
   return data;
 }
@@ -204,6 +202,19 @@ async function getCategories(locale) {
   return data;
 }
 
+//--------------------- PUT Requests ---------------------//;
+/**
+ * send request toincrement article count
+ *
+ * @param {string} id - the id of the article
+ *
+ * @returns {object} the ageGroups data
+ */
+async function addArticleReadCount(id) {
+  return http.put(`${articlesEndpoint}/addReadCount/${id}`);
+}
+
+//--------------------- Categories ---------------------//;
 /**
  * send request to get all ageGroups
  *
@@ -219,74 +230,90 @@ async function getAgeGroups(locale) {
   return data;
 }
 
-//--------------------- PUT Requests ---------------------//;
-/**
- * send request toincrement article count
- *
- * @param {string} id - the id of the article
- *
- * @returns {object} the ageGroups data
- */
-async function addArticleReadCount(id) {
-  console.log("made a request");
-  return http.put(`${articlesEndpoint}/addReadCount/${id}`);
-}
-
 //--------------------- Policies ---------------------//;
 /**
  * send request to get privacy policies
  * @param {string} locale - the locale for which to retrieve policies
  * @returns {string} countryAlpha2 - the country 2 characters ISO-3166 code for which to retrieve policies
- * @returns {string} uiInterface - the uiInterface for which to retrieve policies e.g website, client or provider
+ * @returns {string} platform - the platform for which to retrieve policies e.g website, client or provider
  * @returns {object} the policies data
  *
  */
-async function getPolicies(locale, countryAlpha2, uiInterface) {
+async function getPolicies(locale, countryAlpha2, platform) {
   const querryString = generateQuerryString({
     locale: locale,
     countryAlpha2: countryAlpha2,
+    platform: platform,
   });
-  let { data } = await http.get(`${policiesEndpoint}${querryString}`);
+  let res = await http.get(`${policiesEndpoint}/find${querryString}`);
 
-  let newData = null;
+  return res;
+}
 
-  if (data.data.length > 0) {
-    newData = data.data[0].attributes[uiInterface];
-  }
+//--------------------- Cookie Policy ---------------------//;
+/**
+ * send request to Cookie Policy
+ * @param {string} locale - the locale for which to retrieve Cookie Policy
+ * @returns {string} countryAlpha2 - the country 2 characters ISO-3166 code for which to retrieve Cookie Policy
+ * @returns {string} platform - the platform for which to retrieve Cookie Policy e.g website, client or provider
+ * @returns {object} the Cookie Policy data
+ *
+ */
+async function getCookiePolicy(locale, countryAlpha2, platform) {
+  const querryString = generateQuerryString({
+    locale: locale,
+    countryAlpha2: countryAlpha2,
+    platform: platform,
+  });
+  let res = await http.get(`${cookiePolicyEndpoint}/find${querryString}`);
 
-  data.data = newData;
+  return res;
+}
 
-  return data;
+//--------------------- Terms Of Use ---------------------//;
+/**
+ * send request to terms of use
+ * @param {string} locale - the locale for which to retrieve Terms Of Use
+ * @returns {string} countryAlpha2 - the country 2 characters ISO-3166 code for which to retrieve Terms Of Use
+ * @returns {string} platform - the platform for which to retrieve Terms Of Use e.g website, client or provider
+ * @returns {object} the Terms Of Use data
+ *
+ */
+async function getTermsOfUse(locale, countryAlpha2, platform) {
+  const querryString = generateQuerryString({
+    locale: locale,
+    countryAlpha2: countryAlpha2,
+    platform: platform,
+  });
+  let res = await http.get(`${termsOfUseEndpoint}/find${querryString}`);
+
+  return res;
 }
 
 //--------------------- FAQs ---------------------//;
 /**
  * send request to get FAQs
  *
- * @param {string} locale - the locale for which to retrieve policies
- * @returns {boolean} global - the global status for which to retrieve policies e.g true or false
- * @returns {object} the policies data
+ * @returns {object} the FAQs data
  *
  */
-async function getFAQs(locale, global) {
-  const querryString = generateQuerryString({
-    locale: locale,
-    global: global,
-  });
+async function getFAQs(queryObj) {
+  const querryString = generateQuerryString(queryObj);
 
-  let { data } = await http.get(`${faqsEndpoint}${querryString}`);
-  let newData = null;
-  if (data.data.length > 0) {
-    newData = [];
-    data.data.map((faq) => {
-      newData.push({
-        question: faq.attributes.question,
-        answer: faq.attributes.answer,
-      });
-    });
-  }
+  const { data } = await http.get(`${faqsEndpoint}${querryString}`);
 
-  data.data = newData;
+  return { data };
+}
+
+/**
+ * send request to get available locales for a specific FAQ, by id
+ *
+ * @param {string} id - the id of the FAQ
+ *
+ * @returns {object} all available FAQ locales e.g. {"kk": 17,"en": 12,"ru": 18}
+ */
+async function getFAQAvailableLocales(id) {
+  const { data } = await http.get(`${faqsEndpoint}/available-locales/${id}`);
 
   return data;
 }
@@ -295,32 +322,28 @@ async function getFAQs(locale, global) {
 /**
  * send request to get SOS Centers
  *
- * @param {string} locale - the locale for which to retrieve SOS centers
- * @returns {boolean} global - the global status for which to retrieve SOS centers e.g true or false
- * @returns {object} the policies data
+ * @returns {object} the sos centers data
  *
  */
-async function getSOSCenters(locale, global) {
-  const querryString = generateQuerryString({
-    locale: locale,
-    global: global,
-  });
+async function getSOSCenters(queryObj) {
+  const querryString = generateQuerryString(queryObj);
 
-  let { data } = await http.get(`${sosCentersEndpoint}${querryString}`);
-  let newData = null;
-  if (data.data.length > 0) {
-    newData = [];
-    data.data.map((faq) => {
-      newData.push({
-        title: faq.attributes.title,
-        text: faq.attributes.text,
-        link: faq.attributes.url,
-        phone: faq.attributes.phone,
-      });
-    });
-  }
+  const { data } = await http.get(`${sosCentersEndpoint}${querryString}`);
 
-  data.data = newData;
+  return { data };
+}
+
+/**
+ * send request to get available locales for a specific SOS Center, by id
+ *
+ * @param {string} id - the id of the SOS Center
+ *
+ * @returns {object} all available SOS Center locales e.g. {"kk": 17,"en": 12,"ru": 18}
+ */
+async function getSOSCenterAvailableLocales(id) {
+  const { data } = await http.get(
+    `${sosCentersEndpoint}/available-locales/${id}`
+  );
 
   return data;
 }
@@ -328,13 +351,16 @@ async function getSOSCenters(locale, global) {
 export default {
   getArticles,
   getArticleById,
-  getNewestArticles,
-  getMostReadArticles,
-  getSimilarArticles,
+  getArticleLocales,
+  getArticleLocalesMapping,
   getCategories,
   getAgeGroups,
   addArticleReadCount,
   getPolicies,
+  getCookiePolicy,
+  getTermsOfUse,
   getFAQs,
+  getFAQAvailableLocales,
   getSOSCenters,
+  getSOSCenterAvailableLocales,
 };

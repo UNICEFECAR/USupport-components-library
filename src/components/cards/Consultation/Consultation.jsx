@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { Box } from "../../boxes/Box";
 import { Avatar } from "../../avatars/Avatar";
 import { Icon } from "../../icons/Icon";
 import { Button } from "../../buttons/Button";
-import { getDayOfTheWeek, isDateBetweenTwoDates } from "../../../utils";
+import { getDayOfTheWeek } from "../../../utils";
+import { specialistPlaceholder } from "../../../assets";
 
 import "./consultation.scss";
 
-import { specialistPlaceholder } from "../../../assets";
 /**
  * Consultation
  *
@@ -18,19 +18,23 @@ import { specialistPlaceholder } from "../../../assets";
  * @return {jsx}
  */
 export const Consultation = ({
+  renderIn,
   joinLabel,
   editLabel,
-  cancelLabel,
+  proposeChangeLabel,
+  cancelSuggestionLabel,
   acceptLabel,
   detailsLabel,
   activeLabel,
-  specialistName,
+  viewProfileLabel,
+  name,
   image,
   startDate,
   endDate,
   overview,
   requested,
   onClick,
+  hasMenu,
   classes,
 }) => {
   // TODO: Figure out a way to translate the days of the week
@@ -41,9 +45,9 @@ export const Consultation = ({
           ? `0${startDate.getDate()}`
           : startDate.getDate()
       }.${
-        startDate.getMonth() < 10
-          ? `0${startDate.getMonth()}`
-          : startDate.getMonth()
+        startDate.getMonth() + 1 < 10
+          ? `0${startDate.getMonth() + 1}`
+          : startDate.getMonth() + 1
       }`
     : "";
 
@@ -52,14 +56,14 @@ export const Consultation = ({
   let buttonLabel, buttonAction;
   // TODO: @Georgi / @Vasilen - Test if this works in different timezones!!!
   // And test the logic of the if statements
-  if (isDateBetweenTwoDates(today, startDate, endDate)) {
+  if (startDate < today && endDate > today) {
     buttonLabel = joinLabel;
     buttonAction = "join";
   } else if (today > endDate) {
     buttonLabel = detailsLabel;
     buttonAction = "details";
   } else {
-    buttonLabel = editLabel;
+    buttonLabel = renderIn === "client" ? editLabel : proposeChangeLabel;
     buttonAction = "edit";
   }
 
@@ -77,6 +81,57 @@ export const Consultation = ({
 
   const handleJoin = () => {
     console.log("Join");
+  };
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleToggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const renderOptions = () => {
+    let menuOptions = [
+      {
+        iconName: "person",
+        text: viewProfileLabel,
+        onClick: () => {
+          console.log("View personal profile");
+        },
+      },
+    ];
+
+    if (buttonAction === "edit" || buttonAction === "join") {
+      menuOptions.push({
+        iconName: "close-x",
+        text: cancelSuggestionLabel,
+        onClick: () => console.log("Cancel consultation"),
+      });
+    }
+
+    if (buttonAction === "details") {
+      menuOptions.push({
+        iconName: "document",
+        text: detailsLabel,
+        onClick: () => console.log("Check details"),
+      });
+    }
+
+    return menuOptions.map((option, index) => {
+      return (
+        <div
+          className="provider-consultation__menu__option"
+          onClick={option.onClick}
+          key={index}
+        >
+          <Icon
+            name={option.iconName}
+            color={"#373737"}
+            classes="provider-consultation__menu__option__icon"
+          />
+          <p className="small-text">{option.text}</p>
+        </div>
+      );
+    });
   };
 
   return (
@@ -99,7 +154,7 @@ export const Consultation = ({
                 buttonAction === "join" && "text--purple",
               ].join(" ")}
             >
-              {specialistName}
+              {name}
             </p>
             <div className="consultation__content__text-container__date-container">
               <Icon
@@ -114,19 +169,26 @@ export const Consultation = ({
             </div>
           </div>
         </div>
-      </div>
-      {!overview && !requested && (
-        <div className="consultation__button-container">
-          {buttonAction === "join" && (
-            <p className="text consultation__button-container__now-text">
-              {activeLabel}
-            </p>
+        <div className="provider-consultation__icon-container">
+          {hasMenu && (
+            <Icon
+              name="three-dots-vertical"
+              size="md"
+              color={buttonAction === "join" ? "#9749FA" : "#156F8C"}
+              onClick={handleToggleMenu}
+            />
           )}
+        </div>
+      </div>
+      {!overview && !requested && buttonAction === "join" && (
+        <div className="consultation__button-container">
+          <p className="text consultation__button-container__now-text">
+            {activeLabel}
+          </p>
           <Button
             onClick={() => handleJoin()}
             label={buttonLabel}
-            type={buttonAction === "join" ? "primary" : "secondary"}
-            color={buttonAction === "join" ? "purple" : "green"}
+            color={"purple"}
             size="sm"
           />
         </div>
@@ -140,10 +202,49 @@ export const Consultation = ({
           />
           <Button
             onClick={() => handleCancelRequest()}
-            label={cancelLabel}
+            label={cancelSuggestionLabel}
             type="secondary"
             size="sm"
           />
+        </div>
+      )}
+
+      {!overview && !requested && buttonAction === "edit" && (
+        <div className="consultation__button-container">
+          <Button
+            onClick={() => handleEdit()}
+            label={buttonLabel}
+            size="sm"
+            type="secondary"
+            color={renderIn === "provider" ? "purple" : "green"}
+          />
+        </div>
+      )}
+
+      {!overview && !requested && buttonAction === "details" && (
+        <div className="consultation__button-container">
+          {renderIn === "client" ? (
+            <Button
+              onClick={() => handleEdit()}
+              label={buttonLabel}
+              size="sm"
+              type="secondary"
+              color={renderIn === "provider" ? "purple" : "green"}
+            />
+          ) : (
+            <p className="small-text">Consultation ended</p>
+          )}
+        </div>
+      )}
+
+      {isMenuOpen && (
+        <div
+          className={[
+            "consultation__menu",
+            buttonAction === "join" && "consultation__menu-live",
+          ].join(" ")}
+        >
+          {renderOptions()}
         </div>
       )}
     </Box>
@@ -151,6 +252,12 @@ export const Consultation = ({
 };
 
 Consultation.propTypes = {
+  /**
+   * Render in admin, provider or client
+   * @default "client"
+   */
+  renderIn: PropTypes.oneOf(["admin", "provider", "client"]),
+
   /**
    * Translation for the join button
    */
@@ -162,9 +269,14 @@ Consultation.propTypes = {
   editLabel: PropTypes.string,
 
   /**
+   * Translation for the propose a change button
+   */
+  proposeChangeLabel: PropTypes.string,
+
+  /**
    * Translation for the cancel button
    */
-  cancelLabel: PropTypes.string,
+  cancelSuggestionLabel: PropTypes.string,
 
   /**
    * Translation for the accept button
@@ -184,7 +296,7 @@ Consultation.propTypes = {
   /**
    * Specialist name of the specialist
    * */
-  specialistName: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
 
   /**
    * Image url
@@ -223,17 +335,26 @@ Consultation.propTypes = {
     PropTypes.string,
     PropTypes.arrayOf(PropTypes.string),
   ]),
+
+  /**
+   * Does the card have a menu? If "true" show the menu icon
+   * */
+  hasMenu: PropTypes.bool,
 };
 
 Consultation.defaultProps = {
+  default: "client",
   joinLabel: "Join",
   editLabel: "Edit",
-  cancelLabel: "Cancel suggestion",
+  proposeChangeLabel: "Propose a change",
+  cancelSuggestionLabel: "Cancel suggestion",
   acceptLabel: "Accept consultation",
-  activeLabel: "Now",
   detailsLabel: "See details",
+  activeLabel: "Now",
+  viewProfileLabel: "View personal profile",
   image: specialistPlaceholder,
   overview: true,
   requested: false,
   onClick: () => {},
+  hasMenu: false,
 };

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { getDayOfTheWeek, isDateToday } from "../../../utils";
+import useWindowDimensions from "../../../utils/useWindowDimensions";
 
 import "./single-day.scss";
 
@@ -11,36 +11,64 @@ import "./single-day.scss";
  *
  * @return {jsx}
  */
-export const SingleDay = ({ date, numberOfConsultations }) => {
+export const SingleDay = ({
+  date,
+  numberOfConsultations,
+  isAvailable,
+  handleClick,
+  todayLabel,
+  consultationsLabel,
+  unavailableLabel,
+}) => {
   // TODO: Figure out a way to translate the days of the week
   // Idea: Create a reuseable hook that takes a string e.g. "mon" and returns the day translated
+  const { width } = useWindowDimensions();
   const isToday = new Date().toDateString() === date.toDateString();
-  const dayOfTheWeek = getDayOfTheWeek(date);
+
+  const dateAsString = `${
+    date.getDate() > 9 ? date.getDate() : "0" + date.getDate()
+  }.${
+    date.getMonth() + 1 > 9 ? date.getMonth() + 1 : "0" + date.getMonth() + 1
+  }`;
 
   return (
     <div
       className={[
         "single-day",
-        numberOfConsultations === 0 && "single-day__no-consultations",
-        isToday && "single-day__today",
+        numberOfConsultations === 0 && "single-day-no-consultations",
+        isToday && "single-day-today",
+        !isAvailable && "single-day-unavailable",
       ].join(" ")}
+      onClick={handleClick}
     >
-      <p
-        className={["text", isToday ? "single-day__day-name--today" : ""].join(
-          " "
-        )}
-      >{`${isToday ? "Today, " : ""}${dayOfTheWeek}`}</p>
-      <h4 className={isToday ? "single-day__date--today" : ""}>
-        {date.getDate()}
-      </h4>
-      <p
-        className={[
-          "small-text single-day__consultation-text",
-          isToday ? "single-day__consultation-text--today" : "",
-        ].join(" ")}
-      >
-        {numberOfConsultations} consultations
-      </p>
+      {width < 768 ? (
+        <>
+          <p
+            className={[
+              "small-text",
+              "single-day__date-text",
+              isToday && "today-text",
+            ].join(" ")}
+          >
+            {isToday ? todayLabel : dateAsString}
+          </p>
+          <p className="small-text single-day__consultation-text">
+            {numberOfConsultations}
+          </p>
+        </>
+      ) : (
+        <>
+          <p className="small-text today-text">{isToday ? "Today" : ""}</p>
+          <h4>{dateAsString}</h4>
+          <div className="single-day__consultation-container">
+            <p className="small-text consultation-text">
+              {!isAvailable
+                ? unavailableLabel
+                : numberOfConsultations + "\n" + consultationsLabel}
+            </p>
+          </div>
+        </>
+      )}
     </div>
   );
 };
@@ -55,9 +83,40 @@ SingleDay.propTypes = {
    * Number of consultations
    * */
   numberOfConsultations: PropTypes.number,
+
+  /**
+   * Is available
+   * @default true
+   * */
+  isAvailable: PropTypes.bool,
+
+  /**
+   * Handle click
+   * */
+  handleClick: PropTypes.func,
+
+  /**
+   * Today label
+   */
+  todayLabel: PropTypes.string,
+
+  /**
+   * Consultations label
+   * */
+  consultationsLabel: PropTypes.string,
+
+  /**
+   * Unavailable label
+   * */
+  unavailableLabel: PropTypes.string,
 };
 
 SingleDay.defaultProps = {
   date: new Date(),
   numberOfConsultations: 0,
+  isAvailable: true,
+  handleClick: () => {},
+  todayLabel: "Today",
+  consultationsLabel: "Consultations",
+  unavailableLabel: "You are unavailable",
 };

@@ -27,3 +27,9 @@ Today.args = {
   date: new Date(),
   numberOfConsultations: 3,
 };
+
+export const Unavailable = Template.bind({});
+Unavailable.args = {
+  date: new Date("2022-10-13"),
+  isAvailable: false,
+};
