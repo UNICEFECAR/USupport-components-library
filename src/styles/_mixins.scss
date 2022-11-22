@@ -17,3 +17,11 @@
 @mixin full-height-page($height) {
   height: calc(100vh - $height);
 }
+
+@mixin full-height-page-navbar {
+  min-height: calc(100vh - 57rem);
+
+  @media screen and (min-width: $screen-md) {
+    min-height: calc(100vh - 42rem);
+  }
+}
