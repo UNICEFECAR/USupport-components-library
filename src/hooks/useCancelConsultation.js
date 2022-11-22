@@ -1,5 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { providerSvc } from "../services";
+import { useError } from "./useError";
 
 export default function useCancelConsultation(onSuccess, onError) {
   const cancelConsultation = async (
