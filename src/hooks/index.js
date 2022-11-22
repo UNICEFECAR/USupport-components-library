@@ -14,3 +14,4 @@ export * from "./useSendIssueEmail.js";
 export * from "./useBlockSlot.js";
 export * from "./useScheduleConsultation.js";
 export * from "./useCancelConsultation.js";
+export * from "./useGetConsultationData.js";
