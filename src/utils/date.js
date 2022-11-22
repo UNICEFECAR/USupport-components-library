@@ -1,5 +1,3 @@
-import { utcToZonedTime, zonedTimeToUtc } from "date-fns-tz";
-
 /**
  * Get the day of the week from a Date object
  * @param {Date} date
@@ -9,19 +7,19 @@ function getDayOfTheWeek(date) {
   const day = date.getDay();
   switch (day) {
     case 0:
-      return "Sun";
+      return "sunday";
     case 1:
-      return "Mon";
+      return "monday";
     case 2:
-      return "Tue";
+      return "tuesday";
     case 3:
-      return "Wed";
+      return "wednesday";
     case 4:
-      return "Thu";
+      return "thursday";
     case 5:
-      return "Fri";
+      return "friday";
     case 6:
-      return "Sat";
+      return "saturday";
     default:
       return "Unknown";
   }

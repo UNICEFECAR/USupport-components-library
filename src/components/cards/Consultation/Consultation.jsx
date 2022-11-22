@@ -5,7 +5,7 @@ import { Box } from "../../boxes/Box";
 import { Avatar } from "../../avatars/Avatar";
 import { Icon } from "../../icons/Icon";
 import { Button } from "../../buttons/Button";
-import { getDayOfTheWeek } from "../../../utils";
+import { getDateView, getDayOfTheWeek } from "../../../utils";
 import { specialistPlaceholder } from "../../../assets";
 
 import "./consultation.scss";
@@ -27,35 +27,31 @@ export const Consultation = ({
   detailsLabel,
   activeLabel,
   viewProfileLabel,
+  daysOfWeekTranslations,
+  handleOpenEdit,
+  handleOpenDetails,
+  handleJoinClick,
+  providerId = "e04e0f50-6676-425d-997d-f790a030d7a3",
+  consultationId = "consultationId",
   name,
   image,
-  startDate,
-  endDate,
+  timestamp,
   overview,
   requested,
   onClick,
   hasMenu,
   classes,
 }) => {
-  // TODO: Figure out a way to translate the days of the week
-  // Idea: Create a reuseable hook that takes a string e.g. "mon" and returns the day translated
-  const dateText = startDate
-    ? `${getDayOfTheWeek(startDate)}, ${
-        startDate.getDate() < 10
-          ? `0${startDate.getDate()}`
-          : startDate.getDate()
-      }.${
-        startDate.getMonth() + 1 < 10
-          ? `0${startDate.getMonth() + 1}`
-          : startDate.getMonth() + 1
-      }`
-    : "";
+  const startDate = new Date(timestamp);
+  const endDate = new Date(
+    new Date(timestamp).setHours(new Date(timestamp).getHours() + 1)
+  );
+  const dayOfWeek = daysOfWeekTranslations[getDayOfTheWeek(startDate)];
+  const dateText = `${dayOfWeek} ${getDateView(startDate).slice(0, 5)}`;
 
-  const today = new Date();
+  const today = new Date().getTime();
 
   let buttonLabel, buttonAction;
-  // TODO: @Georgi / @Vasilen - Test if this works in different timezones!!!
-  // And test the logic of the if statements
   if (startDate < today && endDate > today) {
     buttonLabel = joinLabel;
     buttonAction = "join";
@@ -76,11 +72,19 @@ export const Consultation = ({
   };
 
   const handleCancelRequest = () => {
-    console.log("Cancel request");
+    console.log("cancel suggestion");
   };
 
   const handleJoin = () => {
-    console.log("Join");
+    handleJoinClick(providerId);
+  };
+
+  const handleEdit = () => {
+    handleOpenEdit(providerId, consultationId);
+  };
+
+  const handleSeeDetails = () => {
+    handleOpenDetails(providerId, consultationId);
   };
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -225,7 +229,7 @@ export const Consultation = ({
         <div className="consultation__button-container">
           {renderIn === "client" ? (
             <Button
-              onClick={() => handleEdit()}
+              onClick={handleSeeDetails}
               label={buttonLabel}
               size="sm"
               type="secondary"
@@ -294,6 +298,17 @@ Consultation.propTypes = {
   detailsLabel: PropTypes.string,
 
   /**
+   * An object containing the translations for each weekday
+   * {"monday":"Monday"}
+   */
+  daysOfWeekTranslations: PropTypes.object.isRequired,
+
+  /**
+   * The id of the provider
+   */
+  providerId: PropTypes.string.isRequired,
+
+  /**
    * Specialist name of the specialist
    * */
   name: PropTypes.string.isRequired,
@@ -304,14 +319,9 @@ Consultation.propTypes = {
   image: PropTypes.string.isRequired,
 
   /**
-   * Start date of the consultation
+   * The timestamp of the consultation e.g. 1668869623102
    */
-  startDate: PropTypes.instanceOf(Date).isRequired,
-
-  /**
-   * End date of the consultation
-   */
-  endDate: PropTypes.instanceOf(Date).isRequired,
+  timestamp: PropTypes.number.isRequired,
 
   /**
    *  Is the card overview? If "true" show the "See details" button
