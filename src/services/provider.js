@@ -123,6 +123,13 @@ async function scheduleConsultation(consultationId) {
   return response;
 }
 
+async function cancelConsultation(consultationId) {
+  const res = await http.put(`${API_ENDPOINT}/consultation/cancel`, {
+    consultationId,
+  });
+  return res;
+}
+
 const exportedFunctions = {
   getProviderData,
   updateProviderData,
@@ -137,5 +144,6 @@ const exportedFunctions = {
   getAvailableSlotsForSingleDay,
   blockSlot,
   scheduleConsultation,
+  cancelConsultation,
 };
 export default exportedFunctions;
