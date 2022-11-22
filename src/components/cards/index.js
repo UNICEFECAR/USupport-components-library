@@ -12,3 +12,4 @@ export * from "./ConsultationInformation";
 export * from "./Statistic";
 export * from "./AccessToken";
 export * from './ProfilePicturePreview';
+export * from './ClientHistory';
