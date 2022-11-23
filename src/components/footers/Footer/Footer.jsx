@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 import { Block } from "../../blocks/Block";
 import { Grid } from "../../grids/Grid";
@@ -20,7 +19,7 @@ import { logoHorizontalPng } from "../../../assets";
  *
  * @return {jsx}
  */
-export const Footer = ({ lists, contactUsText, navigate }) => {
+export const Footer = ({ lists, contactUsText, navigate, Link }) => {
   const currentYear = new Date().getFullYear();
 
   function handleContactsClick(platform) {

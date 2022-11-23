@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { NavLink } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import OutsideClickHandler from "react-outside-click-handler";
 import { Icon, IconFlag } from "../../icons";
@@ -51,6 +50,7 @@ export const Navbar = ({
   isTmpUser,
   isTmpUserAction,
   navigate,
+  NavLink,
 }) => {
   let { width } = useWindowDimensions();
 
