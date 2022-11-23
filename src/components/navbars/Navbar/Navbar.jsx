@@ -1,21 +1,18 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { useQuery } from "@tanstack/react-query";
 import OutsideClickHandler from "react-outside-click-handler";
 import { Icon, IconFlag } from "../../icons";
 import { List } from "../../lists";
 import { Button } from "../../buttons";
 import { Box } from "../../boxes";
 import useWindowDimensions from "../../../utils/useWindowDimensions";
-import getCountryFromTimezone from "../../../utils/getCountryFromTimezone";
-import languageSvc from "../../../services/language";
-import countrySvc from "../../../services/country";
 
 const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
 
 import "./navbar.scss";
 
 import { logoHorizontalPng } from "../../../assets";
+import { useEffect } from "react";
 
 const englishLanguage = {
   label: "English",
@@ -51,13 +48,17 @@ export const Navbar = ({
   isTmpUserAction,
   navigate,
   NavLink,
+  languages,
+  countries,
+  initialLanguage,
+  initialCountry,
 }) => {
   let { width } = useWindowDimensions();
 
   const imageURL = AMAZON_S3_BUCKET + "/" + image;
 
-  const localStorageCountry = localStorage.getItem("country");
-  const localStorageLanguage = localStorage.getItem("language");
+  // const localStorageCountry = localStorage.getItem("country");
+  // const localStorageLanguage = localStorage.getItem("language");
 
   const [isNavbarExpanded, setIsNavbarExpanded] = useState(false);
   const [languagesShown, setLanguagesShown] = useState(false);
@@ -66,65 +67,14 @@ export const Navbar = ({
   const [selectedLanguage, setSelectedLanguage] = useState(englishLanguage);
   const [selectedCountry, setSelectedCountry] = useState(kazakhstanCountry);
 
-  const fetchCountries = async () => {
-    const res = await countrySvc.getActiveCountries();
-    const usersCountry = getCountryFromTimezone();
-    const validCountry = res.data.find((x) => x.alpha2 === usersCountry);
-    let hasSetDefaultCountry = false;
-    const countries = res.data.map((x) => {
-      const countryObject = {
-        value: x.alpha2,
-        label: x.name,
-        countryID: x["country_id"],
-        iconName: x.alpha2,
-      };
-
-      if (localStorageCountry === x.alpha2) {
-        setSelectedCountry(countryObject);
-      } else if (!localStorageCountry) {
-        if (validCountry?.alpha2 === x.alpha2) {
-          hasSetDefaultCountry = true;
-          localStorage.setItem("country", x.alpha2);
-          setSelectedCountry(countryObject);
-        }
-      }
-
-      return countryObject;
-    });
-
-    if (!hasSetDefaultCountry && !localStorageCountry) {
-      localStorage.setItem("country", kazakhstanCountry.value);
-      localStorage.setItem(
-        "country_id",
-        countries.find((x) => x.value === kazakhstanCountry.value).countryID
-      );
+  useEffect(() => {
+    if (initialLanguage) {
+      setSelectedLanguage(initialLanguage);
     }
-
-    return countries;
-  };
-
-  const fetchLanguages = async () => {
-    const res = await languageSvc.getActiveLanguages();
-    const languages = res.data.map((x) => {
-      const languageObject = {
-        value: x.alpha2,
-        label: x.name,
-        id: x["language_id"],
-      };
-      if (localStorageLanguage === x.alpha2) {
-        setSelectedLanguage(languageObject);
-        i18n.changeLanguage(localStorageLanguage);
-      } else if (!localStorageLanguage) {
-        localStorage.setItem("language", "en");
-        i18n.changeLanguage("en");
-      }
-      return languageObject;
-    });
-    return languages;
-  };
-
-  const countriesQuery = useQuery(["countries"], fetchCountries);
-  const languagesQuery = useQuery(["languages"], fetchLanguages);
+    if (initialCountry) {
+      setSelectedCountry(initialCountry);
+    }
+  }, [initialLanguage, initialCountry]);
 
   const scrollTop = () => window.scrollTo(0, 0);
   const toggleNavbar = () => {
@@ -321,10 +271,7 @@ export const Navbar = ({
   );
 
   const renderDropdownContent = (type) => {
-    const data =
-      type === "languages"
-        ? languagesQuery.data || []
-        : countriesQuery.data || [];
+    const data = type === "languages" ? languages || [] : countries || [];
 
     const handleOptionSelect = (e, option) => {
       e.stopPropagation();
