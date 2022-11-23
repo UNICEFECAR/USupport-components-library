@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { Block } from "../../blocks/Block";
 import { Grid } from "../../grids/Grid";
@@ -20,8 +20,7 @@ import { logoHorizontalPng } from "../../../assets";
  *
  * @return {jsx}
  */
-export const Footer = ({ lists, contactUsText }) => {
-  const navigateTo = useNavigate();
+export const Footer = ({ lists, contactUsText, navigate }) => {
   const currentYear = new Date().getFullYear();
 
   function handleContactsClick(platform) {
@@ -95,7 +94,7 @@ export const Footer = ({ lists, contactUsText }) => {
             src={logoHorizontalPng}
             alt="logo"
             onClick={() => {
-              navigateTo("/");
+              navigate("/");
             }}
           />
           <div>

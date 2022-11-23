@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import OutsideClickHandler from "react-outside-click-handler";
 import { Icon, IconFlag } from "../../icons";
@@ -50,8 +50,8 @@ export const Navbar = ({
   image,
   isTmpUser,
   isTmpUserAction,
+  navigate,
 }) => {
-  const navigate = useNavigate();
   let { width } = useWindowDimensions();
 
   const imageURL = AMAZON_S3_BUCKET + "/" + image;
