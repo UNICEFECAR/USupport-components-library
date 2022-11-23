@@ -13,6 +13,15 @@ const Template = (props) => (
     joinLabel="Join"
     editLabel="Edit"
     cancelLabel="Cancel suggestion"
+    daysOfWeekTranslations={{
+      monday: "mon",
+      tuesday: "tue",
+      wednesday: "wed",
+      thursday: "thu",
+      friday: "fri",
+      saturday: "sat",
+      sunday: "sun",
+    }}
     {...props}
   />
 );
@@ -20,23 +29,20 @@ const Template = (props) => (
 export const Overview = Template.bind({});
 Overview.args = {
   name: "Dr. Joanna Doe",
-  startDate: new Date("2022-12-4 9:00"),
-  endDate: new Date("2022-12-4 10:00"),
+  timestamp: 1670144400000,
 };
 
 export const Live = Template.bind({});
 Live.args = {
   name: "Dr. Joanna Doe",
-  startDate: new Date(),
-  endDate: new Date(new Date().setHours(new Date().getHours() + 1)),
+  timestamp: new Date().getTime(),
   overview: false,
 };
 
 export const Upcoming = Template.bind({});
 Upcoming.args = {
   name: "Dr. Joanna Doe",
-  startDate: new Date("05/05/2024 12:00"),
-  endDate: new Date("05/05/2024 13:00"),
+  timestamp: 1714921200000,
   overview: false,
   renderIn: "provider",
 };
@@ -44,8 +50,7 @@ Upcoming.args = {
 export const Past = Template.bind({});
 Past.args = {
   name: "Dr. Joanna Doe",
-  startDate: new Date("05/05/2022 12:00"),
-  endDate: new Date("05/05/2022 13:00"),
+  timestamp: 1651849200000,
   overview: false,
   renderIn: "provider",
 };
@@ -53,16 +58,14 @@ Past.args = {
 export const OverviewFalse = Template.bind({});
 OverviewFalse.args = {
   name: "Dr. Joanna Doe",
-  startDate: new Date("2022-11-1 15:00"),
-  endDate: new Date("2022-11-1 16:00"),
+  timestamp: 1667746800000,
   overview: false,
 };
 
 export const Request = Template.bind({});
 Request.args = {
   name: "Dr. Joanna Doe",
-  startDate: new Date("2022-11-6 15:00"),
-  endDate: new Date("2022-11-6 16:00"),
+  timestamp: 1714921200000,
   overview: false,
   requested: true,
 };
@@ -70,8 +73,7 @@ Request.args = {
 export const WithMenu = Template.bind({});
 WithMenu.args = {
   name: "Dr. Joanna Doe",
-  startDate: new Date("2022-11-6 15:00"),
-  endDate: new Date("2022-11-6 16:00"),
+  timestamp: 1667746800000,
   overview: false,
   hasMenu: true,
 };
