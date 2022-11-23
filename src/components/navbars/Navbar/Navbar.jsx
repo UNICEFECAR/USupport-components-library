@@ -520,4 +520,9 @@ Navbar.propTypes = {
    * The function to be called on a certain action if the user is temporary
    */
   onTmpUserAction: PropTypes.func,
+
+  /**
+   * The navigate function returned from the useNavigate hook
+   */
+  navigate: PropTypes.func.isRequired,
 };
