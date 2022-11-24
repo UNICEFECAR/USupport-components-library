@@ -248,6 +248,23 @@ const hours = [
   "23:00",
 ];
 
+/**
+ * Function to check if a given timestamp is in 5 minutes or less than the current time
+ * and if the current time is earlier than an hour after the timestamp
+ *
+ * @param {number} - the timestamp in milliseconds
+ *
+ * @returns {boolean}
+ */
+function checkIsFiveMinutesBefore(timestamp) {
+  const fiveMinutes = 5 * 60 * 1000;
+  const oneHour = 60 * 60 * 1000;
+  const currentTime = new Date().getTime();
+  const endTime = timestamp + oneHour;
+
+  return currentTime >= timestamp - fiveMinutes && currentTime <= endTime;
+}
+
 export {
   getDayOfTheWeek,
   isDateToday,
@@ -265,4 +282,5 @@ export {
   getDateAsFullString,
   getXDaysInSeconds,
   hours,
+  checkIsFiveMinutesBefore,
 };
