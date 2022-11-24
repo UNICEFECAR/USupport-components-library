@@ -6,7 +6,11 @@ import { Avatar } from "../../avatars/Avatar/Avatar";
 import { Icon } from "../../icons/Icon/Icon";
 import { Button } from "../../buttons/Button/Button";
 
-import { getDayOfTheWeek } from "../../../utils";
+import {
+  getDayOfTheWeek,
+  getDateView,
+  checkIsFiveMinutesBefore,
+} from "../../../utils";
 
 import "./client-history.scss";
 
@@ -19,47 +23,40 @@ import "./client-history.scss";
  */
 export const ClientHistory = ({
   name,
-  startDate,
-  endDate,
+  timestamp,
   pastConsultations,
   viewProfileLabel,
-  cancelSuggestionLabel,
-  suggestRescheduleLabel,
+  cancelConsultationLabel,
   suggestConsultationLabel,
+  daysOfWeekTranslations,
   joinLabel,
   handleClick,
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  // TODO: Figure out a way to translate the days of the week
-  // Idea: Create a reuseable hook that takes a string e.g. "mon" and returns the day translated
-  const dateText = startDate
-    ? `${getDayOfTheWeek(startDate)}, ${
-        startDate.getDate() < 10
-          ? `0${startDate.getDate()}`
-          : startDate.getDate()
-      }.${
-        startDate.getMonth() + 1 < 10
-          ? `0${startDate.getMonth() + 1}`
-          : startDate.getMonth() + 1
-      }`
-    : "";
+  let startDate, endDate, dayOfWeek, dateText;
+  if (timestamp) {
+    startDate = new Date(timestamp);
+    endDate = new Date(
+      new Date(timestamp).setHours(new Date(timestamp).getHours() + 1)
+    );
+    dayOfWeek = daysOfWeekTranslations[getDayOfTheWeek(startDate)];
+    dateText = `${dayOfWeek} ${getDateView(startDate).slice(0, 5)}`;
+  }
 
   const timeText = startDate
     ? `${startDate.getHours()}:00 - ${endDate.getHours()}:00`
     : "";
 
-  const today = new Date();
+  const today = new Date().getTime();
+  const isFiveMinutesBefore = checkIsFiveMinutesBefore(timestamp);
 
   let buttonLabel, buttonAction;
-  // TODO: @Georgi / @Vasilen - Test if this works in different timezones!!!
-  // And test the logic of the if statements
-  if (startDate && endDate && startDate < today && endDate > today) {
+  if (isFiveMinutesBefore) {
     buttonLabel = joinLabel;
     buttonAction = "join";
   } else if (startDate && endDate && today < startDate) {
-    buttonLabel = suggestRescheduleLabel;
-    buttonAction = "reschedule";
+    buttonLabel = cancelConsultationLabel;
+    buttonAction = "cancel";
   } else {
     buttonLabel = suggestConsultationLabel;
     buttonAction = "suggest";
@@ -91,7 +88,7 @@ export const ClientHistory = ({
     if (buttonAction === "reschedule" || buttonAction === "join") {
       menuOptions.push({
         iconName: "close-x",
-        text: cancelSuggestionLabel,
+        text: cancelConsultationLabel,
         onClick: () => handleCancelConsultation(),
       });
     }
@@ -192,7 +189,7 @@ ClientHistory.propTypes = {
 
 ClientHistory.defaultProps = {
   viewProfileLabel: "See profile",
-  cancelSuggestionLabel: "Cancel consultation",
+  cancelConsultationLabel: "Cancel consultation",
   joinLabel: "Join",
   suggestRescheduleLabel: "Suggest reschedule",
   suggestConsultationLabel: "Suggest consultation",
