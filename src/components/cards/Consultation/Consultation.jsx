@@ -5,7 +5,11 @@ import { Box } from "../../boxes/Box";
 import { Avatar } from "../../avatars/Avatar";
 import { Icon } from "../../icons/Icon";
 import { Button } from "../../buttons/Button";
-import { getDateView, getDayOfTheWeek } from "../../../utils";
+import {
+  checkIsFiveMinutesBefore,
+  getDateView,
+  getDayOfTheWeek,
+} from "../../../utils";
 import { specialistPlaceholder } from "../../../assets";
 
 import "./consultation.scss";
@@ -21,8 +25,8 @@ export const Consultation = ({
   renderIn,
   joinLabel,
   editLabel,
-  proposeChangeLabel,
   cancelSuggestionLabel,
+  cancelConsultationLabel,
   acceptLabel,
   detailsLabel,
   activeLabel,
@@ -50,16 +54,17 @@ export const Consultation = ({
   const dateText = `${dayOfWeek} ${getDateView(startDate).slice(0, 5)}`;
 
   const today = new Date().getTime();
+  const isFiveMinutesBefore = checkIsFiveMinutesBefore(timestamp);
 
   let buttonLabel, buttonAction;
-  if (startDate < today && endDate > today) {
+  if (isFiveMinutesBefore) {
     buttonLabel = joinLabel;
     buttonAction = "join";
   } else if (today > endDate) {
     buttonLabel = detailsLabel;
     buttonAction = "details";
   } else {
-    buttonLabel = renderIn === "client" ? editLabel : proposeChangeLabel;
+    buttonLabel = renderIn === "client" ? editLabel : cancelConsultationLabel;
     buttonAction = "edit";
   }
 
@@ -273,14 +278,14 @@ Consultation.propTypes = {
   editLabel: PropTypes.string,
 
   /**
-   * Translation for the propose a change button
-   */
-  proposeChangeLabel: PropTypes.string,
-
-  /**
-   * Translation for the cancel button
+   * Translation for the cancel suggestion button
    */
   cancelSuggestionLabel: PropTypes.string,
+
+  /**
+   * Translation for the cancel consultation button
+   */
+  cancelConsultationLabel: PropTypes.string,
 
   /**
    * Translation for the accept button
@@ -356,8 +361,8 @@ Consultation.defaultProps = {
   default: "client",
   joinLabel: "Join",
   editLabel: "Edit",
-  proposeChangeLabel: "Propose a change",
   cancelSuggestionLabel: "Cancel suggestion",
+  cancelConsultationLabel: "Cancel consultation",
   acceptLabel: "Accept consultation",
   detailsLabel: "See details",
   activeLabel: "Now",
