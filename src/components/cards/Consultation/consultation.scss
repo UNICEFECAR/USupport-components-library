@@ -81,7 +81,8 @@
     background-color: $color_white_ff;
     position: absolute;
     right: 2.5%;
-    bottom: -25%;
+    // bottom: -25%;
+    top: 4rem;
     z-index: $z_index_2;
 
     &-live {

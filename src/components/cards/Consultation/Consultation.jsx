@@ -35,6 +35,7 @@ export const Consultation = ({
   handleOpenEdit,
   handleOpenDetails,
   handleJoinClick,
+  handleCancelConsultation,
   providerId = "e04e0f50-6676-425d-997d-f790a030d7a3",
   consultationId = "consultationId",
   name,
@@ -65,7 +66,7 @@ export const Consultation = ({
     buttonAction = "details";
   } else {
     buttonLabel = renderIn === "client" ? editLabel : cancelConsultationLabel;
-    buttonAction = "edit";
+    buttonAction = renderIn === "client" ? "edit" : "cancel";
   }
 
   const timeText = startDate
@@ -92,6 +93,10 @@ export const Consultation = ({
     handleOpenDetails(providerId, consultationId);
   };
 
+  const handleCancel = () => {
+    handleCancelConsultation(providerId, consultationId);
+  };
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleToggleMenu = () => {
@@ -109,33 +114,17 @@ export const Consultation = ({
       },
     ];
 
-    if (buttonAction === "edit" || buttonAction === "join") {
-      menuOptions.push({
-        iconName: "close-x",
-        text: cancelSuggestionLabel,
-        onClick: () => console.log("Cancel consultation"),
-      });
-    }
-
-    if (buttonAction === "details") {
-      menuOptions.push({
-        iconName: "document",
-        text: detailsLabel,
-        onClick: () => console.log("Check details"),
-      });
-    }
-
     return menuOptions.map((option, index) => {
       return (
         <div
-          className="provider-consultation__menu__option"
+          className="consultation__menu__option"
           onClick={option.onClick}
           key={index}
         >
           <Icon
             name={option.iconName}
             color={"#373737"}
-            classes="provider-consultation__menu__option__icon"
+            classes="consultation__menu__option__icon"
           />
           <p className="small-text">{option.text}</p>
         </div>
@@ -221,7 +210,19 @@ export const Consultation = ({
       {!overview && !requested && buttonAction === "edit" && (
         <div className="consultation__button-container">
           <Button
-            onClick={() => handleEdit()}
+            onClick={handleEdit}
+            label={buttonLabel}
+            size="sm"
+            type="secondary"
+            color={renderIn === "provider" ? "purple" : "green"}
+          />
+        </div>
+      )}
+
+      {!overview && !requested && buttonAction === "cancel" && (
+        <div className="consultation__button-container">
+          <Button
+            onClick={handleCancel}
             label={buttonLabel}
             size="sm"
             type="secondary"
