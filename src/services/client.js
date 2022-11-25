@@ -36,6 +36,11 @@ async function deleteImage() {
   return response;
 }
 
+async function getAllConsultations() {
+  const response = await http.get(`${API_ENDPOINT}/consultation/all`);
+  return response;
+}
+
 const exportedFunctions = {
   getClientData,
   updateClientData,
@@ -43,6 +48,7 @@ const exportedFunctions = {
   deleteImage,
   changeImage,
   changeDataProcessingAgreement,
+  getAllConsultations,
 };
 
 export default exportedFunctions;
