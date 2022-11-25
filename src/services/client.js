@@ -36,6 +36,20 @@ async function deleteImage() {
   return response;
 }
 
+/**
+ *
+ * @param {String} providerId the id of the provider
+ * @param {number} slotTimestamp the timestamp of the slot
+ * @returns {Promise} resolving to and object with the "consultation_id"
+ */
+async function blockSlot(providerId, slotTimestamp) {
+  const response = await http.post(`${API_ENDPOINT}/consultation/block`, {
+    providerId,
+    time: JSON.stringify(slotTimestamp / 1000),
+  });
+  return response;
+}
+
 const exportedFunctions = {
   getClientData,
   updateClientData,
@@ -43,6 +57,7 @@ const exportedFunctions = {
   deleteImage,
   changeImage,
   changeDataProcessingAgreement,
+  blockSlot,
 };
 
 export default exportedFunctions;

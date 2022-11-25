@@ -99,13 +99,13 @@ async function getAvailableSlotsForSingleDay(startDate, day, providerId) {
 
 /**
  *
- * @param {String} providerId the id of the provider
+ * @param {String} clientId the id of the client
  * @param {number} slotTimestamp the timestamp of the slot
  * @returns {Promise} resolving to and object with the "consultation_id"
  */
-async function blockSlot(providerId, slotTimestamp) {
+async function blockSlot(clientId, slotTimestamp) {
   const response = await http.post(`${API_ENDPOINT}/consultation/block`, {
-    providerId,
+    clientId,
     time: JSON.stringify(slotTimestamp / 1000),
   });
   return response;
