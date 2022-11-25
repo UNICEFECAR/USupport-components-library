@@ -1,3 +1,6 @@
+const ONE_HOUR = 60 * 60 * 1000;
+const FIVE_MINUTES = 5 * 60 * 1000;
+
 /**
  * Get the day of the week from a Date object
  * @param {Date} date
@@ -257,12 +260,10 @@ const hours = [
  * @returns {boolean}
  */
 function checkIsFiveMinutesBefore(timestamp) {
-  const fiveMinutes = 5 * 60 * 1000;
-  const oneHour = 60 * 60 * 1000;
   const currentTime = new Date().getTime();
-  const endTime = timestamp + oneHour;
+  const endTime = timestamp + ONE_HOUR;
 
-  return currentTime >= timestamp - fiveMinutes && currentTime <= endTime;
+  return currentTime >= timestamp - FIVE_MINUTES && currentTime <= endTime;
 }
 
 export {
@@ -283,4 +284,6 @@ export {
   getXDaysInSeconds,
   hours,
   checkIsFiveMinutesBefore,
+  ONE_HOUR,
+  FIVE_MINUTES,
 };
