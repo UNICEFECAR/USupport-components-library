@@ -132,6 +132,19 @@ async function cancelConsultation(consultationId) {
   return res;
 }
 
+/**
+ *
+ * @param {string} consultationId
+ *
+ * @returns {Promise}
+ */
+async function suggestConsultation(consultationId) {
+  const res = await http.post(`${API_ENDPOINT}/consultation/suggest`, {
+    consultationId,
+  });
+  return res;
+}
+
 const exportedFunctions = {
   getProviderData,
   updateProviderData,
@@ -147,5 +160,6 @@ const exportedFunctions = {
   blockSlot,
   scheduleConsultation,
   cancelConsultation,
+  suggestConsultation,
 };
 export default exportedFunctions;
