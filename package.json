@@ -63,7 +63,6 @@
     "rollup": "^2.79.1"
   },
   "dependencies": {
-    "@tanstack/react-query": "^4.13.0",
     "auto": "^10.37.6",
     "axios": "^1.1.2",
     "classnames": "^2.3.2",
