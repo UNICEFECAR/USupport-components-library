@@ -132,6 +132,14 @@ async function cancelConsultation(consultationId) {
   return res;
 }
 
+async function rescheduleConsultation(consultationId, newConsultationId) {
+  const res = await http.post(`${API_ENDPOINT}/consultation/reschedule`, {
+    consultationId,
+    newConsultationId,
+  });
+  return res;
+}
+
 /**
  *
  * @param {string} consultationId
@@ -160,6 +168,7 @@ const exportedFunctions = {
   blockSlot,
   scheduleConsultation,
   cancelConsultation,
+  rescheduleConsultation,
   suggestConsultation,
 };
 export default exportedFunctions;
