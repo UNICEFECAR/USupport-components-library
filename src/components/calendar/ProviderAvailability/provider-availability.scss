@@ -9,7 +9,8 @@
   display: flex;
   justify-content: center;
   position: relative;
-  width: 4rem;
+  min-width: 4rem;
+  max-width: 10rem;
   height: 4rem;
 
   @media screen and (min-width: 1200px) {
