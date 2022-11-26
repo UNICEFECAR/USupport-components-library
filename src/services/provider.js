@@ -158,23 +158,42 @@ async function getAllClients() {
   return res;
 }
 
+async function getAllConsultationsByClientId(clientId) {
+  const res = await http.get(
+    `${API_ENDPOINT}/consultation/all/past/by-id?clientId=${clientId}`
+  );
+  return res;
+}
+
+async function getAllUpcomingConsultations() {
+  const res = await http.get(`${API_ENDPOINT}/consultation/all/upcoming`);
+  return res;
+}
+async function getAllPastConsultations() {
+  const res = await http.get(`${API_ENDPOINT}/consultation/all/past`);
+  return res;
+}
+
 const exportedFunctions = {
-  getProviderData,
-  updateProviderData,
+  addAvailableSlot,
+  addTemplateAvailability,
+  blockSlot,
+  cancelConsultation,
   changeImage,
   deleteImage,
-  getAvailabilityForWeek,
-  addAvailableSlot,
-  removeAvailableSlot,
-  addTemplateAvailability,
-  getAllProviders,
-  getProviderById,
-  getAvailableSlotsForSingleDay,
-  blockSlot,
-  scheduleConsultation,
-  cancelConsultation,
-  rescheduleConsultation,
-  suggestConsultation,
   getAllClients,
+  getAllConsultationsByClientId,
+  getAllUpcomingConsultations,
+  getAllPastConsultations,
+  getAllProviders,
+  getAvailabilityForWeek,
+  getAvailableSlotsForSingleDay,
+  getProviderById,
+  getProviderData,
+  removeAvailableSlot,
+  rescheduleConsultation,
+  scheduleConsultation,
+  suggestConsultation,
+  updateProviderData,
 };
 export default exportedFunctions;
