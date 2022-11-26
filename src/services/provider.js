@@ -153,6 +153,11 @@ async function suggestConsultation(consultationId) {
   return res;
 }
 
+async function getAllClients() {
+  const res = await http.get(`${API_ENDPOINT}/clients`);
+  return res;
+}
+
 const exportedFunctions = {
   getProviderData,
   updateProviderData,
@@ -170,5 +175,6 @@ const exportedFunctions = {
   cancelConsultation,
   rescheduleConsultation,
   suggestConsultation,
+  getAllClients,
 };
 export default exportedFunctions;
