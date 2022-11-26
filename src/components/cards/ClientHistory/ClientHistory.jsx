@@ -12,6 +12,8 @@ import {
   checkIsFiveMinutesBefore,
 } from "../../../utils";
 
+const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
+
 import "./client-history.scss";
 
 /**
@@ -31,6 +33,7 @@ export const ClientHistory = ({
   daysOfWeekTranslations,
   joinLabel,
   handleClick,
+  image,
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   let startDate, endDate, dayOfWeek, dateText;
@@ -43,8 +46,14 @@ export const ClientHistory = ({
     dateText = `${dayOfWeek} ${getDateView(startDate).slice(0, 5)}`;
   }
 
+  const imageUrl = AMAZON_S3_BUCKET + "/" + (image || "default");
+
+  const startHour = startDate.getHours();
+  const endHour = endDate.getHours();
   const timeText = startDate
-    ? `${startDate.getHours()}:00 - ${endDate.getHours()}:00`
+    ? `${startHour < 10 ? `0${startHour}` : startHour}:00 - ${
+        endHour < 10 ? `0${endHour}` : endHour
+      }:00`
     : "";
 
   const today = new Date().getTime();
@@ -71,7 +80,8 @@ export const ClientHistory = ({
   };
 
   const handleSeeProfile = () => {
-    console.log("profile");
+    console.log("click?");
+    handleClick();
   };
 
   const renderOptions = () => {
@@ -118,11 +128,10 @@ export const ClientHistory = ({
         buttonAction === "join" && "client-history--live",
       ].join(" ")}
       shadow={2}
-      onClick={handleClick}
     >
       <div className="client-history__header">
         <div className="client-history__header__client-container">
-          <Avatar size="sm" />
+          <Avatar image={imageUrl} size="sm" />
           <div className="client-history__header__client-container__text-container">
             <p>{name}</p>
             <p className="small-text consultation_text">
