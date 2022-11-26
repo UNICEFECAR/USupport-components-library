@@ -139,11 +139,6 @@ export const ClientHistory = ({
             </p>
           </div>
         </div>
-        <Icon
-          name="three-dots-vertical"
-          color={buttonAction === "join" ? "#9749FA" : "#20809E"}
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        />
       </div>
       <div className="client-history__date-container">
         <Icon
@@ -176,18 +171,6 @@ export const ClientHistory = ({
           color={buttonAction === "join" ? "purple" : "green"}
         />
       </div>
-      {isMenuOpen && (
-        <OutsideClickHandler onOutsideClick={() => setIsMenuOpen(!isMenuOpen)}>
-          <div
-            className={[
-              "client-history__menu",
-              buttonAction === "join" && "client-history__menu--live",
-            ].join(" ")}
-          >
-            {renderOptions()}
-          </div>
-        </OutsideClickHandler>
-      )}
     </Box>
   );
 };
