@@ -12,6 +12,8 @@ import {
 } from "../../../utils";
 import { specialistPlaceholder } from "../../../assets";
 
+const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
+
 import "./consultation.scss";
 
 /**
@@ -36,17 +38,18 @@ export const Consultation = ({
   handleOpenDetails,
   handleJoinClick,
   handleCancelConsultation,
-  providerId = "e04e0f50-6676-425d-997d-f790a030d7a3",
-  consultationId = "consultationId",
-  name,
-  image,
-  timestamp,
+  consultation,
   overview,
   requested,
   onClick,
   hasMenu,
   classes,
 }) => {
+  const { providerId, consultationId, timestamp, image } = consultation;
+  const name = consultation.providerName || consultation.clientName;
+
+  const imageUrl = AMAZON_S3_BUCKET + "/" + (image || "default");
+
   const startDate = new Date(timestamp);
   const endDate = new Date(
     new Date(timestamp).setHours(new Date(timestamp).getHours() + 1)
@@ -69,8 +72,12 @@ export const Consultation = ({
     buttonAction = renderIn === "client" ? "edit" : "cancel";
   }
 
+  const startHour = startDate.getHours();
+  const endHour = endDate.getHours();
   const timeText = startDate
-    ? `${startDate.getHours()}:00 - ${endDate.getHours()}:00`
+    ? `${startHour < 10 ? `0${startHour}` : startHour}:00 - ${
+        endHour < 10 ? `0${endHour}` : endHour
+      }:00`
     : "";
 
   const handleAcceptRequest = () => {
@@ -86,11 +93,11 @@ export const Consultation = ({
   };
 
   const handleEdit = () => {
-    handleOpenEdit(providerId, consultationId);
+    handleOpenEdit(consultation);
   };
 
   const handleSeeDetails = () => {
-    handleOpenDetails(providerId, consultationId);
+    handleOpenDetails(consultation);
   };
 
   const handleCancel = () => {
@@ -143,7 +150,7 @@ export const Consultation = ({
       ].join(" ")}
     >
       <div className="consultation__content">
-        <Avatar image={image} size="sm" />
+        <Avatar image={imageUrl} size="sm" />
         <div className="consultation__content__text-container">
           <div className="consultation__content__text-container__name-container">
             <p

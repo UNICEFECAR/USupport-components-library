@@ -34,15 +34,19 @@ export const ConsultationInformation = ({
       }`
     : "";
 
+  const startHour = startDate.getHours();
+  const endHour = endDate.getHours();
   const timeText = startDate
-    ? `${startDate.getHours()}:00 - ${endDate.getHours()}:00`
+    ? `${startHour < 10 ? `0${startHour}` : startHour}:00 - ${
+        endHour < 10 ? `0${endHour}` : endHour
+      }:00`
     : "";
 
   return (
     <div
       className={["consultation-information", classNames(classes)].join(" ")}
     >
-      <Avatar src={providerImage} size="sm" />
+      <Avatar image={providerImage} size="sm" />
       <div className="consultation-information__content">
         <p className="text consultation-information__content__name-text">
           {providerName}
