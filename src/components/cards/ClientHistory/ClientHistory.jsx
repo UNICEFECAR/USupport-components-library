@@ -35,8 +35,7 @@ export const ClientHistory = ({
   handleClick,
   image,
 }) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  let startDate, endDate, dayOfWeek, dateText;
+  let startDate, endDate, dayOfWeek, dateText, startHour, endHour;
   if (timestamp) {
     startDate = new Date(timestamp);
     endDate = new Date(
@@ -44,12 +43,13 @@ export const ClientHistory = ({
     );
     dayOfWeek = daysOfWeekTranslations[getDayOfTheWeek(startDate)];
     dateText = `${dayOfWeek} ${getDateView(startDate).slice(0, 5)}`;
+
+    startHour = startDate.getHours();
+    endHour = endDate.getHours();
   }
 
   const imageUrl = AMAZON_S3_BUCKET + "/" + (image || "default");
 
-  const startHour = startDate.getHours();
-  const endHour = endDate.getHours();
   const timeText = startDate
     ? `${startHour < 10 ? `0${startHour}` : startHour}:00 - ${
         endHour < 10 ? `0${endHour}` : endHour
@@ -72,12 +72,10 @@ export const ClientHistory = ({
   }
 
   const handleCancelConsultation = () => {
-    setIsMenuOpen(false);
+    console.log("cancel consultation");
   };
 
-  const handleRemoveCustomer = () => {
-    setIsMenuOpen(false);
-  };
+  const handleRemoveCustomer = () => {};
 
   const handleSeeProfile = () => {
     console.log("click?");
