@@ -46,6 +46,7 @@ export const Consultation = ({
   classes,
 }) => {
   const { providerId, consultationId, timestamp, image } = consultation;
+
   const name = consultation.providerName || consultation.clientName;
 
   const imageUrl = AMAZON_S3_BUCKET + "/" + (image || "default");
@@ -319,7 +320,7 @@ Consultation.propTypes = {
   /**
    * The id of the provider
    */
-  providerId: PropTypes.string.isRequired,
+  providerId: PropTypes.string,
 
   /**
    * Specialist name of the specialist
