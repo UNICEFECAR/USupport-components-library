@@ -3,9 +3,7 @@
  * @param {*} object with article data
  * @returns object with desctructured data for the article
  */
-function destructureArticleData(cmsHost, article) {
-  const CMS_HOST = cmsHost;
-
+function destructureArticleData(article) {
   const articleId = article.id;
   const articleData = article.attributes;
   const body = articleData.body;
