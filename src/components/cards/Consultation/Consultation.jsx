@@ -34,6 +34,8 @@ export const Consultation = ({
   activeLabel,
   suggestedLabel,
   viewProfileLabel,
+  notConductedLabel,
+  endedLabel,
   daysOfWeekTranslations,
   handleOpenEdit,
   handleOpenDetails,
@@ -46,7 +48,7 @@ export const Consultation = ({
   hasMenu,
   classes,
 }) => {
-  const { providerId, consultationId, timestamp, image } = consultation;
+  const { providerId, consultationId, timestamp, image, status } = consultation;
 
   const name = consultation.providerName || consultation.clientName;
 
@@ -264,7 +266,9 @@ export const Consultation = ({
               color={renderIn === "provider" ? "purple" : "green"}
             />
           ) : (
-            <p className="small-text">Consultation ended</p>
+            <p className="small-text">
+              {status === "finished" ? endedLabel : notConductedLabel}
+            </p>
           )}
         </div>
       )}
@@ -329,6 +333,16 @@ Consultation.propTypes = {
    * Translation for the details text
    */
   detailsLabel: PropTypes.string,
+
+  /**
+   * Translation for the text when the consultation has been completed
+   */
+  endedLabel: PropTypes.string,
+
+  /**
+   * Translation for the text when the consultation is in the past, but not conducted
+   */
+  notConductedLabel: PropTypes.string,
 
   /**
    * An object containing the translations for each weekday
@@ -396,6 +410,8 @@ Consultation.defaultProps = {
   activeLabel: "Now",
   suggestedLabel: "Suggested",
   viewProfileLabel: "View personal profile",
+  endedLabel: "Consultation ended",
+  notConductedLabel: "Not conducted",
   image: specialistPlaceholder,
   overview: true,
   suggested: false,
