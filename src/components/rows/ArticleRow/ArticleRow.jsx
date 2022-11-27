@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { CheckBox } from "../../inputs/CheckBox/CheckBox";
 import { articlePlaceholder } from "../../../assets";
 import { Line } from "../../separators/Line/Line";
+import { Button } from "../../buttons/Button/Button";
 
 import "./article-row.scss";
 
@@ -19,6 +20,8 @@ export const ArticleRow = ({
   image,
   heading,
   description,
+  buttonLabel,
+  onClick,
 }) => {
   return (
     <>
@@ -36,6 +39,16 @@ export const ArticleRow = ({
             </p>
             <p className="small-text">{description}</p>
           </div>
+          <Button
+            label={buttonLabel}
+            type="primary"
+            size="sm"
+            color="purple"
+            classes="article-row__content__button"
+            onClick={() => {
+              onClick && onClick();
+            }}
+          />
         </div>
       </div>
       <Line />
@@ -68,6 +81,16 @@ ArticleRow.propTypes = {
    * Description of the article
    * */
   description: PropTypes.string,
+
+  /**
+   * Label of the button
+   * */
+  buttonLabel: PropTypes.string,
+
+  /**
+   * Function to be called when the button is clicked
+   * */
+  onClick: PropTypes.func,
 };
 
 ArticleRow.defaultProps = {
