@@ -10,47 +10,47 @@
     margin-top: $spacing_0_4;
   }
 
-  &__content {
-    display: flex;
-    flex-direction: column;
-    margin-left: $spacing_0_8;
+  &__grid {
+    margin-left: $spacing_1_4;
+    &__image-item {
+      & > img {
+        width: 11.7rem;
+        height: 8.6rem;
+        border-radius: $border_radius_0_8;
 
-    @media screen and (min-width: $screen-md) {
-      flex-direction: row;
-      margin-left: $spacing_6_0;
-    }
-
-    & > img {
-      width: 11.7rem;
-      height: 8.6rem;
-      border-radius: $border_radius_0_8;
-
-      @media screen and (min-width: $screen-md) {
-        margin-right: $spacing_4_0;
+        @media screen and (min-width: $screen-md) {
+          margin-right: $spacing_4_0;
+        }
       }
     }
 
-    &__text-container {
+    &__button-item {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+
+      &__button {
+        margin-right: auto;
+        margin-top: $spacing_1_6;
+        height: 3rem;
+        @media screen and (min-width: $screen-md) {
+          margin-top: 0;
+          margin-left: $spacing_4_0;
+        }
+      }
+    }
+
+    &__content-item {
       margin-top: $spacing_1_6;
 
       @media screen and (min-width: $screen_md) {
         margin-top: 0;
       }
 
-      &__heading.text {
+      &__heading {
         color: $color_blue_3d527b;
         font-weight: $font_bold;
         margin-bottom: $spacing_0_4;
-      }
-    }
-
-    &__button {
-      margin-right: auto;
-      margin-top: $spacing_1_6;
-      height: 4rem;
-      @media screen and (min-width: $screen-md) {
-        margin-top: 0;
-        margin-left: $spacing_4_0;
       }
     }
   }
