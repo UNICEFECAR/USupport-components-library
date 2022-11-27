@@ -27,7 +27,7 @@ export const Consultation = ({
   renderIn,
   joinLabel,
   editLabel,
-  cancelSuggestionLabel,
+  rejectConsultationLabel,
   cancelConsultationLabel,
   acceptLabel,
   detailsLabel,
@@ -41,6 +41,8 @@ export const Consultation = ({
   handleOpenDetails,
   handleJoinClick,
   handleCancelConsultation,
+  handleAcceptConsultation,
+  handleRejectConsultation,
   consultation,
   overview,
   suggested,
@@ -84,12 +86,12 @@ export const Consultation = ({
       }:00`
     : "";
 
-  const handleAcceptRequest = () => {
-    console.log("Accept request");
+  const handleAccepConsultationClick = () => {
+    handleAcceptConsultation(consultationId);
   };
 
-  const handleCancelRequest = () => {
-    console.log("cancel suggestion");
+  const handleRejectConsultationClick = () => {
+    handleRejectConsultation(consultationId);
   };
 
   const handleJoin = () => {
@@ -205,13 +207,13 @@ export const Consultation = ({
       {!overview && suggested && renderIn === "client" && (
         <div className="consultation__request-container">
           <Button
-            onClick={() => handleAcceptRequest()}
+            onClick={handleAccepConsultationClick}
             label={acceptLabel}
             size="sm"
           />
           <Button
-            onClick={() => handleCancelRequest()}
-            label={cancelSuggestionLabel}
+            onClick={handleRejectConsultationClick}
+            label={rejectConsultationLabel}
             type="secondary"
             size="sm"
           />
@@ -307,7 +309,7 @@ Consultation.propTypes = {
   /**
    * Translation for the cancel suggestion button
    */
-  cancelSuggestionLabel: PropTypes.string,
+  rejectConsultationLabel: PropTypes.string,
 
   /**
    * Translation for the cancel consultation button
@@ -403,7 +405,7 @@ Consultation.defaultProps = {
   default: "client",
   joinLabel: "Join",
   editLabel: "Edit",
-  cancelSuggestionLabel: "Cancel suggestion",
+  rejectConsultationLabel: "Reject suggestion",
   cancelConsultationLabel: "Cancel consultation",
   acceptLabel: "Accept consultation",
   detailsLabel: "See details",
