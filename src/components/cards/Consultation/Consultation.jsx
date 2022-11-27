@@ -32,6 +32,7 @@ export const Consultation = ({
   acceptLabel,
   detailsLabel,
   activeLabel,
+  suggestedLabel,
   viewProfileLabel,
   daysOfWeekTranslations,
   handleOpenEdit,
@@ -40,7 +41,7 @@ export const Consultation = ({
   handleCancelConsultation,
   consultation,
   overview,
-  requested,
+  suggested,
   onClick,
   hasMenu,
   classes,
@@ -186,7 +187,7 @@ export const Consultation = ({
           )}
         </div>
       </div>
-      {!overview && !requested && buttonAction === "join" && (
+      {!overview && !suggested && buttonAction === "join" && (
         <div className="consultation__button-container">
           <p className="text consultation__button-container__now-text">
             {activeLabel}
@@ -199,7 +200,7 @@ export const Consultation = ({
           />
         </div>
       )}
-      {!overview && requested && (
+      {!overview && suggested && renderIn === "client" && (
         <div className="consultation__request-container">
           <Button
             onClick={() => handleAcceptRequest()}
@@ -215,7 +216,20 @@ export const Consultation = ({
         </div>
       )}
 
-      {!overview && !requested && buttonAction === "edit" && (
+      {!overview && suggested && renderIn === "provider" && (
+        <div className="consultation__button-container">
+          <Button
+            onClick={() => handleCancelRequest()}
+            label={suggestedLabel}
+            type="secondary"
+            size="sm"
+            disabled
+            color="purple"
+          />
+        </div>
+      )}
+
+      {!overview && !suggested && buttonAction === "edit" && (
         <div className="consultation__button-container">
           <Button
             onClick={handleEdit}
@@ -227,7 +241,7 @@ export const Consultation = ({
         </div>
       )}
 
-      {!overview && !requested && buttonAction === "cancel" && (
+      {!overview && !suggested && buttonAction === "cancel" && (
         <div className="consultation__button-container">
           <Button
             onClick={handleCancel}
@@ -239,7 +253,7 @@ export const Consultation = ({
         </div>
       )}
 
-      {!overview && !requested && buttonAction === "details" && (
+      {!overview && !suggested && buttonAction === "details" && (
         <div className="consultation__button-container">
           {renderIn === "client" ? (
             <Button
@@ -307,6 +321,11 @@ Consultation.propTypes = {
   activeLabel: PropTypes.string,
 
   /**
+   * Translation for the scheduled text
+   */
+  suggestedLabel: PropTypes.string,
+
+  /**
    * Translation for the details text
    */
   detailsLabel: PropTypes.string,
@@ -345,7 +364,7 @@ Consultation.propTypes = {
   /**
    * Is the card request? If "true" show to "Accept consultation" and "Cancel suggestion" buttons
    */
-  requested: PropTypes.bool,
+  suggested: PropTypes.bool,
 
   /**
    * OnClick function to be called when the card is clicked
@@ -375,10 +394,11 @@ Consultation.defaultProps = {
   acceptLabel: "Accept consultation",
   detailsLabel: "See details",
   activeLabel: "Now",
+  suggestedLabel: "Suggested",
   viewProfileLabel: "View personal profile",
   image: specialistPlaceholder,
   overview: true,
-  requested: false,
+  suggested: false,
   onClick: () => {},
   hasMenu: false,
 };
