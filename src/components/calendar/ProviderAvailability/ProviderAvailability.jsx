@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import OutsideClickHandler from "react-outside-click-handler";
 import classNames from "classnames";
-import { Icon } from "../../icons/Icon";
 import { ButtonWithIcon } from "../../buttons/ButtonWithIcon";
-
+import { Icon } from "../../icons/Icon";
 import { useWindowDimensions } from "../../../utils/useWindowDimensions";
-import { specialistPlaceholder } from "../../../assets";
+import { checkIsFiveMinutesBefore } from "../../../utils";
+
+const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
 
 import "./provider-availability.scss";
 
@@ -26,19 +27,21 @@ export const ProviderAvailability = ({
   proposeConsultationText,
   cancelAppointmentText,
   joinConsultationText,
+  suggestedLabel,
   handleSetUnavailable,
   handleSetAvailable,
   handleProposeConsultation,
   handleCancelConsultation,
   handleViewProfile,
   handleJoinConsultation,
-  slot,
   classes,
   isAvailable,
+  consultation,
 }) => {
-  // TOOO: Calculate this from the slot
-  const isLive = false;
-  const consultation = false;
+  const isLive = consultation
+    ? checkIsFiveMinutesBefore(new Date(consultation.time).getTime())
+    : false;
+  const imageUrl = AMAZON_S3_BUCKET + "/" + (consultation?.image || "default");
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { width } = useWindowDimensions();
@@ -89,13 +92,10 @@ export const ProviderAvailability = ({
     >
       {consultation && (
         <>
-          <img
-            className="provider-availability__image"
-            src={specialistPlaceholder}
-          />
+          <img className="provider-availability__image" src={imageUrl} />
           {width >= 1150 && (
             <p className="small-text provider-availability__name">
-              {"John Doe"}
+              {consultation.name}
             </p>
           )}
         </>
@@ -121,8 +121,16 @@ export const ProviderAvailability = ({
               className="provider-availability__controls__single"
               onClick={handleAvailabilityChange}
             >
-              <Icon size="md" name={menuFirstIcon} color="#373737" />
-              <p className="small-text">{menuFirstText}</p>
+              {consultation?.status === "suggested" ? (
+                <h4 className="paragraph provider-availability__suggested-label">
+                  {suggestedLabel}
+                </h4>
+              ) : (
+                <>
+                  <Icon size="md" name={menuFirstIcon} color="#373737" />
+                  <p className="small-text">{menuFirstText}</p>
+                </>
+              )}
             </div>
 
             <div
@@ -169,6 +177,11 @@ ProviderAvailability.propTypes = {
   unavailableText: PropTypes.string,
 
   /**
+   * Text(translated in the used language) to display when the consultation is suggested by the provider
+   */
+  suggestedLabel: PropTypes.string,
+
+  /**
    * Additional classes to be added to the provier availability component
    **/
   classes: PropTypes.oneOfType([
@@ -186,5 +199,6 @@ ProviderAvailability.defaultProps = {
   viewProfileText: "View personal profile",
   proposeConsultationText: "Propose consultation",
   cancelAppointmentText: "Cancel appointment",
+  suggestedLabel: "Suggested",
   joinConsultationText: "Join consultation",
 };
