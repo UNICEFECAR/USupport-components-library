@@ -36,6 +36,18 @@ async function getAvailabilityForWeek(startDate) {
 
 /**
  *
+ * @param {Number} startDate - start date in milliseconds in UTC
+ * @returns {array} - array of timestamps is milliseconds in UTC
+ */
+async function getConsultationsForWeek(startDate) {
+  const response = await http.get(
+    `${API_ENDPOINT}/consultation/single-week?startDate=${startDate}`
+  );
+  return response;
+}
+
+/**
+ *
  * @param {Number} startDate - start date timestamp in milliseconds in UTC
  * @param {Number} slot - slot timestamp in milliseconds in UTC
  */
@@ -147,7 +159,7 @@ async function rescheduleConsultation(consultationId, newConsultationId) {
  * @returns {Promise}
  */
 async function suggestConsultation(consultationId) {
-  const res = await http.post(`${API_ENDPOINT}/consultation/suggest`, {
+  const res = await http.put(`${API_ENDPOINT}/consultation/suggest`, {
     consultationId,
   });
   return res;
@@ -169,8 +181,38 @@ async function getAllUpcomingConsultations() {
   const res = await http.get(`${API_ENDPOINT}/consultation/all/upcoming`);
   return res;
 }
+
 async function getAllPastConsultations() {
   const res = await http.get(`${API_ENDPOINT}/consultation/all/past`);
+  return res;
+}
+
+async function getConsultationsForSingleDay(day) {
+  const res = await http.get(
+    `${API_ENDPOINT}/consultation/single-day?date=${JSON.stringify(day)}`
+  );
+  return res;
+}
+
+async function getCalendarData(startDate) {
+  const startDateString = JSON.stringify(startDate);
+  const res = await http.get(
+    `${API_ENDPOINT}/calendar/five-weeks?startDate=${startDateString}`
+  );
+  return res;
+}
+
+async function acceptConsultation(consultationId) {
+  const res = await http.put(`${API_ENDPOINT}/consultation/accept-suggest`, {
+    consultationId,
+  });
+  return res;
+}
+
+async function rejectConsultation(consultationId) {
+  const res = await http.put(`${API_ENDPOINT}/consultation/reject-suggest`, {
+    consultationId,
+  });
   return res;
 }
 
@@ -188,12 +230,17 @@ const exportedFunctions = {
   getAllProviders,
   getAvailabilityForWeek,
   getAvailableSlotsForSingleDay,
+  getConsultationsForSingleDay,
+  getConsultationsForWeek,
   getProviderById,
   getProviderData,
+  getCalendarData,
   removeAvailableSlot,
   rescheduleConsultation,
   scheduleConsultation,
   suggestConsultation,
   updateProviderData,
+  acceptConsultation,
+  rejectConsultation,
 };
 export default exportedFunctions;

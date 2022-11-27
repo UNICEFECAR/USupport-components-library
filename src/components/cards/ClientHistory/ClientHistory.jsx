@@ -28,13 +28,17 @@ export const ClientHistory = ({
   timestamp,
   nextConsultationId,
   pastConsultations,
+  clientId,
   viewProfileLabel,
   cancelConsultationLabel,
   suggestConsultationLabel,
+  suggestedLabel,
   daysOfWeekTranslations,
   joinLabel,
   handleClick,
   cancelConsultation,
+  suggestConsultation,
+  suggested,
   image,
 }) => {
   let startDate, endDate, dayOfWeek, dateText, startHour, endHour;
@@ -58,6 +62,14 @@ export const ClientHistory = ({
       }:00`
     : "";
 
+  const consultationObject = {
+    consultationId: nextConsultationId,
+    image,
+    providerName: name,
+    timestamp,
+    clientId,
+  };
+
   const today = new Date().getTime();
   const isFiveMinutesBefore = checkIsFiveMinutesBefore(timestamp);
 
@@ -73,13 +85,17 @@ export const ClientHistory = ({
     buttonAction = "suggest";
   }
 
+  if (suggested) {
+    buttonLabel = suggestedLabel;
+    buttonAction = "none";
+  }
+
   const handleCancelConsultation = () => {
-    cancelConsultation({
-      consultationId: nextConsultationId,
-      image,
-      providerName: name,
-      timestamp,
-    });
+    cancelConsultation(consultationObject);
+  };
+
+  const handleSuggestConsultation = () => {
+    suggestConsultation(consultationObject);
   };
 
   const handleRemoveCustomer = () => {};
@@ -92,6 +108,7 @@ export const ClientHistory = ({
         handleCancelConsultation();
         break;
       case "suggest":
+        handleSuggestConsultation();
         break;
       default:
         break;
@@ -99,7 +116,6 @@ export const ClientHistory = ({
   };
 
   const handleSeeProfile = () => {
-    console.log("click?");
     handleClick();
   };
 
@@ -143,8 +159,14 @@ export const ClientHistory = ({
         <Button
           size="sm"
           label={buttonLabel}
-          color={buttonAction === "join" ? "purple" : "green"}
+          color={
+            buttonAction === "join" || buttonAction === "none"
+              ? "purple"
+              : "green"
+          }
           onClick={() => handleButtonClick(buttonAction)}
+          disabled={suggested}
+          type={suggested ? "secondary" : "primary"}
         />
         <Button
           size="sm"
@@ -168,5 +190,6 @@ ClientHistory.defaultProps = {
   joinLabel: "Join",
   suggestRescheduleLabel: "Suggest reschedule",
   suggestConsultationLabel: "Suggest consultation",
+  suggestedLabel: "Suggested",
   handleClick: () => {},
 };

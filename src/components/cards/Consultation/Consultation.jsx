@@ -27,18 +27,22 @@ export const Consultation = ({
   renderIn,
   joinLabel,
   editLabel,
-  cancelSuggestionLabel,
+  rejectConsultationLabel,
   cancelConsultationLabel,
   acceptLabel,
   detailsLabel,
   activeLabel,
   suggestedLabel,
   viewProfileLabel,
+  notConductedLabel,
+  endedLabel,
   daysOfWeekTranslations,
   handleOpenEdit,
   handleOpenDetails,
   handleJoinClick,
   handleCancelConsultation,
+  handleAcceptConsultation,
+  handleRejectConsultation,
   consultation,
   overview,
   suggested,
@@ -46,7 +50,7 @@ export const Consultation = ({
   hasMenu,
   classes,
 }) => {
-  const { providerId, consultationId, timestamp, image } = consultation;
+  const { providerId, consultationId, timestamp, image, status } = consultation;
 
   const name = consultation.providerName || consultation.clientName;
 
@@ -82,12 +86,12 @@ export const Consultation = ({
       }:00`
     : "";
 
-  const handleAcceptRequest = () => {
-    console.log("Accept request");
+  const handleAccepConsultationClick = () => {
+    handleAcceptConsultation(consultationId);
   };
 
-  const handleCancelRequest = () => {
-    console.log("cancel suggestion");
+  const handleRejectConsultationClick = () => {
+    handleRejectConsultation(consultationId);
   };
 
   const handleJoin = () => {
@@ -203,13 +207,13 @@ export const Consultation = ({
       {!overview && suggested && renderIn === "client" && (
         <div className="consultation__request-container">
           <Button
-            onClick={() => handleAcceptRequest()}
+            onClick={handleAccepConsultationClick}
             label={acceptLabel}
             size="sm"
           />
           <Button
-            onClick={() => handleCancelRequest()}
-            label={cancelSuggestionLabel}
+            onClick={handleRejectConsultationClick}
+            label={rejectConsultationLabel}
             type="secondary"
             size="sm"
           />
@@ -264,7 +268,9 @@ export const Consultation = ({
               color={renderIn === "provider" ? "purple" : "green"}
             />
           ) : (
-            <p className="small-text">Consultation ended</p>
+            <p className="small-text">
+              {status === "finished" ? endedLabel : notConductedLabel}
+            </p>
           )}
         </div>
       )}
@@ -303,7 +309,7 @@ Consultation.propTypes = {
   /**
    * Translation for the cancel suggestion button
    */
-  cancelSuggestionLabel: PropTypes.string,
+  rejectConsultationLabel: PropTypes.string,
 
   /**
    * Translation for the cancel consultation button
@@ -329,6 +335,16 @@ Consultation.propTypes = {
    * Translation for the details text
    */
   detailsLabel: PropTypes.string,
+
+  /**
+   * Translation for the text when the consultation has been completed
+   */
+  endedLabel: PropTypes.string,
+
+  /**
+   * Translation for the text when the consultation is in the past, but not conducted
+   */
+  notConductedLabel: PropTypes.string,
 
   /**
    * An object containing the translations for each weekday
@@ -389,13 +405,15 @@ Consultation.defaultProps = {
   default: "client",
   joinLabel: "Join",
   editLabel: "Edit",
-  cancelSuggestionLabel: "Cancel suggestion",
+  rejectConsultationLabel: "Reject suggestion",
   cancelConsultationLabel: "Cancel consultation",
   acceptLabel: "Accept consultation",
   detailsLabel: "See details",
   activeLabel: "Now",
   suggestedLabel: "Suggested",
   viewProfileLabel: "View personal profile",
+  endedLabel: "Consultation ended",
+  notConductedLabel: "Not conducted",
   image: specialistPlaceholder,
   overview: true,
   suggested: false,
