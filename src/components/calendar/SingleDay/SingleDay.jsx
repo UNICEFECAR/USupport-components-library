@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import useWindowDimensions from "../../../utils/useWindowDimensions";
+import { getDateView } from "../../../utils";
 
 import "./single-day.scss";
 
@@ -25,11 +26,7 @@ export const SingleDay = ({
   const { width } = useWindowDimensions();
   const isToday = new Date().toDateString() === date.toDateString();
 
-  const dateAsString = `${
-    date.getDate() > 9 ? date.getDate() : "0" + date.getDate()
-  }.${
-    date.getMonth() + 1 > 9 ? date.getMonth() + 1 : "0" + date.getMonth() + 1
-  }`;
+  const dateAsString = getDateView(date).slice(0, 5);
 
   return (
     <div
@@ -62,7 +59,7 @@ export const SingleDay = ({
           <h4>{dateAsString}</h4>
           <div className="single-day__consultation-container">
             <p className="small-text consultation-text">
-              {!isAvailable
+              {!isAvailable && numberOfConsultations === 0
                 ? unavailableLabel
                 : numberOfConsultations + "\n" + consultationsLabel}
             </p>
