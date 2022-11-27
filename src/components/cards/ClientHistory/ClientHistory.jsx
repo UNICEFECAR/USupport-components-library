@@ -26,6 +26,7 @@ import "./client-history.scss";
 export const ClientHistory = ({
   name,
   timestamp,
+  nextConsultationId,
   pastConsultations,
   viewProfileLabel,
   cancelConsultationLabel,
@@ -33,6 +34,7 @@ export const ClientHistory = ({
   daysOfWeekTranslations,
   joinLabel,
   handleClick,
+  cancelConsultation,
   image,
 }) => {
   let startDate, endDate, dayOfWeek, dateText, startHour, endHour;
@@ -72,51 +74,33 @@ export const ClientHistory = ({
   }
 
   const handleCancelConsultation = () => {
-    console.log("cancel consultation");
+    cancelConsultation({
+      consultationId: nextConsultationId,
+      image,
+      providerName: name,
+      timestamp,
+    });
   };
 
   const handleRemoveCustomer = () => {};
 
+  const handleButtonClick = (action) => {
+    switch (action) {
+      case "join":
+        break;
+      case "cancel":
+        handleCancelConsultation();
+        break;
+      case "suggest":
+        break;
+      default:
+        break;
+    }
+  };
+
   const handleSeeProfile = () => {
     console.log("click?");
     handleClick();
-  };
-
-  const renderOptions = () => {
-    let menuOptions = [
-      {
-        iconName: "circle-actions-close",
-        text: viewProfileLabel,
-        onClick: () => {
-          handleRemoveCustomer();
-        },
-      },
-    ];
-
-    if (buttonAction === "reschedule" || buttonAction === "join") {
-      menuOptions.push({
-        iconName: "close-x",
-        text: cancelConsultationLabel,
-        onClick: () => handleCancelConsultation(),
-      });
-    }
-
-    return menuOptions.map((option, index) => {
-      return (
-        <div
-          className="client-history__menu__option"
-          onClick={option.onClick}
-          key={index}
-        >
-          <Icon
-            name={option.iconName}
-            color={"#373737"}
-            classes="client-history__menu__option__icon"
-          />
-          <p className="small-text">{option.text}</p>
-        </div>
-      );
-    });
   };
 
   return (
@@ -160,6 +144,7 @@ export const ClientHistory = ({
           size="sm"
           label={buttonLabel}
           color={buttonAction === "join" ? "purple" : "green"}
+          onClick={() => handleButtonClick(buttonAction)}
         />
         <Button
           size="sm"
