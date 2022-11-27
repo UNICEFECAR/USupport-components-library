@@ -45,20 +45,21 @@ export const CardMedia = ({
       />
 
       <div className={"card-media__content"}>
-        <div className={"card-media__labels"}>
-          {showLabels &&
-            labels.length > 0 &&
-            labels &&
-            labels.map((label, index) => {
-              return (
-                <Label
-                  classes={"card-media__label"}
-                  text={label.name}
-                  key={index}
-                />
-              );
-            })}
-        </div>
+        {showLabels && (
+          <div className={"card-media__labels"}>
+            {labels.length > 0 &&
+              labels &&
+              labels.map((label, index) => {
+                return (
+                  <Label
+                    classes={"card-media__label"}
+                    text={label.name}
+                    key={index}
+                  />
+                );
+              })}
+          </div>
+        )}
         <div className="card-media__title">
           <h4 className="card-media__title__text">{title}</h4>
         </div>
