@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 
 import "./error.scss";
 
@@ -10,8 +11,12 @@ import "./error.scss";
  *
  * @return {jsx}
  */
-export const Error = ({ message }) => {
-  return <p className="small-text error-message">{message}</p>;
+export const Error = ({ message, classes }) => {
+  return (
+    <p className={["small-text error-message", classNames(classes)].join(" ")}>
+      {message}
+    </p>
+  );
 };
 
 Error.propTypes = {
