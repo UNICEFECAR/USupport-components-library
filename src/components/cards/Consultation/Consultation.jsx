@@ -102,7 +102,7 @@ export const Consultation = ({
   };
 
   const handleCancel = () => {
-    handleCancelConsultation(providerId, consultationId);
+    handleCancelConsultation(consultation);
   };
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
