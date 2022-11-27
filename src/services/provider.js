@@ -202,6 +202,20 @@ async function getCalendarData(startDate) {
   return res;
 }
 
+async function acceptConsultation(consultationId) {
+  const res = await http.put(`${API_ENDPOINT}/consultation/accept-suggest`, {
+    consultationId,
+  });
+  return res;
+}
+
+async function rejectConsultation(consultationId) {
+  const res = await http.put(`${API_ENDPOINT}/consultation/reject-suggest`, {
+    consultationId,
+  });
+  return res;
+}
+
 const exportedFunctions = {
   addAvailableSlot,
   addTemplateAvailability,
@@ -226,5 +240,7 @@ const exportedFunctions = {
   scheduleConsultation,
   suggestConsultation,
   updateProviderData,
+  acceptConsultation,
+  rejectConsultation,
 };
 export default exportedFunctions;
