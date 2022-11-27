@@ -38,18 +38,26 @@ export const SOSCenterRow = ({
                 </p>
                 <p className="small-text">{text}</p>
               </GridItem>
-              {link && (
-                <GridItem md={8} lg={3}>
-                  <a href={link}>
+
+              <GridItem md={8} lg={3}>
+                {link ? (
+                  <a href={`mailto:${link}`} target="_blank">
                     <p className="text sos-center-row__heading">{link}</p>
                   </a>
-                </GridItem>
-              )}
-              {phone && (
-                <GridItem md={8} lg={3}>
-                  <p className="text sos-center-row__heading">{phone}</p>
-                </GridItem>
-              )}
+                ) : (
+                  <p>-</p>
+                )}
+              </GridItem>
+
+              <GridItem md={8} lg={3}>
+                {phone ? (
+                  <a href={`tel:${link}`} target="_blank">
+                    <p className="text sos-center-row__heading">{phone}</p>
+                  </a>
+                ) : (
+                  <p>-</p>
+                )}
+              </GridItem>
             </Grid>
           </GridItem>
         </Grid>
