@@ -45,9 +45,11 @@ export const CardMedia = ({
       />
 
       <div className={"card-media__content"}>
-        {showLabels && labels.length > 0 && labels && (
-          <div className={"card-media__labels"}>
-            {labels.map((label, index) => {
+        <div className={"card-media__labels"}>
+          {showLabels &&
+            labels.length > 0 &&
+            labels &&
+            labels.map((label, index) => {
               return (
                 <Label
                   classes={"card-media__label"}
@@ -56,9 +58,7 @@ export const CardMedia = ({
                 />
               );
             })}
-          </div>
-        )}
-
+        </div>
         <div className="card-media__title">
           <h4 className="card-media__title__text">{title}</h4>
         </div>
@@ -68,14 +68,11 @@ export const CardMedia = ({
           <Icon name={"time"} size="sm" />
           <p className={"small-text"}> {readingTime} min read</p>
         </div>
-
-        {showDescription && description && (
-          <div className={"card-media__description"}>
-            <p className={" small-text"} id="description">
-              {description}
-            </p>
-          </div>
-        )}
+        <div className={"card-media__description"}>
+          <p className={" small-text"} id="description">
+            {showDescription && description}
+          </p>
+        </div>
 
         <Button
           id={"btn--read-more"}
