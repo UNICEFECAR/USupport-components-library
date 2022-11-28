@@ -24,6 +24,8 @@ export const ProviderOverview = ({
   surname,
   specializations,
   onClick,
+  iconName,
+  handleIconClick,
 }) => {
   const displayName = patronym
     ? `${name} ${patronym} ${surname}`
@@ -41,7 +43,12 @@ export const ProviderOverview = ({
           </p>
         </div>
         <div>
-          <Icon name="arrow-chevron-forward" size="md" color="#20809E" />
+          <Icon
+            name={iconName}
+            onClick={handleIconClick}
+            size="md"
+            color="#20809E"
+          />
         </div>
       </div>
     </Box>
@@ -78,10 +85,21 @@ ProviderOverview.propTypes = {
    * Text(translated in the used language) showing the years of experience of the provider
    * */
   yearsOfExperienceText: PropTypes.string,
+
+  /**
+   * The name of the icon
+   */
+  iconName: PropTypes.string,
+
+  /**
+   * On icon click handler
+   */
+  handleIconClick: PropTypes.func,
 };
 
 ProviderOverview.defaultProps = {
   image: specialistPlaceholder,
   onClick: () => {},
   yearsOfExperienceText: "years experience Overall",
+  iconName: "arrow-chevron-forward",
 };
