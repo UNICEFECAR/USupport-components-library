@@ -6,7 +6,6 @@ import { Avatar } from "../../avatars/Avatar";
 import { Icon } from "../../icons/Icon";
 import { Button } from "../../buttons/Button";
 import { getDateView, getDayOfTheWeek } from "../../../utils";
-import { specialistPlaceholder } from "../../../assets";
 
 import "./consultation.scss";
 
@@ -309,7 +308,7 @@ Consultation.propTypes = {
   providerId: PropTypes.string.isRequired,
 
   /**
-   * Specialist name of the specialist
+   * Provider name of the specialist
    * */
   name: PropTypes.string.isRequired,
 
@@ -362,7 +361,6 @@ Consultation.defaultProps = {
   detailsLabel: "See details",
   activeLabel: "Now",
   viewProfileLabel: "View personal profile",
-  image: specialistPlaceholder,
   overview: true,
   requested: false,
   onClick: () => {},

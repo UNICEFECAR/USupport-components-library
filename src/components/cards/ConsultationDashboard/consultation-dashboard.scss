@@ -19,13 +19,13 @@
     display: flex;
     flex-direction: column;
 
-    &__specialist-container {
+    &__provider-container {
       display: flex;
       flex-direction: row;
       align-items: center;
       margin-top: $spacing_0_8;
 
-      .specialist-image {
+      .provider-image {
         width: 3.2rem;
         height: 3.2rem;
         border-radius: 50%;

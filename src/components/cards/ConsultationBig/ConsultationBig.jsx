@@ -6,7 +6,6 @@ import classNames from "classnames";
 
 import "./consultation-big.scss";
 
-import avatar from "../../../assets/SpecialistPlaceholderImage.png";
 import mascot from "../../../assets/mascot-happy-blue.png";
 
 /**
@@ -17,7 +16,7 @@ import mascot from "../../../assets/mascot-happy-blue.png";
  * @return {jsx}
  */
 export const ConsultationBig = ({
-  specialistName,
+  providerName,
   consultationDate,
   isLive,
   classes,
@@ -33,9 +32,9 @@ export const ConsultationBig = ({
         ) : (
           <p className="small-text">{consultationDate}</p>
         )}
-        <div className="consultation-big__specialist-container">
-          <img src={avatar} alt={"Specialist"} />
-          <p>{specialistName}</p>
+        <div className="consultation-big__provider-container">
+          <img src={avatar} alt={"Provider"} />
+          <p>{providerName}</p>
         </div>
         {isLive ? (
           <Button
@@ -59,9 +58,9 @@ export const ConsultationBig = ({
 
 ConsultationBig.propTypes = {
   /**
-   * Specialist name
+   * Provider name
    * */
-  specialistName: PropTypes.string,
+  providerName: PropTypes.string,
 
   /**
    * Consultation date
@@ -98,7 +97,7 @@ ConsultationBig.propTypes = {
 };
 
 ConsultationBig.defaultProps = {
-  specialistName: "",
+  providerName: "",
   consultationDate: "",
   isLive: false,
   classes: "",

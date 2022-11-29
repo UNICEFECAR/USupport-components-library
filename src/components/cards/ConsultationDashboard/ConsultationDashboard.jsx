@@ -6,7 +6,7 @@ import classNames from "classnames";
 
 import "./consultation-dashboard.scss";
 
-import avatar from "../../../assets/SpecialistPlaceholderImage.png";
+import avatar from "../../../assets/specialistPlaceholderImage.png";
 
 /**
  * ConsultationDashboard
@@ -16,7 +16,7 @@ import avatar from "../../../assets/SpecialistPlaceholderImage.png";
  * @return {jsx}
  */
 export const ConsultationDashboard = ({
-  specialistName,
+  providerName,
   consultationDate,
   isLive,
   classes,
@@ -31,16 +31,16 @@ export const ConsultationDashboard = ({
       shadow={1}
       classes={["consultation-dashboard", classNames(classes)].join(" ")}
     >
-      {specialistName && consultationDate ? (
+      {providerName && consultationDate ? (
         <div className="consultation-dashboard__content">
           {isLive ? (
             <p className="small-text now-text">{liveText}</p>
           ) : (
             <p className="small-text">{consultationDate}</p>
           )}
-          <div className="consultation-dashboard__content__specialist-container">
-            <img src={avatar} className="specialist-image" />
-            <p className="text">{specialistName}</p>
+          <div className="consultation-dashboard__content__provider-container">
+            <img src={avatar} className="provider-image" />
+            <p className="text">{providerName}</p>
           </div>
           {isLive ? (
             <Button
@@ -70,9 +70,9 @@ export const ConsultationDashboard = ({
 
 ConsultationDashboard.propTypes = {
   /**
-   * Specialist name
+   * Provider name
    * */
-  specialistName: PropTypes.string,
+  providerName: PropTypes.string,
 
   /**
    * ConsultationDashboard date
@@ -119,7 +119,7 @@ ConsultationDashboard.propTypes = {
 };
 
 ConsultationDashboard.defaultProps = {
-  specialistName: "",
+  providerName: "",
   consultationDate: "",
   isLive: false,
   liveText: "Now",

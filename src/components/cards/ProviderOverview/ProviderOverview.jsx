@@ -6,8 +6,6 @@ import { Icon } from "../../icons/Icon/Icon";
 
 import "./provider-overview.scss";
 
-import { specialistPlaceholder } from "../../../assets";
-
 const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
 
 /**
@@ -55,17 +53,17 @@ ProviderOverview.propTypes = {
   image: PropTypes.string,
 
   /**
-   * Name of the specialist
+   * Name of the provider
    * */
   name: PropTypes.string,
 
   /**
-   * Specialities of the specialist
+   * Specialities of the provider
    * */
   specialities: PropTypes.string,
 
   /**
-   * Experience of the specialist
+   * Experience of the provider
    * */
   experience: PropTypes.number,
 
@@ -81,7 +79,6 @@ ProviderOverview.propTypes = {
 };
 
 ProviderOverview.defaultProps = {
-  image: specialistPlaceholder,
   onClick: () => {},
   yearsOfExperienceText: "years experience Overall",
 };

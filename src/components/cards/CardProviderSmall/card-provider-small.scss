@@ -1,8 +1,9 @@
 @import "../../../styles/theme";
 
-.card-specialist-small {
+.card-provider-small {
   align-items: center;
   display: flex;
+  cursor: pointer;
   flex-direction: row;
   padding: $spacing_2_4;
   width: calc(34.4rem - 2 * $spacing_2_4);
