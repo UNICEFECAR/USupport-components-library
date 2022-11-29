@@ -17,8 +17,23 @@ async function changeImage() {
   return response;
 }
 
+async function changeImageAsAdmin(providerId, image) {
+  const response = await http.put(`${API_ENDPOINT}/image/admin`, {
+    providerId,
+    image,
+  });
+  return response;
+}
+
 async function deleteImage() {
   const response = await http.delete(`${API_ENDPOINT}/image`);
+  return response;
+}
+
+async function deleteImageAsAdmin(providerId, image) {
+  const response = await http.delete(`${API_ENDPOINT}/image/admin`, {
+    data: { providerId, image },
+  });
   return response;
 }
 
@@ -216,6 +231,18 @@ async function rejectConsultation(consultationId) {
   return res;
 }
 
+async function getProviderByIdAsAdmin(id) {
+  const res = await http.get(`${API_ENDPOINT}/by-id/admin?providerId=${id}`);
+  return res;
+}
+
+async function updateProviderDataByIdAsAdmin(data) {
+  const res = await http.put(`${API_ENDPOINT}/by-id/admin`, {
+    ...data,
+  });
+  return res;
+}
+
 const exportedFunctions = {
   addAvailableSlot,
   addTemplateAvailability,
@@ -233,6 +260,7 @@ const exportedFunctions = {
   getConsultationsForSingleDay,
   getConsultationsForWeek,
   getProviderById,
+  getProviderByIdAsAdmin,
   getProviderData,
   getCalendarData,
   removeAvailableSlot,
@@ -242,5 +270,8 @@ const exportedFunctions = {
   updateProviderData,
   acceptConsultation,
   rejectConsultation,
+  updateProviderDataByIdAsAdmin,
+  changeImageAsAdmin,
+  deleteImageAsAdmin,
 };
 export default exportedFunctions;
