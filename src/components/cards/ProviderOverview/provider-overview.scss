@@ -1,6 +1,7 @@
 @import "../../../styles/theme";
 
 .provider-overview {
+  position: relative;
   align-items: center;
   cursor: pointer;
   display: flex;
@@ -34,5 +35,32 @@
 
   &__types {
     word-break: break-word;
+  }
+
+  &__menu {
+    position: absolute;
+    background-color: $color_white_ff;
+    border-radius: $border_radius_1_6;
+    box-shadow: $shadow_1;
+    padding: $spacing_1_6;
+    right: 0;
+    top: 5rem;
+    width: 16rem;
+    z-index: $z_index_2;
+
+    &__content {
+      cursor: pointer;
+      display: flex;
+      justify-content: flex-start;
+      width: 100%;
+
+      & .icon {
+        margin-right: $spacing_1_8;
+      }
+
+      &:not(:first-of-type) {
+        margin-top: $spacing_1_6;
+      }
+    }
   }
 }

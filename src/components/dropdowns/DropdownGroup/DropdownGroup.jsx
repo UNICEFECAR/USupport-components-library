@@ -91,6 +91,10 @@ export const DropdownGroup = ({
     setInitialCount((prev) => prev + 1);
   };
 
+  const canAddMore =
+    initialCount < maxShown &&
+    options.filter((x) => x.selected).length === initialCount;
+
   return (
     <div className="dropdown-group">
       <div className="dropdown-group__dropdowns-list">
@@ -132,7 +136,7 @@ export const DropdownGroup = ({
           })}
       </div>
       {errorMessage ? <Error message={errorMessage} /> : null}
-      {initialCount < maxShown && (
+      {canAddMore && (
         <div className="dropdown-group__add-more" onClick={handleAddOption}>
           <Icon name="actions-plus" color="#9749FA" size="lg" />
           <p className="small-text dropdown-group__add-more-text">

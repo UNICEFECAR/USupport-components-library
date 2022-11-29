@@ -1,18 +1,19 @@
 @import "../../../styles/theme";
 
 .single-day {
-  width: calc(4rem - 2 * $spacing_0_4);
-  height: calc(4rem - 2 * $spacing_0_4);
-  padding: $spacing_0_4;
-  border-radius: $spacing_0_4;
   background-color: $color_green_c1eaea;
+  border-radius: $spacing_0_4;
   border: 0.1rem solid transparent;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
+  padding: $spacing_0_4;
   text-align: left;
+  height: calc(4rem - 2 * $spacing_0_4);
+  width: calc(4rem - 2 * $spacing_0_4);
 
   @media screen and (min-width: $screen_md) {
-    width: calc(9.6rem - 2 * $spacing_0_8);
+    width: calc(9.1rem - 2 * $spacing_0_8);
     height: calc(9.6rem - $spacing_1_6 - $spacing_0_8);
     padding: $spacing_1_6 $spacing_0_8 $spacing_0_8 $spacing_0_8;
   }

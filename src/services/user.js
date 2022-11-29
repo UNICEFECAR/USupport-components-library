@@ -96,6 +96,17 @@ async function uploadFile(content) {
   return response;
 }
 
+async function uploadFileAsAdmin(content) {
+  const response = await http.post(
+    `${API_ENDPOINT}/upload-file/admin`,
+    content,
+    {
+      headers: { "Content-Type": "multipart/form-data" },
+    }
+  );
+  return response;
+}
+
 async function getNotificationPreferences() {
   const response = await http.get(`${API_ENDPOINT}/notification-preferences`);
   return response;
@@ -143,6 +154,18 @@ async function getWorkWithCategories() {
   return response;
 }
 
+async function createProvider(data) {
+  const password = data.password;
+  delete data.password;
+  const response = await http.post(`${API_ENDPOINT}/provider/signup`, {
+    userType: "provider",
+    countryID: localStorage.getItem("country_id"),
+    password,
+    providerData: data,
+  });
+  return response;
+}
+
 const exportedFunctions = {
   changePassword,
   generateClientAccesToken,
@@ -158,6 +181,8 @@ const exportedFunctions = {
   tmpLogin,
   updateNotificationPreferences,
   uploadFile,
+  uploadFileAsAdmin,
+  createProvider,
 };
 
 export default exportedFunctions;

@@ -3,20 +3,18 @@
  * @param {*} object with article data
  * @returns object with desctructured data for the article
  */
-function destructureArticleData(cmsHost, article) {
-  const CMS_HOST = cmsHost;
-
+function destructureArticleData(article) {
   const articleId = article.id;
   const articleData = article.attributes;
   const body = articleData.body;
   const articleLabels = computeArticleLabels(articleData.labels?.data);
   const articleReadingTime = articleData.reading_time;
   const articleThumbnailImage =
-    CMS_HOST + article.attributes.image.data.attributes.formats.thumbnail.url;
+    article.attributes.image.data.attributes.formats.thumbnail.url;
   const articleImageMedium =
-    CMS_HOST + article.attributes.image.data.attributes.formats.medium.url;
+    article.attributes.image.data.attributes.formats.medium.url;
   const articleImageSmall =
-    CMS_HOST + article.attributes.image.data.attributes.formats.small.url;
+    article.attributes.image.data.attributes.formats.small.url;
   const categoryId = articleData.category?.data?.id;
   const description = articleData.description;
   const creator =

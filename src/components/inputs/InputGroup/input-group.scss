@@ -6,7 +6,6 @@
 
   &__inputs-list {
     &__single {
-      align-items: center;
       display: flex;
       flex-direction: column;
 
@@ -15,7 +14,9 @@
       }
 
       &__remove-button {
+        align-self: flex-start;
         margin-top: $spacing_1_8;
+        min-width: unset;
 
         @media screen and (min-width: $screen_md) {
           margin-top: $spacing_4_6;

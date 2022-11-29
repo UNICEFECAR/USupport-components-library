@@ -72,6 +72,9 @@ export const InputGroup = ({
     setData(newData);
   };
 
+  const canAddMoreOptions =
+    initialCount < maxShown && options.length === initialCount;
+
   return (
     <div className="input-group">
       <div className="inut-group__inputs-list">
@@ -103,7 +106,7 @@ export const InputGroup = ({
       </div>
       {errorMessage ? <Error message={errorMessage} /> : null}
 
-      {initialCount < maxShown && (
+      {canAddMoreOptions && (
         <div className="input-group__add-more" onClick={handleAddOption}>
           <Icon name="actions-plus" color="#9749FA" size="lg" />
           <p className="small-text input-group__add-more-text">{addMoreText}</p>

@@ -9,7 +9,8 @@
   display: flex;
   justify-content: center;
   position: relative;
-  width: 4rem;
+  min-width: 4rem;
+  max-width: 10rem;
   height: 4rem;
 
   @media screen and (min-width: 1200px) {
@@ -173,5 +174,10 @@
       border-color: $color_secondary_9749fa;
       bottom: -16rem;
     }
+  }
+
+  &__suggested-label {
+    margin: 0 auto;
+    color: $color_blue_2a54bc;
   }
 }

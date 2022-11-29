@@ -17,8 +17,23 @@ async function changeImage() {
   return response;
 }
 
+async function changeImageAsAdmin(providerId, image) {
+  const response = await http.put(`${API_ENDPOINT}/image/admin`, {
+    providerId,
+    image,
+  });
+  return response;
+}
+
 async function deleteImage() {
   const response = await http.delete(`${API_ENDPOINT}/image`);
+  return response;
+}
+
+async function deleteImageAsAdmin(providerId, image) {
+  const response = await http.delete(`${API_ENDPOINT}/image/admin`, {
+    data: { providerId, image },
+  });
   return response;
 }
 
@@ -30,6 +45,18 @@ async function deleteImage() {
 async function getAvailabilityForWeek(startDate) {
   const response = await http.get(
     `${API_ENDPOINT}/availability/single-week?startDate=${startDate}`
+  );
+  return response;
+}
+
+/**
+ *
+ * @param {Number} startDate - start date in milliseconds in UTC
+ * @returns {array} - array of timestamps is milliseconds in UTC
+ */
+async function getConsultationsForWeek(startDate) {
+  const response = await http.get(
+    `${API_ENDPOINT}/consultation/single-week?startDate=${startDate}`
   );
   return response;
 }
@@ -99,12 +126,14 @@ async function getAvailableSlotsForSingleDay(startDate, day, providerId) {
 
 /**
  *
+ * @param {String} clientId the id of the client
  * @param {String} providerId the id of the provider
  * @param {number} slotTimestamp the timestamp of the slot
  * @returns {Promise} resolving to and object with the "consultation_id"
  */
-async function blockSlot(providerId, slotTimestamp) {
+async function blockSlot(clientId, providerId, slotTimestamp) {
   const response = await http.post(`${API_ENDPOINT}/consultation/block`, {
+    clientId,
     providerId,
     time: JSON.stringify(slotTimestamp / 1000),
   });
@@ -130,20 +159,119 @@ async function cancelConsultation(consultationId) {
   return res;
 }
 
+async function rescheduleConsultation(consultationId, newConsultationId) {
+  const res = await http.post(`${API_ENDPOINT}/consultation/reschedule`, {
+    consultationId,
+    newConsultationId,
+  });
+  return res;
+}
+
+/**
+ *
+ * @param {string} consultationId
+ *
+ * @returns {Promise}
+ */
+async function suggestConsultation(consultationId) {
+  const res = await http.put(`${API_ENDPOINT}/consultation/suggest`, {
+    consultationId,
+  });
+  return res;
+}
+
+async function getAllClients() {
+  const res = await http.get(`${API_ENDPOINT}/clients`);
+  return res;
+}
+
+async function getAllConsultationsByClientId(clientId) {
+  const res = await http.get(
+    `${API_ENDPOINT}/consultation/all/past/by-id?clientId=${clientId}`
+  );
+  return res;
+}
+
+async function getAllUpcomingConsultations() {
+  const res = await http.get(`${API_ENDPOINT}/consultation/all/upcoming`);
+  return res;
+}
+
+async function getAllPastConsultations() {
+  const res = await http.get(`${API_ENDPOINT}/consultation/all/past`);
+  return res;
+}
+
+async function getConsultationsForSingleDay(day) {
+  const res = await http.get(
+    `${API_ENDPOINT}/consultation/single-day?date=${JSON.stringify(day)}`
+  );
+  return res;
+}
+
+async function getCalendarData(startDate) {
+  const startDateString = JSON.stringify(startDate);
+  const res = await http.get(
+    `${API_ENDPOINT}/calendar/five-weeks?startDate=${startDateString}`
+  );
+  return res;
+}
+
+async function acceptConsultation(consultationId) {
+  const res = await http.put(`${API_ENDPOINT}/consultation/accept-suggest`, {
+    consultationId,
+  });
+  return res;
+}
+
+async function rejectConsultation(consultationId) {
+  const res = await http.put(`${API_ENDPOINT}/consultation/reject-suggest`, {
+    consultationId,
+  });
+  return res;
+}
+
+async function getProviderByIdAsAdmin(id) {
+  const res = await http.get(`${API_ENDPOINT}/by-id/admin?providerId=${id}`);
+  return res;
+}
+
+async function updateProviderDataByIdAsAdmin(data) {
+  const res = await http.put(`${API_ENDPOINT}/by-id/admin`, {
+    ...data,
+  });
+  return res;
+}
+
 const exportedFunctions = {
-  getProviderData,
-  updateProviderData,
+  addAvailableSlot,
+  addTemplateAvailability,
+  blockSlot,
+  cancelConsultation,
   changeImage,
   deleteImage,
-  getAvailabilityForWeek,
-  addAvailableSlot,
-  removeAvailableSlot,
-  addTemplateAvailability,
+  getAllClients,
+  getAllConsultationsByClientId,
+  getAllUpcomingConsultations,
+  getAllPastConsultations,
   getAllProviders,
-  getProviderById,
+  getAvailabilityForWeek,
   getAvailableSlotsForSingleDay,
-  blockSlot,
+  getConsultationsForSingleDay,
+  getConsultationsForWeek,
+  getProviderById,
+  getProviderByIdAsAdmin,
+  getProviderData,
+  getCalendarData,
+  removeAvailableSlot,
+  rescheduleConsultation,
   scheduleConsultation,
-  cancelConsultation,
+  suggestConsultation,
+  updateProviderData,
+  acceptConsultation,
+  rejectConsultation,
+  updateProviderDataByIdAsAdmin,
+  changeImageAsAdmin,
+  deleteImageAsAdmin,
 };
 export default exportedFunctions;

@@ -41,6 +41,7 @@ export const Navbar = ({
   showCta,
   showProfile,
   showCountries = false,
+  showProfilePicture = true,
   yourProfileText,
   i18n,
   image,
@@ -263,7 +264,13 @@ export const Navbar = ({
   const profileContainer = (
     <div className="nav__profile">
       {width >= 950 && notificationIcon}
-      <img src={imageURL} alt="profile-image" className="nav__profile__image" />
+      {showProfilePicture && (
+        <img
+          src={imageURL}
+          alt="profile-image"
+          className="nav__profile__image"
+        />
+      )}
       <p onClick={handleProfileClick} className="paragraph">
         {yourProfileText}
       </p>

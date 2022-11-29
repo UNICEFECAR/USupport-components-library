@@ -5,7 +5,13 @@ import { Box } from "../../boxes/Box";
 import { Avatar } from "../../avatars/Avatar";
 import { Icon } from "../../icons/Icon";
 import { Button } from "../../buttons/Button";
-import { getDateView, getDayOfTheWeek } from "../../../utils";
+import {
+  checkIsFiveMinutesBefore,
+  getDateView,
+  getDayOfTheWeek,
+} from "../../../utils";
+
+const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
 
 import "./consultation.scss";
 
@@ -20,27 +26,35 @@ export const Consultation = ({
   renderIn,
   joinLabel,
   editLabel,
-  proposeChangeLabel,
-  cancelSuggestionLabel,
+  rejectConsultationLabel,
+  cancelConsultationLabel,
   acceptLabel,
   detailsLabel,
   activeLabel,
+  suggestedLabel,
   viewProfileLabel,
+  notConductedLabel,
+  endedLabel,
   daysOfWeekTranslations,
   handleOpenEdit,
   handleOpenDetails,
   handleJoinClick,
-  providerId = "e04e0f50-6676-425d-997d-f790a030d7a3",
-  consultationId = "consultationId",
-  name,
-  image,
-  timestamp,
+  handleCancelConsultation,
+  handleAcceptConsultation,
+  handleRejectConsultation,
+  consultation,
   overview,
-  requested,
+  suggested,
   onClick,
   hasMenu,
   classes,
 }) => {
+  const { providerId, consultationId, timestamp, image, status } = consultation;
+
+  const name = consultation.providerName || consultation.clientName;
+
+  const imageUrl = AMAZON_S3_BUCKET + "/" + (image || "default");
+
   const startDate = new Date(timestamp);
   const endDate = new Date(
     new Date(timestamp).setHours(new Date(timestamp).getHours() + 1)
@@ -49,29 +63,34 @@ export const Consultation = ({
   const dateText = `${dayOfWeek} ${getDateView(startDate).slice(0, 5)}`;
 
   const today = new Date().getTime();
+  const isFiveMinutesBefore = checkIsFiveMinutesBefore(timestamp);
 
   let buttonLabel, buttonAction;
-  if (startDate < today && endDate > today) {
+  if (isFiveMinutesBefore) {
     buttonLabel = joinLabel;
     buttonAction = "join";
   } else if (today > endDate) {
     buttonLabel = detailsLabel;
     buttonAction = "details";
   } else {
-    buttonLabel = renderIn === "client" ? editLabel : proposeChangeLabel;
-    buttonAction = "edit";
+    buttonLabel = renderIn === "client" ? editLabel : cancelConsultationLabel;
+    buttonAction = renderIn === "client" ? "edit" : "cancel";
   }
 
+  const startHour = startDate.getHours();
+  const endHour = endDate.getHours();
   const timeText = startDate
-    ? `${startDate.getHours()}:00 - ${endDate.getHours()}:00`
+    ? `${startHour < 10 ? `0${startHour}` : startHour}:00 - ${
+        endHour < 10 ? `0${endHour}` : endHour
+      }:00`
     : "";
 
-  const handleAcceptRequest = () => {
-    console.log("Accept request");
+  const handleAccepConsultationClick = () => {
+    handleAcceptConsultation(consultationId);
   };
 
-  const handleCancelRequest = () => {
-    console.log("cancel suggestion");
+  const handleRejectConsultationClick = () => {
+    handleRejectConsultation(consultationId);
   };
 
   const handleJoin = () => {
@@ -79,11 +98,15 @@ export const Consultation = ({
   };
 
   const handleEdit = () => {
-    handleOpenEdit(providerId, consultationId);
+    handleOpenEdit(consultation);
   };
 
   const handleSeeDetails = () => {
-    handleOpenDetails(providerId, consultationId);
+    handleOpenDetails(consultation);
+  };
+
+  const handleCancel = () => {
+    handleCancelConsultation(consultation);
   };
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -103,33 +126,17 @@ export const Consultation = ({
       },
     ];
 
-    if (buttonAction === "edit" || buttonAction === "join") {
-      menuOptions.push({
-        iconName: "close-x",
-        text: cancelSuggestionLabel,
-        onClick: () => console.log("Cancel consultation"),
-      });
-    }
-
-    if (buttonAction === "details") {
-      menuOptions.push({
-        iconName: "document",
-        text: detailsLabel,
-        onClick: () => console.log("Check details"),
-      });
-    }
-
     return menuOptions.map((option, index) => {
       return (
         <div
-          className="provider-consultation__menu__option"
+          className="consultation__menu__option"
           onClick={option.onClick}
           key={index}
         >
           <Icon
             name={option.iconName}
             color={"#373737"}
-            classes="provider-consultation__menu__option__icon"
+            classes="consultation__menu__option__icon"
           />
           <p className="small-text">{option.text}</p>
         </div>
@@ -148,7 +155,7 @@ export const Consultation = ({
       ].join(" ")}
     >
       <div className="consultation__content">
-        <Avatar image={image} size="sm" />
+        <Avatar image={imageUrl} size="sm" />
         <div className="consultation__content__text-container">
           <div className="consultation__content__text-container__name-container">
             <p
@@ -183,7 +190,7 @@ export const Consultation = ({
           )}
         </div>
       </div>
-      {!overview && !requested && buttonAction === "join" && (
+      {!overview && !suggested && buttonAction === "join" && (
         <div className="consultation__button-container">
           <p className="text consultation__button-container__now-text">
             {activeLabel}
@@ -196,26 +203,39 @@ export const Consultation = ({
           />
         </div>
       )}
-      {!overview && requested && (
+      {!overview && suggested && renderIn === "client" && (
         <div className="consultation__request-container">
           <Button
-            onClick={() => handleAcceptRequest()}
+            onClick={handleAccepConsultationClick}
             label={acceptLabel}
             size="sm"
           />
           <Button
-            onClick={() => handleCancelRequest()}
-            label={cancelSuggestionLabel}
+            onClick={handleRejectConsultationClick}
+            label={rejectConsultationLabel}
             type="secondary"
             size="sm"
           />
         </div>
       )}
 
-      {!overview && !requested && buttonAction === "edit" && (
+      {!overview && suggested && renderIn === "provider" && (
         <div className="consultation__button-container">
           <Button
-            onClick={() => handleEdit()}
+            onClick={() => handleCancelRequest()}
+            label={suggestedLabel}
+            type="secondary"
+            size="sm"
+            disabled
+            color="purple"
+          />
+        </div>
+      )}
+
+      {!overview && !suggested && buttonAction === "edit" && (
+        <div className="consultation__button-container">
+          <Button
+            onClick={handleEdit}
             label={buttonLabel}
             size="sm"
             type="secondary"
@@ -224,7 +244,19 @@ export const Consultation = ({
         </div>
       )}
 
-      {!overview && !requested && buttonAction === "details" && (
+      {!overview && !suggested && buttonAction === "cancel" && (
+        <div className="consultation__button-container">
+          <Button
+            onClick={handleCancel}
+            label={buttonLabel}
+            size="sm"
+            type="secondary"
+            color={renderIn === "provider" ? "purple" : "green"}
+          />
+        </div>
+      )}
+
+      {!overview && !suggested && buttonAction === "details" && (
         <div className="consultation__button-container">
           {renderIn === "client" ? (
             <Button
@@ -235,7 +267,9 @@ export const Consultation = ({
               color={renderIn === "provider" ? "purple" : "green"}
             />
           ) : (
-            <p className="small-text">Consultation ended</p>
+            <p className="small-text">
+              {status === "finished" ? endedLabel : notConductedLabel}
+            </p>
           )}
         </div>
       )}
@@ -272,14 +306,14 @@ Consultation.propTypes = {
   editLabel: PropTypes.string,
 
   /**
-   * Translation for the propose a change button
+   * Translation for the cancel suggestion button
    */
-  proposeChangeLabel: PropTypes.string,
+  rejectConsultationLabel: PropTypes.string,
 
   /**
-   * Translation for the cancel button
+   * Translation for the cancel consultation button
    */
-  cancelSuggestionLabel: PropTypes.string,
+  cancelConsultationLabel: PropTypes.string,
 
   /**
    * Translation for the accept button
@@ -292,9 +326,24 @@ Consultation.propTypes = {
   activeLabel: PropTypes.string,
 
   /**
+   * Translation for the scheduled text
+   */
+  suggestedLabel: PropTypes.string,
+
+  /**
    * Translation for the details text
    */
   detailsLabel: PropTypes.string,
+
+  /**
+   * Translation for the text when the consultation has been completed
+   */
+  endedLabel: PropTypes.string,
+
+  /**
+   * Translation for the text when the consultation is in the past, but not conducted
+   */
+  notConductedLabel: PropTypes.string,
 
   /**
    * An object containing the translations for each weekday
@@ -305,7 +354,7 @@ Consultation.propTypes = {
   /**
    * The id of the provider
    */
-  providerId: PropTypes.string.isRequired,
+  providerId: PropTypes.string,
 
   /**
    * Provider name of the specialist
@@ -330,7 +379,7 @@ Consultation.propTypes = {
   /**
    * Is the card request? If "true" show to "Accept consultation" and "Cancel suggestion" buttons
    */
-  requested: PropTypes.bool,
+  suggested: PropTypes.bool,
 
   /**
    * OnClick function to be called when the card is clicked
@@ -355,14 +404,17 @@ Consultation.defaultProps = {
   default: "client",
   joinLabel: "Join",
   editLabel: "Edit",
-  proposeChangeLabel: "Propose a change",
-  cancelSuggestionLabel: "Cancel suggestion",
+  rejectConsultationLabel: "Reject suggestion",
+  cancelConsultationLabel: "Cancel consultation",
   acceptLabel: "Accept consultation",
   detailsLabel: "See details",
   activeLabel: "Now",
+  suggestedLabel: "Suggested",
   viewProfileLabel: "View personal profile",
+  endedLabel: "Consultation ended",
+  notConductedLabel: "Not conducted",
   overview: true,
-  requested: false,
+  suggested: false,
   onClick: () => {},
   hasMenu: false,
 };

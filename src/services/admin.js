@@ -6,6 +6,57 @@ const API_ENDPOINT_COUNTRIES_SOS_CENTERS =
   API_ENDPOINT + "/country/sos-centers";
 const API_ENDPOINT_COUNTRIES_ARTICLES = API_ENDPOINT + "/country/articles";
 
+async function login(email, password) {
+  const response = await http.post(`${API_ENDPOINT}/login`, {
+    email: email,
+    password: password,
+  });
+  return response;
+}
+
+function logout() {
+  localStorage.removeItem("token");
+  localStorage.removeItem("token-expires-in");
+  localStorage.removeItem("refresh-token");
+}
+
+async function refreshToken(refreshToken) {
+  const response = await http.post(`${API_ENDPOINT}/refresh-token`, {
+    refreshToken,
+  });
+  return response;
+}
+
+/**
+ *
+ * @param {String} email -> the email of the admin
+ * @returns
+ */
+async function generateForgotPasswordLink(email) {
+  const response = await http.get(
+    `${API_ENDPOINT}/rescue/forgot-password?email=${email}`
+  );
+  return response;
+}
+
+async function resetPassword(password, token) {
+  const response = await http.post(`${API_ENDPOINT}/rescue/forgot-password`, {
+    token,
+    password,
+  });
+  return response;
+}
+
+async function getData() {
+  const response = await http.get(`${API_ENDPOINT}/`);
+  return response;
+}
+
+async function updateData(payload) {
+  const response = await http.put(`${API_ENDPOINT}/`, payload);
+  return response;
+}
+
 /**
  *
  * @param {string} platform the platform of the faqs. Accepts: website, client, or provider.
@@ -122,7 +173,15 @@ async function deleteArticle(id) {
   });
   return response;
 }
+
 const exportedFunctions = {
+  login,
+  logout,
+  refreshToken,
+  generateForgotPasswordLink,
+  resetPassword,
+  getData,
+  updateData,
   getFAQs,
   putFAQ,
   deleteFAQ,
