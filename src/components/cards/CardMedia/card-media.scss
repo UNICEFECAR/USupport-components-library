@@ -75,6 +75,8 @@
     .card-media__image {
       width: 100%;
       border-radius: $border_radius_2_4 $border_radius_2_4 0 0;
+      object-fit: cover;
+      object-position: center;
     }
 
     &.card-media--sm {
