@@ -32,7 +32,12 @@ const defaultBreakpointItems = {
  *
  * @return {jsx}
  */
-export const CustomCarousel = ({ classes, breakpointItems, children }) => {
+export const CustomCarousel = ({
+  classes,
+  breakpointItems,
+  children,
+  speed = 3000,
+}) => {
   return (
     <div className={["custom-carousel", classNames(classes)].join(" ")}>
       <Carousel
@@ -42,7 +47,7 @@ export const CustomCarousel = ({ classes, breakpointItems, children }) => {
         infinite={true}
         showDots={true}
         arrows={false}
-        autoPlaySpeed={3000}
+        autoPlaySpeed={speed}
       >
         {children}
       </Carousel>
