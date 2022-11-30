@@ -1,12 +1,18 @@
 import React from "react";
+import classNames from "classnames";
 import PropTypes from "prop-types";
 import { Button } from "../../buttons/Button/Button";
 import { Box } from "../../boxes/Box/Box";
-import classNames from "classnames";
+
+import {
+  checkIsFiveMinutesBefore,
+  getDateView,
+  getMonthName,
+} from "../../../utils";
 
 import "./consultation-dashboard.scss";
 
-import avatar from "../../../assets/specialistPlaceholderImage.png";
+const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
 
 /**
  * ConsultationDashboard
@@ -17,29 +23,45 @@ import avatar from "../../../assets/specialistPlaceholderImage.png";
  */
 export const ConsultationDashboard = ({
   providerName,
-  consultationDate,
-  isLive,
   classes,
   liveText,
   noConsultationsText,
   joinButtonText,
   changeButtonText,
   scheduleButtonText,
+  consultation,
+  handleJoin,
+  handleEdit,
 }) => {
+  const { providerName, timestamp, image } = consultation || {};
+  // const name = consultation.providerName || consultation.clientName;
+  const imageUrl = AMAZON_S3_BUCKET + "/" + (image || "default");
+
+  const isLive = checkIsFiveMinutesBefore(timestamp);
+
+  const startDate = new Date(timestamp);
+
+  const dateText = `${getDateView(startDate).slice(0, 2)}th ${getMonthName(
+    startDate
+  )}`;
+
+  const time = startDate.getHours();
+  const timeText = startDate ? `${time < 10 ? `0${time}` : time}:00` : "";
+
   return (
     <Box
       shadow={1}
       classes={["consultation-dashboard", classNames(classes)].join(" ")}
     >
-      {providerName && consultationDate ? (
+      {consultation ? (
         <div className="consultation-dashboard__content">
           {isLive ? (
             <p className="small-text now-text">{liveText}</p>
           ) : (
-            <p className="small-text">{consultationDate}</p>
+            <p className="small-text">{`${dateText} ${timeText}`}</p>
           )}
-          <div className="consultation-dashboard__content__provider-container">
-            <img src={avatar} className="provider-image" />
+          <div className="consultation-dashboard__content__specialist-container">
+            <img src={imageUrl} className="specialist-image" />
             <p className="text">{providerName}</p>
           </div>
           {isLive ? (
@@ -48,6 +70,7 @@ export const ConsultationDashboard = ({
               color="purple"
               size="sm"
               classes="consultation-dashboard__button"
+              onClick={() => handleJoin(consultation.consultationId)}
             />
           ) : (
             <Button
@@ -55,6 +78,7 @@ export const ConsultationDashboard = ({
               type="secondary"
               size="sm"
               color="purple"
+              onClick={() => handleEdit(consultation)}
             />
           )}
         </div>
@@ -69,21 +93,6 @@ export const ConsultationDashboard = ({
 };
 
 ConsultationDashboard.propTypes = {
-  /**
-   * Provider name
-   * */
-  providerName: PropTypes.string,
-
-  /**
-   * ConsultationDashboard date
-   * */
-  consultationDate: PropTypes.string,
-
-  /**
-   * Is the consultation happening now
-   **/
-  isLive: PropTypes.bool,
-
   /**
    * Additional classes to be added to the ConsultationDashboard
    * */
