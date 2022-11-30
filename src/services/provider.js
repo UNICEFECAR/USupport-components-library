@@ -250,6 +250,15 @@ async function deleteProvider(password) {
   return res;
 }
 
+async function deleteProviderByIdAsAdmin(id) {
+  const res = await http.delete(`${API_ENDPOINT}/by-id/admin`, {
+    data: {
+      providerId: id,
+    },
+  });
+  return res;
+}
+
 const exportedFunctions = {
   addAvailableSlot,
   addTemplateAvailability,
@@ -281,5 +290,6 @@ const exportedFunctions = {
   changeImageAsAdmin,
   deleteImageAsAdmin,
   deleteProvider,
+  deleteProviderByIdAsAdmin,
 };
 export default exportedFunctions;
