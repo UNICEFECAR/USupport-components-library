@@ -41,7 +41,22 @@ async function getAllConsultations() {
   return response;
 }
 
+/**
+ *
+ * @param {number} date timestamp of the date
+ * @param {string} mood the value of the mood
+ * @returns {Promise} the response of the request
+ */
+async function addMoodTrack(date, mood) {
+  const response = await http.post(`${API_ENDPOINT}/mood-track`, {
+    date,
+    mood,
+  });
+  return response;
+}
+
 const exportedFunctions = {
+  addMoodTrack,
   getClientData,
   updateClientData,
   deleteClientProfile,
