@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import Joi from "joi";
 import classNames from "classnames";
@@ -34,9 +33,7 @@ const initialData = {
  *
  * @return {jsx}
  */
-export const ContactForm = ({ classes, sendEmail }) => {
-  const navigate = useNavigate();
-
+export const ContactForm = ({ classes, sendEmail, navigate }) => {
   const [data, setData] = useState(initialData);
   const [reasons, setReasons] = useState(initialReasons);
   const [errors, setErrors] = useState({});
