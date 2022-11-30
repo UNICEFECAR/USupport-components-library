@@ -22,7 +22,6 @@ const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
  * @return {jsx}
  */
 export const ConsultationDashboard = ({
-  providerName,
   classes,
   liveText,
   noConsultationsText,
@@ -60,8 +59,8 @@ export const ConsultationDashboard = ({
           ) : (
             <p className="small-text">{`${dateText} ${timeText}`}</p>
           )}
-          <div className="consultation-dashboard__content__specialist-container">
-            <img src={imageUrl} className="specialist-image" />
+          <div className="consultation-dashboard__content__provider-container">
+            <img src={imageUrl} className="provider-image" />
             <p className="text">{providerName}</p>
           </div>
           {isLive ? (
