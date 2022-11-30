@@ -57,8 +57,8 @@ export const ConsultationBig = ({
             {dateText}, {timeText}
           </p>
         )}
-        <div className="consultation-big__specialist-container">
-          <img src={imageUrl} alt={"Specialist"} />
+        <div className="consultation-big__provider-container">
+          <img src={imageUrl} alt={"provider"} />
           <p>{providerName}</p>
         </div>
         {isLive ? (
