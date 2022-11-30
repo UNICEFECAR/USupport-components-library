@@ -13,11 +13,11 @@ import { Error } from "../../errors/Error";
 import "./contact-form.scss";
 
 const initialReasons = [
-  { label: "Reason 1", selected: false },
-  { label: "Reason 2", selected: false },
-  { label: "Reason 3", selected: false },
-  { label: "Reason 4", selected: false },
-  { label: "Reason 5", selected: false },
+  { label: "Reason 1", value: "reason1" },
+  { label: "Reason 2", value: "reason2" },
+  { label: "Reason 3", value: "reason3" },
+  { label: "Reason 4", value: "reason4" },
+  { label: "Reason 5", value: "reason5" },
 ];
 
 const initialData = {
@@ -51,9 +51,7 @@ export const ContactForm = ({ classes, sendEmail, navigate }) => {
     email: Joi.string()
       .email({ tlds: { allow: false } })
       .label("Please enter your email address"),
-    reason: Joi.object({ label: Joi.string(), selected: Joi.boolean() }).label(
-      "Please select a reason"
-    ),
+    reason: Joi.string().label("Please select a reason"),
     message: Joi.string().min(5).label("Please enter your message"),
   });
 
@@ -66,22 +64,6 @@ export const ContactForm = ({ classes, sendEmail, navigate }) => {
 
   const handleBlur = async (field, value) => {
     await validateProperty(field, value, schema, setErrors);
-  };
-
-  const handleReasonChange = (reason) => {
-    const reasonsCopy = [...reasons];
-    for (let i = 0; i < reasonsCopy.length; i++) {
-      if (reasonsCopy[i].value === reason) {
-        reasonsCopy[i].selected = true;
-      } else {
-        reasonsCopy[i].selected = false;
-      }
-    }
-    setReasons(reasonsCopy);
-    setData({
-      ...data,
-      reason,
-    });
   };
 
   const handleSubmit = async (e) => {
@@ -124,7 +106,7 @@ export const ContactForm = ({ classes, sendEmail, navigate }) => {
       <DropdownWithLabel
         options={reasons}
         selected={data.reason}
-        setSelected={handleReasonChange}
+        setSelected={(reason) => handleChange("reason", reason)}
         errorMessage={errors.reason}
         label="Subject for contacting us"
         classes="contact-form__subject"
