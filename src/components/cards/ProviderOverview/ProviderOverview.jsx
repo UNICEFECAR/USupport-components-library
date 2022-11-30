@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import OutsideClickHandler from "react-outside-click-handler";
+
 import { Box } from "../../boxes/Box/Box";
 import { Avatar } from "../../avatars/Avatar/Avatar";
 import { Icon } from "../../icons/Icon/Icon";
@@ -67,29 +69,31 @@ export const ProviderOverview = ({
         </div>
       </div>
       {isMenuOpen && (
-        <div className="provider-overview__menu">
-          <div
-            onClick={handleViewProfile}
-            className="provider-overview__menu__content"
-          >
-            <Icon name="person" size="md" color="#20809E" />
-            <p className="text">{viewProfileLabel}</p>
+        <OutsideClickHandler onOutsideClick={() => setIsMenuOpen(false)}>
+          <div className="provider-overview__menu">
+            <div
+              onClick={handleViewProfile}
+              className="provider-overview__menu__content"
+            >
+              <Icon name="person" size="md" color="#20809E" />
+              <p className="text">{viewProfileLabel}</p>
+            </div>
+            <div
+              onClick={handleEdit}
+              className="provider-overview__menu__content"
+            >
+              <Icon name="edit" size="md" />
+              <p className="text">{editLabel}</p>
+            </div>
+            <div
+              onClick={handleDelete}
+              className="provider-overview__menu__content"
+            >
+              <Icon name="trash" size="md" />
+              <p className="text">{deleteLabel}</p>
+            </div>
           </div>
-          <div
-            onClick={handleEdit}
-            className="provider-overview__menu__content"
-          >
-            <Icon name="edit" size="md" />
-            <p className="text">{editLabel}</p>
-          </div>
-          <div
-            onClick={handleDelete}
-            className="provider-overview__menu__content"
-          >
-            <Icon name="trash" size="md" />
-            <p className="text">{deleteLabel}</p>
-          </div>
-        </div>
+        </OutsideClickHandler>
       )}
     </Box>
   );
