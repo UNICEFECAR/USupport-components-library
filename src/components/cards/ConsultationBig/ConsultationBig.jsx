@@ -32,9 +32,9 @@ export const ConsultationBig = ({
   handleJoin,
   handleChange,
 }) => {
-  const { providerName, timestamp } = consultation;
+  const { providerName, timestamp, image } = consultation;
   // const name = consultation.providerName || consultation.clientName;
-  // const imageUrl = AMAZON_S3_BUCKET + "/" + (image || "default");
+  const imageUrl = AMAZON_S3_BUCKET + "/" + (image || "default");
 
   const isLive = checkIsFiveMinutesBefore(timestamp);
 
@@ -58,7 +58,7 @@ export const ConsultationBig = ({
           </p>
         )}
         <div className="consultation-big__specialist-container">
-          <img src={avatar} alt={"Specialist"} />
+          <img src={imageUrl} alt={"Specialist"} />
           <p>{providerName}</p>
         </div>
         {isLive ? (
@@ -66,7 +66,7 @@ export const ConsultationBig = ({
             label={joinButtonText}
             color="purple"
             classes={"consultation-big__button"}
-            onClick={handleJoin}
+            onClick={() => handleJoin(consultation.consultationId)}
           />
         ) : (
           <Button
@@ -74,7 +74,7 @@ export const ConsultationBig = ({
             type="secondary"
             color="purple"
             classes={"consultation-big__button"}
-            onClick={handleChange}
+            onClick={() => handleChange(consultation)}
           />
         )}
       </div>

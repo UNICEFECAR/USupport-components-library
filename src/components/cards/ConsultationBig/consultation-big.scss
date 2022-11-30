@@ -38,10 +38,11 @@
       margin-right: $spacing_0_8;
     }
 
-    > p {
+    & > p {
       color: $color_blue_3d527b;
       font-weight: $font_bold;
-      word-break: break-word;
+      word-break: break-all;
+      text-align: left;
     }
   }
 
