@@ -58,9 +58,6 @@ export const Navbar = ({
 
   const imageURL = AMAZON_S3_BUCKET + "/" + image;
 
-  // const localStorageCountry = localStorage.getItem("country");
-  // const localStorageLanguage = localStorage.getItem("language");
-
   const [isNavbarExpanded, setIsNavbarExpanded] = useState(false);
   const [languagesShown, setLanguagesShown] = useState(false);
   const [countriesShown, setCountriesShown] = useState(false);
@@ -84,13 +81,6 @@ export const Navbar = ({
       setLanguagesShown(false);
     }
   };
-  const getLink = (page) => {
-    if (isTmpUser && page.url === "/consultations") {
-      return "";
-    } else {
-      return page.url ? page.url : "#";
-    }
-  };
 
   const handleNavbarLinkClick = (page) => {
     if (isTmpUser && page.url === "/consultations") {
@@ -103,7 +93,7 @@ export const Navbar = ({
     items.push({
       value: (
         <NavLink
-          to={getLink(page)}
+          to={page.url}
           className={({ isActive }) =>
             "nav__item" + (isActive ? " nav__item--current" : "")
           }
