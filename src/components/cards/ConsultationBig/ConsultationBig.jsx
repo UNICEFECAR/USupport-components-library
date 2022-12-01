@@ -26,13 +26,12 @@ const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
 export const ConsultationBig = ({
   consultation,
   classes,
-  liveText,
-  joinButtonText,
-  changeButtonText,
   handleJoin,
   handleChange,
+  handleAcceptSuggestion,
+  t,
 }) => {
-  const { providerName, timestamp, image } = consultation;
+  const { providerName, timestamp, image, status } = consultation;
   // const name = consultation.providerName || consultation.clientName;
   const imageUrl = AMAZON_S3_BUCKET + "/" + (image || "default");
 
@@ -51,7 +50,9 @@ export const ConsultationBig = ({
     <Box classes={["consultation-big", classNames(classes)].join(" ")}>
       <div>
         {isLive ? (
-          <p className="small-text consultation-big__now-text">{liveText}</p>
+          <p className="small-text consultation-big__now-text">
+            {t("live_text")}
+          </p>
         ) : (
           <p className="small-text">
             {dateText}, {timeText}
@@ -61,19 +62,27 @@ export const ConsultationBig = ({
           <img src={imageUrl} alt={"provider"} />
           <p>{providerName}</p>
         </div>
-        {isLive ? (
+        {status === "suggested" ? (
           <Button
-            label={joinButtonText}
+            type="primary"
+            size="sm"
+            onClick={() => handleAcceptSuggestion(consultation.consultationId)}
+            label={t("accept_button_label")}
+            classes="consultation-big__button"
+          />
+        ) : isLive ? (
+          <Button
+            label={t("join_button_label")}
             color="purple"
-            classes={"consultation-big__button"}
+            classes="consultation-big__button"
             onClick={() => handleJoin(consultation.consultationId)}
           />
         ) : (
           <Button
-            label={changeButtonText}
+            label={t("change_button_label")}
             type="secondary"
             color="purple"
-            classes={"consultation-big__button"}
+            classes="consultation-big__button"
             onClick={() => handleChange(consultation)}
           />
         )}
@@ -85,52 +94,17 @@ export const ConsultationBig = ({
 
 ConsultationBig.propTypes = {
   /**
-   * Provider name
-   * */
-  providerName: PropTypes.string,
-
-  /**
-   * Consultation date
-   * */
-  consultationDate: PropTypes.string,
-
-  /**
-   * Is the consultation happening now
-   **/
-  isLive: PropTypes.bool,
-
-  /**
    * Additional classes to be added to the CardConsultation
    * */
   classes: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.arrayOf(PropTypes.string),
   ]),
-
-  /**
-   * Text(translated in the used language) to display when the consultation is live
-   * */
-  liveText: PropTypes.string,
-
-  /**
-   * Text(translated in the used language) to be displayed on the button when the consultation is live
-   */
-  joinButtonText: PropTypes.string,
-
-  /**
-   * Text(translated in the used language) to be displayed on the button when the user wants to change his consultation date/time?
-   */
-  changeButtonText: PropTypes.string,
 };
 
 ConsultationBig.defaultProps = {
-  providerName: "",
-  consultationDate: "",
   isLive: false,
   classes: "",
-  liveText: "Now",
-  changeButtonText: "Change",
-  joinButtonText: "Join now",
   handleJoin: () => {},
   handleChange: () => {},
 };

@@ -23,16 +23,13 @@ const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
  */
 export const ConsultationDashboard = ({
   classes,
-  liveText,
-  noConsultationsText,
-  joinButtonText,
-  changeButtonText,
-  scheduleButtonText,
   consultation,
   handleJoin,
   handleEdit,
+  handleAcceptSuggestion,
+  t,
 }) => {
-  const { providerName, timestamp, image } = consultation || {};
+  const { providerName, timestamp, image, status } = consultation || {};
   // const name = consultation.providerName || consultation.clientName;
   const imageUrl = AMAZON_S3_BUCKET + "/" + (image || "default");
 
@@ -55,7 +52,7 @@ export const ConsultationDashboard = ({
       {consultation ? (
         <div className="consultation-dashboard__content">
           {isLive ? (
-            <p className="small-text now-text">{liveText}</p>
+            <p className="small-text now-text">{t("live_text")}</p>
           ) : (
             <p className="small-text">{`${dateText} ${timeText}`}</p>
           )}
@@ -63,9 +60,18 @@ export const ConsultationDashboard = ({
             <img src={imageUrl} className="provider-image" />
             <p className="text">{providerName}</p>
           </div>
-          {isLive ? (
+          {status === "suggested" ? (
             <Button
-              label={joinButtonText}
+              type="primary"
+              label={t("accept_button_label")}
+              size="sm"
+              onClick={() =>
+                handleAcceptSuggestion(consultation.consultationId)
+              }
+            />
+          ) : isLive ? (
+            <Button
+              label={t("join_button_label")}
               color="purple"
               size="sm"
               classes="consultation-dashboard__button"
@@ -73,7 +79,7 @@ export const ConsultationDashboard = ({
             />
           ) : (
             <Button
-              label={changeButtonText}
+              label={t("change_button_label")}
               type="secondary"
               size="sm"
               color="purple"
@@ -83,8 +89,8 @@ export const ConsultationDashboard = ({
         </div>
       ) : (
         <div className="consultation-dashboard__no-consultation">
-          <p className="small-text no-booking-text">{noConsultationsText}</p>
-          <Button size="sm" label={scheduleButtonText} color="purple" />
+          <p className="small-text no-booking-text">{t("no_consultations")}</p>
+          <Button size="sm" label={t("schedule_button_label")} color="purple" />
         </div>
       )}
     </Box>
@@ -101,38 +107,13 @@ ConsultationDashboard.propTypes = {
   ]),
 
   /**
-   * Text(translated in the used language) to display when the consultation is live
-   * */
-  liveText: PropTypes.string,
-
-  /**
-   * Text(translated in the used language) to be displayed when there are no consultations
+   * The translation function
    */
-  noConsultationsText: PropTypes.string,
-
-  /**
-   * Text(translated in the used language) to be displayed on the button when the consultation is live
-   */
-  joinButtonText: PropTypes.string,
-
-  /**
-   * Text(translated in the used language) to be displayed on the button when the user wants to change his consultation date/time?
-   */
-  changeButtonText: PropTypes.string,
-
-  /**
-   * Text(translated in the used language) to be displayed on the button when the user wants to schedule a consultation
-   */
-  scheduleButtonText: PropTypes.string,
+  t: PropTypes.func,
 };
 
 ConsultationDashboard.defaultProps = {
   providerName: "",
   consultationDate: "",
   isLive: false,
-  liveText: "Now",
-  noConsultationsText: "Currently you do not have upcoming consultations",
-  joinButtonText: "Join",
-  changeButtonText: "Change",
-  scheduleButtonText: "Schedule",
 };
