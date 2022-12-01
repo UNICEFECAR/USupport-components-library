@@ -6,10 +6,16 @@ const API_ENDPOINT_COUNTRIES_SOS_CENTERS =
   API_ENDPOINT + "/country/sos-centers";
 const API_ENDPOINT_COUNTRIES_ARTICLES = API_ENDPOINT + "/country/articles";
 
-async function login(email, password) {
+async function createAdmin(payload) {
+  const response = await http.post(`${API_ENDPOINT}/signup`, payload);
+  return response;
+}
+
+async function login(email, password, role) {
   const response = await http.post(`${API_ENDPOINT}/login`, {
     email: email,
     password: password,
+    role,
   });
   return response;
 }
@@ -32,9 +38,10 @@ async function refreshToken(refreshToken) {
  * @param {String} email -> the email of the admin
  * @returns
  */
-async function generateForgotPasswordLink(email) {
+async function generateForgotPasswordLink(email, role) {
+  if (!role) throw new Error("ADD ROLE");
   const response = await http.get(
-    `${API_ENDPOINT}/rescue/forgot-password?email=${email}`
+    `${API_ENDPOINT}/rescue/forgot-password?email=${email}?role=${role}`
   );
   return response;
 }
@@ -52,8 +59,21 @@ async function getData() {
   return response;
 }
 
+async function getDataById(id) {
+  const response = await http.get(`${API_ENDPOINT}/by-id?adminId=${id}`);
+  return response;
+}
+
 async function updateData(payload) {
   const response = await http.put(`${API_ENDPOINT}/`, payload);
+  return response;
+}
+
+async function updateDataById(id, payload) {
+  const response = await http.put(
+    `${API_ENDPOINT}/by-id?adminId=${id}`,
+    payload
+  );
   return response;
 }
 
@@ -174,23 +194,54 @@ async function deleteArticle(id) {
   return response;
 }
 
+async function getAllGlobalAdmins() {
+  const response = await http.get(`${API_ENDPOINT}/all?type=global`);
+  return response;
+}
+
+async function getAllCountryAdminsByCountry(countryId) {
+  const response = await http.get(
+    `${API_ENDPOINT}/all?type=country&countryId=${countryId}`
+  );
+  return response;
+}
+
+async function getGlobalStatistics() {
+  const response = await http.get(`${API_ENDPOINT}/statistics/global`);
+  return response;
+}
+
+async function getCountryStatistics(countryId) {
+  const response = await http.get(
+    `${API_ENDPOINT}/statistics/country?countryId=${countryId}`
+  );
+  return response;
+}
+
 const exportedFunctions = {
+  createAdmin,
+  deleteArticle,
+  deleteFAQ,
+  deleteSOSCenters,
+  generateForgotPasswordLink,
+  getAllGlobalAdmins,
+  getAllCountryAdminsByCountry,
+  getGlobalStatistics,
+  getCountryStatistics,
+  getArticles,
+  getData,
+  getDataById,
+  getFAQs,
+  getSOSCenters,
   login,
   logout,
-  refreshToken,
-  generateForgotPasswordLink,
-  resetPassword,
-  getData,
-  updateData,
-  getFAQs,
-  putFAQ,
-  deleteFAQ,
-  getSOSCenters,
-  putSOSCenters,
-  deleteSOSCenters,
-  getArticles,
   putArticle,
-  deleteArticle,
+  putFAQ,
+  putSOSCenters,
+  refreshToken,
+  resetPassword,
+  updateData,
+  updateDataById,
 };
 
 export default exportedFunctions;

@@ -80,7 +80,7 @@ export const CardMedia = ({
           type={
             type === "landscape" && (size === "sm" || size == "md")
               ? "text"
-              : "primary"
+              : "secondary"
           }
           label={"Read more"}
           onClick={() => {
