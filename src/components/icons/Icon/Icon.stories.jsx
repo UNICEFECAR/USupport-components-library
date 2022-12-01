@@ -105,6 +105,8 @@ const icons = [
   "share-front",
   "mood",
   "dedicated-space",
+  "flag-KZ-round",
+  "flag-KG-round",
 ];
 
 export const All = (props) => (
