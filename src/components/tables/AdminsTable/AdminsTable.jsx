@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import OutsideClickHandler from "react-outside-click-handler";
 
 import { Loading } from "../../loaders/Loading";
 import { Icon } from "../../icons/Icon";
 
 import "./admins-table.scss";
-import OutsideClickHandler from "react-outside-click-handler";
 
 /**
  * AdminsTable
@@ -59,7 +59,12 @@ export const AdminsTable = ({
                     <p className="text">{admin.email}</p>
                   </td>
                   <td className="admins-table__table__td">
-                    <p className="text">{admin.phone || "N/A"}</p>
+                    <p className="text">
+                      {}
+                      {admin.phone
+                        ? `${admin.phonePrefix} ${admin.phone}`
+                        : "N/A"}
+                    </p>
                   </td>
                   <TableIcon
                     t={t}
