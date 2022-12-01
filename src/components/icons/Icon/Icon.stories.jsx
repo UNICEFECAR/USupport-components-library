@@ -104,6 +104,7 @@ const icons = [
   "trash",
   "share-front",
   "mood",
+  "dedicated-space",
 ];
 
 export const All = (props) => (
