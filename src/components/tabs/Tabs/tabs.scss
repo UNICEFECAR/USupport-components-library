@@ -42,12 +42,16 @@
 }
 
 .show-more {
-  margin: $spacing_0_8 0 $spacing_0_8 $spacing_1_6;
+  margin: $spacing_0_8 0 $spacing_0_8 0;
   padding: $spacing_0_8 0;
   width: 34.3rem;
   border: 0.1rem solid rgba(217, 217, 217, 0.63);
   position: absolute;
-  right: 0;
+
+  @media screen and (min-width: $screen-md) {
+    left: 50%;
+    margin-left: -17rem;
+  }
 
   &__options {
     padding: $spacing_0_8 $spacing_1_6;
