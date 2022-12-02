@@ -27,6 +27,7 @@ export const ConsultationDashboard = ({
   handleJoin,
   handleEdit,
   handleAcceptSuggestion,
+  handleSchedule,
   t,
 }) => {
   const { providerName, timestamp, image, status } = consultation || {};
@@ -90,7 +91,12 @@ export const ConsultationDashboard = ({
       ) : (
         <div className="consultation-dashboard__no-consultation">
           <p className="small-text no-booking-text">{t("no_consultations")}</p>
-          <Button size="sm" label={t("schedule_button_label")} color="purple" />
+          <Button
+            size="sm"
+            label={t("schedule_button_label")}
+            color="purple"
+            onClick={handleSchedule}
+          />
         </div>
       )}
     </Box>
