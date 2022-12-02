@@ -42,11 +42,11 @@
 }
 
 .show-more {
+  position: absolute;
   margin: $spacing_0_8 0 $spacing_0_8 0;
   padding: $spacing_0_8 0;
   width: 34.3rem;
   border: 0.1rem solid rgba(217, 217, 217, 0.63);
-  position: absolute;
 
   @media screen and (min-width: $screen-md) {
     left: 50%;
