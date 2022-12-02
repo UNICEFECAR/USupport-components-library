@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { CheckBox } from "../../inputs/CheckBox";
 import PropTypes from "prop-types";
 
@@ -29,13 +30,13 @@ export const TermsAgreement = ({
       />
       <p className="text">
         {textOne}{" "}
-        <a className="privacy-policy-link" href="#">
+        <Link className="privacy-policy-link" to="/privacy-policy">
           {textTwo}
-        </a>{" "}
+        </Link>{" "}
         {textThree} <br />
-        <a className="privacy-policy-link" href="#">
+        <Link className="privacy-policy-link" to="/terms-of-use">
           {textFour}
-        </a>
+        </Link>
       </p>
     </div>
   );
