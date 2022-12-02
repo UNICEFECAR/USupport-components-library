@@ -60,7 +60,7 @@ export const ConsultationBig = ({
         )}
         <div className="consultation-big__provider-container">
           <img src={imageUrl} alt={"provider"} />
-          <p>{providerName}</p>
+          <p className="text">{providerName}</p>
         </div>
         {status === "suggested" ? (
           <Button
