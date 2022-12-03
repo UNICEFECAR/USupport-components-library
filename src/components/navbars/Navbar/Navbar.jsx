@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import OutsideClickHandler from "react-outside-click-handler";
 import { Icon, IconFlag } from "../../icons";
@@ -12,7 +12,6 @@ const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
 import "./navbar.scss";
 
 import { logoHorizontalPng } from "../../../assets";
-import { useEffect } from "react";
 
 const englishLanguage = {
   label: "English",
@@ -62,7 +61,9 @@ export const Navbar = ({
   const [languagesShown, setLanguagesShown] = useState(false);
   const [countriesShown, setCountriesShown] = useState(false);
 
-  const [selectedLanguage, setSelectedLanguage] = useState(englishLanguage);
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    initialLanguage || englishLanguage
+  );
   const [selectedCountry, setSelectedCountry] = useState(kazakhstanCountry);
 
   useEffect(() => {
@@ -222,7 +223,7 @@ export const Navbar = ({
       color="green"
       classes="nav__login"
       onClick={() => {
-        navigate("/login");
+        navigate("/client/login");
         scrollTop();
       }}
       web={width >= 950}
