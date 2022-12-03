@@ -16,6 +16,7 @@ import { Button } from "../../buttons/Button/Button";
  *
  * @return {jsx}
  */
+// TODO: Delete this component ?
 export const ProviderConsultation = ({
   name,
   image,
@@ -28,7 +29,6 @@ export const ProviderConsultation = ({
   upcomingButtonText,
   isCompleted,
 }) => {
-  // TODO: check if the consultation is live by comparing the current hour with the consultation date
   const isLive = false;
   const isUpcoming = true;
 

@@ -21,11 +21,14 @@ export const AdminsTable = ({
   t,
   handleDelete,
   handleEdit,
+  adminId,
 }) => {
   return (
     <div className="admins-table__container">
       {isLoading ? (
         <Loading />
+      ) : !data || data.length === 0 ? (
+        <p>{t("no_admins_found")}</p>
       ) : (
         <table className="admins-table__table">
           <thead>
@@ -70,6 +73,7 @@ export const AdminsTable = ({
                     t={t}
                     handleEdit={() => handleEdit(admin.adminId)}
                     handleDelete={() => handleDelete(admin.adminId)}
+                    showDelete={adminId !== admin.adminId}
                   />
                 </tr>
               );
@@ -81,7 +85,7 @@ export const AdminsTable = ({
   );
 };
 
-const TableIcon = ({ handleEdit, handleDelete, t }) => {
+const TableIcon = ({ handleEdit, handleDelete, showDelete, t }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
     <td className="admins-table__table-icon">
@@ -99,10 +103,15 @@ const TableIcon = ({ handleEdit, handleDelete, t }) => {
                 <p>{t("edit")}</p>
               </div>
 
-              <div className="admins-table__menu-option" onClick={handleDelete}>
-                <Icon name="trash" />
-                <p>{t("delete_icon")}</p>
-              </div>
+              {showDelete && (
+                <div
+                  className="admins-table__menu-option"
+                  onClick={handleDelete}
+                >
+                  <Icon name="trash" />
+                  <p>{t("delete_icon")}</p>
+                </div>
+              )}
             </div>
           )}
         </OutsideClickHandler>
@@ -120,7 +129,7 @@ AdminsTable.propTypes = {
   /**
    * Array of strings to be used as table headers
    */
-  rows: PropTypes.arrayOf(PropTypes.object).isRequired,
+  rows: PropTypes.arrayOf(PropTypes.string).isRequired,
 
   /**
    * Array of admins

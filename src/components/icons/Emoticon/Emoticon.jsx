@@ -10,7 +10,6 @@ import { Icon } from "../Icon";
  * @return {jsx}
  */
 export const Emoticon = ({ name, size }) => {
-  // TODO: lg icon not working due to the linear gradient
   return (
     <Icon name={`${name}-${size}`} classes={`emoticon emoticon--${size}`} />
   );

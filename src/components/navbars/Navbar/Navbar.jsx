@@ -32,7 +32,6 @@ const kazakhstanCountry = {
  * @return {jsx}
  */
 export const Navbar = ({
-  // TODO: Receive the default country from the parent(Page)
   pages,
   languageLabel,
   countryLabel,
@@ -41,6 +40,7 @@ export const Navbar = ({
   showProfile,
   showCountries = false,
   showProfilePicture = true,
+  showNotifications = true,
   yourProfileText,
   i18n,
   image,
@@ -254,7 +254,7 @@ export const Navbar = ({
 
   const profileContainer = (
     <div className="nav__profile">
-      {width >= 950 && notificationIcon}
+      {width >= 950 && showNotifications && notificationIcon}
       {showProfilePicture && (
         <img
           src={imageURL}
@@ -338,7 +338,7 @@ export const Navbar = ({
         </div>
 
         {renderCtaLoginMobile()}
-        {renderNotificationIconMobile()}
+        {showNotifications && renderNotificationIconMobile()}
 
         <List
           items={items}

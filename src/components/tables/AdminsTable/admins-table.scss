@@ -4,12 +4,13 @@
   &__container {
     overflow-x: auto;
     padding-top: $spacing_3_6;
+    padding-bottom: $spacing_9_0;
   }
 
   &__table {
     min-width: 100rem;
     width: 100%;
-    padding-right: 3rem;
+    padding-right: $spacing_3_0;
 
     &__td {
       border-bottom: 1px solid $color_gray_a6b4b8;
@@ -44,11 +45,10 @@
       background-color: $color_white_ff;
       border-bottom: unset;
       cursor: pointer;
-      margin-top: 1.6rem;
-      padding-left: $spacing_1_2;
-      padding-right: $spacing_1_2;
+      margin-top: $spacing_1_0;
+      padding: $spacing_1_2;
       position: fixed;
-      right: -1.6rem;
+      right: -$spacing_1_6;
 
       &__content {
         position: relative;
