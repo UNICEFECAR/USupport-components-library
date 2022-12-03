@@ -19,6 +19,7 @@ body {
   line-height: $line_height_2_4;
   color: $color_gray_66768d;
   -webkit-tap-highlight-color: $color_transparent; /* Remove the tap highlight */
+  @include scrollbar-primary;
 
   @media screen and (min-width: $screen-lg) {
     font-size: $font_size_2_0;
