@@ -12,13 +12,19 @@ import "./header.scss";
  *
  * @return {jsx}
  */
-export const Header = ({ handleDayChange, setStartDate }) => {
+export const Header = ({ handleDayChange, setStartDate, startDate }) => {
+  console.log(startDate, "startDAte");
   const currentDay = new Date();
-  const [today, setToday] = useState(new Date());
+  const [today, setToday] = useState(
+    startDate ? new Date(startDate) : new Date()
+    // new Date()
+  );
   const [canChangeWeekBackwards, setCanChangeWeekBackwards] = useState(false);
   const [selectedDay, setSelectedDay] = useState(today);
   const [startOfWeek, setStartOfWeek] = useState();
   const [daysOfWeek, setDaysOfWeek] = useState([]);
+  const [hasCalledHandleDayChange, setHasCalledHandleDayChange] =
+    useState(false);
 
   useEffect(() => {
     const { first, last } = getStartAndEndOfWeek(today);
@@ -26,8 +32,9 @@ export const Header = ({ handleDayChange, setStartDate }) => {
     setCanChangeWeekBackwards(!isCurrentWeek);
     setDaysOfWeek(getDatesInRange(first, last));
     setStartOfWeek(first);
-    if (first && selectedDay) {
+    if (first && selectedDay && !hasCalledHandleDayChange) {
       handleDayChange(first, selectedDay);
+      setHasCalledHandleDayChange(true);
     }
   }, [today]);
 

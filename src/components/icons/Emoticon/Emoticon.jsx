@@ -11,7 +11,7 @@ import { Icon } from "../Icon";
  */
 export const Emoticon = ({ name, size }) => {
   return (
-    <Icon name={`${name}-${size}`} classes={`emoticon emoticon--${size}`} />
+    <Icon name={`${name}-${size}`} classes={`emoticon emoticon--${"sm"}`} />
   );
 };
 
