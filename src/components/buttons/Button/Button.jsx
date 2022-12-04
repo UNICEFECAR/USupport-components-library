@@ -21,6 +21,7 @@ export const Button = ({
   web,
   classes,
   onClick,
+  isSubmit,
   ...props
 }) => {
   return (
@@ -32,6 +33,7 @@ export const Button = ({
       ].join(" ")}
       onClick={disabled ? () => {} : onClick}
       disabled={disabled}
+      type={isSubmit ? "submit" : "button"}
       {...props}
     >
       <div className={"btn__content-container"}>

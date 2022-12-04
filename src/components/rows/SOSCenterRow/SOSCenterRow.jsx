@@ -25,7 +25,7 @@ export const SOSCenterRow = ({
 }) => {
   return (
     <>
-      <div className="sos-center-row">
+      <div className="sos-center-row" onClick={() => setSelected(!selected)}>
         <Grid md={8} lg={12} classes={"sos-center-row__content__grid"}>
           <GridItem xs={1} md={1} lg={1}>
             <CheckBox isChecked={selected} setIsChecked={setSelected} />
@@ -41,7 +41,7 @@ export const SOSCenterRow = ({
 
               <GridItem md={8} lg={3}>
                 {link ? (
-                  <a href={`mailto:${link}`} target="_blank">
+                  <a href={link} target="_blank">
                     <p className="text sos-center-row__heading">{link}</p>
                   </a>
                 ) : (

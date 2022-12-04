@@ -27,7 +27,7 @@ export const ArticleRow = ({
 }) => {
   return (
     <>
-      <div className="article-row">
+      <div className="article-row" onClick={setSelected}>
         <CheckBox
           isChecked={selected}
           setIsChecked={setSelected}
@@ -51,7 +51,8 @@ export const ArticleRow = ({
               size="sm"
               color="purple"
               classes="article-row__grid__button-item__button"
-              onClick={() => {
+              onClick={(e) => {
+                e.stopPropagation();
                 onClick && onClick();
               }}
             />

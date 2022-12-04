@@ -11,6 +11,13 @@ async function createAdmin(payload) {
   return response;
 }
 
+async function deleteAdminById(id) {
+  const response = await http.delete(`${API_ENDPOINT}/by-id`, {
+    data: { adminId: id },
+  });
+  return response;
+}
+
 async function login(email, password, role) {
   const response = await http.post(`${API_ENDPOINT}/login`, {
     email: email,
@@ -39,9 +46,8 @@ async function refreshToken(refreshToken) {
  * @returns
  */
 async function generateForgotPasswordLink(email, role) {
-  if (!role) throw new Error("ADD ROLE");
   const response = await http.get(
-    `${API_ENDPOINT}/rescue/forgot-password?email=${email}?role=${role}`
+    `${API_ENDPOINT}/rescue/forgot-password?email=${email}&role=${role}`
   );
   return response;
 }
@@ -221,6 +227,7 @@ async function getCountryStatistics(countryId) {
 const exportedFunctions = {
   createAdmin,
   deleteArticle,
+  deleteAdminById,
   deleteFAQ,
   deleteSOSCenters,
   generateForgotPasswordLink,

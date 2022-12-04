@@ -27,7 +27,12 @@ CardIconAndLabel.propTypes = {
   /**
    * Icon name
    */
-  iconName: PropTypes.oneOf(["therapy", "self-care", "community"]).isRequired,
+  iconName: PropTypes.oneOf([
+    "therapy",
+    "self-care",
+    "community",
+    "dedicated-space",
+  ]).isRequired,
 
   /**
    * Size of the card

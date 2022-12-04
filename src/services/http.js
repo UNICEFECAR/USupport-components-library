@@ -30,6 +30,8 @@ const interceptError = async (error) => {
       const platform = window.location.pathname.split("/")[1];
       window.location.replace(`/${platform}/`);
       return Promise.reject(error);
+    } else if (error.response?.data.error.name === "ACCOUNT DEACTIVATED") {
+      return Promise.reject(error);
     }
 
     const token = localStorage.getItem("token");

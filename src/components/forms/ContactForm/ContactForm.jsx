@@ -11,14 +11,7 @@ import { validate, validateProperty } from "../../../utils";
 import { Error } from "../../errors/Error";
 
 import "./contact-form.scss";
-
-const initialReasons = [
-  { label: "Reason 1", value: "reason1" },
-  { label: "Reason 2", value: "reason2" },
-  { label: "Reason 3", value: "reason3" },
-  { label: "Reason 4", value: "reason4" },
-  { label: "Reason 5", value: "reason5" },
-];
+import { t } from "i18next";
 
 const initialData = {
   email: "",
@@ -33,7 +26,15 @@ const initialData = {
  *
  * @return {jsx}
  */
-export const ContactForm = ({ classes, sendEmail, navigate }) => {
+export const ContactForm = ({ classes, sendEmail, navigate, t }) => {
+  const initialReasons = [
+    { value: "information", label: t("contact_reason_1") },
+    { value: "unsubscribe", label: t("contact_reason_2") },
+    { value: "technical-problem", label: t("contact_reason_3") },
+    { value: "join-as-provider", label: t("contact_reason_4") },
+    { value: "partnership", label: t("contact_reason_5") },
+    { value: "other", label: t("contact_reason_6") },
+  ];
   const [data, setData] = useState(initialData);
   const [reasons, setReasons] = useState(initialReasons);
   const [errors, setErrors] = useState({});
@@ -71,18 +72,28 @@ export const ContactForm = ({ classes, sendEmail, navigate }) => {
     if (!isSubmitting) {
       if ((await validate(data, schema, setErrors)) == null) {
         setIsSubmitting(true);
-
-        await sendEmail(data).then((raw) => {
-          if (raw.status < 400) {
-            setIsSuccessEmailModalOpen(true);
-            setData(initialData);
-            setReasons(initialReasons);
-          } else {
-            setErrors({ submit: raw.data.error.message });
+        const payload = {
+          email: data.email,
+          reason: reasons.find((reason) => reason.value === data.reason).label,
+          message: data.message,
+        };
+        await sendEmail(payload)
+          .then((raw) => {
+            if (raw.status < 400) {
+              setIsSuccessEmailModalOpen(true);
+              setData(initialData);
+              setReasons(initialReasons);
+            } else {
+              setErrors({ submit: raw.data.error.message });
+              setIsSubmitting(false);
+            }
+          })
+          .catch((err) => {
             setIsSubmitting(false);
-          }
-        });
+          });
 
+        setIsSubmitting(false);
+      } else {
         setIsSubmitting(false);
       }
     }
@@ -110,7 +121,7 @@ export const ContactForm = ({ classes, sendEmail, navigate }) => {
         errorMessage={errors.reason}
         label="Subject for contacting us"
         classes="contact-form__subject"
-        placeholder="Select a reason"
+        placeholder={t("contact_reason_placeholder")}
       />
       <Textarea
         label="Message"

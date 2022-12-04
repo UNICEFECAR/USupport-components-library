@@ -1,4 +1,20 @@
-@mixin scrollbar {
+@mixin scrollbar-primary {
+  &::-webkit-scrollbar {
+    width: 0.4rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    margin: $spacing_2_4;
+    background: rgba(217, 217, 217, 0.63);
+    border-radius: 0.3rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $color_primary_20809e;
+    border-radius: 0.3rem;
+  }
+}
+
+@mixin scrollbar-secondary {
   &::-webkit-scrollbar {
     width: 0.3rem;
   }

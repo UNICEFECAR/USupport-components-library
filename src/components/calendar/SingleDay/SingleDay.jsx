@@ -21,8 +21,6 @@ export const SingleDay = ({
   consultationsLabel,
   unavailableLabel,
 }) => {
-  // TODO: Figure out a way to translate the days of the week
-  // Idea: Create a reuseable hook that takes a string e.g. "mon" and returns the day translated
   const { width } = useWindowDimensions();
   const isToday = new Date().toDateString() === date.toDateString();
 

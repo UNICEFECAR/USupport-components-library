@@ -1,7 +1,9 @@
 @import "../../../styles/theme";
 
 .sos-center-row {
+  cursor: pointer;
   text-align: left;
+
   &__heading {
     color: $color_blue_3d527b;
   }
