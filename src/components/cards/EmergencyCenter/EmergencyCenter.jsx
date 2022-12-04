@@ -12,11 +12,18 @@ import "./emergency-center.scss";
  *
  * @return {jsx}
  */
-export const EmergencyCenter = ({ title, text, link, phone, btnLabel }) => {
-  const handleCall = () => {
-    if (phone) {
+export const EmergencyCenter = ({
+  title,
+  text,
+  link,
+  phone,
+  btnLabelLink,
+  btnLabelCall,
+}) => {
+  const handleClick = (type) => {
+    if (type === "phone") {
       window.open(`tel:${phone}`);
-    } else if (link) {
+    } else if (type === "link") {
       window.open(link, "_blank");
     }
   };
@@ -26,12 +33,22 @@ export const EmergencyCenter = ({ title, text, link, phone, btnLabel }) => {
       <p className="text emergency-center__heading-text">{title}</p>
       <p className="small-text emergency-center__description">{text}</p>
       <div className="emergency-center__btn-container">
-        <Button
-          color="purple"
-          size="sm"
-          label={btnLabel}
-          onClick={handleCall}
-        />
+        {phone ? (
+          <Button
+            color="purple"
+            size="sm"
+            label={btnLabelCall}
+            onClick={() => handleClick("phone")}
+          />
+        ) : null}
+        {link ? (
+          <Button
+            color="purple"
+            size="sm"
+            label={btnLabelLink}
+            onClick={() => handleClick("link")}
+          />
+        ) : null}
       </div>
     </Box>
   );
@@ -59,9 +76,14 @@ EmergencyCenter.propTypes = {
   phone: PropTypes.string,
 
   /**
-   * Label of the button
+   * Label of the link button
    * */
-  btnLabel: PropTypes.string,
+  btnLabelLink: PropTypes.string,
+
+  /**
+   * Label of the phone button
+   * */
+  btnLabelCall: PropTypes.string,
 };
 
 EmergencyCenter.defaultProps = {
