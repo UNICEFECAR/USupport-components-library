@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import OutsideClickHandler from "react-outside-click-handler";
 import { Box } from "../../boxes/Box";
 import { Avatar } from "../../avatars/Avatar";
 import { Icon } from "../../icons/Icon";
@@ -275,14 +276,20 @@ export const Consultation = ({
       )}
 
       {isMenuOpen && (
-        <div
-          className={[
-            "consultation__menu",
-            buttonAction === "join" && "consultation__menu-live",
-          ].join(" ")}
+        <OutsideClickHandler
+          onOutsideClick={() => {
+            setIsMenuOpen(false);
+          }}
         >
-          {renderOptions()}
-        </div>
+          <div
+            className={[
+              "consultation__menu",
+              buttonAction === "join" && "consultation__menu-live",
+            ].join(" ")}
+          >
+            {renderOptions()}
+          </div>
+        </OutsideClickHandler>
       )}
     </Box>
   );
