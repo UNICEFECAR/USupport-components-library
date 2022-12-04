@@ -21,9 +21,10 @@ export const ConsultationInformation = ({
   providerName,
   providerImage,
   classes,
+  t,
 }) => {
   const dateText = startDate
-    ? `${getDayOfTheWeek(startDate)}, ${
+    ? `${t(getDayOfTheWeek(startDate))}, ${
         startDate.getDate() < 10
           ? `0${startDate.getDate()}`
           : startDate.getDate()

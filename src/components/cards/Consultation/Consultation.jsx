@@ -25,18 +25,7 @@ import "./consultation.scss";
  */
 export const Consultation = ({
   renderIn,
-  joinLabel,
-  editLabel,
-  rejectConsultationLabel,
-  cancelConsultationLabel,
-  acceptLabel,
-  detailsLabel,
-  activeLabel,
-  suggestedLabel,
-  viewProfileLabel,
-  notConductedLabel,
-  endedLabel,
-  daysOfWeekTranslations,
+  t,
   handleOpenEdit,
   handleOpenDetails,
   handleJoinClick,
@@ -60,7 +49,7 @@ export const Consultation = ({
   const endDate = new Date(
     new Date(timestamp).setHours(new Date(timestamp).getHours() + 1)
   );
-  const dayOfWeek = daysOfWeekTranslations[getDayOfTheWeek(startDate)];
+  const dayOfWeek = t(getDayOfTheWeek(startDate));
   const dateText = `${dayOfWeek} ${getDateView(startDate).slice(0, 5)}`;
 
   const today = new Date().getTime();
@@ -68,13 +57,13 @@ export const Consultation = ({
 
   let buttonLabel, buttonAction;
   if (isFiveMinutesBefore) {
-    buttonLabel = joinLabel;
+    buttonLabel = t("join");
     buttonAction = "join";
   } else if (today > endDate) {
-    buttonLabel = detailsLabel;
+    buttonLabel = t("details");
     buttonAction = "details";
   } else {
-    buttonLabel = renderIn === "client" ? editLabel : cancelConsultationLabel;
+    buttonLabel = renderIn === "client" ? t("edit") : t("cancel_consultation");
     buttonAction = renderIn === "client" ? "edit" : "cancel";
   }
 
@@ -120,7 +109,7 @@ export const Consultation = ({
     let menuOptions = [
       {
         iconName: "person",
-        text: viewProfileLabel,
+        text: t("view_profile"),
         onClick: () => {
           console.log("View personal profile");
         },
@@ -194,7 +183,7 @@ export const Consultation = ({
       {!overview && !suggested && buttonAction === "join" && (
         <div className="consultation__button-container">
           <p className="text consultation__button-container__now-text">
-            {activeLabel}
+            {t("active")}
           </p>
           <Button
             onClick={() => handleJoin()}
@@ -208,12 +197,12 @@ export const Consultation = ({
         <div className="consultation__request-container">
           <Button
             onClick={handleAccepConsultationClick}
-            label={acceptLabel}
+            label={t("accept")}
             size="sm"
           />
           <Button
             onClick={handleRejectConsultationClick}
-            label={rejectConsultationLabel}
+            label={t("reject")}
             type="secondary"
             size="sm"
           />
@@ -224,7 +213,7 @@ export const Consultation = ({
         <div className="consultation__button-container">
           <Button
             onClick={() => handleCancelRequest()}
-            label={suggestedLabel}
+            label={t("suggested")}
             type="secondary"
             size="sm"
             disabled
@@ -269,7 +258,7 @@ export const Consultation = ({
             />
           ) : (
             <p className="small-text">
-              {status === "finished" ? endedLabel : notConductedLabel}
+              {status === "finished" ? t("conducted") : t("not_conducted")}
             </p>
           )}
         </div>
@@ -301,62 +290,6 @@ Consultation.propTypes = {
    * @default "client"
    */
   renderIn: PropTypes.oneOf(["admin", "provider", "client"]),
-
-  /**
-   * Translation for the join button
-   */
-  joinLabel: PropTypes.string,
-
-  /**
-   * Translation for the edit button
-   */
-  editLabel: PropTypes.string,
-
-  /**
-   * Translation for the cancel suggestion button
-   */
-  rejectConsultationLabel: PropTypes.string,
-
-  /**
-   * Translation for the cancel consultation button
-   */
-  cancelConsultationLabel: PropTypes.string,
-
-  /**
-   * Translation for the accept button
-   */
-  acceptLabel: PropTypes.string,
-
-  /**
-   * Translation for the active text
-   */
-  activeLabel: PropTypes.string,
-
-  /**
-   * Translation for the scheduled text
-   */
-  suggestedLabel: PropTypes.string,
-
-  /**
-   * Translation for the details text
-   */
-  detailsLabel: PropTypes.string,
-
-  /**
-   * Translation for the text when the consultation has been completed
-   */
-  endedLabel: PropTypes.string,
-
-  /**
-   * Translation for the text when the consultation is in the past, but not conducted
-   */
-  notConductedLabel: PropTypes.string,
-
-  /**
-   * An object containing the translations for each weekday
-   * {"monday":"Monday"}
-   */
-  daysOfWeekTranslations: PropTypes.object.isRequired,
 
   /**
    * The id of the provider
@@ -409,17 +342,6 @@ Consultation.propTypes = {
 
 Consultation.defaultProps = {
   default: "client",
-  joinLabel: "Join",
-  editLabel: "Edit",
-  rejectConsultationLabel: "Reject suggestion",
-  cancelConsultationLabel: "Cancel consultation",
-  acceptLabel: "Accept consultation",
-  detailsLabel: "See details",
-  activeLabel: "Now",
-  suggestedLabel: "Suggested",
-  viewProfileLabel: "View personal profile",
-  endedLabel: "Consultation ended",
-  notConductedLabel: "Not conducted",
   overview: true,
   suggested: false,
   onClick: () => {},
