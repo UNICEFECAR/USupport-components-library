@@ -5,6 +5,7 @@
   flex-direction: row;
   align-items: flex-start;
   text-align: left;
+  cursor: pointer;
 
   &__text-container {
     margin-left: $spacing_0_8;
