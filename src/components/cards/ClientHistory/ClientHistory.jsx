@@ -29,17 +29,12 @@ export const ClientHistory = ({
   nextConsultationId,
   pastConsultations,
   clientId,
-  viewProfileLabel,
-  cancelConsultationLabel,
-  suggestConsultationLabel,
-  suggestedLabel,
-  daysOfWeekTranslations,
-  joinLabel,
   handleClick,
   cancelConsultation,
   suggestConsultation,
   suggested,
   image,
+  t,
 }) => {
   let startDate, endDate, dayOfWeek, dateText, startHour, endHour;
   if (timestamp) {
@@ -47,7 +42,7 @@ export const ClientHistory = ({
     endDate = new Date(
       new Date(timestamp).setHours(new Date(timestamp).getHours() + 1)
     );
-    dayOfWeek = daysOfWeekTranslations[getDayOfTheWeek(startDate)];
+    dayOfWeek = t(getDayOfTheWeek(startDate));
     dateText = `${dayOfWeek} ${getDateView(startDate).slice(0, 5)}`;
 
     startHour = startDate.getHours();
@@ -75,18 +70,18 @@ export const ClientHistory = ({
 
   let buttonLabel, buttonAction;
   if (isFiveMinutesBefore) {
-    buttonLabel = joinLabel;
+    buttonLabel = t("join");
     buttonAction = "join";
   } else if (startDate && endDate && today < startDate) {
-    buttonLabel = cancelConsultationLabel;
+    buttonLabel = t("cancel_consultation");
     buttonAction = "cancel";
   } else {
-    buttonLabel = suggestConsultationLabel;
+    buttonLabel = t("suggest_consultation");
     buttonAction = "suggest";
   }
 
   if (suggested) {
-    buttonLabel = suggestedLabel;
+    buttonLabel = t("suggested");
     buttonAction = "none";
   }
 
@@ -95,10 +90,8 @@ export const ClientHistory = ({
   };
 
   const handleSuggestConsultation = () => {
-    suggestConsultation(consultationObject);
+    suggestConsultation(clientId);
   };
-
-  const handleRemoveCustomer = () => {};
 
   const handleButtonClick = (action) => {
     switch (action) {
@@ -133,7 +126,7 @@ export const ClientHistory = ({
           <div className="client-history__header__client-container__text-container">
             <p>{name}</p>
             <p className="small-text consultation_text">
-              {pastConsultations} past consultations
+              {`${pastConsultations} ${t("past_consultations")}`}
             </p>
           </div>
         </div>
@@ -151,7 +144,7 @@ export const ClientHistory = ({
               <p className="small-text">{timeText}</p>
             </>
           ) : (
-            <p className="small-text">No consultation scheduled</p>
+            <p className="small-text">{t("no_scheduled")}</p>
           )}
         </div>
       </div>
@@ -172,7 +165,7 @@ export const ClientHistory = ({
           size="sm"
           type="secondary"
           onClick={() => handleSeeProfile()}
-          label={viewProfileLabel}
+          label={t("see_profile")}
           color={buttonAction === "join" ? "purple" : "green"}
         />
       </div>

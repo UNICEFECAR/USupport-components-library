@@ -8,6 +8,9 @@ import classNames from "classnames";
 import "./consultation-information.scss";
 
 import { specialistPlaceholder } from "../../../assets";
+
+const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
+
 /**
  * ConsultationInformation
  *
@@ -47,7 +50,10 @@ export const ConsultationInformation = ({
     <div
       className={["consultation-information", classNames(classes)].join(" ")}
     >
-      <Avatar image={providerImage} size="sm" />
+      <Avatar
+        image={AMAZON_S3_BUCKET + "/" + (providerImage || "default")}
+        size="sm"
+      />
       <div className="consultation-information__content">
         <p className="text consultation-information__content__name-text">
           {providerName}

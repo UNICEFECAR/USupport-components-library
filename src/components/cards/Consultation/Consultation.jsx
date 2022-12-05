@@ -32,6 +32,7 @@ export const Consultation = ({
   handleCancelConsultation,
   handleAcceptConsultation,
   handleRejectConsultation,
+  handleViewProfile,
   consultation,
   overview,
   suggested,
@@ -40,6 +41,10 @@ export const Consultation = ({
   classes,
 }) => {
   const { providerId, consultationId, timestamp, image, status } = consultation;
+
+  const isPast = consultation
+    ? new Date(timestamp).getTime() < new Date().getTime()
+    : false;
 
   const name = consultation.providerName || consultation.clientName;
 
@@ -84,7 +89,7 @@ export const Consultation = ({
   };
 
   const handleJoin = () => {
-    handleJoinClick(providerId);
+    handleJoinClick(consultation);
   };
 
   const handleEdit = () => {
@@ -111,7 +116,15 @@ export const Consultation = ({
         iconName: "person",
         text: t("view_profile"),
         onClick: () => {
-          console.log("View personal profile");
+          handleViewProfile(
+            {
+              clientDetailId: consultation.clientDetailId,
+              image: image || "default",
+              name: consultation.clientName,
+              chatId: consultation.chatId,
+            },
+            isPast
+          );
         },
       },
     ];

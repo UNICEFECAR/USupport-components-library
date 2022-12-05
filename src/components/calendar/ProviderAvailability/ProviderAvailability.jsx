@@ -19,15 +19,6 @@ import "./provider-availability.scss";
  * @return {jsx}
  */
 export const ProviderAvailability = ({
-  availableText,
-  unavailableText,
-  setAvailableText,
-  setUnavailableText,
-  viewProfileText,
-  proposeConsultationText,
-  cancelAppointmentText,
-  joinConsultationText,
-  suggestedLabel,
   handleSetUnavailable,
   handleSetAvailable,
   handleProposeConsultation,
@@ -37,10 +28,15 @@ export const ProviderAvailability = ({
   classes,
   isAvailable,
   consultation,
+  t,
 }) => {
   const isLive = consultation
     ? checkIsFiveMinutesBefore(new Date(consultation.time).getTime())
     : false;
+  const isPast = consultation
+    ? new Date(consultation.time).getTime() < new Date().getTime()
+    : false;
+
   const imageUrl = AMAZON_S3_BUCKET + "/" + (consultation?.image || "default");
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -54,20 +50,24 @@ export const ProviderAvailability = ({
   };
   const handleMenuSecondClick = () => {
     if (consultation) {
-      handleViewProfile();
+      handleViewProfile(consultation, isPast);
     } else {
       handleProposeConsultation();
     }
   };
 
+  const consultationDetailsText = "Consultation details";
+
   const menuFirstText = consultation
-    ? cancelAppointmentText
+    ? t("cancel")
     : isAvailable
-    ? setUnavailableText
-    : setAvailableText;
+    ? t("set_not_available")
+    : t("set_available");
   const menuSecondText = consultation
-    ? viewProfileText
-    : proposeConsultationText;
+    ? isPast
+      ? t("consultation_details")
+      : t("view_profile")
+    : t("suggest_consultation");
 
   const menuFirstIcon = consultation
     ? "close-x"
@@ -105,7 +105,7 @@ export const ProviderAvailability = ({
         <>
           {!isLive && !consultation && (
             <p className="small-text provider-availability__available-text">
-              {isAvailable ? availableText : unavailableText}
+              {isAvailable ? t("available") : t("not_available")}
             </p>
           )}
           <div className="provider-availability__icon-container">
@@ -117,21 +117,23 @@ export const ProviderAvailability = ({
       {isMenuOpen ? (
         <OutsideClickHandler onOutsideClick={() => setIsMenuOpen(false)}>
           <div className="provider-availability__controls">
-            <div
-              className="provider-availability__controls__single"
-              onClick={handleAvailabilityChange}
-            >
-              {consultation?.status === "suggested" ? (
-                <h4 className="paragraph provider-availability__suggested-label">
-                  {suggestedLabel}
-                </h4>
-              ) : (
-                <>
-                  <Icon size="md" name={menuFirstIcon} color="#373737" />
-                  <p className="small-text">{menuFirstText}</p>
-                </>
-              )}
-            </div>
+            {consultation && isPast ? null : (
+              <div
+                className="provider-availability__controls__single"
+                onClick={handleAvailabilityChange}
+              >
+                {consultation?.status === "suggested" ? (
+                  <h4 className="paragraph provider-availability__suggested-label">
+                    {t("suggested")}
+                  </h4>
+                ) : (
+                  <>
+                    <Icon size="md" name={menuFirstIcon} color="#373737" />
+                    <p className="small-text">{menuFirstText}</p>
+                  </>
+                )}
+              </div>
+            )}
 
             <div
               className="provider-availability__controls__single"
@@ -143,7 +145,7 @@ export const ProviderAvailability = ({
             {isLive ? (
               <ButtonWithIcon
                 iconName="consultation"
-                label={joinConsultationText}
+                label={t("join_consultation")}
                 onClick={handleJoinConsultation}
                 size="md"
                 iconSize="md"
@@ -167,21 +169,6 @@ ProviderAvailability.propTypes = {
   isAvailable: PropTypes.bool,
 
   /**
-   * Text(translated in the used language) to display when the provider is available
-   */
-  availableText: PropTypes.string,
-
-  /**
-   * Text(translated in the used language) to display when the provider is unavailable
-   */
-  unavailableText: PropTypes.string,
-
-  /**
-   * Text(translated in the used language) to display when the consultation is suggested by the provider
-   */
-  suggestedLabel: PropTypes.string,
-
-  /**
    * Additional classes to be added to the provier availability component
    **/
   classes: PropTypes.oneOfType([
@@ -192,13 +179,4 @@ ProviderAvailability.propTypes = {
 
 ProviderAvailability.defaultProps = {
   isAvailable: false,
-  availableText: "You are available",
-  unavailableText: "You are unavailable",
-  setAvailableText: "Set as available",
-  setUnavailableText: "Set as unavailable",
-  viewProfileText: "View personal profile",
-  proposeConsultationText: "Propose consultation",
-  cancelAppointmentText: "Cancel appointment",
-  suggestedLabel: "Suggested",
-  joinConsultationText: "Join consultation",
 };

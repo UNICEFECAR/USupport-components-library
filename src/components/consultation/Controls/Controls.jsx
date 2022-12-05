@@ -18,6 +18,7 @@ export const Controls = ({
   endDate,
   providerName,
   providerImage,
+  t,
 }) => {
   const [isMicOpen, setIsMicOpen] = useState(true);
   const [isCameraOpen, setIsCameraOpen] = useState(false);
@@ -72,6 +73,7 @@ export const Controls = ({
         endDate={endDate}
         providerName={providerName}
         providerImage={providerImage}
+        t={t}
       />
       {renderAllButtons()}
     </Box>

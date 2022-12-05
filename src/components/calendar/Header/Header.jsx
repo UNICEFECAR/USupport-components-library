@@ -13,7 +13,6 @@ import "./header.scss";
  * @return {jsx}
  */
 export const Header = ({ handleDayChange, setStartDate, startDate }) => {
-  console.log(startDate, "startDAte");
   const currentDay = new Date();
   const [today, setToday] = useState(
     startDate ? new Date(startDate) : new Date()
