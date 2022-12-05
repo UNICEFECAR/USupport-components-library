@@ -43,7 +43,7 @@ export const ProviderAvailability = ({
   const { width } = useWindowDimensions();
 
   const handleAvailabilityChange = () => {
-    if (consultation) handleCancelConsultation();
+    if (consultation) handleCancelConsultation(consultation);
     else {
       isAvailable ? handleSetUnavailable() : handleSetAvailable();
     }
@@ -135,18 +135,20 @@ export const ProviderAvailability = ({
               </div>
             )}
 
-            <div
-              className="provider-availability__controls__single"
-              onClick={handleMenuSecondClick}
-            >
-              <Icon size="md" name={menuSecondIcon} color="#373737" />
-              <p className="small-text">{menuSecondText}</p>
-            </div>
+            {consultation ? (
+              <div
+                className="provider-availability__controls__single"
+                onClick={handleMenuSecondClick}
+              >
+                <Icon size="md" name={menuSecondIcon} color="#373737" />
+                <p className="small-text">{menuSecondText}</p>
+              </div>
+            ) : null}
             {isLive ? (
               <ButtonWithIcon
                 iconName="consultation"
                 label={t("join_consultation")}
-                onClick={handleJoinConsultation}
+                onClick={() => handleJoinConsultation(consultation)}
                 size="md"
                 iconSize="md"
                 iconColor="#FFFFFF"
