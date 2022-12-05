@@ -21,9 +21,9 @@ const lists = {
     { name: "Cookie Settings", url: "/cookie-settings" },
   ],
   list3: [
-    { value: "+359 888 888 888", iconName: "call-filled", onClick: "phone" },
+    { value: "+7 717 232 28 78", iconName: "call-filled", onClick: "phone" },
     {
-      value: `ul. "Oborishte" 5, ет. 3, 1504 Sofia `,
+      value: `Beibitshilik St 10а, Astana 010000, Kazakhstan`,
       iconName: "pin",
     },
     { value: "usupport@7digit.io", iconName: "mail-filled", onClick: "mail" },

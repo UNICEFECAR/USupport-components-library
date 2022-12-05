@@ -37,7 +37,7 @@ export const Footer = ({ lists, contactUsText, navigate, Link }) => {
         link = "https://www.linkedin.com/";
         break;
       case "phone":
-        link = "tel:+359 888 888 888";
+        link = "tel:+7 717 232 28 78";
         break;
       case "mail":
         link = "mailto:usupport@7digit.io";
