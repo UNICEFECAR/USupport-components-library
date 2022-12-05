@@ -1,7 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { CheckBox } from "../../inputs/CheckBox";
-import PropTypes from "prop-types";
 
 import "./terms-agreement.scss";
 
@@ -19,6 +17,7 @@ export const TermsAgreement = ({
   textTwo,
   textThree,
   textFour,
+  Link,
 }) => {
   return (
     <div className="terms-agreement">
