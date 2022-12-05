@@ -53,7 +53,7 @@ export const ConsultationDashboard = ({
       {consultation ? (
         <div className="consultation-dashboard__content">
           {isLive ? (
-            <p className="small-text now-text">{t("live_text")}</p>
+            <p className="small-text now-text">{t("live_label")}</p>
           ) : (
             <p className="small-text">{`${dateText} ${timeText}`}</p>
           )}
@@ -76,7 +76,7 @@ export const ConsultationDashboard = ({
               color="purple"
               size="sm"
               classes="consultation-dashboard__button"
-              onClick={() => handleJoin(consultation.consultationId)}
+              onClick={() => handleJoin(consultation)}
             />
           ) : (
             <Button

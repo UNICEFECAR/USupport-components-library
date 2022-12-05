@@ -65,6 +65,7 @@ export const Consultation = ({
     buttonLabel = t("join");
     buttonAction = "join";
   } else if (today > endDate) {
+    // If the consultation is in the past
     buttonLabel = t("details");
     buttonAction = "details";
   } else {
@@ -261,7 +262,7 @@ export const Consultation = ({
 
       {!overview && !suggested && buttonAction === "details" && (
         <div className="consultation__button-container">
-          {renderIn === "client" ? (
+          {renderIn === "client" && status === "finished" ? (
             <Button
               onClick={handleSeeDetails}
               label={buttonLabel}

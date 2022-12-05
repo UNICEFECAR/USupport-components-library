@@ -16,7 +16,6 @@ export const SendMessage = ({ handleSubmit }) => {
   const [message, setMessage] = useState("");
 
   const handleSend = () => {
-    console.log(message);
     handleSubmit(message);
     setMessage("");
   };
