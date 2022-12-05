@@ -29,11 +29,10 @@ const initialData = {
 export const ContactForm = ({ classes, sendEmail, navigate, t }) => {
   const initialReasons = [
     { value: "information", label: t("contact_reason_1") },
-    { value: "unsubscribe", label: t("contact_reason_2") },
-    { value: "technical-problem", label: t("contact_reason_3") },
-    { value: "join-as-provider", label: t("contact_reason_4") },
-    { value: "partnership", label: t("contact_reason_5") },
-    { value: "other", label: t("contact_reason_6") },
+    { value: "technical-problem", label: t("contact_reason_2") },
+    { value: "join-as-provider", label: t("contact_reason_3") },
+    { value: "partnerships", label: t("contact_reason_4") },
+    { value: "other", label: t("contact_reason_5") },
   ];
   const [data, setData] = useState(initialData);
   const [reasons, setReasons] = useState(initialReasons);
