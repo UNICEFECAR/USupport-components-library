@@ -85,6 +85,7 @@ export const Navbar = ({
 
   const handleNavbarLinkClick = (page) => {
     if (isTmpUser && page.url === "/consultations") {
+      console.log("here");
       isTmpUserAction();
     }
   };
@@ -92,18 +93,23 @@ export const Navbar = ({
   let items = [];
   pages.forEach((page) => {
     items.push({
-      value: (
-        <NavLink
-          to={page.url}
-          className={({ isActive }) =>
-            "nav__item" + (isActive ? " nav__item--current" : "")
-          }
-          onClick={() => handleNavbarLinkClick(page)}
-          end={page.exact ? page.exact : false}
-        >
-          <p className="paragraph">{page.name}</p>
-        </NavLink>
-      ),
+      value:
+        isTmpUser && page.url === "/consultations" ? (
+          <div onClick={isTmpUserAction} className="nav__item">
+            <p className="paragraph">{page.name}</p>
+          </div>
+        ) : (
+          <NavLink
+            to={page.url}
+            className={({ isActive }) =>
+              "nav__item" + (isActive ? " nav__item--current" : "")
+            }
+            onClick={() => handleNavbarLinkClick(page)}
+            end={page.exact ? page.exact : false}
+          >
+            <p className="paragraph">{page.name}</p>
+          </NavLink>
+        ),
       onClick: scrollTop,
     });
   });
