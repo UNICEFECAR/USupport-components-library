@@ -56,11 +56,18 @@ export const SingleDay = ({
           <p className="small-text today-text">{isToday ? "Today" : ""}</p>
           <h4>{dateAsString}</h4>
           <div className="single-day__consultation-container">
-            <p className="small-text consultation-text">
-              {!isAvailable && numberOfConsultations === 0
-                ? unavailableLabel
-                : numberOfConsultations + "\n" + consultationsLabel}
-            </p>
+            {!isAvailable && numberOfConsultations === 0 ? (
+              <p className="small-text consultation-text">{unavailableLabel}</p>
+            ) : (
+              <>
+                <p className="small-text consultation-text">
+                  {numberOfConsultations}
+                </p>
+                <p className="small-text consultation-text">
+                  {consultationsLabel}
+                </p>
+              </>
+            )}
           </div>
         </>
       )}
