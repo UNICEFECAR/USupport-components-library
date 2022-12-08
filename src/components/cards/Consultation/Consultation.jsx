@@ -306,26 +306,6 @@ Consultation.propTypes = {
   renderIn: PropTypes.oneOf(["admin", "provider", "client"]),
 
   /**
-   * The id of the provider
-   */
-  providerId: PropTypes.string,
-
-  /**
-   * Provider name of the specialist
-   * */
-  name: PropTypes.string.isRequired,
-
-  /**
-   * Image url
-   */
-  image: PropTypes.string.isRequired,
-
-  /**
-   * The timestamp of the consultation e.g. 1668869623102
-   */
-  timestamp: PropTypes.number.isRequired,
-
-  /**
    *  Is the card overview? If "true" show the "See details" button
    */
   overview: PropTypes.bool,
