@@ -18,6 +18,7 @@ export const Controls = ({
   toggleCamera,
   toggleMicrophone,
   toggleChat,
+  leaveConsultation,
   isCameraOn,
   isMicrophoneOn,
   t,
@@ -43,7 +44,7 @@ export const Controls = ({
   };
 
   const handleHangUp = () => {
-    console.log("Hang up");
+    leaveConsultation();
   };
 
   const renderAllButtons = () => {
@@ -51,7 +52,7 @@ export const Controls = ({
       <div className="button-container">
         <div className="button-container__button" onClick={handleCameraClick}>
           <Icon
-            name={isCameraOpen ? "stop-camera" : "video"}
+            name={!isCameraOpen ? "stop-camera" : "video"}
             size="lg"
             color="#20809E"
             onClick={toggleCamera}
@@ -59,7 +60,7 @@ export const Controls = ({
         </div>
         <div className="button-container__button" onClick={handleMicClick}>
           <Icon
-            name={isMicOpen ? "stop-mic" : "microphone"}
+            name={!isMicOpen ? "stop-mic" : "microphone"}
             size="lg"
             color="#20809E"
             onClick={toggleMicrophone}
@@ -95,4 +96,5 @@ Controls.propTypes = {
 
 Controls.defaultProps = {
   // Add defaultProps here
+  leaveConsultation: () => {},
 };

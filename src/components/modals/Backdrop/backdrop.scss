@@ -71,6 +71,10 @@
 
     &--full-height {
       flex: 0.9;
+
+      @media screen and (min-width: $screen-md) {
+        flex: 1;
+      }
     }
   }
 
