@@ -166,6 +166,14 @@ async function createProvider(data) {
   return response;
 }
 
+async function getTwilioToken(consultationId) {
+  console.log("here");
+  const response = await http.get(
+    `${API_ENDPOINT}/consultation-token/?consultationId=${consultationId}`
+  );
+  return response;
+}
+
 const exportedFunctions = {
   changePassword,
   generateClientAccesToken,
@@ -173,6 +181,7 @@ const exportedFunctions = {
   getNotificationPreferences,
   getUserID,
   getWorkWithCategories,
+  getTwilioToken,
   login,
   logout,
   refreshToken,
