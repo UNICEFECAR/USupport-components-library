@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import { ConsultationInformation } from "../../cards/ConsultationInformation/ConsultationInformation";
 import { Box } from "../../boxes/Box/Box";
 import { Icon } from "../../icons/Icon";
+import { ONE_HOUR } from "../../../utils";
 
 import "./controls.scss";
 
@@ -14,25 +14,32 @@ import "./controls.scss";
  * @return {jsx}
  */
 export const Controls = ({
-  startDate,
-  endDate,
-  providerName,
-  providerImage,
+  consultation,
+  toggleCamera,
+  toggleMicrophone,
+  toggleChat,
+  isCameraOn,
+  isMicrophoneOn,
   t,
 }) => {
-  const [isMicOpen, setIsMicOpen] = useState(true);
-  const [isCameraOpen, setIsCameraOpen] = useState(false);
+  const [isMicOpen, setIsMicOpen] = useState(isMicrophoneOn);
+  const [isCameraOpen, setIsCameraOpen] = useState(isCameraOn);
+
+  const startDate = new Date(consultation.timestamp);
+  const endDate = new Date(consultation.timestamp + ONE_HOUR);
 
   const handleMicClick = () => {
     setIsMicOpen(!isMicOpen);
+    toggleMicrophone();
   };
 
   const handleCameraClick = () => {
     setIsCameraOpen(!isCameraOpen);
+    toggleCamera();
   };
 
   const handleChat = () => {
-    console.log("Chat");
+    toggleChat();
   };
 
   const handleHangUp = () => {
@@ -47,6 +54,7 @@ export const Controls = ({
             name={isCameraOpen ? "stop-camera" : "video"}
             size="lg"
             color="#20809E"
+            onClick={toggleCamera}
           />
         </div>
         <div className="button-container__button" onClick={handleMicClick}>
@@ -54,6 +62,7 @@ export const Controls = ({
             name={isMicOpen ? "stop-mic" : "microphone"}
             size="lg"
             color="#20809E"
+            onClick={toggleMicrophone}
           />
         </div>
         <div className="button-container__button" onClick={handleChat}>
@@ -71,8 +80,8 @@ export const Controls = ({
       <ConsultationInformation
         startDate={startDate}
         endDate={endDate}
-        providerName={providerName}
-        providerImage={providerImage}
+        providerName={consultation.providerName}
+        providerImage={consultation.image}
         t={t}
       />
       {renderAllButtons()}
