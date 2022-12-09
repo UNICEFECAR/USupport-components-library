@@ -168,7 +168,7 @@ async function createProvider(data) {
 
 async function getTwilioToken(consultationId) {
   const response = await http.get(
-    `${API_ENDPOINT}/consultation-token?consultationId=${consultationId}`
+    `${API_ENDPOINT}/consultation/twilio-token?consultationId=${consultationId}`
   );
   return response;
 }
