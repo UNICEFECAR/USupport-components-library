@@ -261,13 +261,13 @@ async function deleteProviderByIdAsAdmin(id) {
 
 /**
  *
- * @param {String} consultatonId the id of the consultation
+ * @param {String} consultationId the id of the consultation
  * @param {String} userType the type of the user - client or provider
  * @returns
  */
-async function leaveConsultation(consultatonId, userType) {
+async function leaveConsultation(consultationId, userType) {
   const res = await http.put(`${API_ENDPOINT}/consultation/leave`, {
-    consultatonId,
+    consultationId,
     userType,
   });
   return res;
