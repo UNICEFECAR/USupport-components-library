@@ -259,6 +259,20 @@ async function deleteProviderByIdAsAdmin(id) {
   return res;
 }
 
+/**
+ *
+ * @param {String} consultatonId the id of the consultation
+ * @param {String} userType the type of the user - client or provider
+ * @returns
+ */
+async function leaveConsultation(consultatonId, userType) {
+  const res = await http.put(`${API_ENDPOINT}/consultation/leave`, {
+    consultatonId,
+    userType,
+  });
+  return res;
+}
+
 const exportedFunctions = {
   addAvailableSlot,
   addTemplateAvailability,
@@ -291,5 +305,6 @@ const exportedFunctions = {
   deleteImageAsAdmin,
   deleteProvider,
   deleteProviderByIdAsAdmin,
+  leaveConsultation,
 };
 export default exportedFunctions;
