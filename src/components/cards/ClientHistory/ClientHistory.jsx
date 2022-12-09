@@ -26,11 +26,13 @@ import "./client-history.scss";
 export const ClientHistory = ({
   name,
   timestamp,
+  consultationChatId,
   nextConsultationId,
   pastConsultations,
   clientId,
   handleClick,
   cancelConsultation,
+  joinConsultation,
   suggestConsultation,
   suggested,
   image,
@@ -59,6 +61,7 @@ export const ClientHistory = ({
 
   const consultationObject = {
     consultationId: nextConsultationId,
+    chatId: consultationChatId,
     image,
     providerName: name,
     timestamp,
@@ -96,6 +99,7 @@ export const ClientHistory = ({
   const handleButtonClick = (action) => {
     switch (action) {
       case "join":
+        joinConsultation(consultationObject);
         break;
       case "cancel":
         handleCancelConsultation();
