@@ -85,7 +85,6 @@ export const Navbar = ({
 
   const handleNavbarLinkClick = (page) => {
     if (isTmpUser && page.url === "/consultations") {
-      console.log("here");
       isTmpUserAction();
     }
   };
