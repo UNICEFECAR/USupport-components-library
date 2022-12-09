@@ -125,7 +125,7 @@
     background-color: $color_white_ff;
     border-radius: $border_radius_0_8;
     border: 1px solid $color_primary_20809e;
-    bottom: -13.5rem;
+    bottom: -5rem;
     box-shadow: $shadow_2;
     display: flex;
     flex-direction: column;
@@ -135,6 +135,7 @@
     padding: $spacing_1_6;
     position: absolute;
     width: calc(19rem - 2 * $spacing_1_6);
+    height: auto;
     z-index: 100;
 
     @media screen and (min-width: $screen-lg) {
@@ -153,7 +154,7 @@
         text-decoration: underline;
       }
 
-      &:first-of-type {
+      &:not(:last-of-type) {
         margin-bottom: $spacing_2_4;
       }
 
