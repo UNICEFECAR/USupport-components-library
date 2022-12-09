@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { getDayOfTheWeek, isDateBetweenTwoDates } from "../../../utils";
+import { getDayOfTheWeek, getDateView } from "../../../utils";
 import { Avatar } from "../../avatars/Avatar/Avatar";
 import { Icon } from "../../icons/Icon/Icon";
 import classNames from "classnames";
@@ -26,17 +26,8 @@ export const ConsultationInformation = ({
   classes,
   t,
 }) => {
-  const dateText = startDate
-    ? `${t(getDayOfTheWeek(startDate))}, ${
-        startDate.getDate() < 10
-          ? `0${startDate.getDate()}`
-          : startDate.getDate()
-      }.${
-        startDate.getMonth() < 10
-          ? `0${startDate.getMonth()}`
-          : startDate.getMonth()
-      }`
-    : "";
+  const dayOfWeek = t(getDayOfTheWeek(startDate));
+  const dateText = `${dayOfWeek} ${getDateView(startDate).slice(0, 5)}`;
 
   const startHour = startDate.getHours();
   const endHour = endDate.getHours();
