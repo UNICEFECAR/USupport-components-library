@@ -85,7 +85,7 @@ export const Footer = ({ lists, contactUsText, navigate, Link }) => {
   });
 
   return (
-    <Block classes="footer">
+    <Block classes="footer" animation={null}>
       <Grid>
         <GridItem xs={4} md={8} lg={4}>
           <img
