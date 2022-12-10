@@ -5,7 +5,8 @@
   object-fit: cover;
 
   &--sm {
-    width: 5.6rem;
+    min-width: 5.6rem;
+    max-width: 5.6rem;
     height: 5.6rem;
   }
 
