@@ -28,6 +28,7 @@
       .provider-image {
         width: 3.2rem;
         height: 3.2rem;
+        object-fit: cover;
         border-radius: 50%;
         margin-right: $spacing_0_8;
       }

@@ -29,6 +29,7 @@
     display: flex;
     align-items: center;
     margin-top: $spacing_1_6;
+    cursor: pointer;
 
     & .small-text {
       font-weight: $font_bold;
