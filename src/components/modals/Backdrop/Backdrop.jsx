@@ -30,6 +30,7 @@ export const Backdrop = ({
   secondaryCtaType = "ghost",
   children,
   errorMessage,
+  reference,
 }) => {
   useEffect(() => {
     if (isOpen) {
@@ -82,6 +83,7 @@ export const Backdrop = ({
             "backdrop__children",
             !hasButtons ? "backdrop__children--full-height" : "",
           ].join(" ")}
+          ref={reference}
         >
           {children}
         </div>
@@ -127,6 +129,7 @@ export const Backdrop = ({
         secondaryCtaHandleClick,
         errorMessage,
         secondaryCtaType,
+        reference,
       }}
     >
       {children}

@@ -29,6 +29,7 @@ export const Modal = ({
   secondaryCtaType,
   children,
   errorMessage,
+  reference,
 }) => {
   const hasButtons = ctaLabel || secondaryCtaLabel;
 
@@ -54,6 +55,7 @@ export const Modal = ({
           "base-modal__body",
           !hasButtons ? "backdrop__children--full-height" : "",
         ].join(" ")}
+        ref={reference}
       >
         {children}
       </div>
