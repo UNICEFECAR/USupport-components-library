@@ -14,6 +14,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      cursor: pointer;
       width: 5.4rem;
       height: 5.4rem;
       border-radius: 50%;
@@ -22,6 +23,7 @@
 
     &__button-hangup {
       background-color: $color_red_eb5757;
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
