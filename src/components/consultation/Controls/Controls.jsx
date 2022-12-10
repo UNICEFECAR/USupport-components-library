@@ -26,8 +26,11 @@ export const Controls = ({
   const [isMicOpen, setIsMicOpen] = useState(isMicrophoneOn);
   const [isCameraOpen, setIsCameraOpen] = useState(isCameraOn);
 
-  const startDate = new Date(consultation.timestamp);
-  const endDate = new Date(consultation.timestamp + ONE_HOUR);
+  const timestamp =
+    consultation.timestamp || new Date(consultation.time).getTime();
+
+  const startDate = new Date(timestamp);
+  const endDate = new Date(timestamp + ONE_HOUR);
 
   const handleMicClick = () => {
     setIsMicOpen(!isMicOpen);

@@ -2,6 +2,7 @@
 
 .avatar {
   border-radius: $border_radius_4_8;
+  object-fit: cover;
 
   &--sm {
     width: 5.6rem;
