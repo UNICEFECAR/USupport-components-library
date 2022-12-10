@@ -173,6 +173,22 @@ async function getTwilioToken(consultationId) {
   return response;
 }
 
+function transformUserData(data) {
+  return {
+    clientID: data.client_detail_id,
+    accessToken: data.access_token,
+    email: data.email || "",
+    name: data.name || "",
+    surname: data.surname || "",
+    nickname: data.nickname || "",
+    sex: data.sex || "",
+    yearOfBirth: data.year_of_birth || "",
+    image: data.image,
+    urbanRural: data.urban_rural || "",
+    dataProcessing: data.data_processing,
+  };
+}
+
 const exportedFunctions = {
   changePassword,
   generateClientAccesToken,
@@ -191,6 +207,7 @@ const exportedFunctions = {
   uploadFile,
   uploadFileAsAdmin,
   createProvider,
+  transformUserData,
 };
 
 export default exportedFunctions;
