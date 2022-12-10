@@ -19,8 +19,10 @@ export const Controls = ({
   toggleMicrophone,
   toggleChat,
   leaveConsultation,
+  handleSendMessage,
   isCameraOn,
   isMicrophoneOn,
+  renderIn, // "client" or "provider"
   t,
 }) => {
   const [isMicOpen, setIsMicOpen] = useState(isMicrophoneOn);
@@ -33,11 +35,21 @@ export const Controls = ({
   const endDate = new Date(timestamp + ONE_HOUR);
 
   const handleMicClick = () => {
+    const content = isMicOpen
+      ? t(`${renderIn}_microphone_off`)
+      : t(`${renderIn}_microphone_on`);
+    handleSendMessage(content, "system");
+
     setIsMicOpen(!isMicOpen);
     toggleMicrophone();
   };
 
   const handleCameraClick = () => {
+    const content = isCameraOpen
+      ? t(`${renderIn}_camera_off`)
+      : t(`${renderIn}_camera_on`);
+    handleSendMessage(content, "system");
+
     setIsCameraOpen(!isCameraOpen);
     toggleCamera();
   };
