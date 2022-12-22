@@ -18,6 +18,10 @@
     padding: $spacing_1_6 $spacing_0_8 $spacing_0_8 $spacing_0_8;
   }
 
+  &__date-as-string.text {
+    font-weight: $font_bold;
+  }
+
   &__date-text.small-text {
     line-height: 1.44rem;
     font-weight: $font_semi_bold;

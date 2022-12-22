@@ -266,6 +266,12 @@ function checkIsFiveMinutesBefore(timestamp) {
   return currentTime >= timestamp - FIVE_MINUTES && currentTime <= endTime;
 }
 
+function getOrdinal(n) {
+  const s = ["th", "st", "nd", "rd"];
+  const v = n % 100;
+  return `ordinal_${s[(v - 20) % 10] || s[v] || s[0]}`;
+}
+
 export {
   getDayOfTheWeek,
   isDateToday,
@@ -282,8 +288,9 @@ export {
   getTimestampFromUTC,
   getDateAsFullString,
   getXDaysInSeconds,
-  hours,
   checkIsFiveMinutesBefore,
+  getOrdinal,
+  hours,
   ONE_HOUR,
   FIVE_MINUTES,
 };

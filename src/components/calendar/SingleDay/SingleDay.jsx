@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import useWindowDimensions from "../../../utils/useWindowDimensions";
-import { getDateView } from "../../../utils";
+import { getDateView, getOrdinal } from "../../../utils";
 
 import "./single-day.scss";
 
@@ -20,11 +20,14 @@ export const SingleDay = ({
   todayLabel,
   consultationsLabel,
   unavailableLabel,
+  t,
 }) => {
   const { width } = useWindowDimensions();
   const isToday = new Date().toDateString() === date.toDateString();
-
-  const dateAsString = getDateView(date).slice(0, 5);
+  const dateAsStringDdMm = getDateView(date).slice(0, 5);
+  const dateAsString = `${date.getDate()}${t(getOrdinal(date.getDate()))} ${t(
+    `month_${date.getMonth() + 1}`
+  )}`;
 
   return (
     <div
@@ -45,7 +48,7 @@ export const SingleDay = ({
               isToday && "today-text",
             ].join(" ")}
           >
-            {isToday ? todayLabel : dateAsString}
+            {isToday ? todayLabel : dateAsStringDdMm}
           </p>
           <p className="small-text single-day__consultation-text">
             {numberOfConsultations}
@@ -54,7 +57,7 @@ export const SingleDay = ({
       ) : (
         <>
           <p className="small-text today-text">{isToday ? "Today" : ""}</p>
-          <h4>{dateAsString}</h4>
+          <p className="text single-day__date-as-string">{dateAsString}</p>
           <div className="single-day__consultation-container">
             {!isAvailable && numberOfConsultations === 0 ? (
               <p className="small-text consultation-text">{unavailableLabel}</p>
