@@ -21,6 +21,7 @@ export const Notification = ({
   date,
   children,
   classes,
+  handleClick,
 }) => {
   const dateText = isDateToday(date)
     ? ""
@@ -37,6 +38,7 @@ export const Notification = ({
         isRead ? "" : "notification-new",
         classNames(classes),
       ].join(" ")}
+      onClick={handleClick}
     >
       <div className="notification__content">
         <div className="notification__content__icon">

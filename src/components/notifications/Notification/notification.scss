@@ -3,6 +3,7 @@
 .notification {
   padding: $spacing_1_6;
   width: calc(37.7rem - 2 * $spacing_1_6);
+  cursor: pointer;
 
   @media screen and (min-width: $screen_lg) {
     width: calc(56rem - 2 * $spacing_1_6);
