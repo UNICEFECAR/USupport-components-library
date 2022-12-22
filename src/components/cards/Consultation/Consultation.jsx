@@ -183,16 +183,25 @@ export const Consultation = ({
             </div>
           </div>
         </div>
-        <div className="provider-consultation__icon-container">
-          {hasMenu && (
+        {hasMenu && (
+          <div className="provider-consultation__icon-container">
+            <div
+              className={[
+                "provider-consultation__icon-container__price-badge",
+                buttonAction === "details" &&
+                  "provider-consultation__icon-container__price-badge--gray",
+              ].join(" ")}
+            >
+              <p className="small-text">$50</p>
+            </div>
             <Icon
               name="three-dots-vertical"
               size="md"
               color={buttonAction === "join" ? "#9749FA" : "#156F8C"}
               onClick={handleToggleMenu}
             />
-          )}
-        </div>
+          </div>
+        )}
       </div>
       {!overview && !suggested && buttonAction === "join" && (
         <div className="consultation__button-container">
