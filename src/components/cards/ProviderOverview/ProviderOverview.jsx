@@ -59,7 +59,7 @@ export const ProviderOverview = ({
             <div
               className={[
                 "provider-overview__content__text-content__name-container__price-badge",
-                //REFACTOR: if price === 0, then free
+                //TODO: refactor if price === 0, then free
                 1 === 0 &&
                   "provider-overview__content__text-content__name-container__price-badge--free",
               ].join(" ")}
