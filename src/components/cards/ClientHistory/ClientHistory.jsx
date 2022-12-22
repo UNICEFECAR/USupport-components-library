@@ -63,7 +63,7 @@ export const ClientHistory = ({
     consultationId: nextConsultationId,
     chatId: consultationChatId,
     image,
-    providerName: name,
+    clientName: name,
     timestamp,
     clientId,
   };

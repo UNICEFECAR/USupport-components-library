@@ -95,7 +95,7 @@ export const ProviderAvailability = ({
           <img className="provider-availability__image" src={imageUrl} />
           {width >= 1150 && (
             <p className="small-text provider-availability__name">
-              {consultation.name}
+              {consultation.clientName}
             </p>
           )}
         </>
