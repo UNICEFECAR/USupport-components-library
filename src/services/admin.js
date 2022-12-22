@@ -20,7 +20,7 @@ async function deleteAdminById(id) {
 
 async function login(email, password, role) {
   const response = await http.post(`${API_ENDPOINT}/login`, {
-    email: email,
+    email: email.toLowerCase(),
     password: password,
     role,
   });

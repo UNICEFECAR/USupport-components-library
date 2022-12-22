@@ -72,7 +72,7 @@ export const ContactForm = ({ classes, sendEmail, navigate, t }) => {
       if ((await validate(data, schema, setErrors)) == null) {
         setIsSubmitting(true);
         const payload = {
-          email: data.email,
+          email: data.email.toLowerCase(),
           reason: reasons.find((reason) => reason.value === data.reason).label,
           message: data.message,
         };
