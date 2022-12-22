@@ -52,9 +52,21 @@ export const ProviderOverview = ({
       <Avatar image={AMAZON_S3_BUCKET + "/" + image} size="sm" />
       <div className="provider-overview__content">
         <div className="provider-overview__content__text-content">
-          <p className="text provider-overview__content__text-content__name">
-            {displayName}
-          </p>
+          <div className="provider-overview__content__text-content__name-container">
+            <p className="text provider-overview__content__text-content__name-container">
+              {displayName}
+            </p>
+            <div
+              className={[
+                "provider-overview__content__text-content__name-container__price-badge",
+                //REFACTOR: if price === 0, then free
+                1 === 0 &&
+                  "provider-overview__content__text-content__name-container__price-badge--free",
+              ].join(" ")}
+            >
+              <p className="small-text">$50</p>
+            </div>
+          </div>
           <p className="small-text provider-overview__types">
             {specializations?.join(", ")}
           </p>
