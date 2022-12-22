@@ -52,10 +52,11 @@ export const Navbar = ({
   countries,
   initialLanguage,
   initialCountry,
+  hasUnreadNotifications,
 }) => {
   let { width } = useWindowDimensions();
-
   const imageURL = AMAZON_S3_BUCKET + "/" + image;
+  const pathname = window.location.pathname;
 
   const [isNavbarExpanded, setIsNavbarExpanded] = useState(false);
   const [languagesShown, setLanguagesShown] = useState(false);
@@ -245,18 +246,23 @@ export const Navbar = ({
       navigate("/notifications");
     }
   };
-  // TODO: Change the icon if there are unseen notifications
+
+  const isInNotifications = pathname.includes("notifications");
   const notificationIcon = (
     <div>
       <Icon
         classes="nav__profile__notification-icon"
-        name="notification-unread"
+        name={`notifications${hasUnreadNotifications ? "-unread" : ""}${
+          isInNotifications ? "-active" : ""
+        }`}
         size="md"
         onClick={handleNotificationIconClick}
       />
     </div>
   );
 
+  const isInProfile =
+    pathname.includes("profile") || pathname.includes("details");
   const profileContainer = (
     <div className="nav__profile">
       {width >= 950 && showNotifications && notificationIcon}
@@ -267,7 +273,12 @@ export const Navbar = ({
           className="nav__profile__image"
         />
       )}
-      <p onClick={handleProfileClick} className="paragraph">
+      <p
+        onClick={handleProfileClick}
+        className={`paragraph ${
+          isInProfile ? "nav__profile__text-active" : ""
+        }`}
+      >
         {yourProfileText}
       </p>
     </div>

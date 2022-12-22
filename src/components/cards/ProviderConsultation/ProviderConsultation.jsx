@@ -20,7 +20,6 @@ import { Button } from "../../buttons/Button/Button";
 export const ProviderConsultation = ({
   name,
   image,
-  date,
   period,
   classes,
   consultationEndedText,

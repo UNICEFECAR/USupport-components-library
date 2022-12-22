@@ -266,6 +266,10 @@
       width: 3.2rem;
       object-fit: cover;
     }
+
+    &__text-active {
+      color: $color_primary_20809e;
+    }
   }
 
   &__profile--mobile {
