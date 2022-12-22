@@ -33,6 +33,7 @@ export const Consultation = ({
   handleAcceptConsultation,
   handleRejectConsultation,
   handleViewProfile,
+  hasPriceBadge,
   consultation,
   overview,
   suggested,
@@ -183,23 +184,30 @@ export const Consultation = ({
             </div>
           </div>
         </div>
-        {hasMenu && (
+        {true && (
           <div className="provider-consultation__icon-container">
-            <div
-              className={[
-                "provider-consultation__icon-container__price-badge",
-                buttonAction === "details" &&
-                  "provider-consultation__icon-container__price-badge--gray",
-              ].join(" ")}
-            >
-              <p className="small-text">$50</p>
-            </div>
-            <Icon
-              name="three-dots-vertical"
-              size="md"
-              color={buttonAction === "join" ? "#9749FA" : "#156F8C"}
-              onClick={handleToggleMenu}
-            />
+            {hasPriceBadge && (
+              <div
+                className={[
+                  "provider-consultation__icon-container__price-badge",
+                  //TODO: refactor if price === 0, then free
+                  1 === 1 &&
+                    "provider-consultation__icon-container__price-badge--free",
+                  buttonAction === "details" &&
+                    "provider-consultation__icon-container__price-badge--gray",
+                ].join(" ")}
+              >
+                <p className="small-text">$50</p>
+              </div>
+            )}
+            {hasMenu && (
+              <Icon
+                name="three-dots-vertical"
+                size="md"
+                color={buttonAction === "join" ? "#9749FA" : "#156F8C"}
+                onClick={handleToggleMenu}
+              />
+            )}
           </div>
         )}
       </div>
@@ -330,6 +338,11 @@ Consultation.propTypes = {
   onClick: PropTypes.func,
 
   /**
+   * hasPriceBadge is a boolean that indicates if the price badge should be shown
+   * */
+  hasPriceBadge: PropTypes.bool,
+
+  /**
    * Additional classes to be added to the card
    */
   classes: PropTypes.oneOfType([
@@ -349,4 +362,5 @@ Consultation.defaultProps = {
   suggested: false,
   onClick: () => {},
   hasMenu: false,
+  hasPriceBadge: true,
 };

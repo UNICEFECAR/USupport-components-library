@@ -116,6 +116,11 @@
   border-radius: $border_radius_1_6;
   margin-right: $spacing_1_4;
 
+  &--free {
+    background-color: rgba(32, 128, 158, 0.3);
+    color: $color_primary_20809e;
+  }
+
   &--gray {
     background-color: $color_gray_a6b4b8;
     color: $color_gray_66768d;
