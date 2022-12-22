@@ -7,6 +7,11 @@ async function getClientData() {
   return response;
 }
 
+async function getClientDataById(id) {
+  const response = await http.get(`${API_ENDPOINT}/by-id?clientId=${id}`);
+  return response;
+}
+
 async function updateClientData(data) {
   const response = await http.put(`${API_ENDPOINT}/`, data);
   return response;
@@ -58,6 +63,7 @@ async function addMoodTrack(date, mood) {
 const exportedFunctions = {
   addMoodTrack,
   getClientData,
+  getClientDataById,
   updateClientData,
   deleteClientProfile,
   deleteImage,
