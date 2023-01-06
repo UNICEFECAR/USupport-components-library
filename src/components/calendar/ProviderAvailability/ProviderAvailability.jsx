@@ -28,6 +28,7 @@ export const ProviderAvailability = ({
   classes,
   isAvailable,
   consultation,
+  dayIndex,
   t,
 }) => {
   const isLive = consultation
@@ -116,7 +117,17 @@ export const ProviderAvailability = ({
 
       {isMenuOpen ? (
         <OutsideClickHandler onOutsideClick={() => setIsMenuOpen(false)}>
-          <div className="provider-availability__controls">
+          <div
+            className={`provider-availability__controls ${
+              dayIndex >= 5 && width < 1300
+                ? "provider-availability__controls__right-0"
+                : ""
+            } ${
+              1 >= dayIndex && width < 1300
+                ? "provider-availability__controls__left-0"
+                : ""
+            }`}
+          >
             {consultation && isPast ? null : (
               <div
                 className="provider-availability__controls__single"

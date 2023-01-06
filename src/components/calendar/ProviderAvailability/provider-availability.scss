@@ -138,6 +138,15 @@
     height: auto;
     z-index: 100;
 
+    &__right-0 {
+      left: unset;
+      right: 0;
+    }
+
+    &__left-0 {
+      left: 0;
+    }
+
     @media screen and (min-width: $screen-lg) {
       left: calc(50% - calc(calc(22rem - 2 * $spacing_1_6)) / 2);
     }
