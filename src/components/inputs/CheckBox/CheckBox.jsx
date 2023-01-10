@@ -70,7 +70,7 @@ CheckBox.propTypes = {
   /**
    * Additional props to pass to the checkbox
    **/
-  rest: PropTypes.object,
+  props: PropTypes.object,
 };
 
 CheckBox.defaultProps = {
