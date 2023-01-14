@@ -1,15 +1,50 @@
 @import "../../../styles/theme";
 
 .sos-center-row {
+  align-items: flex-start;
   cursor: pointer;
+  display: flex;
+  flex-direction: row;
   text-align: left;
+
+  &__checkbox {
+    margin-top: $spacing_0_4;
+  }
+
+  &__grid {
+    margin-left: $spacing_1_4;
+    &__image-item {
+      & > img {
+        width: 11.7rem;
+        height: 8.6rem;
+        border-radius: $border_radius_0_8;
+
+        @media screen and (min-width: $screen-md) {
+          margin-right: $spacing_4_0;
+        }
+      }
+    }
+  }
 
   &__heading {
     color: $color_blue_3d527b;
+    align-items: center;
   }
 
   .heading.text {
     font-weight: $font_bold;
+  }
+
+  &__link {
+    @media screen and (min-width: $screen-md) {
+      text-align: center;
+    }
+  }
+
+  &__phone {
+    @media screen and (min-width: $screen-md) {
+      text-align: center;
+    }
   }
 }
 

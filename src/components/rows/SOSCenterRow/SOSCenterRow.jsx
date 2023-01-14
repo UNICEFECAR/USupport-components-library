@@ -20,45 +20,45 @@ export const SOSCenterRow = ({
   text,
   link,
   phone,
+  image,
   selected,
   setSelected,
 }) => {
   return (
     <>
       <div className="sos-center-row" onClick={() => setSelected(!selected)}>
-        <Grid md={8} lg={12} classes={"sos-center-row__content__grid"}>
-          <GridItem xs={1} md={1} lg={1}>
-            <CheckBox isChecked={selected} setIsChecked={setSelected} />
+        <CheckBox
+          isChecked={selected}
+          setIsChecked={setSelected}
+          classes="sos-center-row__checkbox"
+        />
+        <Grid md={8} lg={12} classes={"sos-center-row__grid"}>
+          <GridItem md={1} lg={1} classes="sos-center-row__grid__image-item">
+            <img src={image} />
           </GridItem>
-          <GridItem xs={3} md={7} lg={11}>
-            <Grid>
-              <GridItem md={8} lg={6}>
-                <p className="text heading sos-center-row__heading">
-                  {heading}
-                </p>
-                <p className="small-text">{text}</p>
-              </GridItem>
+          <GridItem md={4} lg={5}>
+            <p className="text heading sos-center-row__heading">{heading}</p>
+            <p className="small-text">{text}</p>
+          </GridItem>
 
-              <GridItem md={8} lg={3}>
-                {link ? (
-                  <a href={link} target="_blank">
-                    <p className="text sos-center-row__heading">{link}</p>
-                  </a>
-                ) : (
-                  <p>-</p>
-                )}
-              </GridItem>
+          <GridItem md={1} lg={3} classes="sos-center-row__link">
+            {link ? (
+              <a href={link} target="_blank">
+                <p className="text sos-center-row__heading ">{link}</p>
+              </a>
+            ) : (
+              <p>-</p>
+            )}
+          </GridItem>
 
-              <GridItem md={8} lg={3}>
-                {phone ? (
-                  <a href={`tel:${link}`} target="_blank">
-                    <p className="text sos-center-row__heading">{phone}</p>
-                  </a>
-                ) : (
-                  <p>-</p>
-                )}
-              </GridItem>
-            </Grid>
+          <GridItem md={2} lg={3} classes="sos-center-row__phone">
+            {phone ? (
+              <a href={`tel:${link}`} target="_blank">
+                <p className="text sos-center-row__heading ">{phone}</p>
+              </a>
+            ) : (
+              <p>-</p>
+            )}
           </GridItem>
         </Grid>
       </div>
@@ -87,6 +87,11 @@ SOSCenterRow.propTypes = {
    * Phone of the row
    * */
   phone: PropTypes.string,
+
+  /**
+   * Image of the row
+   * */
+  image: PropTypes.string,
 
   /**
    * selected
