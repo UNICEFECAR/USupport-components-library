@@ -19,6 +19,7 @@ export const EmergencyCenter = ({
   phone,
   btnLabelLink,
   btnLabelCall,
+  image,
 }) => {
   const handleClick = (type) => {
     if (type === "phone") {
@@ -30,6 +31,9 @@ export const EmergencyCenter = ({
 
   return (
     <Box shadow={1} borderSize="xs" classes="emergency-center">
+      {image && (
+        <img className="emergency-center__image" src={image ? image : ""} />
+      )}
       <p className="text emergency-center__heading-text">{title}</p>
       <p className="small-text emergency-center__description">{text}</p>
       <div className="emergency-center__btn-container">
@@ -84,6 +88,11 @@ EmergencyCenter.propTypes = {
    * Label of the phone button
    * */
   btnLabelCall: PropTypes.string,
+
+  /**
+   * Image of the emergency center
+   * */
+  image: PropTypes.string,
 };
 
 EmergencyCenter.defaultProps = {
