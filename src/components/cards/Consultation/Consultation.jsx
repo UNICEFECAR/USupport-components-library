@@ -41,7 +41,8 @@ export const Consultation = ({
   hasMenu,
   classes,
 }) => {
-  const { providerId, consultationId, timestamp, image, status } = consultation;
+  const { providerId, consultationId, timestamp, image, status, price } =
+    consultation;
 
   const isPast = consultation
     ? new Date(timestamp).getTime() < new Date().getTime()
@@ -190,14 +191,13 @@ export const Consultation = ({
               <div
                 className={[
                   "provider-consultation__icon-container__price-badge",
-                  //TODO: refactor if price === 0, then free
-                  1 === 1 &&
+                  !price &&
                     "provider-consultation__icon-container__price-badge--free",
                   buttonAction === "details" &&
                     "provider-consultation__icon-container__price-badge--gray",
                 ].join(" ")}
               >
-                <p className="small-text">$50</p>
+                <p className="small-text">{price || "Free"}</p>
               </div>
             )}
             {hasMenu && (
