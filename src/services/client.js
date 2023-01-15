@@ -62,6 +62,28 @@ async function addMoodTrack(date, mood) {
   return response;
 }
 
+async function getSecurityCheckAnswersByConsultationId(consultationId) {
+  const response = await http.get(
+    `${API_ENDPOINT}/consultation/security-check?consultationId=${consultationId}`
+  );
+  return response;
+}
+
+async function createConsultationSecurityCheck(payload) {
+  const response = await http.post(
+    `${API_ENDPOINT}/consultation/security-check`,
+    payload
+  );
+  return response;
+}
+async function updateConsultationSecurityCheck(payload) {
+  const response = await http.put(
+    `${API_ENDPOINT}/consultation/security-check`,
+    payload
+  );
+  return response;
+}
+
 const exportedFunctions = {
   addMoodTrack,
   getClientData,
@@ -72,6 +94,9 @@ const exportedFunctions = {
   changeImage,
   changeDataProcessingAgreement,
   getAllConsultations,
+  getSecurityCheckAnswersByConsultationId,
+  createConsultationSecurityCheck,
+  updateConsultationSecurityCheck,
 };
 
 export default exportedFunctions;
