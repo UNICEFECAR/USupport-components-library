@@ -224,6 +224,11 @@ async function getCountryStatistics(countryId) {
   return response;
 }
 
+async function getSecurityChecks() {
+  const response = await http.get(`${API_ENDPOINT}/statistics/security-check`);
+  return response;
+}
+
 const exportedFunctions = {
   createAdmin,
   deleteArticle,
@@ -249,6 +254,7 @@ const exportedFunctions = {
   resetPassword,
   updateData,
   updateDataById,
+  getSecurityChecks,
 };
 
 export default exportedFunctions;
