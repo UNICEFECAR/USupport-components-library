@@ -118,6 +118,43 @@ export const ProviderDetails = ({ provider, image, t, buttonComponent }) => {
               </div>
             ) : null}
 
+            {provider.city && (
+              <>
+                <div className="provider-details__information-container">
+                  <p className="small-text provider-details__information-container__heading">
+                    {t("city_label")}
+                  </p>
+                  <p className="small-text provider-details__information-container__text">
+                    {provider.city}
+                  </p>
+                </div>
+              </>
+            )}
+            {provider.street && (
+              <>
+                <div className="provider-details__information-container">
+                  <p className="small-text provider-details__information-container__heading">
+                    {t("street_label")}
+                  </p>
+                  <p className="small-text provider-details__information-container__text">
+                    {provider.street}
+                  </p>
+                </div>
+              </>
+            )}
+            {provider.postcode && (
+              <>
+                <div className="provider-details__information-container">
+                  <p className="small-text provider-details__information-container__heading">
+                    {t("postcode_label")}
+                  </p>
+                  <p className="small-text provider-details__information-container__text">
+                    {provider.postcode}
+                  </p>
+                </div>
+              </>
+            )}
+
             <div className="provider-details__information-container">
               <p className="small-text provider-details__information-container__heading">
                 {t("languages_label")}
