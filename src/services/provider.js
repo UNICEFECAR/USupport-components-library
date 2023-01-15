@@ -192,8 +192,10 @@ async function getAllConsultationsByClientId(clientId) {
   return res;
 }
 
-async function getAllUpcomingConsultations() {
-  const res = await http.get(`${API_ENDPOINT}/consultation/all/upcoming`);
+async function getAllUpcomingConsultations(pageNumber = 1) {
+  const res = await http.get(
+    `${API_ENDPOINT}/consultation/all/upcoming?pageNo=${pageNumber}`
+  );
   return res;
 }
 
