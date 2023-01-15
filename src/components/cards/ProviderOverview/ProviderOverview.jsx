@@ -24,6 +24,8 @@ export const ProviderOverview = ({
   surname,
   specializations,
   viewProfileLabel,
+  freeLabel,
+  price,
   editLabel,
   deleteLabel,
   onClick,
@@ -59,12 +61,11 @@ export const ProviderOverview = ({
             <div
               className={[
                 "provider-overview__content__text-content__name-container__price-badge",
-                //TODO: refactor if price === 0, then free
-                1 === 0 &&
+                !price &&
                   "provider-overview__content__text-content__name-container__price-badge--free",
               ].join(" ")}
             >
-              <p className="small-text">$50</p>
+              <p className="small-text">{price || freeLabel}</p>
             </div>
           </div>
           <p className="small-text provider-overview__types">
