@@ -14,7 +14,7 @@ import "./provider-details.scss";
  *
  * @return {jsx}
  */
-export const ProviderDetails = ({ provider, image, t }) => {
+export const ProviderDetails = ({ provider, image, t, buttonComponent }) => {
   const allOptionsToString = (option) => {
     return provider[option]?.join(", ");
   };
@@ -167,14 +167,25 @@ export const ProviderDetails = ({ provider, image, t }) => {
           </GridItem>
         </Grid>
       </GridItem>
+
+      {buttonComponent}
     </Grid>
   );
 };
 
 ProviderDetails.propTypes = {
-  // Add propTypes here
-};
+  /**
+   * The provider data object
+   *  */
+  provider: PropTypes.object,
 
-ProviderDetails.defaultProps = {
-  // Add defaultProps here
+  /**
+   * The url of the image
+   */
+  image: PropTypes.string,
+
+  /**
+   * The button component to be rendered at the bottom of the grid
+   */
+  buttonComponent: PropTypes.element,
 };
