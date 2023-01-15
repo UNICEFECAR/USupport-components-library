@@ -26,7 +26,9 @@ export const AccessToken = ({
 
   return (
     <div className={[classNames(classes)].join(" ")}>
-      <p className="access-token-container__label">{accessTokenLabel}</p>
+      {accessTokenLabel && (
+        <p className="access-token-container__label">{accessTokenLabel}</p>
+      )}
       <div className="access-token-container">
         {isLoading ? <Loading size="sm" /> : <h4>{accessToken}</h4>}
         <Icon
