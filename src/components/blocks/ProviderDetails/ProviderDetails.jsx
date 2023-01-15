@@ -78,7 +78,7 @@ export const ProviderDetails = ({ provider, image, t, buttonComponent }) => {
             <p className="small-text provider-details__information-container__heading">
               {t("video_label")}
             </p>
-            <ReactPlayer width="100%" url={provider.videoLink} />
+            <ReactPlayer width="96%" url={provider.videoLink} />
           </div>
         )}
       </GridItem>
