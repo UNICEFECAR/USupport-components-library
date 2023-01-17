@@ -57,14 +57,15 @@ export const Rating = ({
       {label ? <p className="text rating__label">{label}</p> : null}
       <div className="rating__stars-container">
         {stars.map((star, index) => {
+          const starColor = star === "star" ? "#66768D" : "#9749fa";
           return (
             <Icon
-              key={index}
+              key={star + index}
               name={star}
-              color={star === "star" ? "#66768D" : "#9749fa"}
+              color={starColor}
               size="lg"
               classes="rating__stars-container__star"
-              onMouseEnter={
+              onClick={
                 changeOnHoverEnabled ? () => onStarHover(index) : () => {}
               }
             />
