@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
 import { Icon } from "../../icons/Icon";
+
 import "./profile-picture-preview.scss";
 
 /**
@@ -35,7 +36,30 @@ export const ProfilePicturePreview = ({
 };
 
 ProfilePicturePreview.propTypes = {
-  // Add propTypes here
+  /**
+   * Image url
+   **/
+  image: PropTypes.string,
+
+  /**
+   * handleDeleteClick
+   * */
+  handleDeleteClick: PropTypes.func,
+
+  /**
+   * handleChangeClick
+   * */
+  handleChangeClick: PropTypes.func,
+
+  /**
+   * changePhotoText
+   * */
+  changePhotoText: PropTypes.string,
+
+  /**
+   * imageFile
+   * */
+  imageFile: PropTypes.string,
 };
 
 ProfilePicturePreview.defaultProps = {
