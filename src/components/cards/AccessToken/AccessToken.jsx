@@ -43,7 +43,28 @@ export const AccessToken = ({
 };
 
 AccessToken.propTypes = {
-  // Add propTypes here
+  /**
+   * Access token label
+   * */
+  accessTokenLabel: PropTypes.string,
+
+  /**
+   * Access token
+   * */
+  accessToken: PropTypes.string,
+
+  /**
+   * Is loading
+   * */
+  isLoading: PropTypes.bool,
+
+  /**
+   * Classes
+   * */
+  classes: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string),
+  ]),
 };
 
 AccessToken.defaultProps = {
