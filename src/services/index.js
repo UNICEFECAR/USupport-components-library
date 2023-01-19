@@ -9,4 +9,5 @@ export { default as adminSvc } from "./admin.js";
 export { default as providerSvc } from "./provider.js";
 export { default as messageSvc } from "./message.js";
 export { default as notificationsSvc } from "./notifications.js";
+export { default as paymentsSvc } from "./payments.js";
 export * from "./log.js";
