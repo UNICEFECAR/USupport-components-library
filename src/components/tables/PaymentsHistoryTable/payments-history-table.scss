@@ -1,0 +1,23 @@
+@import "../../../styles/theme";
+
+.payments-history-table {
+  &__container {
+    overflow-x: auto;
+    padding-top: $spacing_3_6;
+    padding-bottom: $spacing_9_0;
+  }
+
+  &__table {
+    min-width: 100rem;
+    width: 100%;
+    padding-right: $spacing_3_0;
+
+    &__td {
+      border-bottom: 1px solid $color_gray_a6b4b8;
+      padding-left: $spacing_1_4;
+      padding-right: $spacing_1_4;
+      padding-bottom: $spacing_1_8;
+      padding-top: $spacing_1_4;
+    }
+  }
+}
