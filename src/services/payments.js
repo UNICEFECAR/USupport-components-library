@@ -5,11 +5,9 @@ const API_ENDPOINT = `${import.meta.env.VITE_API_ENDPOINT}/v1/payments`;
 /**
  * used to create payment intent.
  *
- * @param {string} subject text written in the subjet of the email
- * @param {string} title the title of the email
- * @param {string} text the text of the email
+ * @param {string} object - object containing the email and the amount
  *
- * @returns {boolean} false if there was a problem with the email
+ * @returns {Promise} - Promise object represents the response from the server containing the client secret
  */
 async function createPaymentIntent({ body }) {
   const response = await http.post(
@@ -20,8 +18,20 @@ async function createPaymentIntent({ body }) {
   return response;
 }
 
+/**
+ * used to create retrieve payment history for existent users.
+ *
+ * @returns {Promise} - Promise object represents the response from the server containing the client secret
+ */
+async function getPaymentHistory() {
+  const response = await http.get(`${API_ENDPOINT}/one-time/history`);
+
+  return response;
+}
+
 const exportedFunctions = {
   createPaymentIntent,
+  getPaymentHistory,
 };
 
 export default exportedFunctions;
