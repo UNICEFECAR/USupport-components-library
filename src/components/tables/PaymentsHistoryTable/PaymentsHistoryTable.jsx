@@ -5,6 +5,8 @@ import { Loading } from "../../loaders/Loading";
 
 import { Button } from "../../buttons/Button";
 
+import { getTime, getDateView } from "../../../utils";
+
 import "./payments-history-table.scss";
 
 /**
@@ -20,14 +22,13 @@ export const PaymentsHistoryTable = ({
   data,
   t,
   handleViewMore,
-  paymentId,
 }) => {
   return (
     <div className="payments-history-table__container">
       {isLoading ? (
         <Loading />
       ) : !data || data.length === 0 ? (
-        <p>{t("no_payments-history_found")}</p>
+        <p>{t("no_payments_history_found")}</p>
       ) : (
         <table className="payments-history-table__table">
           <thead>
@@ -50,7 +51,7 @@ export const PaymentsHistoryTable = ({
                     {payment.price}
                   </td>
                   <td className="payments-history-table__table__td">
-                    {payment.date}
+                    {getDateView(payment.date)} - {getTime(payment.date)}
                   </td>
                   <td className="payments-history-table__table__td">
                     <Button
@@ -87,7 +88,7 @@ PaymentsHistoryTable.propTypes = {
     PropTypes.shape({
       paymentId: PropTypes.string,
       service: PropTypes.string,
-      price: PropTypes.string,
+      price: PropTypes.number,
       date: PropTypes.string,
     })
   ),
