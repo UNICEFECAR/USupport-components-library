@@ -272,6 +272,19 @@ function getOrdinal(n) {
   return `ordinal_${s[(v - 20) % 10] || s[v] || s[0]}`;
 }
 
+/**
+ * Format time from the js Date object Thu Mar 25 2021 00:00:00 GMT+0000 (Greenwich Mean Time) to HH:MM
+ *
+ * @param {Date} date the formatted js Date object
+ * @returns {string} the formatted time HH:MM
+ */
+function getTime(date) {
+  let d = new Date(date),
+    timeText = d.toTimeString();
+
+  return timeText.split(" ")[0].slice(0, -3);
+}
+
 export {
   getDayOfTheWeek,
   isDateToday,
@@ -293,4 +306,5 @@ export {
   hours,
   ONE_HOUR,
   FIVE_MINUTES,
+  getTime,
 };
