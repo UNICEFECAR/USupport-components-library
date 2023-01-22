@@ -9,10 +9,10 @@ const API_ENDPOINT = `${import.meta.env.VITE_API_ENDPOINT}/v1/payments`;
  *
  * @returns {Promise} - Promise object represents the response from the server containing the client secret
  */
-async function createPaymentIntent({ body }) {
+async function createPaymentIntent(consultationId) {
   const response = await http.post(
     `${API_ENDPOINT}/one-time/create-payment-intent`,
-    body
+    { consultationId: consultationId }
   );
 
   return response;
