@@ -76,10 +76,19 @@ async function createConsultationSecurityCheck(payload) {
   );
   return response;
 }
+
 async function updateConsultationSecurityCheck(payload) {
   const response = await http.put(
     `${API_ENDPOINT}/consultation/security-check`,
     payload
+  );
+  return response;
+}
+
+async function sendInformationPortalSuggestion(suggestion) {
+  const response = await http.post(
+    `${API_ENDPOINT}/information-portal/suggestion`,
+    { suggestion }
   );
   return response;
 }
@@ -97,6 +106,7 @@ const exportedFunctions = {
   getSecurityCheckAnswersByConsultationId,
   createConsultationSecurityCheck,
   updateConsultationSecurityCheck,
+  sendInformationPortalSuggestion,
 };
 
 export default exportedFunctions;
