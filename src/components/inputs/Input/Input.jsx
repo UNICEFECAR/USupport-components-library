@@ -61,7 +61,7 @@ Input.propTypes = {
    * Input type
    *
    **/
-  type: PropTypes.oneOf(["text", "password", "number"]),
+  type: PropTypes.oneOf(["text", "password", "number", "date"]),
 
   /**
    * Input label
