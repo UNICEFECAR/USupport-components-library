@@ -229,6 +229,25 @@ async function getSecurityChecks() {
   return response;
 }
 
+async function getInformationPortalSuggestions(countryId) {
+  const response = await http.get(
+    `${API_ENDPOINT}/statistics/information-portal-suggestions?countryId=${countryId}`
+  );
+  return response;
+}
+
+async function getClientRatings(countryId) {
+  const response = await http.get(
+    `${API_ENDPOINT}/statistics/client-ratings?countryId=${countryId}`
+  );
+  return response;
+}
+
+async function getContactForms() {
+  const response = await http.get(`${API_ENDPOINT}/statistics/contact-forms`);
+  return response;
+}
+
 const exportedFunctions = {
   createAdmin,
   deleteArticle,
@@ -255,6 +274,9 @@ const exportedFunctions = {
   updateData,
   updateDataById,
   getSecurityChecks,
+  getInformationPortalSuggestions,
+  getClientRatings,
+  getContactForms,
 };
 
 export default exportedFunctions;
