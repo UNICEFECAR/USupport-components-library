@@ -14,7 +14,7 @@ import "./rating.scss";
 export const Rating = ({
   label,
   maxStars,
-  rating,
+  rating = 5,
   changeOnHoverEnabled,
   setParentState,
 }) => {
