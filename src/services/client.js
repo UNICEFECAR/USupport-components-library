@@ -87,7 +87,7 @@ async function updateConsultationSecurityCheck(payload) {
 
 async function sendInformationPortalSuggestion(suggestion) {
   const response = await http.post(
-    `${API_ENDPOINT}/information-portal/suggestion`,
+    `${API_ENDPOINT}/information-portal-suggestion`,
     { suggestion }
   );
   return response;
