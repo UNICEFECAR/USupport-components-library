@@ -189,6 +189,11 @@ function transformUserData(data) {
   };
 }
 
+async function addContactForm(payload) {
+  const response = await http.post(`${API_ENDPOINT}/add-contact-form`, payload);
+  return response;
+}
+
 const exportedFunctions = {
   changePassword,
   generateClientAccesToken,
@@ -208,6 +213,7 @@ const exportedFunctions = {
   uploadFileAsAdmin,
   createProvider,
   transformUserData,
+  addContactForm,
 };
 
 export default exportedFunctions;
