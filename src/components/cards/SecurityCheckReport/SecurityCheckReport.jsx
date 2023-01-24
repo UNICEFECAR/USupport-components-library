@@ -114,7 +114,7 @@ export const SecurityCheckReport = ({ securityCheck, t }) => {
             lg={12}
             classes="security-check-report__answers-grid__heading"
           >
-            <h4>{t("heading")}</h4>
+            <h4>{t("content_heading")}</h4>
           </GridItem>
 
           {Object.keys(answers).map((key, index) => {
