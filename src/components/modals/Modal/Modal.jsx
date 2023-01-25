@@ -23,6 +23,8 @@ export const Modal = ({
   text,
   ctaLabel,
   ctaHandleClick,
+  ctaColor = "green",
+  secondaryCtaColor = "green",
   isCtaDisabled,
   secondaryCtaLabel,
   secondaryCtaHandleClick,
@@ -32,7 +34,6 @@ export const Modal = ({
   reference,
 }) => {
   const hasButtons = ctaLabel || secondaryCtaLabel;
-
   return (
     <ModalPackage
       isOpen={isOpen}
@@ -67,6 +68,7 @@ export const Modal = ({
               label={ctaLabel}
               disabled={isCtaDisabled}
               onClick={ctaHandleClick}
+              color={ctaColor}
               size="lg"
             />
           )}
@@ -76,6 +78,7 @@ export const Modal = ({
               onClick={secondaryCtaHandleClick}
               size="lg"
               type={secondaryCtaType}
+              color={secondaryCtaColor}
             />
           )}
         </div>

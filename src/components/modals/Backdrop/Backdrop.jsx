@@ -28,6 +28,8 @@ export const Backdrop = ({
   secondaryCtaLabel,
   secondaryCtaHandleClick,
   secondaryCtaType = "ghost",
+  ctaColor = "green",
+  secondaryCtaColor = "green",
   children,
   errorMessage,
   reference,
@@ -95,7 +97,7 @@ export const Backdrop = ({
               <Button
                 label={ctaLabel}
                 onClick={ctaHandleClick}
-                color="green"
+                color={ctaColor}
                 size="lg"
                 type="primary"
                 disabled={isCtaDisabled}
@@ -105,7 +107,7 @@ export const Backdrop = ({
               <Button
                 label={secondaryCtaLabel}
                 onClick={secondaryCtaHandleClick}
-                color="green"
+                color={secondaryCtaColor}
                 size="lg"
                 type={secondaryCtaType}
               />
@@ -124,6 +126,8 @@ export const Backdrop = ({
         text,
         ctaLabel,
         ctaHandleClick,
+        ctaColor,
+        secondaryCtaColor,
         isCtaDisabled,
         secondaryCtaLabel,
         secondaryCtaHandleClick,
