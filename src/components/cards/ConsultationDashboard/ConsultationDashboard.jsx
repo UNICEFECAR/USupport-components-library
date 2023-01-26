@@ -30,7 +30,7 @@ export const ConsultationDashboard = ({
   handleSchedule,
   t,
 }) => {
-  const { providerName, timestamp, image, status } = consultation || {};
+  const { providerName, timestamp, image, status, price } = consultation || {};
   // const name = consultation.providerName || consultation.clientName;
   const imageUrl = AMAZON_S3_BUCKET + "/" + (image || "default");
 
@@ -67,7 +67,7 @@ export const ConsultationDashboard = ({
               label={t("accept_button_label")}
               size="sm"
               onClick={() =>
-                handleAcceptSuggestion(consultation.consultationId)
+                handleAcceptSuggestion(consultation.consultationId, price)
               }
             />
           ) : isLive ? (

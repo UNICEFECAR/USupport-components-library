@@ -31,7 +31,7 @@ export const ConsultationBig = ({
   handleAcceptSuggestion,
   t,
 }) => {
-  const { providerName, timestamp, image, status } = consultation;
+  const { providerName, timestamp, image, status, price } = consultation;
   // const name = consultation.providerName || consultation.clientName;
   const imageUrl = AMAZON_S3_BUCKET + "/" + (image || "default");
 
@@ -66,7 +66,9 @@ export const ConsultationBig = ({
           <Button
             type="primary"
             size="sm"
-            onClick={() => handleAcceptSuggestion(consultation.consultationId)}
+            onClick={() =>
+              handleAcceptSuggestion(consultation.consultationId, price)
+            }
             label={t("accept_button_label")}
             classes="consultation-big__button"
           />
