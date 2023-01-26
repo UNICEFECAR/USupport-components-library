@@ -92,14 +92,22 @@ export const ProviderAvailability = ({
       onClick={() => setIsMenuOpen(!isMenuOpen)}
     >
       {consultation && (
-        <>
-          <img className="provider-availability__image" src={imageUrl} />
+        <div className="provider-availability__content">
+          <div
+            className={`provider-availability__content__price ${
+              consultation.price > 0
+                ? "provider-availability__content__price--paid"
+                : "provider-availability__content__price--free"
+            }`}
+          >
+            <p>{consultation.price > 0 ? consultation.price : t("free")}</p>
+          </div>
           {width >= 1150 && (
             <p className="small-text provider-availability__name">
               {consultation.clientName}
             </p>
           )}
-        </>
+        </div>
       )}
 
       {width >= 1150 && (

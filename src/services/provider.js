@@ -275,6 +275,11 @@ async function leaveConsultation(consultationId, userType) {
   return res;
 }
 
+async function getProviderActivities() {
+  const res = await http.get(`${API_ENDPOINT}/activities`);
+  return res;
+}
+
 const exportedFunctions = {
   addAvailableSlot,
   addTemplateAvailability,
@@ -308,5 +313,6 @@ const exportedFunctions = {
   deleteProvider,
   deleteProviderByIdAsAdmin,
   leaveConsultation,
+  getProviderActivities,
 };
 export default exportedFunctions;

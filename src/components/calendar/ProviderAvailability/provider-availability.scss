@@ -82,6 +82,30 @@
     }
   }
 
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    &__price {
+      padding: $spacing_0_6;
+      border-radius: $border_radius_1_6;
+      word-break: break-all;
+      margin-bottom: $spacing_0_4;
+
+      &--free {
+        background-color: $color_green_c1eaea;
+        color: $color_blue_3d527b;
+      }
+
+      &--paid {
+        background-color: $color_purple_c39af9_0_5;
+        color: $color_secondary_9749fa;
+      }
+    }
+  }
+
   & > p {
     color: $color_blue_3d527b;
   }
