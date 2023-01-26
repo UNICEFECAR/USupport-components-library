@@ -108,6 +108,7 @@ const icons = [
   "flag-KZ-round",
   "flag-KG-round",
   "payment-history",
+  "activities",
 ];
 
 export const All = (props) => (
