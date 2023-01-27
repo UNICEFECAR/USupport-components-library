@@ -30,7 +30,10 @@ const interceptError = async (error) => {
       const platform = window.location.pathname.split("/")[1];
       window.location.replace(`/${platform}/`);
       return Promise.reject(error);
-    } else if (error.response?.data.error.name === "ACCOUNT DEACTIVATED") {
+    } else if (
+      error.response?.data.error.name === "ACCOUNT DEACTIVATED" ||
+      error.response?.data.error.name === "INVALID OTP"
+    ) {
       return Promise.reject(error);
     }
 
