@@ -37,6 +37,8 @@ export const ProviderOverview = ({
   handleViewProfile,
   handleActivities,
 }) => {
+  const currencySymbol = localStorage.getItem("currency_symbol");
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const displayName = patronym
     ? `${name} ${patronym} ${surname}`
@@ -68,7 +70,9 @@ export const ProviderOverview = ({
                   "provider-overview__content__text-content__name-container__price-badge--free",
               ].join(" ")}
             >
-              <p className="small-text">{price || freeLabel}</p>
+              <p className="small-text">
+                {price ? `${price}${currencySymbol}` : freeLabel}
+              </p>
             </div>
           </div>
           <p className="small-text provider-overview__types">

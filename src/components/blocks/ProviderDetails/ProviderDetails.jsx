@@ -15,6 +15,8 @@ import "./provider-details.scss";
  * @return {jsx}
  */
 export const ProviderDetails = ({ provider, image, t, buttonComponent }) => {
+  const currencySymbol = localStorage.getItem("currency_symbol");
+
   const allOptionsToString = (option) => {
     return provider[option]?.join(", ");
   };
@@ -113,7 +115,8 @@ export const ProviderDetails = ({ provider, image, t, buttonComponent }) => {
                   classes="provider-details__information-container-with-icon__icon"
                 />
                 <p className="small-text">
-                  {provider.consultationPrice}$ for 1 hour consultation
+                  {provider.consultationPrice}
+                  {currencySymbol} for 1 hour consultation
                 </p>
               </div>
             ) : null}

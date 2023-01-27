@@ -48,6 +48,8 @@ export const Consultation = ({
     ? new Date(timestamp).getTime() < new Date().getTime()
     : false;
 
+  const currencySymbol = localStorage.getItem("currency_symbol");
+
   const name = consultation.providerName || consultation.clientName;
 
   const imageUrl = AMAZON_S3_BUCKET + "/" + (image || "default");
@@ -197,7 +199,10 @@ export const Consultation = ({
                     "provider-consultation__icon-container__price-badge--gray",
                 ].join(" ")}
               >
-                <p className="small-text">{price || "Free"}</p>
+                <p className="small-text">
+                  {price || "Free"}
+                  {price ? currencySymbol : ""}
+                </p>
               </div>
             )}
             {hasMenu && (

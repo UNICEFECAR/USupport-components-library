@@ -23,6 +23,7 @@ export const PaymentsHistoryTable = ({
   t,
   handleViewMore,
 }) => {
+  const currencySymbol = localStorage.getItem("currency_symbol");
   return (
     <div className="payments-history-table__container">
       {isLoading ? (
@@ -49,6 +50,7 @@ export const PaymentsHistoryTable = ({
                   </td>
                   <td className="payments-history-table__table__td">
                     {payment.price}
+                    {currencySymbol}
                   </td>
                   <td className="payments-history-table__table__td">
                     {getDateView(payment.date)} - {getTime(payment.date)}
