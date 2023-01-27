@@ -84,7 +84,7 @@ export const Consultation = ({
     : "";
 
   const handleAccepConsultationClick = () => {
-    handleAcceptConsultation(consultationId);
+    handleAcceptConsultation(consultationId, price);
   };
 
   const handleRejectConsultationClick = () => {

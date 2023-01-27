@@ -54,11 +54,23 @@ async function getAllConsultations() {
  * @param {string} mood the value of the mood
  * @returns {Promise} the response of the request
  */
-async function addMoodTrack(date, mood) {
-  const response = await http.post(`${API_ENDPOINT}/mood-track`, {
-    date,
+async function addMoodTrack(mood, comment) {
+  const response = await http.post(`${API_ENDPOINT}/mood-tracker`, {
+    comment,
     mood,
   });
+  return response;
+}
+
+async function getMoodTrackForToday() {
+  const response = await http.get(`${API_ENDPOINT}/mood-tracker/today`);
+  return response;
+}
+
+async function getMoodTrackForWeek(startDate) {
+  const response = await http.get(
+    `${API_ENDPOINT}/mood-tracker/week?startDate=${JSON.stringify(startDate)}`
+  );
   return response;
 }
 
@@ -107,6 +119,8 @@ const exportedFunctions = {
   createConsultationSecurityCheck,
   updateConsultationSecurityCheck,
   sendInformationPortalSuggestion,
+  getMoodTrackForToday,
+  getMoodTrackForWeek,
 };
 
 export default exportedFunctions;

@@ -28,11 +28,14 @@ export const ProviderOverview = ({
   price,
   editLabel,
   deleteLabel,
+  activitiesLabel,
   onClick,
   hasMenu,
+  showActivities,
   handleEdit,
   handleDelete,
   handleViewProfile,
+  handleActivities,
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const displayName = patronym
@@ -98,6 +101,16 @@ export const ProviderOverview = ({
               <Icon name="edit" size="md" />
               <p className="text">{editLabel}</p>
             </div>
+
+            {showActivities && (
+              <div
+                onClick={handleActivities}
+                className="provider-overview__menu__content"
+              >
+                <Icon name="activities" size="md" />
+                <p className="text">{activitiesLabel}</p>
+              </div>
+            )}
             <div
               onClick={handleDelete}
               className="provider-overview__menu__content"

@@ -248,6 +248,13 @@ async function getContactForms() {
   return response;
 }
 
+async function getProviderActivitiesById(providerId) {
+  const response = await http.get(
+    `${API_ENDPOINT}/statistics/provider-activities?providerId=${providerId}`
+  );
+  return response;
+}
+
 const exportedFunctions = {
   createAdmin,
   deleteArticle,
@@ -277,6 +284,7 @@ const exportedFunctions = {
   getInformationPortalSuggestions,
   getClientRatings,
   getContactForms,
+  getProviderActivitiesById,
 };
 
 export default exportedFunctions;

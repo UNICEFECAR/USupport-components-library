@@ -24,7 +24,7 @@ Emoticon.propTypes = {
   /**
    * Size of the icon
    * */
-  size: PropTypes.oneOf(["sm", "lg"]),
+  size: PropTypes.oneOf(["xs", "sm", "lg"]),
 };
 
 Emoticon.defaultProps = {

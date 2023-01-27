@@ -5,7 +5,7 @@ const API_ENDPOINT = `${import.meta.env.VITE_API_ENDPOINT}/v1/payments`;
 /**
  * used to create payment intent.
  *
- * @param {string} object - object containing the email and the amount
+ * @param {string} consultationId - the id of an existing consultation
  *
  * @returns {Promise} - Promise object represents the response from the server containing the client secret
  */
@@ -29,9 +29,25 @@ async function getPaymentHistory() {
   return response;
 }
 
+/**
+ * used to refund payment intent.
+ *
+ * @param {string} consultaitonId - the id of an existing consultation
+ *
+ * @returns {Promise} - Promise object represents the response from the server containing the client secret
+ */
+async function refund(consultationId) {
+  const response = await http.post(`${API_ENDPOINT}/one-time/refund`, {
+    consultationId: consultationId,
+  });
+
+  return response;
+}
+
 const exportedFunctions = {
   createPaymentIntent,
   getPaymentHistory,
+  refund,
 };
 
 export default exportedFunctions;
