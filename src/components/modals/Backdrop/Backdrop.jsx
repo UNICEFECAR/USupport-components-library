@@ -5,6 +5,7 @@ import { Modal } from "../Modal";
 import { Icon } from "../../icons";
 import { Button } from "../../buttons";
 import { Error } from "../../errors";
+import { Loading } from "../../loaders/";
 
 import "./backdrop.scss";
 import classNames from "classnames";
@@ -25,11 +26,13 @@ export const Backdrop = ({
   ctaLabel,
   ctaHandleClick,
   isCtaDisabled,
+  isSecondaryCtaDisabled,
   secondaryCtaLabel,
   secondaryCtaHandleClick,
   secondaryCtaType = "ghost",
   ctaColor = "green",
   secondaryCtaColor = "green",
+  showLoadingIfDisabled = false,
   children,
   errorMessage,
   reference,
@@ -93,25 +96,31 @@ export const Backdrop = ({
         {hasButtons && (
           <div className="backdrop__buttons-container">
             {errorMessage ? <Error message={errorMessage} /> : null}
-            {ctaLabel && (
-              <Button
-                label={ctaLabel}
-                onClick={ctaHandleClick}
-                color={ctaColor}
-                size="lg"
-                type="primary"
-                disabled={isCtaDisabled}
-              />
-            )}
-            {secondaryCtaLabel && (
-              <Button
-                label={secondaryCtaLabel}
-                onClick={secondaryCtaHandleClick}
-                color={secondaryCtaColor}
-                size="lg"
-                type={secondaryCtaType}
-              />
-            )}
+            {ctaLabel &&
+              (isCtaDisabled && showLoadingIfDisabled ? (
+                <Loading padding="2rem" size="md" />
+              ) : (
+                <Button
+                  label={ctaLabel}
+                  disabled={isCtaDisabled}
+                  onClick={ctaHandleClick}
+                  color={ctaColor}
+                  size="lg"
+                />
+              ))}
+            {secondaryCtaLabel &&
+              (isSecondaryCtaDisabled && showLoadingIfDisabled ? (
+                <Loading padding="2rem" size="md" />
+              ) : (
+                <Button
+                  label={secondaryCtaLabel}
+                  onClick={secondaryCtaHandleClick}
+                  disabled={isSecondaryCtaDisabled}
+                  size="lg"
+                  type={secondaryCtaType}
+                  color={secondaryCtaColor}
+                />
+              ))}
           </div>
         )}
       </div>
@@ -134,6 +143,8 @@ export const Backdrop = ({
         errorMessage,
         secondaryCtaType,
         reference,
+        isSecondaryCtaDisabled,
+        showLoadingIfDisabled,
       }}
     >
       {children}
@@ -176,6 +187,16 @@ Backdrop.propTypes = {
    * If the CTA button is disabled
    */
   isCtaDisabled: PropTypes.bool,
+
+  /**
+   * If the secondary CTA button is disabled
+   */
+  isSecondaryCtaDisabled: PropTypes.bool,
+
+  /**
+   * If true and the CTA button is disabled, a loading spinner will be shown instead
+   */
+  showLoadingIfDisabled: PropTypes.bool,
 
   /**
    * Label of the secondary CTA button

@@ -2,9 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { default as ModalPackage } from "react-modal";
-import { Icon } from "../../icons/Icon";
-import { Button } from "../../buttons/Button";
+import { Icon } from "../../icons/";
+import { Button } from "../../buttons/";
 import { Error } from "../../errors";
+import { Loading } from "../../loaders/";
 
 import "./modal.scss";
 
@@ -29,6 +30,8 @@ export const Modal = ({
   secondaryCtaLabel,
   secondaryCtaHandleClick,
   secondaryCtaType,
+  isSecondaryCtaDisabled,
+  showLoadingIfDisabled = false,
   children,
   errorMessage,
   reference,
@@ -63,24 +66,31 @@ export const Modal = ({
       {hasButtons && (
         <div className="base-modal__footer">
           {errorMessage ? <Error message={errorMessage} /> : null}
-          {ctaLabel && (
-            <Button
-              label={ctaLabel}
-              disabled={isCtaDisabled}
-              onClick={ctaHandleClick}
-              color={ctaColor}
-              size="lg"
-            />
-          )}
-          {secondaryCtaLabel && (
-            <Button
-              label={secondaryCtaLabel}
-              onClick={secondaryCtaHandleClick}
-              size="lg"
-              type={secondaryCtaType}
-              color={secondaryCtaColor}
-            />
-          )}
+          {ctaLabel &&
+            (isCtaDisabled && showLoadingIfDisabled ? (
+              <Loading padding="2rem" size="md" />
+            ) : (
+              <Button
+                label={ctaLabel}
+                disabled={isCtaDisabled}
+                onClick={ctaHandleClick}
+                color={ctaColor}
+                size="lg"
+              />
+            ))}
+          {secondaryCtaLabel &&
+            (isSecondaryCtaDisabled && showLoadingIfDisabled ? (
+              <Loading padding="2rem" size="md" />
+            ) : (
+              <Button
+                label={secondaryCtaLabel}
+                onClick={secondaryCtaHandleClick}
+                disabled={isSecondaryCtaDisabled}
+                size="lg"
+                type={secondaryCtaType}
+                color={secondaryCtaColor}
+              />
+            ))}
         </div>
       )}
     </ModalPackage>
@@ -129,6 +139,16 @@ Modal.propTypes = {
    * Is the CTA button disabled
    */
   isCtaDisabled: PropTypes.bool,
+
+  /**
+   * If the secondary CTA button is disabled
+   */
+  isSecondaryCtaDisabled: PropTypes.bool,
+
+  /**
+   * If true and the CTA button is disabled, a loading spinner will be shown instead
+   */
+  showLoadingIfDisabled: PropTypes.bool,
 
   /**
    * Label of the secondary CTA button

@@ -62,8 +62,30 @@ async function refreshToken(refreshToken) {
   return response;
 }
 
-async function login({ userType, email, password, userAccessToken, location }) {
+async function requestOTP({ email, password }) {
+  const data = {
+    email,
+    password,
+  };
+
+  const response = await http.post(`${API_ENDPOINT}/2fa`, data);
+  return response;
+}
+
+async function login({
+  userType,
+  email,
+  password,
+  userAccessToken,
+  location,
+  otp,
+}) {
   const payload = { userType, password };
+
+  if (userType === "provider") {
+    payload.otp = otp;
+  }
+
   if (userAccessToken) {
     payload.userAccessToken = userAccessToken;
   } else {
@@ -202,6 +224,7 @@ const exportedFunctions = {
   getUserID,
   getWorkWithCategories,
   getTwilioToken,
+  requestOTP,
   login,
   logout,
   refreshToken,
