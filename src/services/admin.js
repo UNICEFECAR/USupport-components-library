@@ -18,11 +18,21 @@ async function deleteAdminById(id) {
   return response;
 }
 
-async function login(email, password, role) {
+async function requestOTP(email, password, role) {
+  const response = await http.post(`${API_ENDPOINT}/2fa`, {
+    email: email.toLowerCase(),
+    password,
+    role,
+  });
+  return response;
+}
+
+async function login(email, password, role, otp) {
   const response = await http.post(`${API_ENDPOINT}/login`, {
     email: email.toLowerCase(),
     password: password,
     role,
+    otp,
   });
   return response;
 }
@@ -271,6 +281,7 @@ const exportedFunctions = {
   getDataById,
   getFAQs,
   getSOSCenters,
+  requestOTP,
   login,
   logout,
   putArticle,
