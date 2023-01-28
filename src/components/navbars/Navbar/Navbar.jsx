@@ -162,6 +162,7 @@ export const Navbar = ({
     setCountriesShown(false);
     localStorage.setItem("country_id", country.countryID);
     localStorage.setItem("country", country.value);
+    localStorage.setItem("currency_symbol", country.currencySymbol);
     window.dispatchEvent(new Event("countryChanged"));
   };
 
