@@ -30,6 +30,7 @@ export const ConsultationDashboard = ({
   handleSchedule,
   t,
 }) => {
+  const currencySymbol = localStorage.getItem("currency_symbol");
   const { providerName, timestamp, image, status, price } = consultation || {};
   // const name = consultation.providerName || consultation.clientName;
   const imageUrl = AMAZON_S3_BUCKET + "/" + (image || "default");
@@ -52,11 +53,26 @@ export const ConsultationDashboard = ({
     >
       {consultation ? (
         <div className="consultation-dashboard__content">
-          {isLive ? (
-            <p className="small-text now-text">{t("live_label")}</p>
-          ) : (
-            <p className="small-text">{`${dateText} ${timeText}`}</p>
-          )}
+          <div className="consultation-dashboard__content__date">
+            {isLive ? (
+              <p className="small-text now-text">{t("live_label")}</p>
+            ) : (
+              <p className="small-text">{`${dateText} ${timeText}`}</p>
+            )}
+            <div>
+              <p
+                className={`small-text consultation-dashboard__content__date__price ${
+                  consultation.price > 0
+                    ? "consultation-dashboard__content__date__price--paid"
+                    : "consultation-dashboard__content__date__price--free"
+                }`}
+              >
+                {consultation.price > 0
+                  ? `${consultation.price}${currencySymbol || ""}`
+                  : t("free")}
+              </p>
+            </div>
+          </div>
           <div className="consultation-dashboard__content__provider-container">
             <img src={imageUrl} className="provider-image" />
             <p className="text">{providerName}</p>
