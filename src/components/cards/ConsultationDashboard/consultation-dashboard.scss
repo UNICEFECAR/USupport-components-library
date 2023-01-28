@@ -19,6 +19,27 @@
     display: flex;
     flex-direction: column;
 
+    &__date {
+      display: flex;
+      justify-content: space-between;
+
+      &__price {
+        padding: $spacing_0_4 $spacing_1_4;
+        border-radius: $border_radius_1_6;
+        word-break: break-all;
+
+        &--free {
+          background-color: $color_green_c1eaea;
+          color: $color_blue_3d527b;
+        }
+
+        &--paid {
+          background-color: $color_purple_c39af9_0_5;
+          color: $color_secondary_9749fa;
+        }
+      }
+    }
+
     &__provider-container {
       display: flex;
       flex-direction: row;
