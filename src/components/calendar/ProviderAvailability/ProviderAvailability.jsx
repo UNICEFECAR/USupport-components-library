@@ -31,6 +31,7 @@ export const ProviderAvailability = ({
   dayIndex,
   t,
 }) => {
+  const currencySymbol = localStorage.getItem("currency_symbol");
   const isLive = consultation
     ? checkIsFiveMinutesBefore(new Date(consultation.time).getTime())
     : false;
@@ -93,15 +94,24 @@ export const ProviderAvailability = ({
     >
       {consultation && (
         <div className="provider-availability__content">
-          <div
-            className={`provider-availability__content__price ${
-              consultation.price > 0
-                ? "provider-availability__content__price--paid"
-                : "provider-availability__content__price--free"
-            }`}
-          >
-            <p>{consultation.price > 0 ? consultation.price : t("free")}</p>
-          </div>
+          {width < 768 && (
+            <img className="provider-availability__image" src={imageUrl} />
+          )}
+          {width >= 768 && (
+            <div
+              className={`provider-availability__content__price ${
+                consultation.price > 0
+                  ? "provider-availability__content__price--paid"
+                  : "provider-availability__content__price--free"
+              }`}
+            >
+              <p className="small-text">
+                {consultation.price > 0
+                  ? `${consultation.price}${currencySymbol}`
+                  : t("free")}
+              </p>
+            </div>
+          )}
           {width >= 1150 && (
             <p className="small-text provider-availability__name">
               {consultation.clientName}

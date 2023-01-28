@@ -200,7 +200,7 @@ export const Consultation = ({
                 ].join(" ")}
               >
                 <p className="small-text">
-                  {price || "Free"}
+                  {price > 0 ? price : "Free"}
                   {price ? currencySymbol : ""}
                 </p>
               </div>

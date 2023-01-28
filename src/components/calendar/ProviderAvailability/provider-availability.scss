@@ -89,10 +89,10 @@
     justify-content: center;
 
     &__price {
-      padding: $spacing_0_6;
+      padding: $spacing_0_4 $spacing_0_8;
       border-radius: $border_radius_1_6;
       word-break: break-all;
-      margin-bottom: $spacing_0_4;
+      max-height: 95%;
 
       &--free {
         background-color: $color_green_c1eaea;
@@ -111,6 +111,7 @@
   }
 
   &__name.small-text {
+    margin-top: $spacing_0_4;
     font-weight: $font_semi_bold;
   }
 
