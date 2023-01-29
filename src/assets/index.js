@@ -19,3 +19,4 @@ export { default as mascotHappyPurple } from "./mascot-happy-purple.png";
 export { default as mascotHappyOrange } from "./mascot-happy-orange.png";
 export { default as mascotHappyPurpleFull } from "./mascot-happy-purple-full.png";
 export { default as articlePlaceholder } from "./article-placeholder.png";
+export { default as noImagePlaceholder } from "./no-image-placeholder.png";
