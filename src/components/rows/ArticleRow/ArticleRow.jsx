@@ -35,7 +35,7 @@ export const ArticleRow = ({
         />
         <Grid classes="article-row__grid">
           <GridItem md={1} lg={1} classes="article-row__grid__image-item">
-            <img src={image} />
+            <img src={image ? image : articlePlaceholder} />
           </GridItem>
 
           <GridItem md={6} lg={9} classes="article-row__grid__content-item">
