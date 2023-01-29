@@ -233,6 +233,13 @@ async function rejectConsultation(consultationId) {
   return res;
 }
 
+async function getConsultationsTime(consultationId) {
+  const res = await http.get(
+    `${API_ENDPOINT}/consultation/time?consultationId=${consultationId}`
+  );
+  return res;
+}
+
 async function getProviderByIdAsAdmin(id) {
   const res = await http.get(`${API_ENDPOINT}/by-id/admin?providerId=${id}`);
   return res;
@@ -307,6 +314,7 @@ const exportedFunctions = {
   updateProviderData,
   acceptConsultation,
   rejectConsultation,
+  getConsultationsTime,
   updateProviderDataByIdAsAdmin,
   changeImageAsAdmin,
   deleteImageAsAdmin,
