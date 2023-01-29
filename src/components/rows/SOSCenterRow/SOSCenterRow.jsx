@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import { Grid } from "../../grids/Grid/Grid";
 import { GridItem } from "../../grids/GridItem/GridItem";
 import { Line } from "../../separators/Line/Line";
-import { ButtonOnlyIcon } from "../../buttons/ButtonOnlyIcon/ButtonOnlyIcon";
 import { CheckBox } from "../../inputs/CheckBox/CheckBox";
+import { noImagePlaceholder } from "../../../assets";
 
 import "./soscenter-row.scss";
 
@@ -34,7 +34,7 @@ export const SOSCenterRow = ({
         />
         <Grid md={8} lg={12} classes={"sos-center-row__grid"}>
           <GridItem md={1} lg={1} classes="sos-center-row__grid__image-item">
-            <img src={image} />
+            <img src={image ? image : noImagePlaceholder} />
           </GridItem>
           <GridItem md={4} lg={5}>
             <p className="text heading sos-center-row__heading">{heading}</p>
