@@ -45,7 +45,7 @@ export const PaymentsHistoryTable = ({
                 <tr key={payment.paymentId}>
                   <td className="payments-history-table__table__td">
                     <p className="text payments-history-table__table__name">
-                      {payment.service}
+                      {t(payment.service)}
                     </p>
                   </td>
                   <td className="payments-history-table__table__td">
