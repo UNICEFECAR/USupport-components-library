@@ -1,0 +1,65 @@
+@import "../../../styles/theme";
+
+.table {
+  min-width: 100rem;
+  width: 100%;
+  padding-right: $spacing_3_0;
+
+  &__container {
+    overflow-x: auto;
+    padding-top: $spacing_3_6;
+    padding-bottom: $spacing_9_0;
+  }
+
+  &__body {
+    & p {
+      color: $color_blue_3d527b;
+    }
+  }
+
+  &__td {
+    border-bottom: 1px solid $color_gray_a6b4b8;
+    padding-left: $spacing_1_4;
+    padding-right: $spacing_1_4;
+    padding-bottom: $spacing_1_8;
+    padding-top: $spacing_1_4;
+  }
+
+  &-icon {
+    background-color: $color_white_ff;
+    border-bottom: unset;
+    cursor: pointer;
+    margin-top: $spacing_1_0;
+    padding: $spacing_1_2;
+    position: fixed;
+    right: -$spacing_1_6;
+
+    &__content {
+      position: relative;
+    }
+
+    &__menu {
+      position: fixed;
+      right: $spacing_1_6;
+      border-radius: $border_radius_2_4;
+      background-color: $color_white_ff;
+      box-shadow: $shadow_1;
+      padding: $spacing_1_8;
+
+      &__option {
+        align-items: center;
+        display: flex;
+        cursor: pointer;
+        width: auto;
+
+        &:first-of-type {
+          margin-bottom: $spacing_1_2;
+        }
+
+        & .icon {
+          margin-right: $spacing_1_8;
+        }
+      }
+    }
+  }
+}
