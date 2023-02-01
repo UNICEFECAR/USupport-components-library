@@ -53,7 +53,7 @@ export const BaseTable = ({
                           <TableIcon
                             menuOptions={menuOptions}
                             handleClickCallbackProp={
-                              data[dataIndex][handleClickPropName]
+                              data ? data[dataIndex][handleClickPropName] : null
                             }
                           />
                         )}
@@ -90,7 +90,10 @@ const TableIcon = ({ menuOptions, handleClickCallbackProp }) => {
                     className="table-icon__menu__option"
                     onClick={() => option.handleClick(handleClickCallbackProp)}
                   >
-                    <Icon name={option.icon} />
+                    <Icon
+                      color={option.iconColor || "#20809E"}
+                      name={option.icon}
+                    />
                     <p>{option.text}</p>
                   </div>
                 );
