@@ -3,12 +3,12 @@
 .table {
   min-width: 100rem;
   width: 100%;
-  padding-right: $spacing_3_0;
 
   &__container {
     overflow-x: auto;
     padding-top: $spacing_3_6;
     padding-bottom: $spacing_9_0;
+    padding-right: $spacing_5_0;
   }
 
   &__body {
