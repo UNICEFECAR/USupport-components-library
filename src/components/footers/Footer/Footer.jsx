@@ -7,10 +7,11 @@ import { List } from "../../lists/List";
 import { Icon } from "../../icons/Icon";
 import { Button } from "../../buttons/Button";
 import { IconWithText } from "../../icons/IconWithText";
+import { StaticImage } from "../../images/StaticImage";
 
 import "./footer.scss";
 
-import { logoHorizontalPng } from "../../../assets";
+import { logoHorizontalPng, logoHorizontalWebp } from "../../../assets";
 
 /**
  * Footer
@@ -88,9 +89,10 @@ export const Footer = ({ lists, contactUsText, navigate, Link }) => {
     <Block classes="footer" animation={null}>
       <Grid>
         <GridItem xs={4} md={8} lg={4}>
-          <img
-            className="footer__logo"
-            src={logoHorizontalPng}
+          <StaticImage
+            png={logoHorizontalPng}
+            webp={logoHorizontalWebp}
+            imageClasses="footer__logo"
             alt="logo"
             onClick={() => {
               navigate("/");

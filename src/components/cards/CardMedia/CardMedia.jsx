@@ -42,6 +42,7 @@ export const CardMedia = ({
       <img
         className="card-media__image"
         src={image ? image : "https://picsum.photos/343/400"}
+        alt="card-media"
       />
 
       <div className={"card-media__content"}>
@@ -76,7 +77,6 @@ export const CardMedia = ({
         </div>
 
         <Button
-          id={"btn--read-more"}
           type={
             type === "landscape" && (size === "sm" || size == "md")
               ? "text"

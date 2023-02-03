@@ -36,3 +36,4 @@ export * from "./components/policies";
 export * from "./components/consultation";
 export * from "./components/rows";
 export * from "./components/tables";
+export * from './components/images';
