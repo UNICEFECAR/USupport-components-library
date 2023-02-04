@@ -265,6 +265,43 @@ async function getProviderActivitiesById(providerId) {
   return response;
 }
 
+async function getAllSponsorsData() {
+  const response = await http.get(`${API_ENDPOINT}/sponsor`);
+  return response;
+}
+
+async function getSponsorDataById(sponsorId) {
+  const response = await http.get(
+    `${API_ENDPOINT}/sponsor/by-id?sponsorId=${sponsorId}`
+  );
+  return response;
+}
+
+async function addSponsor(payload) {
+  const response = await http.post(`${API_ENDPOINT}/sponsor`, payload);
+  return response;
+}
+
+async function updateSponsor(payload) {
+  const response = await http.put(`${API_ENDPOINT}/sponsor`, payload);
+  return response;
+}
+
+async function createCampaignForSponsor(payload) {
+  const response = await http.post(
+    `${API_ENDPOINT}/sponsor/create-campaign`,
+    payload
+  );
+  return response;
+}
+
+async function getCouponsData(campaignId) {
+  const response = await http.get(
+    `${API_ENDPOINT}/sponsor/coupons-data?campaignId=${campaignId}`
+  );
+  return response;
+}
+
 const exportedFunctions = {
   createAdmin,
   deleteArticle,
@@ -296,6 +333,12 @@ const exportedFunctions = {
   getClientRatings,
   getContactForms,
   getProviderActivitiesById,
+  getAllSponsorsData,
+  getSponsorDataById,
+  addSponsor,
+  updateSponsor,
+  createCampaignForSponsor,
+  getCouponsData,
 };
 
 export default exportedFunctions;
