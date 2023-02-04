@@ -12,17 +12,18 @@ import "./input.scss";
  *
  * @return {jsx}
  */
-export const Input = ({
-  value,
-  type,
-  label,
-  disabled,
-  errorMessage,
-  children,
-  preInput,
-  classes,
-  ...props
-}) => {
+export const Input = React.forwardRef((props, ref) => {
+  const {
+    value,
+    type,
+    label,
+    disabled,
+    errorMessage,
+    children,
+    preInput,
+    classes,
+    ...rest
+  } = props;
   return (
     <div
       className={[
@@ -39,14 +40,15 @@ export const Input = ({
           disabled={disabled}
           className="input text"
           value={value}
-          {...props}
+          ref={ref}
+          {...rest}
         />
         {children ? children : null}
       </div>
       {errorMessage && !disabled ? <Error message={errorMessage} /> : null}
     </div>
   );
-};
+});
 
 Input.propTypes = {
   /**

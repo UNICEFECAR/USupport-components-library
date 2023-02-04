@@ -12,3 +12,4 @@ export * from "./RadioButtonSelector";
 export * from "./RadioButtonSelectorGroup";
 export * from "./Toggle";
 export * from './InputGroup';
+export * from './DateInput';
