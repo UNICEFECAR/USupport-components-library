@@ -5,6 +5,8 @@ import { Button } from "../../buttons/Button/Button";
 import { Icon } from "../../icons/Icon/Icon";
 import { Box } from "../../boxes/Box/Box";
 import { Label } from "../../labels/Label/Label";
+import { Grid } from "../../grids/Grid/Grid";
+import { GridItem } from "../../grids/GridItem/GridItem";
 
 import "./card-media.scss";
 
@@ -28,6 +30,7 @@ export const CardMedia = ({
   labels,
   showLabels,
   readingTime,
+  categoryName,
   children,
   ...props
 }) => {
@@ -46,6 +49,22 @@ export const CardMedia = ({
       />
 
       <div className={"card-media__content"}>
+        <Grid>
+          <GridItem xs={3} md={5} lg={8} classes="card-media__title">
+            <h4 className="card-media__title__text">{title}</h4>
+          </GridItem>
+          <GridItem xs={1} md={3} lg={4} classes="card-media__category">
+            <p className="small-text card-media__category__text">
+              {categoryName}
+            </p>
+          </GridItem>
+        </Grid>
+        <div className={"card-media__details"}>
+          <p className={"small-text"}>By {creator}</p>
+
+          <Icon name={"time"} size="sm" />
+          <p className={"small-text"}> {readingTime} min read</p>
+        </div>
         {showLabels && (
           <div className={"card-media__labels"}>
             {labels.length > 0 &&
@@ -61,15 +80,6 @@ export const CardMedia = ({
               })}
           </div>
         )}
-        <div className="card-media__title">
-          <h4 className="card-media__title__text">{title}</h4>
-        </div>
-        <div className={"card-media__details"}>
-          <p className={"small-text"}>By {creator}</p>
-
-          <Icon name={"time"} size="sm" />
-          <p className={"small-text"}> {readingTime} min read</p>
-        </div>
         <div className={"card-media__description"}>
           <p className={" small-text"} id="description">
             {showDescription && description}
@@ -151,6 +161,11 @@ CardMedia.propTypes = {
   readingTime: PropTypes.string,
 
   /**
+   * Category name to be displayed
+   * */
+  categoryName: PropTypes.string,
+
+  /**
    * Additional classes to be added to the CardMedia component
    **/
   classes: PropTypes.oneOfType([
@@ -170,6 +185,7 @@ CardMedia.defaultProps = {
   creator: null,
   labels: [],
   showLabels: true,
+  categoryName: null,
   readingTime: null,
   showDescription: true,
 };
