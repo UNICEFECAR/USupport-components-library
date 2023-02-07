@@ -19,7 +19,6 @@ export const DateInput = ({ classes = [], ...props }) => {
       type="date"
       ref={inputRef}
       onFocus={() => {
-        console.log("focus");
         inputRef.current?.showPicker();
       }}
       {...props}
