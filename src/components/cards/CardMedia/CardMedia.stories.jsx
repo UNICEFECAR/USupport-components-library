@@ -22,6 +22,7 @@ const data = {
       name: "Self-imporvement and some more long words to see if it wraps correctly and some more words",
     },
   ],
+  category: { name: "Depresion" },
   creator: { name: "Joe Doe" },
   readingTime: 5,
 };
@@ -38,5 +39,6 @@ Default.args = {
   description: data.description,
   creator: data.creator.name,
   readingTime: data.readingTime,
+  categoryName: data.category.name,
   showDescription: false,
 };
