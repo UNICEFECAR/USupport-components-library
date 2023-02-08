@@ -66,6 +66,9 @@
       display: -webkit-box;
       overflow: hidden;
       color: $color_blue_3d527b;
+    }
+
+    .small-text {
       font-weight: $font_bold;
     }
   }
@@ -160,6 +163,10 @@
       .card-media__image {
         width: 16rem;
         height: 100%;
+      }
+
+      .card-media__category {
+        margin-right: $spacing_1_6;
       }
 
       .card-media__description {

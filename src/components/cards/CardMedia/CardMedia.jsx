@@ -89,7 +89,7 @@ export const CardMedia = ({
         <Button
           type={
             type === "landscape" && (size === "sm" || size == "md")
-              ? "text"
+              ? "link"
               : "secondary"
           }
           label={"Read more"}
