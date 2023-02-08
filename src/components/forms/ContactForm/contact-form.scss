@@ -7,6 +7,14 @@
     max-width: 36.8rem;
   }
 
+  &__email-input {
+    padding-top: $spacing_1_6;
+
+    @media screen and (min-width: $screen-lg) {
+      padding-top: $spacing_2_4;
+    }
+  }
+
   &__subject,
   &__message {
     padding-top: $spacing_2_4;

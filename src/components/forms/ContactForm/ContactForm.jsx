@@ -100,6 +100,7 @@ export const ContactForm = ({ classes, sendEmail, navigate, t }) => {
 
   return (
     <div className={["contact-form", classNames(classes)].join(" ")}>
+      <h4 className="contact-form__heading">{t("contact_form_heading")}</h4>
       <Input
         label="Email"
         errorMessage={errors.email}
