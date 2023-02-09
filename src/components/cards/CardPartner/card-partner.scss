@@ -1,0 +1,41 @@
+@import "../../../styles/theme";
+
+.card-partner {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  padding: $spacing_1_6;
+  max-width: 34rem;
+  margin: auto;
+
+  @media screen and (min-width: $screen-lg) {
+    flex-direction: row;
+    max-width: 94rem;
+    padding: $spacing_1_6;
+  }
+
+  &__description {
+    overflow: hidden;
+    & > p {
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 5;
+      display: -webkit-box;
+      text-overflow: ellipsis;
+      word-break: break-all;
+    }
+  }
+
+  &__logo {
+    @media screen and (min-width: $screen-lg) {
+      width: 100rem;
+      margin: 0 $spacing_5_0 0 $spacing_4_0;
+    }
+    &__image {
+      width: 100%;
+      border-radius: $border_radius_2_4;
+      object-fit: cover;
+      object-position: center;
+      height: 16rem;
+    }
+  }
+}
