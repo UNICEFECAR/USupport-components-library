@@ -29,6 +29,21 @@
     }
   }
 
+  &__sponsor-image {
+    width: 3.6rem;
+    height: 3.6rem;
+    border-radius: 50%;
+
+    @media screen and (min-width: $screen-lg) {
+      width: 4.5rem;
+      height: 4.5rem;
+    }
+  }
+
+  &--campaign {
+    background-color: $color_purple_c39af9_0_5;
+  }
+
   &--available {
     background-color: $color_green_c1eaea;
 
@@ -150,7 +165,7 @@
     background-color: $color_white_ff;
     border-radius: $border_radius_0_8;
     border: 1px solid $color_primary_20809e;
-    bottom: -5rem;
+    // bottom: -5rem;
     box-shadow: $shadow_2;
     display: flex;
     flex-direction: column;
@@ -162,6 +177,15 @@
     width: calc(19rem - 2 * $spacing_1_6);
     height: auto;
     z-index: 100;
+
+    &__campaign {
+      max-height: 30rem;
+      overflow-x: auto;
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      justify-content: space-between;
+    }
 
     &__right-0 {
       left: unset;
@@ -183,6 +207,13 @@
       justify-content: flex-start;
       width: 100%;
 
+      &__image {
+        width: 3.2rem;
+        height: 3rem;
+        border-radius: 50%;
+        margin-right: $spacing_0_8;
+      }
+
       & > p {
         color: $color_gray_344054;
         text-decoration: underline;
@@ -194,6 +225,15 @@
 
       & .icon {
         margin-right: $spacing_0_8;
+      }
+
+      &--campaign {
+        justify-content: space-between;
+
+        & > p {
+          color: $color_blue_3d527b;
+          text-decoration: none;
+        }
       }
     }
 

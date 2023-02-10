@@ -29,6 +29,9 @@ export const ProviderAvailability = ({
   isAvailable,
   consultation,
   dayIndex,
+  campaignData,
+  validCampaigns,
+  enrolledCampaignsForSlot,
   t,
 }) => {
   const currencySymbol = localStorage.getItem("currency_symbol");
@@ -44,10 +47,19 @@ export const ProviderAvailability = ({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { width } = useWindowDimensions();
 
-  const handleAvailabilityChange = () => {
+  const handleAvailabilityChange = ({
+    campaignId = null,
+    isCampaignAvailableInSlot = null,
+  }) => {
     if (consultation) handleCancelConsultation(consultation);
-    else {
-      isAvailable ? handleSetUnavailable() : handleSetAvailable();
+    else if (campaignId) {
+      if (isCampaignAvailableInSlot) {
+        handleSetUnavailable(campaignId);
+      } else {
+        handleSetAvailable(campaignId);
+      }
+    } else {
+      isAvailable ? handleSetUnavailable(null) : handleSetAvailable(null);
     }
   };
   const handleMenuSecondClick = () => {
@@ -83,7 +95,9 @@ export const ProviderAvailability = ({
       className={[
         "provider-availability",
         isMenuOpen ? "provider-availability--active" : "",
-        isAvailable
+        isAvailable === "campaign"
+          ? "provider-availability--campaign"
+          : isAvailable
           ? "provider-availability--available"
           : "provider-availability--unavailable",
         consultation ? "provider-availability--booked" : "",
@@ -92,6 +106,12 @@ export const ProviderAvailability = ({
       ].join(" ")}
       onClick={() => setIsMenuOpen(!isMenuOpen)}
     >
+      {isAvailable === "campaign" && (
+        <img
+          src={AMAZON_S3_BUCKET + "/" + campaignData?.sponsorImage}
+          className="provider-availability__sponsor-image"
+        />
+      )}
       {consultation && (
         <div className="provider-availability__content">
           {width < 768 && (
@@ -122,10 +142,13 @@ export const ProviderAvailability = ({
 
       {width >= 1150 && (
         <>
-          {!isLive && !consultation && (
+          {!isLive && !consultation && !campaignData && (
             <p className="small-text provider-availability__available-text">
               {isAvailable ? t("available") : t("not_available")}
             </p>
+          )}
+          {!isLive && !consultation && campaignData && (
+            <p className="small-text">{campaignData.sponsorName}</p>
           )}
           <div className="provider-availability__icon-container">
             <Icon name="three-dots-vertical" color="#20809E" />
@@ -186,6 +209,43 @@ export const ProviderAvailability = ({
                 classes="provider-availability__controls__join-button"
               />
             ) : null}
+
+            {validCampaigns?.length > 0 && (
+              <div className="provider-availability__controls__campaign">
+                {validCampaigns.map((campaign) => {
+                  const isCampaignAvailableInSlot =
+                    enrolledCampaignsForSlot?.some(
+                      (x) => x.campaignId === campaign.campaignId
+                    );
+                  return (
+                    <div
+                      className="provider-availability__controls__single provider-availability__controls__single--campaign"
+                      key={campaign.campaignId}
+                    >
+                      <img
+                        src={AMAZON_S3_BUCKET + "/" + campaign.sponsorImage}
+                        className="provider-availability__controls__single__image"
+                      />
+                      <p className="small-text">{campaign.campaignName}</p>
+                      <Icon
+                        name={
+                          isCampaignAvailableInSlot
+                            ? "circle-close"
+                            : "circle-actions-success"
+                        }
+                        onClick={() =>
+                          handleAvailabilityChange({
+                            campaignId: campaign.campaignId,
+                            isCampaignAvailableInSlot,
+                          })
+                        }
+                        color="#373737"
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </OutsideClickHandler>
       ) : null}
