@@ -296,6 +296,13 @@ async function getProviderActivities() {
   return res;
 }
 
+async function getRandomProviders(limit) {
+  const res = await http.get(
+    `${API_ENDPOINT}/random-providers?numberOfProviders=${Number(limit)}`
+  );
+  return res;
+}
+
 const exportedFunctions = {
   addAvailableSlot,
   addTemplateAvailability,
@@ -331,5 +338,6 @@ const exportedFunctions = {
   deleteProviderByIdAsAdmin,
   leaveConsultation,
   getProviderActivities,
+  getRandomProviders,
 };
 export default exportedFunctions;
