@@ -95,7 +95,7 @@ export const Navbar = ({
     items.push({
       value:
         isTmpUser && page.url === "/consultations" ? (
-          <div onClick={isTmpUserAction} className="nav__item">
+          <div onClick={isTmpUserAction} className="nav__item" role="button">
             <p className="paragraph">{page.name}</p>
           </div>
         ) : (
@@ -106,6 +106,7 @@ export const Navbar = ({
             }
             onClick={() => handleNavbarLinkClick(page)}
             end={page.exact ? page.exact : false}
+            role="button"
           >
             <p className="paragraph">{page.name}</p>
           </NavLink>
@@ -123,6 +124,7 @@ export const Navbar = ({
           languagesShown ? "nav__globe--expanded" : "",
           width < 950 ? "nav__languages--mobile" : "",
         ].join(" ")}
+        role="button"
         onClick={() => {
           toggleLanguages();
         }}
@@ -143,6 +145,7 @@ export const Navbar = ({
             "nav__item",
             countriesShown ? "nav__country--expanded" : "",
           ].join(" ")}
+          role="button"
           onClick={() => {
             toggleCountries();
           }}

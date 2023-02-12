@@ -28,6 +28,7 @@ export const Collapsible = ({
         classNames(classes),
         isExpanded ? "collapsible--expanded" : "",
       ].join(" ")}
+      role="button"
     >
       <div
         className="collapsible__heading"

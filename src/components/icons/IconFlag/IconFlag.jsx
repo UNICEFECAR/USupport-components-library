@@ -12,7 +12,7 @@ import { Icon } from "../Icon";
  * @return {jsx}
  */
 export const IconFlag = ({ flagName }) => {
-  return <Icon name={`flag-${flagName}`} size="md" />;
+  return <Icon name={`flag-${flagName}`} size="md" arial-label={flagName} />;
 };
 
 IconFlag.propTypes = {
