@@ -21,10 +21,11 @@
 
   &__information {
     padding-left: $spacing_1_6;
+    text-align: left;
 
     & > h4,
     & > p {
-      word-break: break-all;
+      word-break: break-word;
     }
   }
 }

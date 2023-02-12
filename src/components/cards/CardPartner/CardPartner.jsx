@@ -4,7 +4,6 @@ import classNames from "classnames";
 import { Box } from "../../boxes/Box/Box";
 import { Grid } from "../../grids/Grid/Grid";
 import { GridItem } from "../../grids/GridItem/GridItem";
-import { unicefLogoBig } from "../../../assets";
 
 import "./card-partner.scss";
 
@@ -29,7 +28,7 @@ export const CardPartner = ({
       <div className="card-partner__logo">
         <img
           className="card-partner__logo__image"
-          src={image ? image : unicefLogoBig}
+          src={image}
           alt="card-partner"
         />
       </div>
@@ -78,10 +77,4 @@ CardPartner.propTypes = {
    * CardPartner linkPlaceholder
    * */
   linkPlaceholder: PropTypes.string,
-};
-
-CardPartner.defaultProps = {
-  title: "UNICEF",
-  description: "Placehoder description",
-  image: "",
 };

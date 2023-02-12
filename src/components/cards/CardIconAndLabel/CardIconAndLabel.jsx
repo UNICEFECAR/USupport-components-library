@@ -16,9 +16,7 @@ export const CardIconAndLabel = ({ iconName, size, label, classes }) => {
   return (
     <div className={`card-icon-and-label size-${size} ${classNames(classes)}`}>
       <Icon name={iconName} size="lg" />
-      <p className={`label ${size === "lg" ? "text" : "small-text"}`}>
-        {label}
-      </p>
+      <p className="label text">{label}</p>
     </div>
   );
 };
