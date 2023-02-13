@@ -53,7 +53,7 @@ export const Navbar = ({
   initialLanguage,
   initialCountry,
   hasUnreadNotifications,
-  renderIn = "client",
+  renderIn = "website",
 }) => {
   let { width } = useWindowDimensions();
   const imageURL = AMAZON_S3_BUCKET + "/" + image;
@@ -393,6 +393,7 @@ export const Navbar = ({
           }
           ${renderIn === "global-admin" ? "nav__languages--global-admin" : ""}
           ${renderIn === "country-admin" ? "nav__languages--country-admin" : ""}
+          ${renderIn === "client" ? "nav__languages--client" : ""}
           `}
         >
           <Box

@@ -239,6 +239,10 @@
       top: 48rem;
     }
 
+    &--client {
+      top: 28rem;
+    }
+
     @media screen and (min-width: $navbar-tight) {
       top: 7.5rem;
       right: 14rem;
