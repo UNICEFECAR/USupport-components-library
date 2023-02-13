@@ -96,7 +96,7 @@ export const Controls = ({
       <ConsultationInformation
         startDate={startDate}
         endDate={endDate}
-        providerName={consultation.providerName}
+        providerName={consultation.clientName || consultation.providerName}
         providerImage={consultation.image}
         t={t}
       />
