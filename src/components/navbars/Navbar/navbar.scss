@@ -243,6 +243,10 @@
 
     @media screen and (min-width: $screen-lg) {
       right: 22rem;
+
+      &--no-profile {
+        right: 12rem;
+      }
     }
   }
 

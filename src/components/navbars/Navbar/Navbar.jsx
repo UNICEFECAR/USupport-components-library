@@ -385,13 +385,20 @@ export const Navbar = ({
           ${languagesShown ? "nav__languages" : "nav__countries "}
           ${languagesShown ? "nav__languages--shown" : ""}
           ${countriesShown ? "nav__countries--shown" : ""}
+          ${
+            languagesShown &&
+            !showProfilePicture &&
+            !countriesShown &&
+            "nav__languages--no-profile"
+          }
           `}
         >
           <Box
             classes={`nav__languages__content
              ${languagesShown ? "nav__languages__content--shown" : ""}
-             ${countriesShown ? "nav__countries__content--shown" : ""}
-              `}
+             ${
+               countriesShown ? "nav__countries__content--shown" : ""
+             }              `}
           >
             {width >= 950 && (
               <h4>{languagesShown ? languageLabel : countryLabel}</h4>
