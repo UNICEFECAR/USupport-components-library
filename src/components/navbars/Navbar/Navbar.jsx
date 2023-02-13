@@ -53,6 +53,7 @@ export const Navbar = ({
   initialLanguage,
   initialCountry,
   hasUnreadNotifications,
+  renderIn = "client",
 }) => {
   let { width } = useWindowDimensions();
   const imageURL = AMAZON_S3_BUCKET + "/" + image;
@@ -386,11 +387,11 @@ export const Navbar = ({
           ${languagesShown ? "nav__languages--shown" : ""}
           ${countriesShown ? "nav__countries--shown" : ""}
           ${
-            languagesShown &&
-            !showProfilePicture &&
-            // !countriesShown &&
-            "nav__languages--no-profile"
+            languagesShown && !showProfilePicture
+              ? "nav__languages--no-profile"
+              : ""
           }
+          ${renderIn === "country-admin" ? "nav__languages--country-admin" : ""}
           `}
         >
           <Box

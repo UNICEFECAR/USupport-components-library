@@ -230,6 +230,10 @@
   &__languages {
     width: 16rem;
 
+    &--country-admin {
+      top: 23rem;
+    }
+
     @media screen and (min-width: $navbar-tight) {
       top: 7.5rem;
       right: 14rem;
