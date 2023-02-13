@@ -234,11 +234,19 @@
       top: 7.5rem;
       right: 14rem;
       left: auto;
+
+      &--no-profile {
+        right: 7rem;
+      }
     }
 
     @media screen and (min-width: $navbar-spread) {
       top: 8.5rem;
       right: 18rem;
+
+      &--no-profile {
+        right: 9rem;
+      }
     }
 
     @media screen and (min-width: $screen-lg) {

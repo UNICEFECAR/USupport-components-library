@@ -388,7 +388,7 @@ export const Navbar = ({
           ${
             languagesShown &&
             !showProfilePicture &&
-            !countriesShown &&
+            // !countriesShown &&
             "nav__languages--no-profile"
           }
           `}
