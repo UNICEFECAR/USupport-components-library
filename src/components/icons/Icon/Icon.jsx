@@ -9,7 +9,7 @@ import "./icon.scss";
 /**
  * Icon component used to render different icons from the sprite file
  */
-export const Icon = ({ name, size, color, classes, ...props }) => {
+export const Icon = ({ name, size, color, classes, role, ...props }) => {
   const [svgFilter, setSvgFilter] = useState();
 
   // Generate a color filter for the icon
@@ -33,6 +33,7 @@ export const Icon = ({ name, size, color, classes, ...props }) => {
         `icon icon--${name} icon--${size}` + (classes ? ` ${classes}` : "")
       }
       style={{ WebkitFilter: svgFilter ? svgFilter : "" }}
+      role={role ? role : "none"}
       {...props}
     >
       <use href={`${sprite}#icon-${name}`} />
@@ -74,4 +75,5 @@ Icon.defaultProps = {
   size: "md",
   color: null,
   classes: [],
+  role: "none",
 };

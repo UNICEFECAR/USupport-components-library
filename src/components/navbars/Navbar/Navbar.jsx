@@ -126,6 +126,7 @@ export const Navbar = ({
           width < 950 ? "nav__languages--mobile" : "",
         ].join(" ")}
         role="button"
+        tabIndex="0"
         onClick={() => {
           toggleLanguages();
         }}
@@ -147,6 +148,7 @@ export const Navbar = ({
             countriesShown ? "nav__country--expanded" : "",
           ].join(" ")}
           role="button"
+          tabIndex="0"
           onClick={() => {
             toggleCountries();
           }}
@@ -345,6 +347,7 @@ export const Navbar = ({
           className="nav__logo"
           src={logoHorizontalPng}
           alt="logo"
+          tabIndex="0"
           onClick={() => {
             navigate("/");
             scrollTop();

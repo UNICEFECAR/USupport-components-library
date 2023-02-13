@@ -16,6 +16,7 @@ export const StaticImage = ({
   webp,
   png,
   onClick,
+  tabIndex = 0,
   ...props
 }) => {
   return (
@@ -34,6 +35,7 @@ export const StaticImage = ({
         className={`image ${classNames(imageClasses)}`}
         src={png}
         alt={alt}
+        tabIndex={tabIndex}
         onClick={onClick}
       />
     </picture>

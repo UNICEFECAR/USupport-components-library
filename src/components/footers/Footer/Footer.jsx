@@ -94,6 +94,7 @@ export const Footer = ({ lists, contactUsText, navigate, Link }) => {
             webp={logoHorizontalWebp}
             imageClasses="footer__logo"
             alt="logo"
+            tabIndex="0"
             onClick={() => {
               navigate("/");
             }}
