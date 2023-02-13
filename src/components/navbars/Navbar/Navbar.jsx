@@ -391,7 +391,7 @@ export const Navbar = ({
               ? "nav__languages--no-profile"
               : ""
           }
-          ${renderIn === "country-admin" ? "nav__languages--country-admin" : ""}
+          ${renderIn === "global-admin" ? "nav__languages--global-admin" : ""}
           `}
         >
           <Box
