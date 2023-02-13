@@ -17,6 +17,7 @@
   height: 4.6rem;
   padding-top: $spacing_2_0;
   cursor: default;
+  overflow: scroll;
 
   @media screen and (min-width: $navbar-tight) {
     padding: $spacing_1_6 0;
@@ -230,19 +231,39 @@
   &__languages {
     width: 16rem;
 
+    &--global-admin {
+      top: 23rem;
+    }
+
+    &--country-admin {
+      top: 48rem;
+    }
+
     @media screen and (min-width: $navbar-tight) {
       top: 7.5rem;
       right: 14rem;
       left: auto;
+
+      &--no-profile {
+        right: 7rem;
+      }
     }
 
     @media screen and (min-width: $navbar-spread) {
       top: 8.5rem;
       right: 18rem;
+
+      &--no-profile {
+        right: 9rem;
+      }
     }
 
     @media screen and (min-width: $screen-lg) {
       right: 22rem;
+
+      &--no-profile {
+        right: 11rem;
+      }
     }
   }
 

@@ -26,6 +26,7 @@ export const CardProviderSmall = ({
     <Box
       classes={classNames(["card-provider-small", classes])}
       onClick={onClick}
+      role="button"
     >
       <img src={imageUrl} />
       <div className="card-provider-small__information">

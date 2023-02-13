@@ -53,6 +53,7 @@ export const Navbar = ({
   initialLanguage,
   initialCountry,
   hasUnreadNotifications,
+  renderIn = "client",
 }) => {
   let { width } = useWindowDimensions();
   const imageURL = AMAZON_S3_BUCKET + "/" + image;
@@ -95,7 +96,7 @@ export const Navbar = ({
     items.push({
       value:
         isTmpUser && page.url === "/consultations" ? (
-          <div onClick={isTmpUserAction} className="nav__item">
+          <div onClick={isTmpUserAction} className="nav__item" role="button">
             <p className="paragraph">{page.name}</p>
           </div>
         ) : (
@@ -106,6 +107,7 @@ export const Navbar = ({
             }
             onClick={() => handleNavbarLinkClick(page)}
             end={page.exact ? page.exact : false}
+            role="button"
           >
             <p className="paragraph">{page.name}</p>
           </NavLink>
@@ -123,6 +125,7 @@ export const Navbar = ({
           languagesShown ? "nav__globe--expanded" : "",
           width < 950 ? "nav__languages--mobile" : "",
         ].join(" ")}
+        role="button"
         onClick={() => {
           toggleLanguages();
         }}
@@ -143,6 +146,7 @@ export const Navbar = ({
             "nav__item",
             countriesShown ? "nav__country--expanded" : "",
           ].join(" ")}
+          role="button"
           onClick={() => {
             toggleCountries();
           }}
@@ -382,13 +386,21 @@ export const Navbar = ({
           ${languagesShown ? "nav__languages" : "nav__countries "}
           ${languagesShown ? "nav__languages--shown" : ""}
           ${countriesShown ? "nav__countries--shown" : ""}
+          ${
+            languagesShown && !showProfilePicture
+              ? "nav__languages--no-profile"
+              : ""
+          }
+          ${renderIn === "global-admin" ? "nav__languages--global-admin" : ""}
+          ${renderIn === "country-admin" ? "nav__languages--country-admin" : ""}
           `}
         >
           <Box
             classes={`nav__languages__content
              ${languagesShown ? "nav__languages__content--shown" : ""}
-             ${countriesShown ? "nav__countries__content--shown" : ""}
-              `}
+             ${
+               countriesShown ? "nav__countries__content--shown" : ""
+             }              `}
           >
             {width >= 950 && (
               <h4>{languagesShown ? languageLabel : countryLabel}</h4>
