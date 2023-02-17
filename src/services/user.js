@@ -14,7 +14,8 @@ function logout(platform = "client") {
   localStorage.removeItem("token-expires-in");
   localStorage.removeItem("refresh-token");
 
-  window.location.replace(`/${platform}/`);
+  window.location.href = `/${platform}`;
+  // window.location.replace(`/${platform}/`);
 }
 
 /**
