@@ -26,9 +26,10 @@ const interceptError = async (error) => {
       localStorage.removeItem("token");
       localStorage.removeItem("token-expires-in");
       localStorage.removeItem("refresh-token");
+      localStorage.removeItem("isRefreshingToken");
 
-      const platform = window.location.pathname.split("/")[1];
-      window.location.replace(`/${platform}/`);
+      window.dispatchEvent(new Event("token-changed"));
+
       return Promise.reject(error);
     } else if (
       error.response?.data.error.name === "ACCOUNT DEACTIVATED" ||
@@ -41,11 +42,19 @@ const interceptError = async (error) => {
     const decoded = jwtDecode(token);
     const isTokenExpired = Date.now() >= decoded.exp * 1000;
 
-    if (isTokenExpired) {
+    const isRefreshingToken = localStorage.getItem("isRefreshingToken");
+
+    if (isTokenExpired && !isRefreshingToken) {
+      localStorage.setItem("isRefreshingToken", true);
       const refreshToken = localStorage.getItem("refresh-token");
-      const res = await axios.post(`${API_ENDPOINT}/refresh-token`, {
-        refreshToken,
-      });
+      const res = await axios
+        .post(`${API_ENDPOINT}/refresh-token`, {
+          refreshToken,
+        })
+        .catch((err) => {
+          localStorage.removeItem("isRefreshingToken");
+          return Promise.reject(err);
+        });
 
       const {
         token: newToken,
@@ -57,6 +66,10 @@ const interceptError = async (error) => {
       localStorage.setItem("token", newToken);
       localStorage.setItem("token-expires-in", expiresIn);
       localStorage.setItem("refresh-token", newRefreshToken);
+
+      window.dispatchEvent(new Event("token-changed"));
+
+      localStorage.removeItem("isRefreshingToken");
 
       error.config.headers = {}; // Clear the headers
       return axios.request(error.config); // Resend the original request
