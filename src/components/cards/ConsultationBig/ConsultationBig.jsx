@@ -14,7 +14,6 @@ import "./consultation-big.scss";
 import mascot from "../../../assets/mascot-happy-blue.png";
 
 const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
-// const AMAZON_S3_BUCKET = `https://usupport-staging.s3.eu-central-1.amazonaws.com`;
 
 /**
  * CardConsultationBig
