@@ -31,12 +31,12 @@ Box.propTypes = {
   /**
    * How large should the border radius of the box be?
    */
-  borderSize: PropTypes.oneOf(["sm", "md", "lg"]),
+  borderSize: PropTypes.oneOf(["xs", "sm", "md", "lg"]),
 
   /**
    * Which is the box shadow of the box?
    */
-  boxShadow: PropTypes.string,
+  boxShadow: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
   /**
    * Additional classes to be added to the box

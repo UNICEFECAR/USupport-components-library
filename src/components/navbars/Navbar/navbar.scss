@@ -17,6 +17,7 @@
   height: 4.6rem;
   padding-top: $spacing_2_0;
   cursor: default;
+  overflow: scroll;
 
   @media screen and (min-width: $navbar-tight) {
     padding: $spacing_1_6 0;
@@ -46,11 +47,13 @@
     @media screen and (min-width: $navbar-tight) {
       display: block;
       height: 3.8rem;
+      width: 14.1rem;
       padding-left: $spacing_2_4;
     }
 
     @media screen and (min-width: $navbar-spread) {
       height: 4.8rem;
+      width: 17.8rem;
     }
   }
 
@@ -133,16 +136,22 @@
     }
   }
 
-  &__globe {
+  &__globe,
+  &__country {
     display: flex;
     align-items: center;
 
     p {
       padding: 0 $spacing_0_6;
       margin: 0;
+
+      @media screen and (min-width: $navbar-tight) {
+        padding: 0;
+      }
     }
 
     & > .icon--arrow-chevron-down {
+      margin-left: $spacing_1_0;
       transition: transform 0.3s ease-in-out;
     }
 
@@ -153,23 +162,34 @@
     }
   }
 
+  &__current-language {
+    text-transform: uppercase;
+    font-weight: $font_bold;
+    color: $color_primary_20809e;
+
+    & > p {
+      margin-bottom: $spacing_2_4;
+    }
+  }
+
+  &__languages,
   &__countries {
     position: fixed;
     z-index: $z_index_emergency_button;
     left: 1rem;
-    top: 33rem;
+    top: 40rem;
     opacity: 0;
     transition: opacity 0.1s ease-in-out;
 
     @media screen and (min-width: $navbar-tight) {
       top: 7.5rem;
-      right: 0;
+      right: 7rem;
       left: auto;
     }
 
     @media screen and (min-width: $navbar-spread) {
       top: 8.5rem;
-      right: 3rem;
+      right: 10rem;
     }
 
     @media screen and (min-width: $screen-lg) {
@@ -180,13 +200,21 @@
       opacity: 1;
     }
 
+    &--mobile {
+      margin-bottom: $spacing_2_4;
+
+      & > .nav__current-language {
+        padding: 0;
+      }
+    }
+
     &__content {
       position: relative;
-      padding: $spacing_2_4;
+      padding: $spacing_1_8;
       max-height: 0;
       transition: max-height 0.4s ease-in-out;
       overflow-y: auto;
-      @include scrollbar;
+      @include scrollbar-secondary;
 
       &--shown {
         height: 16rem;
@@ -196,6 +224,130 @@
           height: 20rem;
           max-height: 20rem;
         }
+      }
+    }
+  }
+
+  &__languages {
+    width: 16rem;
+
+    &--global-admin {
+      top: 23rem;
+    }
+
+    &--country-admin {
+      top: 48rem;
+    }
+
+    &--client {
+      top: 28rem;
+    }
+
+    @media screen and (min-width: $navbar-tight) {
+      top: 7.5rem;
+      right: 14rem;
+      left: auto;
+
+      &--no-profile {
+        right: 7rem;
+      }
+    }
+
+    @media screen and (min-width: $navbar-spread) {
+      top: 8.5rem;
+      right: 18rem;
+
+      &--no-profile {
+        right: 9rem;
+      }
+    }
+
+    @media screen and (min-width: $screen-lg) {
+      right: 22rem;
+
+      &--no-profile {
+        right: 11rem;
+      }
+    }
+  }
+
+  &__profile {
+    display: flex;
+    align-items: center;
+    padding-right: $spacing_2_4;
+
+    & > .paragraph {
+      cursor: pointer;
+    }
+
+    &__notification-icon {
+      margin-right: $spacing_2_4;
+      cursor: pointer;
+    }
+
+    &__image {
+      border-radius: 50%;
+      cursor: pointer;
+      height: 3.2rem;
+      margin-right: $spacing_0_8;
+      width: 3.2rem;
+      object-fit: cover;
+    }
+
+    &__text-active {
+      color: $color_primary_20809e;
+    }
+  }
+
+  &__profile--mobile {
+    display: none;
+
+    &--shown {
+      display: block;
+      position: absolute;
+      bottom: 10%;
+      padding-left: $spacing_1_8;
+    }
+  }
+
+  &__dropdown-content {
+    @media screen and (min-width: $navbar-tight) {
+      padding-top: $spacing_2_4;
+    }
+
+    &__lang {
+      align-items: center;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+
+      &-label--selected {
+        font-weight: $font_bold;
+        text-decoration: underline;
+        color: $color_primary_20809e;
+      }
+
+      &:not(:first-of-type) {
+        padding-top: $spacing_0_8;
+      }
+
+      & > .icon {
+        margin-right: $spacing_1_0;
+      }
+    }
+
+    &__country {
+      align-items: center;
+      cursor: pointer;
+      display: flex;
+      justify-content: flex-start;
+
+      &:not(:first-of-type) {
+        padding-top: $spacing_0_8;
+      }
+
+      & > .icon {
+        margin-right: $spacing_1_0;
       }
     }
   }

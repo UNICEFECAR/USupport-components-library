@@ -1,0 +1,21 @@
+@import "../../../styles/theme";
+.terms-agreement {
+  margin-top: $spacing_2_0;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  text-align: left;
+
+  & > .checkbox-wrapper {
+    margin-top: $spacing_0_2;
+  }
+
+  & > .text {
+    margin-left: $spacing_0_8;
+    font-weight: $font_medium;
+
+    & .privacy-policy-link {
+      color: $color_secondary_9749fa;
+    }
+  }
+}

@@ -27,7 +27,7 @@ export const InputSearch = ({ onChange, ...props }) => {
   );
 
   function handleInputChange(value) {
-    if (value) {
+    if (value !== "") {
       setinputEmpty(true);
     } else {
       setinputEmpty(false);
@@ -49,6 +49,7 @@ export const InputSearch = ({ onChange, ...props }) => {
             name={"close-x"}
             size="md"
             color={inputEmpty ? "#373737" : "#7f2ee5"}
+            onClick={() => handleInputChange("")}
           />
         </div>
       )}

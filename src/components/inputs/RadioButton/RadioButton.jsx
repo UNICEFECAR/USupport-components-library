@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-
+import classNames from "classnames";
 import "./radio-button.scss";
 
 /**
@@ -13,16 +13,20 @@ export const RadioButton = ({
   disabled,
   isChecked,
   setIsChecked,
+  classes,
   ...props
 }) => {
   return (
-    <div className={"radiobutton-wrapper"}>
+    <div
+      className={["radiobutton-wrapper", classNames(classes)].join(" ")}
+      onClick={disabled ? () => {} : () => setIsChecked(!isChecked)}
+    >
       <input
         type="radio"
         checked={isChecked}
-        onChange={disabled ? () => {} : () => setIsChecked(!isChecked)}
         className={[isChecked ? "checked" : ""]}
         disabled={disabled}
+        onChange={() => {}}
         {...props}
       />
       {label ? <p className="text label">{label}</p> : null}

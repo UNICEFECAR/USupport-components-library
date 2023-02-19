@@ -1,0 +1,12 @@
+@import "../../../styles/theme";
+
+.radio-button-selector-group {
+  & > .text {
+    color: $color_blue_3d527b;
+    margin-bottom: $spacing_0_4;
+  }
+
+  &__radio-button:not(:first-of-type) {
+    margin-top: $spacing_2_0;
+  }
+}

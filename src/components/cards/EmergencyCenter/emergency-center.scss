@@ -1,0 +1,38 @@
+@import "../../../styles/theme";
+
+.emergency-center {
+  padding: $spacing_1_6;
+  width: calc(34.3rem - 2 * $spacing_1_6);
+
+  &__image {
+    width: 100%;
+    height: 20rem;
+    border-radius: 2.4rem 2.4rem 2.4rem 2.4rem;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  @media screen and (min-width: $screen_lg) {
+    width: calc(56rem - 2 * $spacing_1_6);
+  }
+
+  &__heading-text {
+    color: $color_blue_3d527b;
+    &.text {
+      font-weight: $font_bold;
+      text-align: left;
+    }
+  }
+
+  &__description {
+    margin-top: $spacing_0_4;
+    text-align: left;
+  }
+
+  &__btn-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: $spacing_1_6;
+  }
+}

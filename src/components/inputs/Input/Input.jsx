@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Error } from "../../errors/Error";
+import classNames from "classnames";
 
 import "./input.scss";
 
@@ -10,45 +12,58 @@ import "./input.scss";
  *
  * @return {jsx}
  */
-export const Input = ({
-  type,
-  label,
-  disabled,
-  errorMessage,
-  children,
-  preInput,
-  ...props
-}) => {
+export const Input = React.forwardRef((props, ref) => {
+  const {
+    value,
+    type,
+    label,
+    disabled,
+    errorMessage,
+    children,
+    preInput,
+    classes,
+    ...rest
+  } = props;
   return (
-    <>
-      <div className={["input-container", disabled && "disabled"].join(" ")}>
-        {label ? <p className="text label">{label}</p> : null}
-        <div
-          className={["input-wrapper", errorMessage ? "error" : ""].join(" ")}
-        >
-          {preInput ? preInput : null}
-          <input
-            type={type}
-            disabled={disabled}
-            className="input text"
-            {...props}
-          />
-          {children ? children : null}
-        </div>
+    <div
+      className={[
+        "input-container",
+        disabled && "disabled",
+        classNames(classes),
+      ].join(" ")}
+    >
+      {label ? <p className="text label">{label}</p> : null}
+      <div className={["input-wrapper", errorMessage ? "error" : ""].join(" ")}>
+        {preInput ? preInput : null}
+        <input
+          type={type}
+          disabled={disabled}
+          className="input text"
+          value={value}
+          ref={ref}
+          {...rest}
+        />
+        {children ? children : null}
       </div>
-      {errorMessage && !disabled ? (
-        <p className="small-text error-message">{errorMessage}</p>
-      ) : null}
-    </>
+      {errorMessage && !disabled ? <Error message={errorMessage} /> : null}
+    </div>
   );
-};
+});
 
 Input.propTypes = {
+  /**
+   * The value of the input
+   */
+  value: PropTypes.oneOfType([
+    PropTypes.string.isRequired,
+    PropTypes.number.isRequired,
+  ]),
+
   /**
    * Input type
    *
    **/
-  type: PropTypes.oneOf(["text"]),
+  type: PropTypes.oneOf(["text", "password", "number", "date"]),
 
   /**
    * Input label

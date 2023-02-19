@@ -2,8 +2,8 @@ import babel from "@rollup/plugin-babel";
 import resolve from "@rollup/plugin-node-resolve";
 import external from "rollup-plugin-peer-deps-external";
 import { terser } from "rollup-plugin-terser";
-import scss from 'rollup-plugin-scss'
-import svg from 'rollup-plugin-svg'
+import scss from "rollup-plugin-scss";
+import svg from "rollup-plugin-svg";
 import image from "@rollup/plugin-image";
 import json from "@rollup/plugin-json";
 import commonjs from "@rollup/plugin-commonjs";

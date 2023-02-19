@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: "row";
   align-items: center;
+  padding-bottom: $spacing_1_0;
 
   .tab {
     padding: $spacing_0_4 $spacing_2_4;
@@ -41,10 +42,16 @@
 }
 
 .show-more {
-  margin: $spacing_0_8 0 0 $spacing_1_6;
+  position: absolute;
+  margin: $spacing_0_8 0 $spacing_0_8 0;
   padding: $spacing_0_8 0;
   width: 34.3rem;
   border: 0.1rem solid rgba(217, 217, 217, 0.63);
+
+  @media screen and (min-width: $screen-md) {
+    left: 50%;
+    margin-left: -17rem;
+  }
 
   &__options {
     padding: $spacing_0_8 $spacing_1_6;
@@ -66,6 +73,6 @@
       }
     }
 
-    @include scrollbar;
+    @include scrollbar-secondary;
   }
 }

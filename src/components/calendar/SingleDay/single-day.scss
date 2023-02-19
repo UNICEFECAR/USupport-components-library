@@ -1,0 +1,89 @@
+@import "../../../styles/theme";
+
+.single-day {
+  background-color: $color_green_c1eaea;
+  border-radius: $spacing_0_4;
+  border: 0.1rem solid transparent;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  padding: $spacing_0_4;
+  text-align: left;
+  height: calc(4rem - 2 * $spacing_0_4);
+  width: calc(4rem - 2 * $spacing_0_4);
+
+  @media screen and (min-width: $screen_md) {
+    width: calc(9.1rem - 2 * $spacing_0_8);
+    height: calc(9.6rem - $spacing_1_6 - $spacing_0_8);
+    padding: $spacing_1_6 $spacing_0_8 $spacing_0_8 $spacing_0_8;
+  }
+
+  &__date-as-string.text {
+    font-weight: $font_bold;
+  }
+
+  &__date-text.small-text {
+    line-height: 1.44rem;
+    font-weight: $font_semi_bold;
+    color: $color_blue_3d527b;
+  }
+
+  &__consultation-text.small-text {
+    margin-top: $spacing_0_4;
+    font-weight: $font_semi_bold;
+    color: $color_gray_66768d;
+  }
+
+  &:hover {
+    border: 0.1rem solid $color_primary_20809e;
+  }
+
+  &:active {
+    border: 0.2rem solid $color_primary_20809e;
+
+    @media screen and (min-width: $screen_md) {
+      .consultation-text {
+        color: $color_blue_3d527b;
+      }
+    }
+  }
+
+  .consultation-text {
+    color: $color_gray_66768d;
+  }
+
+  &-no-consultations {
+    background-color: $color_green_f4f7fe;
+  }
+
+  &-today {
+    @media screen and (min-width: $screen_md) {
+      height: calc(9.6rem - 2 * $spacing_0_8);
+      padding: $spacing_0_8;
+    }
+  }
+
+  &-unavailable {
+    background-color: $color_white_ff;
+    opacity: 0.5;
+
+    &:hover {
+      border: 0.1rem solid transparent;
+    }
+
+    &:active {
+      border: 0.1rem solid transparent;
+    }
+  }
+
+  &__consultation-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: flex-end;
+  }
+
+  .today-text {
+    color: $color_primary_20809e;
+  }
+}

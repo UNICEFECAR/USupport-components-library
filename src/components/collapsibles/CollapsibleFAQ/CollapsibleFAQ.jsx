@@ -12,18 +12,18 @@ import "./collapsiblefaq.scss";
  *
  * @return {jsx}
  */
-export const CollapsibleFAQ = ({ questions }) => {
-  return questions.map((question, index) => {
+export const CollapsibleFAQ = ({ data }) => {
+  return data?.map((faq, index) => {
     return (
       <React.Fragment key={index}>
         <Collapsible
-          heading={<h4 className="faq-header">{question.heading}</h4>}
-          content={<p className="text faq-text">{question.text}</p>}
+          heading={<h4 className="faq-header">{faq.question}</h4>}
+          content={<p className="text faq-text">{faq.answer}</p>}
           classes="collapsible-faq"
           iconColor={"#20809e"}
           iconSize="md"
         />
-        {index < questions.length - 1 && <Line />}
+        {index < data.length - 1 && <Line />}
       </React.Fragment>
     );
   });
@@ -31,9 +31,9 @@ export const CollapsibleFAQ = ({ questions }) => {
 
 CollapsibleFAQ.propTypes = {
   /**
-   * Question object
+   * data FAQs array
    * */
-  question: PropTypes.object,
+  data: PropTypes.array,
 };
 
 CollapsibleFAQ.defaultProps = {

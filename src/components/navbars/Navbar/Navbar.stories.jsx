@@ -13,13 +13,13 @@ const pages = [
   { name: "How it works?", url: "/how-it-works" },
   { name: "About Us", url: "/about-us" },
   { name: "Information portal", url: "/information-portal" },
-  { name: "Contact Us", url: "/contact-us" },
+  { name: "Contact us", url: "/contact-us" },
 ];
 
 const countries = [
   {
-    name: "Switzerland",
-    flagName: "swiss",
+    name: "Kazakhstan",
+    flagName: "KZ",
     languages: ["German", "French", "Italian", "Romansh"],
   },
 ];

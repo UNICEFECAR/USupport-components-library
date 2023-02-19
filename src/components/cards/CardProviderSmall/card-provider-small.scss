@@ -1,0 +1,31 @@
+@import "../../../styles/theme";
+
+.card-provider-small {
+  align-items: center;
+  display: flex;
+  cursor: pointer;
+  flex-direction: row;
+  padding: $spacing_2_4;
+  width: calc(34.4rem - 2 * $spacing_2_4);
+
+  @media screen and (min-width: $screen_lg) {
+    width: calc(35.2rem - 2 * $spacing_2_4);
+  }
+
+  & > img {
+    border-radius: $border_radius_2_4;
+    width: 8rem;
+    height: 8rem;
+    object-fit: cover;
+  }
+
+  &__information {
+    padding-left: $spacing_1_6;
+    text-align: left;
+
+    & > h4,
+    & > p {
+      word-break: break-word;
+    }
+  }
+}

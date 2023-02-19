@@ -36,6 +36,10 @@
     padding: $spacing_1_3 $spacing_2_4;
     min-width: 34.3rem;
     font-size: $font_size_1_6;
+
+    @media screen and (min-width: $screen_lg) {
+      min-width: 36.8rem;
+    }
   }
 
   //Modes: Primary, Secondary, Ghost and Emergency
@@ -63,6 +67,20 @@
 
       &:active:enabled {
         background-color: $color_secondary_pressed_6c16d9;
+      }
+    }
+
+    &.btn--red {
+      background-color: $color_red_eb5757;
+
+      &:hover:enabled {
+        color: $color_white_ff;
+        filter: $filter_red_cc4c4c;
+      }
+
+      &:active:enabled {
+        color: $color_white_ff;
+        filter: $filter_red_a63d3d;
       }
     }
   }
@@ -127,6 +145,29 @@
         color: $color_secondary_pressed_6c16d9;
       }
     }
+
+    &.btn--red {
+      color: $color_red_eb5757;
+
+      &:hover:enabled {
+        color: $color_red_cc4c4c;
+        filter: $filter_red_cc4c4c;
+      }
+
+      &:active:enabled {
+        color: $color_red_a63d3d;
+        filter: $filter_red_a63d3d;
+      }
+    }
+
+    &.btn--transparent:not(:disabled) {
+      &:hover:enabled {
+        filter: brightness(1.2);
+      }
+      &:active:enabled {
+        filter: brightness(2);
+      }
+    }
   }
 
   &--text {
@@ -134,6 +175,39 @@
     box-shadow: none;
     padding: 0;
     min-width: auto;
+    font-size: $font_size_1_6;
+
+    &.btn--green {
+      color: $color_primary_20809e;
+
+      &:hover:enabled {
+        color: $color_primary_pressed_156f8c;
+      }
+
+      &:active:enabled {
+        color: $color_primary_pressed_0c5f7a;
+      }
+    }
+
+    &.btn--purple {
+      color: $color_secondary_9749fa;
+
+      &:hover:enabled {
+        color: $color_secondary_pressed_7f2ee5;
+      }
+
+      &:active:enabled {
+        color: $color_secondary_pressed_6c16d9;
+      }
+    }
+  }
+
+  &--link {
+    background-color: transparent;
+    box-shadow: none;
+    padding: 0;
+    min-width: auto;
+    text-decoration: underline;
 
     &.btn--green {
       color: $color_primary_20809e;
@@ -173,5 +247,9 @@
 
   &--web {
     padding: $spacing_0_8 $spacing_2_4;
+  }
+
+  &--transparent {
+    background-color: transparent;
   }
 }

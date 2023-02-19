@@ -19,12 +19,26 @@ body {
   line-height: $line_height_2_4;
   color: $color_gray_66768d;
   -webkit-tap-highlight-color: $color_transparent; /* Remove the tap highlight */
+  @include scrollbar-primary;
 
   @media screen and (min-width: $screen-lg) {
     font-size: $font_size_2_0;
     line-height: $line_height_2_8;
     letter-spacing: -0.02rem;
   }
+}
+
+.Toastify__toast {
+  border-radius: 1.2rem !important;
+  color: $color_gray_66768d !important;
+}
+
+.Toastify__toast-body {
+  font-size: $font_size_2_0 !important;
+}
+
+.Toastify__progress-bar--default {
+  background: $gradient_toastify !important;
 }
 
 p,

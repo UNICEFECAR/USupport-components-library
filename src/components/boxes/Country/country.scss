@@ -1,0 +1,17 @@
+@import "../../../styles/theme";
+
+.country-box {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 17.6rem;
+  justify-content: center;
+  width: 27.2rem;
+
+  & .icon {
+    width: 5rem;
+    height: 5rem;
+    margin-bottom: $spacing_1_2;
+  }
+}

@@ -1,0 +1,49 @@
+@import "../../../styles/theme";
+
+.dropdown-group {
+  text-align: left;
+
+  &__dropdowns-list {
+    &__single {
+      display: flex;
+      flex-direction: column;
+
+      @media screen and (min-width: $screen_md) {
+        flex-direction: row;
+      }
+
+      &:not(:first-of-type) {
+        margin-top: $spacing_2_4;
+      }
+
+      &__remove-button {
+        align-self: flex-start;
+        margin-top: $spacing_1_8;
+        min-width: unset;
+
+        @media screen and (min-width: $screen_md) {
+          margin-top: $spacing_2_8;
+        }
+      }
+    }
+  }
+
+  &__add-more {
+    display: flex;
+    align-items: center;
+    margin-top: $spacing_1_6;
+    cursor: pointer;
+
+    & .small-text {
+      font-weight: $font_bold;
+      line-height: $line_height_2_4;
+      color: $color_secondary_9749fa;
+      padding-left: $spacing_1_8;
+    }
+  }
+
+  & .error-message {
+    margin-left: $spacing_1_6;
+    margin-top: $spacing_1_8;
+  }
+}

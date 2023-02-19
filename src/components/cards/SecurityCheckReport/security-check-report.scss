@@ -1,0 +1,80 @@
+@import "../../../styles/theme";
+
+.security-check-report {
+  margin-bottom: $spacing_1_2;
+  padding: $spacing_1_4;
+  max-height: 15rem;
+  transition: all 0.5s ease-in-out;
+
+  &--open {
+    max-height: 500rem;
+    transition: all 0.5s ease-in-out;
+
+    & .security-check-report__arrow {
+      transition: all 0.5s;
+      transform: rotate(180deg);
+    }
+  }
+
+  &__grid {
+    place-items: start;
+
+    @media screen and (min-width: $screen-lg) {
+      place-items: center;
+    }
+
+    &__client-name {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    &__provider-name {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    &__issues-container {
+      border-radius: $border_radius_4_0;
+      width: 14rem;
+      background-color: $color_orange_fddcab;
+      color: $color_orange_fb6514;
+      padding: $spacing_0_8;
+
+      &--danger {
+        background-color: $color_orange_ffc4ad;
+        color: $color_red_eb5757;
+      }
+    }
+  }
+
+  &__answers-grid {
+    place-items: start;
+    margin-top: $spacing_1_8;
+    text-align: left;
+    border-top: 1px solid $color_gray_a6b4b8;
+
+    &__heading {
+      padding-top: $spacing_1_6;
+      padding-bottom: $spacing_2_4;
+    }
+
+    &__item {
+      margin-bottom: $spacing_2_4;
+
+      &__answer {
+        font-weight: $font_bold;
+        padding-top: $spacing_0_4;
+
+        &--danger {
+          color: $color_red_eb5757;
+        }
+      }
+    }
+  }
+
+  &__arrow {
+    transition: all 0.5s;
+  }
+}

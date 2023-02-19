@@ -1,7 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-
 import { CheckBox } from "../CheckBox";
+import classNames from "classnames";
+
+import "./check-box-group.scss";
 
 /**
  * CheckBoxGroup
@@ -10,7 +12,13 @@ import { CheckBox } from "../CheckBox";
  *
  * @return {jsx}
  */
-export const CheckBoxGroup = ({ name, options, setOptions }) => {
+export const CheckBoxGroup = ({
+  name,
+  options,
+  setOptions,
+  label,
+  classes,
+}) => {
   const handleSelect = (value) => {
     let newOptions = [...options];
 
@@ -25,25 +33,30 @@ export const CheckBoxGroup = ({ name, options, setOptions }) => {
   };
 
   const renderAllOptions = () => {
-    return (
-      options &&
-      options.map((option, index) => {
-        return (
-          <CheckBox
-            name={name}
-            label={option.label}
-            isChecked={option.isSelected}
-            setIsChecked={() => {
-              handleSelect(option.value);
-            }}
-            key={index}
-          />
-        );
-      })
-    );
+    return options?.map((option, index) => {
+      return (
+        <CheckBox
+          name={name}
+          label={option.label}
+          isChecked={option.isSelected}
+          classes="checkbox-group__options-container__checkbox"
+          setIsChecked={() => {
+            handleSelect(option.value);
+          }}
+          key={index}
+        />
+      );
+    });
   };
 
-  return <>{renderAllOptions()}</>;
+  return (
+    <div className={["checkbox-group", classNames(classes)].join(" ")}>
+      {label && <p className={["text checkbox-group__label"]}>{label}</p>}
+      <div className="checkbox-group__options-container">
+        {renderAllOptions()}
+      </div>
+    </div>
+  );
 };
 
 CheckBoxGroup.propTypes = {
@@ -61,6 +74,19 @@ CheckBoxGroup.propTypes = {
    * Function to set the options
    * */
   setOptions: PropTypes.func,
+
+  /**
+   * Label for the CheckBoxGroup
+   * */
+  label: PropTypes.string,
+
+  /**
+   *  Classes to add to the CheckBoxGroup
+   * */
+  classes: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string),
+  ]),
 };
 
 CheckBoxGroup.defaultProps = {

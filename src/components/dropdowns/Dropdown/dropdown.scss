@@ -54,7 +54,7 @@
       transition: max-height 0.3s ease-in-out;
       max-height: 0;
       overflow-y: auto;
-      @include scrollbar;
+      @include scrollbar-secondary;
     }
 
     .option-container {
@@ -77,6 +77,8 @@
   }
 
   &--expanded {
+    z-index: $z_index_2;
+
     .heading {
       border: 0.1rem solid $color-secondary-9749fa;
 
@@ -95,6 +97,14 @@
         transition: max-height 0.3s ease-in-out;
         max-height: 16.4rem;
       }
+    }
+  }
+
+  &--disabled {
+    cursor: unset;
+    .heading,
+    .heading:hover {
+      border: 0.1rem solid $color_gray_a6b4b8;
     }
   }
 }

@@ -1,0 +1,35 @@
+@import "../../../styles/theme";
+
+.controls {
+  width: calc(34.3rem - 2 * $spacing_1_6);
+  padding: 0 0 $spacing_1_6 0;
+
+  .button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 $spacing_1_6;
+
+    &__button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      width: 5.4rem;
+      height: 5.4rem;
+      border-radius: 50%;
+      border: 0.2rem solid $color_primary_20809e;
+    }
+
+    &__button-hangup {
+      background-color: $color_red_eb5757;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 5.6rem;
+      height: 5.6rem;
+      border-radius: 50%;
+    }
+  }
+}

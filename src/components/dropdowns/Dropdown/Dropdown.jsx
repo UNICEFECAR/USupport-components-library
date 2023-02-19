@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Box } from "../../boxes/Box";
 import { Icon } from "../../icons/Icon";
 import OutsideClickHandler from "react-outside-click-handler";
+import { Error } from "../../errors/Error";
 
 import "./dropdown.scss";
 
@@ -19,10 +20,15 @@ export const Dropdown = ({
   setSelected,
   errorMessage,
   placeholder,
+  disabled,
 }) => {
   const [isOpen, setIsOpen] = React.useState(false);
 
+  const selectedLabel =
+    options.find((option) => option.value === selected)?.label || "";
+
   const handleOnClick = () => {
+    if (disabled) return;
     setIsOpen(!isOpen);
   };
 
@@ -41,13 +47,13 @@ export const Dropdown = ({
             key={index}
             className={[
               "option-container",
-              selected
-                ? selected.label === option.label && "option-selected"
-                : "",
+              selected ? selected === option.value && "option-selected" : "",
               option.isDisabled && "disabled",
             ].join(" ")}
             onClick={
-              option.isDisabled ? () => {} : () => handleChooseOption(option)
+              option.isDisabled
+                ? () => {}
+                : () => handleChooseOption(option.value)
             }
           >
             <p className="text dropdown-content__single-option" key={index}>
@@ -64,14 +70,18 @@ export const Dropdown = ({
       <Box
         boxShadow={"1"}
         borderSize="md"
-        classes={["dropdown", isOpen ? "dropdown--expanded" : ""]}
+        classes={[
+          "dropdown",
+          isOpen ? "dropdown--expanded" : "",
+          disabled ? "dropdown--disabled" : "",
+        ]}
         onClick={handleOnClick}
       >
         <div
           className={["heading", errorMessage ? "heading-error" : ""].join(" ")}
         >
           {selected ? (
-            <p className="text">{selected.label}</p>
+            <p className="text">{selectedLabel}</p>
           ) : (
             <p className="text placeholder">{placeholder}</p>
           )}
@@ -83,9 +93,7 @@ export const Dropdown = ({
           </div>
         </div>
       </Box>
-      {errorMessage ? (
-        <p className="small-text error-message">{errorMessage}</p>
-      ) : null}
+      {errorMessage ? <Error message={errorMessage} /> : null}
     </OutsideClickHandler>
   );
 };
@@ -97,10 +105,10 @@ Dropdown.propTypes = {
   options: PropTypes.arrayOf(PropTypes.object),
 
   /**
-   * Selected option
+   * The value of the selected option
    * @default null
    * */
-  selected: PropTypes.object,
+  selected: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
   /**
    * Set selected option
@@ -124,4 +132,5 @@ Dropdown.defaultProps = {
   setSelected: () => {},
   errorMessage: "",
   placeholder: "Select",
+  disabled: false,
 };

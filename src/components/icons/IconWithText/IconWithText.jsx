@@ -21,6 +21,7 @@ export const IconWithText = ({
   return (
     <div
       className="icon-with-text"
+      tabIndex="0"
       onClick={() => (onClick ? onClick() : () => {})}
     >
       <Icon name={iconName} size={iconSize} color={iconColor} />

@@ -11,14 +11,24 @@ import "./block.scss";
  *
  * @return {jsx}
  */
-export const Block = ({ classes, children, animation, ...props }) => {
-  return (
+export const Block = ({ classes, children, animation, isFooter, ...props }) => {
+  const section = (
     <section className={`block ${classNames(classes)}`} {...props}>
       <div data-aos={animation} className="container">
         {children}
       </div>
     </section>
   );
+  const footer = (
+    <footer>
+      <section className={`block ${classNames(classes)}`} {...props}>
+        <div data-aos={animation} className="container">
+          {children}
+        </div>
+      </section>
+    </footer>
+  );
+  return isFooter ? footer : section;
 };
 
 Block.propTypes = {
@@ -45,4 +55,5 @@ Block.defaultProps = {
   classes: "",
   style: null,
   animation: "fade-right",
+  isFooter: false,
 };

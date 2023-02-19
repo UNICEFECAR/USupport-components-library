@@ -1,0 +1,28 @@
+@import "../../../styles/theme";
+
+.client-activity {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  &__content {
+    display: flex;
+    flex-direction: row;
+
+    &__icon {
+      margin-right: $spacing_1_8;
+      display: flex;
+      align-items: center;
+    }
+
+    & > .text {
+      color: $color_blue_3d527b;
+    }
+  }
+
+  &__time-text {
+    margin-left: $spacing_1_6;
+    text-align: end;
+  }
+}

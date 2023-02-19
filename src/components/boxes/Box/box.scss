@@ -3,6 +3,10 @@
 .box {
   background-color: $color_white_ff;
 
+  &--border-radius-xs {
+    border-radius: $border_radius_1_6;
+  }
+
   &--border-radius-sm {
     border-radius: $border_radius_2_4;
   }
