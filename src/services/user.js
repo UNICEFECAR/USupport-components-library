@@ -175,12 +175,10 @@ async function getWorkWithCategories() {
 }
 
 async function createProvider(data) {
-  const password = data.password;
   delete data.password;
   const response = await http.post(`${API_ENDPOINT}/provider/signup`, {
     userType: "provider",
     countryID: localStorage.getItem("country_id"),
-    password,
     providerData: data,
   });
   return response;
