@@ -32,6 +32,7 @@ export const CardMedia = ({
   readingTime,
   categoryName,
   children,
+  t,
   ...props
 }) => {
   return (
@@ -63,7 +64,9 @@ export const CardMedia = ({
           <p className={"small-text"}>By {creator}</p>
 
           <Icon name={"time"} size="sm" />
-          <p className={"small-text"}> {readingTime} min read</p>
+          <p className={"small-text"}>
+            {readingTime} {t("min_read")}
+          </p>
         </div>
         {showLabels && (
           <div className={"card-media__labels"}>
@@ -92,7 +95,7 @@ export const CardMedia = ({
               ? "link"
               : "secondary"
           }
-          label={"Read more"}
+          label={t("read_more_button")}
           onClick={() => {
             onClick && onClick();
           }}
