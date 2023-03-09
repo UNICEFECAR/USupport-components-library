@@ -42,10 +42,10 @@ export const BaseTable = ({
             </tr>
           </thead>
           <tbody className="table__body">
-            {rowsData.map((rowData, dataIndex) => {
+            {rowsData?.map((rowData, dataIndex) => {
               return (
                 <tr key={"dataIndex" + dataIndex}>
-                  {rowData.map((dataItem, dataItemIndex) => {
+                  {rowData?.map((dataItem, dataItemIndex) => {
                     return (
                       <React.Fragment key={"dataItem" + dataItemIndex}>
                         <td className="table__td">{dataItem}</td>
@@ -83,7 +83,7 @@ const TableIcon = ({ menuOptions, handleClickCallbackProp }) => {
         <OutsideClickHandler onOutsideClick={() => setIsMenuOpen(false)}>
           {isMenuOpen && (
             <div className="table-icon__menu">
-              {menuOptions.map((option, index) => {
+              {menuOptions?.map((option, index) => {
                 return (
                   <div
                     key={"option" + index}

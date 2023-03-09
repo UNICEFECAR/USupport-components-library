@@ -27,9 +27,11 @@ export const Modal = ({
   ctaColor = "green",
   secondaryCtaColor = "green",
   isCtaDisabled,
+  isCtaLoading,
   secondaryCtaLabel,
   secondaryCtaHandleClick,
   secondaryCtaType,
+  isSecondaryCtaLoading,
   isSecondaryCtaDisabled,
   showLoadingIfDisabled = false,
   children,
@@ -74,6 +76,7 @@ export const Modal = ({
                 label={ctaLabel}
                 disabled={isCtaDisabled}
                 onClick={ctaHandleClick}
+                loading={isCtaLoading}
                 color={ctaColor}
                 size="lg"
               />
@@ -86,6 +89,7 @@ export const Modal = ({
                 label={secondaryCtaLabel}
                 onClick={secondaryCtaHandleClick}
                 disabled={isSecondaryCtaDisabled}
+                loading={isSecondaryCtaLoading}
                 size="lg"
                 type={secondaryCtaType}
                 color={secondaryCtaColor}
