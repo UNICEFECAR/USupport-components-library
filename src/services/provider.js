@@ -303,6 +303,37 @@ async function getRandomProviders(limit) {
   return res;
 }
 
+async function getCampaigns() {
+  const res = await http.get(`${API_ENDPOINT}/campaigns`);
+  return res;
+}
+
+async function enrollProviderInCampaign(campaignId) {
+  const res = await http.post(`${API_ENDPOINT}/campaigns/enroll`, {
+    campaignId,
+  });
+  return res;
+}
+
+async function removeMultipleAvailableSlots(startDate, slot, campaignIds) {
+  const data = {
+    startDate: startDate.toString(),
+    slot: slot.toString(),
+    campaignIds,
+  };
+  const res = await http.delete(`${API_ENDPOINT}/availability/clear-slot`, {
+    data,
+  });
+  return res;
+}
+
+async function getConsultationsForCampaign(campaignId) {
+  const res = await http.get(
+    `${API_ENDPOINT}/campaigns/consultations?campaignId=${campaignId}`
+  );
+  return res;
+}
+
 const exportedFunctions = {
   addAvailableSlot,
   addTemplateAvailability,
@@ -339,5 +370,9 @@ const exportedFunctions = {
   leaveConsultation,
   getProviderActivities,
   getRandomProviders,
+  getCampaigns,
+  enrollProviderInCampaign,
+  removeMultipleAvailableSlots,
+  getConsultationsForCampaign,
 };
 export default exportedFunctions;
