@@ -87,6 +87,18 @@
     }
   }
 
+  &--coupon {
+    background-color: $color_purple_c39af9_0_5;
+    border-color: $color_green_c1eaea;
+
+    &--active,
+    &:hover,
+    &:active {
+      border-color: $color_primary_pressed_0c5f7a;
+      box-shadow: $shadow_3;
+    }
+  }
+
   &__image {
     width: 3.2rem;
     height: 3rem;
@@ -117,6 +129,11 @@
       &--paid {
         background-color: $color_purple_c39af9_0_5;
         color: $color_secondary_9749fa;
+      }
+
+      &--coupon {
+        background-color: $color_green_c1eaea;
+        color: $color_blue_3d527b;
       }
     }
   }
