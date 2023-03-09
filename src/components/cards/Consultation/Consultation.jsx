@@ -34,6 +34,8 @@ export const Consultation = ({
   handleRejectConsultation,
   handleViewProfile,
   hasPriceBadge,
+  couponPrice,
+  sponsorImage,
   consultation,
   overview,
   suggested,
@@ -41,9 +43,27 @@ export const Consultation = ({
   hasMenu,
   classes,
 }) => {
-  const { providerId, consultationId, timestamp, image, status, price } =
-    consultation;
+  const {
+    consultationId,
+    timestamp,
+    image,
+    status,
+    price: consultationPrice,
+    couponPrice: consultationCouponPrice,
+  } = consultation;
 
+  const hasCouponPrice = !isNaN(couponPrice) || !isNaN(consultationCouponPrice);
+
+  const price =
+    hasCouponPrice && renderIn === "client"
+      ? 0
+      : !isNaN(couponPrice)
+      ? couponPrice
+      : !isNaN(consultationCouponPrice)
+      ? consultationCouponPrice
+      : consultationPrice;
+
+  const isBookedWithCoupon = couponPrice || consultation.couponPrice;
   const isPast = consultation
     ? new Date(timestamp).getTime() < new Date().getTime()
     : false;
@@ -199,6 +219,13 @@ export const Consultation = ({
                     "provider-consultation__icon-container__price-badge--gray",
                 ].join(" ")}
               >
+                {isBookedWithCoupon && sponsorImage ? (
+                  <img
+                    className="provider-consultation__icon-container__price-badge__sponsor-image"
+                    src={AMAZON_S3_BUCKET + "/" + sponsorImage}
+                    alt="sponsor"
+                  />
+                ) : null}
                 <p className="small-text">
                   {price > 0 ? price : "Free"}
                   {price ? currencySymbol : ""}
