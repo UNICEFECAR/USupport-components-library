@@ -110,6 +110,13 @@ async function addPlatformRating(payload) {
   return response;
 }
 
+async function checkIsCouponAvailable(couponCode) {
+  const response = await http.get(
+    `${API_ENDPOINT}/check-coupon?couponCode=${couponCode}`
+  );
+  return response;
+}
+
 const exportedFunctions = {
   addMoodTrack,
   getClientData,
@@ -127,6 +134,7 @@ const exportedFunctions = {
   getMoodTrackForToday,
   getMoodTrackForWeek,
   addPlatformRating,
+  checkIsCouponAvailable,
 };
 
 export default exportedFunctions;
