@@ -51,11 +51,11 @@ export const Consultation = ({
     status,
     price: consultationPrice,
     couponPrice: consultationCouponPrice,
+    campaignId,
   } = consultation;
-  const hasCouponPrice = !isNaN(couponPrice) || !isNaN(consultationCouponPrice);
 
   const price =
-    hasCouponPrice && renderIn === "client"
+    campaignId && renderIn === "client"
       ? 0
       : !isNaN(couponPrice)
       ? couponPrice
@@ -63,7 +63,9 @@ export const Consultation = ({
       ? consultationCouponPrice
       : consultationPrice;
 
-  const isBookedWithCoupon = couponPrice || consultation.couponPrice;
+  const isBookedWithCoupon =
+    couponPrice || consultation.couponPrice || campaignId;
+
   const isPast = consultation
     ? new Date(timestamp).getTime() < new Date().getTime()
     : false;
