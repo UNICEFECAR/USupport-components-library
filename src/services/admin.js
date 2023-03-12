@@ -310,6 +310,13 @@ async function updateCampaignData(payload) {
   return response;
 }
 
+async function getCampaignDataById(campaignId) {
+  const response = await http.get(
+    `${API_ENDPOINT}/sponsor/campaign/by-id?campaignId=${campaignId}`
+  );
+  return response;
+}
+
 const exportedFunctions = {
   createAdmin,
   deleteArticle,
@@ -348,6 +355,7 @@ const exportedFunctions = {
   createCampaignForSponsor,
   getCouponsData,
   updateCampaignData,
+  getCampaignDataById,
 };
 
 export default exportedFunctions;
