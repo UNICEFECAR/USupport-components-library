@@ -37,6 +37,7 @@ export const Consultation = ({
   couponPrice,
   sponsorImage,
   consultation,
+  seeDetails,
   overview,
   suggested,
   onClick,
@@ -50,12 +51,11 @@ export const Consultation = ({
     status,
     price: consultationPrice,
     couponPrice: consultationCouponPrice,
+    campaignId,
   } = consultation;
 
-  const hasCouponPrice = !isNaN(couponPrice) || !isNaN(consultationCouponPrice);
-
   const price =
-    hasCouponPrice && renderIn === "client"
+    campaignId && renderIn === "client"
       ? 0
       : !isNaN(couponPrice)
       ? couponPrice
@@ -63,7 +63,9 @@ export const Consultation = ({
       ? consultationCouponPrice
       : consultationPrice;
 
-  const isBookedWithCoupon = couponPrice || consultation.couponPrice;
+  const isBookedWithCoupon =
+    couponPrice || consultation.couponPrice || campaignId;
+
   const isPast = consultation
     ? new Date(timestamp).getTime() < new Date().getTime()
     : false;
@@ -309,15 +311,16 @@ export const Consultation = ({
         </div>
       )}
 
-      {!overview && !suggested && buttonAction === "details" && (
+      {((!overview && !suggested && buttonAction === "details") ||
+        seeDetails) && (
         <div className="consultation__button-container">
-          {renderIn === "client" && status === "finished" ? (
+          {(renderIn === "client" && status === "finished") || seeDetails ? (
             <Button
               onClick={handleSeeDetails}
               label={buttonLabel}
               size="sm"
               type="secondary"
-              color={renderIn === "provider" ? "purple" : "green"}
+              color={"green"}
             />
           ) : (
             <p className="small-text">
