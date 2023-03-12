@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import OutsideClickHandler from "react-outside-click-handler";
 import { Box } from "../../boxes/Box/Box";
@@ -34,6 +34,8 @@ export const ClientHistory = ({
   cancelConsultation,
   joinConsultation,
   suggestConsultation,
+  consultationPrice,
+  consultationCouponPrice,
   suggested,
   image,
   t,
@@ -66,6 +68,8 @@ export const ClientHistory = ({
     clientName: name,
     timestamp,
     clientId,
+    price: consultationPrice,
+    couponPrice: consultationCouponPrice,
   };
 
   const today = new Date().getTime();

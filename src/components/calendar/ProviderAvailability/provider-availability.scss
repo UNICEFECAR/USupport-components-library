@@ -13,6 +13,10 @@
   max-width: 10rem;
   height: 4rem;
 
+  @media screen and (min-width: $screen-md) {
+    height: 6.8rem;
+  }
+
   @media screen and (min-width: 1200px) {
     padding: $spacing_2_4 $spacing_1_6;
     width: calc(14.45rem - 2 * $spacing_1_6);
@@ -29,10 +33,30 @@
     }
   }
 
-  &__sponsor-image {
-    width: 3.6rem;
-    height: 3.6rem;
+  &__sponsor-badge {
+    width: 1.8rem;
+    height: 1.8rem;
+    position: absolute;
+    top: calc(-1.8rem / 4);
+    left: calc(-1.8rem / 4);
     border-radius: 50%;
+
+    @media screen and (min-width: 1200px) {
+      width: 3rem;
+      height: 3rem;
+      top: calc(-3rem / 4);
+      left: calc(-3rem / 4);
+    }
+  }
+
+  &__sponsor-image {
+    width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 50%;
+
+    @media screen and (min-width: 1200px) {
+      margin-right: $spacing_0_8;
+    }
 
     @media screen and (min-width: $screen-lg) {
       width: 4.5rem;
@@ -41,7 +65,7 @@
   }
 
   &--campaign {
-    background-color: $color_purple_c39af9_0_5;
+    background-color: $color_green_c1eaea;
   }
 
   &--available {
@@ -87,9 +111,21 @@
     }
   }
 
+  &--coupon {
+    background-color: $color_white_ff;
+    border-color: $color_green_c1eaea;
+
+    &--active,
+    &:hover,
+    &:active {
+      border-color: $color_primary_pressed_0c5f7a;
+      box-shadow: $shadow_3;
+    }
+  }
+
   &__image {
     width: 3.2rem;
-    height: 3rem;
+    height: 3.2rem;
     border-radius: 50%;
 
     @media screen and (min-width: $screen-lg) {
@@ -104,10 +140,32 @@
     justify-content: center;
 
     &__price {
-      padding: $spacing_0_4 $spacing_0_8;
+      padding: $spacing_0_4;
       border-radius: $border_radius_1_6;
       word-break: break-all;
       max-height: 95%;
+
+      @media screen and (min-width: 550px) {
+        padding: $spacing_0_4;
+      }
+      @media screen and (min-width: $screen-md) {
+        padding: $spacing_0_4 $spacing_0_8;
+      }
+
+      &__text.small-text {
+        font-size: 0.8rem;
+        line-height: 0.8rem;
+        word-break: normal;
+
+        @media screen and (min-width: 550px) {
+          font-size: 1rem;
+          line-height: 1.4rem;
+        }
+        @media screen and (min-width: $screen-md) {
+          font-size: 1.2rem;
+          line-height: 1.8rem;
+        }
+      }
 
       &--free {
         background-color: $color_green_c1eaea;
@@ -118,6 +176,23 @@
         background-color: $color_purple_c39af9_0_5;
         color: $color_secondary_9749fa;
       }
+
+      &--coupon {
+        background-color: $color_green_c1eaea;
+        color: $color_blue_3d527b;
+      }
+    }
+
+    &__campaign-name {
+      text-align: left;
+
+      & strong {
+        text-overflow: ellipsis; /* With this the name gets clipped with dots(...) at the end, without it the overflow is scroll */
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
     }
   }
 
@@ -127,7 +202,17 @@
 
   &__name.small-text {
     margin-top: $spacing_0_4;
-    font-weight: $font_semi_bold;
+    font-size: 1rem;
+    word-break: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis; /* With this the name gets clipped with dots(...) at the end, without it the overflow is scroll */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+
+    @media screen and (min-width: 1200px) {
+      font-weight: $font_semi_bold;
+    }
   }
 
   &__indicator-container {
@@ -209,7 +294,7 @@
 
       &__image {
         width: 3.2rem;
-        height: 3rem;
+        height: 3.2rem;
         border-radius: 50%;
         margin-right: $spacing_0_8;
       }
@@ -228,11 +313,15 @@
       }
 
       &--campaign {
-        justify-content: space-between;
-
         & > p {
           color: $color_blue_3d527b;
           text-decoration: none;
+          text-align: left;
+          padding-right: $spacing_0_4;
+        }
+
+        &__icon {
+          margin-left: auto;
         }
       }
     }
