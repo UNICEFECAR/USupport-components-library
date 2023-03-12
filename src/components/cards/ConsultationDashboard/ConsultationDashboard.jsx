@@ -31,7 +31,15 @@ export const ConsultationDashboard = ({
   t,
 }) => {
   const currencySymbol = localStorage.getItem("currency_symbol");
-  const { providerName, timestamp, image, status, price } = consultation || {};
+  const {
+    providerName,
+    timestamp,
+    image,
+    status,
+    price,
+    campaignId,
+    sponsorImage,
+  } = consultation || {};
   // const name = consultation.providerName || consultation.clientName;
   const imageUrl = AMAZON_S3_BUCKET + "/" + (image || "default");
 
@@ -59,15 +67,22 @@ export const ConsultationDashboard = ({
             ) : (
               <p className="small-text">{`${dateText} ${timeText}`}</p>
             )}
-            <div>
-              <p
-                className={`small-text consultation-dashboard__content__date__price ${
-                  consultation.price > 0
-                    ? "consultation-dashboard__content__date__price--paid"
-                    : "consultation-dashboard__content__date__price--free"
-                }`}
-              >
-                {consultation.price > 0
+            <div
+              className={`consultation-dashboard__content__date__price__badge ${
+                consultation.price > 0 && campaignId
+                  ? "consultation-dashboard__content__date__price__badge--paid"
+                  : "consultation-dashboard__content__date__price__badge--free"
+              }`}
+            >
+              {campaignId && sponsorImage ? (
+                <img
+                  className="consultation-dashboard__content__date__price__badge__sponsor-image"
+                  src={AMAZON_S3_BUCKET + "/" + sponsorImage}
+                  alt="sponsor"
+                />
+              ) : null}
+              <p className="small-text">
+                {consultation.price > 0 && campaignId
                   ? `${consultation.price}${currencySymbol || ""}`
                   : t("free")}
               </p>
