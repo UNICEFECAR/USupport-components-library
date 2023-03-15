@@ -91,7 +91,7 @@ export const CardMedia = ({
           type={
             type === "landscape" && (size === "sm" || size == "md")
               ? "link"
-              : "secondary"
+              : "primary"
           }
           label={t("read_more_button")}
           onClick={() => {
