@@ -61,7 +61,7 @@ export const CardMedia = ({
         <div className={"card-media__details"}>
           <p className={"small-text"}>{t("by", { creator })}</p>
 
-          <Icon name={"time"} size="sm" />
+          <Icon name={"time"} size="sm" color={"#66768d"} />
           <p className={"small-text"}>
             {readingTime} {t("min_read")}
           </p>
