@@ -6,6 +6,7 @@
   box-shadow: $shadow_1;
   width: 34.3rem;
   margin: auto;
+  position: relative;
 
   &__labels {
     display: flex;
@@ -34,14 +35,7 @@
     }
   }
 
-  &__title-category-wrapper {
-    display: flex;
-    flex-direction: row;
-  }
-
   &__title {
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
     display: -webkit-box;
     margin-bottom: $spacing_0_4;
     overflow: hidden;
@@ -53,12 +47,16 @@
     justify-content: center;
     flex-direction: column;
     height: 2.2rem;
-    background-color: $color_blue_20809E_0_3;
+    background-color: $color_blue_c1d7e0;
     border-radius: $border_radius_2_5;
     margin-bottom: $spacing_0_4;
     overflow: hidden;
     padding: 0 $spacing_1_2 0 $spacing_1_2;
     text-align: center;
+    position: absolute;
+    z-index: 2;
+    top: $spacing_1_6;
+    left: $spacing_1_6;
 
     &__text {
       -webkit-box-orient: vertical;
@@ -76,6 +74,7 @@
   &__details {
     display: flex;
     padding-bottom: $spacing_0_8;
+    padding-top: $spacing_0_8;
 
     .icon {
       margin-right: $spacing_0_5;
@@ -196,7 +195,7 @@
       .card-media__image {
         width: 48rem;
         height: 40rem;
-        border-radius: $spacing_4_8 0 0 $spacing_4_8;
+        border-radius: $spacing_2_2 0 0 $spacing_2_2;
       }
 
       .card-media__title {
