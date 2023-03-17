@@ -35,6 +35,7 @@ export const CardMedia = ({
   t,
   ...props
 }) => {
+  console.log(categoryName);
   return (
     <Box
       classes={[
@@ -48,22 +49,19 @@ export const CardMedia = ({
         src={image ? image : "https://picsum.photos/343/400"}
         alt="card-media"
       />
-
+      <div className="card-media__category">
+        <p className="small-text card-media__category__text">{categoryName}</p>
+      </div>
       <div className={"card-media__content"}>
         <Grid>
-          <GridItem xs={3} md={5} lg={8} classes="card-media__title">
+          <GridItem xs={4} md={8} lg={12} classes="card-media__title">
             <h4 className="card-media__title__text">{title}</h4>
-          </GridItem>
-          <GridItem xs={1} md={3} lg={4} classes="card-media__category">
-            <p className="small-text card-media__category__text">
-              {categoryName}
-            </p>
           </GridItem>
         </Grid>
         <div className={"card-media__details"}>
-          <p className={"small-text"}>By {creator}</p>
+          <p className={"small-text"}>{t("by", { creator })}</p>
 
-          <Icon name={"time"} size="sm" />
+          <Icon name={"time"} size="sm" color={"#66768d"} />
           <p className={"small-text"}>
             {readingTime} {t("min_read")}
           </p>
@@ -93,7 +91,7 @@ export const CardMedia = ({
           type={
             type === "landscape" && (size === "sm" || size == "md")
               ? "link"
-              : "secondary"
+              : "primary"
           }
           label={t("read_more_button")}
           onClick={() => {
