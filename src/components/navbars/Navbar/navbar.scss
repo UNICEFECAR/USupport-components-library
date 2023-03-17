@@ -17,7 +17,7 @@
   height: 4.6rem;
   padding-top: $spacing_2_0;
   cursor: default;
-  overflow: scroll;
+  overflow: auto;
 
   @media screen and (min-width: $navbar-tight) {
     padding: $spacing_1_6 0;
