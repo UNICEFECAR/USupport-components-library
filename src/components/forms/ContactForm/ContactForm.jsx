@@ -139,7 +139,7 @@ export const ContactForm = ({ classes, sendEmail, navigate, t }) => {
       <Button
         label={t("send_button")}
         size="lg"
-        disabled={isSubmitting}
+        loading={isSubmitting}
         classes="contact-form__button"
         onClick={handleSubmit}
       />
