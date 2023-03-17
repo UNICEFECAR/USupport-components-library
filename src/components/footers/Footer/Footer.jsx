@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import { Block } from "../../blocks/Block";
 import { Grid } from "../../grids/Grid";
@@ -11,7 +11,11 @@ import { StaticImage } from "../../images/StaticImage";
 
 import "./footer.scss";
 
+import { useEventListener } from "#hooks";
+
 import { logoHorizontalPng, logoHorizontalWebp } from "../../../assets";
+
+const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
 
 /**
  * Footer
@@ -22,6 +26,25 @@ import { logoHorizontalPng, logoHorizontalWebp } from "../../../assets";
  */
 export const Footer = ({ lists, contactUsText, navigate, Link }) => {
   const currentYear = new Date().getFullYear();
+
+  const defaultLogo = `${AMAZON_S3_BUCKET}/logo-horizontal`;
+  const [logoUrl, setLogoUrl] = useState(defaultLogo);
+  const [selectedCountry, setSelectedCountry] = useState(
+    localStorage.getItem("country") || "KZ"
+  );
+
+  const handler = useCallback(() => {
+    setSelectedCountry(localStorage.getItem("country"));
+  }, []);
+  useEventListener("countryChanged", handler);
+
+  useEffect(() => {
+    if (selectedCountry) {
+      setLogoUrl(`${AMAZON_S3_BUCKET}/logo-horizontal-${selectedCountry}`);
+    } else {
+      setLogoUrl(defaultLogo);
+    }
+  }, [selectedCountry]);
 
   function handleContactsClick(platform) {
     let link = "";
@@ -90,8 +113,8 @@ export const Footer = ({ lists, contactUsText, navigate, Link }) => {
       <Grid>
         <GridItem xs={4} md={8} lg={4}>
           <StaticImage
-            png={logoHorizontalPng}
-            webp={logoHorizontalWebp}
+            png={logoUrl}
+            webp={logoUrl}
             imageClasses="footer__logo"
             alt="logo"
             tabIndex="0"

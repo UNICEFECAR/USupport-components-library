@@ -26,7 +26,7 @@ export const SOSCenterRow = ({
 }) => {
   return (
     <>
-      <div className="sos-center-row" onClick={() => setSelected(!selected)}>
+      <div className="sos-center-row" onClick={() => setSelected()}>
         <CheckBox
           isChecked={selected}
           setIsChecked={setSelected}
