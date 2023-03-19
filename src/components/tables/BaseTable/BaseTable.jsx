@@ -21,6 +21,7 @@ export const BaseTable = ({
   isLoading,
   menuOptions,
   handleClickPropName,
+  hasMenu = true,
 }) => {
   return (
     <div className="table__container">
@@ -49,7 +50,7 @@ export const BaseTable = ({
                     return (
                       <React.Fragment key={"dataItem" + dataItemIndex}>
                         <td className="table__td">{dataItem}</td>
-                        {dataItemIndex === rowData.length - 1 && (
+                        {hasMenu && dataItemIndex === rowData.length - 1 && (
                           <TableIcon
                             menuOptions={menuOptions}
                             handleClickCallbackProp={
