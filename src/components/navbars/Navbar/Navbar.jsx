@@ -333,6 +333,18 @@ export const Navbar = ({
       </div>
     );
   };
+  const defaultLogo = `${AMAZON_S3_BUCKET}/logo-horizontal`;
+  const [logoUrl, setLogoUrl] = useState(defaultLogo);
+
+  useEffect(() => {
+    if (selectedCountry?.value) {
+      setLogoUrl(
+        `${AMAZON_S3_BUCKET}/logo-horizontal-${selectedCountry.value}`
+      );
+    } else {
+      setLogoUrl(defaultLogo);
+    }
+  }, [selectedCountry]);
 
   return (
     <>
@@ -345,7 +357,7 @@ export const Navbar = ({
       >
         <img
           className="nav__logo"
-          src={logoHorizontalPng}
+          src={logoUrl}
           alt="logo"
           tabIndex="0"
           onClick={() => {
