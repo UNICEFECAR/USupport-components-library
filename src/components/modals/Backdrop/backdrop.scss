@@ -53,6 +53,7 @@
       text-align: center;
       width: 95%;
       word-break: break-word;
+      text-align: left;
     }
 
     & > .icon {
@@ -62,6 +63,7 @@
 
   &__text {
     margin-top: $spacing_1_6;
+    text-align: left;
   }
 
   &__children {
