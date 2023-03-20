@@ -21,6 +21,7 @@ export const BaseTable = ({
   isLoading,
   menuOptions,
   handleClickPropName,
+  t,
   hasMenu = true,
 }) => {
   return (
@@ -28,7 +29,7 @@ export const BaseTable = ({
       {isLoading ? (
         <Loading />
       ) : !rowsData || rowsData.length === 0 ? (
-        <p>No data found</p>
+        <p>{t("no_data_found")}</p>
       ) : (
         <table className="table">
           <thead>
