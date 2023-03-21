@@ -8,6 +8,7 @@ import {
   checkIsFiveMinutesBefore,
   getDateView,
   getMonthName,
+  getOrdinal,
 } from "../../../utils";
 
 import "./consultation-dashboard.scss";
@@ -46,9 +47,9 @@ export const ConsultationDashboard = ({
   const isLive = checkIsFiveMinutesBefore(timestamp);
 
   const startDate = new Date(timestamp);
-
-  const dateText = `${getDateView(startDate).slice(0, 2)}th ${getMonthName(
-    startDate
+  const ordinal = getOrdinal(startDate?.getDate());
+  const dateText = `${getDateView(startDate).slice(0, 2)}${t(ordinal)} ${t(
+    getMonthName(startDate).toLowerCase()
   )}`;
 
   const time = startDate.getHours();
