@@ -25,7 +25,9 @@ export const TabsUnderlined = ({ options, handleSelect, t }) => {
                 onClick={() => (option.isInactive ? {} : handleSelect(index))}
                 key={index}
               >
-                <h4 className="label">{t(`${option.value}_tab_label`)}</h4>
+                <h4 className="label">
+                  {t ? t(`${option.value}_tab_label`) : option.label}
+                </h4>
               </div>
             );
           })
