@@ -35,7 +35,6 @@ export const CardMedia = ({
   t,
   ...props
 }) => {
-  console.log(categoryName);
   return (
     <Box
       classes={[

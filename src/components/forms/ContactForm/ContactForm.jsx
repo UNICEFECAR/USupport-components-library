@@ -11,7 +11,7 @@ import { validate, validateProperty } from "../../../utils";
 import { Error } from "../../errors/Error";
 
 import "./contact-form.scss";
-import { t } from "i18next";
+import { useEffect } from "react";
 
 const initialData = {
   email: "",
@@ -26,7 +26,16 @@ const initialData = {
  *
  * @return {jsx}
  */
-export const ContactForm = ({ classes, sendEmail, navigate, t }) => {
+export const ContactForm = ({
+  classes,
+  sendEmail,
+  navigate,
+  submitError,
+  isMutating,
+  isSuccessModalOpen,
+  closeSuccessModal,
+  t,
+}) => {
   const initialReasons = [
     { value: "information", label: t("contact_reason_1") },
     { value: "technical-problem", label: t("contact_reason_2") },
@@ -37,13 +46,16 @@ export const ContactForm = ({ classes, sendEmail, navigate, t }) => {
   const [data, setData] = useState(initialData);
   const [reasons, setReasons] = useState(initialReasons);
   const [errors, setErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccessEmailModalOpen, setIsSuccessEmailModalOpen] = useState(false);
 
-  const closeSuccessEmailModal = () => setIsSuccessEmailModalOpen(false);
+  useEffect(() => {
+    if (isSuccessModalOpen) {
+      setData(initialData);
+      setReasons(initialReasons);
+    }
+  }, [isSuccessModalOpen]);
 
   const handleEmailSuccessCtaClick = () => {
-    closeSuccessEmailModal();
+    closeSuccessModal();
     navigate("/");
   };
 
@@ -68,33 +80,15 @@ export const ContactForm = ({ classes, sendEmail, navigate, t }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!isSubmitting) {
-      if ((await validate(data, schema, setErrors)) == null) {
-        setIsSubmitting(true);
-        const payload = {
-          email: data.email.toLowerCase(),
-          reason: reasons.find((reason) => reason.value === data.reason).label,
-          message: data.message,
-        };
-        await sendEmail(payload)
-          .then((raw) => {
-            if (raw.status < 400) {
-              setIsSuccessEmailModalOpen(true);
-              setData(initialData);
-              setReasons(initialReasons);
-            } else {
-              setErrors({ submit: raw.data.error.message });
-              setIsSubmitting(false);
-            }
-          })
-          .catch((err) => {
-            setIsSubmitting(false);
-          });
-
-        setIsSubmitting(false);
-      } else {
-        setIsSubmitting(false);
-      }
+    if ((await validate(data, schema, setErrors)) == null) {
+      const payload = {
+        subjectValue: data.reason,
+        subjectLabel: t("contact_form"),
+        email: data.email.toLowerCase(),
+        title: reasons.find((reason) => reason.value === data.reason).label,
+        text: data.message,
+      };
+      await sendEmail(payload);
     }
   };
 
@@ -139,15 +133,17 @@ export const ContactForm = ({ classes, sendEmail, navigate, t }) => {
       <Button
         label={t("send_button")}
         size="lg"
-        loading={isSubmitting}
+        loading={isMutating}
         classes="contact-form__button"
         onClick={handleSubmit}
       />
-      {errors.submit ? <Error message={errors.submit} /> : null}
+      {errors.submit || submitError ? (
+        <Error message={errors.submit || submitError} />
+      ) : null}
       <p className="small-text contact-form__reply-time">{t("paragraph")}</p>
       <Modal
-        isOpen={isSuccessEmailModalOpen}
-        closeModal={closeSuccessEmailModal}
+        isOpen={isSuccessModalOpen}
+        closeModal={closeSuccessModal}
         heading={t("modal_title")}
         text={t("modal_text")}
         ctaLabel={t("modal_cta_label")}
