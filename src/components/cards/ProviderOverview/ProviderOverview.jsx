@@ -115,13 +115,6 @@ export const ProviderOverview = ({
                 <p className="text">{activitiesLabel}</p>
               </div>
             )}
-            <div
-              onClick={handleDelete}
-              className="provider-overview__menu__content"
-            >
-              <Icon name="trash" size="md" />
-              <p className="text">{deleteLabel}</p>
-            </div>
           </div>
         </OutsideClickHandler>
       )}

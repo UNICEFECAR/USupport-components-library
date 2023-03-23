@@ -212,6 +212,13 @@ async function addContactForm(payload) {
   return response;
 }
 
+async function changeLanguage(language) {
+  const response = await http.put(`${API_ENDPOINT}/change-language`, {
+    language,
+  });
+  return response;
+}
+
 const exportedFunctions = {
   changePassword,
   generateClientAccesToken,
@@ -233,6 +240,7 @@ const exportedFunctions = {
   createProvider,
   transformUserData,
   addContactForm,
+  changeLanguage,
 };
 
 export default exportedFunctions;

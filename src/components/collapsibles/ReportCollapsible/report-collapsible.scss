@@ -29,6 +29,7 @@
       display: flex;
       justify-content: space-between;
       grid-column: span 8;
+      text-align: left;
 
       @media screen and (min-width: 900px) {
         // grid-column: unset;
