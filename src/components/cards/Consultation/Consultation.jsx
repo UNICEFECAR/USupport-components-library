@@ -100,7 +100,7 @@ export const Consultation = ({
   }
 
   const startHour = startDate.getHours();
-  const endHour = endDate.getHours();
+  const endHour = startHour + 1;
   const timeText = startDate
     ? `${startHour < 10 ? `0${startHour}` : startHour}:00 - ${
         endHour < 10 ? `0${endHour}` : endHour
