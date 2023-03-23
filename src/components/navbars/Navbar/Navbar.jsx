@@ -6,12 +6,11 @@ import { List } from "../../lists";
 import { Button } from "../../buttons";
 import { Box } from "../../boxes";
 import useWindowDimensions from "../../../utils/useWindowDimensions";
+import { userSvc } from "../../../services";
 
 const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
 
 import "./navbar.scss";
-
-import { logoHorizontalPng } from "../../../assets";
 
 const englishLanguage = {
   label: "English",
@@ -177,6 +176,11 @@ export const Navbar = ({
     setLanguagesShown(false);
     i18n.changeLanguage(language.value);
     localStorage.setItem("language", language.value);
+    if (renderIn === "client" || renderIn === "provider") {
+      userSvc.changeLanguage(language.value).catch((err) => {
+        console.log(err, "Error when changing language");
+      });
+    }
   };
 
   const handleProfileClick = () => {
