@@ -161,29 +161,27 @@ export const ProviderAvailability = ({
         </div>
       )}
 
-      {true && (
-        <>
-          {!isLive && !consultation && !campaignData && (
-            <p className="small-text provider-availability__available-text">
-              {isAvailable ? t("available") : t("not_available")}
-            </p>
-          )}
-          {!isLive && !consultation && campaignData && (
-            <p className="small-text provider-availability__content__campaign-name">
-              <strong>{campaignData.campaignName} </strong>
-              {numberOfCampaignsSetAsAvailable > 1 &&
-                t("more_campaigns", {
-                  amount: numberOfCampaignsSetAsAvailable - 1,
-                })}
-            </p>
-          )}
-          {width >= 1200 && (
-            <div className="provider-availability__icon-container">
-              <Icon name="three-dots-vertical" color="#20809E" />
-            </div>
-          )}
-        </>
-      )}
+      <>
+        {!isLive && !consultation && !campaignData && (
+          <p className="small-text provider-availability__available-text">
+            {isAvailable ? t("available") : t("not_available")}
+          </p>
+        )}
+        {!isLive && !consultation && campaignData && width >= 768 && (
+          <p className="small-text provider-availability__content__campaign-name">
+            <strong>{campaignData.campaignName} </strong>
+            {numberOfCampaignsSetAsAvailable > 1 &&
+              t("more_campaigns", {
+                amount: numberOfCampaignsSetAsAvailable - 1,
+              })}
+          </p>
+        )}
+        {width >= 1200 && (
+          <div className="provider-availability__icon-container">
+            <Icon name="three-dots-vertical" color="#20809E" />
+          </div>
+        )}
+      </>
 
       {isMenuOpen ? (
         <OutsideClickHandler onOutsideClick={() => setIsMenuOpen(false)}>

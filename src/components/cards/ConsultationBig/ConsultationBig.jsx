@@ -7,6 +7,7 @@ import {
   checkIsFiveMinutesBefore,
   getDateView,
   getMonthName,
+  getOrdinal,
 } from "../../../utils";
 
 import "./consultation-big.scss";
@@ -38,8 +39,9 @@ export const ConsultationBig = ({
 
   const startDate = new Date(timestamp);
 
-  const dateText = `${getDateView(startDate).slice(0, 2)}th ${getMonthName(
-    startDate
+  const ordinal = getOrdinal(startDate?.getDate());
+  const dateText = `${getDateView(startDate).slice(0, 2)}${t(ordinal)} ${t(
+    getMonthName(startDate).toLowerCase()
   )}`;
 
   const time = startDate.getHours();

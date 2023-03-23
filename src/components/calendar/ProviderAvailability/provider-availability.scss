@@ -30,6 +30,16 @@
   &:hover {
     .provider-availability__available-text {
       visibility: visible;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      &.small-text {
+        font-size: 10px;
+
+        @media screen and (min-width: $screen-md) {
+          font-size: 12px;
+        }
+      }
     }
   }
 
