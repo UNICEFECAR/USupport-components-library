@@ -78,7 +78,12 @@ export const Footer = ({ lists, contactUsText, navigate, Link }) => {
     list1.push({
       value: (
         <Link to={listItem.url ? listItem.url : "#"}>
-          <Button type="text" size="lg" label={listItem.name} />
+          <Button
+            type="text"
+            size="lg"
+            label={listItem.name}
+            classes="footer__link-button"
+          />
         </Link>
       ),
     });
@@ -89,7 +94,12 @@ export const Footer = ({ lists, contactUsText, navigate, Link }) => {
     list2.push({
       value: (
         <Link to={listItem.url ? listItem.url : "#"}>
-          <Button type="text" size="lg" label={listItem.name} />
+          <Button
+            type="text"
+            size="lg"
+            label={listItem.name}
+            classes="footer__link-button"
+          />
         </Link>
       ),
     });

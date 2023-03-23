@@ -14,6 +14,13 @@ function filterAdminData(data, selectedIds) {
       currentData.isSelected = true;
     }
   }
+
+  data.sort(function (a, b) {
+    return (
+      new Date(b.attributes.publishedAt) - new Date(a.attributes.publishedAt)
+    );
+  });
+
   return data;
 }
 
