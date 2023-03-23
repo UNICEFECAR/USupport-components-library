@@ -34,7 +34,9 @@ export const ReportCollapsible = ({
           return (
             <div
               className={`report-collapsible__grid__item report-collapsible__grid__item--${
-                headingItems.length === 2
+                headingItems.length === 4
+                  ? "sm"
+                  : headingItems.length === 2
                   ? index === 1
                     ? "xl"
                     : "md"
