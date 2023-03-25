@@ -153,10 +153,16 @@ async function getAvailableSlotsForSingleDay(
  * @param {number} slotTimestamp the timestamp of the slot
  * @returns {Promise} resolving to and object with the "consultation_id"
  */
-async function blockSlot(clientId, providerId, slotTimestamp) {
+async function blockSlot(
+  clientId,
+  providerId,
+  slotTimestamp,
+  rescheduleCampaignSlot
+) {
   const response = await http.post(`${API_ENDPOINT}/consultation/block`, {
     clientId,
     providerId,
+    rescheduleCampaignSlot,
     time:
       typeof slotTimestamp === "object"
         ? {
