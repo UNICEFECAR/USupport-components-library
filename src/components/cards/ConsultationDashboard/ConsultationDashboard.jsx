@@ -54,7 +54,6 @@ export const ConsultationDashboard = ({
 
   const time = startDate.getHours();
   const timeText = startDate ? `${time < 10 ? `0${time}` : time}:00` : "";
-
   return (
     <Box
       shadow={1}
@@ -70,7 +69,7 @@ export const ConsultationDashboard = ({
             )}
             <div
               className={`consultation-dashboard__content__date__price__badge ${
-                consultation.price > 0 && campaignId
+                consultation.price > 0 && !campaignId
                   ? "consultation-dashboard__content__date__price__badge--paid"
                   : "consultation-dashboard__content__date__price__badge--free"
               }`}
@@ -83,7 +82,7 @@ export const ConsultationDashboard = ({
                 />
               ) : null}
               <p className="small-text">
-                {consultation.price > 0 && campaignId
+                {consultation.price > 0 && !campaignId
                   ? `${consultation.price}${currencySymbol || ""}`
                   : t("free")}
               </p>
