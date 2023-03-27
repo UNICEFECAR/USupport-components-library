@@ -359,6 +359,11 @@ async function getConsultationsForCampaign(campaignId) {
   return res;
 }
 
+async function getProviderStatusById(providerId) {
+  const res = await http.get(`${API_ENDPOINT}/status?providerId=${providerId}`);
+  return res;
+}
+
 const exportedFunctions = {
   addAvailableSlot,
   addTemplateAvailability,
@@ -399,5 +404,6 @@ const exportedFunctions = {
   enrollProviderInCampaign,
   removeMultipleAvailableSlots,
   getConsultationsForCampaign,
+  getProviderStatusById,
 };
 export default exportedFunctions;
