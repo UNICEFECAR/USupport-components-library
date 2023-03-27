@@ -341,7 +341,7 @@ export const Navbar = ({
   const [logoUrl, setLogoUrl] = useState(defaultLogo);
 
   useEffect(() => {
-    if (selectedCountry?.value) {
+    if (selectedCountry?.value && renderIn !== "global-admin") {
       setLogoUrl(
         `${AMAZON_S3_BUCKET}/logo-horizontal-${selectedCountry.value}`
       );

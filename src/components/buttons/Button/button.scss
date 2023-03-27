@@ -75,12 +75,12 @@
 
       &:hover:enabled {
         color: $color_white_ff;
-        filter: $filter_red_cc4c4c;
+        filter: brightness(0.9);
       }
 
       &:active:enabled {
         color: $color_white_ff;
-        filter: $filter_red_a63d3d;
+        filter: brightness(0.9);
       }
     }
   }
@@ -151,12 +151,10 @@
 
       &:hover:enabled {
         color: $color_red_cc4c4c;
-        filter: $filter_red_cc4c4c;
       }
 
       &:active:enabled {
         color: $color_red_a63d3d;
-        filter: $filter_red_a63d3d;
       }
     }
 
