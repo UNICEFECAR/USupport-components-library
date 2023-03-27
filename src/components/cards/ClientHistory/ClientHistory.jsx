@@ -39,6 +39,7 @@ export const ClientHistory = ({
   nextConsultationCampaignId,
   suggested,
   image,
+  providerStatus,
   t,
 }) => {
   let startDate, endDate, dayOfWeek, dateText, startHour, endHour;
@@ -168,8 +169,13 @@ export const ClientHistory = ({
               : "green"
           }
           onClick={() => handleButtonClick(buttonAction)}
-          disabled={suggested}
           type={suggested ? "secondary" : "primary"}
+          disabled={
+            (providerStatus !== "active" && buttonAction === "suggest") ||
+            suggested
+              ? true
+              : false
+          }
         />
         <Button
           size="sm"
