@@ -317,6 +317,19 @@ async function getCampaignDataById(campaignId) {
   return response;
 }
 
+async function getAllProviders() {
+  const response = await http.get(`${API_ENDPOINT}/all-providers`);
+  return response;
+}
+
+async function updateProviderStatus(payload) {
+  const response = await http.put(
+    `${API_ENDPOINT}/update-provider-status`,
+    payload
+  );
+  return response;
+}
+
 const exportedFunctions = {
   createAdmin,
   deleteArticle,
@@ -356,6 +369,8 @@ const exportedFunctions = {
   getCouponsData,
   updateCampaignData,
   getCampaignDataById,
+  getAllProviders,
+  updateProviderStatus,
 };
 
 export default exportedFunctions;

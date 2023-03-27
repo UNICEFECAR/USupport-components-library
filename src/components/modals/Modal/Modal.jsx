@@ -25,6 +25,7 @@ export const Modal = ({
   ctaLabel,
   ctaHandleClick,
   ctaColor = "green",
+  ctaType = "primary",
   secondaryCtaColor = "green",
   isCtaDisabled,
   isCtaLoading,
@@ -74,6 +75,7 @@ export const Modal = ({
             ) : (
               <Button
                 label={ctaLabel}
+                type={ctaType}
                 disabled={isCtaDisabled}
                 onClick={ctaHandleClick}
                 loading={isCtaLoading}
