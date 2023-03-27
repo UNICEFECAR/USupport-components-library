@@ -9,12 +9,13 @@
   display: flex;
   justify-content: center;
   position: relative;
-  min-width: 4rem;
+  min-width: 3.5rem;
   max-width: 10rem;
   height: 4rem;
 
   @media screen and (min-width: $screen-md) {
     height: 6.8rem;
+    min-width: 4rem;
   }
 
   @media screen and (min-width: 1200px) {
