@@ -131,7 +131,13 @@ export const ProviderAvailability = ({
       )}
       {isAvailable === "campaign" && !consultation && (
         <img
-          src={AMAZON_S3_BUCKET + "/" + campaignData?.sponsorImage}
+          src={
+            AMAZON_S3_BUCKET +
+            "/" +
+            (numberOfCampaignsSetAsAvailable > 1
+              ? "default-sponsor"
+              : campaignData?.sponsorImage)
+          }
           className="provider-availability__sponsor-badge"
         />
       )}
@@ -169,10 +175,14 @@ export const ProviderAvailability = ({
         )}
         {!isLive && !consultation && campaignData && width >= 768 && (
           <p className="small-text provider-availability__content__campaign-name">
-            <strong>{campaignData.campaignName} </strong>
+            <strong>
+              {numberOfCampaignsSetAsAvailable > 1
+                ? t("coupon")
+                : campaignData.campaignName}{" "}
+            </strong>
             {numberOfCampaignsSetAsAvailable > 1 &&
               t("more_campaigns", {
-                amount: numberOfCampaignsSetAsAvailable - 1,
+                amount: numberOfCampaignsSetAsAvailable,
               })}
           </p>
         )}
