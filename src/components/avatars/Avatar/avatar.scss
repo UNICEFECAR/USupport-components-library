@@ -4,6 +4,10 @@
   border-radius: $border_radius_4_8;
   object-fit: cover;
 
+  &--xs {
+    width: 2.6rem;
+    height: 2.6rem;
+  }
   &--sm {
     min-width: 5.6rem;
     max-width: 5.6rem;

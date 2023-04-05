@@ -24,7 +24,7 @@ export const CircleIconButton = ({
   const isMobile = width < 768;
   return (
     <ButtonWithIcon
-      color="purple"
+      color="red"
       iconName={iconName}
       iconSize={iconSize}
       iconColor="#fff"
