@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 
 import "./emoticon.scss";
 import { Icon } from "../Icon";
@@ -9,9 +10,13 @@ import { Icon } from "../Icon";
  *
  * @return {jsx}
  */
-export const Emoticon = ({ name, size }) => {
+export const Emoticon = ({ name, size = "sm", ...rest }) => {
   return (
-    <Icon name={`${name}-${size}`} classes={`emoticon emoticon--${"sm"}`} />
+    <Icon
+      name={[`${name}-${size === "lg" ? "lg" : "sm"}`].join(" ")}
+      classes={`emoticon emoticon--${size}`}
+      {...rest}
+    />
   );
 };
 
