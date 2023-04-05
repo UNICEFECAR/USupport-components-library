@@ -1,0 +1,35 @@
+@import "../../../styles/theme";
+
+.mood-track-details {
+  margin-top: $spacing_1_6;
+  padding: $spacing_2_0 $spacing_1_6;
+  width: 100%;
+  max-width: 46.3rem;
+  position: relative;
+
+  &__subheading-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: $spacing_1_6;
+
+    &__emoticon {
+      margin: 0 $spacing_0_4;
+    }
+  }
+
+  &__comment.text {
+    text-align: left;
+    margin-top: $spacing_1_6;
+    margin-left: $spacing_0_8;
+    color: $color_primary_20809e;
+    font-weight: $font_regular;
+  }
+
+  &__close-icon {
+    position: absolute;
+    top: $spacing_2_4;
+    right: $spacing_2_4;
+    cursor: pointer;
+  }
+}
