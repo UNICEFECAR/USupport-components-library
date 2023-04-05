@@ -34,7 +34,7 @@ Avatar.propTypes = {
    * Options: sm, md, lg
    * Default: md
    * */
-  size: PropTypes.oneOf(["sm", "md", "lg"]),
+  size: PropTypes.oneOf(["xs", "sm", "md", "lg"]),
 
   /**
    * Additional classes
