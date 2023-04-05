@@ -229,8 +229,11 @@ export const Consultation = ({
                   />
                 ) : null}
                 <p className="small-text">
-                  {price > 0 ? price : t("free")}
-                  {price ? currencySymbol : ""}
+                  {isBookedWithCoupon && renderIn === "client"
+                    ? t("coupon")
+                    : price > 0
+                    ? `${consultation.price}${currencySymbol || ""}`
+                    : t("free")}
                 </p>
               </div>
             )}

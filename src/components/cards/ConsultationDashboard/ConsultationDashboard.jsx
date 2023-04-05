@@ -40,9 +40,12 @@ export const ConsultationDashboard = ({
     price,
     campaignId,
     sponsorImage,
+    couponPrice,
   } = consultation || {};
   // const name = consultation.providerName || consultation.clientName;
   const imageUrl = AMAZON_S3_BUCKET + "/" + (image || "default");
+
+  const isBookedWithCoupon = couponPrice || campaignId;
 
   const isLive = checkIsFiveMinutesBefore(timestamp);
 
@@ -82,7 +85,9 @@ export const ConsultationDashboard = ({
                 />
               ) : null}
               <p className="small-text">
-                {consultation.price > 0 && !campaignId
+                {isBookedWithCoupon
+                  ? t("coupon")
+                  : consultation.price > 0
                   ? `${consultation.price}${currencySymbol || ""}`
                   : t("free")}
               </p>
