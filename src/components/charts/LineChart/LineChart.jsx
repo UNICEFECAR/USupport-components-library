@@ -95,7 +95,7 @@ export const LineChart = ({ data, handleSelectItem, selectedItemId }) => {
         },
       ],
     };
-  }, [selectedItemIndex]);
+  }, [data, selectedItemIndex]);
 
   const options = {
     responsive: true,
