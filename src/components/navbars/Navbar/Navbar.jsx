@@ -243,7 +243,7 @@ export const Navbar = ({
         window.location.href = "/client/login";
         scrollTop();
       }}
-      web={width >= 950}
+      web={width >= 1110}
     >
       {buttonText}
     </Button>
