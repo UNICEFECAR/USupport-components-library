@@ -67,7 +67,17 @@ export const Answer = ({
         <>
           <div className="answer__heading-container">
             {isInYourQuestions ? (
-              <p className="text">{question.question}</p>
+              <div>
+                <div className="answer__date-container">
+                  <Icon name="calendar" color="#92989B" />
+                  <p className="text answer__date-container__text">
+                    {getDateText()}
+                  </p>
+                </div>
+                <p className="text answer__heading-container__question-text">
+                  {question.question}
+                </p>
+              </div>
             ) : (
               renderHeadingAndLabels()
             )}

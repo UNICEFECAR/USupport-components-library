@@ -15,7 +15,8 @@
     flex-direction: row;
     justify-content: space-between;
 
-    &__rate-container {
+    &__question-text {
+      margin-top: $spacing_0_8;
     }
   }
 
