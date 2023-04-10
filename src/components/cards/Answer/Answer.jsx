@@ -48,14 +48,21 @@ export const Answer = ({
     }
   };
 
+  console.log(question);
+
   const renderHeadingAndLabels = () => {
     return (
       <div className="answer__heading-and-labels-container">
-        <h4>{question.answerTitle}</h4>
+        {renderIn === "client" ? (
+          <h4>{question.answerTitle}</h4>
+        ) : (
+          <p className="text">{question.question}</p>
+        )}
         <div className="answer__labels-container">
-          {labels.map((label, index) => {
-            return <Label text={label} key={index} />;
-          })}
+          {question.tags &&
+            question.tags.map((label, index) => {
+              return <Label text={label} key={index} />;
+            })}
         </div>
       </div>
     );
@@ -110,6 +117,11 @@ export const Answer = ({
       {question.answerTitle ? (
         <>
           {isInYourQuestions && renderHeadingAndLabels()}
+          {renderIn === "provider" && question.answerText ? (
+            <h4 className="answer__provider-heading-text">
+              {question.answerTitle}
+            </h4>
+          ) : null}
           <p className="text">{question.answerText}</p>
           <Button
             type="link"
