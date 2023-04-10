@@ -7,6 +7,7 @@ import { Line } from "../../separators";
 import { Button } from "../../buttons";
 import { Avatar } from "../../avatars";
 import { Icon, Like } from "../../icons";
+import { isDateToday } from "../../../utils/date";
 
 const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
 
@@ -15,7 +16,7 @@ import "./answer.scss";
 /**
  * Answer
  *
- * Answer Q&A card
+ * Answer MyQA card
  *
  * @return {jsx}
  */
@@ -27,10 +28,25 @@ export const Answer = ({
   handleReadMore = () => {},
   handleScheduleConsultationClick = () => {},
   classes,
+  t,
 }) => {
   const labels = ["bullying", "school billing", "sad"];
 
   const providerInfo = question.providerData;
+
+  const getDateText = () => {
+    const date = new Date(question.questionCreatedAt);
+
+    if (isDateToday(date)) {
+      return t("today");
+    } else {
+      return `${date.getDate() > 9 ? date.getDate() : `0${date.getDate()}`}.${
+        date.getMonth() + 1 > 9
+          ? date.getMonth() + 1
+          : `0${date.getMonth() + 1}`
+      }`;
+    }
+  };
 
   const renderHeadingAndLabels = () => {
     return (
@@ -69,12 +85,12 @@ export const Answer = ({
         <>
           <div className="answer__date-container">
             <Icon name="calendar" color="#92989B" />
-            <p className="text answer__date-container__text">Today</p>
+            <p className="text answer__date-container__text">{getDateText()}</p>
           </div>
           <p className="text answer__question-heading">{question.question}</p>
           <Button
             type="link"
-            label="Read more"
+            label={t("read_more")}
             size="md"
             classes="answer__read-more-button"
           />
@@ -87,14 +103,14 @@ export const Answer = ({
           <p className="text">{question.answerText}</p>
           <Button
             type="link"
-            label="Read more"
+            label={t("read_more")}
             size="md"
             classes="answer__read-more-button"
             onClick={() => handleReadMore(question)}
           />
           <div className="answer__bottom-container">
             <div className="answer__answered-by-container">
-              <p className="text">Answered by:</p>
+              <p className="text">{t("answer_by")}</p>
               <Avatar
                 image={AMAZON_S3_BUCKET + "/" + providerInfo.image}
                 alt="Specialist avatar"
@@ -110,7 +126,7 @@ export const Answer = ({
               onClick={handleScheduleConsultationClick}
             >
               <Icon name="calendar" color="#20809e" />
-              <p className="text">Schedule a consultation</p>
+              <p className="text">{t("schedule_consultation")}</p>
             </div>
           </div>
           {renderIn === "provider" && (
@@ -125,9 +141,9 @@ export const Answer = ({
         <>
           {renderIn === "provider" && (
             <div className="answer__bottom-container">
-              <Button label="Respond" />
+              <Button label={t("respond")} />
               <Button
-                label="Archive"
+                label={t("archive")}
                 type="ghost"
                 classes="answer__bottom-container__archive-button"
               />
