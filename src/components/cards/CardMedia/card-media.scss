@@ -145,6 +145,10 @@
       }
     }
 
+    .card-media__category {
+      position: unset;
+    }
+
     .card-media__image {
       display: none;
       width: 20rem;
@@ -156,10 +160,9 @@
     }
 
     &.card-media--sm {
-      height: 13.5rem;
+      min-height: 13.5rem;
       align-items: center;
       .card-media__image {
-        width: 16rem;
         height: 100%;
       }
 
@@ -175,7 +178,7 @@
 
       .card-media__content {
         @media screen and (min-width: $screen-lg) {
-          min-width: 40rem;
+          min-width: 35rem;
         }
       }
     }

@@ -48,13 +48,17 @@ export const CardMedia = ({
         src={image ? image : "https://picsum.photos/343/400"}
         alt="card-media"
       />
-      <div className="card-media__category">
-        <p className="small-text card-media__category__text">{categoryName}</p>
-      </div>
       <div className={"card-media__content"}>
         <Grid>
           <GridItem xs={4} md={8} lg={12} classes="card-media__title">
             <h4 className="card-media__title__text">{title}</h4>
+          </GridItem>
+          <GridItem xs={4} md={8} lg={12} classes="card-media__title">
+            <div className="card-media__category">
+              <p className="small-text card-media__category__text">
+                {categoryName}
+              </p>
+            </div>
           </GridItem>
         </Grid>
         <div className={"card-media__details"}>
