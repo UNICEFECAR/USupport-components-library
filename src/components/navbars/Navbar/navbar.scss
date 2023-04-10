@@ -51,7 +51,7 @@
       padding-left: $spacing_2_4;
     }
 
-    @media screen and (min-width: $navbar-spread) {
+    @media screen and (min-width: $screen-lg) {
       height: 4.8rem;
       width: 17.8rem;
     }
@@ -274,14 +274,14 @@
   &__profile {
     display: flex;
     align-items: center;
-    padding-right: $spacing_2_4;
+    padding-right: $spacing_2_0;
 
     & > .paragraph {
       cursor: pointer;
     }
 
     &__notification-icon {
-      margin-right: $spacing_2_4;
+      margin-right: $spacing_1_8;
       cursor: pointer;
     }
 
