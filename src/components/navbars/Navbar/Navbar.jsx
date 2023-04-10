@@ -243,7 +243,7 @@ export const Navbar = ({
         window.location.href = "/client/login";
         scrollTop();
       }}
-      web={width >= 950}
+      web={width >= 1110}
     >
       {buttonText}
     </Button>
@@ -282,16 +282,17 @@ export const Navbar = ({
           src={imageURL}
           alt="profile-image"
           className="nav__profile__image"
+          onClick={handleProfileClick}
         />
       )}
-      <p
+      {/* <p
         onClick={handleProfileClick}
         className={`paragraph ${
           isInProfile ? "nav__profile__text-active" : ""
         }`}
       >
         {yourProfileText}
-      </p>
+      </p> */}
     </div>
   );
 
