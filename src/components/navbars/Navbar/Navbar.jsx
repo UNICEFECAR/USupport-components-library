@@ -282,16 +282,17 @@ export const Navbar = ({
           src={imageURL}
           alt="profile-image"
           className="nav__profile__image"
+          onClick={handleProfileClick}
         />
       )}
-      <p
+      {/* <p
         onClick={handleProfileClick}
         className={`paragraph ${
           isInProfile ? "nav__profile__text-active" : ""
         }`}
       >
         {yourProfileText}
-      </p>
+      </p> */}
     </div>
   );
 
