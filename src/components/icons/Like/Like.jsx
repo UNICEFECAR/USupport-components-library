@@ -8,7 +8,7 @@ import "./like.scss";
 /**
  * Like
  *
- * Like component used in Q&A
+ * Like component used in MyQA
  *
  * @return {jsx}
  */
@@ -59,9 +59,33 @@ export const Like = ({
 };
 
 Like.propTypes = {
-  // Add propTypes here
-};
+  /*
+   * Function to handle like and dislike
+   */
+  handleClick: PropTypes.func.isRequired,
 
-Like.defaultProps = {
-  // Add defaultProps here
+  /*
+   * Number of likes
+   */
+  likes: PropTypes.number.isRequired,
+
+  /*
+   * Number of dislikes
+   */
+  dislikes: PropTypes.number.isRequired,
+
+  /*
+   * Answer id
+   */
+  answerId: PropTypes.number.isRequired,
+
+  /*
+   * Boolean to check if answer is liked
+   */
+  isLiked: PropTypes.bool.isRequired,
+
+  /*
+   * Boolean to check if answer is disliked
+   */
+  isDisliked: PropTypes.bool.isRequired,
 };
