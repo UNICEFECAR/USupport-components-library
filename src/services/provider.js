@@ -364,6 +364,11 @@ async function getProviderStatusById(providerId) {
   return res;
 }
 
+async function getQuestions(type) {
+  const res = await http.get(`${API_ENDPOINT}/my-qa/questions?type=${type}`);
+  return res;
+}
+
 const exportedFunctions = {
   addAvailableSlot,
   addTemplateAvailability,
@@ -405,5 +410,6 @@ const exportedFunctions = {
   removeMultipleAvailableSlots,
   getConsultationsForCampaign,
   getProviderStatusById,
+  getQuestions,
 };
 export default exportedFunctions;
