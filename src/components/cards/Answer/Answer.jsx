@@ -27,11 +27,10 @@ export const Answer = ({
   handleLike = () => {},
   handleReadMore = () => {},
   handleScheduleConsultationClick = () => {},
+  handleRespond = () => {},
   classes,
   t,
 }) => {
-  const labels = ["bullying", "school billing", "sad"];
-
   const providerInfo = question.providerData;
 
   const getDateText = () => {
@@ -47,8 +46,6 @@ export const Answer = ({
       }`;
     }
   };
-
-  console.log(question);
 
   const renderHeadingAndLabels = () => {
     return (
@@ -143,19 +140,22 @@ export const Answer = ({
                 {providerInfo.name} {providerInfo.surname}
               </p>
             </div>
-            <div
-              className="answer__schedule-button"
-              onClick={handleScheduleConsultationClick}
-            >
-              <Icon name="calendar" color="#20809e" />
-              <p className="text">{t("schedule_consultation")}</p>
-            </div>
+            {renderIn === "client" ? (
+              <div
+                className="answer__schedule-button"
+                onClick={handleScheduleConsultationClick}
+              >
+                <Icon name="calendar" color="#20809e" />
+                <p className="text">{t("schedule_consultation")}</p>
+              </div>
+            ) : null}
           </div>
           {renderIn === "provider" && (
             <Button
               label="Respond"
               size="md"
               classes="answer__respond-button"
+              onClick={() => handleRespond(question.questionId)}
             />
           )}
         </>
@@ -163,7 +163,10 @@ export const Answer = ({
         <>
           {renderIn === "provider" && (
             <div className="answer__bottom-container">
-              <Button label={t("respond")} />
+              <Button
+                label={t("respond")}
+                onClick={() => handleRespond(question.questionId)}
+              />
               <Button
                 label={t("archive")}
                 type="ghost"
