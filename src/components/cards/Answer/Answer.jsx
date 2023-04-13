@@ -139,22 +139,20 @@ export const Answer = ({
               classes="answer__read-more-button"
               onClick={() => handleReadMore(question)}
             />
-            {
-              (renderIn = "provider" && (
-                <div className="answer__answered-by-container">
-                  <p className="text">{t("answer_by")}</p>
-                  <Avatar
-                    image={AMAZON_S3_BUCKET + "/" + providerInfo.image}
-                    alt="Specialist avatar"
-                    size="xs"
-                    classes="answer__answered-by-container__avatar"
-                  />
-                  <p className="text">
-                    {providerInfo.name} {providerInfo.surname}
-                  </p>
-                </div>
-              ))
-            }
+            {renderIn === "provider" && (
+              <div className="answer__answered-by-container">
+                <p className="text">{t("answer_by")}</p>
+                <Avatar
+                  image={AMAZON_S3_BUCKET + "/" + providerInfo.image}
+                  alt="Specialist avatar"
+                  size="xs"
+                  classes="answer__answered-by-container__avatar"
+                />
+                <p className="text">
+                  {providerInfo.name} {providerInfo.surname}
+                </p>
+              </div>
+            )}
           </div>
           {renderIn === "client" ? (
             <div className="answer__bottom-container">
