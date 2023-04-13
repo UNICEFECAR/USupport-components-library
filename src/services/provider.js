@@ -369,6 +369,21 @@ async function getQuestions(type) {
   return res;
 }
 
+async function getQuestionTags() {
+  const res = await http.get(`${API_ENDPOINT}/my-qa/tags`);
+  return res;
+}
+
+async function addAnswerToQuestion(data) {
+  const res = await http.post(`${API_ENDPOINT}/my-qa/create-answer`, data);
+  return res;
+}
+
+async function archiveQuestion(data) {
+  const res = await http.post(`${API_ENDPOINT}/my-qa/archive-question`, data);
+  return res;
+}
+
 const exportedFunctions = {
   addAvailableSlot,
   addTemplateAvailability,
@@ -411,5 +426,8 @@ const exportedFunctions = {
   getConsultationsForCampaign,
   getProviderStatusById,
   getQuestions,
+  getQuestionTags,
+  addAnswerToQuestion,
+  archiveQuestion,
 };
 export default exportedFunctions;
