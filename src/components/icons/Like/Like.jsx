@@ -77,15 +77,15 @@ Like.propTypes = {
   /*
    * Answer id
    */
-  answerId: PropTypes.number.isRequired,
+  answerId: PropTypes.string,
 
   /*
    * Boolean to check if answer is liked
    */
-  isLiked: PropTypes.bool.isRequired,
+  isLiked: PropTypes.bool,
 
   /*
    * Boolean to check if answer is disliked
    */
-  isDisliked: PropTypes.bool.isRequired,
+  isDisliked: PropTypes.bool,
 };
