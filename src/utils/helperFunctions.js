@@ -14,7 +14,24 @@ function filterAdminData(data, selectedIds) {
       currentData.isSelected = true;
     }
   }
+
+  data.sort(function (a, b) {
+    return (
+      new Date(b.attributes.publishedAt) - new Date(a.attributes.publishedAt)
+    );
+  });
+
   return data;
 }
 
-export { filterAdminData };
+const downloadCSVFile = (data, fileName) => {
+  const url = window.URL.createObjectURL(new Blob([data]));
+  const link = document.createElement("a");
+  link.href = url;
+  link.setAttribute("download", fileName);
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+};
+
+export { filterAdminData, downloadCSVFile };
