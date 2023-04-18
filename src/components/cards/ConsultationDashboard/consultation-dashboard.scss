@@ -23,10 +23,15 @@
       display: flex;
       justify-content: space-between;
 
-      &__price {
-        padding: $spacing_0_4 $spacing_1_4;
+      &__price__badge {
         border-radius: $border_radius_1_6;
-        word-break: break-all;
+        display: flex;
+        justify-content: space-between;
+
+        & p {
+          padding: $spacing_0_4 $spacing_1_0;
+          word-break: break-all;
+        }
 
         &--free {
           background-color: $color_green_c1eaea;
@@ -36,6 +41,12 @@
         &--paid {
           background-color: $color_purple_c39af9_0_5;
           color: $color_secondary_9749fa;
+        }
+
+        &__sponsor-image {
+          width: 2.5rem;
+          height: 2.5rem;
+          border-radius: 50%;
         }
       }
     }

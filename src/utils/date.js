@@ -285,6 +285,13 @@ function getTime(date) {
   return timeText.split(" ")[0].slice(0, -3);
 }
 
+const parseUTCDate = (dateString) => {
+  const dateParams = dateString.replace(/ UTC/, "").split(/[\s-:]/);
+  dateParams[1] = (parseInt(dateParams[1], 10) - 1).toString();
+
+  return new Date(Date.UTC(...dateParams));
+};
+
 export {
   getDayOfTheWeek,
   isDateToday,
@@ -307,4 +314,5 @@ export {
   ONE_HOUR,
   FIVE_MINUTES,
   getTime,
+  parseUTCDate,
 };

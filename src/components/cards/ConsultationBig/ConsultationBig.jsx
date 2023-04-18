@@ -7,6 +7,7 @@ import {
   checkIsFiveMinutesBefore,
   getDateView,
   getMonthName,
+  getOrdinal,
 } from "../../../utils";
 
 import "./consultation-big.scss";
@@ -14,7 +15,6 @@ import "./consultation-big.scss";
 import mascot from "../../../assets/mascot-happy-blue.png";
 
 const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
-// const AMAZON_S3_BUCKET = `https://usupport-staging.s3.eu-central-1.amazonaws.com`;
 
 /**
  * CardConsultationBig
@@ -39,8 +39,9 @@ export const ConsultationBig = ({
 
   const startDate = new Date(timestamp);
 
-  const dateText = `${getDateView(startDate).slice(0, 2)}th ${getMonthName(
-    startDate
+  const ordinal = getOrdinal(startDate?.getDate());
+  const dateText = `${getDateView(startDate).slice(0, 2)}${t(ordinal)} ${t(
+    getMonthName(startDate).toLowerCase()
   )}`;
 
   const time = startDate.getHours();

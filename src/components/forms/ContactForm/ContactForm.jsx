@@ -11,7 +11,7 @@ import { validate, validateProperty } from "../../../utils";
 import { Error } from "../../errors/Error";
 
 import "./contact-form.scss";
-import { t } from "i18next";
+import { useEffect } from "react";
 
 const initialData = {
   email: "",
@@ -26,7 +26,16 @@ const initialData = {
  *
  * @return {jsx}
  */
-export const ContactForm = ({ classes, sendEmail, navigate, t }) => {
+export const ContactForm = ({
+  classes,
+  sendEmail,
+  navigate,
+  submitError,
+  isMutating,
+  isSuccessModalOpen,
+  closeSuccessModal,
+  t,
+}) => {
   const initialReasons = [
     { value: "information", label: t("contact_reason_1") },
     { value: "technical-problem", label: t("contact_reason_2") },
@@ -37,22 +46,25 @@ export const ContactForm = ({ classes, sendEmail, navigate, t }) => {
   const [data, setData] = useState(initialData);
   const [reasons, setReasons] = useState(initialReasons);
   const [errors, setErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccessEmailModalOpen, setIsSuccessEmailModalOpen] = useState(false);
 
-  const closeSuccessEmailModal = () => setIsSuccessEmailModalOpen(false);
+  useEffect(() => {
+    if (isSuccessModalOpen) {
+      setData(initialData);
+      setReasons(initialReasons);
+    }
+  }, [isSuccessModalOpen]);
 
   const handleEmailSuccessCtaClick = () => {
-    closeSuccessEmailModal();
+    closeSuccessModal();
     navigate("/");
   };
 
   const schema = Joi.object({
     email: Joi.string()
       .email({ tlds: { allow: false } })
-      .label("Please enter your email address"),
-    reason: Joi.string().label("Please select a reason"),
-    message: Joi.string().min(5).label("Please enter your message"),
+      .label(t("email_error")),
+    reason: Joi.string().label(t("reason_error")),
+    message: Joi.string().min(5).label(t("message_error")),
   });
 
   const handleChange = (field, value) => {
@@ -68,33 +80,15 @@ export const ContactForm = ({ classes, sendEmail, navigate, t }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!isSubmitting) {
-      if ((await validate(data, schema, setErrors)) == null) {
-        setIsSubmitting(true);
-        const payload = {
-          email: data.email.toLowerCase(),
-          reason: reasons.find((reason) => reason.value === data.reason).label,
-          message: data.message,
-        };
-        await sendEmail(payload)
-          .then((raw) => {
-            if (raw.status < 400) {
-              setIsSuccessEmailModalOpen(true);
-              setData(initialData);
-              setReasons(initialReasons);
-            } else {
-              setErrors({ submit: raw.data.error.message });
-              setIsSubmitting(false);
-            }
-          })
-          .catch((err) => {
-            setIsSubmitting(false);
-          });
-
-        setIsSubmitting(false);
-      } else {
-        setIsSubmitting(false);
-      }
+    if ((await validate(data, schema, setErrors)) == null) {
+      const payload = {
+        subjectValue: data.reason,
+        subjectLabel: t("contact_form"),
+        email: data.email.toLowerCase(),
+        title: reasons.find((reason) => reason.value === data.reason).label,
+        text: data.message,
+      };
+      await sendEmail(payload);
     }
   };
 
@@ -102,7 +96,7 @@ export const ContactForm = ({ classes, sendEmail, navigate, t }) => {
     <div className={["contact-form", classNames(classes)].join(" ")}>
       <h4 className="contact-form__heading">{t("contact_form_heading")}</h4>
       <Input
-        label="Email"
+        label={t("email_label")}
         errorMessage={errors.email}
         value={data.email}
         classes="contact-form__email-input"
@@ -119,16 +113,16 @@ export const ContactForm = ({ classes, sendEmail, navigate, t }) => {
         selected={data.reason}
         setSelected={(reason) => handleChange("reason", reason)}
         errorMessage={errors.reason}
-        label="Subject for contacting us"
+        label={t("reason_label")}
         classes="contact-form__subject"
         placeholder={t("contact_reason_placeholder")}
       />
       <Textarea
-        label="Message"
+        label={t("message_label")}
         value={data.message}
         errorMessage={errors.message}
         classes="contact-form__message"
-        placeholder="Your message to us"
+        placeholder={t("message_placeholder")}
         onChange={(newMessage) => {
           handleChange("message", newMessage);
         }}
@@ -137,23 +131,22 @@ export const ContactForm = ({ classes, sendEmail, navigate, t }) => {
         }}
       />
       <Button
-        label="Send"
+        label={t("send_button")}
         size="lg"
-        disabled={isSubmitting}
+        loading={isMutating}
         classes="contact-form__button"
         onClick={handleSubmit}
       />
-      {errors.submit ? <Error message={errors.submit} /> : null}
-      <p className="small-text contact-form__reply-time">
-        We will reply to your email in 24 hours. Make sure you enter your email
-        address correctly
-      </p>
+      {errors.submit || submitError ? (
+        <Error message={errors.submit || submitError} />
+      ) : null}
+      <p className="small-text contact-form__reply-time">{t("paragraph")}</p>
       <Modal
-        isOpen={isSuccessEmailModalOpen}
-        closeModal={closeSuccessEmailModal}
-        heading="Your message was successfully sent"
-        text="We will get back to you as soon as possible"
-        ctaLabel="Go back to Home"
+        isOpen={isSuccessModalOpen}
+        closeModal={closeSuccessModal}
+        heading={t("modal_title")}
+        text={t("modal_text")}
+        ctaLabel={t("modal_cta_label")}
         ctaHandleClick={handleEmailSuccessCtaClick}
       />
     </div>

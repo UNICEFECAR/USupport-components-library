@@ -55,6 +55,11 @@ export const Animation = ({ json, name, classes }) => {
       animationData={jsonToRender}
       loop={true}
       className={classNames(classes)}
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
     />
   );
 };
