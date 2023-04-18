@@ -12,7 +12,7 @@ import "./header.scss";
  *
  * @return {jsx}
  */
-export const Header = ({ handleDayChange, setStartDate, startDate }) => {
+export const Header = ({ handleDayChange, setStartDate, startDate, t }) => {
   const currentDay = new Date();
   const [today, setToday] = useState(
     startDate ? new Date(startDate) : new Date()
@@ -76,7 +76,7 @@ export const Header = ({ handleDayChange, setStartDate, startDate }) => {
           onClick={() => handleSelectDay(day)}
         >
           <p className="text header__day-of-week__day-label">
-            {weekDays[day.getDay()]}
+            {t(weekDays[day.getDay()].toLowerCase())}
           </p>
           <p className="small-text header__day-of-week__date">
             {day.getDate()}
@@ -111,7 +111,7 @@ export const Header = ({ handleDayChange, setStartDate, startDate }) => {
           size="md"
           name="arrow-chevron-back"
         />
-        <p>{months[today.getMonth()]}</p>
+        <p>{t(months[today.getMonth()].toLowerCase())}</p>
         <Icon
           onClick={() => handleMonthChange(1)}
           size="md"

@@ -61,23 +61,23 @@ export const ProviderDetails = ({ provider, image, t, buttonComponent }) => {
                 {provider.name} {provider.patronym ? provider.patronym : ""}{" "}
                 {provider.surname}
               </h4>
-              <p className="small-text">{renderSpecializations()}</p>
+              <p className="paragraph">{renderSpecializations()}</p>
             </div>
           </div>
         </div>
 
         <div className="provider-details__information-container">
-          <p className="small-text provider-details__information-container__heading">
+          <p className="paragraph provider-details__information-container__heading">
             {t("description_label")}
           </p>
-          <p className="small-text provider-details__information-container__text">
+          <p className="paragraph provider-details__information-container__text">
             {provider.description}
           </p>
         </div>
 
         {provider.videoLink && (
           <div className="provider-details__video-container">
-            <p className="small-text provider-details__information-container__heading">
+            <p className="paragraph provider-details__information-container__heading">
               {t("video_label")}
             </p>
             <ReactPlayer width="96%" url={provider.videoLink} />
@@ -95,7 +95,7 @@ export const ProviderDetails = ({ provider, image, t, buttonComponent }) => {
                 color="#66768D"
                 classes="provider-details__information-container-with-icon__icon"
               />
-              <p className="small-text">{`${provider.phonePrefix} ${provider.phone}`}</p>
+              <p className="paragraph">{`${provider.phonePrefix} ${provider.phone}`}</p>
             </div>
             <div className="provider-details__information-container-with-icon">
               <Icon
@@ -104,7 +104,7 @@ export const ProviderDetails = ({ provider, image, t, buttonComponent }) => {
                 color="#66768D"
                 classes="provider-details__information-container-with-icon__icon"
               />
-              <p className="small-text">{provider.email}</p>
+              <p className="paragraph">{provider.email}</p>
             </div>
             {provider.consultationPrice > 0 ? (
               <div className="provider-details__information-container-with-icon">
@@ -114,7 +114,7 @@ export const ProviderDetails = ({ provider, image, t, buttonComponent }) => {
                   color="#66768D"
                   classes="provider-details__information-container-with-icon__icon"
                 />
-                <p className="small-text">
+                <p className="paragraph">
                   {provider.consultationPrice}
                   {currencySymbol} for 1 hour consultation
                 </p>
@@ -124,10 +124,10 @@ export const ProviderDetails = ({ provider, image, t, buttonComponent }) => {
             {provider.city && (
               <>
                 <div className="provider-details__information-container">
-                  <p className="small-text provider-details__information-container__heading">
+                  <p className="paragraph provider-details__information-container__heading">
                     {t("city_label")}
                   </p>
-                  <p className="small-text provider-details__information-container__text">
+                  <p className="paragraph provider-details__information-container__text">
                     {provider.city}
                   </p>
                 </div>
@@ -136,10 +136,10 @@ export const ProviderDetails = ({ provider, image, t, buttonComponent }) => {
             {provider.street && (
               <>
                 <div className="provider-details__information-container">
-                  <p className="small-text provider-details__information-container__heading">
+                  <p className="paragraph provider-details__information-container__heading">
                     {t("street_label")}
                   </p>
-                  <p className="small-text provider-details__information-container__text">
+                  <p className="paragraph provider-details__information-container__text">
                     {provider.street}
                   </p>
                 </div>
@@ -148,10 +148,10 @@ export const ProviderDetails = ({ provider, image, t, buttonComponent }) => {
             {provider.postcode && (
               <>
                 <div className="provider-details__information-container">
-                  <p className="small-text provider-details__information-container__heading">
+                  <p className="paragraph provider-details__information-container__heading">
                     {t("postcode_label")}
                   </p>
-                  <p className="small-text provider-details__information-container__text">
+                  <p className="paragraph provider-details__information-container__text">
                     {provider.postcode}
                   </p>
                 </div>
@@ -159,19 +159,19 @@ export const ProviderDetails = ({ provider, image, t, buttonComponent }) => {
             )}
 
             <div className="provider-details__information-container">
-              <p className="small-text provider-details__information-container__heading">
+              <p className="paragraph provider-details__information-container__heading">
                 {t("languages_label")}
               </p>
-              <p className="small-text provider-details__information-container__text">
+              <p className="paragraph provider-details__information-container__text">
                 {renderLanguages()}
               </p>
             </div>
 
             <div className="provider-details__information-container">
-              <p className="small-text provider-details__information-container__heading">
+              <p className="paragraph provider-details__information-container__heading">
                 {t("work_with_label")}
               </p>
-              <p className="small-text provider-details__information-container__text">
+              <p className="paragraph provider-details__information-container__text">
                 {renderWorkWith()}
               </p>
             </div>
@@ -179,28 +179,28 @@ export const ProviderDetails = ({ provider, image, t, buttonComponent }) => {
 
           <GridItem md={4} lg={6} classes="provider-details__grid__item">
             <div className="provider-details__information-container">
-              <p className="small-text provider-details__information-container__heading">
+              <p className="paragraph provider-details__information-container__heading">
                 {t("earliest_slot_label")}
               </p>
-              <p className="small-text provider-details__information-container__text">
+              <p className="paragraph provider-details__information-container__text">
                 {provider.earliestAvailableSlot
                   ? earliestAvailableSlot
                   : t("no_available_slot")}
               </p>
             </div>
             <div className="provider-details__information-container">
-              <p className="small-text provider-details__information-container__heading">
+              <p className="paragraph provider-details__information-container__heading">
                 {t("education_label")}
               </p>
-              <p className="small-text provider-details__information-container__text">
+              <p className="paragraph provider-details__information-container__text">
                 {allOptionsToString("education")}
               </p>
             </div>
             <div className="provider-details__information-container">
-              <p className="small-text provider-details__information-container__heading">
+              <p className="paragraph provider-details__information-container__heading">
                 {t("done_consultations_label")}
               </p>
-              <p className="small-text provider-details__information-container__text">
+              <p className="paragraph provider-details__information-container__text">
                 {provider.totalConsultations} {t("consultations")}
               </p>
             </div>

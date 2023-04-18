@@ -27,6 +27,7 @@ export const ProviderAvailability = ({
   handleJoinConsultation,
   classes,
   isAvailable,
+  hasNormalSlot,
   consultation,
   dayIndex,
   campaignData,
@@ -42,7 +43,8 @@ export const ProviderAvailability = ({
     ? new Date(consultation.time).getTime() < new Date().getTime()
     : false;
 
-  const imageUrl = AMAZON_S3_BUCKET + "/" + (consultation?.image || "default");
+  const price = consultation?.couponPrice || consultation?.price;
+  const isBookedWithCoupon = consultation?.campaignId;
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { width } = useWindowDimensions();
@@ -58,8 +60,16 @@ export const ProviderAvailability = ({
       } else {
         handleSetAvailable(campaignId);
       }
+    } else if (
+      validCampaigns?.length > 0 &&
+      isAvailable === "campaign" &&
+      hasNormalSlot
+    ) {
+      handleSetUnavailable(validCampaigns.map((x) => x.campaignId));
     } else {
-      isAvailable ? handleSetUnavailable(null) : handleSetAvailable(null);
+      isAvailable && isAvailable !== "campaign"
+        ? handleSetUnavailable(null)
+        : handleSetAvailable(null);
     }
   };
   const handleMenuSecondClick = () => {
@@ -70,13 +80,11 @@ export const ProviderAvailability = ({
     }
   };
 
-  const consultationDetailsText = "Consultation details";
-
   const menuFirstText = consultation
     ? t("cancel")
-    : isAvailable
-    ? t("set_not_available")
-    : t("set_available");
+    : !isAvailable || !hasNormalSlot
+    ? t("set_available")
+    : t("set_not_available");
   const menuSecondText = consultation
     ? isPast
       ? t("consultation_details")
@@ -85,10 +93,18 @@ export const ProviderAvailability = ({
 
   const menuFirstIcon = consultation
     ? "close-x"
-    : isAvailable
-    ? "circle-close"
-    : "circle-actions-success";
+    : !isAvailable || !hasNormalSlot
+    ? "circle-actions-success"
+    : "circle-close";
   const menuSecondIcon = consultation ? "person" : "share-front";
+
+  const numberOfCampaignsSetAsAvailable =
+    !consultation &&
+    validCampaigns?.filter((campaign) => {
+      return enrolledCampaignsForSlot?.some(
+        (x) => x.campaignId === campaign.campaignId
+      );
+    })?.length;
 
   return (
     <div
@@ -101,38 +117,49 @@ export const ProviderAvailability = ({
           ? "provider-availability--available"
           : "provider-availability--unavailable",
         consultation ? "provider-availability--booked" : "",
+        isBookedWithCoupon ? "provider-availability--coupon" : "",
         isLive ? "provider-availability--live" : "",
         classNames(classes),
       ].join(" ")}
       onClick={() => setIsMenuOpen(!isMenuOpen)}
     >
-      {isAvailable === "campaign" && (
+      {isBookedWithCoupon && (
         <img
-          src={AMAZON_S3_BUCKET + "/" + campaignData?.sponsorImage}
-          className="provider-availability__sponsor-image"
+          src={AMAZON_S3_BUCKET + "/" + consultation?.sponsorImage}
+          className="provider-availability__sponsor-badge"
+        />
+      )}
+      {isAvailable === "campaign" && !consultation && (
+        <img
+          src={
+            AMAZON_S3_BUCKET +
+            "/" +
+            (numberOfCampaignsSetAsAvailable > 1
+              ? "default-sponsor"
+              : campaignData?.sponsorImage)
+          }
+          className="provider-availability__sponsor-badge"
         />
       )}
       {consultation && (
         <div className="provider-availability__content">
-          {width < 768 && (
-            <img className="provider-availability__image" src={imageUrl} />
-          )}
+          <div
+            className={`provider-availability__content__price ${
+              price > 0
+                ? "provider-availability__content__price--paid"
+                : "provider-availability__content__price--free"
+            } ${
+              isBookedWithCoupon
+                ? "provider-availability__content__price--coupon"
+                : ""
+            }`}
+          >
+            <p className="provider-availability__content__price__text small-text">
+              {price > 0 ? `${price}${currencySymbol}` : t("free")}
+            </p>
+          </div>
+
           {width >= 768 && (
-            <div
-              className={`provider-availability__content__price ${
-                consultation.price > 0
-                  ? "provider-availability__content__price--paid"
-                  : "provider-availability__content__price--free"
-              }`}
-            >
-              <p className="small-text">
-                {consultation.price > 0
-                  ? `${consultation.price}${currencySymbol}`
-                  : t("free")}
-              </p>
-            </div>
-          )}
-          {width >= 1150 && (
             <p className="small-text provider-availability__name">
               {consultation.clientName}
             </p>
@@ -140,21 +167,31 @@ export const ProviderAvailability = ({
         </div>
       )}
 
-      {width >= 1150 && (
-        <>
-          {!isLive && !consultation && !campaignData && (
-            <p className="small-text provider-availability__available-text">
-              {isAvailable ? t("available") : t("not_available")}
-            </p>
-          )}
-          {!isLive && !consultation && campaignData && (
-            <p className="small-text">{campaignData.sponsorName}</p>
-          )}
+      <>
+        {!isLive && !consultation && !campaignData && (
+          <p className="small-text provider-availability__available-text">
+            {isAvailable ? t("available") : t("not_available")}
+          </p>
+        )}
+        {!isLive && !consultation && campaignData && width >= 768 && (
+          <p className="small-text provider-availability__content__campaign-name">
+            <strong>
+              {numberOfCampaignsSetAsAvailable > 1
+                ? t("coupon")
+                : campaignData.campaignName}{" "}
+            </strong>
+            {numberOfCampaignsSetAsAvailable > 1 &&
+              t("more_campaigns", {
+                amount: numberOfCampaignsSetAsAvailable,
+              })}
+          </p>
+        )}
+        {width >= 1200 && (
           <div className="provider-availability__icon-container">
             <Icon name="three-dots-vertical" color="#20809E" />
           </div>
-        </>
-      )}
+        )}
+      </>
 
       {isMenuOpen ? (
         <OutsideClickHandler onOutsideClick={() => setIsMenuOpen(false)}>
@@ -210,7 +247,7 @@ export const ProviderAvailability = ({
               />
             ) : null}
 
-            {validCampaigns?.length > 0 && (
+            {!consultation && validCampaigns?.length > 0 && (
               <div className="provider-availability__controls__campaign">
                 {validCampaigns.map((campaign) => {
                   const isCampaignAvailableInSlot =
@@ -221,6 +258,12 @@ export const ProviderAvailability = ({
                     <div
                       className="provider-availability__controls__single provider-availability__controls__single--campaign"
                       key={campaign.campaignId}
+                      onClick={() =>
+                        handleAvailabilityChange({
+                          campaignId: campaign.campaignId,
+                          isCampaignAvailableInSlot,
+                        })
+                      }
                     >
                       <img
                         src={AMAZON_S3_BUCKET + "/" + campaign.sponsorImage}
@@ -228,16 +271,11 @@ export const ProviderAvailability = ({
                       />
                       <p className="small-text">{campaign.campaignName}</p>
                       <Icon
+                        classes="provider-availability__controls__single--campaign__icon"
                         name={
                           isCampaignAvailableInSlot
                             ? "circle-close"
                             : "circle-actions-success"
-                        }
-                        onClick={() =>
-                          handleAvailabilityChange({
-                            campaignId: campaign.campaignId,
-                            isCampaignAvailableInSlot,
-                          })
                         }
                         color="#373737"
                       />
@@ -257,7 +295,7 @@ ProviderAvailability.propTypes = {
   /**
    * If the provider is available or not
    */
-  isAvailable: PropTypes.bool,
+  isAvailable: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
 
   /**
    * Additional classes to be added to the provier availability component

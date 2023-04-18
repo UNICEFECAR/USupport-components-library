@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 
 import "./button.scss";
+import { Loading } from "../../loaders/Loading/Loading";
 
 /**
  * Button
@@ -22,6 +23,7 @@ export const Button = ({
   classes,
   onClick,
   isSubmit,
+  loading,
   ...props
 }) => {
   return (
@@ -31,14 +33,14 @@ export const Button = ({
         web ? "btn--web" : "",
         classNames(classes),
       ].join(" ")}
-      onClick={disabled ? () => {} : onClick}
-      disabled={disabled}
+      onClick={disabled || loading ? () => {} : onClick}
+      disabled={disabled || loading}
       type={isSubmit ? "submit" : "button"}
       {...props}
     >
       <div className={"btn__content-container"}>
         {children}
-        {label}
+        {loading ? <Loading size="sm" padding="0" margin="0" /> : label}
       </div>
     </button>
   );
