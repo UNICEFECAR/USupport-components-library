@@ -6,12 +6,11 @@ import { List } from "../../lists";
 import { Button } from "../../buttons";
 import { Box } from "../../boxes";
 import useWindowDimensions from "../../../utils/useWindowDimensions";
+import { userSvc } from "../../../services";
 
 const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
 
 import "./navbar.scss";
-
-import { logoHorizontalPng } from "../../../assets";
 
 const englishLanguage = {
   label: "English",
@@ -177,6 +176,11 @@ export const Navbar = ({
     setLanguagesShown(false);
     i18n.changeLanguage(language.value);
     localStorage.setItem("language", language.value);
+    if (renderIn === "client" || renderIn === "provider") {
+      userSvc.changeLanguage(language.value).catch((err) => {
+        console.log(err, "Error when changing language");
+      });
+    }
   };
 
   const handleProfileClick = () => {
@@ -239,7 +243,7 @@ export const Navbar = ({
         window.location.href = "/client/login";
         scrollTop();
       }}
-      web={width >= 950}
+      web={width >= 1110}
     >
       {buttonText}
     </Button>
@@ -278,16 +282,17 @@ export const Navbar = ({
           src={imageURL}
           alt="profile-image"
           className="nav__profile__image"
+          onClick={handleProfileClick}
         />
       )}
-      <p
+      {/* <p
         onClick={handleProfileClick}
         className={`paragraph ${
           isInProfile ? "nav__profile__text-active" : ""
         }`}
       >
         {yourProfileText}
-      </p>
+      </p> */}
     </div>
   );
 
@@ -333,6 +338,18 @@ export const Navbar = ({
       </div>
     );
   };
+  const defaultLogo = `${AMAZON_S3_BUCKET}/logo-horizontal`;
+  const [logoUrl, setLogoUrl] = useState(defaultLogo);
+
+  useEffect(() => {
+    if (selectedCountry?.value && renderIn !== "global-admin") {
+      setLogoUrl(
+        `${AMAZON_S3_BUCKET}/logo-horizontal-${selectedCountry.value}`
+      );
+    } else {
+      setLogoUrl(defaultLogo);
+    }
+  }, [selectedCountry]);
 
   return (
     <>
@@ -345,7 +362,7 @@ export const Navbar = ({
       >
         <img
           className="nav__logo"
-          src={logoHorizontalPng}
+          src={logoUrl}
           alt="logo"
           tabIndex="0"
           onClick={() => {

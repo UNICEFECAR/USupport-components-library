@@ -147,6 +147,7 @@ $color_blue_2a54bc: #2a54bc;
 $color_blue_3d527b: #3d527b;
 $color_blue_263238: #263238;
 $color_blue_20809E_0_3: rgba(32, 128, 158, 0.3);
+$color_blue_c1d7e0: #c1d7e0;
 
 $color_red_eb5757: #eb5757;
 $color_red_cc4c4c: #cc4c4c;
@@ -187,6 +188,13 @@ $gradient_block: linear-gradient(
   rgba(13, 174, 178, 0.2) -0.27%,
   rgba(214, 210, 255, 0.0846922) 57.25%,
   rgba(129, 74, 253, 0.2) 99.5%
+);
+
+$gradient_block_1: linear-gradient(
+  90.14deg,
+  rgba(129, 74, 253, 0.2) -0.27%,
+  rgba(214, 210, 255, 0.0846922) 57.25%,
+  rgba(13, 174, 178, 0.2) 99.5%
 );
 
 $gradient_secondary_0_1_opacity: linear-gradient(
@@ -239,9 +247,3 @@ $z_index_modal: 100;
 // Overlays
 $overlay_66768D: rgba(102, 118, 141, 0.5);
 $overlay_010101: rgba(1, 1, 1, 0.2);
-
-// Filters
-$filter_red_cc4c4c: brightness(0) saturate(100%) invert(34%) sepia(20%)
-  saturate(5420%) hue-rotate(336deg) brightness(96%) contrast(69%);
-$filter_red_a63d3d: brightness(0) saturate(100%) invert(34%) sepia(16%)
-  saturate(3193%) hue-rotate(320deg) brightness(87%) contrast(85%);

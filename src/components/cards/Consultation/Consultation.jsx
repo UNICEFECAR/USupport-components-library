@@ -34,15 +34,37 @@ export const Consultation = ({
   handleRejectConsultation,
   handleViewProfile,
   hasPriceBadge,
+  couponPrice,
+  sponsorImage,
   consultation,
+  seeDetails,
   overview,
   suggested,
   onClick,
   hasMenu,
   classes,
 }) => {
-  const { providerId, consultationId, timestamp, image, status, price } =
-    consultation;
+  const {
+    consultationId,
+    timestamp,
+    image,
+    status,
+    price: consultationPrice,
+    couponPrice: consultationCouponPrice,
+    campaignId,
+  } = consultation;
+
+  const price =
+    campaignId && renderIn === "client"
+      ? 0
+      : !isNaN(couponPrice)
+      ? couponPrice
+      : !isNaN(consultationCouponPrice)
+      ? consultationCouponPrice
+      : consultationPrice;
+
+  const isBookedWithCoupon =
+    couponPrice || consultation.couponPrice || campaignId;
 
   const isPast = consultation
     ? new Date(timestamp).getTime() < new Date().getTime()
@@ -78,7 +100,7 @@ export const Consultation = ({
   }
 
   const startHour = startDate.getHours();
-  const endHour = endDate.getHours();
+  const endHour = startHour + 1;
   const timeText = startDate
     ? `${startHour < 10 ? `0${startHour}` : startHour}:00 - ${
         endHour < 10 ? `0${endHour}` : endHour
@@ -199,9 +221,19 @@ export const Consultation = ({
                     "provider-consultation__icon-container__price-badge--gray",
                 ].join(" ")}
               >
+                {isBookedWithCoupon && sponsorImage ? (
+                  <img
+                    className="provider-consultation__icon-container__price-badge__sponsor-image"
+                    src={AMAZON_S3_BUCKET + "/" + sponsorImage}
+                    alt="sponsor"
+                  />
+                ) : null}
                 <p className="small-text">
-                  {price > 0 ? price : "Free"}
-                  {price ? currencySymbol : ""}
+                  {isBookedWithCoupon && renderIn === "client"
+                    ? t("coupon")
+                    : price > 0
+                    ? `${consultation.price}${currencySymbol || ""}`
+                    : t("free")}
                 </p>
               </div>
             )}
@@ -282,15 +314,16 @@ export const Consultation = ({
         </div>
       )}
 
-      {!overview && !suggested && buttonAction === "details" && (
+      {((!overview && !suggested && buttonAction === "details") ||
+        seeDetails) && (
         <div className="consultation__button-container">
-          {renderIn === "client" && status === "finished" ? (
+          {(renderIn === "client" && status === "finished") || seeDetails ? (
             <Button
               onClick={handleSeeDetails}
               label={buttonLabel}
               size="sm"
               type="secondary"
-              color={renderIn === "provider" ? "purple" : "green"}
+              color={"green"}
             />
           ) : (
             <p className="small-text">

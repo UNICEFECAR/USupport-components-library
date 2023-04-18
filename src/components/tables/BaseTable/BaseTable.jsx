@@ -21,13 +21,15 @@ export const BaseTable = ({
   isLoading,
   menuOptions,
   handleClickPropName,
+  t,
+  hasMenu = true,
 }) => {
   return (
     <div className="table__container">
       {isLoading ? (
         <Loading />
       ) : !rowsData || rowsData.length === 0 ? (
-        <p>No data found</p>
+        <p>{t("no_data_found")}</p>
       ) : (
         <table className="table">
           <thead>
@@ -42,14 +44,14 @@ export const BaseTable = ({
             </tr>
           </thead>
           <tbody className="table__body">
-            {rowsData.map((rowData, dataIndex) => {
+            {rowsData?.map((rowData, dataIndex) => {
               return (
                 <tr key={"dataIndex" + dataIndex}>
-                  {rowData.map((dataItem, dataItemIndex) => {
+                  {rowData?.map((dataItem, dataItemIndex) => {
                     return (
                       <React.Fragment key={"dataItem" + dataItemIndex}>
                         <td className="table__td">{dataItem}</td>
-                        {dataItemIndex === rowData.length - 1 && (
+                        {hasMenu && dataItemIndex === rowData.length - 1 && (
                           <TableIcon
                             menuOptions={menuOptions}
                             handleClickCallbackProp={
@@ -83,7 +85,7 @@ const TableIcon = ({ menuOptions, handleClickCallbackProp }) => {
         <OutsideClickHandler onOutsideClick={() => setIsMenuOpen(false)}>
           {isMenuOpen && (
             <div className="table-icon__menu">
-              {menuOptions.map((option, index) => {
+              {menuOptions?.map((option, index) => {
                 return (
                   <div
                     key={"option" + index}

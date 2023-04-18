@@ -175,12 +175,10 @@ async function getWorkWithCategories() {
 }
 
 async function createProvider(data) {
-  const password = data.password;
   delete data.password;
   const response = await http.post(`${API_ENDPOINT}/provider/signup`, {
     userType: "provider",
     countryID: localStorage.getItem("country_id"),
-    password,
     providerData: data,
   });
   return response;
@@ -214,6 +212,13 @@ async function addContactForm(payload) {
   return response;
 }
 
+async function changeLanguage(language) {
+  const response = await http.put(`${API_ENDPOINT}/change-language`, {
+    language,
+  });
+  return response;
+}
+
 const exportedFunctions = {
   changePassword,
   generateClientAccesToken,
@@ -235,6 +240,7 @@ const exportedFunctions = {
   createProvider,
   transformUserData,
   addContactForm,
+  changeLanguage,
 };
 
 export default exportedFunctions;

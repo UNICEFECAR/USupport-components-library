@@ -32,6 +32,7 @@ export const CardMedia = ({
   readingTime,
   categoryName,
   children,
+  t,
   ...props
 }) => {
   return (
@@ -47,23 +48,26 @@ export const CardMedia = ({
         src={image ? image : "https://picsum.photos/343/400"}
         alt="card-media"
       />
-
       <div className={"card-media__content"}>
         <Grid>
-          <GridItem xs={3} md={5} lg={8} classes="card-media__title">
+          <GridItem xs={4} md={8} lg={12} classes="card-media__title">
             <h4 className="card-media__title__text">{title}</h4>
           </GridItem>
-          <GridItem xs={1} md={3} lg={4} classes="card-media__category">
-            <p className="small-text card-media__category__text">
-              {categoryName}
-            </p>
+          <GridItem xs={4} md={8} lg={12} classes="card-media__title">
+            <div className="card-media__category">
+              <p className="small-text card-media__category__text">
+                {categoryName}
+              </p>
+            </div>
           </GridItem>
         </Grid>
         <div className={"card-media__details"}>
-          <p className={"small-text"}>By {creator}</p>
+          <p className={"small-text"}>{t("by", { creator })}</p>
 
-          <Icon name={"time"} size="sm" />
-          <p className={"small-text"}> {readingTime} min read</p>
+          <Icon name={"time"} size="sm" color={"#66768d"} />
+          <p className={"small-text"}>
+            {readingTime} {t("min_read")}
+          </p>
         </div>
         {showLabels && (
           <div className={"card-media__labels"}>
@@ -90,9 +94,9 @@ export const CardMedia = ({
           type={
             type === "landscape" && (size === "sm" || size == "md")
               ? "link"
-              : "secondary"
+              : "primary"
           }
-          label={"Read more"}
+          label={t("read_more_button")}
           onClick={() => {
             onClick && onClick();
           }}
