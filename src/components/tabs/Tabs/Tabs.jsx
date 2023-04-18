@@ -84,28 +84,30 @@ export const Tabs = ({ options, handleSelect }) => {
   };
 
   return (
-    <OutsideClickHandler onOutsideClick={() => setIsOpen(false)}>
-      <div className="tabs">
-        {renderOptions()}
-        {options.length > NO_OPTIONS_TO_RENDER && (
-          <p
-            className={[
-              "text",
-              "show-more__text",
-              isMoreOptionSelected ? "show-more__text--selected" : "",
-            ].join(" ")}
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            +{options.length - NO_OPTIONS_TO_RENDER} more
-          </p>
-        )}
-      </div>
-      {isOpen ? (
-        <Box shadow={1} classes="show-more">
-          <div className="show-more__options">{renderShowMoreOptions()}</div>
-        </Box>
-      ) : null}
-    </OutsideClickHandler>
+    <div className="tabs-wrapper">
+      <OutsideClickHandler onOutsideClick={() => setIsOpen(false)}>
+        <div className="tabs">
+          {renderOptions()}
+          {options.length > NO_OPTIONS_TO_RENDER && (
+            <p
+              className={[
+                "text",
+                "show-more__text",
+                isMoreOptionSelected ? "show-more__text--selected" : "",
+              ].join(" ")}
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              +{options.length - NO_OPTIONS_TO_RENDER} more
+            </p>
+          )}
+        </div>
+        {isOpen ? (
+          <Box shadow={1} classes="show-more">
+            <div className="show-more__options">{renderShowMoreOptions()}</div>
+          </Box>
+        ) : null}
+      </OutsideClickHandler>
+    </div>
   );
 };
 

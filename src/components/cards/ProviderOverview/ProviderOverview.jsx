@@ -27,15 +27,16 @@ export const ProviderOverview = ({
   freeLabel,
   price,
   editLabel,
-  deleteLabel,
+  statusChangeLabel,
   activitiesLabel,
   onClick,
   hasMenu,
   showActivities,
   handleEdit,
-  handleDelete,
+  handleUpdateStatus,
   handleViewProfile,
   handleActivities,
+  providerStatus,
 }) => {
   const currencySymbol = localStorage.getItem("currency_symbol");
 
@@ -48,6 +49,11 @@ export const ProviderOverview = ({
     if (hasMenu) {
       setIsMenuOpen(!isMenuOpen);
     }
+  };
+
+  const handleToggleStatus = () => {
+    setIsMenuOpen(false);
+    handleUpdateStatus();
   };
 
   return (
@@ -116,11 +122,19 @@ export const ProviderOverview = ({
               </div>
             )}
             <div
-              onClick={handleDelete}
+              onClick={handleToggleStatus}
               className="provider-overview__menu__content"
             >
-              <Icon name="trash" size="md" />
-              <p className="text">{deleteLabel}</p>
+              <Icon
+                color={providerStatus === "active" ? "#eb5757" : "#20809E"}
+                name={
+                  providerStatus === "active"
+                    ? "circle-actions-close"
+                    : "circle-actions-success"
+                }
+                size="md"
+              />
+              <p className="text">{statusChangeLabel}</p>
             </div>
           </div>
         </OutsideClickHandler>
@@ -178,7 +192,7 @@ ProviderOverview.propTypes = {
   /**
    * Label for the delete container
    * */
-  deleteLabel: PropTypes.string,
+  statusChangeLabel: PropTypes.string,
 
   /**
    * Handler for the view profile container
@@ -202,6 +216,6 @@ ProviderOverview.defaultProps = {
   iconName: "arrow-chevron-forward",
   hasMenu: false,
   editLabel: "Edit",
-  deleteLabel: "Delete",
+  statusChangeLabel: "Activate",
   viewProfileLabel: "View profile",
 };

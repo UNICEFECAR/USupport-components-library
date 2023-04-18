@@ -109,13 +109,19 @@ async function addTemplateAvailability(data) {
   return response;
 }
 
-async function getAllProviders() {
-  const response = await http.get(`${API_ENDPOINT}/all`);
+async function getAllProviders(campaignId) {
+  const response = await http.get(
+    `${API_ENDPOINT}/all${campaignId ? `?campaignId=${campaignId}` : ""}`
+  );
   return response;
 }
 
-async function getProviderById(id) {
-  const response = await http.get(`${API_ENDPOINT}/by-id?providerId=${id}`);
+async function getProviderById(id, campaignId) {
+  const response = await http.get(
+    `${API_ENDPOINT}/by-id?providerId=${id}${
+      campaignId ? `&campaignId=${campaignId}` : ""
+    }`
+  );
   return response;
 }
 
@@ -126,9 +132,16 @@ async function getProviderById(id) {
  * @param {String} providerId the id of the provider
  * @returns {Promise} resolving to an array with all the slots for the day
  */
-async function getAvailableSlotsForSingleDay(startDate, day, providerId) {
+async function getAvailableSlotsForSingleDay(
+  startDate,
+  day,
+  providerId,
+  campaignId
+) {
   const response = await http.get(
-    `${API_ENDPOINT}/availability/single-day?providerId=${providerId}&startDate=${startDate}&day=${day}`
+    `${API_ENDPOINT}/availability/single-day?providerId=${providerId}&startDate=${startDate}&day=${day}${
+      campaignId ? `&campaignId=${campaignId}` : ""
+    }`
   );
   return response;
 }
@@ -140,11 +153,23 @@ async function getAvailableSlotsForSingleDay(startDate, day, providerId) {
  * @param {number} slotTimestamp the timestamp of the slot
  * @returns {Promise} resolving to and object with the "consultation_id"
  */
-async function blockSlot(clientId, providerId, slotTimestamp) {
+async function blockSlot(
+  clientId,
+  providerId,
+  slotTimestamp,
+  rescheduleCampaignSlot
+) {
   const response = await http.post(`${API_ENDPOINT}/consultation/block`, {
     clientId,
     providerId,
-    time: JSON.stringify(slotTimestamp / 1000),
+    rescheduleCampaignSlot,
+    time:
+      typeof slotTimestamp === "object"
+        ? {
+            campaign_id: slotTimestamp.campaign_id,
+            time: JSON.stringify(new Date(slotTimestamp.time).getTime() / 1000),
+          }
+        : JSON.stringify(slotTimestamp / 1000),
   });
   return response;
 }
@@ -303,6 +328,62 @@ async function getRandomProviders(limit) {
   return res;
 }
 
+async function getCampaigns() {
+  const res = await http.get(`${API_ENDPOINT}/campaigns`);
+  return res;
+}
+
+async function enrollProviderInCampaign(campaignId) {
+  const res = await http.post(`${API_ENDPOINT}/campaigns/enroll`, {
+    campaignId,
+  });
+  return res;
+}
+
+async function removeMultipleAvailableSlots(startDate, slot, campaignIds) {
+  const data = {
+    startDate: startDate.toString(),
+    slot: slot.toString(),
+    campaignIds,
+  };
+  const res = await http.delete(`${API_ENDPOINT}/availability/clear-slot`, {
+    data,
+  });
+  return res;
+}
+
+async function getConsultationsForCampaign(campaignId) {
+  const res = await http.get(
+    `${API_ENDPOINT}/campaigns/consultations?campaignId=${campaignId}`
+  );
+  return res;
+}
+
+async function getProviderStatusById(providerId) {
+  const res = await http.get(`${API_ENDPOINT}/status?providerId=${providerId}`);
+  return res;
+}
+
+async function getQuestions(type) {
+  const res = await http.get(`${API_ENDPOINT}/my-qa/questions?type=${type}`);
+  return res;
+}
+
+async function getQuestionTags() {
+  const res = await http.get(`${API_ENDPOINT}/my-qa/tags`);
+  return res;
+}
+
+async function addAnswerToQuestion(data) {
+  const res = await http.post(`${API_ENDPOINT}/my-qa/create-answer`, data);
+  return res;
+}
+
+async function archiveQuestion(data) {
+  const res = await http.post(`${API_ENDPOINT}/my-qa/archive-question`, data);
+  return res;
+}
+
 const exportedFunctions = {
   addAvailableSlot,
   addTemplateAvailability,
@@ -339,5 +420,14 @@ const exportedFunctions = {
   leaveConsultation,
   getProviderActivities,
   getRandomProviders,
+  getCampaigns,
+  enrollProviderInCampaign,
+  removeMultipleAvailableSlots,
+  getConsultationsForCampaign,
+  getProviderStatusById,
+  getQuestions,
+  getQuestionTags,
+  addAnswerToQuestion,
+  archiveQuestion,
 };
 export default exportedFunctions;

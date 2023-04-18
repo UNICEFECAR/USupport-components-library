@@ -8,6 +8,7 @@ import {
   checkIsFiveMinutesBefore,
   getDateView,
   getMonthName,
+  getOrdinal,
 } from "../../../utils";
 
 import "./consultation-dashboard.scss";
@@ -31,21 +32,31 @@ export const ConsultationDashboard = ({
   t,
 }) => {
   const currencySymbol = localStorage.getItem("currency_symbol");
-  const { providerName, timestamp, image, status, price } = consultation || {};
+  const {
+    providerName,
+    timestamp,
+    image,
+    status,
+    price,
+    campaignId,
+    sponsorImage,
+    couponPrice,
+  } = consultation || {};
   // const name = consultation.providerName || consultation.clientName;
   const imageUrl = AMAZON_S3_BUCKET + "/" + (image || "default");
+
+  const isBookedWithCoupon = couponPrice || campaignId;
 
   const isLive = checkIsFiveMinutesBefore(timestamp);
 
   const startDate = new Date(timestamp);
-
-  const dateText = `${getDateView(startDate).slice(0, 2)}th ${getMonthName(
-    startDate
+  const ordinal = getOrdinal(startDate?.getDate());
+  const dateText = `${getDateView(startDate).slice(0, 2)}${t(ordinal)} ${t(
+    getMonthName(startDate).toLowerCase()
   )}`;
 
   const time = startDate.getHours();
   const timeText = startDate ? `${time < 10 ? `0${time}` : time}:00` : "";
-
   return (
     <Box
       shadow={1}
@@ -59,15 +70,24 @@ export const ConsultationDashboard = ({
             ) : (
               <p className="small-text">{`${dateText} ${timeText}`}</p>
             )}
-            <div>
-              <p
-                className={`small-text consultation-dashboard__content__date__price ${
-                  consultation.price > 0
-                    ? "consultation-dashboard__content__date__price--paid"
-                    : "consultation-dashboard__content__date__price--free"
-                }`}
-              >
-                {consultation.price > 0
+            <div
+              className={`consultation-dashboard__content__date__price__badge ${
+                consultation.price > 0 && !campaignId
+                  ? "consultation-dashboard__content__date__price__badge--paid"
+                  : "consultation-dashboard__content__date__price__badge--free"
+              }`}
+            >
+              {campaignId && sponsorImage ? (
+                <img
+                  className="consultation-dashboard__content__date__price__badge__sponsor-image"
+                  src={AMAZON_S3_BUCKET + "/" + sponsorImage}
+                  alt="sponsor"
+                />
+              ) : null}
+              <p className="small-text">
+                {isBookedWithCoupon
+                  ? t("coupon")
+                  : consultation.price > 0
                   ? `${consultation.price}${currencySymbol || ""}`
                   : t("free")}
               </p>

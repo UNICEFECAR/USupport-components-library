@@ -107,12 +107,11 @@
 
 .provider-consultation__icon-container__price-badge {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   background-color: $color_purple_dac3f6;
   color: $color_secondary_9749fa;
-  padding: $spacing_0_4 $spacing_0_8;
   border-radius: $border_radius_1_6;
   margin-right: $spacing_1_4;
 
@@ -122,7 +121,17 @@
   }
 
   &--gray {
-    background-color: $color_gray_a6b4b8;
+    background-color: $color_gray_ea;
     color: $color_gray_66768d;
+  }
+
+  & .small-text {
+    padding: $spacing_0_4 $spacing_0_8;
+  }
+
+  &__sponsor-image {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
   }
 }
