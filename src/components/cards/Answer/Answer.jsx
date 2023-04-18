@@ -27,11 +27,11 @@ export const Answer = ({
   handleLike = () => {},
   handleReadMore = () => {},
   handleScheduleConsultationClick = () => {},
+  handleRespond = () => {},
+  handleArchive = () => {},
   classes,
   t,
 }) => {
-  const labels = ["bullying", "school billing", "sad"];
-
   const providerInfo = question.providerData;
 
   const getDateText = () => {
@@ -48,22 +48,22 @@ export const Answer = ({
     }
   };
 
-  console.log(question);
-
   const renderHeadingAndLabels = () => {
     return (
       <div className="answer__heading-and-labels-container">
         {renderIn === "client" ? (
-          <h4>{question.answerTitle}</h4>
+          <>
+            <h4>{question.answerTitle}</h4>
+            <div className="answer__labels-container">
+              {question.tags &&
+                question.tags.map((label, index) => {
+                  return <Label text={label} key={index} />;
+                })}
+            </div>
+          </>
         ) : (
           <p className="text">{question.question}</p>
         )}
-        <div className="answer__labels-container">
-          {question.tags &&
-            question.tags.map((label, index) => {
-              return <Label text={label} key={index} />;
-            })}
-        </div>
       </div>
     );
   };
@@ -118,44 +118,71 @@ export const Answer = ({
         <>
           {isInYourQuestions && renderHeadingAndLabels()}
           {renderIn === "provider" && question.answerText ? (
-            <h4 className="answer__provider-heading-text">
-              {question.answerTitle}
-            </h4>
+            <>
+              <h4 className="answer__provider-heading-text">
+                {question.answerTitle}
+              </h4>
+              <div className="answer__labels-container answer__margin-bottom-1-2">
+                {question.tags &&
+                  question.tags.map((label, index) => {
+                    return <Label text={label} key={index} />;
+                  })}
+              </div>
+            </>
           ) : null}
           <p className="text">{question.answerText}</p>
-          <Button
-            type="link"
-            label={t("read_more")}
-            size="md"
-            classes="answer__read-more-button"
-            onClick={() => handleReadMore(question)}
-          />
-          <div className="answer__bottom-container">
-            <div className="answer__answered-by-container">
-              <p className="text">{t("answer_by")}</p>
-              <Avatar
-                image={AMAZON_S3_BUCKET + "/" + providerInfo.image}
-                alt="Specialist avatar"
-                size="xs"
-                classes="answer__answered-by-container__avatar"
-              />
-              <p className="text">
-                {providerInfo.name} {providerInfo.surname}
-              </p>
-            </div>
-            <div
-              className="answer__schedule-button"
-              onClick={handleScheduleConsultationClick}
-            >
-              <Icon name="calendar" color="#20809e" />
-              <p className="text">{t("schedule_consultation")}</p>
-            </div>
+          <div className="answer__read-more-container">
+            <Button
+              type="link"
+              label={t("read_more")}
+              size="md"
+              classes="answer__read-more-button"
+              onClick={() => handleReadMore(question)}
+            />
+            {renderIn === "provider" && (
+              <div className="answer__answered-by-container">
+                <p className="text">{t("answer_by")}</p>
+                <Avatar
+                  image={AMAZON_S3_BUCKET + "/" + providerInfo.image}
+                  alt="Specialist avatar"
+                  size="xs"
+                  classes="answer__answered-by-container__avatar"
+                />
+                <p className="text">
+                  {providerInfo.name} {providerInfo.surname}
+                </p>
+              </div>
+            )}
           </div>
+          {renderIn === "client" ? (
+            <div className="answer__bottom-container">
+              <div className="answer__answered-by-container">
+                <p className="text">{t("answer_by")}</p>
+                <Avatar
+                  image={AMAZON_S3_BUCKET + "/" + providerInfo.image}
+                  alt="Specialist avatar"
+                  size="xs"
+                  classes="answer__answered-by-container__avatar"
+                />
+                <p className="text">
+                  {providerInfo.name} {providerInfo.surname}
+                </p>
+              </div>
+              <div
+                className="answer__schedule-button"
+                onClick={handleScheduleConsultationClick}
+              >
+                <Icon name="calendar" color="#20809e" />
+                <p className="text">{t("schedule_consultation")}</p>
+              </div>
+            </div>
+          ) : null}
           {renderIn === "provider" && (
             <Button
-              label="Respond"
+              label={t("respond")}
               size="md"
               classes="answer__respond-button"
+              onClick={() => handleRespond(question)}
             />
           )}
         </>
@@ -163,9 +190,13 @@ export const Answer = ({
         <>
           {renderIn === "provider" && (
             <div className="answer__bottom-container">
-              <Button label={t("respond")} />
+              <Button
+                label={t("respond")}
+                onClick={() => handleRespond(question)}
+              />
               <Button
                 label={t("archive")}
+                onClick={() => handleArchive(question)}
                 type="ghost"
                 classes="answer__bottom-container__archive-button"
               />

@@ -1,0 +1,81 @@
+@import "../../../styles/theme";
+
+.input-with-dropdown-wrapper {
+  width: 34.3rem;
+  top: 0;
+  position: relative;
+
+  @media screen and (min-width: $screen-lg) {
+    width: 36.8rem;
+  }
+}
+
+.input-with-dropdown {
+  width: 34.3rem;
+  margin: 0 auto;
+  z-index: 2;
+
+  @media screen and (min-width: $screen-lg) {
+    width: 36.8rem;
+  }
+
+  &__input-container {
+    &__options-container {
+      max-height: 16.5rem;
+      overflow-y: scroll;
+      @include scrollbar-secondary;
+    }
+  }
+
+  &__input {
+    z-index: 2;
+  }
+
+  &__selected-tags-wrapper {
+    display: flex;
+    margin-top: $spacing_2_0;
+  }
+
+  &__label {
+    text-align: left;
+    color: $color_blue_3d527b;
+    margin-bottom: $spacing_0_4;
+  }
+
+  &__selected-tags-wrapper {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: $spacing_6_4;
+  }
+
+  &__tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
+
+  &__tag {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: $color_green_f4f7fe;
+    padding: $spacing_0_6 $spacing_2_0;
+    border-radius: $border_radius_2_4;
+    margin-bottom: $spacing_0_4;
+    margin-right: $spacing_0_4;
+
+    &__icon {
+      margin-left: $spacing_1_2;
+    }
+  }
+
+  &__option-container {
+    cursor: pointer;
+    padding: $spacing_0_8;
+
+    &--selected {
+      color: $color_primary_20809e;
+    }
+  }
+}
