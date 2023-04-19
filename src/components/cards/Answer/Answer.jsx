@@ -53,7 +53,7 @@ export const Answer = ({
       <div className="answer__heading-and-labels-container">
         {renderIn === "client" ? (
           <>
-            <h4>{question.answerTitle}</h4>
+            <h4 className="answer__limited-text">{question.answerTitle}</h4>
             <div className="answer__labels-container">
               {question.tags &&
                 question.tags.map((label, index) => {
@@ -62,7 +62,7 @@ export const Answer = ({
             </div>
           </>
         ) : (
-          <p className="text">{question.question}</p>
+          <p className="text answer__limited-text">{question.question}</p>
         )}
       </div>
     );
@@ -81,7 +81,7 @@ export const Answer = ({
                     {getDateText()}
                   </p>
                 </div>
-                <p className="text answer__heading-container__question-text">
+                <p className="text answer__heading-container__question-text answer__limited-text">
                   {question.question}
                 </p>
               </div>
@@ -104,7 +104,9 @@ export const Answer = ({
             <Icon name="calendar" color="#92989B" />
             <p className="text answer__date-container__text">{getDateText()}</p>
           </div>
-          <p className="text answer__question-heading">{question.question}</p>
+          <p className="text answer__question-heading answer__limited-text">
+            {question.question}
+          </p>
           <Button
             type="link"
             label={t("read_more")}
@@ -119,7 +121,7 @@ export const Answer = ({
           {isInYourQuestions && renderHeadingAndLabels()}
           {renderIn === "provider" && question.answerText ? (
             <>
-              <h4 className="answer__provider-heading-text">
+              <h4 className="answer__provider-heading-text answer__limited-text">
                 {question.answerTitle}
               </h4>
               <div className="answer__labels-container answer__margin-bottom-1-2">
@@ -130,7 +132,7 @@ export const Answer = ({
               </div>
             </>
           ) : null}
-          <p className="text">{question.answerText}</p>
+          <p className="text answer__limited-text">{question.answerText}</p>
           <div className="answer__read-more-container">
             <Button
               type="link"

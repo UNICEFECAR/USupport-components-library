@@ -127,4 +127,12 @@
     flex-direction: row;
     justify-content: space-between;
   }
+
+  &__limited-text {
+    text-overflow: ellipsis; /* With this the name gets clipped with dots(...) at the end, without it the overflow is scroll */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 }
