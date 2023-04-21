@@ -172,7 +172,7 @@ export const Answer = ({
               </div>
               <div
                 className="answer__schedule-button"
-                onClick={handleScheduleConsultationClick}
+                onClick={() => handleScheduleConsultationClick(question)}
               >
                 <Icon name="calendar" color="#20809e" />
                 <p className="text">{t("schedule_consultation")}</p>
