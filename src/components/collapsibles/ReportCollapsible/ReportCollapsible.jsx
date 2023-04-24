@@ -22,6 +22,7 @@ export const ReportCollapsible = ({
   contentText,
   contentMenuOptions,
   componentId = "",
+  children,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { width } = useWindowDimensions();
@@ -96,6 +97,7 @@ export const ReportCollapsible = ({
           <GridItem md={8} lg={12}>
             <p className="text">{contentText}</p>
           </GridItem>
+          {children && <GridItem>{children}</GridItem>}
         </Grid>
       )}
       {contentMenuOptions && isContentMenuOpen && (
