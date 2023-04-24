@@ -19,6 +19,7 @@ export const Like = ({
   dislikes,
   isDisliked,
   answerId,
+  renderInClient = false,
 }) => {
   return (
     <div className="like">
@@ -29,7 +30,8 @@ export const Like = ({
           }
           className={[
             "like__icon-container",
-            isLiked && "like__icon-container__selected",
+            renderInClient && "like__icon-container--client",
+            isLiked && "like__icon-container--selected",
           ].join(" ")}
         >
           <Icon name="like" />
@@ -45,7 +47,8 @@ export const Like = ({
           }
           className={[
             "like__icon-container",
-            isDisliked && "like__icon-container__selected",
+            renderInClient && "like__icon-container--client",
+            isDisliked && "like__icon-container--selected",
           ].join(" ")}
         >
           <Icon name="dislike" />
