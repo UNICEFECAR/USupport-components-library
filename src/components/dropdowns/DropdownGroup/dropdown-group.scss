@@ -9,7 +9,8 @@
       flex-direction: column;
 
       @media screen and (min-width: $screen_md) {
-        flex-direction: row;
+        display: block;
+        position: relative;
       }
 
       &:not(:first-of-type) {
@@ -22,7 +23,14 @@
         min-width: unset;
 
         @media screen and (min-width: $screen_md) {
-          margin-top: $spacing_2_8;
+          position: absolute;
+          top: 0;
+          margin-top: $spacing_3_0;
+          right: -10rem;
+        }
+
+        @media screen and (min-width: $screen_lg) {
+          right: -12rem;
         }
       }
     }
