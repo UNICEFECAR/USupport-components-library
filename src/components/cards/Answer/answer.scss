@@ -14,7 +14,7 @@
     width: 100%;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
 
     &__question-text {
       margin-top: $spacing_0_8;
@@ -23,11 +23,12 @@
 
   &__labels-container {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: "row";
     margin-top: $spacing_1_2;
 
     > .label-component {
-      margin-right: $spacing_0_4;
+      margin: $spacing_0_2;
     }
   }
 
@@ -73,6 +74,7 @@
     margin-top: $spacing_2_6;
     display: flex;
     flex-direction: row;
+    cursor: pointer;
 
     @media screen and (min-width: $screen-md) {
       margin-top: 0;
@@ -126,5 +128,14 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+  }
+
+  &__limited-text {
+    text-overflow: ellipsis; /* With this the name gets clipped with dots(...) at the end, without it the overflow is scroll */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-align: left;
   }
 }
