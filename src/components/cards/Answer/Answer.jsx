@@ -95,6 +95,7 @@ export const Answer = ({
               answerId={question.answerId}
               isLiked={question.isLiked}
               isDisliked={question.isDisliked}
+              renderInClient={renderIn === "client"}
             />
           </div>
         </>

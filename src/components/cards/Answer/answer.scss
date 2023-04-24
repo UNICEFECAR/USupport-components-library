@@ -23,11 +23,12 @@
 
   &__labels-container {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: "row";
     margin-top: $spacing_1_2;
 
     > .label-component {
-      margin-right: $spacing_0_4;
+      margin: $spacing_0_2;
     }
   }
 
@@ -73,6 +74,7 @@
     margin-top: $spacing_2_6;
     display: flex;
     flex-direction: row;
+    cursor: pointer;
 
     @media screen and (min-width: $screen-md) {
       margin-top: 0;
