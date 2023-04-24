@@ -10,7 +10,8 @@
       flex-direction: column;
 
       @media screen and (min-width: $screen_md) {
-        flex-direction: row;
+        display: block;
+        position: relative;
       }
 
       &__remove-button {
@@ -19,7 +20,14 @@
         min-width: unset;
 
         @media screen and (min-width: $screen_md) {
-          margin-top: $spacing_4_6;
+          position: absolute;
+          top: 0;
+          margin-top: $spacing_3_0;
+          right: -12rem;
+        }
+
+        @media screen and (min-width: $screen_lg) {
+          right: -14rem;
         }
       }
     }

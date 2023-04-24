@@ -2,9 +2,9 @@
 
 .tabs {
   display: flex;
-  flex-direction: "row";
+  flex-direction: row;
   align-items: center;
-  padding-bottom: $spacing_1_0;
+  padding-bottom: $spacing_1_6;
 
   .tab {
     padding: $spacing_0_4 $spacing_2_4;
@@ -24,6 +24,10 @@
       cursor: normal;
       opacity: 0.2;
       cursor: default;
+    }
+
+    & .paragraph {
+      white-space: nowrap;
     }
   }
 

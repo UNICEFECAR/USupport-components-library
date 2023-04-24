@@ -330,6 +330,25 @@ async function updateProviderStatus(payload) {
   return response;
 }
 
+async function getArchivedQuestions() {
+  const response = await http.get(`${API_ENDPOINT}/my-qa/archived`);
+  return response;
+}
+
+async function activateQuestion(questionId) {
+  const response = await http.put(`${API_ENDPOINT}/my-qa/activate-question`, {
+    questionId,
+  });
+  return response;
+}
+
+async function deleteQuestion(questionId) {
+  const response = await http.put(`${API_ENDPOINT}/my-qa/delete-question`, {
+    questionId,
+  });
+  return response;
+}
+
 const exportedFunctions = {
   createAdmin,
   deleteArticle,
@@ -371,6 +390,9 @@ const exportedFunctions = {
   getCampaignDataById,
   getAllProviders,
   updateProviderStatus,
+  getArchivedQuestions,
+  activateQuestion,
+  deleteQuestion,
 };
 
 export default exportedFunctions;
