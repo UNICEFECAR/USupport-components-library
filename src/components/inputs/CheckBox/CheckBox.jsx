@@ -22,7 +22,14 @@ export const CheckBox = ({
   return (
     <div
       className={["checkbox-wrapper", classNames(classes)].join(" ")}
-      onClick={disabled ? () => {} : () => setIsChecked(!isChecked)}
+      onClick={
+        disabled
+          ? () => {}
+          : (e) => {
+              e.stopPropagation();
+              setIsChecked(!isChecked);
+            }
+      }
     >
       <input
         type="checkbox"
