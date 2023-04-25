@@ -14,14 +14,18 @@ import "./access-token.scss";
  * @return {jsx}
  */
 export const AccessToken = ({
+  handleCopy,
   accessTokenLabel,
+  copyLabel,
   isLoading = false,
   accessToken,
+  showInstructions = false,
+  activateAnimation = false,
   classes,
 }) => {
-  // TODO: Show confirmation for copying ?
   const handleCopyToClipboard = () => {
     navigator.clipboard.writeText(accessToken);
+    handleCopy();
   };
 
   return (
@@ -37,6 +41,18 @@ export const AccessToken = ({
           classes="access-token-container__copy-icon"
           onClick={handleCopyToClipboard}
         />
+        {showInstructions && (
+          <div
+            className={`access-token-container__copy-text ${
+              activateAnimation
+                ? "access-token-container__copy-text__action"
+                : ""
+            }`}
+          >
+            <Icon name="arrow-chevron-back" size="sm" color="#3d527b" />
+            <p className="small-text">{copyLabel}</p>
+          </div>
+        )}
       </div>
     </div>
   );
