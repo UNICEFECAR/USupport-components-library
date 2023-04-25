@@ -37,6 +37,7 @@ export const ProviderOverview = ({
   handleViewProfile,
   handleActivities,
   providerStatus,
+  t,
 }) => {
   const currencySymbol = localStorage.getItem("currency_symbol");
 
@@ -84,6 +85,13 @@ export const ProviderOverview = ({
           <p className="small-text provider-overview__types">
             {specializations?.join(", ")}
           </p>
+          {providerStatus && (
+            <div
+              className={`provider-overview__status provider-overview__status--${providerStatus}`}
+            >
+              <p className="small-text">{t(providerStatus)}</p>
+            </div>
+          )}
         </div>
         <div>
           <Icon
