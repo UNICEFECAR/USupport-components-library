@@ -113,6 +113,7 @@ export const Answer = ({
             label={t("read_more")}
             size="md"
             classes="answer__read-more-button"
+            onClick={() => handleReadMore(question)}
           />
         </>
       )}
