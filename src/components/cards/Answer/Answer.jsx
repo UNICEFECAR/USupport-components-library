@@ -51,7 +51,7 @@ export const Answer = ({
   const renderHeadingAndLabels = () => {
     return (
       <div className="answer__heading-and-labels-container">
-        {renderIn === "client" ? (
+        {renderIn === "client" || renderIn === "website" ? (
           <>
             <h4 className="answer__limited-text">{question.answerTitle}</h4>
             <div className="answer__labels-container">
