@@ -13,7 +13,7 @@ import "./like.scss";
  * @return {jsx}
  */
 export const Like = ({
-  handleClick,
+  handleClick = () => {},
   likes,
   isLiked,
   dislikes,
