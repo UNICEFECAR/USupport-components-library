@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
 
 import { Input } from "../Input";
@@ -52,7 +52,7 @@ export const InputGroup = ({
     newData[index].value = value;
     setData(newData);
 
-    handleParentChange(data.filter((x) => x.value !== ""));
+    handleParentChange(data);
   };
 
   // Add a new input only if the previous one has a value
@@ -70,10 +70,12 @@ export const InputGroup = ({
     let newData = [...data];
     newData = newData.filter((item) => item.selectedIndex !== index);
     setData(newData);
+    handleParentChange(newData);
   };
 
-  const canAddMoreOptions =
-    initialCount < maxShown && options.length === initialCount;
+  const canAddMoreOptions = useMemo(() => {
+    return initialCount < maxShown && options.length === initialCount;
+  }, [initialCount, maxShown, options.length]);
 
   return (
     <div className="input-group">

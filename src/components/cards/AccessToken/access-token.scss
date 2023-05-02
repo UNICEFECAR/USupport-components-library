@@ -17,4 +17,27 @@
     margin-left: $spacing_1_2;
     cursor: pointer;
   }
+
+  &__copy-text {
+    align-items: center;
+    display: flex;
+    // margin-left: $spacing_1_6;
+    &__action {
+      animation-duration: 1s;
+      animation-name: rightleft;
+      animation-iteration-count: infinite;
+    }
+  }
+}
+
+@keyframes rightleft {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
