@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import OutsideClickHandler from "react-outside-click-handler";
 
 import "./report-collapsible.scss";
 import { Box } from "../../boxes";
@@ -19,15 +20,19 @@ export const ReportCollapsible = ({
   headingItems,
   contentHeading,
   contentText,
+  contentMenuOptions,
+  componentId = "",
+  children,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { width } = useWindowDimensions();
+  const [isContentMenuOpen, setIsContentMenuOpen] = useState(false);
+
   return (
     <Box
       classes={`report-collapsible ${isOpen ? "report-collapsible--open" : ""}`}
       boxShadow={2}
       borderSize="sm"
-      onClick={() => setIsOpen(!isOpen)}
     >
       <Grid classes="report-collapsible__grid">
         {headingItems.map((item, index) => {
@@ -46,6 +51,7 @@ export const ReportCollapsible = ({
               }
               `}
               key={index}
+              onClick={() => setIsOpen(!isOpen)}
             >
               {item}
               {((width < 900 && index === 0) ||
@@ -74,14 +80,34 @@ export const ReportCollapsible = ({
       {isOpen && (
         <Grid classes="report-collapsible__content-grid">
           <GridItem md={8} lg={12}>
-            <h4 className="report-collapsible__content-grid__heading">
-              {contentHeading}
-            </h4>
+            <div className="report-collapsible__content-heading-container">
+              <h4 className="report-collapsible__content-grid__heading">
+                {contentHeading}
+              </h4>
+              {contentMenuOptions && (
+                <Icon
+                  name="three-dots-vertical"
+                  color={"#20809E"}
+                  onClick={() => setIsContentMenuOpen(!isContentMenuOpen)}
+                  classes="report-collapsible__content-heading-container__three-dots"
+                />
+              )}
+            </div>
           </GridItem>
           <GridItem md={8} lg={12}>
             <p className="text">{contentText}</p>
           </GridItem>
+          {children && <GridItem>{children}</GridItem>}
         </Grid>
+      )}
+      {contentMenuOptions && isContentMenuOpen && (
+        <OutsideClickHandler onOutsideClick={() => setIsContentMenuOpen(false)}>
+          <ContentMenu
+            options={contentMenuOptions}
+            setIsContentMenuOpen={setIsContentMenuOpen}
+            componentId={componentId}
+          />
+        </OutsideClickHandler>
       )}
     </Box>
   );
@@ -102,4 +128,31 @@ ReportCollapsible.propTypes = {
    * Content displayed in the collapsible part of the component
    */
   contentText: PropTypes.string.isRequired,
+};
+
+const ContentMenu = ({ setIsContentMenuOpen, options, componentId }) => {
+  const renderOptions = () => {
+    return options.map((option, index) => {
+      return (
+        <div
+          key={index}
+          className={[
+            "report-collapsible__content-menu__button",
+            option.color &&
+              `report-collapsible__content-menu__button--${option.color}`,
+          ].join(" ")}
+          onClick={() => {
+            setIsContentMenuOpen(false);
+            option.onClick(componentId);
+          }}
+        >
+          <p className="text">{option.label}</p>
+        </div>
+      );
+    });
+  };
+
+  return (
+    <Box classes="report-collapsible__content-menu">{renderOptions()}</Box>
+  );
 };
