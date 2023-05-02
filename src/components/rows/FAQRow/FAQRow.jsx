@@ -16,7 +16,7 @@ export const FAQRow = ({ selected, setSelected, question, answer }) => {
   return (
     <>
       <div className="faq-row" onClick={() => setSelected(!selected)}>
-        <CheckBox isChecked={selected} setSelected={setSelected} />
+        <CheckBox isChecked={selected} setIsChecked={setSelected} />
         <div className="faq-row__text-container">
           <h4>{question}</h4>
           <p className="text">{answer}</p>

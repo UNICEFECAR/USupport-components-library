@@ -6,6 +6,7 @@
   cursor: pointer;
   max-height: 15rem;
   transition: all 0.8s ease-in-out;
+  position: relative;
 
   &--open {
     max-height: 500rem;
@@ -81,6 +82,44 @@
 
       @media screen and (min-width: $screen-md) {
         padding-top: $spacing_3_2;
+      }
+    }
+  }
+
+  &__content-heading-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    &__three-dots {
+      z-index: 2;
+    }
+  }
+
+  &__content-menu {
+    position: absolute;
+    padding: $spacing_2_0;
+    top: 80%;
+    right: 0;
+    z-index: 3;
+
+    @media screen and (min-width: $screen-md) {
+      right: $spacing_6_8;
+    }
+
+    &__button {
+      width: 100%;
+      padding: $spacing_0_4;
+
+      & > p {
+        text-align: left;
+      }
+      &--red {
+        & > p {
+          color: $color_red_eb5757;
+        }
       }
     }
   }
