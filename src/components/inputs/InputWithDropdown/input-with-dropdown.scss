@@ -22,6 +22,7 @@
   &__input-container {
     &__options-container {
       max-height: 16.5rem;
+      padding: $spacing_0_6;
       overflow-y: scroll;
       @include scrollbar-secondary;
     }
