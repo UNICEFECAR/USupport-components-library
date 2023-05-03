@@ -203,7 +203,7 @@ export const Answer = ({
               <Button
                 label={t("archive")}
                 onClick={() => handleArchive(question)}
-                type="ghost"
+                color="red"
                 classes="answer__bottom-container__archive-button"
               />
             </div>
