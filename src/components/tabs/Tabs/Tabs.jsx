@@ -12,7 +12,7 @@ import "./tabs.scss";
  *
  * @return {jsx}
  */
-export const Tabs = ({ options, handleSelect }) => {
+export const Tabs = ({ options, handleSelect, t = () => {} }) => {
   const NO_OPTIONS_TO_RENDER = 4;
   const [isOpen, setIsOpen] = useState(false);
   const [isMoreOptionSelected, setIsMoreOptionSelected] = useState(false);
@@ -97,7 +97,10 @@ export const Tabs = ({ options, handleSelect }) => {
               ].join(" ")}
               onClick={() => setIsOpen(!isOpen)}
             >
-              +{options.length - NO_OPTIONS_TO_RENDER} more
+              +
+              {t("number_of_more_options", {
+                count: options.length - NO_OPTIONS_TO_RENDER,
+              })}
             </p>
           )}
         </div>
