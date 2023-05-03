@@ -101,12 +101,18 @@
   &__content-menu {
     position: absolute;
     padding: $spacing_2_0;
-    top: 80%;
+    top: 65%;
     right: 0;
     z-index: 3;
 
     @media screen and (min-width: $screen-md) {
-      right: $spacing_6_8;
+      right: $spacing_2_2;
+      top: 55%;
+    }
+
+    @media screen and (min-width: $screen-lg) {
+      right: $spacing_3_2;
+      top: 45%;
     }
 
     &__button {
