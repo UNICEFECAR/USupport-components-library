@@ -349,6 +349,13 @@ async function deleteQuestion(questionId) {
   return response;
 }
 
+async function getQuestions(type) {
+  const response = await http.get(
+    `${API_ENDPOINT}/my-qa/questions?type=${type}`
+  );
+  return response;
+}
+
 const exportedFunctions = {
   createAdmin,
   deleteArticle,
@@ -393,6 +400,7 @@ const exportedFunctions = {
   getArchivedQuestions,
   activateQuestion,
   deleteQuestion,
+  getQuestions,
 };
 
 export default exportedFunctions;
