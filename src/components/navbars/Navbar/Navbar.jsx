@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import OutsideClickHandler from "react-outside-click-handler";
 import { Icon, IconFlag } from "../../icons";
 import { List } from "../../lists";
-import { Button } from "../../buttons";
+import { Button, ButtonWithIcon } from "../../buttons";
 import { Box } from "../../boxes";
 import useWindowDimensions from "../../../utils/useWindowDimensions";
-import { userSvc } from "../../../services";
+import { userSvc, adminSvc } from "../../../services";
 
 const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
 
@@ -232,21 +232,34 @@ export const Navbar = ({
     }
   };
 
-  const ctaLogin = (
-    <Button
-      type="primary"
-      size={width < 1050 || width >= 1200 ? "sm" : "xs"}
-      color="green"
-      classes="nav__login"
-      onClick={() => {
-        window.location.href = "/client/login";
-        scrollTop();
-      }}
-      web={width >= 1110}
-    >
-      {buttonText}
-    </Button>
-  );
+  const ctaLogin =
+    renderIn === "country-admin" ? (
+      <ButtonWithIcon
+        iconName="exit"
+        label={buttonText}
+        size={width < 1050 || width >= 1450 ? "sm" : "xs"}
+        iconColor="#ffffff"
+        classes="nav__login"
+        onClick={() => {
+          adminSvc.logout();
+          navigate("/");
+        }}
+      />
+    ) : (
+      <Button
+        type="primary"
+        size={width < 1050 || width >= 1200 ? "sm" : "xs"}
+        color="green"
+        classes="nav__login"
+        onClick={() => {
+          window.location.href = "/client/login";
+          scrollTop();
+        }}
+        web={width >= 1110}
+      >
+        {buttonText}
+      </Button>
+    );
 
   const handleNotificationIconClick = () => {
     if (isTmpUser) {

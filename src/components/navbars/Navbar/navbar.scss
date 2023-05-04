@@ -86,7 +86,7 @@
     }
 
     @media screen and (min-width: $screen-lg) {
-      padding: 0 3.2rem 0 0;
+      padding: 0 3rem 0 0;
     }
 
     & p {
@@ -236,7 +236,7 @@
     }
 
     &--country-admin {
-      top: 48rem;
+      top: 55rem;
     }
 
     &--client {
@@ -267,6 +267,12 @@
 
       &--no-profile {
         right: 23rem;
+      }
+
+      &--country-admin {
+        @media screen and (min-width: $screen-lg) {
+          right: 14rem;
+        }
       }
     }
   }
