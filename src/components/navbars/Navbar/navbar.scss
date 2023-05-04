@@ -283,6 +283,12 @@
     }
   }
 
+  &__countries {
+    @media screen and (min-width: $navbar-spread) {
+      right: 13rem;
+    }
+  }
+
   &__profile {
     display: flex;
     align-items: center;
