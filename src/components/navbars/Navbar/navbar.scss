@@ -177,7 +177,7 @@
     position: fixed;
     z-index: $z_index_emergency_button;
     left: 1rem;
-    top: 40rem;
+    top: 50rem;
     opacity: 0;
     transition: opacity 0.1s ease-in-out;
 
@@ -263,7 +263,7 @@
     }
 
     @media screen and (min-width: $screen-lg) {
-      right: 22rem;
+      right: 8.5rem;
 
       &--no-profile {
         right: 11rem;

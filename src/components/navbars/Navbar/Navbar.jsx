@@ -131,7 +131,6 @@ export const Navbar = ({
         }}
       >
         <p className="nav__current-language">{selectedLanguage.value}</p>
-
         <Icon name="arrow-chevron-down" size="sm" color="#20809e" />
       </div>
     ),
