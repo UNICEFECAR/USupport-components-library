@@ -406,7 +406,7 @@ export const Navbar = ({
           ${languagesShown ? "nav__languages--shown" : ""}
           ${countriesShown ? "nav__countries--shown" : ""}
           ${
-            languagesShown && !showProfilePicture
+            (languagesShown && !showProfilePicture) || renderIn === "website"
               ? "nav__languages--no-profile"
               : ""
           }
