@@ -116,6 +116,20 @@
         color: $color_secondary_pressed_6c16d9;
       }
     }
+
+    &.btn--red {
+      color: $color_red_eb5757;
+
+      &:hover:enabled {
+        border: 0.1rem solid $color_red_cc4c4c;
+        color: $color_red_cc4c4c;
+      }
+
+      &:active:enabled {
+        border: 0.1rem solid $color_red_a63d3d;
+        color: $color_red_a63d3d;
+      }
+    }
   }
 
   &--ghost {
