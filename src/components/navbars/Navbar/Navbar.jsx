@@ -297,14 +297,16 @@ export const Navbar = ({
           onClick={handleProfileClick}
         />
       )}
-      {/* <p
-        onClick={handleProfileClick}
-        className={`paragraph ${
-          isInProfile ? "nav__profile__text-active" : ""
-        }`}
-      >
-        {yourProfileText}
-      </p> */}
+      {(renderIn === "global-admin" || renderIn === "country-admin") && (
+        <p
+          onClick={handleProfileClick}
+          className={`paragraph ${
+            isInProfile ? "nav__profile__text-active" : ""
+          }`}
+        >
+          {yourProfileText}
+        </p>
+      )}
     </div>
   );
 
