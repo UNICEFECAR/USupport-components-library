@@ -144,22 +144,21 @@ export const Answer = ({
               classes="answer__read-more-button"
               onClick={() => handleReadMore(question)}
             />
-            {renderIn === "provider" ||
-              (renderIn === "country-admin" && (
-                <div className="answer__answered-by-container">
-                  <p className="text">{t("answer_by")}</p>
-                  <Avatar
-                    image={AMAZON_S3_BUCKET + "/" + providerInfo.image}
-                    alt="Specialist avatar"
-                    size="xs"
-                    classes="answer__answered-by-container__avatar"
-                  />
-                  <p className="text">
-                    {providerInfo.name} {providerInfo.surname}
-                  </p>
-                </div>
-              ))}
           </div>
+          {(renderIn === "provider" || renderIn === "country-admin") && (
+            <div className="answer__answered-by-container">
+              <p className="text">{t("answer_by")}</p>
+              <Avatar
+                image={AMAZON_S3_BUCKET + "/" + providerInfo.image}
+                alt="Specialist avatar"
+                size="xs"
+                classes="answer__answered-by-container__avatar"
+              />
+              <p className="text">
+                {providerInfo.name} {providerInfo.surname}
+              </p>
+            </div>
+          )}
           {renderIn === "client" ? (
             <div className="answer__bottom-container">
               <div className="answer__answered-by-container">
@@ -203,6 +202,8 @@ export const Answer = ({
               <Button
                 label={t("archive")}
                 onClick={() => handleArchive(question)}
+                type="secondary"
+                size="md"
                 color="red"
                 classes="answer__bottom-container__archive-button"
               />
@@ -215,9 +216,62 @@ export const Answer = ({
 };
 
 Answer.propTypes = {
-  // Add propTypes here
-};
+  /**
+   * question object
+   * @required
+   */
+  question: PropTypes.object.isRequired,
 
-Answer.defaultProps = {
-  // Add defaultProps here
+  /**
+   * isInYourQuestions boolean
+   * @default false
+   */
+  isInYourQuestions: PropTypes.bool,
+
+  /**
+   * renderIn string
+   * @default "client"
+   */
+  renderIn: PropTypes.string,
+
+  /**
+   * handleLike function
+   * @default () => {}
+   */
+  handleLike: PropTypes.func,
+
+  /**
+   * handleReadMore function
+   * @default () => {}
+   */
+  handleReadMore: PropTypes.func,
+
+  /**
+   * handleScheduleConsultationClick function
+   * @default () => {}
+   */
+  handleScheduleConsultationClick: PropTypes.func,
+
+  /**
+   * handleRespond function
+   * @default () => {}
+   */
+  handleRespond: PropTypes.func,
+
+  /**
+   * handleArchive function
+   * @default () => {}
+   */
+  handleArchive: PropTypes.func,
+
+  /**
+   * classes string
+   * */
+  classes: PropTypes.string,
+
+  /**
+   * t translation function
+   * @required
+   * */
+  t: PropTypes.func.isRequired,
 };

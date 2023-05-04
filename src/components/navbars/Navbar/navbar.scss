@@ -85,8 +85,8 @@
       padding: 0 1.2rem 0 0;
     }
 
-    @media screen and (min-width: $navbar-spread) {
-      padding: 0 3.2rem 0 0;
+    @media screen and (min-width: $screen-lg) {
+      padding: 0 3rem 0 0;
     }
 
     & p {
@@ -177,7 +177,7 @@
     position: fixed;
     z-index: $z_index_emergency_button;
     left: 1rem;
-    top: 40rem;
+    top: 50rem;
     opacity: 0;
     transition: opacity 0.1s ease-in-out;
 
@@ -193,7 +193,7 @@
     }
 
     @media screen and (min-width: $screen-lg) {
-      right: 13rem;
+      right: 14rem;
     }
 
     &--shown {
@@ -236,11 +236,11 @@
     }
 
     &--country-admin {
-      top: 48rem;
+      top: 55rem;
     }
 
     &--client {
-      top: 28rem;
+      top: 34rem;
     }
 
     @media screen and (min-width: $navbar-tight) {
@@ -255,7 +255,7 @@
 
     @media screen and (min-width: $navbar-spread) {
       top: 8.5rem;
-      right: 18rem;
+      right: 7rem;
 
       &--no-profile {
         right: 9rem;
@@ -263,11 +263,29 @@
     }
 
     @media screen and (min-width: $screen-lg) {
-      right: 22rem;
+      right: 8.5rem;
 
       &--no-profile {
-        right: 11rem;
+        right: 23rem;
       }
+
+      &--country-admin {
+        @media screen and (min-width: $screen-lg) {
+          right: 8rem;
+        }
+      }
+
+      &--global-admin {
+        @media screen and (min-width: $screen-lg) {
+          right: 8rem;
+        }
+      }
+    }
+  }
+
+  &__countries {
+    @media screen and (min-width: $navbar-spread) {
+      right: 13rem;
     }
   }
 
