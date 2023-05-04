@@ -64,6 +64,7 @@
   &__answered-by-container {
     display: flex;
     flex-direction: "row";
+    margin-top: $spacing_1_0;
 
     &__avatar {
       margin: 0 $spacing_0_4;
