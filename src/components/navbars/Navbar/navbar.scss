@@ -274,6 +274,12 @@
           right: 8rem;
         }
       }
+
+      &--global-admin {
+        @media screen and (min-width: $screen-lg) {
+          right: 8rem;
+        }
+      }
     }
   }
 
