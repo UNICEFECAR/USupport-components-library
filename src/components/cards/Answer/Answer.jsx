@@ -217,9 +217,62 @@ export const Answer = ({
 };
 
 Answer.propTypes = {
-  // Add propTypes here
-};
+  /**
+   * question object
+   * @required
+   */
+  question: PropTypes.object.isRequired,
 
-Answer.defaultProps = {
-  // Add defaultProps here
+  /**
+   * isInYourQuestions boolean
+   * @default false
+   */
+  isInYourQuestions: PropTypes.bool,
+
+  /**
+   * renderIn string
+   * @default "client"
+   */
+  renderIn: PropTypes.string,
+
+  /**
+   * handleLike function
+   * @default () => {}
+   */
+  handleLike: PropTypes.func,
+
+  /**
+   * handleReadMore function
+   * @default () => {}
+   */
+  handleReadMore: PropTypes.func,
+
+  /**
+   * handleScheduleConsultationClick function
+   * @default () => {}
+   */
+  handleScheduleConsultationClick: PropTypes.func,
+
+  /**
+   * handleRespond function
+   * @default () => {}
+   */
+  handleRespond: PropTypes.func,
+
+  /**
+   * handleArchive function
+   * @default () => {}
+   */
+  handleArchive: PropTypes.func,
+
+  /**
+   * classes string
+   * */
+  classes: PropTypes.string,
+
+  /**
+   * t translation function
+   * @required
+   * */
+  t: PropTypes.func.isRequired,
 };
