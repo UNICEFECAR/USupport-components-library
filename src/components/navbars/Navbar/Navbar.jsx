@@ -232,34 +232,34 @@ export const Navbar = ({
     }
   };
 
-  const ctaLogin =
-    renderIn === "country-admin" ? (
-      <ButtonWithIcon
-        iconName="exit"
-        label={buttonText}
-        size={width < 1050 || width >= 1450 ? "sm" : "xs"}
-        iconColor="#ffffff"
-        classes="nav__login"
-        onClick={() => {
-          adminSvc.logout();
-          navigate("/");
-        }}
-      />
-    ) : (
-      <Button
-        type="primary"
-        size={width < 1050 || width >= 1200 ? "sm" : "xs"}
-        color="green"
-        classes="nav__login"
-        onClick={() => {
-          window.location.href = "/client/login";
-          scrollTop();
-        }}
-        web={width >= 1110}
-      >
-        {buttonText}
-      </Button>
-    );
+  const ctaLogin = (
+    // renderIn === "country-admin" ? (
+    //   <ButtonWithIcon
+    //     iconName="exit"
+    //     label={buttonText}
+    //     size={width < 1050 || width >= 1450 ? "sm" : "xs"}
+    //     iconColor="#ffffff"
+    //     classes="nav__login"
+    //     onClick={() => {
+    //       adminSvc.logout();
+    //       navigate("/");
+    //     }}
+    //   />
+    // ) : (
+    <Button
+      type="primary"
+      size={width < 1050 || width >= 1200 ? "sm" : "xs"}
+      color="green"
+      classes="nav__login"
+      onClick={() => {
+        window.location.href = "/client/login";
+        scrollTop();
+      }}
+      web={width >= 1110}
+    >
+      {buttonText}
+    </Button>
+  );
 
   const handleNotificationIconClick = () => {
     if (isTmpUser) {
