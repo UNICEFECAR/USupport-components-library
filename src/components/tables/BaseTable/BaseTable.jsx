@@ -35,11 +35,7 @@ export const BaseTable = ({
           <thead>
             <tr>
               {rows.map((row, index) => {
-                return (
-                  <th key={"row" + index}>
-                    <p className="text">{row}</p>
-                  </th>
-                );
+                return <th key={"row" + index}>{row}</th>;
               })}
             </tr>
           </thead>

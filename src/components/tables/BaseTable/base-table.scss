@@ -4,6 +4,10 @@
   min-width: 100rem;
   width: 100%;
 
+  & th {
+    padding-right: $spacing_1_0;
+  }
+
   &__container {
     overflow-x: auto;
     padding-top: $spacing_3_6;
