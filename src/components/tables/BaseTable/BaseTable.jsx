@@ -23,7 +23,45 @@ export const BaseTable = ({
   handleClickPropName,
   t,
   hasMenu = true,
+  updateData,
 }) => {
+  const [sorting, setSorting] = useState(
+    rows.map((row) => {
+      return { value: row.sortingKey, sort: "asc" };
+    })
+  );
+  console.log(rows);
+  const handleSort = (key, sort) => {
+    // Update the sorting icon
+    const sortingData = [...sorting];
+    const current = sorting.find((x) => x.value === key);
+    sortingData[sortingData.indexOf(current)].sort =
+      sort === "asc" ? "desc" : "asc";
+    setSorting(sortingData);
+
+    // Sort the displayed data
+    const sortedRow = rows.find((x) => x.sortingKey === key);
+    const isNumberSort = sortedRow.isNumbered;
+    const isDateSort = sortedRow.isDate;
+    let dataCopy = [...data];
+    dataCopy = dataCopy.sort((a, b) => {
+      let first = a[key];
+      let second = b[key];
+      if (isDateSort) {
+        first = first.getTime();
+        second = second.getTime();
+      }
+      if (!isNumberSort && !isDateSort) {
+        if (sort === "asc") return first.localeCompare(second);
+        return second.localeCompare(first);
+      } else {
+        if (sort === "asc") return first - second;
+        return second - first;
+      }
+    });
+    updateData(dataCopy);
+  };
+
   return (
     <div className="table__container">
       {isLoading ? (
@@ -35,7 +73,24 @@ export const BaseTable = ({
           <thead>
             <tr>
               {rows.map((row, index) => {
-                return <th key={"row" + index}>{row}</th>;
+                console.log(row);
+                const rowSort = sorting.find(
+                  (x) => x.value === row.sortingKey
+                ).sort;
+                return (
+                  <th key={"row" + index}>
+                    <div className="table__heading-container">
+                      {row.label}
+                      {row.sortingKey && (
+                        <Icon
+                          size="sm"
+                          name={rowSort === "asc" ? "sort-desc" : "sort-asc"}
+                          onClick={() => handleSort(row.sortingKey, rowSort)}
+                        />
+                      )}
+                    </div>
+                  </th>
+                );
               })}
             </tr>
           </thead>

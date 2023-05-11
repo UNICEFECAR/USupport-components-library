@@ -6,6 +6,18 @@
 
   & th {
     padding-right: $spacing_1_0;
+
+    & .icon {
+      margin-left: $spacing_0_4;
+      cursor: pointer;
+    }
+  }
+
+  &__heading-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
   }
 
   &__container {
