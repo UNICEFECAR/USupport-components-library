@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import OutsideClickHandler from "react-outside-click-handler";
 
@@ -30,7 +30,15 @@ export const BaseTable = ({
       return { value: row.sortingKey, sort: "asc" };
     })
   );
-  console.log(rows);
+
+  useEffect(() => {
+    setSorting(
+      rows.map((row) => {
+        return { value: row.sortingKey, sort: "asc" };
+      })
+    );
+  }, [rows]);
+
   const handleSort = (key, sort) => {
     // Update the sorting icon
     const sortingData = [...sorting];
@@ -73,10 +81,9 @@ export const BaseTable = ({
           <thead>
             <tr>
               {rows.map((row, index) => {
-                console.log(row);
                 const rowSort = sorting.find(
                   (x) => x.value === row.sortingKey
-                ).sort;
+                )?.sort;
                 return (
                   <th key={"row" + index}>
                     <div className="table__heading-container">
