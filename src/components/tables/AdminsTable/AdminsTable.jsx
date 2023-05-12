@@ -99,10 +99,7 @@ export const AdminsTable = ({
             <p className="text">{admin.email}</p>
           </td>
           <td className="admins-table__table__td">
-            <p className="text">
-              {}
-              {admin.phone ? `${admin.phonePrefix} ${admin.phone}` : "N/A"}
-            </p>
+            <p className="text">{admin.phone ? `{admin.phone}` : "N/A"}</p>
           </td>
           <TableIcon
             t={t}
@@ -209,7 +206,6 @@ AdminsTable.propTypes = {
       surname: PropTypes.string,
       email: PropTypes.string,
       phone: PropTypes.string,
-      phonePrefix: PropTypes.string,
       isActive: PropTypes.bool,
     })
   ),
