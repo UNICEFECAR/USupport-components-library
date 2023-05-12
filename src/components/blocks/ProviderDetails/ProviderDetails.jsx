@@ -102,7 +102,7 @@ export const ProviderDetails = ({
                   color="#66768D"
                   classes="provider-details__information-container-with-icon__icon"
                 />
-                <p className="paragraph">{`${provider.phonePrefix} ${provider.phone}`}</p>
+                <p className="paragraph">{provider.phone}</p>
               </div>
             )}
             {renderIn !== "client" && (
