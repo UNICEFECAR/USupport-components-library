@@ -43,7 +43,19 @@ export const ProviderDetails = ({
 
   const renderLanguages = useCallback(() => {
     if (provider) {
-      return provider.languages.map((x) => x.name)?.join(", ");
+      return provider.languages
+        .map((x) => {
+          return x.name === "English" ? x.name : `${x.name} (${x.local_name})`;
+        })
+        ?.map((x, i) => {
+          return (
+            <>
+              {x}
+              {i !== provider.languages?.length - 1 ? ", " : ""}
+              <br />
+            </>
+          );
+        });
     }
   }, [provider]);
 
