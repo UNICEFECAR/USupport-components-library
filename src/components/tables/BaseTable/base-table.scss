@@ -6,6 +6,18 @@
 
   & th {
     padding-right: $spacing_1_0;
+
+    & .icon {
+      margin-left: $spacing_0_4;
+      cursor: pointer;
+    }
+  }
+
+  &__heading-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
   }
 
   &__container {
@@ -13,6 +25,34 @@
     padding-top: $spacing_3_6;
     padding-bottom: $spacing_9_0;
     padding-right: $spacing_5_0;
+
+    &__search-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: $spacing_2_4;
+      padding-bottom: $spacing_2_4;
+
+      &__buttons-container {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: $spacing_2_0;
+
+        @media screen and (min-width: $screen-md) {
+          margin-top: 0;
+        }
+
+        & button:first-of-type {
+          margin-right: $spacing_1_0;
+        }
+      }
+
+      @media screen and (min-width: $screen-md) {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
   }
 
   &__body {
