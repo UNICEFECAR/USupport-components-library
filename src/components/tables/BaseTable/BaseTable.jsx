@@ -4,8 +4,11 @@ import OutsideClickHandler from "react-outside-click-handler";
 
 import { Loading } from "../../loaders";
 import { Icon } from "../../icons/Icon";
+import { InputSearch } from "../../inputs";
+import { Button } from "../../buttons";
 
 import "./base-table.scss";
+import { useCallback } from "react";
 
 /**
  * BaseTable
@@ -24,7 +27,14 @@ export const BaseTable = ({
   t,
   hasMenu = true,
   updateData,
+  hasSearch = false,
+  buttonLabel,
+  buttonAction,
+  secondaryButtonLabel,
+  secondaryButtonAction,
 }) => {
+  const [searchValue, setSearchValue] = useState("");
+
   const [sorting, setSorting] = useState(
     rows.map((row) => {
       return { value: row.sortingKey, sort: "asc" };
@@ -70,8 +80,94 @@ export const BaseTable = ({
     updateData(dataCopy);
   };
 
+  const filterDataBySearch = (rowIndex) => {
+    const row = data[rowIndex];
+    const searchVal = searchValue.toLowerCase();
+    let isMatching = false;
+    sorting.forEach(({ value }) => {
+      if (value && String(row[value]).toLowerCase().includes(searchVal)) {
+        isMatching = true;
+      }
+    });
+    return isMatching;
+  };
+
+  const renderItems = useCallback(() => {
+    const filteredData = rowsData?.filter((x, i) => {
+      if (searchValue && hasSearch) {
+        if (!filterDataBySearch(i)) {
+          return null;
+        }
+      }
+      return x;
+    });
+
+    // TODO: Add a no data message
+    // if (!filteredData?.length)
+    //   return (
+    //     <tr>
+    //       <td>No data</td>
+    //     </tr>
+    //   );
+
+    return filteredData.map((rowData, dataIndex) => {
+      return (
+        <tr key={"dataIndex" + dataIndex}>
+          {rowData?.map((dataItem, dataItemIndex) => {
+            if (searchValue && hasSearch) {
+              if (!filterDataBySearch(dataIndex)) {
+                return null;
+              }
+            }
+            return (
+              <React.Fragment key={"dataItem" + dataItemIndex}>
+                <td className="table__td">{dataItem}</td>
+                {hasMenu && dataItemIndex === rowData.length - 1 && (
+                  <TableIcon
+                    menuOptions={menuOptions}
+                    handleClickCallbackProp={
+                      data ? data[dataIndex][handleClickPropName] : null
+                    }
+                  />
+                )}
+              </React.Fragment>
+            );
+          })}
+        </tr>
+      );
+    });
+  }, [rowsData, searchValue]);
+
   return (
     <div className="table__container">
+      <div className="table__container__search-container">
+        {hasSearch && (
+          <InputSearch
+            placeholder={t("search")}
+            value={searchValue}
+            onChange={setSearchValue}
+            classes="campaigns__search"
+          />
+        )}
+        <div className="table__container__search-container__buttons-container">
+          {buttonLabel && (
+            <Button
+              label={buttonLabel}
+              color="purple"
+              type="secondary"
+              onClick={buttonAction}
+            />
+          )}
+          {secondaryButtonLabel && (
+            <Button
+              label={secondaryButtonLabel}
+              color="purple"
+              onClick={secondaryButtonAction}
+            />
+          )}
+        </div>
+      </div>
+
       {isLoading ? (
         <Loading />
       ) : !rowsData || rowsData.length === 0 ? (
@@ -101,29 +197,7 @@ export const BaseTable = ({
               })}
             </tr>
           </thead>
-          <tbody className="table__body">
-            {rowsData?.map((rowData, dataIndex) => {
-              return (
-                <tr key={"dataIndex" + dataIndex}>
-                  {rowData?.map((dataItem, dataItemIndex) => {
-                    return (
-                      <React.Fragment key={"dataItem" + dataItemIndex}>
-                        <td className="table__td">{dataItem}</td>
-                        {hasMenu && dataItemIndex === rowData.length - 1 && (
-                          <TableIcon
-                            menuOptions={menuOptions}
-                            handleClickCallbackProp={
-                              data ? data[dataIndex][handleClickPropName] : null
-                            }
-                          />
-                        )}
-                      </React.Fragment>
-                    );
-                  })}
-                </tr>
-              );
-            })}
-          </tbody>
+          <tbody className="table__body">{renderItems()}</tbody>
         </table>
       )}
     </div>
