@@ -14,7 +14,13 @@ import "./provider-details.scss";
  *
  * @return {jsx}
  */
-export const ProviderDetails = ({ provider, image, t, buttonComponent }) => {
+export const ProviderDetails = ({
+  provider,
+  image,
+  t,
+  buttonComponent,
+  renderIn,
+}) => {
   const currencySymbol = localStorage.getItem("currency_symbol");
 
   const allOptionsToString = (option) => {
@@ -88,24 +94,28 @@ export const ProviderDetails = ({ provider, image, t, buttonComponent }) => {
       <GridItem md={4} lg={8}>
         <Grid>
           <GridItem md={4} lg={6} classes="provider-details__grid__item">
-            <div className="provider-details__information-container-with-icon">
-              <Icon
-                name="call"
-                size="md"
-                color="#66768D"
-                classes="provider-details__information-container-with-icon__icon"
-              />
-              <p className="paragraph">{`${provider.phonePrefix} ${provider.phone}`}</p>
-            </div>
-            <div className="provider-details__information-container-with-icon">
-              <Icon
-                name="mail-admin"
-                size="md"
-                color="#66768D"
-                classes="provider-details__information-container-with-icon__icon"
-              />
-              <p className="paragraph">{provider.email}</p>
-            </div>
+            {renderIn !== "client" && (
+              <div className="provider-details__information-container-with-icon">
+                <Icon
+                  name="call"
+                  size="md"
+                  color="#66768D"
+                  classes="provider-details__information-container-with-icon__icon"
+                />
+                <p className="paragraph">{`${provider.phonePrefix} ${provider.phone}`}</p>
+              </div>
+            )}
+            {renderIn !== "client" && (
+              <div className="provider-details__information-container-with-icon">
+                <Icon
+                  name="mail-admin"
+                  size="md"
+                  color="#66768D"
+                  classes="provider-details__information-container-with-icon__icon"
+                />
+                <p className="paragraph">{provider.email}</p>
+              </div>
+            )}
             {provider.consultationPrice > 0 ? (
               <div className="provider-details__information-container-with-icon">
                 <Icon
