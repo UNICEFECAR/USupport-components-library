@@ -106,7 +106,7 @@ export const ProviderDetails = ({
       <GridItem md={4} lg={8}>
         <Grid>
           <GridItem md={4} lg={6} classes="provider-details__grid__item">
-            {renderIn !== "client" && (
+            {renderIn !== "client" && renderIn !== "website" && (
               <div className="provider-details__information-container-with-icon">
                 <Icon
                   name="call"
@@ -117,7 +117,7 @@ export const ProviderDetails = ({
                 <p className="paragraph">{provider.phone}</p>
               </div>
             )}
-            {renderIn !== "client" && (
+            {renderIn !== "client" && renderIn !== "website" && (
               <div className="provider-details__information-container-with-icon">
                 <Icon
                   name="mail-admin"
