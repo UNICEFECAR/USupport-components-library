@@ -87,7 +87,7 @@ export const InputGroup = ({
                 <Input
                   value={item.value}
                   onChange={(e) => handleChange(e.currentTarget.value, index)}
-                  label={`${label} ${index + 1}`}
+                  label={`${label} ${index + 1}${index === 0 ? " *" : ""}`}
                   placeholder={label}
                 />
                 {index + 1 === initialCount && initialCount > 1 && (

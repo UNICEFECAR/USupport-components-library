@@ -109,7 +109,7 @@ export const DropdownGroup = ({
                 className="dropdown-group__dropdowns-list__single"
               >
                 <DropdownWithLabel
-                  label={`${label} ${index + 1}`}
+                  label={`${label} ${index + 1}${index === 0 ? " *" : ""}`}
                   options={[...options].filter((x) => {
                     if (x.selected && x.selectedIndex !== index) {
                       return false;
