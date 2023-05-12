@@ -14,9 +14,15 @@ import "./input-phone.scss";
  *
  * @return {jsx}
  */
-export const InputPhone = ({ value, label, errorMessage, ...rest }) => {
+export const InputPhone = ({
+  value,
+  label,
+  errorMessage,
+  classes,
+  ...rest
+}) => {
   return (
-    <div className="phone-input-wrapper">
+    <div className={["phone-input-wrapper", classes].join(" ")}>
       {label ? <p className="text label">{label}</p> : null}
       <PhoneInput
         containerClass="input-phone-container"

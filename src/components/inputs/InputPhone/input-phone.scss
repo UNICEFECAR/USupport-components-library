@@ -51,6 +51,7 @@
 
   &__dropdown.country-list {
     width: 34.3rem;
+    border-radius: 2rem;
 
     @media screen and (min-width: $screen-lg) {
       width: 36.8rem;
