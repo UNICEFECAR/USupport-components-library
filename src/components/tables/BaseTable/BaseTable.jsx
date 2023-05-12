@@ -140,33 +140,37 @@ export const BaseTable = ({
 
   return (
     <div className="table__container">
-      <div className="table__container__search-container">
-        {hasSearch && (
-          <InputSearch
-            placeholder={t("search")}
-            value={searchValue}
-            onChange={setSearchValue}
-            classes="campaigns__search"
-          />
-        )}
-        <div className="table__container__search-container__buttons-container">
-          {buttonLabel && (
-            <Button
-              label={buttonLabel}
-              color="purple"
-              type="secondary"
-              onClick={buttonAction}
-            />
-          )}
-          {secondaryButtonLabel && (
-            <Button
-              label={secondaryButtonLabel}
-              color="purple"
-              onClick={secondaryButtonAction}
-            />
-          )}
-        </div>
-      </div>
+      {hasSearch ||
+        buttonLabel ||
+        (secondaryButtonLabel && (
+          <div className="table__container__search-container">
+            {hasSearch && (
+              <InputSearch
+                placeholder={t("search")}
+                value={searchValue}
+                onChange={setSearchValue}
+                classes="campaigns__search"
+              />
+            )}
+            <div className="table__container__search-container__buttons-container">
+              {buttonLabel && (
+                <Button
+                  label={buttonLabel}
+                  color="purple"
+                  type="secondary"
+                  onClick={buttonAction}
+                />
+              )}
+              {secondaryButtonLabel && (
+                <Button
+                  label={secondaryButtonLabel}
+                  color="purple"
+                  onClick={secondaryButtonAction}
+                />
+              )}
+            </div>
+          </div>
+        ))}
 
       {isLoading ? (
         <Loading />
