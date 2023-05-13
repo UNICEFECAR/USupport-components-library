@@ -317,8 +317,19 @@ async function getCampaignDataById(campaignId) {
   return response;
 }
 
-async function getAllProviders() {
-  const response = await http.get(`${API_ENDPOINT}/all-providers`);
+async function getAllProviders(pageParam, filters) {
+  let filetrsQuery = "";
+  if (filters) {
+    Object.keys(filters).forEach((key) => {
+      if (filters[key] || key === "free") {
+        filetrsQuery += `&${key}=${filters[key]}`;
+      }
+    });
+  }
+
+  const response = await http.get(
+    `${API_ENDPOINT}/all-providers?limit=${15}&offset=${pageParam}${filetrsQuery}`
+  );
   return response;
 }
 
