@@ -1,0 +1,82 @@
+@import "../../../styles/theme";
+
+.phone-input-wrapper {
+  width: 34.3rem;
+
+  @media screen and (min-width: $screen-lg) {
+    width: 36.8rem;
+  }
+
+  > .label {
+    text-align: left;
+    color: $color_blue_3d527b;
+    margin-bottom: $spacing_0_4;
+  }
+}
+
+.input-phone-container {
+  &__input.form-control {
+    background-color: $color_white_ff;
+    width: 100%;
+    box-shadow: $shadow_1;
+    border-radius: $border_radius_4_0;
+    border: 0.1rem solid transparent;
+    text-align: left;
+    padding-top: $spacing_1_3;
+    padding-bottom: $spacing_1_3;
+
+    &:before,
+    &:focus,
+    &:focus:before,
+    &:active {
+      border: 0.1rem solid $color_secondary_9749fa;
+      box-shadow: none;
+    }
+  }
+
+  &__input--error.form-control {
+    border: 0.1rem solid $color_red_eb5757 !important;
+  }
+
+  &__button .selected-flag,
+  .selected-flag.open {
+    &:before,
+    &:focus,
+    &:focus:before,
+    &:active {
+      border: none;
+      box-shadow: none;
+    }
+  }
+
+  &__dropdown.country-list {
+    width: 34.3rem;
+    border-radius: 2rem;
+
+    @media screen and (min-width: $screen-lg) {
+      width: 36.8rem;
+    }
+
+    & li.search {
+      padding-left: 0;
+    }
+
+    .search-box {
+      box-shadow: $shadow_1;
+      border-radius: $border_radius_4_0;
+      border: 0.1rem solid transparent;
+      width: 90%;
+      margin: 0 auto;
+      padding: $spacing_0_8;
+      padding-left: $spacing_1_2;
+
+      &:before,
+      &:focus,
+      &:focus:before,
+      &:active,
+      &:hover {
+        border: 0.1rem solid $color_secondary_9749fa;
+      }
+    }
+  }
+}

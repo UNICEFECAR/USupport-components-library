@@ -5,6 +5,7 @@
   padding: $spacing_1_4;
   max-height: 15rem;
   transition: all 0.5s ease-in-out;
+  cursor: pointer;
 
   &--open {
     max-height: 500rem;
