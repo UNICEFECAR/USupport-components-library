@@ -12,6 +12,18 @@
     width: 100%;
     padding-right: $spacing_3_0;
 
+    &__heading-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+
+      & .icon {
+        margin-left: $spacing_0_4;
+        cursor: pointer;
+      }
+    }
+
     &__td {
       border-bottom: 1px solid $color_gray_a6b4b8;
       padding-left: $spacing_1_4;

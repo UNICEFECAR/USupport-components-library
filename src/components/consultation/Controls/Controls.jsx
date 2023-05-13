@@ -23,6 +23,7 @@ export const Controls = ({
   isCameraOn,
   isMicrophoneOn,
   renderIn, // "client" or "provider"
+  isRoomConnecting,
   t,
 }) => {
   const [isMicOpen, setIsMicOpen] = useState(isMicrophoneOn);
@@ -35,6 +36,8 @@ export const Controls = ({
   const endDate = new Date(timestamp + ONE_HOUR);
 
   const handleMicClick = () => {
+    if (isRoomConnecting) return;
+
     const content = isMicOpen
       ? t(`${renderIn}_microphone_off`)
       : t(`${renderIn}_microphone_on`);
@@ -45,6 +48,8 @@ export const Controls = ({
   };
 
   const handleCameraClick = () => {
+    if (isRoomConnecting) return;
+
     const content = isCameraOpen
       ? t(`${renderIn}_camera_off`)
       : t(`${renderIn}_camera_on`);
@@ -70,7 +75,6 @@ export const Controls = ({
             name={!isCameraOpen ? "stop-camera" : "video"}
             size="lg"
             color="#20809E"
-            onClick={toggleCamera}
           />
         </div>
         <div className="button-container__button" onClick={handleMicClick}>
@@ -78,7 +82,6 @@ export const Controls = ({
             name={!isMicOpen ? "stop-mic" : "microphone"}
             size="lg"
             color="#20809E"
-            onClick={toggleMicrophone}
           />
         </div>
         <div className="button-container__button" onClick={handleChat}>
