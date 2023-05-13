@@ -3,6 +3,10 @@ import PropTypes from "prop-types";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/bootstrap.css";
 
+const PhoneInputComponent = PhoneInput.default
+  ? PhoneInput.default
+  : PhoneInput;
+
 import { Error } from "../../errors";
 
 import "./input-phone.scss";
@@ -24,7 +28,7 @@ export const InputPhone = ({
   return (
     <div className={["phone-input-wrapper", classes].join(" ")}>
       {label ? <p className="text label">{label}</p> : null}
-      <PhoneInput
+      <PhoneInputComponent
         containerClass="input-phone-container"
         inputClass={[
           "input-phone-container__input",
