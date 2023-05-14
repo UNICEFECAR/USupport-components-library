@@ -10,15 +10,15 @@
   margin-right: auto;
   padding: $spacing_0_4 $spacing_1_2;
 
-  & p {
-    color: $color_white_ff;
+  &__label {
+    color: $color_white_ff !important;
   }
 
   &--active {
     background-color: $color_green_7ec680;
 
     & p {
-      color: $color_white_ff;
+      color: $color_white_ff !important;
     }
   }
 

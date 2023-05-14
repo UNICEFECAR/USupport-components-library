@@ -13,7 +13,7 @@ import "./status-badge.scss";
 export const StatusBadge = ({ label, status }) => {
   return (
     <div className={`status-badge status-badge--${status}`}>
-      <p className="small-text">{label}</p>
+      <p className="small-text status-badge__label">{label}</p>
     </div>
   );
 };
