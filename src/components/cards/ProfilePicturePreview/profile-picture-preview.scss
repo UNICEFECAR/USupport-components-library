@@ -1,5 +1,14 @@
 @import "../../../styles/theme";
 
+.profile-picture-preview-wrapper {
+  display: flex;
+  width: 34.3rem;
+
+  @media screen and (min-width: $screen_md) {
+    width: 36.8rem;
+  }
+}
+
 .profile-picture-preview {
   width: 8rem;
   position: relative;
