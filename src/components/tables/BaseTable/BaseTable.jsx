@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
 import OutsideClickHandler from "react-outside-click-handler";
 
 import { Loading } from "../../loaders";
@@ -102,17 +101,21 @@ export const BaseTable = ({
       return x;
     });
 
-    // TODO: Add a no data message
-    // if (!filteredData?.length)
-    //   return (
-    //     <tr>
-    //       <td>No data</td>
-    //     </tr>
-    //   );
+    if (!filteredData?.length)
+      return (
+        <tr>
+          <td
+            className="table__body__no-data"
+            colSpan={rows.length + (hasMenu ? 1 : 0)}
+          >
+            {t("no_data_found")}
+          </td>
+        </tr>
+      );
 
     return filteredData.map((rowData, dataIndex) => {
       return (
-        <tr key={"dataIndex" + dataIndex}>
+        <tr className="table__body__tr" key={"dataIndex" + dataIndex}>
           {rowData?.map((dataItem, dataItemIndex) => {
             if (searchValue && hasSearch) {
               if (!filterDataBySearch(dataIndex)) {
@@ -124,6 +127,7 @@ export const BaseTable = ({
                 <td className="table__td">{dataItem}</td>
                 {hasMenu && dataItemIndex === rowData.length - 1 && (
                   <TableIcon
+                    index={dataIndex}
                     menuOptions={menuOptions}
                     handleClickCallbackProp={
                       data ? data[dataIndex][handleClickPropName] : null
@@ -175,70 +179,93 @@ export const BaseTable = ({
       ) : !rowsData || rowsData.length === 0 ? (
         <p>{t("no_data_found")}</p>
       ) : (
-        <table className="table">
-          <thead>
-            <tr>
-              {rows.map((row, index) => {
-                const rowSort = sorting.find(
-                  (x) => x.value === row.sortingKey
-                )?.sort;
-                return (
-                  <th key={"row" + index}>
-                    <div className="table__heading-container">
-                      {row.label}
-                      {row.sortingKey && (
-                        <Icon
-                          size="sm"
-                          name={rowSort === "asc" ? "sort-desc" : "sort-asc"}
-                          onClick={() => handleSort(row.sortingKey, rowSort)}
-                        />
-                      )}
-                    </div>
+        <div className="scrollable-table">
+          <table className="table">
+            <thead>
+              <tr className="table__heading">
+                {rows.map((row, index) => {
+                  const rowSort = sorting.find(
+                    (x) => x.value === row.sortingKey
+                  )?.sort;
+                  return (
+                    <th key={"row" + index}>
+                      <div
+                        className={`table__heading-container ${
+                          row.isCentered
+                            ? "table__heading-container--centered"
+                            : ""
+                        }`}
+                      >
+                        {row.label}
+                        {row.sortingKey && (
+                          <Icon
+                            size="sm"
+                            color="#eaeaea"
+                            name={rowSort === "asc" ? "sort-desc" : "sort-asc"}
+                            onClick={() => handleSort(row.sortingKey, rowSort)}
+                          />
+                        )}
+                      </div>
+                    </th>
+                  );
+                })}
+                {hasMenu && (
+                  <th>
+                    <div className="table__heading-container"></div>
                   </th>
-                );
-              })}
-            </tr>
-          </thead>
-          <tbody className="table__body">{renderItems()}</tbody>
-        </table>
+                )}
+              </tr>
+            </thead>
+            <tbody className="table__body">{renderItems()}</tbody>
+          </table>
+        </div>
       )}
     </div>
   );
 };
 
-const TableIcon = ({ menuOptions, handleClickCallbackProp }) => {
+const TableIcon = ({ menuOptions, handleClickCallbackProp, index }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
-    <td className="table-icon">
-      <div className="table-icon__content">
-        <Icon
-          size="md"
-          name="three-dots-vertical"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        />
-        <OutsideClickHandler onOutsideClick={() => setIsMenuOpen(false)}>
-          {isMenuOpen && (
-            <div className="table-icon__menu">
-              {menuOptions?.map((option, index) => {
-                return (
-                  <div
-                    key={"option" + index}
-                    className="table-icon__menu__option"
-                    onClick={() => option.handleClick(handleClickCallbackProp)}
-                  >
-                    <Icon
-                      color={option.iconColor || "#20809E"}
-                      name={option.icon}
-                    />
-                    <p>{option.text}</p>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </OutsideClickHandler>
-      </div>
-    </td>
+    <React.Fragment>
+      <td
+        className={`table__td table-icon ${
+          (index + 1) % 2 === 0 ? "table-icon--even" : ""
+        }`}
+      >
+        <div className="table-icon__content">
+          <Icon
+            size="md"
+            name="three-dots-vertical"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            classes={
+              index + (1 % 2) === 0 ? "table-icon__content__icon--even" : ""
+            }
+          />
+        </div>
+      </td>
+      <OutsideClickHandler onOutsideClick={() => setIsMenuOpen(false)}>
+        {isMenuOpen && (
+          <div className="table-icon__menu">
+            {menuOptions?.map((option, index) => {
+              return (
+                <div
+                  key={"option" + index}
+                  className="table-icon__menu__option"
+                  onClick={() => option.handleClick(handleClickCallbackProp)}
+                >
+                  <Icon
+                    color={option.iconColor || "#20809E"}
+                    name={option.icon}
+                  />
+                  <p>{option.text}</p>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </OutsideClickHandler>
+    </React.Fragment>
   );
 };
 
