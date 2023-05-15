@@ -117,11 +117,6 @@ export const BaseTable = ({
       return (
         <tr className="table__body__tr" key={"dataIndex" + dataIndex}>
           {rowData?.map((dataItem, dataItemIndex) => {
-            if (searchValue && hasSearch) {
-              if (!filterDataBySearch(dataIndex)) {
-                return null;
-              }
-            }
             return (
               <React.Fragment key={"dataItem" + dataItemIndex}>
                 <td className="table__td">{dataItem}</td>
