@@ -91,6 +91,7 @@ export const IdleTimer = ({ setLoggedIn, t }) => {
       heading={t("heading")}
       text={t("text", { seconds: timeToLogout })}
       overlayClasses="idle-timer"
+      hasCloseIcon={false}
     />
   );
 };
