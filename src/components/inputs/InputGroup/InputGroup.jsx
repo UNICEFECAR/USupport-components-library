@@ -90,7 +90,7 @@ export const InputGroup = ({
                   label={`${label} ${index + 1}${index === 0 ? " *" : ""}`}
                   placeholder={label}
                 />
-                {index + 1 === initialCount && initialCount > 1 && (
+                {index !== 0 && (
                   <ButtonWithIcon
                     color="red"
                     classes="input-group__inputs-list__single__remove-button"
