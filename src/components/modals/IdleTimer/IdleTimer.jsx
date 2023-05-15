@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import PropTypes from "prop-types";
 import { useIdleTimer } from "react-idle-timer";
 import { Modal } from "../Modal";
 import { FIVE_MINUTES } from "../../../utils";
@@ -18,29 +17,21 @@ const promptBeforeIdle = 4_000;
  *
  * @return {jsx}
  */
-export const IdleTimer = ({ setLoggedIn }) => {
-  const [state, setState] = useState("Active");
+export const IdleTimer = ({ setLoggedIn, t }) => {
   const [remaining, setRemaining] = useState(timeout);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
   const onIdle = () => {
-    setState("Idle");
     setOpen(true);
   };
 
-  const onActive = () => {
-    setState("Active");
-  };
-
   const onPrompt = () => {
-    setState("Prompted");
     setOpen(true);
   };
 
   const { getRemainingTime, activate } = useIdleTimer({
     onIdle,
-    onActive,
     onPrompt,
     timeout,
     throttle: 500,
@@ -108,21 +99,19 @@ export const IdleTimer = ({ setLoggedIn }) => {
 
   const handleCloseModal = () => {
     setOpen(false);
-    onActive();
     handleStillHere();
   };
 
   const timeTillPrompt = Math.max(remaining - promptBeforeIdle / 1000, 0);
-  const seconds = timeTillPrompt > 1 ? "seconds" : "second";
 
   return (
     <Modal
       isOpen={open}
-      ctaLabel="Still Here"
+      ctaLabel={t("cta")}
       ctaHandleClick={handleCloseModal}
       closeModal={handleCloseModal}
-      heading="Are you still there?"
-      text={`You will be logged out in ${timeToLogout} seconds`}
+      heading={t("heading")}
+      text={t("text", { seconds: timeToLogout })}
     />
   );
 };
