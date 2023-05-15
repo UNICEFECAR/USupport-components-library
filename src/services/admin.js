@@ -34,6 +34,7 @@ async function login(email, password, role, otp) {
     role,
     otp,
   });
+  window.dispatchEvent(new Event("login"));
   return response;
 }
 
@@ -41,6 +42,7 @@ function logout() {
   localStorage.removeItem("token");
   localStorage.removeItem("token-expires-in");
   localStorage.removeItem("refresh-token");
+  window.dispatchEvent(new Event("logout"));
 }
 
 async function refreshToken(refreshToken) {
