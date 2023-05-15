@@ -5,8 +5,8 @@ import { FIVE_MINUTES } from "../../../utils";
 
 import "./idle-timer.scss";
 
-// const timeout = FIVE_MINUTES * 4;
-const timeout = 10_000;
+const timeout = FIVE_MINUTES * 4;
+// const timeout = 10_000;
 
 /**
  * IdleTimer
