@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 
 // const timeout = FIVE_MINUTES * 4;
 const timeout = 10_000;
-const promptBeforeIdle = 4_000;
 
 /**
  * IdleTimer
@@ -18,7 +17,6 @@ const promptBeforeIdle = 4_000;
  * @return {jsx}
  */
 export const IdleTimer = ({ setLoggedIn, t }) => {
-  const [remaining, setRemaining] = useState(timeout);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -30,26 +28,12 @@ export const IdleTimer = ({ setLoggedIn, t }) => {
     setOpen(true);
   };
 
-  const { getRemainingTime, activate } = useIdleTimer({
+  const { activate } = useIdleTimer({
     onIdle,
     onPrompt,
     timeout,
     throttle: 500,
   });
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setRemaining(Math.ceil(getRemainingTime() / 1000));
-    }, 500);
-
-    return () => {
-      clearInterval(interval);
-    };
-  });
-
-  const handleStillHere = () => {
-    activate();
-  };
 
   const timeoutRef = useRef();
   const handleLogout = () => {
@@ -97,29 +81,20 @@ export const IdleTimer = ({ setLoggedIn, t }) => {
     }
   }, [timeToLogout]);
 
-  const handleCloseModal = () => {
+  const handleStillHere = () => {
+    activate();
+    setTimeToLogout(20);
     setOpen(false);
-    handleStillHere();
   };
-
-  const timeTillPrompt = Math.max(remaining - promptBeforeIdle / 1000, 0);
 
   return (
     <Modal
       isOpen={open}
       ctaLabel={t("cta")}
-      ctaHandleClick={handleCloseModal}
-      closeModal={handleCloseModal}
+      ctaHandleClick={handleStillHere}
       heading={t("heading")}
       text={t("text", { seconds: timeToLogout })}
+      overlayClasses="idle-timer"
     />
   );
-};
-
-IdleTimer.propTypes = {
-  // Add propTypes here
-};
-
-IdleTimer.defaultProps = {
-  // Add defaultProps here
 };
