@@ -38,13 +38,17 @@ export const Modal = ({
   children,
   errorMessage,
   reference,
+  overlayClasses,
 }) => {
   const hasButtons = ctaLabel || secondaryCtaLabel;
   return (
     <ModalPackage
       isOpen={isOpen}
       onRequestClose={closeModal}
-      overlayClassName="base-modal__overlay"
+      overlayClassName={[
+        "base-modal__overlay",
+        classNames(overlayClasses),
+      ].join(" ")}
       className={["base-modal", classNames(classes)].join(" ")}
       bodyOpenClassName="base-modal--open"
       contentLabel="Base Modal"
