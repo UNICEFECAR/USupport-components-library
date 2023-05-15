@@ -6,8 +6,8 @@ import { FIVE_MINUTES } from "../../../utils";
 import "./idle-timer.scss";
 import { useNavigate } from "react-router-dom";
 
-// const timeout = FIVE_MINUTES * 4;
-const timeout = 10_000;
+const timeout = FIVE_MINUTES * 4;
+// const timeout = 10_000;
 
 /**
  * IdleTimer
