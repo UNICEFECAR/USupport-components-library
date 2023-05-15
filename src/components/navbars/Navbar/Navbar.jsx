@@ -321,7 +321,6 @@ export const Navbar = ({
         handleCountryClick(option);
       }
     };
-
     return (
       <div className="nav__dropdown-content">
         {data.map((option) => {
@@ -344,7 +343,9 @@ export const Navbar = ({
                     : ""
                 }`}
               >
-                {option.label}
+                {`${option.label} ${
+                  option.label !== "English" ? `(${option.localName})` : ""
+                }`}
               </p>
             </div>
           );
