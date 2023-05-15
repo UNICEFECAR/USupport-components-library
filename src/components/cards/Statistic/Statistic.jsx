@@ -52,7 +52,7 @@ Statistic.propTypes = {
   /**
    * Text to be displayed in bold
    */
-  textBold: PropTypes.string,
+  textBold: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
   /**
    * Text to display

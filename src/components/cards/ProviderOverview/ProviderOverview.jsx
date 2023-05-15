@@ -5,6 +5,7 @@ import OutsideClickHandler from "react-outside-click-handler";
 import { Box } from "../../boxes/Box/Box";
 import { Avatar } from "../../avatars/Avatar/Avatar";
 import { Icon } from "../../icons/Icon/Icon";
+import { StatusBadge } from "../StatusBadge";
 
 import "./provider-overview.scss";
 
@@ -86,11 +87,7 @@ export const ProviderOverview = ({
             {specializations?.join(", ")}
           </p>
           {providerStatus && (
-            <div
-              className={`provider-overview__status provider-overview__status--${providerStatus}`}
-            >
-              <p className="small-text">{t(providerStatus)}</p>
-            </div>
+            <StatusBadge status={providerStatus} label={t(providerStatus)} />
           )}
         </div>
         <div>

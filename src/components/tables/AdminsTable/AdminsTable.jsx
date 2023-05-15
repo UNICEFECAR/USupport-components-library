@@ -194,7 +194,12 @@ AdminsTable.propTypes = {
   /**
    * Array of strings to be used as table headers
    */
-  rows: PropTypes.arrayOf(PropTypes.string).isRequired,
+  rows: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string,
+      sortingKey: PropTypes.string,
+    })
+  ).isRequired,
 
   /**
    * Array of admins
