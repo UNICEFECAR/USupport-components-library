@@ -229,7 +229,7 @@
   }
 
   &__languages {
-    width: 16rem;
+    // width: 16rem;
 
     &--global-admin {
       top: 23rem;
@@ -258,7 +258,7 @@
       right: 7rem;
 
       &--no-profile {
-        right: 9rem;
+        right: 17rem;
       }
     }
 
@@ -285,7 +285,7 @@
 
   &__countries {
     @media screen and (min-width: $navbar-spread) {
-      right: 13rem;
+      right: 10rem;
     }
   }
 
@@ -337,7 +337,7 @@
       align-items: center;
       cursor: pointer;
       display: flex;
-      justify-content: center;
+      justify-content: start;
 
       &-label--selected {
         font-weight: $font_bold;

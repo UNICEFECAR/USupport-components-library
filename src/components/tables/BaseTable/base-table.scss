@@ -1,11 +1,22 @@
 @import "../../../styles/theme";
 
+.scrollable-table {
+  width: 100%;
+  overflow: scroll;
+}
+
 .table {
   min-width: 100rem;
   width: 100%;
 
   & th {
     padding-right: $spacing_1_0;
+    right: 0;
+
+    &:last-of-type {
+      position: sticky;
+      background-color: $color_gray_66768d;
+    }
 
     & .icon {
       margin-left: $spacing_0_4;
@@ -13,18 +24,26 @@
     }
   }
 
-  &__heading-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+  &__heading {
+    background-color: $color_gray_66768d;
+    color: $color_gray_ea;
+
+    &-container {
+      padding: 10px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+
+      &--centered {
+        justify-content: center;
+      }
+    }
   }
 
   &__container {
-    overflow-x: auto;
     padding-top: $spacing_3_6;
     padding-bottom: $spacing_9_0;
-    padding-right: $spacing_5_0;
 
     &__search-container {
       display: flex;
@@ -59,6 +78,18 @@
     & p {
       color: $color_blue_3d527b;
     }
+
+    &__tr {
+      position: relative;
+    }
+
+    & tr:nth-child(even) {
+      background-color: $color_gray_ea;
+    }
+
+    &__no-data {
+      padding-top: $spacing_2_4;
+    }
   }
 
   &__td {
@@ -67,17 +98,34 @@
     padding-right: $spacing_1_4;
     padding-bottom: $spacing_1_8;
     padding-top: $spacing_1_4;
+
+    &:last-child {
+      position: sticky;
+      right: 0;
+    }
+
+    & p {
+      text-align: left;
+
+      &.centered {
+        text-align: center;
+      }
+    }
   }
 
   &-icon {
     background-color: $color_white_ff;
-    border-bottom: unset;
+    // border-bottom: unset;
     cursor: pointer;
     margin-top: $spacing_1_0;
     padding: $spacing_1_2;
-    position: fixed;
-    right: -$spacing_1_6;
-    z-index: 999;
+    position: sticky;
+    right: 0;
+    // z-index: 999;
+
+    &--even {
+      background-color: $color_gray_ea;
+    }
 
     &__content {
       position: relative;
@@ -90,6 +138,8 @@
       background-color: $color_white_ff;
       box-shadow: $shadow_1;
       padding: $spacing_1_8;
+      margin-top: $spacing_5_0;
+      z-index: $z_index_emergency_button;
 
       &__option {
         align-items: center;
