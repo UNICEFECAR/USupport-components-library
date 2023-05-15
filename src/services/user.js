@@ -94,7 +94,6 @@ async function login({
   const response = await http.post(`${API_ENDPOINT}/login`, payload, {
     headers,
   });
-  window.dispatchEvent(new Event("login"));
   return response;
 }
 
