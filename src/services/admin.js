@@ -34,7 +34,6 @@ async function login(email, password, role, otp) {
     role,
     otp,
   });
-  window.dispatchEvent(new Event("login"));
   return response;
 }
 
