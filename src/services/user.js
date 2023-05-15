@@ -13,12 +13,13 @@ function logout() {
   localStorage.removeItem("token");
   localStorage.removeItem("token-expires-in");
   localStorage.removeItem("refresh-token");
+  window.dispatchEvent(new Event("logout"));
 }
 
 /**
  *
  * @param {string} userType the type of user - either "client" or "provider"
- * @param {string} countryId the id of the country
+ * @param {string} countryId the 0id of the country
  * @param {string} password the password of the user
  * @param {string} clientData the data of the client
  * @param {string} providerData the data of the provider
