@@ -14,7 +14,7 @@ import "./notification.scss";
  * @return {jsx}
  */
 export const Notification = ({
-  icon,
+  icon = "calendar",
   title,
   text,
   isRead,
@@ -78,7 +78,7 @@ Notification.propTypes = {
   /**
    *  Text
    **/
-  text: PropTypes.string,
+  text: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
   /**
    * Read status

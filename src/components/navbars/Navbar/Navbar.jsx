@@ -321,7 +321,6 @@ export const Navbar = ({
         handleCountryClick(option);
       }
     };
-
     return (
       <div className="nav__dropdown-content">
         {data.map((option) => {
@@ -344,7 +343,9 @@ export const Navbar = ({
                     : ""
                 }`}
               >
-                {option.label}
+                {`${option.label} ${
+                  option.label !== "English" ? `(${option.localName})` : ""
+                }`}
               </p>
             </div>
           );
@@ -421,7 +422,11 @@ export const Navbar = ({
           ${languagesShown ? "nav__languages--shown" : ""}
           ${countriesShown ? "nav__countries--shown" : ""}
           ${
-            (languagesShown && !showProfilePicture) || renderIn === "website"
+            (languagesShown &&
+              !showProfilePicture &&
+              renderIn !== "country-admin" &&
+              renderIn !== "admin-global") ||
+            renderIn === "website"
               ? "nav__languages--no-profile"
               : ""
           }
@@ -475,8 +480,8 @@ Navbar.propTypes = {
    *  */
   countries: PropTypes.arrayOf(
     PropTypes.shape({
-      value: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired,
+      value: PropTypes.string,
+      label: PropTypes.string,
     })
   ),
 

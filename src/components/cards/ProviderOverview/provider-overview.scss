@@ -66,23 +66,6 @@
     word-break: break-word;
   }
 
-  &__status {
-    border-radius: $spacing_1_2;
-    color: $color_white_ff;
-    margin-top: $spacing_0_4;
-    margin-right: auto;
-    padding: $spacing_0_4 $spacing_1_2;
-
-    &--active {
-      background-color: $color_green_7ec680;
-      color: $color_white_ff;
-    }
-
-    &--inactive {
-      background-color: $color_red_eb5757;
-    }
-  }
-
   &__menu {
     position: absolute;
     background-color: $color_white_ff;
