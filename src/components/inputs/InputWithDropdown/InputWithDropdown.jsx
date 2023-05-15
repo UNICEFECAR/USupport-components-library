@@ -54,17 +54,18 @@ export const InputWithDropdown = ({
 
   const handleSelectTag = (option) => {
     const copySelectedOptions = [...selectedOptions];
-    if (
-      !copySelectedOptions.find((item) => {
-        item.id === option.id;
-      })
-    )
+    const exists = selectedOptions.find((item) => {
+      return item.id === option.id;
+    });
+
+    if (!exists) {
       copySelectedOptions.push(option);
 
-    setSelectedOptions(copySelectedOptions);
-    setOptions([...initialOptions]);
-    setData("");
-    setIsActive(false);
+      setSelectedOptions(copySelectedOptions);
+      setOptions([...initialOptions]);
+      setData("");
+      setIsActive(false);
+    }
   };
 
   const handleRemoveSelectedTag = (option) => {
