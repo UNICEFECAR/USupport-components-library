@@ -68,6 +68,7 @@
 
     &__icon {
       margin-left: $spacing_1_2;
+      cursor: pointer;
     }
   }
 
@@ -77,6 +78,7 @@
 
     &--selected {
       color: $color_primary_20809e;
+      cursor: unset;
     }
   }
 }
