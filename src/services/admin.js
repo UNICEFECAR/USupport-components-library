@@ -41,6 +41,7 @@ function logout() {
   localStorage.removeItem("token");
   localStorage.removeItem("token-expires-in");
   localStorage.removeItem("refresh-token");
+  window.dispatchEvent(new Event("logout"));
 }
 
 async function refreshToken(refreshToken) {
@@ -367,6 +368,11 @@ async function getQuestions(type) {
   return response;
 }
 
+async function changePassword(payload) {
+  const response = await http.patch(`${API_ENDPOINT}/password`, payload);
+  return response;
+}
+
 const exportedFunctions = {
   createAdmin,
   deleteArticle,
@@ -412,6 +418,7 @@ const exportedFunctions = {
   activateQuestion,
   deleteQuestion,
   getQuestions,
+  changePassword,
 };
 
 export default exportedFunctions;

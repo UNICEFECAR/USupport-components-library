@@ -1,0 +1,64 @@
+@import "../../../styles/theme";
+
+.select-container {
+  width: 34.3rem;
+
+  @media screen and (min-width: $screen-lg) {
+    width: 36.8rem;
+  }
+
+  &__label {
+    color: $color_blue_3d527b;
+    text-align: left;
+    margin-bottom: $spacing_0_4;
+  }
+
+  & .select {
+    &__control {
+      border-radius: 3rem;
+      box-shadow: $shadow_1;
+      border: 0.1rem solid transparent;
+      text-align: left;
+      padding: $spacing_0_4 $spacing_0_2;
+      color: $color_gray_a6b4b8;
+      overflow: hidden;
+
+      &--is-focused {
+        border: 0.1rem solid $color_secondary_9749fa;
+      }
+
+      &:hover {
+        border: 0.1rem solid $color_secondary_9749fa;
+      }
+    }
+
+    &__placeholder {
+      color: $color_gray_a6b4b8;
+      padding-left: $spacing_0_2;
+    }
+
+    &__menu {
+      border-radius: 1.6rem;
+      overflow: hidden;
+      border: 0;
+      box-shadow: $shadow_2;
+    }
+
+    &__menu-list {
+      @include scrollbar-secondary;
+    }
+
+    &__multi-value {
+      border-radius: 2rem;
+      background-color: $color_white_ff;
+      box-shadow: $shadow_2;
+      overflow: hidden;
+    }
+
+    &__option {
+      &:hover {
+        background-color: $color_purple_dac3f6;
+      }
+    }
+  }
+}
