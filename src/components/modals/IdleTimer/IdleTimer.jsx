@@ -37,7 +37,6 @@ export const IdleTimer = ({ setLoggedIn, t }) => {
 
   const timeoutRef = useRef();
   const handleLogout = () => {
-    console.log("handleLogout");
     timeoutRef.current = null;
     localStorage.removeItem("token");
     localStorage.removeItem("refresh-token");
@@ -51,14 +50,12 @@ export const IdleTimer = ({ setLoggedIn, t }) => {
   useEffect(() => {
     if (open) {
       timeoutRef.current = setInterval(() => {
-        console.log("here");
         setTimeToLogout((prev) => {
           return prev - 1;
         });
       }, 1000);
     } else {
       if (timeoutRef.current) {
-        console.log("clear timeout", timeoutRef.current);
         clearInterval(timeoutRef.current);
         timeoutRef.current = null;
       }
@@ -74,7 +71,6 @@ export const IdleTimer = ({ setLoggedIn, t }) => {
 
   useEffect(() => {
     if (timeToLogout === -1) {
-      console.log("clear interval");
       clearInterval(timeoutRef.current);
       handleLogout();
       setOpen(false);
