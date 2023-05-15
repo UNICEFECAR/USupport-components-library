@@ -18,7 +18,7 @@ import "./modal.scss";
  */
 export const Modal = ({
   isOpen,
-  closeModal,
+  closeModal = () => {},
   classes,
   heading,
   text,
@@ -35,6 +35,7 @@ export const Modal = ({
   isSecondaryCtaLoading,
   isSecondaryCtaDisabled,
   showLoadingIfDisabled = false,
+  hasCloseIcon = true,
   children,
   errorMessage,
   reference,
@@ -56,9 +57,11 @@ export const Modal = ({
     >
       <div className="base-modal__header">
         <h4 className="base-modal__header__text">{heading}</h4>
-        <div className="base-modal__header__icon-container">
-          <Icon name="close-x" size="md" onClick={closeModal} />
-        </div>
+        {hasCloseIcon && (
+          <div className="base-modal__header__icon-container">
+            <Icon name="close-x" size="md" onClick={closeModal} />
+          </div>
+        )}
       </div>
       {text && <p className="text base-modal__text">{text}</p>}
       <div
