@@ -4,10 +4,9 @@ import { Modal } from "../Modal";
 import { FIVE_MINUTES } from "../../../utils";
 
 import "./idle-timer.scss";
-import { useNavigate } from "react-router-dom";
 
-const timeout = FIVE_MINUTES * 4;
-// const timeout = 10_000;
+// const timeout = FIVE_MINUTES * 4;
+const timeout = 10_000;
 
 /**
  * IdleTimer
@@ -16,9 +15,8 @@ const timeout = FIVE_MINUTES * 4;
  *
  * @return {jsx}
  */
-export const IdleTimer = ({ setLoggedIn, t }) => {
+export const IdleTimer = ({ setLoggedIn, t, NavigateComponent }) => {
   const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
 
   const onIdle = () => {
     setOpen(true);
@@ -35,6 +33,8 @@ export const IdleTimer = ({ setLoggedIn, t }) => {
     throttle: 500,
   });
 
+  const [returnNavigate, setReturnNavigate] = useState(false);
+
   const timeoutRef = useRef();
   const handleLogout = () => {
     timeoutRef.current = null;
@@ -42,7 +42,8 @@ export const IdleTimer = ({ setLoggedIn, t }) => {
     localStorage.removeItem("refresh-token");
     localStorage.removeItem("token-expires-in");
     setLoggedIn(false);
-    navigate("/");
+    setReturnNavigate(true);
+    // navigate("/");
   };
 
   const [timeToLogout, setTimeToLogout] = useState(20);
@@ -82,6 +83,8 @@ export const IdleTimer = ({ setLoggedIn, t }) => {
     setTimeToLogout(20);
     setOpen(false);
   };
+
+  if (returnNavigate) return <NavigateComponent />;
 
   return (
     <Modal
