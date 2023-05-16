@@ -27,7 +27,7 @@ export const Select = ({
 
   useEffect(() => {
     setSelectedOptions(options.filter((option) => option.selected));
-  }, []);
+  }, [options]);
 
   const handleSelect = (data) => {
     const values = data.map((option) => option.value);
@@ -44,6 +44,8 @@ export const Select = ({
       })
     );
   };
+
+  // console.log(options);
 
   return (
     <div className={classes} style={{ marginTop: "24px" }}>
