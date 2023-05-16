@@ -36,14 +36,14 @@ export const BaseTable = ({
 
   const [sorting, setSorting] = useState(
     rows.map((row) => {
-      return { value: row.sortingKey, sort: "asc" };
+      return { sortingKey: row.sortingKey, sort: "asc" };
     })
   );
 
   useEffect(() => {
     setSorting(
       rows.map((row) => {
-        return { value: row.sortingKey, sort: "asc" };
+        return { sortingKey: row.sortingKey, sort: "asc" };
       })
     );
   }, [rows]);
@@ -51,7 +51,7 @@ export const BaseTable = ({
   const handleSort = (key, sort) => {
     // Update the sorting icon
     const sortingData = [...sorting];
-    const current = sorting.find((x) => x.value === key);
+    const current = sorting.find((x) => x.sortingKey === key);
     sortingData[sortingData.indexOf(current)].sort =
       sort === "asc" ? "desc" : "asc";
     setSorting(sortingData);
@@ -64,13 +64,24 @@ export const BaseTable = ({
     dataCopy = dataCopy.sort((a, b) => {
       let first = a[key];
       let second = b[key];
+      const isAsc = sort === "asc";
+
+      if (!first) {
+        return isAsc ? 1 : -1;
+      }
+      if (!second) {
+        return isAsc ? -1 : 1;
+      }
+
+      if (first === second) return 0;
+
       if (isDateSort) {
         first = first.getTime();
         second = second.getTime();
       }
       if (!isNumberSort && !isDateSort) {
-        if (sort === "asc") return first.localeCompare(second);
-        return second.localeCompare(first);
+        if (sort === "asc") return String(first).localeCompare(String(second));
+        return String(second).localeCompare(String(first));
       } else {
         if (sort === "asc") return first - second;
         return second - first;
@@ -83,8 +94,11 @@ export const BaseTable = ({
     const row = data[rowIndex];
     const searchVal = searchValue.toLowerCase();
     let isMatching = false;
-    sorting.forEach(({ value }) => {
-      if (value && String(row[value]).toLowerCase().includes(searchVal)) {
+    sorting.forEach(({ sortingKey }) => {
+      if (
+        sortingKey &&
+        String(row[sortingKey]).toLowerCase().includes(searchVal)
+      ) {
         isMatching = true;
       }
     });
@@ -180,7 +194,7 @@ export const BaseTable = ({
               <tr className="table__heading">
                 {rows.map((row, index) => {
                   const rowSort = sorting.find(
-                    (x) => x.value === row.sortingKey
+                    (x) => x.sortingKey === row.sortingKey
                   )?.sort;
                   return (
                     <th key={"row" + index}>
