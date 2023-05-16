@@ -21,6 +21,7 @@ export const InputGroup = ({
   label,
   handleParentChange,
   addMoreText,
+  removeText,
   errorMessage,
 }) => {
   const [initialCount, setInitialCount] = useState(1);
@@ -97,7 +98,7 @@ export const InputGroup = ({
                     iconColor="#eb5757"
                     iconName="trash"
                     iconSize="lg"
-                    label="Remove"
+                    label={removeText}
                     type="ghost"
                     onClick={() => handleRemove(index)}
                   />

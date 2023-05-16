@@ -138,7 +138,7 @@ export const ProviderDetails = ({
                 />
                 <p className="paragraph">
                   {provider.consultationPrice}
-                  {currencySymbol} for 1 hour consultation
+                  {currencySymbol} {t("hour_consultation")}
                 </p>
               </div>
             ) : null}
