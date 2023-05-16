@@ -23,18 +23,22 @@ export const Select = ({
   classes,
   ...rest
 }) => {
+  const [selectedOptions, setSelectedOptions] = useState(null);
+
   useEffect(() => {
     setSelectedOptions(options.filter((option) => option.selected));
   }, []);
 
-  const [selectedOptions, setSelectedOptions] = useState(null);
-
   const handleSelect = (data) => {
+    const values = data.map((option) => option.value);
+
     setSelectedOptions(data);
     handleChange(
       options.map((option) => {
-        if (data.includes(option)) {
+        if (values.includes(option.value)) {
           option.selected = true;
+        } else {
+          option.selected = false;
         }
         return option;
       })
