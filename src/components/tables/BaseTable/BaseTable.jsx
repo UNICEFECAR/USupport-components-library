@@ -34,11 +34,7 @@ export const BaseTable = ({
 }) => {
   const [searchValue, setSearchValue] = useState("");
 
-  const [sorting, setSorting] = useState(
-    rows.map((row) => {
-      return { sortingKey: row.sortingKey, sort: "asc" };
-    })
-  );
+  const [sorting, setSorting] = useState();
 
   useEffect(() => {
     setSorting(
@@ -66,10 +62,10 @@ export const BaseTable = ({
       let second = b[key];
       const isAsc = sort === "asc";
 
-      if (!first) {
+      if ((!first !== typeof first) !== "number") {
         return isAsc ? 1 : -1;
       }
-      if (!second) {
+      if ((!second !== typeof second) !== "number") {
         return isAsc ? -1 : 1;
       }
 
@@ -192,32 +188,37 @@ export const BaseTable = ({
           <table className="table">
             <thead>
               <tr className="table__heading">
-                {rows.map((row, index) => {
-                  const rowSort = sorting.find(
-                    (x) => x.sortingKey === row.sortingKey
-                  )?.sort;
-                  return (
-                    <th key={"row" + index}>
-                      <div
-                        className={`table__heading-container ${
-                          row.isCentered
-                            ? "table__heading-container--centered"
-                            : ""
-                        }`}
-                      >
-                        {row.label}
-                        {row.sortingKey && (
-                          <Icon
-                            size="sm"
-                            color="#eaeaea"
-                            name={rowSort === "asc" ? "sort-desc" : "sort-asc"}
-                            onClick={() => handleSort(row.sortingKey, rowSort)}
-                          />
-                        )}
-                      </div>
-                    </th>
-                  );
-                })}
+                {sorting &&
+                  rows.map((row, index) => {
+                    const rowSort = sorting.find(
+                      (x) => x.sortingKey === row.sortingKey
+                    )?.sort;
+                    return (
+                      <th key={"row" + index}>
+                        <div
+                          className={`table__heading-container ${
+                            row.isCentered
+                              ? "table__heading-container--centered"
+                              : ""
+                          }`}
+                        >
+                          {row.label}
+                          {row.sortingKey && (
+                            <Icon
+                              size="sm"
+                              color="#eaeaea"
+                              name={
+                                rowSort === "asc" ? "sort-desc" : "sort-asc"
+                              }
+                              onClick={() =>
+                                handleSort(row.sortingKey, rowSort)
+                              }
+                            />
+                          )}
+                        </div>
+                      </th>
+                    );
+                  })}
                 {hasMenu && (
                   <th>
                     <div className="table__heading-container"></div>
