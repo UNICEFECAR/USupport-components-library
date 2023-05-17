@@ -62,10 +62,10 @@ export const BaseTable = ({
       let second = b[key];
       const isAsc = sort === "asc";
 
-      if ((!first !== typeof first) !== "number") {
+      if (!first && typeof first !== "number") {
         return isAsc ? 1 : -1;
       }
-      if ((!second !== typeof second) !== "number") {
+      if (!second && typeof second !== "number") {
         return isAsc ? -1 : 1;
       }
 
