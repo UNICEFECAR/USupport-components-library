@@ -69,6 +69,12 @@
     &__avatar {
       margin: 0 $spacing_0_4;
     }
+    
+    &--client{
+       & img {
+        cursor: pointer;
+       }
+    }
   }
 
   &__schedule-button {
