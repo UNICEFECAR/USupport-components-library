@@ -30,6 +30,7 @@
 
     > .label-component {
       margin: $spacing_0_2;
+      background-color: $color_gray_ea;
     }
   }
 
@@ -69,11 +70,11 @@
     &__avatar {
       margin: 0 $spacing_0_4;
     }
-    
-    &--client{
-       & img {
+
+    &--client {
+      & img {
         cursor: pointer;
-       }
+      }
     }
   }
 
