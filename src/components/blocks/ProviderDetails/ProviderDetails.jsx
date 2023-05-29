@@ -49,11 +49,11 @@ export const ProviderDetails = ({
         })
         ?.map((x, i) => {
           return (
-            <>
+            <React.Fragment key={i}>
               {x}
               {i !== provider.languages?.length - 1 ? ", " : ""}
               <br />
-            </>
+            </React.Fragment>
           );
         });
     }

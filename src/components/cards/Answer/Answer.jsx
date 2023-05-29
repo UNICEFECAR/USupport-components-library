@@ -28,7 +28,8 @@ export const Answer = ({
   handleReadMore = () => {},
   handleScheduleConsultationClick = () => {},
   handleRespond = () => {},
-  handleArchive = () => {},
+  handleArchive = () => { },
+  handleProviderClick = () => {},
   classes,
   t,
 }) => {
@@ -161,12 +162,13 @@ export const Answer = ({
           )}
           {renderIn === "client" ? (
             <div className="answer__bottom-container">
-              <div className="answer__answered-by-container">
+              <div className="answer__answered-by-container answer__answered-by-container--client">
                 <p className="text">{t("answer_by")}</p>
                 <Avatar
                   image={AMAZON_S3_BUCKET + "/" + providerInfo.image}
                   alt="Specialist avatar"
                   size="xs"
+                  onClick={() => handleProviderClick(providerInfo.providerId)}
                   classes="answer__answered-by-container__avatar"
                 />
                 <p className="text">
