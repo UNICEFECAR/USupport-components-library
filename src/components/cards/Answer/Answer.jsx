@@ -28,7 +28,7 @@ export const Answer = ({
   handleReadMore = () => {},
   handleScheduleConsultationClick = () => {},
   handleRespond = () => {},
-  handleArchive = () => { },
+  handleArchive = () => {},
   handleProviderClick = () => {},
   classes,
   t,
@@ -160,7 +160,7 @@ export const Answer = ({
               </p>
             </div>
           )}
-          {renderIn === "client" ? (
+          {renderIn === "client" || renderIn === "website" ? (
             <div className="answer__bottom-container">
               <div className="answer__answered-by-container answer__answered-by-container--client">
                 <p className="text">{t("answer_by")}</p>
