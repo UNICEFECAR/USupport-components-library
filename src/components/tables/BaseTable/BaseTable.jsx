@@ -129,7 +129,11 @@ export const BaseTable = ({
           {rowData?.map((dataItem, dataItemIndex) => {
             return (
               <React.Fragment key={"dataItem" + dataItemIndex}>
-                <td className="table__td">{dataItem}</td>
+                <td
+                  className={`table__td ${hasMenu ? "table__td--sticky" : ""}`}
+                >
+                  {dataItem}
+                </td>
                 {hasMenu && dataItemIndex === rowData.length - 1 && (
                   <TableIcon
                     index={dataIndex}
@@ -185,7 +189,7 @@ export const BaseTable = ({
         <p>{t("no_data_found")}</p>
       ) : (
         <div className="scrollable-table">
-          <table className="table">
+          <table className={`table ${hasMenu ? "table--sticky" : ""}`}>
             <thead>
               <tr className="table__heading">
                 {sorting &&
@@ -239,7 +243,7 @@ const TableIcon = ({ menuOptions, handleClickCallbackProp, index }) => {
   return (
     <React.Fragment>
       <td
-        className={`table__td table-icon ${
+        className={`table__td table__td--sticky table-icon ${
           (index + 1) % 2 === 0 ? "table-icon--even" : ""
         }`}
       >
