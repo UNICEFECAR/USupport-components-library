@@ -7,6 +7,12 @@
   position: relative;
   z-index: $z_index_1;
 
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
   @media screen and (min-width: $screen-lg) {
     width: 36.8rem;
   }
@@ -25,8 +31,10 @@
       border: 0.1rem solid $color_red_eb5757;
     }
 
-    &:hover {
+    &:hover,
+    &:focus {
       border: 0.1rem solid $color_secondary_9749fa;
+      outline: $color_secondary_9749fa;
     }
 
     .icon--arrow-chevron-down {
@@ -59,6 +67,11 @@
 
     .option-container {
       padding: $spacing_0_8;
+
+      &:focus-visible {
+        outline: $color_gray_ea auto 0.1px;
+        border: 1px solid;
+      }
 
       &.option-selected {
         background-color: $color_green_f4f7fe;

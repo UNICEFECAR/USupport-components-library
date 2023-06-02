@@ -13,7 +13,7 @@
     padding-right: $spacing_1_0;
     right: 0;
 
-    &:last-of-type {
+    &--sticky:last-of-type {
       position: sticky;
       background-color: $color_gray_66768d;
     }
@@ -72,6 +72,12 @@
         align-items: center;
       }
     }
+
+    &__note {
+      color: $color_gray_a6b4b8;
+      text-align: left;
+      margin-bottom: $spacing_1_2;
+    }
   }
 
   &__body {
@@ -99,7 +105,7 @@
     padding-bottom: $spacing_1_8;
     padding-top: $spacing_1_4;
 
-    &:last-child {
+    &--sticky:last-child {
       position: sticky;
       right: 0;
     }
