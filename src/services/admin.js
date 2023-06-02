@@ -318,7 +318,7 @@ async function getCampaignDataById(campaignId) {
   return response;
 }
 
-async function getAllProviders(pageParam, filters) {
+async function getAllProviders(limit = 15, pageParam, filters) {
   let filetrsQuery = "";
   if (filters) {
     Object.keys(filters).forEach((key) => {
@@ -329,7 +329,7 @@ async function getAllProviders(pageParam, filters) {
   }
 
   const response = await http.get(
-    `${API_ENDPOINT}/all-providers?limit=${15}&offset=${pageParam}${filetrsQuery}`
+    `${API_ENDPOINT}/all-providers?limit=${limit}&offset=${pageParam}${filetrsQuery}`
   );
   return response;
 }

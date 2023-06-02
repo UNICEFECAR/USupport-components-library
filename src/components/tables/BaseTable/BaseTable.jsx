@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import { Trans } from "react-i18next";
 import OutsideClickHandler from "react-outside-click-handler";
 
 import { Loading } from "../../loaders";
@@ -7,7 +8,6 @@ import { InputSearch } from "../../inputs";
 import { Button } from "../../buttons";
 
 import "./base-table.scss";
-import { useCallback } from "react";
 
 /**
  * BaseTable
@@ -31,19 +31,16 @@ export const BaseTable = ({
   buttonAction,
   secondaryButtonLabel,
   secondaryButtonAction,
+  noteText,
 }) => {
   const [searchValue, setSearchValue] = useState("");
 
-  const [sorting, setSorting] = useState(
-    rows.map((row) => {
-      return { value: row.sortingKey, sort: "asc" };
-    })
-  );
+  const [sorting, setSorting] = useState();
 
   useEffect(() => {
     setSorting(
       rows.map((row) => {
-        return { value: row.sortingKey, sort: "asc" };
+        return { sortingKey: row.sortingKey, sort: "asc" };
       })
     );
   }, [rows]);
@@ -51,7 +48,7 @@ export const BaseTable = ({
   const handleSort = (key, sort) => {
     // Update the sorting icon
     const sortingData = [...sorting];
-    const current = sorting.find((x) => x.value === key);
+    const current = sorting.find((x) => x.sortingKey === key);
     sortingData[sortingData.indexOf(current)].sort =
       sort === "asc" ? "desc" : "asc";
     setSorting(sortingData);
@@ -64,13 +61,24 @@ export const BaseTable = ({
     dataCopy = dataCopy.sort((a, b) => {
       let first = a[key];
       let second = b[key];
+      const isAsc = sort === "asc";
+
+      if (!first && typeof first !== "number") {
+        return isAsc ? 1 : -1;
+      }
+      if (!second && typeof second !== "number") {
+        return isAsc ? -1 : 1;
+      }
+
+      if (first === second) return 0;
+
       if (isDateSort) {
-        first = first.getTime();
-        second = second.getTime();
+        first = new Date(first).getTime();
+        second = new Date(second).getTime();
       }
       if (!isNumberSort && !isDateSort) {
-        if (sort === "asc") return first.localeCompare(second);
-        return second.localeCompare(first);
+        if (sort === "asc") return String(first).localeCompare(String(second));
+        return String(second).localeCompare(String(first));
       } else {
         if (sort === "asc") return first - second;
         return second - first;
@@ -83,8 +91,11 @@ export const BaseTable = ({
     const row = data[rowIndex];
     const searchVal = searchValue.toLowerCase();
     let isMatching = false;
-    sorting.forEach(({ value }) => {
-      if (value && String(row[value]).toLowerCase().includes(searchVal)) {
+    sorting.forEach(({ sortingKey }) => {
+      if (
+        sortingKey &&
+        String(row[sortingKey]).toLowerCase().includes(searchVal)
+      ) {
         isMatching = true;
       }
     });
@@ -119,7 +130,11 @@ export const BaseTable = ({
           {rowData?.map((dataItem, dataItemIndex) => {
             return (
               <React.Fragment key={"dataItem" + dataItemIndex}>
-                <td className="table__td">{dataItem}</td>
+                <td
+                  className={`table__td ${hasMenu ? "table__td--sticky" : ""}`}
+                >
+                  {dataItem}
+                </td>
                 {hasMenu && dataItemIndex === rowData.length - 1 && (
                   <TableIcon
                     index={dataIndex}
@@ -168,42 +183,51 @@ export const BaseTable = ({
           </div>
         </div>
       )}
-
+      {noteText && (
+        <p className="table__container__note">
+          <Trans components={[<b></b>]}>{t("note")}</Trans>
+        </p>
+      )}
       {isLoading ? (
         <Loading />
       ) : !rowsData || rowsData.length === 0 ? (
         <p>{t("no_data_found")}</p>
       ) : (
         <div className="scrollable-table">
-          <table className="table">
+          <table className={`table ${hasMenu ? "table--sticky" : ""}`}>
             <thead>
               <tr className="table__heading">
-                {rows.map((row, index) => {
-                  const rowSort = sorting.find(
-                    (x) => x.value === row.sortingKey
-                  )?.sort;
-                  return (
-                    <th key={"row" + index}>
-                      <div
-                        className={`table__heading-container ${
-                          row.isCentered
-                            ? "table__heading-container--centered"
-                            : ""
-                        }`}
-                      >
-                        {row.label}
-                        {row.sortingKey && (
-                          <Icon
-                            size="sm"
-                            color="#eaeaea"
-                            name={rowSort === "asc" ? "sort-desc" : "sort-asc"}
-                            onClick={() => handleSort(row.sortingKey, rowSort)}
-                          />
-                        )}
-                      </div>
-                    </th>
-                  );
-                })}
+                {sorting &&
+                  rows.map((row, index) => {
+                    const rowSort = sorting.find(
+                      (x) => x.sortingKey === row.sortingKey
+                    )?.sort;
+                    return (
+                      <th key={"row" + index}>
+                        <div
+                          className={`table__heading-container ${
+                            row.isCentered
+                              ? "table__heading-container--centered"
+                              : ""
+                          }`}
+                        >
+                          {row.label}
+                          {row.sortingKey && (
+                            <Icon
+                              size="sm"
+                              color="#eaeaea"
+                              name={
+                                rowSort === "asc" ? "sort-desc" : "sort-asc"
+                              }
+                              onClick={() =>
+                                handleSort(row.sortingKey, rowSort)
+                              }
+                            />
+                          )}
+                        </div>
+                      </th>
+                    );
+                  })}
                 {hasMenu && (
                   <th>
                     <div className="table__heading-container"></div>
@@ -224,7 +248,7 @@ const TableIcon = ({ menuOptions, handleClickCallbackProp, index }) => {
   return (
     <React.Fragment>
       <td
-        className={`table__td table-icon ${
+        className={`table__td table__td--sticky table-icon ${
           (index + 1) % 2 === 0 ? "table-icon--even" : ""
         }`}
       >
