@@ -49,11 +49,11 @@ export const ProviderDetails = ({
         })
         ?.map((x, i) => {
           return (
-            <>
+            <React.Fragment key={i}>
               {x}
               {i !== provider.languages?.length - 1 ? ", " : ""}
               <br />
-            </>
+            </React.Fragment>
           );
         });
     }
@@ -138,7 +138,7 @@ export const ProviderDetails = ({
                 />
                 <p className="paragraph">
                   {provider.consultationPrice}
-                  {currencySymbol} for 1 hour consultation
+                  {currencySymbol} {t("hour_consultation")}
                 </p>
               </div>
             ) : null}

@@ -42,6 +42,10 @@
     }
   }
 
+  &:focus-visible {
+    outline: $color_primary_20809e auto 1px;
+  }
+
   //Modes: Primary, Secondary, Ghost and Emergency
   &--primary {
     color: $color_white_ff;

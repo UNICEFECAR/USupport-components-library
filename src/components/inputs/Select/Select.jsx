@@ -23,23 +23,29 @@ export const Select = ({
   classes,
   ...rest
 }) => {
-  useEffect(() => {
-    setSelectedOptions(options.filter((option) => option.selected));
-  }, []);
-
   const [selectedOptions, setSelectedOptions] = useState(null);
 
+  useEffect(() => {
+    setSelectedOptions(options.filter((option) => option.selected));
+  }, [options]);
+
   const handleSelect = (data) => {
+    const values = data.map((option) => option.value);
+
     setSelectedOptions(data);
     handleChange(
       options.map((option) => {
-        if (data.includes(option)) {
+        if (values.includes(option.value)) {
           option.selected = true;
+        } else {
+          option.selected = false;
         }
         return option;
       })
     );
   };
+
+  // console.log(options);
 
   return (
     <div className={classes} style={{ marginTop: "24px" }}>
