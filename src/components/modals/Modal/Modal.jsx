@@ -119,7 +119,7 @@ Modal.propTypes = {
   /**
    * Function to close the modal
    * */
-  closeModal: PropTypes.func.isRequired,
+  closeModal: PropTypes.func,
 
   /**
    * Additional classes to add to the modal

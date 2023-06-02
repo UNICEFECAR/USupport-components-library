@@ -29,11 +29,19 @@ export const TermsAgreement = ({
       />
       <p className="text">
         {textOne}{" "}
-        <Link className="privacy-policy-link" to="/privacy-policy">
+        <Link
+          className="privacy-policy-link"
+          target="_blank"
+          to="/privacy-policy"
+        >
           {textTwo}
         </Link>{" "}
         {textThree} <br />
-        <Link className="privacy-policy-link" to="/terms-of-use">
+        <Link
+          className="privacy-policy-link"
+          target="_blank"
+          to="/terms-of-use"
+        >
           {textFour}
         </Link>
       </p>
