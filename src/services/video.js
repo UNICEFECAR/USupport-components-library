@@ -3,7 +3,7 @@ const API_ENDPOINT = `${import.meta.env.VITE_API_ENDPOINT}/v1/video`;
 
 async function getTwilioToken(consultationId) {
   const response = await http.get(
-    `${API_ENDPOINT}/consultation/twilio-token?consultationId=${consultationId}`
+    `${API_ENDPOINT}/twilio-token?consultationId=${consultationId}`
   );
   return response;
 }
@@ -15,7 +15,7 @@ async function getTwilioToken(consultationId) {
  * @returns
  */
 async function leaveConsultation(consultationId, userType) {
-  const res = await http.put(`${API_ENDPOINT}/consultation/leave`, {
+  const res = await http.put(`${API_ENDPOINT}/leave`, {
     consultationId,
     userType,
   });
