@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import { Trans } from "react-i18next";
 import OutsideClickHandler from "react-outside-click-handler";
 
 import { Loading } from "../../loaders";
@@ -7,7 +8,6 @@ import { InputSearch } from "../../inputs";
 import { Button } from "../../buttons";
 
 import "./base-table.scss";
-import { useCallback } from "react";
 
 /**
  * BaseTable
@@ -31,6 +31,7 @@ export const BaseTable = ({
   buttonAction,
   secondaryButtonLabel,
   secondaryButtonAction,
+  noteText,
 }) => {
   const [searchValue, setSearchValue] = useState("");
 
@@ -72,8 +73,8 @@ export const BaseTable = ({
       if (first === second) return 0;
 
       if (isDateSort) {
-        first = first.getTime();
-        second = second.getTime();
+        first = new Date(first).getTime();
+        second = new Date(second).getTime();
       }
       if (!isNumberSort && !isDateSort) {
         if (sort === "asc") return String(first).localeCompare(String(second));
@@ -182,7 +183,11 @@ export const BaseTable = ({
           </div>
         </div>
       )}
-
+      {noteText && (
+        <p className="table__container__note">
+          <Trans components={[<b></b>]}>{t("note")}</Trans>
+        </p>
+      )}
       {isLoading ? (
         <Loading />
       ) : !rowsData || rowsData.length === 0 ? (

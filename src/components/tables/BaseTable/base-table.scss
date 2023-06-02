@@ -72,6 +72,12 @@
         align-items: center;
       }
     }
+
+    &__note {
+      color: $color_gray_a6b4b8;
+      text-align: left;
+      margin-bottom: $spacing_1_2;
+    }
   }
 
   &__body {
