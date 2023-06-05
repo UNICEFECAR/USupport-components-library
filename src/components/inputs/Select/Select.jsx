@@ -56,7 +56,7 @@ export const Select = ({
         value={selectedOptions}
         onChange={handleSelect}
         className="select-container"
-        classNamePrefix={"select"}
+        classNamePrefix="select"
         closeMenuOnSelect={false}
         isMulti
         {...rest}
