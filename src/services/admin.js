@@ -318,7 +318,13 @@ async function getCampaignDataById(campaignId) {
   return response;
 }
 
-async function getAllProviders(limit = 15, pageParam, filters) {
+async function getAllProviders(
+  limit = 15,
+  pageParam,
+  filters,
+  sort,
+  search = ""
+) {
   let filetrsQuery = "";
   if (filters) {
     Object.keys(filters).forEach((key) => {
@@ -328,6 +334,16 @@ async function getAllProviders(limit = 15, pageParam, filters) {
     });
   }
 
+  if (search) {
+    filetrsQuery += `&search=${search}`;
+  }
+  if (sort) {
+    Object.keys(sort).forEach((key) => {
+      if (sort[key]) {
+        filetrsQuery += `&sort_${key}=${sort[key]}`;
+      }
+    });
+  }
   const response = await http.get(
     `${API_ENDPOINT}/all-providers?limit=${limit}&offset=${pageParam}${filetrsQuery}`
   );
