@@ -32,6 +32,8 @@ export const BaseTable = ({
   secondaryButtonLabel,
   secondaryButtonAction,
   noteText,
+  customSort,
+  customSearch,
 }) => {
   const [searchValue, setSearchValue] = useState("");
 
@@ -53,38 +55,43 @@ export const BaseTable = ({
       sort === "asc" ? "desc" : "asc";
     setSorting(sortingData);
 
-    // Sort the displayed data
-    const sortedRow = rows.find((x) => x.sortingKey === key);
-    const isNumberSort = sortedRow.isNumbered;
-    const isDateSort = sortedRow.isDate;
-    let dataCopy = [...data];
-    dataCopy = dataCopy.sort((a, b) => {
-      let first = a[key];
-      let second = b[key];
-      const isAsc = sort === "asc";
+    if (customSort) {
+      customSort(key, sort);
+    } else {
+      // Sort the displayed data
+      const sortedRow = rows.find((x) => x.sortingKey === key);
+      const isNumberSort = sortedRow.isNumbered;
+      const isDateSort = sortedRow.isDate;
+      let dataCopy = [...data];
+      dataCopy = dataCopy.sort((a, b) => {
+        let first = a[key];
+        let second = b[key];
+        const isAsc = sort === "asc";
 
-      if (!first && typeof first !== "number") {
-        return isAsc ? 1 : -1;
-      }
-      if (!second && typeof second !== "number") {
-        return isAsc ? -1 : 1;
-      }
+        if (!first && typeof first !== "number") {
+          return isAsc ? 1 : -1;
+        }
+        if (!second && typeof second !== "number") {
+          return isAsc ? -1 : 1;
+        }
 
-      if (first === second) return 0;
+        if (first === second) return 0;
 
-      if (isDateSort) {
-        first = new Date(first).getTime();
-        second = new Date(second).getTime();
-      }
-      if (!isNumberSort && !isDateSort) {
-        if (sort === "asc") return String(first).localeCompare(String(second));
-        return String(second).localeCompare(String(first));
-      } else {
-        if (sort === "asc") return first - second;
-        return second - first;
-      }
-    });
-    updateData(dataCopy);
+        if (isDateSort) {
+          first = new Date(first).getTime();
+          second = new Date(second).getTime();
+        }
+        if (!isNumberSort && !isDateSort) {
+          if (sort === "asc")
+            return String(first).localeCompare(String(second));
+          return String(second).localeCompare(String(first));
+        } else {
+          if (sort === "asc") return first - second;
+          return second - first;
+        }
+      });
+      updateData(dataCopy);
+    }
   };
 
   const filterDataBySearch = (rowIndex) => {
@@ -103,8 +110,19 @@ export const BaseTable = ({
   };
 
   const renderItems = useCallback(() => {
+    if (isLoading)
+      return (
+        <tr>
+          <td
+            className="table__body__no-data"
+            colSpan={rows.length + (hasMenu ? 1 : 0)}
+          >
+            <Loading />
+          </td>
+        </tr>
+      );
     const filteredData = rowsData?.filter((x, i) => {
-      if (searchValue && hasSearch) {
+      if (searchValue && hasSearch && !customSearch) {
         if (!filterDataBySearch(i)) {
           return null;
         }
@@ -152,6 +170,13 @@ export const BaseTable = ({
     });
   }, [rowsData, searchValue]);
 
+  const handleSearch = (val) => {
+    setSearchValue(val);
+    if (customSearch) {
+      customSearch(val);
+    }
+  };
+
   return (
     <div className="table__container">
       {(hasSearch || buttonLabel || secondaryButtonLabel) && (
@@ -160,7 +185,9 @@ export const BaseTable = ({
             <InputSearch
               placeholder={t("search")}
               value={searchValue}
-              onChange={setSearchValue}
+              onChange={(val) => {
+                handleSearch(val);
+              }}
               classes="campaigns__search"
             />
           )}
@@ -188,9 +215,7 @@ export const BaseTable = ({
           <Trans components={[<b></b>]}>{t("note")}</Trans>
         </p>
       )}
-      {isLoading ? (
-        <Loading />
-      ) : !rowsData || rowsData.length === 0 ? (
+      {(!rowsData || rowsData.length === 0) && !isLoading ? (
         <p>{t("no_data_found")}</p>
       ) : (
         <div className="scrollable-table">
