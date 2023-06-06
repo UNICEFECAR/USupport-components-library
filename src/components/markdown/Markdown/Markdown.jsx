@@ -16,7 +16,13 @@ import "./markdown.scss";
 export const Markdown = ({ markDownText }) => {
   const linkRenderer = (props) => {
     return (
-      <a {...props} target="_blank" rel="noopener noreferrer">
+      <a
+        {...props}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="markdown-link"
+        skipHtml={false}
+      >
         {props.children}
       </a>
     );
