@@ -31,6 +31,8 @@ export const BaseTable = ({
   buttonAction,
   secondaryButtonLabel,
   secondaryButtonAction,
+  isButtonDisabled = false,
+  isSecondaryButtonDisabled = false,
   noteText,
   customSort,
   customSearch,
@@ -198,6 +200,7 @@ export const BaseTable = ({
                 color="purple"
                 type="secondary"
                 onClick={buttonAction}
+                disabled={isButtonDisabled}
               />
             )}
             {secondaryButtonLabel && (
@@ -205,6 +208,7 @@ export const BaseTable = ({
                 label={secondaryButtonLabel}
                 color="purple"
                 onClick={secondaryButtonAction}
+                disabled={isSecondaryButtonDisabled}
               />
             )}
           </div>
