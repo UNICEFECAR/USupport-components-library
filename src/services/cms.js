@@ -46,7 +46,8 @@ function generateQuerryString(queryObj) {
   }
 
   if (queryObj.contains && queryObj.contains !== "") {
-    querry += `&filters[title][$containsi]=${queryObj.contains}`;
+    // Either the title or the label should contain the 'contains' string.
+    querry += `&filters[$or][0][title][$containsi]=${queryObj.contains}&filters[$or][1][labels][name][$containsi]=${queryObj.contains}`;
   }
 
   if (queryObj.ageGroupId) {
