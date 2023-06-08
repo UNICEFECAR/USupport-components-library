@@ -24,6 +24,7 @@ export const Controls = ({
   isMicrophoneOn,
   renderIn, // "client" or "provider"
   isRoomConnecting,
+  hasUnreadMessages = true,
   t,
 }) => {
   const [isMicOpen, setIsMicOpen] = useState(isMicrophoneOn);
@@ -85,6 +86,9 @@ export const Controls = ({
           />
         </div>
         <div className="button-container__button" onClick={handleChat}>
+          {hasUnreadMessages && (
+            <div className="button-container__unread-message" />
+          )}
           <Icon name={"comment"} size="lg" color="#20809E" />
         </div>
         <div className="button-container__button-hangup" onClick={handleHangUp}>

@@ -68,13 +68,14 @@ export const Answer = ({
       </div>
     );
   };
+  const isAskedByCurrentClient = question.isAskedByCurrentClient;
 
   return (
     <Box classes={["answer", classes]}>
       {question.answerTitle ? (
         <>
           <div className="answer__heading-container">
-            {isInYourQuestions ? (
+            {isInYourQuestions || isAskedByCurrentClient ? (
               <div>
                 <div className="answer__date-container">
                   <Icon name="calendar" color="#92989B" />
