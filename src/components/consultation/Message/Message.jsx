@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import { getDateView, getTimeFromDate } from "../../../utils/date";
+
 import "./message.scss";
 
 /**
@@ -10,7 +12,7 @@ import "./message.scss";
  *
  * @return {jsx}
  */
-export const Message = ({ message, sent, received }) => {
+export const Message = ({ message, sent, received, date }) => {
   return (
     <div
       className={[
@@ -20,6 +22,15 @@ export const Message = ({ message, sent, received }) => {
       ].join(" ")}
     >
       <p className="text message__text">{message}</p>
+      {date && (
+        <p
+          className={`message__date message__date--${
+            sent ? "sent" : "received"
+          }`}
+        >
+          {getDateView(date)}, {getTimeFromDate(date)}
+        </p>
+      )}
     </div>
   );
 };
