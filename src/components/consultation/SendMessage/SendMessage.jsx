@@ -12,7 +12,7 @@ import "./send-message.scss";
  *
  * @return {jsx}
  */
-export const SendMessage = ({ handleSubmit }) => {
+export const SendMessage = ({ handleSubmit, onTextareaFocus }) => {
   const [message, setMessage] = useState("");
 
   const handleSend = () => {
@@ -26,6 +26,7 @@ export const SendMessage = ({ handleSubmit }) => {
         value={message}
         onChange={(value) => setMessage(value)}
         classes="send-message__textarea"
+        onFocus={onTextareaFocus}
       />
       <ButtonWithIcon
         iconName="comment"
