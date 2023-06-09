@@ -7,6 +7,8 @@ import { Avatar } from "../../avatars/Avatar/Avatar";
 import { Icon } from "../../icons/Icon/Icon";
 import { StatusBadge } from "../StatusBadge";
 
+import { getDateView, getDayOfTheWeek } from "../../../utils/date";
+
 import "./provider-overview.scss";
 
 const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
@@ -38,6 +40,7 @@ export const ProviderOverview = ({
   handleViewProfile,
   handleActivities,
   providerStatus,
+  earliestAvailableSlot,
   t,
 }) => {
   const currencySymbol = localStorage.getItem("currency_symbol");
@@ -57,6 +60,18 @@ export const ProviderOverview = ({
     setIsMenuOpen(false);
     handleUpdateStatus();
   };
+
+  const earliestSlot = new Date(earliestAvailableSlot);
+  const dayOfWeek = t(getDayOfTheWeek(earliestSlot));
+  const dateText = `${dayOfWeek} ${getDateView(earliestSlot).slice(0, 5)}`;
+
+  const startHour = earliestSlot.getHours();
+  const endHour = startHour + 1;
+  const timeText = earliestSlot
+    ? `${startHour < 10 ? `0${startHour}` : startHour}:00 - ${
+        endHour < 10 ? `0${endHour}` : endHour
+      }:00`
+    : "";
 
   return (
     <Box
@@ -86,6 +101,20 @@ export const ProviderOverview = ({
           <p className="small-text provider-overview__types">
             {specializations?.join(", ")}
           </p>
+          {earliestAvailableSlot && (
+            <>
+              <p className="small-text provider-overview__content__earliest-text">
+                {t("earliest_available_slot")}
+              </p>
+              <div className="provider-overview__content__earliest-container">
+                <Icon name="calendar" size="sm" color={"#66768D"} />
+                <div className="provider-overview__content__earliest-container__text">
+                  <p className="small-text">{dateText}</p>
+                  <p className="small-text">{timeText}</p>
+                </div>
+              </div>
+            </>
+          )}
           {providerStatus && (
             <StatusBadge status={providerStatus} label={t(providerStatus)} />
           )}
