@@ -172,7 +172,10 @@ export const Answer = ({
                   onClick={() => handleProviderClick(providerInfo.providerId)}
                   classes="answer__answered-by-container__avatar"
                 />
-                <p className="text">
+                <p
+                  className="text answer__bottom-container__provider-name"
+                  onClick={() => handleProviderClick(providerInfo.providerId)}
+                >
                   {providerInfo.name} {providerInfo.surname}
                 </p>
               </div>
