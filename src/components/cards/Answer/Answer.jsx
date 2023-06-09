@@ -169,10 +169,21 @@ export const Answer = ({
                   image={AMAZON_S3_BUCKET + "/" + providerInfo.image}
                   alt="Specialist avatar"
                   size="xs"
-                  onClick={() => handleProviderClick(providerInfo.providerId)}
+                  onClick={() =>
+                    handleProviderClick(
+                      providerInfo.providerId || providerInfo.provider_detail_id
+                    )
+                  }
                   classes="answer__answered-by-container__avatar"
                 />
-                <p className="text">
+                <p
+                  className="text answer__bottom-container__provider-name"
+                  onClick={() =>
+                    handleProviderClick(
+                      providerInfo.providerId || providerInfo.provider_detail_id
+                    )
+                  }
+                >
                   {providerInfo.name} {providerInfo.surname}
                 </p>
               </div>
