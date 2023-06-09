@@ -78,7 +78,7 @@ export const ConsultationBig = ({
             label={t("join_button_label")}
             color="purple"
             classes="consultation-big__button"
-            onClick={() => handleJoin(consultation.consultationId)}
+            onClick={() => handleJoin(consultation)}
           />
         ) : (
           <Button
