@@ -2,6 +2,7 @@ import React from "react";
 import { CheckBox } from "../../inputs/CheckBox";
 
 import "./terms-agreement.scss";
+const WEBSITE_URL = `${import.meta.env.VITE_WEBSITE_URL}`;
 
 /**
  * TermsAgreement
@@ -29,21 +30,23 @@ export const TermsAgreement = ({
       />
       <p className="text">
         {textOne}{" "}
-        <Link
+        <span
           className="privacy-policy-link"
-          target="_blank"
-          to="/privacy-policy"
+          onClick={() =>
+            window.open(`${WEBSITE_URL}/privacy-policy`, "_blank").focus()
+          }
         >
           {textTwo}
-        </Link>{" "}
+        </span>{" "}
         {textThree} <br />
-        <Link
+        <span
           className="privacy-policy-link"
-          target="_blank"
-          to="/terms-of-use"
+          onClick={() =>
+            window.open(`${WEBSITE_URL}/terms-of-use`, "_blank").focus()
+          }
         >
           {textFour}
-        </Link>
+        </span>
       </p>
     </div>
   );
