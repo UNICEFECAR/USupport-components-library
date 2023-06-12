@@ -27,6 +27,7 @@ export const Controls = ({
   hasUnreadMessages = true,
   t,
 }) => {
+  console.log(consultation);
   const [isMicOpen, setIsMicOpen] = useState(isMicrophoneOn);
   const [isCameraOpen, setIsCameraOpen] = useState(isCameraOn);
 
@@ -107,6 +108,14 @@ export const Controls = ({
         providerImage={consultation.image}
         t={t}
       />
+      {consultation.sponsorName && (
+        <p className="text controls__sponsored-by">
+          {t("sponsored_by")}
+          <span>
+            <strong>{consultation.sponsorName}</strong>
+          </span>
+        </p>
+      )}
       {renderAllButtons()}
     </Box>
   );
