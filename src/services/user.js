@@ -220,6 +220,20 @@ async function changeLanguage(language) {
   return response;
 }
 
+async function requestEmailOTP(email) {
+  const response = await http.post(`${API_ENDPOINT}/email-otp`, {
+    email,
+  });
+  return response;
+}
+
+async function validateCaptcha(token) {
+  const response = await http.post(`${API_ENDPOINT}/validate-captcha`, {
+    token,
+  });
+  return response;
+}
+
 const exportedFunctions = {
   changePassword,
   generateClientAccesToken,
@@ -242,6 +256,8 @@ const exportedFunctions = {
   transformUserData,
   addContactForm,
   changeLanguage,
+  requestEmailOTP,
+  validateCaptcha,
 };
 
 export default exportedFunctions;
