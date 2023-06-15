@@ -27,7 +27,6 @@ export const Controls = ({
   hasUnreadMessages = true,
   t,
 }) => {
-  console.log(consultation);
   const [isMicOpen, setIsMicOpen] = useState(isMicrophoneOn);
   const [isCameraOpen, setIsCameraOpen] = useState(isCameraOn);
 
