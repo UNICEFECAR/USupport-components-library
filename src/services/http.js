@@ -9,6 +9,8 @@ const VITE_WEBSITE_URL = import.meta.env.VITE_WEBSITE_URL;
 axios.interceptors.request.use((config) => {
   config.headers["x-country-alpha-2"] = localStorage.getItem("country") || "";
   config.headers["x-language-alpha-2"] = localStorage.getItem("language") || "";
+  config.headers["Origin"] =
+    VITE_WEBSITE_URL || "https://staging.usupport.online";
 
   const requestURI = axios.getUri(config) || "VITE CMS API URL";
 
