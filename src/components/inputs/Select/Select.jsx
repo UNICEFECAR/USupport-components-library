@@ -45,8 +45,6 @@ export const Select = ({
     );
   };
 
-  // console.log(options);
-
   return (
     <div className={classes} style={{ marginTop: "24px" }}>
       {label ? <p className="text select-container__label">{label}</p> : null}
