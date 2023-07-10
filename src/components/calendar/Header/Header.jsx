@@ -16,7 +16,6 @@ export const Header = ({ handleDayChange, setStartDate, startDate, t }) => {
   const currentDay = new Date();
   const [today, setToday] = useState(
     startDate ? new Date(startDate) : new Date()
-    // new Date()
   );
   const [canChangeWeekBackwards, setCanChangeWeekBackwards] = useState(false);
   const [selectedDay, setSelectedDay] = useState(today);
