@@ -43,7 +43,6 @@ export const IdleTimer = ({ setLoggedIn, t, NavigateComponent }) => {
     localStorage.removeItem("token-expires-in");
     setLoggedIn(false);
     setReturnNavigate(true);
-    // navigate("/");
   };
 
   const [timeToLogout, setTimeToLogout] = useState(20);
