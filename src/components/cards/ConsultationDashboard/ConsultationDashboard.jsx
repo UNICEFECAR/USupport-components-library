@@ -42,7 +42,6 @@ export const ConsultationDashboard = ({
     sponsorImage,
     couponPrice,
   } = consultation || {};
-  // const name = consultation.providerName || consultation.clientName;
   const imageUrl = AMAZON_S3_BUCKET + "/" + (image || "default");
 
   const isBookedWithCoupon = couponPrice || campaignId;
