@@ -24,7 +24,7 @@ export const Message = ({ message, sent, received, date }) => {
       <p className="text message__text">{message}</p>
       {date && (
         <p
-          className={`message__date message__date--${
+          className={`small-text message__date message__date--${
             sent ? "sent" : "received"
           }`}
         >
