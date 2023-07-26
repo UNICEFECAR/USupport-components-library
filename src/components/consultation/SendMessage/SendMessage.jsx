@@ -55,6 +55,12 @@ export const SendMessage = ({ handleSubmit, onTextareaFocus, emitTyping }) => {
         onChange={handleTyping}
         classes="send-message__textarea"
         onFocus={onTextareaFocus}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            handleSend();
+          }
+        }}
       />
       <ButtonWithIcon
         iconName="comment"
