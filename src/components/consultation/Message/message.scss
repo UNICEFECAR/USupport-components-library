@@ -6,6 +6,7 @@
   border-radius: $border_radius_2_4;
   text-align: left;
   content-visibility: auto;
+  display: flex;
 
   @media screen and (max-width: $screen_md) {
     max-width: 28rem;
@@ -18,6 +19,8 @@
   &__date {
     color: $color_gray_66768d;
     text-align: left;
+    align-self: flex-end;
+    padding-left: 0.6rem;
 
     &--sent {
       text-align: right;

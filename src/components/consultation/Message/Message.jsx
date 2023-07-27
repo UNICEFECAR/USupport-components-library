@@ -12,26 +12,35 @@ import "./message.scss";
  *
  * @return {jsx}
  */
-export const Message = ({ message, sent, received, date }) => {
+export const Message = ({ message, sent, received, date, showDate }) => {
   return (
-    <div
-      className={[
-        "message",
-        sent && "message-sent",
-        received && "message-received",
-      ].join(" ")}
-    >
-      <p className="text message__text">{message}</p>
-      {date && (
-        <p
-          className={`small-text message__date message__date--${
-            sent ? "sent" : "received"
-          }`}
-        >
-          {getDateView(date)}, {getTimeFromDate(date)}
-        </p>
+    <React.Fragment>
+      {showDate && (
+        <div className="message-date">
+          <p className="small-text">
+            <strong>{getDateView(date)}</strong>
+          </p>
+        </div>
       )}
-    </div>
+      <div
+        className={[
+          "message",
+          sent && "message-sent",
+          received && "message-received",
+        ].join(" ")}
+      >
+        <p className="text message__text">{message}</p>
+        {date && (
+          <p
+            className={`small-text message__date message__date--${
+              sent ? "sent" : "received"
+            }`}
+          >
+            {getTimeFromDate(date)}
+          </p>
+        )}
+      </div>
+    </React.Fragment>
   );
 };
 
@@ -52,6 +61,11 @@ Message.propTypes = {
    * @default false
    */
   received: PropTypes.bool,
+
+  /**
+   * Wheter to show the date
+   * */
+  showDate: PropTypes.bool,
 };
 
 Message.defaultProps = {
