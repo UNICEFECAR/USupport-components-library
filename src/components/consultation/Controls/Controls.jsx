@@ -25,6 +25,7 @@ export const Controls = ({
   renderIn, // "client" or "provider"
   isRoomConnecting,
   hasUnreadMessages = true,
+  isInSession,
   t,
 }) => {
   const [isMicOpen, setIsMicOpen] = useState(isMicrophoneOn);
@@ -105,6 +106,7 @@ export const Controls = ({
         endDate={endDate}
         providerName={consultation.clientName || consultation.providerName}
         providerImage={consultation.image}
+        isInSession={isInSession}
         t={t}
       />
       {consultation.sponsorName && (
