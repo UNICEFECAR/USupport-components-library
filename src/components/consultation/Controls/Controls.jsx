@@ -40,8 +40,8 @@ export const Controls = ({
     if (isRoomConnecting) return;
 
     const content = isMicOpen
-      ? t(`${renderIn}_microphone_off`)
-      : t(`${renderIn}_microphone_on`);
+      ? `${renderIn}_microphone_off`
+      : `${renderIn}_microphone_on`;
     handleSendMessage(content, "system");
 
     setIsMicOpen(!isMicOpen);
@@ -52,8 +52,8 @@ export const Controls = ({
     if (isRoomConnecting) return;
 
     const content = isCameraOpen
-      ? t(`${renderIn}_camera_off`)
-      : t(`${renderIn}_camera_on`);
+      ? `${renderIn}_camera_off`
+      : `${renderIn}_camera_on`;
     handleSendMessage(content, "system");
 
     setIsCameraOpen(!isCameraOpen);
