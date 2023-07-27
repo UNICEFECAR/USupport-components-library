@@ -36,6 +36,7 @@ export const SendMessage = ({ handleSubmit, onTextareaFocus, emitTyping }) => {
   }, [message, interval]);
 
   const handleSend = () => {
+    if (!message) return;
     handleSubmit(message);
     setMessage("");
     emitTyping("stop");
