@@ -40,6 +40,7 @@ export const Modal = ({
   errorMessage,
   reference,
   overlayClasses,
+  headingComponent,
 }) => {
   const hasButtons = ctaLabel || secondaryCtaLabel;
   return (
@@ -56,7 +57,9 @@ export const Modal = ({
       appElement={document.getElementById("root")}
     >
       <div className="base-modal__header">
-        <h4 className="base-modal__header__text">{heading}</h4>
+        {headingComponent || (
+          <h4 className="base-modal__header__text">{heading}</h4>
+        )}
         {hasCloseIcon && (
           <div className="base-modal__header__icon-container">
             <Icon name="close-x" size="md" onClick={closeModal} />

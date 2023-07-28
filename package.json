@@ -98,7 +98,8 @@
     "glob-parent": "5.1.2",
     "trim-newlines": "3.0.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "optionator": "0.9.1"
   },
   "readme": "https://github.com/UNICEFECAR/USupport-components-library#readme",
   "_id": "usupport-components-library@0.1.3"

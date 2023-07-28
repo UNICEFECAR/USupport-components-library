@@ -100,16 +100,12 @@ export const Dropdown = ({
           isOpen ? "dropdown--expanded" : "",
           disabled ? "dropdown--disabled" : "",
         ]}
-        onBlur={() => {
-          console.log("blur");
-        }}
       >
         <div
           tabIndex={0}
           role="navigation"
           className={["heading", errorMessage ? "heading-error" : ""].join(" ")}
           onFocus={(e) => {
-            console.log("focus");
             e.stopPropagation();
             if (isFirstOpen) {
               handleOnClick();
@@ -121,7 +117,6 @@ export const Dropdown = ({
           onClick={(e) => {
             e.stopPropagation();
             if (isOpen && !isFirstOpen) {
-              console.log("close");
               setIsOpen(false);
               setTimeout(() => {
                 setIsFirstOpen(true);
@@ -142,13 +137,7 @@ export const Dropdown = ({
           <Icon name="arrow-chevron-down" />
         </div>
         <div className="dropdown-content">
-          <ul
-            onBlur={() => {
-              console.log("blur dropdown");
-            }}
-            role="menubar"
-            className="dropdown-content__options-container"
-          >
+          <ul role="menubar" className="dropdown-content__options-container">
             {renderAllOptions()}
           </ul>
         </div>
