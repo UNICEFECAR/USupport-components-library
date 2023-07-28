@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 class Color {
   constructor(r, g, b) {
@@ -6,7 +6,9 @@ class Color {
   }
 
   toString() {
-    return `rgb(${Math.round(this.r)}, ${Math.round(this.g)}, ${Math.round(this.b)})`;
+    return `rgb(${Math.round(this.r)}, ${Math.round(this.g)}, ${Math.round(
+      this.b
+    )})`;
   }
 
   set(r, g, b) {
@@ -16,7 +18,7 @@ class Color {
   }
 
   hueRotate(angle = 0) {
-    angle = angle / 180 * Math.PI;
+    angle = (angle / 180) * Math.PI;
     const sin = Math.sin(angle);
     const cos = Math.cos(angle);
 
@@ -25,7 +27,7 @@ class Color {
       0.715 - cos * 0.715 - sin * 0.715,
       0.072 - cos * 0.072 + sin * 0.928,
       0.213 - cos * 0.213 + sin * 0.143,
-      0.715 + cos * 0.285 + sin * 0.140,
+      0.715 + cos * 0.285 + sin * 0.14,
       0.072 - cos * 0.072 - sin * 0.283,
       0.213 - cos * 0.213 - sin * 0.787,
       0.715 - cos * 0.715 + sin * 0.715,
@@ -76,9 +78,15 @@ class Color {
   }
 
   multiply(matrix) {
-    const newR = this.clamp(this.r * matrix[0] + this.g * matrix[1] + this.b * matrix[2]);
-    const newG = this.clamp(this.r * matrix[3] + this.g * matrix[4] + this.b * matrix[5]);
-    const newB = this.clamp(this.r * matrix[6] + this.g * matrix[7] + this.b * matrix[8]);
+    const newR = this.clamp(
+      this.r * matrix[0] + this.g * matrix[1] + this.b * matrix[2]
+    );
+    const newG = this.clamp(
+      this.r * matrix[3] + this.g * matrix[4] + this.b * matrix[5]
+    );
+    const newB = this.clamp(
+      this.r * matrix[6] + this.g * matrix[7] + this.b * matrix[8]
+    );
     this.r = newR;
     this.g = newG;
     this.b = newB;
@@ -98,9 +106,9 @@ class Color {
   }
 
   invert(value = 1) {
-    this.r = this.clamp((value + this.r / 255 * (1 - 2 * value)) * 255);
-    this.g = this.clamp((value + this.g / 255 * (1 - 2 * value)) * 255);
-    this.b = this.clamp((value + this.b / 255 * (1 - 2 * value)) * 255);
+    this.r = this.clamp((value + (this.r / 255) * (1 - 2 * value)) * 255);
+    this.g = this.clamp((value + (this.g / 255) * (1 - 2 * value)) * 255);
+    this.b = this.clamp((value + (this.b / 255) * (1 - 2 * value)) * 255);
   }
 
   hsl() {
@@ -110,7 +118,9 @@ class Color {
     const b = this.b / 255;
     const max = Math.max(r, g, b);
     const min = Math.min(r, g, b);
-    let h, s, l = (max + min) / 2;
+    let h,
+      s,
+      l = (max + min) / 2;
 
     if (max === min) {
       h = s = 0;
@@ -151,7 +161,7 @@ class Color {
 }
 
 class Solver {
-  constructor(target, baseColor) {
+  constructor(target) {
     this.target = target;
     this.targetHSL = target.hsl();
     this.reusedColor = new Color(0, 0, 0);
@@ -210,7 +220,7 @@ class Solver {
 
       const lossDiff = this.loss(highArgs) - this.loss(lowArgs);
       for (let i = 0; i < 6; i++) {
-        const g = lossDiff / (2 * ck) * deltas[i];
+        const g = (lossDiff / (2 * ck)) * deltas[i];
         const ak = a[i] / Math.pow(A + k + 1, alpha);
         values[i] = fix(values[i] - ak * g, i);
       }
@@ -235,7 +245,7 @@ class Solver {
         if (value > max) {
           value %= max;
         } else if (value < 0) {
-          value = max + value % max;
+          value = max + (value % max);
         }
       } else if (value < 0) {
         value = 0;
@@ -273,7 +283,11 @@ class Solver {
     function fmt(idx, multiplier = 1) {
       return Math.round(filters[idx] * multiplier);
     }
-    return `filter: invert(${fmt(0)}%) sepia(${fmt(1)}%) saturate(${fmt(2)}%) hue-rotate(${fmt(3, 3.6)}deg) brightness(${fmt(4)}%) contrast(${fmt(5)}%);`;
+    return `filter: invert(${fmt(0)}%) sepia(${fmt(1)}%) saturate(${fmt(
+      2
+    )}%) hue-rotate(${fmt(3, 3.6)}deg) brightness(${fmt(4)}%) contrast(${fmt(
+      5
+    )}%);`;
   }
 }
 
@@ -287,15 +301,11 @@ function hexToRgb(hex) {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result
     ? [
-      parseInt(result[1], 16),
-      parseInt(result[2], 16),
-      parseInt(result[3], 16),
-    ]
+        parseInt(result[1], 16),
+        parseInt(result[2], 16),
+        parseInt(result[3], 16),
+      ]
     : null;
 }
 
-export {
-  Color,
-  Solver,
-  hexToRgb,
-}
+export { Color, Solver, hexToRgb };
