@@ -1,6 +1,4 @@
+/* eslint-disable */
 module.exports = {
-  plugins: [
-    require('autoprefixer'),
-    require('postcss-color-rebeccapurple'),
-  ],
+  plugins: [require("autoprefixer"), require("postcss-color-rebeccapurple")],
 };

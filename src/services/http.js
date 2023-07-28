@@ -3,7 +3,6 @@ import jwtDecode from "jwt-decode";
 import { log } from "./log";
 const API_ENDPOINT = `${import.meta.env.VITE_API_ENDPOINT}/v1/user`;
 const VITE_CMS_API_URL = import.meta.env.VITE_CMS_API_URL;
-const VITE_WEBSITE_URL = import.meta.env.VITE_WEBSITE_URL;
 
 // On every request add the JWT token, language and country to the headers
 axios.interceptors.request.use((config) => {
