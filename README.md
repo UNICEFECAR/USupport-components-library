@@ -22,14 +22,6 @@ To install all the dependencies use:
 npm install
 ```
 
-The USupport Components Library is run using the Storybook package that allows to preview components in isolation. For more information about Storybook please see the documentation https://storybook.js.org/docs/react/get-started/introduction.
-
-To run the project use:
-
-```
-npm run storybook
-```
-
 ## Adding a new component to the USupport Components Library
 
 To create a new component, please use the provided bash script `create-component.bash`. By executing the following command from the root directory of the project:
@@ -43,9 +35,9 @@ Then, you will be prompted to provide component name, component description, and
 
 ## Please follow these naming conventions for your branches
 
-- Features `feature/{JIRA_ID}-{branch_name}
-- Bugs `bug/{JIRA_ID}-{branch_name}
-- Hotfixes `hotfix/{JIRA_ID}-{branch_name}
+- Features `feature/{branch_name}
+- Bugs `bug/{branch_name}
+- Hotfixes `hotfix/{branch_name}
 
 ## Guidelines for writing a commit message when committing changes to the USupport Components Library
 
