@@ -33,7 +33,9 @@ export const TermsAgreement = ({
         <span
           className="privacy-policy-link"
           onClick={() =>
-            window.open(`${WEBSITE_URL}/privacy-policy`, "_blank").focus()
+            window
+              .open(`${WEBSITE_URL}/privacy-policy`, "_blank", "noreferrer")
+              .focus()
           }
         >
           {textTwo}
@@ -42,7 +44,9 @@ export const TermsAgreement = ({
         <span
           className="privacy-policy-link"
           onClick={() =>
-            window.open(`${WEBSITE_URL}/terms-of-use`, "_blank").focus()
+            window
+              .open(`${WEBSITE_URL}/terms-of-use`, "_blank", "noreferrer")
+              .focus()
           }
         >
           {textFour}
