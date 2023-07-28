@@ -39,6 +39,7 @@ export const Backdrop = ({
   errorMessage,
   reference,
   headingComponent = null,
+  showAlwaysAsBackdrop = false,
 }) => {
   useEffect(() => {
     if (isOpen) {
@@ -59,7 +60,7 @@ export const Backdrop = ({
     onClose();
   };
 
-  return width < 768 ? (
+  return width < 768 || showAlwaysAsBackdrop ? (
     <>
       <div
         className={`backdrop__overlay ${
