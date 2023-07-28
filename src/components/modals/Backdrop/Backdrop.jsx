@@ -153,6 +153,7 @@ export const Backdrop = ({
         reference,
         isSecondaryCtaDisabled,
         showLoadingIfDisabled,
+        headingComponent,
       }}
     >
       {children}

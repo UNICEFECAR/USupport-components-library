@@ -239,7 +239,7 @@ export const Navbar = ({
       color="green"
       classes="nav__login"
       onClick={() => {
-        window.location.href = "/client/login";
+        window.location.href = "/client/register-preview";
         scrollTop();
       }}
       web={width >= 1110}

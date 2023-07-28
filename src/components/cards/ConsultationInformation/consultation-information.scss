@@ -9,8 +9,25 @@
   &__content {
     margin-left: 1.6rem;
 
-    &__name-text {
-      color: $color_primary_20809e;
+    &__details {
+      display: flex;
+      align-items: center;
+
+      &__name {
+        color: $color_primary_20809e;
+        margin-right: 1.6rem;
+      }
+
+      &__status {
+        width: 1.6rem;
+        height: 1.6rem;
+        border-radius: 50%;
+        background-color: red;
+
+        &--active {
+          background-color: $color_green_7ec680;
+        }
+      }
     }
 
     &__date-item {
