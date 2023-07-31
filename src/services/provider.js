@@ -1,8 +1,10 @@
 import http from "./http";
 const API_ENDPOINT = `${import.meta.env.VITE_API_ENDPOINT}/v1/provider`;
 
-async function getProviderData() {
-  const response = await http.get(`${API_ENDPOINT}/`);
+async function getProviderData(signal = new AbortController().signal) {
+  const response = await http.get(`${API_ENDPOINT}/`, {
+    signal: signal,
+  });
   return response;
 }
 
@@ -115,11 +117,18 @@ async function getAllProviders(campaignId) {
   return response;
 }
 
-async function getProviderById(id, campaignId) {
+async function getProviderById(
+  id,
+  campaignId,
+  signal = new AbortController().signal
+) {
   const response = await http.get(
     `${API_ENDPOINT}/by-id?providerId=${id}${
       campaignId ? `&campaignId=${campaignId}` : ""
-    }`
+    }`,
+    {
+      signal: signal,
+    }
   );
   return response;
 }
