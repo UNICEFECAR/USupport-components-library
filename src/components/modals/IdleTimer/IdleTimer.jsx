@@ -3,6 +3,8 @@ import { useIdleTimer } from "react-idle-timer";
 import { Modal } from "../Modal";
 import { FIVE_MINUTES } from "../../../utils";
 
+import { userSvc } from "@USupport-components-library/services";
+
 import "./idle-timer.scss";
 
 const timeout = FIVE_MINUTES * 4;
@@ -38,9 +40,7 @@ export const IdleTimer = ({ setLoggedIn, t, NavigateComponent }) => {
   const timeoutRef = useRef();
   const handleLogout = () => {
     timeoutRef.current = null;
-    localStorage.removeItem("token");
-    localStorage.removeItem("refresh-token");
-    localStorage.removeItem("token-expires-in");
+    userSvc.logout();
     setLoggedIn(false);
     setReturnNavigate(true);
   };
@@ -48,7 +48,38 @@ export const IdleTimer = ({ setLoggedIn, t, NavigateComponent }) => {
   const [timeToLogout, setTimeToLogout] = useState(20);
 
   useEffect(() => {
+    let lastOpenTime = localStorage.getItem("usupport_lot");
+
+    if (!lastOpenTime) {
+      lastOpenTime = new Date().getTime();
+    } else {
+      lastOpenTime = new Date(Number(lastOpenTime)).getTime();
+    }
+    localStorage.setItem("usupport_lot", new Date().getTime());
+
+    const now = new Date().getTime();
+
+    const timeAtWhichShouldLogout = new Date(lastOpenTime + timeout);
+    if (now >= timeAtWhichShouldLogout.getTime()) {
+      localStorage.removeItem("usupport_lot");
+      handleLogout();
+    }
+
+    return () => localStorage.removeItem("usupport_lot");
+  }, []);
+
+  useEffect(() => {
     if (open) {
+      const lastOpenTime = localStorage.getItem("usupport_lot");
+      if (lastOpenTime) {
+        const now = new Date().getTime();
+
+        const timeAtWhichShouldLogout = new Date(lastOpenTime + timeout);
+        if (now >= timeAtWhichShouldLogout.getTime()) {
+          localStorage.removeItem("usupport_lot");
+          handleLogout();
+        }
+      }
       timeoutRef.current = setInterval(() => {
         setTimeToLogout((prev) => {
           return prev - 1;
