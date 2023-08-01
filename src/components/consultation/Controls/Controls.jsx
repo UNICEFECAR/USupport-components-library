@@ -107,6 +107,7 @@ export const Controls = ({
         providerName={consultation.clientName || consultation.providerName}
         providerImage={consultation.image}
         isInSession={isInSession}
+        showActivityIndicator
         t={t}
       />
       {consultation.sponsorName && (

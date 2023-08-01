@@ -24,6 +24,7 @@ export const ConsultationInformation = ({
   providerName,
   providerImage,
   isInSession,
+  showActivityIndicator = false,
   classes,
   t,
 }) => {
@@ -51,13 +52,15 @@ export const ConsultationInformation = ({
           <p className="text consultation-information__content__details__name">
             {providerName}
           </p>
-          <div
-            className={`consultation-information__content__details__status ${
-              isInSession
-                ? "consultation-information__content__details__status--active"
-                : ""
-            }`}
-          />
+          {showActivityIndicator ? (
+            <div
+              className={`consultation-information__content__details__status ${
+                isInSession
+                  ? "consultation-information__content__details__status--active"
+                  : ""
+              }`}
+            />
+          ) : null}
         </div>
         <div className="consultation-information__content__date-item">
           <Icon name="calendar" size="sm" color={"#66768D"} />

@@ -74,7 +74,7 @@ export const Footer = ({
         break;
     }
 
-    if (link !== "") window.open(link, "_blank").focus();
+    if (link !== "") window.open(link, "_blank", "noreferrer").focus();
   }
 
   let list1 = [];

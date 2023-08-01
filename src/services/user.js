@@ -13,6 +13,7 @@ function logout() {
   localStorage.removeItem("token");
   localStorage.removeItem("token-expires-in");
   localStorage.removeItem("refresh-token");
+  localStorage.removeItem("usupport_lot");
   window.dispatchEvent(new Event("logout"));
 }
 
