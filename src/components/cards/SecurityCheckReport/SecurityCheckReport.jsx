@@ -86,7 +86,7 @@ export const SecurityCheckReport = ({ securityCheck, t }) => {
         <GridItem md={4} lg={2}>
           <div
             className={`security-check-report__grid__issues-container ${
-              numberOfIssues === 4
+              answers.unsafeFeeling
                 ? "security-check-report__grid__issues-container--danger"
                 : ""
             }`}
@@ -124,7 +124,9 @@ export const SecurityCheckReport = ({ securityCheck, t }) => {
                 classes="security-check-report__answers-grid__item"
                 key={index}
               >
-                <p className="text">{t(`question_${index + 1}`)}</p>
+                <p className="text">
+                  {index + 1}. {t(`question_${index + 1}`)}
+                </p>
                 <p
                   className={`security-check-report__answers-grid__item__answer ${
                     answers[key] === true || key === "moreDetails"
