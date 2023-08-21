@@ -74,6 +74,17 @@
         margin-left: $spacing_1_8;
         text-align: left;
         max-width: 35rem;
+
+        @media screen and (min-width: $screen-md) {
+          max-width: 25rem;
+        }
+
+        @media screen and (min-width: 1100px) {
+          max-width: 45rem;
+        }
+        @media screen and (min-width: $screen-lg) {
+          max-width: 32rem;
+        }
       }
     }
 
@@ -125,8 +136,15 @@
 
   &__information-container {
     text-align: left;
+    margin: 0 auto;
     margin-top: $spacing_3_2;
-    max-width: 34.3rem;
+    max-width: 29.3rem;
+
+    @media screen and (min-width: $screen_md) {
+      margin: unset;
+      margin-top: $spacing_3_2;
+      max-width: unset;
+    }
 
     &__heading.paragraph {
       color: $color_blue_3d527b;
@@ -136,6 +154,7 @@
 
     &__text {
       margin-top: $spacing_0_8;
+      word-break: break-word;
     }
   }
 
