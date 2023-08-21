@@ -75,7 +75,7 @@ export const ProviderDetails = ({
               classes="provider-details__header__provider-container__avatar"
             />
             <div className="provider-details__header__provider-container__text-container">
-              <h4>
+              <h4 className="provider-details__header__provider-container__text-container__name">
                 {provider.name} {provider.patronym ? provider.patronym : ""}{" "}
                 {provider.surname}
               </h4>
