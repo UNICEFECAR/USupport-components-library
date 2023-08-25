@@ -22,6 +22,7 @@ function destructureArticleData(article) {
     articleData.createdBy.data.attributes.firstname +
     " " +
     articleData.createdBy.data.attributes.lastname;
+  const author = articleData.author;
 
   return {
     id: articleId,
@@ -32,7 +33,7 @@ function destructureArticleData(article) {
     readingTime: articleReadingTime,
     body: body,
     labels: articleLabels,
-    creator: creator,
+    creator: author,
     categoryId: categoryId,
     categoryName: categoryName,
     description,
