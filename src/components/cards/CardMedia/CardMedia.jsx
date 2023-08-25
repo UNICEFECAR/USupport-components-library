@@ -62,7 +62,7 @@ export const CardMedia = ({
           </GridItem>
         </Grid>
         <div className={"card-media__details"}>
-          <p className={"small-text"}>{t("by", { creator })}</p>
+          {creator && <p className={"small-text"}>{t("by", { creator })}</p>}
 
           <Icon name={"time"} size="sm" color={"#66768d"} />
           <p className={"small-text"}>
