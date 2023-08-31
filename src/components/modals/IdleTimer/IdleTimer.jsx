@@ -8,7 +8,8 @@ import { userSvc } from "@USupport-components-library/services";
 import "./idle-timer.scss";
 
 const timeout = FIVE_MINUTES * 4;
-// const timeout = 10_000;
+// const timeout = FIVE_MINUTES;
+// const timeout = 50_000;
 
 /**
  * IdleTimer
@@ -68,6 +69,23 @@ export const IdleTimer = ({ setLoggedIn, t, NavigateComponent }) => {
     return () => localStorage.removeItem("usupport_lot");
   }, []);
 
+  const [isTabFocused, setIsTabFocused] = useState(true);
+
+  const onFocus = () => setIsTabFocused(true);
+  const onBlur = () => setIsTabFocused(false);
+
+  useEffect(() => {
+    window.addEventListener("focus", onFocus);
+    window.addEventListener("blur", onBlur);
+    // Calls onFocus when the window first loads
+
+    // Specify how to clean up after this effect:
+    return () => {
+      window.removeEventListener("focus", onFocus);
+      window.removeEventListener("blur", onBlur);
+    };
+  }, []);
+
   useEffect(() => {
     if (open) {
       const lastOpenTime = localStorage.getItem("usupport_lot");
@@ -98,7 +116,7 @@ export const IdleTimer = ({ setLoggedIn, t, NavigateComponent }) => {
         timeoutRef.current = null;
       }
     };
-  }, [open]);
+  }, [open, isTabFocused]);
 
   useEffect(() => {
     if (timeToLogout === -1) {
