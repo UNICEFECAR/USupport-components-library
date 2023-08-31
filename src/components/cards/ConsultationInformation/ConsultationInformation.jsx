@@ -59,7 +59,9 @@ export const ConsultationInformation = ({
                   ? "consultation-information__content__details__status--active"
                   : ""
               }`}
-            />
+            >
+              <Icon size="sm" name={isInSession ? "wifi-on" : "wifi-off"} />
+            </div>
           ) : null}
         </div>
         <div className="consultation-information__content__date-item">
