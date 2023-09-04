@@ -22,11 +22,11 @@ export const IdleTimer = ({ setLoggedIn, t, NavigateComponent }) => {
   const [open, setOpen] = useState(false);
 
   const onIdle = () => {
-    setOpen(true);
+    handleLogout();
   };
 
   const onPrompt = () => {
-    setOpen(true);
+    handleLogout();
   };
 
   const { activate } = useIdleTimer({
