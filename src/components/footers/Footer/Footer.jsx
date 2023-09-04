@@ -81,7 +81,7 @@ export const Footer = ({
   lists.list1.forEach((listItem) => {
     list1.push({
       value: (
-        <Link to={listItem.url ? listItem.url : "#"}>
+        <Link to={listItem.url ? listItem.url : "#"} rel="noopener noreferrer">
           <Button
             type="text"
             size="lg"
@@ -97,7 +97,7 @@ export const Footer = ({
   lists.list2.forEach((listItem) => {
     list2.push({
       value: (
-        <Link to={listItem.url ? listItem.url : "#"}>
+        <Link to={listItem.url ? listItem.url : "#"} rel="noopener noreferrer">
           <Button
             type="text"
             size="lg"
