@@ -22,11 +22,12 @@ export const Notification = ({
   children,
   classes,
   handleClick,
+  t,
 }) => {
   const dateText = isDateToday(date)
     ? ""
     : isDateYesterday(date)
-    ? "Yesterday"
+    ? t("yesterday")
     : date.toLocaleDateString();
 
   const hourText = getTimeFromDate(date);
