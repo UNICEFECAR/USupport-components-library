@@ -7,6 +7,7 @@
   flex-direction: row;
   padding: $spacing_2_4;
   width: calc(34.4rem - 2 * $spacing_2_4);
+  @include themify($themes, "background-color", "color_white_ff");
 
   @media screen and (min-width: $screen_lg) {
     width: calc(35.2rem - 2 * $spacing_2_4);

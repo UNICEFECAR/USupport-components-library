@@ -112,6 +112,310 @@ $spacing_30_7: 30.7rem;
 $spacing_35_0: 35rem;
 $spacing_40_3: 40.3rem;
 
+$themes: (
+  light: (
+    // Colors
+    color_primary_20809e: #20809e,
+    color_primary_pressed_156f8c: #156f8c,
+    color_primary_pressed_0c5f7a: #0c5f7a,
+
+    color_secondary_9749fa: #9749fa,
+    color_secondary_pressed_7f2ee5: #7f2ee5,
+    color_secondary_pressed_6c16d9: #6c16d9,
+
+    color_black_00: #000000,
+    color_black_37: #373737,
+
+    color_white_ff: #ffffff,
+
+    color_transparent: rgba(0, 0, 0, 0),
+    color_gray_ea: #eaeaea,
+    color_gray_92989b: #92989b,
+    color_gray_a6b4b8: #a6b4b8,
+    color_gray_66768d: #66768d,
+    color_gray_344054: #344054,
+
+    color_green_54cfd9: #54cfd9,
+    color_green_c1eaea: #c1eaea,
+    color_green_f4f7fe: #f4f7fe,
+    color_green_e6f1f4: #e6f1f4,
+    color_green_transparent_1: rgba(244, 252, 253, 0.62),
+    color_purple_dac3f6: #dac3f6,
+    color_purple_c39af9: #c39af9,
+    color_purple_c39af9_0_5: rgba(195, 154, 248, 0.5),
+    color_blue_2a54bc: #2a54bc,
+    color_blue_3d527b: #3d527b,
+    color_blue_263238: #263238,
+    color_blue_20809E_0_3: rgba(32, 128, 158, 0.3),
+    color_blue_c1d7e0: #c1d7e0,
+
+    color_red_eb5757: #eb5757,
+    color_red_cc4c4c: #cc4c4c,
+    color_red_a63d3d: #a63d3d,
+    color_red_ed5657: #ed5657,
+
+    color_orange_fb6514: #fb6514,
+    color_orange_fddcab: #fddcab,
+    color_orange_ffc4ad: #ffc4ad,
+
+    color_purple_200e2f: #200e2f,
+
+    color_green_7ec680: #7ec680,
+
+    color_blue_yellow: #20809e,
+
+    color_3d527b_white: #3d527b,
+    color_66768d_c1d7e0: #66768d,
+    color_3d527b_20809e: #3d527b,
+    color_66768d_3d527b: #66768d,
+
+    // Gradients
+    gradient_primary:
+      linear-gradient(
+        80.08deg,
+        #20809e -27.58%,
+        rgba(32, 128, 158, 0.23) 60.24%,
+        #20809e 133.62%
+      ),
+    gradient_secondary:
+      linear-gradient(270deg, #0daeb2 1.31%, #d6d2ff 42.92%, #814afd 93.14%),
+    // Make a cool gradient using the #814afd #9749fa #d6d2ff #0daeb2 colors
+    gradient_toastify:
+      linear-gradient(270deg, #0daeb2 1.31%, #d6d2ff 42.92%, #814afd 93.14%),
+    gradient_block:
+      linear-gradient(
+        90.14deg,
+        rgba(13, 174, 178, 0.2) -0.27%,
+        rgba(214, 210, 255, 0.0846922) 57.25%,
+        rgba(129, 74, 253, 0.2) 99.5%
+      ),
+    gradient_block_1:
+      linear-gradient(
+        90.14deg,
+        rgba(129, 74, 253, 0.2) -0.27%,
+        rgba(214, 210, 255, 0.0846922) 57.25%,
+        rgba(13, 174, 178, 0.2) 99.5%
+      ),
+    gradient_secondary_0_1_opacity:
+      linear-gradient(
+        270deg,
+        rgba(13, 174, 178, 0.1) 1.31%,
+        rgba(214, 210, 255, 0.1) 42.92%,
+        rgba(129, 74, 253, 0.1) 93.14%
+      ),
+    gradient_secondary_0_3_opacity:
+      linear-gradient(
+        270deg,
+        rgba(13, 174, 178, 0.4) 1.31%,
+        rgba(214, 210, 255, 0.4) 42.92%,
+        rgba(129, 74, 253, 0.2) 93.14%
+      ),
+    radial_gradient_purple:
+      radial-gradient(
+        50% 50% at 50% 50%,
+        rgba(129, 74, 253, 0.3) 0%,
+        rgba(129, 74, 253, 0) 100%
+      ),
+    radial_gradient_blue:
+      radial-gradient(
+        50% 50% at 50% 50%,
+        rgba(84, 207, 217, 0.3) 0%,
+        rgba(84, 207, 217, 0) 100%
+      ),
+    gradient_transparent:
+      linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #ffffff 100%),
+    // Shadows
+    shadow_1: 2px 2px 12px rgba(104, 77, 253, 0.1),
+    shadow_2: 0px 2px 18px rgba(104, 77, 253, 0.2),
+    shadow_3: 0px 2px 24px rgba(104, 77, 253, 0.3),
+    shadow_4: 3px 4px 5px rgba(104, 77, 253, 0.06),
+    overlay_66768D: rgba(102, 118, 141, 0.5),
+    overlay_010101: rgba(1, 1, 1, 0.2),
+  ),
+  dark: (
+    // Colors
+    color_primary_20809e: #20809e,
+    color_primary_pressed_156f8c: #156f8c,
+    color_primary_pressed_0c5f7a: #0c5f7a,
+
+    color_secondary_9749fa: #9749fa,
+    color_secondary_pressed_7f2ee5: #7f2ee5,
+    color_secondary_pressed_6c16d9: #6c16d9,
+
+    color_black_00: #ffffff,
+    color_black_37: #373737,
+
+    color_white_ff: #23272a,
+
+    color_transparent: rgba(0, 0, 0, 0),
+    color_gray_ea: #eaeaea,
+    color_gray_92989b: #92989b,
+    color_gray_a6b4b8: #a6b4b8,
+    color_gray_66768d: #66768d,
+    color_gray_344054: #344054,
+
+    color_green_54cfd9: #54cfd9,
+    color_green_c1eaea: #c1eaea,
+    color_green_f4f7fe: #23272a,
+    color_green_e6f1f4: #e6f1f4,
+    color_green_transparent_1: rgba(35, 39, 42, 0.62),
+    color_purple_dac3f6: #dac3f6,
+    color_purple_c39af9: #c39af9,
+    color_purple_c39af9_0_5: rgba(195, 154, 248, 0.5),
+    color_blue_2a54bc: #2a54bc,
+    color_blue_3d527b: #3d527b,
+    color_blue_263238: #263238,
+    color_blue_20809E_0_3: rgba(32, 128, 158, 0.3),
+    color_blue_c1d7e0: #c1d7e0,
+
+    color_red_eb5757: #eb5757,
+    color_red_cc4c4c: #cc4c4c,
+    color_red_a63d3d: #a63d3d,
+    color_red_ed5657: #ed5657,
+
+    color_orange_fb6514: #fb6514,
+    color_orange_fddcab: #fddcab,
+    color_orange_ffc4ad: #ffc4ad,
+
+    color_purple_200e2f: #200e2f,
+
+    color_green_7ec680: #7ec680,
+
+    color_blue_yellow: #efe327,
+
+    color_3d527b_white: #ffffff,
+    color_66768d_c1d7e0: #c1d7e0,
+    color_3d527b_20809e: #20809e,
+    color_66768d_3d527b: #3d527b,
+
+    // Gradients
+    gradient_primary:
+      linear-gradient(
+        80.08deg,
+        #20809e -27.58%,
+        rgba(32, 128, 158, 0.23) 60.24%,
+        #20809e 133.62%
+      ),
+    gradient_secondary:
+      linear-gradient(270deg, #0daeb2 1.31%, #d6d2ff 42.92%, #814afd 93.14%),
+    // Make a cool gradient using the #814afd #9749fa #d6d2ff #0daeb2 colors
+    gradient_toastify:
+      linear-gradient(270deg, #0daeb2 1.31%, #d6d2ff 42.92%, #814afd 93.14%),
+    gradient_block:
+      linear-gradient(
+        90.14deg,
+        rgba(13, 174, 178, 0.2) -0.27%,
+        rgba(214, 210, 255, 0.0846922) 57.25%,
+        rgba(129, 74, 253, 0.2) 99.5%
+      ),
+    gradient_block_1:
+      linear-gradient(
+        90.14deg,
+        rgba(129, 74, 253, 0.2) -0.27%,
+        rgba(214, 210, 255, 0.0846922) 57.25%,
+        rgba(13, 174, 178, 0.2) 99.5%
+      ),
+    gradient_secondary_0_1_opacity:
+      linear-gradient(
+        270deg,
+        rgba(13, 174, 178, 0.1) 1.31%,
+        rgba(214, 210, 255, 0.1) 42.92%,
+        rgba(129, 74, 253, 0.1) 93.14%
+      ),
+    gradient_secondary_0_3_opacity:
+      linear-gradient(
+        270deg,
+        rgba(13, 174, 178, 0.4) 1.31%,
+        rgba(214, 210, 255, 0.4) 42.92%,
+        rgba(129, 74, 253, 0.2) 93.14%
+      ),
+    radial_gradient_purple:
+      radial-gradient(
+        50% 50% at 50% 50%,
+        rgba(129, 74, 253, 0.3) 0%,
+        rgba(129, 74, 253, 0) 100%
+      ),
+    radial_gradient_blue:
+      radial-gradient(
+        50% 50% at 50% 50%,
+        rgba(84, 207, 217, 0.3) 0%,
+        rgba(84, 207, 217, 0) 100%
+      ),
+    gradient_transparent:
+      linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #ffffff 100%),
+    // Shadows
+    shadow_1: 2px 2px 12px rgba(104, 77, 253, 0.1),
+    shadow_2: 0px 2px 18px rgba(104, 77, 253, 0.2),
+    shadow_3: 0px 2px 24px rgba(104, 77, 253, 0.3),
+    shadow_4: 3px 4px 5px rgba(104, 77, 253, 0.06),
+    overlay_66768D: rgba(102, 118, 141, 0.5),
+    overlay_010101: rgba(1, 1, 1, 0.2),
+  ),
+);
+
+@mixin themifyNormal($themes) {
+  @each $theme, $map in $themes {
+    .theme-#{$theme} & {
+      $theme-map: () !global;
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), "#{$key}");
+        $theme-map: map-merge(
+          $theme-map,
+          (
+            $key: $value,
+          )
+        ) !global;
+      }
+      @content;
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function themed($key) {
+  @return map-get($theme-map, $key);
+}
+
+@mixin themify($themes, $property, $color_1) {
+  @each $theme, $map in $themes {
+    .theme-#{$theme} & {
+      $theme-map: () !global;
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), "#{$key}");
+        $theme-map: map-merge(
+          $theme-map,
+          (
+            $key: $value,
+          )
+        ) !global;
+      }
+      #{$property}: map-get($theme-map, $color_1);
+    }
+  }
+}
+
+@mixin themifyCustom($themes, $property, $color_1, $color_2) {
+  @each $theme, $map in $themes {
+    .theme-#{$theme} & {
+      $theme-map: () !global;
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), "#{$key}");
+        $theme-map: map-merge(
+          $theme-map,
+          (
+            $key: $value,
+          )
+        ) !global;
+      }
+      @if $theme == "light" {
+        #{$property}: map-get($theme-map, $color_1);
+      } @else {
+        #{$property}: map-get($theme-map, $color_2);
+      }
+    }
+  }
+}
+
 // Colors
 $color_primary_20809e: #20809e;
 $color_primary_pressed_156f8c: #156f8c;

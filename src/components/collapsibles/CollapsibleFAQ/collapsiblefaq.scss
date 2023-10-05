@@ -4,7 +4,7 @@
   text-align: left;
 
   .faq-header {
-    color: $color_blue_3d527b;
+    @include themify($themes, "color", "color_3d527b_20809e");
   }
 
   &.collapsible--expanded {
@@ -14,7 +14,7 @@
   }
 
   .faq-text {
-    color: $color_gray_66768d;
+    @include themify($themes, "color", "color_66768d_c1d7e0");
     padding-top: $spacing_0_8;
   }
 }
