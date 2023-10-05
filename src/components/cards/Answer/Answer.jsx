@@ -29,6 +29,7 @@ export const Answer = ({
   handleScheduleConsultationClick = () => {},
   handleRespond = () => {},
   handleArchive = () => {},
+  handleProviderClick = () => {},
   classes,
   t,
 }) => {
@@ -67,13 +68,14 @@ export const Answer = ({
       </div>
     );
   };
+  const isAskedByCurrentClient = question.isAskedByCurrentClient;
 
   return (
     <Box classes={["answer", classes]}>
       {question.answerTitle ? (
         <>
           <div className="answer__heading-container">
-            {isInYourQuestions ? (
+            {isInYourQuestions || isAskedByCurrentClient ? (
               <div>
                 <div className="answer__date-container">
                   <Icon name="calendar" color="#92989B" />
@@ -121,7 +123,8 @@ export const Answer = ({
       {question.answerTitle ? (
         <>
           {isInYourQuestions && renderHeadingAndLabels()}
-          {renderIn === "provider" && question.answerText ? (
+          {renderIn === "provider" ||
+          (renderIn === "country-admin" && question.answerText) ? (
             <>
               <h4 className="answer__provider-heading-text answer__limited-text">
                 {question.answerTitle}
@@ -143,32 +146,44 @@ export const Answer = ({
               classes="answer__read-more-button"
               onClick={() => handleReadMore(question)}
             />
-            {renderIn === "provider" && (
-              <div className="answer__answered-by-container">
-                <p className="text">{t("answer_by")}</p>
-                <Avatar
-                  image={AMAZON_S3_BUCKET + "/" + providerInfo.image}
-                  alt="Specialist avatar"
-                  size="xs"
-                  classes="answer__answered-by-container__avatar"
-                />
-                <p className="text">
-                  {providerInfo.name} {providerInfo.surname}
-                </p>
-              </div>
-            )}
           </div>
-          {renderIn === "client" ? (
+          {(renderIn === "provider" || renderIn === "country-admin") && (
+            <div className="answer__answered-by-container">
+              <p className="text">{t("answer_by")}</p>
+              <Avatar
+                image={AMAZON_S3_BUCKET + "/" + providerInfo.image}
+                alt="Specialist avatar"
+                size="xs"
+                classes="answer__answered-by-container__avatar"
+              />
+              <p className="text">
+                {providerInfo.name} {providerInfo.surname}
+              </p>
+            </div>
+          )}
+          {renderIn === "client" || renderIn === "website" ? (
             <div className="answer__bottom-container">
-              <div className="answer__answered-by-container">
+              <div className="answer__answered-by-container answer__answered-by-container--client">
                 <p className="text">{t("answer_by")}</p>
                 <Avatar
                   image={AMAZON_S3_BUCKET + "/" + providerInfo.image}
                   alt="Specialist avatar"
                   size="xs"
+                  onClick={() =>
+                    handleProviderClick(
+                      providerInfo.providerId || providerInfo.provider_detail_id
+                    )
+                  }
                   classes="answer__answered-by-container__avatar"
                 />
-                <p className="text">
+                <p
+                  className="text answer__bottom-container__provider-name"
+                  onClick={() =>
+                    handleProviderClick(
+                      providerInfo.providerId || providerInfo.provider_detail_id
+                    )
+                  }
+                >
                   {providerInfo.name} {providerInfo.surname}
                 </p>
               </div>
@@ -201,7 +216,9 @@ export const Answer = ({
               <Button
                 label={t("archive")}
                 onClick={() => handleArchive(question)}
-                type="ghost"
+                type="secondary"
+                size="md"
+                color="red"
                 classes="answer__bottom-container__archive-button"
               />
             </div>
@@ -213,9 +230,62 @@ export const Answer = ({
 };
 
 Answer.propTypes = {
-  // Add propTypes here
-};
+  /**
+   * question object
+   * @required
+   */
+  question: PropTypes.object.isRequired,
 
-Answer.defaultProps = {
-  // Add defaultProps here
+  /**
+   * isInYourQuestions boolean
+   * @default false
+   */
+  isInYourQuestions: PropTypes.bool,
+
+  /**
+   * renderIn string
+   * @default "client"
+   */
+  renderIn: PropTypes.string,
+
+  /**
+   * handleLike function
+   * @default () => {}
+   */
+  handleLike: PropTypes.func,
+
+  /**
+   * handleReadMore function
+   * @default () => {}
+   */
+  handleReadMore: PropTypes.func,
+
+  /**
+   * handleScheduleConsultationClick function
+   * @default () => {}
+   */
+  handleScheduleConsultationClick: PropTypes.func,
+
+  /**
+   * handleRespond function
+   * @default () => {}
+   */
+  handleRespond: PropTypes.func,
+
+  /**
+   * handleArchive function
+   * @default () => {}
+   */
+  handleArchive: PropTypes.func,
+
+  /**
+   * classes string
+   * */
+  classes: PropTypes.string,
+
+  /**
+   * t translation function
+   * @required
+   * */
+  t: PropTypes.func.isRequired,
 };

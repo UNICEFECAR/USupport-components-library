@@ -10,11 +10,11 @@ function destructureArticleData(article) {
   const articleLabels = computeArticleLabels(articleData.labels?.data);
   const articleReadingTime = articleData.reading_time;
   const articleThumbnailImage =
-    article.attributes.image.data.attributes.formats.thumbnail.url;
+    article.attributes.image?.data?.attributes?.formats?.thumbnail?.url;
   const articleImageMedium =
-    article.attributes.image.data.attributes.formats.medium.url;
+    article.attributes.image?.data?.attributes?.formats?.medium?.url;
   const articleImageSmall =
-    article.attributes.image.data.attributes.formats.small.url;
+    article.attributes.image?.data?.attributes?.formats?.small?.url;
   const categoryId = articleData.category?.data?.id;
   const categoryName = articleData.category?.data?.attributes?.name;
   const description = articleData.description;
@@ -22,6 +22,7 @@ function destructureArticleData(article) {
     articleData.createdBy.data.attributes.firstname +
     " " +
     articleData.createdBy.data.attributes.lastname;
+  const author = articleData.author;
 
   return {
     id: articleId,
@@ -30,14 +31,12 @@ function destructureArticleData(article) {
     imageMedium: articleImageMedium,
     imageSmall: articleImageSmall,
     readingTime: articleReadingTime,
-    description: articleData.description,
     body: body,
     labels: articleLabels,
-    creator: creator,
-    readingTime: articleData.reading_time,
+    creator: author,
     categoryId: categoryId,
     categoryName: categoryName,
-    description: description,
+    description,
   };
 }
 

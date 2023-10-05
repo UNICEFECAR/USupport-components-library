@@ -21,16 +21,18 @@ export const ProfilePicturePreview = ({
 }) => {
   const imageSrc = imageFile ? imageFile : AMAZON_S3_BUCKET + "/" + image;
   return (
-    <div className="profile-picture-preview">
-      <Icon
-        onClick={handleDeleteClick}
-        name="circle-action-close-purple"
-        size="md"
-      />
-      <img src={imageSrc} alt="profile-picture" />
-      <p onClick={handleChangeClick} className="small-text">
-        {changePhotoText}
-      </p>
+    <div className="profile-picture-preview-wrapper">
+      <div className="profile-picture-preview">
+        <Icon
+          onClick={handleDeleteClick}
+          name="circle-action-close-purple"
+          size="md"
+        />
+        <img src={imageSrc} alt="profile-picture" />
+        <p onClick={handleChangeClick} className="small-text">
+          {changePhotoText}
+        </p>
+      </div>
     </div>
   );
 };

@@ -14,7 +14,13 @@ import "./provider-details.scss";
  *
  * @return {jsx}
  */
-export const ProviderDetails = ({ provider, image, t, buttonComponent }) => {
+export const ProviderDetails = ({
+  provider,
+  image,
+  t,
+  buttonComponent,
+  renderIn,
+}) => {
   const currencySymbol = localStorage.getItem("currency_symbol");
 
   const allOptionsToString = (option) => {
@@ -37,7 +43,19 @@ export const ProviderDetails = ({ provider, image, t, buttonComponent }) => {
 
   const renderLanguages = useCallback(() => {
     if (provider) {
-      return provider.languages.map((x) => x.name)?.join(", ");
+      return provider.languages
+        .map((x) => {
+          return x.name === "English" ? x.name : `${x.name} (${x.local_name})`;
+        })
+        ?.map((x, i) => {
+          return (
+            <React.Fragment key={i}>
+              {x}
+              {i !== provider.languages?.length - 1 ? ", " : ""}
+              <br />
+            </React.Fragment>
+          );
+        });
     }
   }, [provider]);
 
@@ -57,7 +75,7 @@ export const ProviderDetails = ({ provider, image, t, buttonComponent }) => {
               classes="provider-details__header__provider-container__avatar"
             />
             <div className="provider-details__header__provider-container__text-container">
-              <h4>
+              <h4 className="provider-details__header__provider-container__text-container__name">
                 {provider.name} {provider.patronym ? provider.patronym : ""}{" "}
                 {provider.surname}
               </h4>
@@ -88,24 +106,28 @@ export const ProviderDetails = ({ provider, image, t, buttonComponent }) => {
       <GridItem md={4} lg={8}>
         <Grid>
           <GridItem md={4} lg={6} classes="provider-details__grid__item">
-            <div className="provider-details__information-container-with-icon">
-              <Icon
-                name="call"
-                size="md"
-                color="#66768D"
-                classes="provider-details__information-container-with-icon__icon"
-              />
-              <p className="paragraph">{`${provider.phonePrefix} ${provider.phone}`}</p>
-            </div>
-            <div className="provider-details__information-container-with-icon">
-              <Icon
-                name="mail-admin"
-                size="md"
-                color="#66768D"
-                classes="provider-details__information-container-with-icon__icon"
-              />
-              <p className="paragraph">{provider.email}</p>
-            </div>
+            {renderIn !== "client" && renderIn !== "website" && (
+              <div className="provider-details__information-container-with-icon">
+                <Icon
+                  name="call"
+                  size="md"
+                  color="#66768D"
+                  classes="provider-details__information-container-with-icon__icon"
+                />
+                <p className="paragraph">{provider.phone}</p>
+              </div>
+            )}
+            {renderIn !== "client" && renderIn !== "website" && (
+              <div className="provider-details__information-container-with-icon">
+                <Icon
+                  name="mail-admin"
+                  size="md"
+                  color="#66768D"
+                  classes="provider-details__information-container-with-icon__icon"
+                />
+                <p className="paragraph">{provider.email}</p>
+              </div>
+            )}
             {provider.consultationPrice > 0 ? (
               <div className="provider-details__information-container-with-icon">
                 <Icon
@@ -116,7 +138,7 @@ export const ProviderDetails = ({ provider, image, t, buttonComponent }) => {
                 />
                 <p className="paragraph">
                   {provider.consultationPrice}
-                  {currencySymbol} for 1 hour consultation
+                  {currencySymbol} {t("hour_consultation")}
                 </p>
               </div>
             ) : null}

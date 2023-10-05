@@ -1,4 +1,12 @@
+@import "../../../styles/theme";
+
 .markdown {
   text-align: justify;
   white-space: pre-wrap;
+
+  .markdown-link {
+    color: $color_primary_20809e;
+    text-decoration: underline;
+    font-weight: $font_semi_bold;
+  }
 }

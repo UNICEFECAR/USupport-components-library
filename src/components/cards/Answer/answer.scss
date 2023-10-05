@@ -15,6 +15,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
+    align-items: center;
 
     &__question-text {
       margin-top: $spacing_0_8;
@@ -29,6 +30,7 @@
 
     > .label-component {
       margin: $spacing_0_2;
+      background-color: $color_gray_ea;
     }
   }
 
@@ -51,6 +53,10 @@
       margin-top: $spacing_1_6;
     }
 
+    &__provider-name {
+      cursor: pointer;
+    }
+
     &__archive-button {
       margin-top: $spacing_0_8;
 
@@ -67,6 +73,12 @@
 
     &__avatar {
       margin: 0 $spacing_0_4;
+    }
+
+    &--client {
+      & img {
+        cursor: pointer;
+      }
     }
   }
 

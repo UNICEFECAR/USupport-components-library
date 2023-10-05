@@ -14,7 +14,7 @@ import "./notification.scss";
  * @return {jsx}
  */
 export const Notification = ({
-  icon,
+  icon = "calendar",
   title,
   text,
   isRead,
@@ -22,11 +22,12 @@ export const Notification = ({
   children,
   classes,
   handleClick,
+  t,
 }) => {
   const dateText = isDateToday(date)
     ? ""
     : isDateYesterday(date)
-    ? "Yesterday"
+    ? t("yesterday")
     : date.toLocaleDateString();
 
   const hourText = getTimeFromDate(date);
@@ -78,7 +79,7 @@ Notification.propTypes = {
   /**
    *  Text
    **/
-  text: PropTypes.string,
+  text: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
   /**
    * Read status

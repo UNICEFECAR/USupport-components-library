@@ -21,6 +21,7 @@ export const InputGroup = ({
   label,
   handleParentChange,
   addMoreText,
+  removeText,
   errorMessage,
 }) => {
   const [initialCount, setInitialCount] = useState(1);
@@ -87,17 +88,17 @@ export const InputGroup = ({
                 <Input
                   value={item.value}
                   onChange={(e) => handleChange(e.currentTarget.value, index)}
-                  label={`${label} ${index + 1}`}
+                  label={`${label} ${index + 1}${index === 0 ? " *" : ""}`}
                   placeholder={label}
                 />
-                {index + 1 === initialCount && initialCount > 1 && (
+                {(options.length > 1 ? true : index !== 0) && (
                   <ButtonWithIcon
                     color="red"
                     classes="input-group__inputs-list__single__remove-button"
                     iconColor="#eb5757"
                     iconName="trash"
                     iconSize="lg"
-                    label="Remove"
+                    label={removeText}
                     type="ghost"
                     onClick={() => handleRemove(index)}
                   />

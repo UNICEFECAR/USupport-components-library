@@ -5,6 +5,9 @@
   max-width: calc(46.4rem - 2 * $spacing_2_4);
   border-radius: $border_radius_2_4;
   text-align: left;
+  content-visibility: auto;
+  display: flex;
+  width: auto;
 
   @media screen and (max-width: $screen_md) {
     max-width: 28rem;
@@ -12,6 +15,17 @@
 
   &__text {
     color: $color_black_37;
+  }
+
+  &__date {
+    color: $color_gray_66768d;
+    text-align: left;
+    align-self: flex-end;
+    padding-left: 0.6rem;
+
+    &--sent {
+      text-align: right;
+    }
   }
 
   &-sent {
