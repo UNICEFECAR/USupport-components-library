@@ -2,7 +2,8 @@
 
 .nav {
   min-width: $screen-sm;
-  background: $color_white_ff;
+  // background: $color_white_ff;
+  @include themify($themes, "background", "color_white_ff");
   box-shadow: $shadow_1;
   display: flex;
   justify-content: space-between;
@@ -102,7 +103,9 @@
       }
 
       &::after {
-        border-bottom: 2px solid $color_primary_20809e;
+        @include themifyNormal($themes) {
+          border-bottom: 2px solid themed("color_primary_20809e");
+        }
         bottom: -$spacing_0_2;
         content: "";
         padding-top: 12px;
@@ -114,7 +117,8 @@
     }
 
     &:hover p {
-      color: $color_primary_20809e;
+      // color: $color_primary_20809e;
+      @include themify($themes, "color", "color_primary_20809e");
       &::after {
         width: 100%;
       }
@@ -123,9 +127,13 @@
 
   &__item--current p {
     color: $color_primary_20809e;
+    @include themify($themes, "color", "color_primary_20809e");
 
     &::after {
-      border-bottom: 2px solid $color_primary_20809e;
+      @include themifyNormal($themes) {
+        border-bottom: 2px solid themed("color_primary_20809e");
+      }
+      // border-bottom: 2px solid $color_primary_20809e;
       bottom: -$spacing_0_2;
       content: "";
       padding-top: 12px;
@@ -165,7 +173,8 @@
   &__current-language {
     text-transform: uppercase;
     font-weight: $font_bold;
-    color: $color_primary_20809e;
+    // color: $color_primary_20809e;
+    @include themify($themes, "color", "color_primary_20809e");
 
     & > p {
       margin-bottom: $spacing_2_4;
@@ -313,7 +322,8 @@
     }
 
     &__text-active {
-      color: $color_primary_20809e;
+      // color: $color_primary_20809e;
+      @include themify($themes, "color", "color_primary_20809e");
     }
   }
 
@@ -342,7 +352,8 @@
       &-label--selected {
         font-weight: $font_bold;
         text-decoration: underline;
-        color: $color_primary_20809e;
+        // color: $color_primary_20809e;
+        @include themify($themes, "color", "color_primary_20809e");
       }
 
       &:not(:first-of-type) {
