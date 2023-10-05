@@ -22,7 +22,8 @@
       font-size: $font_size_1_2;
       font-weight: $font_medium;
       line-height: $line_height_1_8;
-      color: $color_gray_66768d;
+      //color: $color_gray_66768d;
+      @include themify($themes, "color", "color_primary_4");
     }
   }
 }

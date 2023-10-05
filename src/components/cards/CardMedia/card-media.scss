@@ -7,6 +7,7 @@
   width: 34.3rem;
   margin: auto;
   position: relative;
+  @include themify($themes, "background-color", "color_white_ff");
 
   &__labels {
     display: flex;
@@ -62,7 +63,7 @@
       -webkit-line-clamp: 1;
       display: -webkit-box;
       overflow: hidden;
-      color: $color_blue_3d527b;
+      @include themify($themes, "color", "color_66768d_3d527b");
     }
 
     .small-text {

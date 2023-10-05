@@ -2,6 +2,8 @@
 
 .footer {
   background-color: $color_green_f4f7fe;
+  @include themify($themes, "background", "color_green_f4f7fe");
+
   padding-top: $spacing_4_8;
 
   @media screen and (min-width: $screen-lg) {
