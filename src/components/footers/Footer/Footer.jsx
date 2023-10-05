@@ -13,8 +13,6 @@ import "./footer.scss";
 
 import { useEventListener } from "#hooks";
 
-import { logoHorizontalPng, logoHorizontalWebp } from "../../../assets";
-
 const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
 
 /**
@@ -24,7 +22,13 @@ const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
  *
  * @return {jsx}
  */
-export const Footer = ({ lists, contactUsText, navigate, Link }) => {
+export const Footer = ({
+  lists,
+  contactUsText,
+  navigate,
+  Link,
+  showSocials = true,
+}) => {
   const currentYear = new Date().getFullYear();
 
   const defaultLogo = `${AMAZON_S3_BUCKET}/logo-horizontal`;
@@ -70,14 +74,14 @@ export const Footer = ({ lists, contactUsText, navigate, Link }) => {
         break;
     }
 
-    if (link !== "") window.open(link, "_blank").focus();
+    if (link !== "") window.open(link, "_blank", "noreferrer").focus();
   }
 
   let list1 = [];
   lists.list1.forEach((listItem) => {
     list1.push({
       value: (
-        <Link to={listItem.url ? listItem.url : "#"}>
+        <Link to={listItem.url ? listItem.url : "#"} rel="noopener noreferrer">
           <Button
             type="text"
             size="lg"
@@ -93,7 +97,7 @@ export const Footer = ({ lists, contactUsText, navigate, Link }) => {
   lists.list2.forEach((listItem) => {
     list2.push({
       value: (
-        <Link to={listItem.url ? listItem.url : "#"}>
+        <Link to={listItem.url ? listItem.url : "#"} rel="noopener noreferrer">
           <Button
             type="text"
             size="lg"
@@ -132,26 +136,28 @@ export const Footer = ({ lists, contactUsText, navigate, Link }) => {
               navigate("/");
             }}
           />
-          <div>
-            <Icon
-              classes="footer__icon"
-              name="linkedin"
-              size={"lg"}
-              onClick={() => handleContactsClick("linkedin")}
-            />
-            <Icon
-              classes="footer__icon"
-              name="twitter"
-              size={"lg"}
-              onClick={() => handleContactsClick("twitter")}
-            />
-            <Icon
-              classes="footer__icon"
-              name="facebook"
-              size={"lg"}
-              onClick={() => handleContactsClick("facebook")}
-            />
-          </div>
+          {showSocials && (
+            <div>
+              <Icon
+                classes="footer__icon"
+                name="linkedin"
+                size={"lg"}
+                onClick={() => handleContactsClick("linkedin")}
+              />
+              <Icon
+                classes="footer__icon"
+                name="twitter"
+                size={"lg"}
+                onClick={() => handleContactsClick("twitter")}
+              />
+              <Icon
+                classes="footer__icon"
+                name="facebook"
+                size={"lg"}
+                onClick={() => handleContactsClick("facebook")}
+              />
+            </div>
+          )}
         </GridItem>
         <GridItem classes="footer__list-item" xs={2} md={2} lg={2}>
           <List items={list1} />

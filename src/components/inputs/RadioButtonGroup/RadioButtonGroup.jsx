@@ -29,6 +29,7 @@ export const RadioButtonGroup = ({
           setIsChecked={() => setSelected(option.value)}
           key={index}
           classes="radio-button-group__radio-button"
+          tabIndex="0"
         />
       );
     });

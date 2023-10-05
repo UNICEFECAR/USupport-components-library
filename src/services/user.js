@@ -13,12 +13,14 @@ function logout() {
   localStorage.removeItem("token");
   localStorage.removeItem("token-expires-in");
   localStorage.removeItem("refresh-token");
+  localStorage.removeItem("usupport_lot");
+  window.dispatchEvent(new Event("logout"));
 }
 
 /**
  *
  * @param {string} userType the type of user - either "client" or "provider"
- * @param {string} countryId the id of the country
+ * @param {string} countryId the 0id of the country
  * @param {string} password the password of the user
  * @param {string} clientData the data of the client
  * @param {string} providerData the data of the provider
@@ -219,6 +221,20 @@ async function changeLanguage(language) {
   return response;
 }
 
+async function requestEmailOTP(email) {
+  const response = await http.post(`${API_ENDPOINT}/email-otp`, {
+    email,
+  });
+  return response;
+}
+
+async function validateCaptcha(token) {
+  const response = await http.post(`${API_ENDPOINT}/validate-captcha`, {
+    token,
+  });
+  return response;
+}
+
 const exportedFunctions = {
   changePassword,
   generateClientAccesToken,
@@ -241,6 +257,8 @@ const exportedFunctions = {
   transformUserData,
   addContactForm,
   changeLanguage,
+  requestEmailOTP,
+  validateCaptcha,
 };
 
 export default exportedFunctions;

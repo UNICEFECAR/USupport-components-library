@@ -1,9 +1,10 @@
 import http from "./http";
-import jwtDecode from "jwt-decode";
 const API_ENDPOINT = `${import.meta.env.VITE_API_ENDPOINT}/v1/provider`;
 
-async function getProviderData() {
-  const response = await http.get(`${API_ENDPOINT}/`);
+async function getProviderData(signal = new AbortController().signal) {
+  const response = await http.get(`${API_ENDPOINT}/`, {
+    signal: signal,
+  });
   return response;
 }
 
@@ -109,18 +110,32 @@ async function addTemplateAvailability(data) {
   return response;
 }
 
-async function getAllProviders(campaignId) {
+async function getAllProviders({
+  campaignId,
+  limit = 5,
+  offset,
+  filtersQueryString,
+}) {
   const response = await http.get(
-    `${API_ENDPOINT}/all${campaignId ? `?campaignId=${campaignId}` : ""}`
+    `${API_ENDPOINT}/all?offset=${offset}&limit=${limit}&${filtersQueryString}&${
+      campaignId ? `campaignId=${campaignId}` : ""
+    }`
   );
   return response;
 }
 
-async function getProviderById(id, campaignId) {
+async function getProviderById(
+  id,
+  campaignId,
+  signal = new AbortController().signal
+) {
   const response = await http.get(
     `${API_ENDPOINT}/by-id?providerId=${id}${
       campaignId ? `&campaignId=${campaignId}` : ""
-    }`
+    }`,
+    {
+      signal: signal,
+    }
   );
   return response;
 }

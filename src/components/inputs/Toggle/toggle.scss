@@ -1,5 +1,12 @@
 @import "../../../styles/theme";
 
+.toggle-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
 .toggle {
   cursor: pointer;
   display: inline-block;
@@ -16,6 +23,11 @@
     opacity: 0;
     width: 0;
     height: 0;
+  }
+
+  &__label {
+    color: $color_blue_3d527b;
+    margin-bottom: $spacing_0_4;
   }
 
   &__slider {

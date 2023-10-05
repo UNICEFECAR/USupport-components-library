@@ -17,6 +17,8 @@ export const Toggle = ({
   shouldChangeState,
   isDisabled,
   classes,
+  label,
+  labelClasses,
 }) => {
   const [checked, setChecked] = useState(isToggled);
 
@@ -36,16 +38,19 @@ export const Toggle = ({
   }, [isToggled, checked]);
 
   return (
-    <label
-      className={[
-        "toggle",
-        isDisabled ? "toggle-disabled" : "",
-        classNames(classes),
-      ].join(" ")}
-    >
-      <input type="checkbox" checked={checked} onChange={handleChange} />
-      <span className="toggle__slider" />
-    </label>
+    <div className="toggle-wrapper">
+      {label && <p className={`text toggle__label ${labelClasses}`}>{label}</p>}
+      <label
+        className={[
+          "toggle",
+          isDisabled ? "toggle-disabled" : "",
+          classNames(classes),
+        ].join(" ")}
+      >
+        <input type="checkbox" checked={checked} onChange={handleChange} />
+        <span className="toggle__slider" />
+      </label>
+    </div>
   );
 };
 
