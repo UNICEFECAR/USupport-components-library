@@ -90,15 +90,44 @@
   }
 
   &--secondary {
-    background-color: $color_white_ff;
-    border: 0.1rem solid $color_white_ff;
-
+    //background-color: $color_white_ff;
+    @include themifyCustom(
+      $themes,
+      "background-color",
+      "color_white_ff",
+      "color_primary_20809e"
+    );
+    border: 0.1rem solid;
+    @include themifyCustom(
+      $themes,
+      "border-color",
+      "color_white_ff",
+      "color_primary_20809e"
+    );
     &.btn--green {
-      color: $color_primary_20809e;
+      // color: $color_primary_20809e;
+      @include themifyCustom(
+        $themes,
+        "color",
+        "color_primary_20809e",
+        "color_black_00"
+      );
 
       &:hover:enabled {
-        border: 0.1rem solid $color_primary_pressed_156f8c;
-        color: $color_primary_pressed_156f8c;
+        border: 0.1rem solid;
+        @include themifyCustom(
+          $themes,
+          "border-color",
+          "color_primary_pressed_156f8c",
+          "color_black_00"
+        );
+        // color: $color_primary_pressed_156f8c;
+        @include themifyCustom(
+          $themes,
+          "color",
+          "color_primary_pressed_156f8c",
+          "color_black_00"
+        );
       }
 
       &:active:enabled {
