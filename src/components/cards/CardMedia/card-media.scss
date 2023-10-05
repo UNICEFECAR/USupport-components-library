@@ -63,7 +63,7 @@
       -webkit-line-clamp: 1;
       display: -webkit-box;
       overflow: hidden;
-      color: $color_blue_3d527b;
+      @include themify($themes, "color", "color_66768d_3d527b");
     }
 
     .small-text {
