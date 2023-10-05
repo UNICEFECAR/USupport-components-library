@@ -42,6 +42,10 @@
     }
   }
 
+  &:focus-visible {
+    outline: $color_primary_20809e auto 1px;
+  }
+
   //Modes: Primary, Secondary, Ghost and Emergency
   &--primary {
     color: $color_white_ff;
@@ -86,15 +90,44 @@
   }
 
   &--secondary {
-    background-color: $color_white_ff;
-    border: 0.1rem solid $color_white_ff;
-
+    //background-color: $color_white_ff;
+    @include themifyCustom(
+      $themes,
+      "background-color",
+      "color_white_ff",
+      "color_primary_20809e"
+    );
+    border: 0.1rem solid;
+    @include themifyCustom(
+      $themes,
+      "border-color",
+      "color_white_ff",
+      "color_primary_20809e"
+    );
     &.btn--green {
-      color: $color_primary_20809e;
+      // color: $color_primary_20809e;
+      @include themifyCustom(
+        $themes,
+        "color",
+        "color_primary_20809e",
+        "color_black_00"
+      );
 
       &:hover:enabled {
-        border: 0.1rem solid $color_primary_pressed_156f8c;
-        color: $color_primary_pressed_156f8c;
+        border: 0.1rem solid;
+        @include themifyCustom(
+          $themes,
+          "border-color",
+          "color_primary_pressed_156f8c",
+          "color_black_00"
+        );
+        // color: $color_primary_pressed_156f8c;
+        @include themifyCustom(
+          $themes,
+          "color",
+          "color_primary_pressed_156f8c",
+          "color_black_00"
+        );
       }
 
       &:active:enabled {
@@ -114,6 +147,20 @@
       &:active:enabled {
         border: 0.1rem solid $color_secondary_pressed_6c16d9;
         color: $color_secondary_pressed_6c16d9;
+      }
+    }
+
+    &.btn--red {
+      color: $color_red_eb5757;
+
+      &:hover:enabled {
+        border: 0.1rem solid $color_red_cc4c4c;
+        color: $color_red_cc4c4c;
+      }
+
+      &:active:enabled {
+        border: 0.1rem solid $color_red_a63d3d;
+        color: $color_red_a63d3d;
       }
     }
   }

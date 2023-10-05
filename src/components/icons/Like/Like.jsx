@@ -65,7 +65,7 @@ Like.propTypes = {
   /*
    * Function to handle like and dislike
    */
-  handleClick: PropTypes.func.isRequired,
+  handleClick: PropTypes.func,
 
   /*
    * Number of likes

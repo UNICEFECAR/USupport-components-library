@@ -17,3 +17,4 @@ export * from './SecurityCheckReport';
 export * from './CardPartner';
 export * from './MoodTrackDetails';
 export * from './Answer';
+export * from './StatusBadge';
