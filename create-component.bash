@@ -67,7 +67,6 @@ mkdir "src/components/$component_group/$component_name"
 touch "src/components/$component_group/$component_name/index.js"
 touch "src/components/$component_group/$component_name/$component_name.jsx"
 touch "src/components/$component_group/$component_name/$component_name_kebab.scss"
-touch "src/components/$component_group/$component_name/$component_name.stories.jsx"
 
 # Add the component to the component index file
 echo "export * from './$component_name.jsx';" >> "src/components/$component_group/$component_name/index.js"
@@ -104,22 +103,6 @@ $component_name.propTypes = {
 $component_name.defaultProps = {
   // Add defaultProps here
 };" >> "src/components/$component_group/$component_name/$component_name.jsx"
-
-# Add the component to the stories file
-echo "import React from 'react';
-
-import { $component_name } from './$component_name';
-
-export default {
-  title: 'Components Library/$component_group/$component_name',
-  component: $component_name,
-  argTypes: {},
-};
-
-const Template = (props) => <$component_name {...props} />;
-
-export const Default = Template.bind({});
-Default.args = {};" >> "src/components/$component_group/$component_name/$component_name.stories.jsx"
 
 # Output to the user's console
 echo "Successfully created $component into src/components/$component_group"

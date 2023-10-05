@@ -3,6 +3,7 @@
 
 .input-group {
   text-align: left;
+  max-width: 36.8rem;
 
   &__inputs-list {
     &__single {
@@ -23,11 +24,11 @@
           position: absolute;
           top: 0;
           margin-top: $spacing_3_0;
-          right: -12rem;
+          right: -11rem;
         }
 
         @media screen and (min-width: $screen_lg) {
-          right: -14rem;
+          right: -13rem;
         }
       }
     }

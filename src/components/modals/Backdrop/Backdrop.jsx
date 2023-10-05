@@ -38,6 +38,8 @@ export const Backdrop = ({
   children,
   errorMessage,
   reference,
+  headingComponent = null,
+  showAlwaysAsBackdrop = false,
 }) => {
   useEffect(() => {
     if (isOpen) {
@@ -58,7 +60,7 @@ export const Backdrop = ({
     onClose();
   };
 
-  return width < 768 ? (
+  return width < 768 || showAlwaysAsBackdrop ? (
     <>
       <div
         className={`backdrop__overlay ${
@@ -74,7 +76,8 @@ export const Backdrop = ({
         ].join(" ")}
       >
         <div className="backdrop__header">
-          <h4 className="backdrop__header-text">{heading}</h4>
+          {headingComponent}
+          {heading && <h4 className="backdrop__header-text">{heading}</h4>}
           <Icon
             size="md"
             name="close-x"
@@ -151,6 +154,7 @@ export const Backdrop = ({
         reference,
         isSecondaryCtaDisabled,
         showLoadingIfDisabled,
+        headingComponent,
       }}
     >
       {children}

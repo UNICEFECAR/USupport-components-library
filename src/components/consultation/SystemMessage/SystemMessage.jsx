@@ -2,8 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Icon } from "../../icons/Icon/Icon";
 
-import "./system-message.scss";
 import { getDateView, getTimeAsString } from "../../../utils/date";
+
+import "./system-message.scss";
 
 /**
  * SystemMessage
@@ -12,18 +13,28 @@ import { getDateView, getTimeAsString } from "../../../utils/date";
  *
  * @return {jsx}
  */
-export const SystemMessage = ({ iconName, title, date }) => {
+export const SystemMessage = ({ iconName, title, date, showDate }) => {
   return (
-    <div className="system-message">
-      <Icon name={iconName} size="md" color="#20809E" />
-      <div className="system-message__text-container">
-        <p className="small-text system-message__text-container__title">
-          {title}
+    <React.Fragment>
+      {showDate && (
+        <div className="message-date">
+          <p className="small-text">
+            <strong>{getDateView(date)}</strong>
+          </p>
+        </div>
+      )}
+      <div className="system-message">
+        <Icon name={iconName} size="md" color="#20809E" />
+        <div className="system-message__text-container">
+          <p className="small-text system-message__text-container__title">
+            {title}
+          </p>
+        </div>
+        <p className="system-message__time small-text">
+          {getTimeAsString(date)}
         </p>
-        <p className="small-text">{getTimeAsString(date)}</p>
-        <p className="small-text">{getDateView(date)}</p>
       </div>
-    </div>
+    </React.Fragment>
   );
 };
 
@@ -43,6 +54,11 @@ SystemMessage.propTypes = {
    * Date of the message
    */
   date: PropTypes.instanceOf(Date),
+
+  /**
+   * Wheter to show the date
+   * */
+  showDate: PropTypes.bool,
 };
 
 SystemMessage.defaultProps = {

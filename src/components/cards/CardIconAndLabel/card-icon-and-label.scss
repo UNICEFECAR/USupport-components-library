@@ -5,7 +5,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: $color_white_ff;
+  // background-color: $color_white_ff;
+  @include themify($themes, "background-color", "color_white_ff");
   border-radius: $border_radius_2_4;
   box-shadow: $shadow_2;
   width: 25.2rem;
@@ -60,6 +61,6 @@
   }
 
   & .label {
-    color: $color_blue_3d527b;
+    @include themify($themes, "color", "color_3d527b_white");
   }
 }

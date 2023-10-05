@@ -23,6 +23,9 @@ export const Controls = ({
   isCameraOn,
   isMicrophoneOn,
   renderIn, // "client" or "provider"
+  isRoomConnecting,
+  hasUnreadMessages = true,
+  isInSession,
   t,
 }) => {
   const [isMicOpen, setIsMicOpen] = useState(isMicrophoneOn);
@@ -35,9 +38,11 @@ export const Controls = ({
   const endDate = new Date(timestamp + ONE_HOUR);
 
   const handleMicClick = () => {
+    if (isRoomConnecting) return;
+
     const content = isMicOpen
-      ? t(`${renderIn}_microphone_off`)
-      : t(`${renderIn}_microphone_on`);
+      ? `${renderIn}_microphone_off`
+      : `${renderIn}_microphone_on`;
     handleSendMessage(content, "system");
 
     setIsMicOpen(!isMicOpen);
@@ -45,9 +50,11 @@ export const Controls = ({
   };
 
   const handleCameraClick = () => {
+    if (isRoomConnecting) return;
+
     const content = isCameraOpen
-      ? t(`${renderIn}_camera_off`)
-      : t(`${renderIn}_camera_on`);
+      ? `${renderIn}_camera_off`
+      : `${renderIn}_camera_on`;
     handleSendMessage(content, "system");
 
     setIsCameraOpen(!isCameraOpen);
@@ -70,7 +77,6 @@ export const Controls = ({
             name={!isCameraOpen ? "stop-camera" : "video"}
             size="lg"
             color="#20809E"
-            onClick={toggleCamera}
           />
         </div>
         <div className="button-container__button" onClick={handleMicClick}>
@@ -78,10 +84,12 @@ export const Controls = ({
             name={!isMicOpen ? "stop-mic" : "microphone"}
             size="lg"
             color="#20809E"
-            onClick={toggleMicrophone}
           />
         </div>
         <div className="button-container__button" onClick={handleChat}>
+          {hasUnreadMessages && (
+            <div className="button-container__unread-message" />
+          )}
           <Icon name={"comment"} size="lg" color="#20809E" />
         </div>
         <div className="button-container__button-hangup" onClick={handleHangUp}>
@@ -98,8 +106,18 @@ export const Controls = ({
         endDate={endDate}
         providerName={consultation.clientName || consultation.providerName}
         providerImage={consultation.image}
+        isInSession={isInSession}
+        showActivityIndicator
         t={t}
       />
+      {consultation.sponsorName && (
+        <p className="text controls__sponsored-by">
+          {t("sponsored_by")}
+          <span>
+            <strong>{consultation.sponsorName}</strong>
+          </span>
+        </p>
+      )}
       {renderAllButtons()}
     </Box>
   );

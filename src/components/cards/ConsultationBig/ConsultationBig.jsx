@@ -32,7 +32,6 @@ export const ConsultationBig = ({
   t,
 }) => {
   const { providerName, timestamp, image, status, price } = consultation;
-  // const name = consultation.providerName || consultation.clientName;
   const imageUrl = AMAZON_S3_BUCKET + "/" + (image || "default");
 
   const isLive = checkIsFiveMinutesBefore(timestamp);
@@ -78,7 +77,7 @@ export const ConsultationBig = ({
             label={t("join_button_label")}
             color="purple"
             classes="consultation-big__button"
-            onClick={() => handleJoin(consultation.consultationId)}
+            onClick={() => handleJoin(consultation)}
           />
         ) : (
           <Button

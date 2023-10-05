@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import OutsideClickHandler from "react-outside-click-handler";
 import { Icon, IconFlag } from "../../icons";
 import { List } from "../../lists";
-import { Button } from "../../buttons";
+import { Button, ButtonWithIcon } from "../../buttons";
 import { Box } from "../../boxes";
 import useWindowDimensions from "../../../utils/useWindowDimensions";
-import { userSvc } from "../../../services";
+import { userSvc, adminSvc } from "../../../services";
 
 const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
 
@@ -78,7 +78,7 @@ export const Navbar = ({
 
   const scrollTop = () => window.scrollTo(0, 0);
   const toggleNavbar = () => {
-    if (width < 950) {
+    if (width < 1050) {
       setIsNavbarExpanded((prev) => !prev);
       setLanguagesShown(false);
     }
@@ -122,7 +122,7 @@ export const Navbar = ({
           "nav__globe",
           "nav__item",
           languagesShown ? "nav__globe--expanded" : "",
-          width < 950 ? "nav__languages--mobile" : "",
+          width < 1050 ? "nav__languages--mobile" : "",
         ].join(" ")}
         role="button"
         tabIndex="0"
@@ -131,7 +131,6 @@ export const Navbar = ({
         }}
       >
         <p className="nav__current-language">{selectedLanguage.value}</p>
-
         <Icon name="arrow-chevron-down" size="sm" color="#20809e" />
       </div>
     ),
@@ -155,7 +154,7 @@ export const Navbar = ({
           {selectedCountry.iconName && (
             <IconFlag flagName={selectedCountry.iconName} />
           )}
-          {width < 950 && <p className="paragraph">{"Country"}</p>}
+          {width < 1050 && <p className="paragraph">{"Country"}</p>}
           <Icon name="arrow-chevron-down" size="sm" color="#20809e" />
         </div>
       ),
@@ -201,19 +200,19 @@ export const Navbar = ({
   };
 
   const renderCtaLoginMobile = () => {
-    if (width < 950 && showCta) return ctaLogin;
+    if (width < 1050 && showCta) return ctaLogin;
   };
 
   const renderCtaDesktop = () => {
-    if (width >= 950 && showCta) return ctaLogin;
+    if (width >= 1050 && showCta) return ctaLogin;
   };
 
   const renderNotificationIconMobile = () => {
-    if (width < 950 && showProfile) return notificationIcon;
+    if (width < 1050 && showProfile) return notificationIcon;
   };
 
   const renderProfileContainerMobile = () => {
-    if (width < 950 && showProfile) {
+    if (width < 1050 && showProfile) {
       return (
         <div
           className={[
@@ -228,7 +227,7 @@ export const Navbar = ({
   };
 
   const renderProfileContainerDesktop = () => {
-    if (width >= 950 && showProfile) {
+    if (width >= 1050 && showProfile) {
       return profileContainer;
     }
   };
@@ -236,11 +235,11 @@ export const Navbar = ({
   const ctaLogin = (
     <Button
       type="primary"
-      size={width < 950 || width >= 1200 ? "sm" : "xs"}
+      size={width < 1050 || width >= 1200 ? "sm" : "xs"}
       color="green"
       classes="nav__login"
       onClick={() => {
-        window.location.href = "/client/login";
+        window.location.href = "/client/register-preview";
         scrollTop();
       }}
       web={width >= 1110}
@@ -276,7 +275,7 @@ export const Navbar = ({
     pathname.includes("profile") || pathname.includes("details");
   const profileContainer = (
     <div className="nav__profile">
-      {width >= 950 && showNotifications && notificationIcon}
+      {width >= 1050 && showNotifications && notificationIcon}
       {showProfilePicture && (
         <img
           src={imageURL}
@@ -285,14 +284,16 @@ export const Navbar = ({
           onClick={handleProfileClick}
         />
       )}
-      {/* <p
-        onClick={handleProfileClick}
-        className={`paragraph ${
-          isInProfile ? "nav__profile__text-active" : ""
-        }`}
-      >
-        {yourProfileText}
-      </p> */}
+      {(renderIn === "global-admin" || renderIn === "country-admin") && (
+        <p
+          onClick={handleProfileClick}
+          className={`paragraph ${
+            isInProfile ? "nav__profile__text-active" : ""
+          }`}
+        >
+          {yourProfileText}
+        </p>
+      )}
     </div>
   );
 
@@ -307,7 +308,6 @@ export const Navbar = ({
         handleCountryClick(option);
       }
     };
-
     return (
       <div className="nav__dropdown-content">
         {data.map((option) => {
@@ -330,7 +330,9 @@ export const Navbar = ({
                     : ""
                 }`}
               >
-                {option.label}
+                {`${option.label} ${
+                  option.label !== "English" ? `(${option.localName})` : ""
+                }`}
               </p>
             </div>
           );
@@ -383,8 +385,8 @@ export const Navbar = ({
 
         <List
           items={items}
-          inline={width >= 950 ? true : false}
-          classes={["nav__list", width < 950 ? "collapsible__content" : ""]}
+          inline={width >= 1050 ? true : false}
+          classes={["nav__list", width < 1050 ? "collapsible__content" : ""]}
           aria-expanded={isNavbarExpanded}
         />
         {renderCtaDesktop()}
@@ -407,7 +409,11 @@ export const Navbar = ({
           ${languagesShown ? "nav__languages--shown" : ""}
           ${countriesShown ? "nav__countries--shown" : ""}
           ${
-            languagesShown && !showProfilePicture
+            (languagesShown &&
+              !showProfilePicture &&
+              renderIn !== "country-admin" &&
+              renderIn !== "admin-global") ||
+            renderIn === "website"
               ? "nav__languages--no-profile"
               : ""
           }
@@ -423,7 +429,7 @@ export const Navbar = ({
                countriesShown ? "nav__countries__content--shown" : ""
              }              `}
           >
-            {width >= 950 && (
+            {width >= 1050 && (
               <h4>{languagesShown ? languageLabel : countryLabel}</h4>
             )}
             {languagesShown ? renderDropdownContent("languages") : null}
@@ -461,8 +467,8 @@ Navbar.propTypes = {
    *  */
   countries: PropTypes.arrayOf(
     PropTypes.shape({
-      value: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired,
+      value: PropTypes.string,
+      label: PropTypes.string,
     })
   ),
 

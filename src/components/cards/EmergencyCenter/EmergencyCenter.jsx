@@ -25,7 +25,7 @@ export const EmergencyCenter = ({
     if (type === "phone") {
       window.open(`tel:${phone}`);
     } else if (type === "link") {
-      window.open(link, "_blank");
+      window.open(link, "_blank", "noreferrer");
     }
   };
 

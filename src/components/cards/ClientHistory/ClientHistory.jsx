@@ -37,6 +37,7 @@ export const ClientHistory = ({
   consultationPrice,
   consultationCouponPrice,
   nextConsultationCampaignId,
+  nextConsultationSponsorName,
   suggested,
   image,
   providerStatus,
@@ -73,6 +74,7 @@ export const ClientHistory = ({
     price: consultationPrice,
     couponPrice: consultationCouponPrice,
     campaignId: nextConsultationCampaignId,
+    sponsorName: nextConsultationSponsorName,
   };
 
   const today = new Date().getTime();
