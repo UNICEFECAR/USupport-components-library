@@ -18,7 +18,7 @@ import "./modal.scss";
  */
 export const Modal = ({
   isOpen,
-  closeModal,
+  closeModal = () => {},
   classes,
   heading,
   text,
@@ -35,26 +35,36 @@ export const Modal = ({
   isSecondaryCtaLoading,
   isSecondaryCtaDisabled,
   showLoadingIfDisabled = false,
+  hasCloseIcon = true,
   children,
   errorMessage,
   reference,
+  overlayClasses,
+  headingComponent,
 }) => {
   const hasButtons = ctaLabel || secondaryCtaLabel;
   return (
     <ModalPackage
       isOpen={isOpen}
       onRequestClose={closeModal}
-      overlayClassName="base-modal__overlay"
+      overlayClassName={[
+        "base-modal__overlay",
+        classNames(overlayClasses),
+      ].join(" ")}
       className={["base-modal", classNames(classes)].join(" ")}
       bodyOpenClassName="base-modal--open"
       contentLabel="Base Modal"
       appElement={document.getElementById("root")}
     >
       <div className="base-modal__header">
-        <h4 className="base-modal__header__text">{heading}</h4>
-        <div className="base-modal__header__icon-container">
-          <Icon name="close-x" size="md" onClick={closeModal} />
-        </div>
+        {headingComponent || (
+          <h4 className="base-modal__header__text">{heading}</h4>
+        )}
+        {hasCloseIcon && (
+          <div className="base-modal__header__icon-container">
+            <Icon name="close-x" size="md" onClick={closeModal} />
+          </div>
+        )}
       </div>
       {text && <p className="text base-modal__text">{text}</p>}
       <div
@@ -112,7 +122,7 @@ Modal.propTypes = {
   /**
    * Function to close the modal
    * */
-  closeModal: PropTypes.func.isRequired,
+  closeModal: PropTypes.func,
 
   /**
    * Additional classes to add to the modal

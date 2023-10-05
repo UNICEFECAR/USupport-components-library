@@ -14,3 +14,5 @@ export * from "./Toggle";
 export * from './InputGroup';
 export * from './DateInput';
 export * from './InputWithDropdown';
+export * from './InputPhone';
+export * from './Select';

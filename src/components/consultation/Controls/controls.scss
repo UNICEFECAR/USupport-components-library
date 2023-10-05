@@ -3,6 +3,12 @@
 .controls {
   width: calc(34.3rem - 2 * $spacing_1_6);
   padding: 0 0 $spacing_1_6 0;
+  background-color: rgba(255, 255, 255, 0.8);
+
+  &__sponsored-by {
+    padding: 0 $spacing_2_4 $spacing_1_6;
+    text-align: left;
+  }
 
   .button-container {
     display: flex;
@@ -19,6 +25,7 @@
       height: 5.4rem;
       border-radius: 50%;
       border: 0.2rem solid $color_primary_20809e;
+      position: relative;
     }
 
     &__button-hangup {
@@ -30,6 +37,16 @@
       width: 5.6rem;
       height: 5.6rem;
       border-radius: 50%;
+    }
+
+    &__unread-message {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background-color: $color_red_ed5657;
+      position: absolute;
+      top: -3px;
+      left: 5px;
     }
   }
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import propTypes from "prop-types";
-import RectMarkdown from "react-markdown";
+import ReactMarkdown from "react-markdown";
 import DOMpurify from "dompurify";
 import rehypeRaw from "rehype-raw";
 
@@ -14,10 +14,27 @@ import "./markdown.scss";
  * @return {jsx}
  */
 export const Markdown = ({ markDownText }) => {
+  const linkRenderer = (props) => {
+    return (
+      <a
+        {...props}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="markdown-link"
+        skipHtml={false}
+      >
+        {props.children}
+      </a>
+    );
+  };
   return (
-    <RectMarkdown rehypePlugins={[rehypeRaw]} className={"markdown"}>
+    <ReactMarkdown
+      components={{ a: linkRenderer }}
+      rehypePlugins={[rehypeRaw]}
+      className={"markdown"}
+    >
       {DOMpurify.sanitize(markDownText)}
-    </RectMarkdown>
+    </ReactMarkdown>
   );
 };
 

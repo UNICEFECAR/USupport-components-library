@@ -46,7 +46,8 @@ function generateQuerryString(queryObj) {
   }
 
   if (queryObj.contains && queryObj.contains !== "") {
-    querry += `&filters[title][$containsi]=${queryObj.contains}`;
+    // Either the title or the label should contain the 'contains' string.
+    querry += `&filters[$or][0][title][$containsi]=${queryObj.contains}&filters[$or][1][labels][name][$containsi]=${queryObj.contains}&filters[$or][2][category][name][$containsi]=${queryObj.contains}`;
   }
 
   if (queryObj.ageGroupId) {
@@ -143,7 +144,9 @@ async function getArticleById(id, locale) {
   try {
     // Increment read count for the given article id
     await addArticleReadCount(id);
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 
   const { data } = await http.get(`${articlesEndpoint}/${id}${querryString}`);
 
@@ -160,26 +163,6 @@ async function getArticleById(id, locale) {
 async function getArticleLocales(id) {
   const { data } = await http.get(
     `${articlesEndpoint}/getArticleLocales/${id}`
-  );
-
-  return data;
-}
-
-/**
- * send request to get available locales for all the articles ids within an array - Only used for testing from Postman
- *
- * @param {array} arrayOfArticleIds - array of article ids e.g [10,12]
- *
- * @returns {object} all available article locales e.g {"10": {"en": 10,"kk": 15},"12": {"en": 12,"kk": 17,"ru": 18}}
- */
-async function getArticleLocalesMapping(arrayOfArticleIds) {
-  try {
-    // Increment read count for the given article id
-    await addArticleReadCount(id);
-  } catch (error) {}
-
-  const { data } = await http.get(
-    `${articlesEndpoint}/locales/mapping?ids=${arrayOfArticleIds}`
   );
 
   return data;
@@ -352,7 +335,6 @@ export default {
   getArticles,
   getArticleById,
   getArticleLocales,
-  getArticleLocalesMapping,
   getCategories,
   getAgeGroups,
   addArticleReadCount,

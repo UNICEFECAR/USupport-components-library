@@ -41,6 +41,8 @@ function logout() {
   localStorage.removeItem("token");
   localStorage.removeItem("token-expires-in");
   localStorage.removeItem("refresh-token");
+  localStorage.removeItem("usupport_lot");
+  window.dispatchEvent(new Event("logout"));
 }
 
 async function refreshToken(refreshToken) {
@@ -317,8 +319,35 @@ async function getCampaignDataById(campaignId) {
   return response;
 }
 
-async function getAllProviders() {
-  const response = await http.get(`${API_ENDPOINT}/all-providers`);
+async function getAllProviders(
+  limit = 15,
+  pageParam,
+  filters,
+  sort,
+  search = ""
+) {
+  let filetrsQuery = "";
+  if (filters) {
+    Object.keys(filters).forEach((key) => {
+      if (filters[key] || key === "free") {
+        filetrsQuery += `&${key}=${filters[key]}`;
+      }
+    });
+  }
+
+  if (search) {
+    filetrsQuery += `&search=${search}`;
+  }
+  if (sort) {
+    Object.keys(sort).forEach((key) => {
+      if (sort[key]) {
+        filetrsQuery += `&sort_${key}=${sort[key]}`;
+      }
+    });
+  }
+  const response = await http.get(
+    `${API_ENDPOINT}/all-providers?limit=${limit}&offset=${pageParam}${filetrsQuery}`
+  );
   return response;
 }
 
@@ -346,6 +375,18 @@ async function deleteQuestion(questionId) {
   const response = await http.put(`${API_ENDPOINT}/my-qa/delete-question`, {
     questionId,
   });
+  return response;
+}
+
+async function getQuestions(type) {
+  const response = await http.get(
+    `${API_ENDPOINT}/my-qa/questions?type=${type}`
+  );
+  return response;
+}
+
+async function changePassword(payload) {
+  const response = await http.patch(`${API_ENDPOINT}/password`, payload);
   return response;
 }
 
@@ -393,6 +434,8 @@ const exportedFunctions = {
   getArchivedQuestions,
   activateQuestion,
   deleteQuestion,
+  getQuestions,
+  changePassword,
 };
 
 export default exportedFunctions;
