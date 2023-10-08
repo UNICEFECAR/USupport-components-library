@@ -19,23 +19,25 @@ export const PasswordModal = ({
   btnLabel,
   error,
   handleSubmit,
+  placeholder,
 }) => {
   const [password, setPassword] = useState("");
   return (
     <Modal
       overlayClasses="password-modal"
       isOpen={isOpen}
-      closeModal={onClose}
+      closeModal={() => window.history.back()}
       ctaLabel={btnLabel}
       ctaHandleClick={() => handleSubmit(password)}
       errorMessage={error}
     >
       <Input
         type="password"
-        placeholder={label}
+        placeholder={placeholder}
         label={label}
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+        classes="password-modal__input"
       />
     </Modal>
   );
