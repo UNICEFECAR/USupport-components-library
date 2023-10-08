@@ -19,6 +19,7 @@ export const PasswordModal = ({
   btnLabel,
   error,
   handleSubmit,
+  placeholder,
 }) => {
   const [password, setPassword] = useState("");
   return (
@@ -32,7 +33,7 @@ export const PasswordModal = ({
     >
       <Input
         type="password"
-        placeholder={label}
+        placeholder={placeholder}
         label={label}
         value={password}
         onChange={(e) => setPassword(e.target.value)}
