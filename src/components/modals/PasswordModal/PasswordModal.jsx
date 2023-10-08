@@ -25,7 +25,7 @@ export const PasswordModal = ({
     <Modal
       overlayClasses="password-modal"
       isOpen={isOpen}
-      closeModal={onClose}
+      closeModal={() => window.history.back()}
       ctaLabel={btnLabel}
       ctaHandleClick={() => handleSubmit(password)}
       errorMessage={error}
