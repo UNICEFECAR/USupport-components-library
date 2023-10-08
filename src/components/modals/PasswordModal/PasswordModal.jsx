@@ -36,6 +36,7 @@ export const PasswordModal = ({
         label={label}
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+        classes="password-modal__input"
       />
     </Modal>
   );
