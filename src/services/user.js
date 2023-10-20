@@ -14,6 +14,7 @@ function logout() {
   localStorage.removeItem("token-expires-in");
   localStorage.removeItem("refresh-token");
   localStorage.removeItem("usupport_lot");
+  sessionStorage.removeItem("userSession");
   window.dispatchEvent(new Event("logout"));
 }
 
