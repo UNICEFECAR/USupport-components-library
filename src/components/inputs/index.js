@@ -16,3 +16,4 @@ export * from './DateInput';
 export * from './InputWithDropdown';
 export * from './InputPhone';
 export * from './Select';
+export * from './PinInput';
