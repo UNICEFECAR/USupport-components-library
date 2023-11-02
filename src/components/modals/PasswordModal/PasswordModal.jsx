@@ -31,14 +31,22 @@ export const PasswordModal = ({
       ctaHandleClick={() => handleSubmit(password)}
       errorMessage={error}
     >
-      <Input
-        type="password"
-        placeholder={placeholder}
-        label={label}
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        classes="password-modal__input"
-      />
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmit(password);
+        }}
+      >
+        <Input
+          type="password"
+          placeholder={placeholder}
+          label={label}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          classes="password-modal__input"
+        />
+        <button type="submit" className="password-modal__submit-button" />
+      </form>
     </Modal>
   );
 };
