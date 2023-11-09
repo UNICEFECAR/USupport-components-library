@@ -1,8 +1,11 @@
 @import "../../../styles/theme";
 
 .error-message {
-  color: $color_red_eb5757;
   margin-left: $spacing_2_4;
   margin-top: $spacing_0_4;
   text-align: left;
+
+  &.small-text {
+    color: $color_red_eb5757;
+  }
 }
