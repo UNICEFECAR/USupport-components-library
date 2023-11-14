@@ -81,5 +81,34 @@
       margin-bottom: $spacing_1_6;
       text-align: center;
     }
+
+    & > .btn--secondary {
+      background-color: $color_white_ff;
+
+      &.btn--green {
+        color: $color_primary_20809e;
+
+        &:hover:enabled {
+          color: $color_primary_pressed_156f8c;
+        }
+
+        &:active:enabled {
+          color: $color_primary_pressed_0c5f7a;
+        }
+      }
+
+      &.btn--purple {
+        color: $color_secondary_9749fa;
+
+        &:hover:enabled {
+          color: $color_secondary_pressed_7f2ee5;
+        }
+
+        &:active:enabled {
+          border: 0.1rem solid $color_secondary_pressed_6c16d9;
+          color: $color_secondary_pressed_6c16d9;
+        }
+      }
+    }
   }
 }

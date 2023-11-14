@@ -6,8 +6,9 @@
   align-items: center;
   justify-content: center;
 
-  &__textarea textarea {
+  &__textarea .textarea {
     max-height: calc(4.8rem - 2 * $spacing_1_2);
+    border: 0.1rem solid $color_secondary_9749fa;
   }
 
   &__send-button {

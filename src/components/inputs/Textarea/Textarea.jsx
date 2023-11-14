@@ -18,6 +18,7 @@ export const Textarea = ({
   onChange,
   classes,
   errorMessage,
+  placeholder,
   size,
   ...props
 }) => {
@@ -31,6 +32,7 @@ export const Textarea = ({
     >
       {label ? <p className="text label">{label}</p> : null}
       <textarea
+        placeholder={placeholder}
         className="textarea text"
         value={value}
         onChange={(e) => onChange(e.currentTarget.value)}
