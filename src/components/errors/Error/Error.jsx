@@ -24,6 +24,9 @@ Error.propTypes = {
    * Error message
    * */
   message: PropTypes.string.isRequired,
-};
 
-Error.defaultProps = {};
+  /**
+   * Additional classes
+   * */
+  classes: PropTypes.string,
+};
