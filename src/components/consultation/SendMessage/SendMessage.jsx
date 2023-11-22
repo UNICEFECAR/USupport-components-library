@@ -12,7 +12,12 @@ import "./send-message.scss";
  *
  * @return {jsx}
  */
-export const SendMessage = ({ handleSubmit, onTextareaFocus, emitTyping }) => {
+export const SendMessage = ({
+  handleSubmit,
+  onTextareaFocus,
+  emitTyping,
+  t,
+}) => {
   const [message, setMessage] = useState("");
   const emiTypingLastExecuted = useRef(Date.now());
   const interval = 1000;
@@ -52,6 +57,7 @@ export const SendMessage = ({ handleSubmit, onTextareaFocus, emitTyping }) => {
   return (
     <div className="send-message">
       <Textarea
+        placeholder={t("textarea_placeholder")}
         value={message}
         onChange={handleTyping}
         classes="send-message__textarea"
