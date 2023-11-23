@@ -343,21 +343,23 @@ export const Navbar = ({
       </div>
     );
   };
-  const defaultLogo = theme != `${AMAZON_S3_BUCKET}/logo-horizontal`;
+  const defaultLogo = `${AMAZON_S3_BUCKET}/logo-horizontal${
+    theme === "dark" ? "-dark" : null
+  }`;
+  console.log(defaultLogo);
   const [logoUrl, setLogoUrl] = useState(defaultLogo);
 
   useEffect(() => {
     if (selectedCountry?.value && renderIn !== "global-admin") {
-      console.log(
-        `${AMAZON_S3_BUCKET}/logo-horizontal-${selectedCountry.value}-dark.png`
-      );
       setLogoUrl(
-        `${AMAZON_S3_BUCKET}/logo-horizontal-${selectedCountry.value}-dark.png`
+        `${AMAZON_S3_BUCKET}/logo-horizontal-${selectedCountry.value}${
+          theme === "dark" ? "-dark.png" : ""
+        }`
       );
     } else {
       setLogoUrl(defaultLogo);
     }
-  }, [selectedCountry]);
+  }, [selectedCountry, theme]);
 
   return (
     <>
