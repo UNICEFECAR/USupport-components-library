@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import OutsideClickHandler from "react-outside-click-handler";
 import PropTypes from "prop-types";
+
 import { Box } from "../../boxes/Box";
 import { Icon } from "../../icons/Icon";
-import OutsideClickHandler from "react-outside-click-handler";
 import { Error } from "../../errors/Error";
+import { ThemeContext } from "@USupport-components-library/utils";
 
 import "./dropdown.scss";
 
@@ -23,6 +25,7 @@ export const Dropdown = ({
   disabled,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const { theme } = useContext(ThemeContext);
 
   const selectedLabel =
     options.find((option) => option.value === selected)?.label || "";
@@ -134,7 +137,10 @@ export const Dropdown = ({
           ) : (
             <p className="text placeholder">{placeholder}</p>
           )}
-          <Icon name="arrow-chevron-down" />
+          <Icon
+            name="arrow-chevron-down"
+            color={theme === "dark" ? "#fff" : "#373737"}
+          />
         </div>
         <div className="dropdown-content">
           <ul role="menubar" className="dropdown-content__options-container">
