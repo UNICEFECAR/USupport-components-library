@@ -70,13 +70,13 @@ export const SendMessage = ({
         }}
       />
       <ButtonWithIcon
-        iconName="comment"
-        iconSize="lg"
+        iconName="comment-white"
+        iconSize="md"
         iconColor="#FFFFFF"
         onlyIcon
         onClick={handleSend}
         circleSize="sm"
-        classes={"send-message__send-button"}
+        classes="send-message__send-button"
       />
     </div>
   );
