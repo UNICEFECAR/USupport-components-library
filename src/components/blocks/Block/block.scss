@@ -2,7 +2,7 @@
 
 .block {
   padding: 0 $spacing_1_6;
-  min-width: 32rem;
+  min-width: 38.1rem;
   overflow: hidden;
 
   @media screen and (min-width: $screen-md) {
@@ -15,7 +15,7 @@
 
   & .container {
     max-width: $screen-xl;
-    min-width: calc(32rem - 2 * $spacing_1_6);
+    min-width: calc(34rem - 2 * $spacing_1_6);
     overflow: visible;
     margin: 0 auto;
   }
