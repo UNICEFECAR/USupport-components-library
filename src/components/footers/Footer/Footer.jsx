@@ -176,7 +176,7 @@ export const Footer = ({
           <List items={list3} />
         </GridItem>
         <GridItem classes="footer__copy-right-item" xs={4} md={8} lg={12}>
-          <p className="small-text">©{currentYear} USupport</p>
+          <p className="small-text">©{currentYear} uSupport</p>
         </GridItem>
       </Grid>
     </Block>
