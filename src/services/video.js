@@ -22,4 +22,11 @@ async function leaveConsultation(consultationId, userType) {
   return res;
 }
 
-export default { getTwilioToken, leaveConsultation };
+async function updateConsultationStatus(data) {
+  const res = await http.put(`${API_ENDPOINT}/status`, {
+    ...data,
+  });
+  return res;
+}
+
+export default { getTwilioToken, leaveConsultation, updateConsultationStatus };
