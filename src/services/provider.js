@@ -201,7 +201,7 @@ async function scheduleConsultation(consultationId) {
   return response;
 }
 
-async function cancelConsultation(consultationId, shouldRefund = false) {
+async function cancelConsultation(consultationId, shouldRefund = true) {
   const res = await http.put(`${API_ENDPOINT}/consultation/cancel`, {
     consultationId,
     shouldRefund,
