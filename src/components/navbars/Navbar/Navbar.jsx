@@ -353,7 +353,7 @@ export const Navbar = ({
     if (selectedCountry?.value && renderIn !== "global-admin") {
       setLogoUrl(
         `${AMAZON_S3_BUCKET}/logo-horizontal-${selectedCountry.value}${
-          theme === "dark" ? "-dark.png" : ""
+          theme === "dark" ? "-dark" : ""
         }`
       );
     } else {

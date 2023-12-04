@@ -48,7 +48,7 @@ export const Footer = ({
     if (selectedCountry) {
       setLogoUrl(
         `${AMAZON_S3_BUCKET}/logo-horizontal-${selectedCountry}${
-          theme === "dark" ? "-dark.png" : ""
+          theme === "dark" ? "-dark" : ""
         }`
       );
     } else {
