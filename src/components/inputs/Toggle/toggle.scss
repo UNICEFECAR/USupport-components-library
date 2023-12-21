@@ -27,6 +27,7 @@
 
   &__label {
     color: $color_blue_3d527b;
+    @include themify($themes, "color", color_3d527b_20809e);
     margin-bottom: $spacing_0_4;
   }
 
