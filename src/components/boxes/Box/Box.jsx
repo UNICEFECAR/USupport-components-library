@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
+import { ThemeContext } from "@USupport-components-library/utils";
 import "./box.scss";
 
 /**
@@ -12,12 +13,14 @@ import "./box.scss";
  * @return {jsx}
  */
 export const Box = ({ borderSize, boxShadow, classes, children, ...props }) => {
+  const { theme } = useContext(ThemeContext);
+
   return (
     <div
       className={[
         "box",
         `box--border-radius-${borderSize}`,
-        `box--box-shadow-${boxShadow}`,
+        `box--box-shadow-${theme === "dark" ? 3 : boxShadow}`,
         classNames(classes),
       ].join(" ")}
       {...props}

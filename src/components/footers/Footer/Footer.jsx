@@ -149,18 +149,21 @@ export const Footer = ({
                 name="linkedin"
                 size={"lg"}
                 onClick={() => handleContactsClick("linkedin")}
+                color={theme === "dark" ? "20809E" : "#3D527B"}
               />
               <Icon
                 classes="footer__icon"
                 name="twitter"
                 size={"lg"}
                 onClick={() => handleContactsClick("twitter")}
+                color={theme === "dark" ? "20809E" : "#3D527B"}
               />
               <Icon
                 classes="footer__icon"
                 name="facebook"
                 size={"lg"}
                 onClick={() => handleContactsClick("facebook")}
+                color={theme === "dark" ? "20809E" : "#3D527B"}
               />
             </div>
           )}
