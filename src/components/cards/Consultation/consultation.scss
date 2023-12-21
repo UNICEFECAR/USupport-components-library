@@ -122,19 +122,36 @@
       $themes,
       "color",
       "$color_secondary_9749fa",
-      "color_black_37"
+      "$color_blue_c1d7e0"
     );
   }
 
   &--free {
     background-color: rgba(32, 128, 158, 0.3);
 
-    color: $color_primary_20809e;
+    & .small-text {
+      color: $color_primary_20809e;
+      @include themifyCustom(
+        $themes,
+        "color",
+        "$color_primary_20809e",
+        "color_primary_20809e"
+      );
+    }
   }
 
   &--gray {
     background-color: $color_gray_ea;
+
     color: $color_gray_66768d;
+    & .small-text {
+      @include themifyCustom(
+        $themes,
+        "color",
+        "$color_gray_66768d",
+        "$color_purple_c39af9"
+      );
+    }
   }
 
   &__sponsor-image {
