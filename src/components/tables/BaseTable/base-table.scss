@@ -90,7 +90,12 @@
     }
 
     & tr:nth-child(even) {
-      background-color: $color_gray_ea;
+      @include themifyCustom(
+        $themes,
+        "background-color",
+        "color_gray_ea",
+        "color_gray_344054"
+      );
     }
 
     &__no-data {
@@ -100,6 +105,12 @@
 
   &__td {
     border-bottom: 1px solid $color_gray_a6b4b8;
+    @include themifyCustom(
+      $themes,
+      "border-color",
+      "color_gray_a6b4b8",
+      "color_black_37"
+    );
     padding-left: $spacing_1_4;
     padding-right: $spacing_1_4;
     padding-bottom: $spacing_1_8;
