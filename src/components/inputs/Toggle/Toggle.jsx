@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+
+import { ThemeContext } from "../../../utils";
 
 import "./toggle.scss";
 
@@ -20,6 +22,7 @@ export const Toggle = ({
   label,
   labelClasses,
 }) => {
+  const { theme } = useContext(ThemeContext);
   const [checked, setChecked] = useState(isToggled);
 
   const handleChange = () => {
@@ -39,7 +42,16 @@ export const Toggle = ({
 
   return (
     <div className="toggle-wrapper">
-      {label && <p className={`text toggle__label ${labelClasses}`}>{label}</p>}
+      {label && (
+        <p
+          className={[
+            `text toggle__label ${labelClasses}`,
+            theme === "dark" && "toggle__label--dark",
+          ].join(" ")}
+        >
+          {label}
+        </p>
+      )}
       <label
         className={[
           "toggle",

@@ -9,6 +9,10 @@
   display: flex;
   width: auto;
 
+  &--dark {
+    background-color: $color_black_37;
+  }
+
   @media screen and (max-width: $screen_md) {
     max-width: 28rem;
   }
