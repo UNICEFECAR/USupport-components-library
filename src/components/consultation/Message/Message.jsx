@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 
-import { getDateView, getTimeFromDate } from "../../../utils/date";
+import { ThemeContext, getDateView, getTimeFromDate } from "../../../utils";
 
 import "./message.scss";
 
@@ -13,10 +13,17 @@ import "./message.scss";
  * @return {jsx}
  */
 export const Message = ({ message, sent, received, date, showDate }) => {
+  const { theme } = useContext(ThemeContext);
+
   return (
     <React.Fragment>
       {showDate && (
-        <div className="message-date">
+        <div
+          className={[
+            "message-date",
+            theme === "dark" && "message-date--dark",
+          ].join(" ")}
+        >
           <p className="small-text">
             <strong>{getDateView(date)}</strong>
           </p>

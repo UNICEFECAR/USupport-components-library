@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
-import { CheckBox } from "../CheckBox";
 import classNames from "classnames";
+
+import { CheckBox } from "../CheckBox";
+import { ThemeContext } from "../../../utils";
 
 import "./check-box-group.scss";
 
@@ -19,6 +21,8 @@ export const CheckBoxGroup = ({
   label,
   classes,
 }) => {
+  const { theme } = useContext(ThemeContext);
+
   const handleSelect = (value) => {
     let newOptions = [...options];
 
@@ -51,7 +55,16 @@ export const CheckBoxGroup = ({
 
   return (
     <div className={["checkbox-group", classNames(classes)].join(" ")}>
-      {label && <p className={["text checkbox-group__label"]}>{label}</p>}
+      {label && (
+        <p
+          className={[
+            "text checkbox-group__label",
+            "checkbox-group__label--dark",
+          ].join(" ")}
+        >
+          {label}
+        </p>
+      )}
       <div className="checkbox-group__options-container">
         {renderAllOptions()}
       </div>

@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { default as ModalPackage } from "react-modal";
+
 import { Icon } from "../../icons/";
 import { Button } from "../../buttons/";
 import { Error } from "../../errors";
 import { Loading } from "../../loaders/";
+import { ThemeContext } from "../../../utils";
 
 import "./modal.scss";
 
@@ -42,6 +44,7 @@ export const Modal = ({
   overlayClasses,
   headingComponent,
 }) => {
+  const { theme } = useContext(ThemeContext);
   const hasButtons = ctaLabel || secondaryCtaLabel;
   return (
     <ModalPackage
@@ -51,18 +54,34 @@ export const Modal = ({
         "base-modal__overlay",
         classNames(overlayClasses),
       ].join(" ")}
-      className={["base-modal", classNames(classes)].join(" ")}
+      className={[
+        "base-modal",
+        theme === "dark" && "base-modal--dark",
+        classNames(classes),
+      ].join(" ")}
       bodyOpenClassName="base-modal--open"
       contentLabel="Base Modal"
       appElement={document.getElementById("root")}
     >
       <div className="base-modal__header">
         {headingComponent || (
-          <h4 className="base-modal__header__text">{heading}</h4>
+          <h4
+            className={[
+              "base-modal__header__text",
+              theme === "dark" && "base-modal__header__text--dark",
+            ].join(" ")}
+          >
+            {heading}
+          </h4>
         )}
         {hasCloseIcon && (
           <div className="base-modal__header__icon-container">
-            <Icon name="close-x" size="md" onClick={closeModal} />
+            <Icon
+              name="close-x"
+              size="md"
+              onClick={closeModal}
+              color={theme === "dark" ? "#c1d7e0" : undefined}
+            />
           </div>
         )}
       </div>

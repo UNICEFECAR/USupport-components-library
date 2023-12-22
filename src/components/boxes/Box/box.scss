@@ -1,7 +1,7 @@
 @import "../../../styles/theme";
 
 .box {
-  background-color: $color_white_ff;
+  @include themify($themes, "background-color", "color_card");
 
   &--border-radius-xs {
     border-radius: $border_radius_1_6;

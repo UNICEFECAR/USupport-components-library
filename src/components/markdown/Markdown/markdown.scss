@@ -9,4 +9,8 @@
     text-decoration: underline;
     font-weight: $font_semi_bold;
   }
+
+  & li {
+    @include themify($themes, "color", "color_66768d_c1d7e0");
+  }
 }

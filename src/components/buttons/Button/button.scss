@@ -95,7 +95,7 @@
       $themes,
       "background-color",
       "color_white_ff",
-      "color_primary_20809e"
+      "color_3d527b_white"
     );
     border: 0.1rem solid;
     @include themifyCustom(
@@ -110,7 +110,7 @@
         $themes,
         "color",
         "color_primary_20809e",
-        "color_black_00"
+        "color_primary_20809e"
       );
 
       &:hover:enabled {
@@ -119,14 +119,14 @@
           $themes,
           "border-color",
           "color_primary_pressed_156f8c",
-          "color_black_00"
+          "color_primary_pressed_156f8c"
         );
         // color: $color_primary_pressed_156f8c;
         @include themifyCustom(
           $themes,
           "color",
           "color_primary_pressed_156f8c",
-          "color_black_00"
+          "color_primary_pressed_156f8c"
         );
       }
 
