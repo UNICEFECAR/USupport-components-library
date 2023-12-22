@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+
 import { Error } from "../../errors/Error";
+import { ThemeContext } from "../../../utils";
 
 import "./textarea.scss";
 
@@ -22,6 +24,8 @@ export const Textarea = ({
   size,
   ...props
 }) => {
+  const { theme } = useContext(ThemeContext);
+
   return (
     <div
       className={[
@@ -33,7 +37,9 @@ export const Textarea = ({
       {label ? <p className="text label">{label}</p> : null}
       <textarea
         placeholder={placeholder}
-        className="textarea text"
+        className={["textarea text", theme === "dark" && "textarea--dark"].join(
+          " "
+        )}
         value={value}
         onChange={(e) => onChange(e.currentTarget.value)}
         {...props}

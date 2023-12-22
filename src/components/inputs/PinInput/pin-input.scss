@@ -30,5 +30,8 @@
       outline: none;
       border: 0.1rem solid #5f549b;
     }
+    &--dark {
+      background-color: $color_black_31;
+    }
   }
 }
