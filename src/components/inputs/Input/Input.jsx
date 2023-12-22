@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
-import { Error } from "../../errors/Error";
 import classNames from "classnames";
+
+import { ThemeContext } from "../../../utils";
+import { Error } from "../../errors/Error";
 
 import "./input.scss";
 
@@ -13,6 +15,7 @@ import "./input.scss";
  * @return {jsx}
  */
 export const Input = React.forwardRef((props, ref) => {
+  const { theme } = useContext(ThemeContext);
   const {
     value,
     type,
@@ -24,6 +27,7 @@ export const Input = React.forwardRef((props, ref) => {
     classes,
     ...rest
   } = props;
+
   return (
     <div
       className={[
@@ -32,13 +36,29 @@ export const Input = React.forwardRef((props, ref) => {
         classNames(classes),
       ].join(" ")}
     >
-      {label ? <p className="text label">{label}</p> : null}
-      <div className={["input-wrapper", errorMessage ? "error" : ""].join(" ")}>
+      {label ? (
+        <p
+          className={["text label", theme === "dark" && "label--dark"].join(
+            " "
+          )}
+        >
+          {label}
+        </p>
+      ) : null}
+      <div
+        className={[
+          "input-wrapper",
+          theme === "dark" && "input-wrapper--dark",
+          errorMessage ? "error" : "",
+        ].join(" ")}
+      >
         {preInput ? preInput : null}
         <input
           type={type}
           disabled={disabled}
-          className="input text"
+          className={["input text", theme === "dark" && "input--dark"].join(
+            " "
+          )}
           value={value}
           ref={ref}
           {...rest}

@@ -27,6 +27,7 @@
       &__name-container {
         & > .text {
           color: $color_blue_3d527b;
+          @include themify($themes, "color", "color_3d527b_white");
           font-weight: $font_bold;
           word-break: break-word;
         }
@@ -115,18 +116,42 @@
   border-radius: $border_radius_1_6;
   margin-right: $spacing_1_4;
 
+  & .small-text {
+    padding: $spacing_0_4 $spacing_0_8;
+    @include themifyCustom(
+      $themes,
+      "color",
+      "$color_secondary_9749fa",
+      "$color_blue_c1d7e0"
+    );
+  }
+
   &--free {
     background-color: rgba(32, 128, 158, 0.3);
-    color: $color_primary_20809e;
+
+    & .small-text {
+      color: $color_primary_20809e;
+      @include themifyCustom(
+        $themes,
+        "color",
+        "$color_primary_20809e",
+        "color_primary_20809e"
+      );
+    }
   }
 
   &--gray {
     background-color: $color_gray_ea;
-    color: $color_gray_66768d;
-  }
 
-  & .small-text {
-    padding: $spacing_0_4 $spacing_0_8;
+    color: $color_gray_66768d;
+    & .small-text {
+      @include themifyCustom(
+        $themes,
+        "color",
+        "$color_gray_66768d",
+        "$color_purple_c39af9"
+      );
+    }
   }
 
   &__sponsor-image {

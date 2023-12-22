@@ -7,6 +7,10 @@
   width: auto;
   margin: 0 auto;
   margin-bottom: $spacing_1_2;
+
+  &--dark {
+    background-color: $color_black_37;
+  }
 }
 
 .system-message {

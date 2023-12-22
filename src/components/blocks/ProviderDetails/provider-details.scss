@@ -147,7 +147,8 @@
     }
 
     &__heading.paragraph {
-      color: $color_blue_3d527b;
+      // color: $color_blue_3d527b;
+      @include themify($themes, "color", "color_3d527b_20809e");
       font-weight: $font_bold;
       margin-top: $spacing_0_8;
     }

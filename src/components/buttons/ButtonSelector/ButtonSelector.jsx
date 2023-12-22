@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+
 import { Icon } from "../../icons/Icon";
+import { ThemeContext } from "../../../utils";
 
 import "./button-selector.scss";
 
@@ -21,10 +23,16 @@ export const ButtonSelector = ({
   onClick,
   ...props
 }) => {
+  const { theme } = useContext(ThemeContext);
+
   return (
     <button
       disabled={disabled}
-      className={["btn-selector", classNames(classes)].join(" ")}
+      className={[
+        "btn-selector",
+        theme === "dark" && "btn-selector--dark",
+        classNames(classes),
+      ].join(" ")}
       onClick={disabled ? () => {} : onClick}
       {...props}
     >
@@ -39,7 +47,14 @@ export const ButtonSelector = ({
       {!iconName && avatar && (
         <img className="btn-selector__avatar" src={avatar} alt="" />
       )}
-      <p className="btn-selector__label">{label}</p>
+      <p
+        className={[
+          "btn-selector__label",
+          theme === "dark" && "btn-selector__label--dark",
+        ].join(" ")}
+      >
+        {label}
+      </p>
       <div className="btn-selector__right-icon-container">
         <Icon name="arrow-chevron-forward" color="#3D527B" size="sm" />
       </div>

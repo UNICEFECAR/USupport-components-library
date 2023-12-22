@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
-import { Icon } from "../../icons/Icon/Icon";
 
-import { getDateView, getTimeAsString } from "../../../utils/date";
+import { Icon } from "../../icons/Icon/Icon";
+import { ThemeContext, getDateView, getTimeAsString } from "../../../utils";
 
 import "./system-message.scss";
 
@@ -14,10 +14,17 @@ import "./system-message.scss";
  * @return {jsx}
  */
 export const SystemMessage = ({ iconName, title, date, showDate }) => {
+  const { theme } = useContext(ThemeContext);
+
   return (
     <React.Fragment>
       {showDate && (
-        <div className="message-date">
+        <div
+          className={[
+            "message-date",
+            theme === "dark" && "message-date--dark",
+          ].join(" ")}
+        >
           <p className="small-text">
             <strong>{getDateView(date)}</strong>
           </p>
