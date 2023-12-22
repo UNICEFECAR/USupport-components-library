@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
 import { Loading } from "../../loaders/Loading/Loading";
+import { ThemeContext } from "../../../utils";
+
 import "./button.scss";
 
 /**
@@ -26,10 +28,14 @@ export const Button = ({
   loading,
   ...props
 }) => {
+  const { theme } = useContext(ThemeContext);
+
   return (
     <button
       className={[
-        `btn btn--${size} btn--${color} btn--${type}`,
+        `btn btn--${size} btn--${color} btn--${
+          theme === "dark" && type === "secondary" ? "primary" : type
+        }`,
         web ? "btn--web" : "",
         classNames(classes),
       ].join(" ")}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
 
 import { Block } from "../../blocks/Block";
 import { Grid } from "../../grids/Grid";
@@ -8,10 +8,11 @@ import { Icon } from "../../icons/Icon";
 import { Button } from "../../buttons/Button";
 import { IconWithText } from "../../icons/IconWithText";
 import { StaticImage } from "../../images/StaticImage";
-
-import "./footer.scss";
+import { ThemeContext } from "../../../utils/";
 
 import { useEventListener } from "#hooks";
+
+import "./footer.scss";
 
 const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
 
@@ -30,6 +31,7 @@ export const Footer = ({
   showSocials = true,
 }) => {
   const currentYear = new Date().getFullYear();
+  const { theme } = useContext(ThemeContext);
 
   const defaultLogo = `${AMAZON_S3_BUCKET}/logo-horizontal`;
   const [logoUrl, setLogoUrl] = useState(defaultLogo);
@@ -44,11 +46,15 @@ export const Footer = ({
 
   useEffect(() => {
     if (selectedCountry) {
-      setLogoUrl(`${AMAZON_S3_BUCKET}/logo-horizontal-${selectedCountry}`);
+      setLogoUrl(
+        `${AMAZON_S3_BUCKET}/logo-horizontal-${selectedCountry}${
+          theme === "dark" ? "-dark" : ""
+        }`
+      );
     } else {
       setLogoUrl(defaultLogo);
     }
-  }, [selectedCountry]);
+  }, [selectedCountry, theme]);
 
   function handleContactsClick(platform) {
     let link = "";
@@ -143,18 +149,21 @@ export const Footer = ({
                 name="linkedin"
                 size={"lg"}
                 onClick={() => handleContactsClick("linkedin")}
+                color={theme === "dark" ? "20809E" : "#3D527B"}
               />
               <Icon
                 classes="footer__icon"
                 name="twitter"
                 size={"lg"}
                 onClick={() => handleContactsClick("twitter")}
+                color={theme === "dark" ? "20809E" : "#3D527B"}
               />
               <Icon
                 classes="footer__icon"
                 name="facebook"
                 size={"lg"}
                 onClick={() => handleContactsClick("facebook")}
+                color={theme === "dark" ? "20809E" : "#3D527B"}
               />
             </div>
           )}
@@ -170,7 +179,7 @@ export const Footer = ({
           <List items={list3} />
         </GridItem>
         <GridItem classes="footer__copy-right-item" xs={4} md={8} lg={12}>
-          <p className="small-text">©{currentYear} USupport</p>
+          <p className="small-text">©{currentYear} uSupport</p>
         </GridItem>
       </Grid>
     </Block>

@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { Dropdown } from "../Dropdown";
+import { ThemeContext } from "../../../utils";
 
 import "./dropdown-with-label.scss";
 
@@ -18,12 +19,15 @@ export const DropdownWithLabel = ({
   labelClasses,
   ...props
 }) => {
+  const { theme } = useContext(ThemeContext);
+
   return (
     <div className={["dropdown-with-label", classNames(classes)].join(" ")}>
       <p
         className={[
           "text",
           "dropdown-with-label__label",
+          theme === "dark" && "dropdown-with-label__label--dark",
           classNames(labelClasses),
         ].join(" ")}
       >

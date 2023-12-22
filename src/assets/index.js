@@ -6,6 +6,7 @@
 
 export { default as logoVerticalPng } from "./logo-vertical.png";
 export { default as logoVerticalSvg } from "./logo-vertical.svg";
+export { default as logoVerticalDarkSvg } from "./logo-vertical-dark.svg";
 export { default as logoHorizontalPng } from "./logo-horizontal.png";
 export { default as logoHorizontalWebp } from "./logo-horizontal.webp";
 export { default as logoHorizontalSvg } from "./logo-horizontal.svg";

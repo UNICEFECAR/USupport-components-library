@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { Icon } from "../../icons/Icon/Icon";
 import classNames from "classnames";
-import { getTimeFromDate, isDateToday, isDateYesterday } from "../../../utils";
+import {
+  ThemeContext,
+  getTimeFromDate,
+  isDateToday,
+  isDateYesterday,
+} from "../../../utils";
 
 import "./notification.scss";
 
@@ -24,6 +29,7 @@ export const Notification = ({
   handleClick,
   t,
 }) => {
+  const { theme } = useContext(ThemeContext);
   const dateText = isDateToday(date)
     ? ""
     : isDateYesterday(date)
@@ -37,6 +43,7 @@ export const Notification = ({
       className={[
         "notification",
         isRead ? "" : "notification-new",
+        !isRead && theme === "dark" && "notification-new--dark",
         classNames(classes),
       ].join(" ")}
       onClick={handleClick}
