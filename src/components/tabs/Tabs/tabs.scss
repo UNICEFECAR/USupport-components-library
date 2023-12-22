@@ -9,7 +9,12 @@
   .tab {
     padding: $spacing_0_4 $spacing_2_4;
     cursor: pointer;
-    background-color: $color_green_f4f7fe;
+    @include themifyCustom(
+      $themes,
+      "background-color",
+      "color_green_f4f7fe",
+      "color_black_31"
+    );
     border-radius: $border_radius_4_0;
     margin: 0 $spacing_0_4;
     color: $color_black_37;

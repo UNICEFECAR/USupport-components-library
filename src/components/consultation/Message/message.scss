@@ -9,16 +9,32 @@
   display: flex;
   width: auto;
 
+  &--dark {
+    background-color: $color_black_37;
+  }
+
   @media screen and (max-width: $screen_md) {
     max-width: 28rem;
   }
 
   &__text {
-    color: $color_black_37;
+    // color: $color_black_37 !important;
+    @include themifyCustom(
+      $themes,
+      "color",
+      "color_black_37",
+      "color_black_37"
+    );
   }
 
   &__date {
     color: $color_gray_66768d;
+    @include themifyCustom(
+      $themes,
+      "color",
+      "color_gray_66768d",
+      "color_gray_92989b"
+    );
     text-align: left;
     align-self: flex-end;
     padding-left: 0.6rem;
