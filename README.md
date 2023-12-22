@@ -1,10 +1,10 @@
 # Welcome
 
-Repository for the USupport Components Library.
+Repository for the uSupport Components Library.
 
 ## Usage
 
-The USupport Components Library will be used as a gitsubmodule library within all the Web UI interfaces of the USuppoort project.
+The uSupport Components Library will be used as a gitsubmodule library within all the Web UI interfaces of the USuppoort project.
 
 # Contribute
 
@@ -22,7 +22,7 @@ To install all the dependencies use:
 npm install
 ```
 
-## Adding a new component to the USupport Components Library
+## Adding a new component to the uSupport Components Library
 
 To create a new component, please use the provided bash script `create-component.bash`. By executing the following command from the root directory of the project:
 
@@ -39,7 +39,7 @@ Then, you will be prompted to provide component name, component description, and
 - Bugs `bug/{branch_name}
 - Hotfixes `hotfix/{branch_name}
 
-## Guidelines for writing a commit message when committing changes to the USupport Components Library
+## Guidelines for writing a commit message when committing changes to the uSupport Components Library
 
 - Create: `[commit message]` (create a new component)
 - Add: `[commit message]` (addition to an existing component)
