@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 
 import { Loading } from "../../loaders/Loading/Loading";
-import { ThemeContext } from "@USupport-components-library/utils";
+import { ThemeContext } from "../../../utils";
 
 import "./button.scss";
 
