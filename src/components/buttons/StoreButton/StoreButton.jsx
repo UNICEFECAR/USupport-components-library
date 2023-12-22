@@ -26,11 +26,21 @@ export const StoreButton = ({ downloadText, store, ...props }) => {
       classes={["btn--store", theme === "dark" && "btn--store--dark"].join(" ")}
       {...props}
     >
-      <Icon
-        name={icon}
-        size="lg"
-        color={theme === "dark" && store !== "google-play" && "#fff"}
-      />
+      {store === "google-play" ? (
+        <Icon name={icon} size="lg" />
+      ) : (
+        <Icon
+          name={icon}
+          size="lg"
+          color={
+            store !== "google-play"
+              ? theme === "dark"
+                ? "#fff"
+                : "#373737"
+              : undefined
+          }
+        />
+      )}
       <div className="btn__text-container">
         <p className="download">{downloadText}</p>
         <p className="text label">{label}</p>
