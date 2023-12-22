@@ -3,6 +3,10 @@
 .checkbox-group {
   &__label {
     color: $color_blue_3d527b;
+
+    &--dark {
+      color: $color_primary_20809e;
+    }
   }
 
   &__options-container {

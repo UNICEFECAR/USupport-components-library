@@ -46,6 +46,10 @@
       + .label {
         color: $color_blue_3d527b;
         @include themify($themes, "color", "color_3d527b_white");
+
+        &--dark {
+          color: $color_white_ff;
+        }
       }
     }
 

@@ -7,6 +7,10 @@
   position: relative;
   z-index: $z_index_1;
 
+  &--dark {
+    background-color: $color_black_31;
+  }
+
   ul {
     list-style: none;
     padding: 0;
@@ -83,6 +87,10 @@
           "color_green_f4f7fe",
           "color_primary_20809e"
         );
+
+        &--dark {
+          background-color: $color_primary_20809e;
+        }
       }
 
       &.disabled {
@@ -113,6 +121,10 @@
       top: 0;
       z-index: $z_index_negative;
       max-height: 16.4rem;
+
+      &--dark {
+        background-color: $color_black_31;
+      }
 
       &__options-container {
         transition: max-height 0.3s ease-in-out;

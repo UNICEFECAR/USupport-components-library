@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { Box } from "../../boxes/Box";
 import { Icon } from "../../icons/Icon";
 import { Error } from "../../errors/Error";
-import { ThemeContext } from "@USupport-components-library/utils";
+import { ThemeContext } from "../../../utils";
 
 import "./dropdown.scss";
 
@@ -45,12 +45,16 @@ export const Dropdown = ({
     return (
       options &&
       options.map((option, index) => {
+        console.log(option);
         return (
           <li
             key={index}
             className={[
               "option-container",
               selected ? selected === option.value && "option-selected" : "",
+              selected === option.value &&
+                theme === "dark" &&
+                "option-selected--dark",
               option.isDisabled && "disabled",
             ].join(" ")}
             tabIndex={0}
@@ -100,6 +104,7 @@ export const Dropdown = ({
         borderSize="md"
         classes={[
           "dropdown",
+          theme === "dark" && "dropdown--dark",
           isOpen ? "dropdown--expanded" : "",
           disabled ? "dropdown--disabled" : "",
         ]}
@@ -142,7 +147,12 @@ export const Dropdown = ({
             color={theme === "dark" ? "#fff" : "#373737"}
           />
         </div>
-        <div className="dropdown-content">
+        <div
+          className={[
+            "dropdown-content",
+            theme === "dark" && "dropdown-content--dark",
+          ].join(" ")}
+        >
           <ul role="menubar" className="dropdown-content__options-container">
             {renderAllOptions()}
           </ul>

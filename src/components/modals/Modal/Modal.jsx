@@ -76,7 +76,12 @@ export const Modal = ({
         )}
         {hasCloseIcon && (
           <div className="base-modal__header__icon-container">
-            <Icon name="close-x" size="md" onClick={closeModal} />
+            <Icon
+              name="close-x"
+              size="md"
+              onClick={closeModal}
+              color={theme === "dark" ? "#c1d7e0" : undefined}
+            />
           </div>
         )}
       </div>
