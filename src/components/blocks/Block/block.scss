@@ -2,7 +2,7 @@
 
 .block {
   padding: 0 $spacing_1_6;
-  min-width: 38.1rem;
+  min-width: calc(34rem - 2 * $spacing_1_6);
   overflow: hidden;
 
   @media screen and (min-width: $screen-md) {
