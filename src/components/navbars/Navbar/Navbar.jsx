@@ -344,9 +344,8 @@ export const Navbar = ({
     );
   };
   const defaultLogo = `${AMAZON_S3_BUCKET}/logo-horizontal${
-    theme === "dark" ? "-dark" : null
+    theme === "dark" ? "-dark" : ""
   }`;
-  console.log(defaultLogo);
   const [logoUrl, setLogoUrl] = useState(defaultLogo);
 
   useEffect(() => {
