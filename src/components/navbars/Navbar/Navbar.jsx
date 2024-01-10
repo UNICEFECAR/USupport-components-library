@@ -54,7 +54,7 @@ export const Navbar = ({
   initialCountry,
   hasUnreadNotifications,
   renderIn = "website",
-  hasThemeButton,
+  hasThemeButton = false,
   t,
 }) => {
   const { theme, setTheme } = useContext(ThemeContext);
