@@ -54,7 +54,7 @@
   }
 
   &__contact-us-link {
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: $screen-lg) {
       align-self: flex-start;
     }
   }

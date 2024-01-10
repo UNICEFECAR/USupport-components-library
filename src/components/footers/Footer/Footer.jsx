@@ -177,7 +177,7 @@ export const Footer = ({
           <List items={list2} />
         </GridItem>
         <GridItem classes="footer__list-item" xs={4} md={4} lg={4}>
-          {width >= 768 ? (
+          {width >= 1366 ? (
             <Link
               to={contactUsUrl ? contactUsUrl : "#"}
               rel="noopener noreferrer"
