@@ -53,9 +53,16 @@
     }
   }
 
+  &__contact-us-link {
+    @media screen and (min-width: 768px) {
+      align-self: flex-start;
+    }
+  }
+
   &__contact-us {
     align-self: center;
-    padding-bottom: $spacing_1_6;
+    padding-bottom: $spacing_1_4;
+    cursor: pointer;
 
     @media screen and (min-width: $screen-lg) {
       align-self: flex-start;
