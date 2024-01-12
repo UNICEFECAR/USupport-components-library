@@ -54,8 +54,10 @@ export const Navbar = ({
   initialCountry,
   hasUnreadNotifications,
   renderIn = "website",
+  hasThemeButton = false,
+  t,
 }) => {
-  const { theme } = useContext(ThemeContext);
+  const { theme, setTheme } = useContext(ThemeContext);
 
   let { width } = useWindowDimensions();
   const imageURL = AMAZON_S3_BUCKET + "/" + image;
@@ -93,6 +95,35 @@ export const Navbar = ({
     }
   };
 
+  const themeButton = () => {
+    const toggleTheme = () => {
+      if (theme === "light") {
+        setTheme("dark");
+      } else {
+        setTheme("light");
+      }
+    };
+
+    return (
+      <div onClick={toggleTheme} className="nav__theme-button">
+        <Icon
+          name={theme === "light" ? "dark-mode-switch" : "light-mode"}
+          size="lg"
+          classes="nav__theme-button__icon"
+          color={theme === "light" ? "#20809E" : "#FDDA0D"}
+        />
+        <p
+          className={[
+            "paragraph",
+            theme === "dark" && "nav__theme-button__yellow-text",
+          ].join(" ")}
+        >
+          {t(theme === "light" ? "dark" : "light")}
+        </p>
+      </div>
+    );
+  };
+
   let items = [];
   pages.forEach((page) => {
     items.push({
@@ -117,6 +148,12 @@ export const Navbar = ({
       onClick: scrollTop,
     });
   });
+
+  if (hasThemeButton) {
+    items.push({
+      value: themeButton(),
+    });
+  }
 
   items.push({
     value: (
