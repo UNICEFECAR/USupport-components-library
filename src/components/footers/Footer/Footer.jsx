@@ -8,7 +8,7 @@ import { Icon } from "../../icons/Icon";
 import { Button } from "../../buttons/Button";
 import { IconWithText } from "../../icons/IconWithText";
 import { StaticImage } from "../../images/StaticImage";
-import { ThemeContext } from "../../../utils/";
+import { ThemeContext, useWindowDimensions } from "../../../utils/";
 
 import { useEventListener } from "#hooks";
 
@@ -26,12 +26,14 @@ const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
 export const Footer = ({
   lists,
   contactUsText,
+  contactUsUrl,
   navigate,
   Link,
   showSocials = true,
 }) => {
   const currentYear = new Date().getFullYear();
   const { theme } = useContext(ThemeContext);
+  const { width } = useWindowDimensions();
 
   const defaultLogo = `${AMAZON_S3_BUCKET}/logo-horizontal`;
   const [logoUrl, setLogoUrl] = useState(defaultLogo);
@@ -175,7 +177,18 @@ export const Footer = ({
           <List items={list2} />
         </GridItem>
         <GridItem classes="footer__list-item" xs={4} md={4} lg={4}>
-          <h4 className="footer__contact-us">{contactUsText}</h4>
+          <Link
+            to={contactUsUrl ? contactUsUrl : "#"}
+            rel="noopener noreferrer"
+            className="footer__contact-us-link"
+          >
+            <Button
+              type="text"
+              size="lg"
+              label={contactUsText}
+              classes="footer__contact-us"
+            />
+          </Link>
           <List items={list3} />
         </GridItem>
         <GridItem classes="footer__copy-right-item" xs={4} md={8} lg={12}>

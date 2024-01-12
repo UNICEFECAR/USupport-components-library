@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import useWindowDimensions from "../../../utils/useWindowDimensions";
 import { Modal } from "../Modal";
@@ -6,6 +6,7 @@ import { Icon } from "../../icons";
 import { Button } from "../../buttons";
 import { Error } from "../../errors";
 import { Loading } from "../../loaders/";
+import { ThemeContext } from "../../../utils";
 
 import "./backdrop.scss";
 import classNames from "classnames";
@@ -41,6 +42,8 @@ export const Backdrop = ({
   headingComponent = null,
   showAlwaysAsBackdrop = false,
 }) => {
+  const { theme } = useContext(ThemeContext);
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -72,6 +75,7 @@ export const Backdrop = ({
         className={[
           "backdrop",
           isOpen ? "backdrop__shown" : "",
+          theme === "dark" ? "backdrop--dark" : "",
           classNames(classes),
         ].join(" ")}
       >
