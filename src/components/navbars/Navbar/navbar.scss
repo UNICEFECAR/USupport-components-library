@@ -386,14 +386,11 @@
     flex-direction: row;
     align-items: center;
     cursor: pointer;
-    border-radius: 5rem;
-    margin-left: $spacing_1_2;
-    margin-top: $spacing_2_4;
     padding-right: $spacing_3_0;
+    margin-bottom: $spacing_2_4;
 
     @media screen and (min-width: $navbar-tight) {
-      margin-top: 0;
-      margin-left: 0;
+      margin-bottom: 0;
     }
 
     &__icon {
