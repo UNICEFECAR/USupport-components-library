@@ -177,28 +177,18 @@ export const Footer = ({
           <List items={list2} />
         </GridItem>
         <GridItem classes="footer__list-item" xs={4} md={4} lg={4}>
-          {width >= 1366 ? (
-            <Link
-              to={contactUsUrl ? contactUsUrl : "#"}
-              rel="noopener noreferrer"
-              className="footer__contact-us-link"
-            >
-              <Button
-                type="text"
-                size="lg"
-                label={contactUsText}
-                classes="footer__contact-us"
-              />
-            </Link>
-          ) : (
-            <a
-              href={contactUsUrl ? contactUsUrl : "#"}
-              rel="noopener noreferrer"
-              className="footer__contact-us-link"
-            >
-              <h4 className="footer__contact-us">{contactUsText}</h4>
-            </a>
-          )}
+          <Link
+            to={contactUsUrl ? contactUsUrl : "#"}
+            rel="noopener noreferrer"
+            className="footer__contact-us-link"
+          >
+            <Button
+              type="text"
+              size="lg"
+              label={contactUsText}
+              classes="footer__contact-us"
+            />
+          </Link>
           <List items={list3} />
         </GridItem>
         <GridItem classes="footer__copy-right-item" xs={4} md={8} lg={12}>
