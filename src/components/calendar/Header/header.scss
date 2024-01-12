@@ -60,7 +60,9 @@
       @include themifyCustom($themes, "color", "color_black_37", "#fff");
 
       &--dark {
-        color: $color_black_37;
+        & p {
+          color: $color_black_37 !important;
+        }
       }
     }
   }
