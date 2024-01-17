@@ -23,14 +23,7 @@ const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
  *
  * @return {jsx}
  */
-export const Footer = ({
-  lists,
-  // contactUsText,
-  // contactUsUrl,
-  navigate,
-  Link,
-  showSocials = true,
-}) => {
+export const Footer = ({ lists, navigate, Link, showSocials = true }) => {
   const currentYear = new Date().getFullYear();
   const { theme } = useContext(ThemeContext);
   const { width } = useWindowDimensions();
