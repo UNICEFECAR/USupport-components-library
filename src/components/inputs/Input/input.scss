@@ -62,6 +62,11 @@
       }
     }
 
+    & input[type="password"]::-ms-reveal,
+    & input[type="password"]::-ms-clear {
+      display: none;
+    }
+
     &:hover:not(&.error):has(input:enabled),
     &:not(&.error):has(input:focus-within:enabled) {
       border: 0.1rem solid $color_secondary_9749fa;
