@@ -37,10 +37,10 @@
       padding-top: 0;
       justify-self: end;
 
-      &:nth-child(2),
-      &:nth-child(3) {
-        justify-self: center;
-      }
+      // &:nth-child(2),
+      // &:nth-child(3) {
+      //   justify-self: center;
+      // }
     }
 
     .list__item {
