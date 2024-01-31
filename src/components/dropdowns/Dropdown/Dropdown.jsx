@@ -45,7 +45,6 @@ export const Dropdown = ({
     return (
       options &&
       options.map((option, index) => {
-        console.log(option);
         return (
           <li
             key={index}
