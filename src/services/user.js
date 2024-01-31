@@ -235,6 +235,16 @@ async function validateCaptcha(token) {
   return response;
 }
 
+async function validatePlatformPassword(value) {
+  const response = await http.post(
+    `${API_ENDPOINT}/validate-platform-password`,
+    {
+      platformPassword: value,
+    }
+  );
+  return response;
+}
+
 const exportedFunctions = {
   changePassword,
   generateClientAccesToken,
@@ -259,6 +269,7 @@ const exportedFunctions = {
   changeLanguage,
   requestEmailOTP,
   validateCaptcha,
+  validatePlatformPassword,
 };
 
 export default exportedFunctions;
