@@ -58,8 +58,12 @@ async function refreshToken(refreshToken) {
  * @returns
  */
 async function generateForgotPasswordLink(email, role) {
-  const response = await http.get(
-    `${API_ENDPOINT}/rescue/forgot-password?email=${email}&role=${role}`
+  const response = await http.post(
+    `${API_ENDPOINT}/rescue/forgot-password-link`,
+    {
+      email,
+      role,
+    }
   );
   return response;
 }
