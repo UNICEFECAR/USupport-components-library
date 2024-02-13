@@ -153,12 +153,16 @@ async function updateNotificationPreferences(data) {
 /**
  *
  * @param {String} email -> the email of the user
- * @param {*} userType -> the type of the user "client" or "provider"
+ * @param {String} type -> the type of the user "client" or "provider"
  * @returns
  */
-async function generateForgotPasswordLink(email, userType) {
-  const response = await http.get(
-    `${API_ENDPOINT}/rescue/forgot-password?email=${email.toLowerCase()}&type=${userType}`
+async function generateForgotPasswordLink(email, type) {
+  const response = await http.post(
+    `${API_ENDPOINT}/rescue/forgot-password-link`,
+    {
+      email,
+      type,
+    }
   );
   return response;
 }
