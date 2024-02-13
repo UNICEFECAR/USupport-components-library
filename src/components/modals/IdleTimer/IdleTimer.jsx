@@ -3,7 +3,7 @@ import { useIdleTimer } from "react-idle-timer";
 import { Modal } from "../Modal";
 import { FIVE_MINUTES } from "../../../utils";
 
-import { userSvc } from "@USupport-components-library/services";
+import { userSvc, adminSvc } from "@USupport-components-library/services";
 
 import "./idle-timer.scss";
 
@@ -18,7 +18,12 @@ const timeout = FIVE_MINUTES * 4;
  *
  * @return {jsx}
  */
-export const IdleTimer = ({ setLoggedIn, t, NavigateComponent }) => {
+export const IdleTimer = ({
+  setLoggedIn,
+  t,
+  NavigateComponent,
+  isInAdmin = false,
+}) => {
   const [open, setOpen] = useState(false);
 
   const onIdle = () => {
@@ -41,7 +46,11 @@ export const IdleTimer = ({ setLoggedIn, t, NavigateComponent }) => {
   const timeoutRef = useRef();
   const handleLogout = () => {
     timeoutRef.current = null;
-    userSvc.logout();
+    if (isInAdmin) {
+      adminSvc.logout();
+    } else {
+      userSvc.logout();
+    }
     setLoggedIn(false);
     setReturnNavigate(true);
   };
