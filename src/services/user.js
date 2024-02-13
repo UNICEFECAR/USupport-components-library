@@ -9,7 +9,26 @@ function getUserID() {
   return decoded.sub;
 }
 
+async function logoutRequest() {
+  const token = localStorage.getItem("token");
+  try {
+    const response = await http.post(
+      `${API_ENDPOINT}/logout`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response;
+  } catch (e) {
+    console.log("Error logging out", e);
+  }
+}
+
 function logout() {
+  logoutRequest();
   localStorage.removeItem("token");
   localStorage.removeItem("token-expires-in");
   localStorage.removeItem("refresh-token");
