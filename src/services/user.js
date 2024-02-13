@@ -10,8 +10,17 @@ function getUserID() {
 }
 
 async function logoutRequest() {
+  const token = localStorage.getItem("token");
   try {
-    const response = await http.post(`${API_ENDPOINT}/logout`);
+    const response = await http.post(
+      `${API_ENDPOINT}/logout`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return response;
   } catch (e) {
     console.log("Error logging out", e);
@@ -20,13 +29,11 @@ async function logoutRequest() {
 
 function logout() {
   logoutRequest();
+  localStorage.removeItem("token");
   localStorage.removeItem("token-expires-in");
   localStorage.removeItem("refresh-token");
   localStorage.removeItem("usupport_lot");
   window.dispatchEvent(new Event("logout"));
-  setTimeout(() => {
-    localStorage.removeItem("token");
-  }, 500);
 }
 
 /**
