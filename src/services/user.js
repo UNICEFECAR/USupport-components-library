@@ -9,12 +9,24 @@ function getUserID() {
   return decoded.sub;
 }
 
+async function logoutRequest() {
+  try {
+    const response = await http.post(`${API_ENDPOINT}/logout`);
+    return response;
+  } catch (e) {
+    console.log("Error logging out", e);
+  }
+}
+
 function logout() {
-  localStorage.removeItem("token");
+  logoutRequest();
   localStorage.removeItem("token-expires-in");
   localStorage.removeItem("refresh-token");
   localStorage.removeItem("usupport_lot");
   window.dispatchEvent(new Event("logout"));
+  setTimeout(() => {
+    localStorage.removeItem("token");
+  }, 500);
 }
 
 /**
