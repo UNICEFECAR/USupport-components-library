@@ -115,12 +115,18 @@ async function getAllProviders({
   limit = 5,
   offset,
   filtersQueryString,
+  onlyAvailable = true,
 }) {
-  const response = await http.get(
-    `${API_ENDPOINT}/all?offset=${offset}&limit=${limit}&${filtersQueryString}&${
-      campaignId ? `campaignId=${campaignId}` : ""
-    }`
-  );
+  let query = `${API_ENDPOINT}/all?offset=${offset}&limit=${limit}&onlyAvailable=${
+    onlyAvailable ? "true" : "false"
+  }`;
+  if (filtersQueryString) {
+    query += `&${filtersQueryString}`;
+  }
+  if (campaignId) {
+    query += `&campaignId=${campaignId}`;
+  }
+  const response = await http.get(query);
   return response;
 }
 
