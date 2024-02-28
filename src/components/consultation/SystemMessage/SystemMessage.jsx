@@ -31,7 +31,9 @@ export const SystemMessage = ({ iconName, title, date, showDate }) => {
         </div>
       )}
       <div className="system-message">
-        <Icon name={iconName} size="md" color="#20809E" />
+        <div>
+          <Icon name={iconName} size="md" color="#20809E" />
+        </div>
         <div className="system-message__text-container">
           <p className="small-text system-message__text-container__title">
             {title}
