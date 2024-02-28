@@ -38,13 +38,15 @@ export const Message = ({ message, sent, received, date, showDate }) => {
       >
         <p className="text message__text">{message}</p>
         {date && (
-          <p
-            className={`small-text message__date message__date--${
-              sent ? "sent" : "received"
-            }`}
-          >
-            {getTimeFromDate(date)}
-          </p>
+          <div>
+            <p
+              className={`small-text message__date message__date--${
+                sent ? "sent" : "received"
+              }`}
+            >
+              {getTimeFromDate(date)}
+            </p>
+          </div>
         )}
       </div>
     </React.Fragment>
