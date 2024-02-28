@@ -1,12 +1,13 @@
 @import "../../../styles/theme";
 
 .message {
-  padding: $spacing_1_6 $spacing_2_4;
+  padding: $spacing_1_6 $spacing_2_4 0 $spacing_2_4;
   max-width: calc(46.4rem - 2 * $spacing_2_4);
   border-radius: $border_radius_2_4;
   text-align: left;
   content-visibility: auto;
   display: flex;
+  flex-direction: column;
   width: auto;
 
   &--dark {
@@ -18,7 +19,6 @@
   }
 
   &__text {
-    // color: $color_black_37 !important;
     @include themifyCustom(
       $themes,
       "color",
@@ -26,16 +26,20 @@
       "color_black_37"
     );
   }
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-all;
 
   &__date {
     color: $color_gray_66768d;
+
     @include themifyCustom(
       $themes,
       "color",
       "color_gray_66768d",
       "color_gray_92989b"
     );
-    text-align: left;
+    text-align: right;
     align-self: flex-end;
     padding-left: 0.6rem;
 
