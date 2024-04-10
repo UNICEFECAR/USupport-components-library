@@ -9,7 +9,26 @@ function getUserID() {
   return decoded.sub;
 }
 
+async function logoutRequest() {
+  const token = localStorage.getItem("token");
+  try {
+    const response = await http.post(
+      `${API_ENDPOINT}/logout`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response;
+  } catch (e) {
+    console.log("Error logging out", e);
+  }
+}
+
 function logout() {
+  logoutRequest();
   localStorage.removeItem("token");
   localStorage.removeItem("token-expires-in");
   localStorage.removeItem("refresh-token");
@@ -153,12 +172,16 @@ async function updateNotificationPreferences(data) {
 /**
  *
  * @param {String} email -> the email of the user
- * @param {*} userType -> the type of the user "client" or "provider"
+ * @param {String} type -> the type of the user "client" or "provider"
  * @returns
  */
-async function generateForgotPasswordLink(email, userType) {
-  const response = await http.get(
-    `${API_ENDPOINT}/rescue/forgot-password?email=${email.toLowerCase()}&type=${userType}`
+async function generateForgotPasswordLink(email, type) {
+  const response = await http.post(
+    `${API_ENDPOINT}/rescue/forgot-password-link`,
+    {
+      email,
+      type,
+    }
   );
   return response;
 }
@@ -235,6 +258,16 @@ async function validateCaptcha(token) {
   return response;
 }
 
+async function validatePlatformPassword(value) {
+  const response = await http.post(
+    `${API_ENDPOINT}/validate-platform-password`,
+    {
+      platformPassword: value,
+    }
+  );
+  return response;
+}
+
 const exportedFunctions = {
   changePassword,
   generateClientAccesToken,
@@ -259,6 +292,7 @@ const exportedFunctions = {
   changeLanguage,
   requestEmailOTP,
   validateCaptcha,
+  validatePlatformPassword,
 };
 
 export default exportedFunctions;

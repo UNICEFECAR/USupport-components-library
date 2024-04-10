@@ -23,7 +23,8 @@
 
   .label {
     margin-bottom: $spacing_0_4;
-    color: $color_blue_3d527b;
+    // color: $color_blue_3d527b;
+    @include themify($themes, "color", color_3d527b_20809e);
   }
 
   .textarea {
@@ -32,13 +33,20 @@
     border: 0.1rem solid transparent;
     border-radius: 3.2rem;
     box-shadow: $shadow_2;
-    color: $color_black_37;
+    // color: $color_black_37;
+    @include themify($themes, "color", "color_input_text");
     padding: $spacing_1_2 $spacing_2_4;
     height: 12rem;
     resize: none;
     width: calc(100% - 2 * $spacing_2_4);
+    @include themify($themes, "background-color", "color_card");
 
-    &:disabled {
+    &--dark {
+      color: $color_white_ff;
+      background-color: $color_black_31;
+    }
+
+    &:disaled {
       opacity: 0.6;
     }
 

@@ -36,11 +36,23 @@
         &--free {
           background-color: $color_green_c1eaea;
           color: $color_blue_3d527b;
+
+          & .small-text {
+            color: $color_primary_20809e;
+          }
         }
 
         &--paid {
           background-color: $color_purple_c39af9_0_5;
-          color: $color_secondary_9749fa;
+
+          & .small-text {
+            @include themifyCustom(
+              $themes,
+              "color",
+              "color_secondary_9749fa",
+              "color_black_37"
+            );
+          }
         }
 
         &__sponsor-image {

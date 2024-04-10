@@ -1,5 +1,7 @@
-import { useState, useEffect, createRef } from "react";
+import { useState, useEffect, createRef, useContext } from "react";
 import PropTypes from "prop-types";
+
+import { ThemeContext } from "../../../utils";
 
 import "./pin-input.scss";
 
@@ -11,6 +13,8 @@ import "./pin-input.scss";
  * @return {jsx}
  */
 export const PinInput = ({ length, secret, onChange }) => {
+  const { theme } = useContext(ThemeContext);
+
   const [values, setValues] = useState(Array(length).fill(""));
   const [focusIndex, setFocusIndex] = useState(0);
   const inputRefs = Array.from({ length }).map(() => createRef());
@@ -79,7 +83,10 @@ export const PinInput = ({ length, secret, onChange }) => {
             onChange={(e) => handleOnChange(index, e.target.value)}
             onKeyDown={(e) => handleKeyDown(index, e)}
             maxLength={1}
-            className="pin-input__input"
+            className={[
+              "pin-input__input",
+              theme === "dark" && "pin-input__input--dark",
+            ].join(" ")}
             autoComplete="off"
             name={Math.random().toString(36).substring(7)}
           />

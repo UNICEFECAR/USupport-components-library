@@ -32,6 +32,12 @@
       justify-content: center;
       align-items: center;
       background-color: #d2dcde;
+      @include themifyCustom(
+        $themes,
+        "background-color",
+        "color_gray_d2dcde",
+        "color_card"
+      );
       width: 2.4rem;
       height: 2.4rem;
       top: 0;

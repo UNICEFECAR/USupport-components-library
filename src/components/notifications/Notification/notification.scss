@@ -11,6 +11,10 @@
 
   &-new {
     background: $color_green_e6f1f4;
+
+    &--dark {
+      background-color: $color_blue_20809E_0_3;
+    }
   }
 
   &__content {
