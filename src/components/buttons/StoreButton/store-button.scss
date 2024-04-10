@@ -1,6 +1,12 @@
 @import "../../../styles/theme";
 
 .btn--store {
+  &--dark {
+    &.btn {
+      background-color: $color_black_31;
+    }
+  }
+
   &.btn {
     min-width: 34.3rem;
 

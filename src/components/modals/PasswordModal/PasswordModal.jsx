@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Modal } from "../Modal/Modal";
-import { Error } from "../../errors";
-import { Input } from "../../inputs";
+import { InputPassword } from "../../inputs";
 
 import "./password-modal.scss";
 
@@ -19,30 +18,31 @@ export const PasswordModal = ({
   btnLabel,
   error,
   handleSubmit,
+  isLoading,
   placeholder,
 }) => {
-  const [password, setPassword] = useState("");
+  const [value, setValue] = useState("");
   return (
     <Modal
       overlayClasses="password-modal"
       isOpen={isOpen}
       closeModal={() => window.history.back()}
       ctaLabel={btnLabel}
-      ctaHandleClick={() => handleSubmit(password)}
+      ctaHandleClick={() => handleSubmit(value)}
       errorMessage={error}
+      isCtaLoading={isLoading}
     >
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          handleSubmit(password);
+          handleSubmit(value);
         }}
       >
-        <Input
-          type="password"
-          placeholder={placeholder}
+        <InputPassword
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
           label={label}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          placeholder={placeholder}
           classes="password-modal__input"
         />
         <button type="submit" className="password-modal__submit-button" />

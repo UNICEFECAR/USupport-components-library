@@ -19,7 +19,7 @@ async function updateClientData(data) {
 
 async function deleteClientProfile(password) {
   const response = await http.delete(`${API_ENDPOINT}/`, {
-    data: { password },
+    data: { password, time: JSON.stringify(new Date().getTime()) },
   });
   return response;
 }
@@ -152,6 +152,13 @@ async function addQuestionVote(answerId, vote) {
   return response;
 }
 
+async function deleteChatHistory() {
+  const response = await http.put(`${API_ENDPOINT}/chat-history`, {
+    time: JSON.stringify(new Date().getTime()),
+  });
+  return response;
+}
+
 const exportedFunctions = {
   addMoodTrack,
   getClientData,
@@ -175,6 +182,7 @@ const exportedFunctions = {
   getClientQuestions,
   getQuestions,
   addQuestionVote,
+  deleteChatHistory,
 };
 
 export default exportedFunctions;

@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Icon } from "../../icons/Icon";
 import { getDatesInRange, getStartAndEndOfWeek } from "../../../utils";
+import { ThemeContext } from "../../../utils";
 
 import "./header.scss";
 
@@ -13,6 +14,7 @@ import "./header.scss";
  * @return {jsx}
  */
 export const Header = ({ handleDayChange, setStartDate, startDate, t }) => {
+  const { theme } = useContext(ThemeContext);
   const currentDay = new Date();
   const [today, setToday] = useState(
     startDate ? new Date(startDate) : new Date()
@@ -70,6 +72,9 @@ export const Header = ({ handleDayChange, setStartDate, startDate, t }) => {
           className={[
             "header__day-of-week",
             isToday ? "header__day-of-week--current" : "",
+            isToday && theme === "dark"
+              ? "header__day-of-week--current--dark"
+              : "",
           ].join(" ")}
           key={index}
           onClick={() => handleSelectDay(day)}
@@ -109,12 +114,16 @@ export const Header = ({ handleDayChange, setStartDate, startDate, t }) => {
           }}
           size="md"
           name="arrow-chevron-back"
+          color={theme === "dark" ? "#fff" : "#373737"}
         />
-        <p>{t(months[today.getMonth()].toLowerCase())}</p>
+        <p className={theme === "dark" && "header__month-name--dark"}>
+          {t(months[today.getMonth()].toLowerCase())}
+        </p>
         <Icon
           onClick={() => handleMonthChange(1)}
           size="md"
           name="arrow-chevron-forward"
+          color={theme === "dark" ? "#fff" : "#373737"}
         />
       </div>
 
@@ -127,12 +136,14 @@ export const Header = ({ handleDayChange, setStartDate, startDate, t }) => {
           }}
           size="md"
           name="arrow-chevron-back"
+          color={theme === "dark" ? "#fff" : "#373737"}
         />
         {renderDaysOfWeek()}
         <Icon
           onClick={() => handleWeekChange(1)}
           size="md"
           name="arrow-chevron-forward"
+          color={theme === "dark" ? "#fff" : "#373737"}
         />
       </div>
     </div>
