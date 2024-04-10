@@ -268,6 +268,14 @@ async function validatePlatformPassword(value) {
   return response;
 }
 
+async function addPlatformAccess(platform) {
+  console.log(platform, "plt");
+  const response = await http.get(
+    `${API_ENDPOINT}/access-platform?platform=${platform}`
+  );
+  return response;
+}
+
 const exportedFunctions = {
   changePassword,
   generateClientAccesToken,
@@ -293,6 +301,7 @@ const exportedFunctions = {
   requestEmailOTP,
   validateCaptcha,
   validatePlatformPassword,
+  addPlatformAccess,
 };
 
 export default exportedFunctions;
