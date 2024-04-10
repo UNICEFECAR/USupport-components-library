@@ -15,7 +15,12 @@
 
   .label {
     color: $color_blue_3d527b;
+    @include themify($themes, "color", color_3d527b_20809e);
     margin-bottom: $spacing_0_4;
+
+    &--dark {
+      color: $color_primary_20809e;
+    }
   }
 
   .input-wrapper {
@@ -26,14 +31,26 @@
     box-shadow: $shadow_1;
     border: 0.1rem solid transparent;
     background-color: $color_white_ff;
+    @include themify($themes, "background-color", "color_card");
+
+    &--dark {
+      background-color: $color_black_31;
+    }
 
     .input {
       width: 100%;
       border: 0;
-      color: $color_black_37;
+      // color: $color_black_37;
+      @include themify($themes, "color", "color_input_text");
       padding: $spacing_1_0 $spacing_2_4;
-      background-color: $color_white_ff;
+      // background-color: $color_white_ff;
+      @include themify($themes, "background-color", "color_card");
       border-radius: $border_radius_4_0;
+
+      &--dark {
+        background-color: $color_black_31;
+        color: $color_white_ff;
+      }
 
       &::placeholder {
         color: $color_gray_a6b4b8;
@@ -43,6 +60,11 @@
       &:focus {
         outline: none;
       }
+    }
+
+    & input[type="password"]::-ms-reveal,
+    & input[type="password"]::-ms-clear {
+      display: none;
     }
 
     &:hover:not(&.error):has(input:enabled),

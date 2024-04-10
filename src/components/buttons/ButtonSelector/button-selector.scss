@@ -13,6 +13,10 @@
   width: 34.3rem;
   padding: $spacing_0_8 $spacing_1_6;
 
+  &--dark {
+    box-shadow: $shadow_2;
+  }
+
   &:hover:enabled {
     border: 1px solid $color_primary_pressed_156f8c;
   }
@@ -38,6 +42,10 @@
     line-height: $line_height_2_2;
     color: $color_black_37;
     font-weight: $font_medium;
+
+    &--dark {
+      color: $color_blue_c1d7e0;
+    }
   }
 
   &__left-icon {

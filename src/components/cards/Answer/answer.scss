@@ -30,7 +30,13 @@
 
     > .label-component {
       margin: $spacing_0_2;
-      background-color: $color_gray_ea;
+      // background-color: $color_gray_ea;
+      @include themifyCustom(
+        $themes,
+        "background-color",
+        "color_gray_ea",
+        "color_black_31"
+      );
     }
   }
 

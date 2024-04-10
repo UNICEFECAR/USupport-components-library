@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
 
 import { Block } from "../../blocks/Block";
 import { Grid } from "../../grids/Grid";
@@ -8,10 +8,11 @@ import { Icon } from "../../icons/Icon";
 import { Button } from "../../buttons/Button";
 import { IconWithText } from "../../icons/IconWithText";
 import { StaticImage } from "../../images/StaticImage";
-
-import "./footer.scss";
+import { ThemeContext, useWindowDimensions } from "../../../utils/";
 
 import { useEventListener } from "#hooks";
+
+import "./footer.scss";
 
 const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
 
@@ -22,14 +23,10 @@ const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
  *
  * @return {jsx}
  */
-export const Footer = ({
-  lists,
-  contactUsText,
-  navigate,
-  Link,
-  showSocials = true,
-}) => {
+export const Footer = ({ lists, navigate, Link, showSocials = true }) => {
   const currentYear = new Date().getFullYear();
+  const { theme } = useContext(ThemeContext);
+  const { width } = useWindowDimensions();
 
   const defaultLogo = `${AMAZON_S3_BUCKET}/logo-horizontal`;
   const [logoUrl, setLogoUrl] = useState(defaultLogo);
@@ -44,11 +41,15 @@ export const Footer = ({
 
   useEffect(() => {
     if (selectedCountry) {
-      setLogoUrl(`${AMAZON_S3_BUCKET}/logo-horizontal-${selectedCountry}`);
+      setLogoUrl(
+        `${AMAZON_S3_BUCKET}/logo-horizontal-${selectedCountry}${
+          theme === "dark" ? "-dark" : ""
+        }`
+      );
     } else {
       setLogoUrl(defaultLogo);
     }
-  }, [selectedCountry]);
+  }, [selectedCountry, theme]);
 
   function handleContactsClick(platform) {
     let link = "";
@@ -113,11 +114,14 @@ export const Footer = ({
   lists.list3.forEach((listItem) => {
     list3.push({
       value: (
-        <IconWithText
-          iconName={listItem.iconName}
-          text={<p className="text">{listItem.value}</p>}
-          onClick={() => handleContactsClick(listItem.onClick)}
-        />
+        <Link to={listItem.url ? listItem.url : "#"} rel="noopener noreferrer">
+          <Button
+            type="text"
+            size="lg"
+            label={listItem.name}
+            classes="footer__link-button"
+          />
+        </Link>
       ),
     });
   });
@@ -125,7 +129,7 @@ export const Footer = ({
   return (
     <Block classes="footer" animation={null} isFooter={true}>
       <Grid>
-        <GridItem xs={4} md={8} lg={4}>
+        <GridItem xs={4} md={8} lg={5}>
           <StaticImage
             png={logoUrl}
             webp={logoUrl}
@@ -143,34 +147,38 @@ export const Footer = ({
                 name="linkedin"
                 size={"lg"}
                 onClick={() => handleContactsClick("linkedin")}
+                color={theme === "dark" ? "20809E" : "#3D527B"}
               />
               <Icon
                 classes="footer__icon"
                 name="twitter"
                 size={"lg"}
                 onClick={() => handleContactsClick("twitter")}
+                color={theme === "dark" ? "20809E" : "#3D527B"}
               />
               <Icon
                 classes="footer__icon"
                 name="facebook"
                 size={"lg"}
                 onClick={() => handleContactsClick("facebook")}
+                color={theme === "dark" ? "20809E" : "#3D527B"}
               />
             </div>
           )}
         </GridItem>
+        {width >= 768 && width < 1366 && <GridItem md={1} />}
         <GridItem classes="footer__list-item" xs={2} md={2} lg={2}>
           <List items={list1} />
         </GridItem>
         <GridItem classes="footer__list-item" xs={2} md={2} lg={2}>
           <List items={list2} />
         </GridItem>
-        <GridItem classes="footer__list-item" xs={4} md={4} lg={4}>
-          <h4 className="footer__contact-us">{contactUsText}</h4>
+        <GridItem classes="footer__list-item" xs={4} md={2} lg={2}>
           <List items={list3} />
         </GridItem>
+        {width >= 768 && <GridItem md={1} lg={1} />}
         <GridItem classes="footer__copy-right-item" xs={4} md={8} lg={12}>
-          <p className="small-text">©{currentYear} USupport</p>
+          <p className="small-text">©{currentYear} uSupport</p>
         </GridItem>
       </Grid>
     </Block>

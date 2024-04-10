@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import OutsideClickHandler from "react-outside-click-handler";
 import { Icon, IconFlag } from "../../icons";
 import { List } from "../../lists";
-import { Button, ButtonWithIcon } from "../../buttons";
+import { Button } from "../../buttons";
 import { Box } from "../../boxes";
 import useWindowDimensions from "../../../utils/useWindowDimensions";
-import { userSvc, adminSvc } from "../../../services";
+import { userSvc } from "../../../services";
+import { ThemeContext } from "../../../utils";
 
 const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
 
@@ -53,7 +54,11 @@ export const Navbar = ({
   initialCountry,
   hasUnreadNotifications,
   renderIn = "website",
+  hasThemeButton = false,
+  t,
 }) => {
+  const { theme, setTheme } = useContext(ThemeContext);
+
   let { width } = useWindowDimensions();
   const imageURL = AMAZON_S3_BUCKET + "/" + image;
   const pathname = window.location.pathname;
@@ -90,6 +95,35 @@ export const Navbar = ({
     }
   };
 
+  const themeButton = () => {
+    const toggleTheme = () => {
+      if (theme === "light") {
+        setTheme("dark");
+      } else {
+        setTheme("light");
+      }
+    };
+
+    return (
+      <div onClick={toggleTheme} className="nav__theme-button">
+        <Icon
+          name={theme === "light" ? "dark-mode-switch" : "light-mode"}
+          size="lg"
+          classes="nav__theme-button__icon"
+          color={theme === "light" ? "#20809E" : "#FDDA0D"}
+        />
+        <p
+          className={[
+            "paragraph",
+            theme === "dark" && "nav__theme-button__yellow-text",
+          ].join(" ")}
+        >
+          {t(theme === "light" ? "dark" : "light")}
+        </p>
+      </div>
+    );
+  };
+
   let items = [];
   pages.forEach((page) => {
     items.push({
@@ -114,6 +148,12 @@ export const Navbar = ({
       onClick: scrollTop,
     });
   });
+
+  if (hasThemeButton) {
+    items.push({
+      value: themeButton(),
+    });
+  }
 
   items.push({
     value: (
@@ -340,18 +380,22 @@ export const Navbar = ({
       </div>
     );
   };
-  const defaultLogo = `${AMAZON_S3_BUCKET}/logo-horizontal`;
+  const defaultLogo = `${AMAZON_S3_BUCKET}/logo-horizontal${
+    theme === "dark" ? "-dark" : ""
+  }`;
   const [logoUrl, setLogoUrl] = useState(defaultLogo);
 
   useEffect(() => {
     if (selectedCountry?.value && renderIn !== "global-admin") {
       setLogoUrl(
-        `${AMAZON_S3_BUCKET}/logo-horizontal-${selectedCountry.value}`
+        `${AMAZON_S3_BUCKET}/logo-horizontal-${selectedCountry.value}${
+          theme === "dark" ? "-dark" : ""
+        }`
       );
     } else {
       setLogoUrl(defaultLogo);
     }
-  }, [selectedCountry]);
+  }, [selectedCountry, theme]);
 
   return (
     <>
@@ -377,6 +421,7 @@ export const Navbar = ({
             classes="nav__toggler"
             name={isNavbarExpanded ? "close-x" : "navbar-burger"}
             size="md"
+            color={theme === "dark" ? "#fff" : "#373737"}
           />
         </div>
 
