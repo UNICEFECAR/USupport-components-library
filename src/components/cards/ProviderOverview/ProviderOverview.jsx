@@ -83,9 +83,7 @@ export const ProviderOverview = ({
       <div className="provider-overview__content">
         <div className="provider-overview__content__text-content">
           <div className="provider-overview__content__text-content__name-container">
-            <p className="text provider-overview__content__text-content__name-container">
-              {displayName}
-            </p>
+            <p className="text">{displayName}</p>
             <div
               className={[
                 "provider-overview__content__text-content__name-container__price-badge",

@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+
+import { ThemeContext } from "../../../utils";
+
 import "./radio-button.scss";
 
 /**
@@ -16,6 +19,8 @@ export const RadioButton = ({
   classes,
   ...props
 }) => {
+  const { theme } = useContext(ThemeContext);
+
   return (
     <div
       className={["radiobutton-wrapper", classNames(classes)].join(" ")}
@@ -29,7 +34,15 @@ export const RadioButton = ({
         onChange={() => {}}
         {...props}
       />
-      {label ? <p className="text label">{label}</p> : null}
+      {label ? (
+        <p
+          className={["text label", theme === "dark" && "label--dark"].join(
+            " "
+          )}
+        >
+          {label}
+        </p>
+      ) : null}
     </div>
   );
 };

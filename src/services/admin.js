@@ -37,7 +37,26 @@ async function login(email, password, role, otp) {
   return response;
 }
 
+async function logoutRequest() {
+  const token = localStorage.getItem("token");
+  try {
+    const response = await http.post(
+      `${API_ENDPOINT}/logout`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response;
+  } catch (e) {
+    console.log("Error logging out", e);
+  }
+}
+
 function logout() {
+  logoutRequest();
   localStorage.removeItem("token");
   localStorage.removeItem("token-expires-in");
   localStorage.removeItem("refresh-token");
@@ -58,8 +77,12 @@ async function refreshToken(refreshToken) {
  * @returns
  */
 async function generateForgotPasswordLink(email, role) {
-  const response = await http.get(
-    `${API_ENDPOINT}/rescue/forgot-password?email=${email}&role=${role}`
+  const response = await http.post(
+    `${API_ENDPOINT}/rescue/forgot-password-link`,
+    {
+      email,
+      role,
+    }
   );
   return response;
 }

@@ -380,4 +380,35 @@
       }
     }
   }
+
+  &__theme-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+    padding-right: $spacing_3_0;
+    margin-bottom: $spacing_2_4;
+
+    @media screen and (min-width: $navbar-tight) {
+      margin-bottom: 0;
+    }
+
+    &__icon {
+      margin-right: $spacing_0_8;
+      width: 2.6rem;
+      height: 2.6rem;
+    }
+
+    &:hover p {
+      @include themifyCustom(
+        $themes,
+        "color",
+        "color_primary_20809e",
+        "color_yellow_fdda0d"
+      );
+      &::after {
+        width: 100%;
+      }
+    }
+  }
 }

@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import OutsideClickHandler from "react-outside-click-handler";
 import PropTypes from "prop-types";
+
 import { Box } from "../../boxes/Box";
 import { Icon } from "../../icons/Icon";
-import OutsideClickHandler from "react-outside-click-handler";
 import { Error } from "../../errors/Error";
+import { ThemeContext } from "../../../utils";
 
 import "./dropdown.scss";
 
@@ -23,6 +25,7 @@ export const Dropdown = ({
   disabled,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const { theme } = useContext(ThemeContext);
 
   const selectedLabel =
     options.find((option) => option.value === selected)?.label || "";
@@ -48,6 +51,9 @@ export const Dropdown = ({
             className={[
               "option-container",
               selected ? selected === option.value && "option-selected" : "",
+              selected === option.value &&
+                theme === "dark" &&
+                "option-selected--dark",
               option.isDisabled && "disabled",
             ].join(" ")}
             tabIndex={0}
@@ -97,6 +103,7 @@ export const Dropdown = ({
         borderSize="md"
         classes={[
           "dropdown",
+          theme === "dark" && "dropdown--dark",
           isOpen ? "dropdown--expanded" : "",
           disabled ? "dropdown--disabled" : "",
         ]}
@@ -134,9 +141,17 @@ export const Dropdown = ({
           ) : (
             <p className="text placeholder">{placeholder}</p>
           )}
-          <Icon name="arrow-chevron-down" />
+          <Icon
+            name="arrow-chevron-down"
+            color={theme === "dark" ? "#fff" : "#373737"}
+          />
         </div>
-        <div className="dropdown-content">
+        <div
+          className={[
+            "dropdown-content",
+            theme === "dark" && "dropdown-content--dark",
+          ].join(" ")}
+        >
           <ul role="menubar" className="dropdown-content__options-container">
             {renderAllOptions()}
           </ul>
