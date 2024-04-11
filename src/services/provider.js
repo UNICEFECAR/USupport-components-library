@@ -405,6 +405,11 @@ async function archiveQuestion(data) {
   return res;
 }
 
+async function addPlatformRating(payload) {
+  const response = await http.post(`${API_ENDPOINT}/add-rating`, payload);
+  return response;
+}
+
 const exportedFunctions = {
   addAvailableSlot,
   addTemplateAvailability,
@@ -450,5 +455,6 @@ const exportedFunctions = {
   getQuestionTags,
   addAnswerToQuestion,
   archiveQuestion,
+  addPlatformRating,
 };
 export default exportedFunctions;

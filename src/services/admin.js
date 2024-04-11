@@ -277,6 +277,12 @@ async function getClientRatings(countryId) {
   );
   return response;
 }
+async function getProviderRatings(countryId) {
+  const response = await http.get(
+    `${API_ENDPOINT}/statistics/provider-ratings?countryId=${countryId}`
+  );
+  return response;
+}
 
 async function getContactForms() {
   const response = await http.get(`${API_ENDPOINT}/statistics/contact-forms`);
@@ -459,6 +465,7 @@ const exportedFunctions = {
   deleteQuestion,
   getQuestions,
   changePassword,
+  getProviderRatings,
 };
 
 export default exportedFunctions;

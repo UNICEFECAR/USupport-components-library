@@ -269,7 +269,6 @@ async function validatePlatformPassword(value) {
 }
 
 async function addPlatformAccess(platform) {
-  console.log(platform, "plt");
   const response = await http.get(
     `${API_ENDPOINT}/access-platform?platform=${platform}`
   );
