@@ -29,8 +29,11 @@
     justify-content: space-between;
     border: 0.1rem solid transparent;
     border-radius: $border_radius_2_4;
-    // background-color: $color_white_ff;
-    @include themify($themes, "background-color", "color_card");
+    background-color: $color_white_ff;
+
+    &--dark {
+      background-color: $color_black_31;
+    }
 
     &-error {
       border: 0.1rem solid $color_red_eb5757;
@@ -55,10 +58,13 @@
     margin-right: $spacing_1_6;
     position: absolute;
     width: 32.7rem;
-    // background-color: $color_white_ff;
-    @include themify($themes, "background-color", "color_card");
+    background-color: $color_white_ff;
     box-shadow: $shadow_1;
     border-radius: $border_radius_2_4;
+
+    &--dark {
+      background-color: $color_black_31;
+    }
 
     @media screen and (min-width: $screen-lg) {
       width: 35.2rem;
