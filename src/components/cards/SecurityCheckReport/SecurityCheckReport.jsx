@@ -30,7 +30,6 @@ export const SecurityCheckReport = ({ securityCheck, t }) => {
     answers,
   } = securityCheck;
 
-  console.log(answers);
   return (
     <Box
       classes={`security-check-report ${
