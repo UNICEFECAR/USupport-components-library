@@ -29,6 +29,8 @@ export const SecurityCheckReport = ({ securityCheck, t }) => {
     consultationTime,
     answers,
   } = securityCheck;
+
+  console.log(answers);
   return (
     <Box
       classes={`security-check-report ${
@@ -118,7 +120,11 @@ export const SecurityCheckReport = ({ securityCheck, t }) => {
           </GridItem>
 
           {Object.keys(answers).map((key, index) => {
-            if (key === "moreDetails" && !answers[key]) return null;
+            if (
+              (key === "moreDetails" || key === "additionalComment") &&
+              !answers[key]
+            )
+              return null;
             return (
               <GridItem
                 classes="security-check-report__answers-grid__item"
@@ -135,7 +141,9 @@ export const SecurityCheckReport = ({ securityCheck, t }) => {
                   }`}
                 >
                   <strong>
-                    {key === "moreDetails"
+                    {key === "feeling"
+                      ? t(answers[key])
+                      : typeof answers[key] != "boolean"
                       ? answers[key]
                       : answers[key] === true
                       ? t("yes")
