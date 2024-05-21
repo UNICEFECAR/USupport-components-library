@@ -38,8 +38,11 @@
 
   &__title {
     display: -webkit-box;
-    margin-bottom: $spacing_0_4;
     overflow: hidden;
+
+    &__text {
+      height: 7.2rem;
+    }
   }
 
   &__category {
@@ -74,7 +77,6 @@
   &__details {
     display: flex;
     padding-bottom: $spacing_0_8;
-    padding-top: $spacing_0_8;
 
     .icon {
       margin-right: $spacing_0_5;
