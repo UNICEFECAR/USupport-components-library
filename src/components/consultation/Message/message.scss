@@ -25,10 +25,10 @@
       "color_black_37",
       "color_black_37"
     );
+
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
   }
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  word-break: break-all;
 
   &__date {
     color: $color_gray_66768d;
