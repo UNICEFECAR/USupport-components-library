@@ -2,8 +2,12 @@ import http from "./http";
 
 const API_ENDPOINT = `${import.meta.env.VITE_API_ENDPOINT}/v1/user`;
 
-async function getActiveLanguages() {
-  const response = await http.get(`${API_ENDPOINT}/languages`);
+async function getActiveLanguages(forGlobal = false) {
+  let qs = "";
+  if (forGlobal) {
+    qs = "?forGlobal=true";
+  }
+  const response = await http.get(`${API_ENDPOINT}/languages${qs}`);
   return response;
 }
 async function getAllLanguages() {
