@@ -123,6 +123,7 @@ export const Dropdown = ({
           }}
           onClick={(e) => {
             e.stopPropagation();
+            if (disabled) return;
             if (isOpen && !isFirstOpen) {
               setIsOpen(false);
               setTimeout(() => {
