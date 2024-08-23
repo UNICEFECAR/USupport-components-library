@@ -98,9 +98,6 @@ export const Navbar = ({
     if (isTmpUser && page.url === "/consultations") {
       isTmpUserAction();
     }
-    if (isInConsultation) {
-      window.open(`/${renderIn}${page.url}`, "_blank");
-    }
   };
 
   const themeButton = () => {
@@ -142,7 +139,8 @@ export const Navbar = ({
           </div>
         ) : (
           <NavLink
-            to={isInConsultation ? "#" : page.url}
+            target={isInConsultation ? "_blank" : "_self"}
+            to={page.url}
             className={({ isActive }) =>
               "nav__item" + (isActive ? " nav__item--current" : "")
             }
