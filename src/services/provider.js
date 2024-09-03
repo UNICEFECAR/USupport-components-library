@@ -66,12 +66,15 @@ async function getConsultationsForWeek(startDate) {
  *
  * @param {Number} startDate - start date timestamp in milliseconds in UTC
  * @param {Number} slot - slot timestamp in milliseconds in UTC
+ * @param {String} campaignId - campaign id
+ * @param {String} organizationId - organization id
  */
-async function addAvailableSlot(startDate, slot, campaignId) {
+async function addAvailableSlot(startDate, slot, campaignId, organizationId) {
   const payload = {
     startDate: startDate.toString(),
     slot: slot.toString(),
     campaignId,
+    organizationId,
   };
   if (!campaignId) delete payload.campaignId;
   const response = await http.put(
@@ -85,14 +88,23 @@ async function addAvailableSlot(startDate, slot, campaignId) {
  *
  * @param {Number} startDate - start date timestamp in milliseconds in UTC
  * @param {Number} slot - slot timestamp in milliseconds in UTC
+ * @param {String} campaignId - campaign id
+ * @param {String} organizationId - organization id
  */
-async function removeAvailableSlot(startDate, slot, campaignId) {
+async function removeAvailableSlot(
+  startDate,
+  slot,
+  campaignId,
+  organizationId
+) {
   const data = {
     startDate: startDate.toString(),
     slot: slot.toString(),
     campaignId,
+    organizationId,
   };
   if (!campaignId) delete data.campaignId;
+
   const response = await http.delete(
     `${API_ENDPOINT}/availability/single-week`,
     {
