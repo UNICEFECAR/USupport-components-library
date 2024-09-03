@@ -33,6 +33,8 @@ export const ProviderAvailability = ({
   campaignData,
   validCampaigns,
   enrolledCampaignsForSlot,
+  organizations,
+  organizationForSlot,
   t,
 }) => {
   const currencySymbol = localStorage.getItem("currency_symbol");
@@ -51,27 +53,41 @@ export const ProviderAvailability = ({
 
   const handleAvailabilityChange = ({
     campaignId = null,
-    isCampaignAvailableInSlot = null,
+    isCampaignAvailableInSlot = null, // If the slot is already marked as available
+    organizationId = null,
   }) => {
-    if (consultation) handleCancelConsultation(consultation);
-    else if (campaignId) {
+    if (consultation) {
+      handleCancelConsultation(consultation);
+    } else if (campaignId) {
       if (isCampaignAvailableInSlot) {
-        handleSetUnavailable(campaignId);
+        handleSetUnavailable({ campaignId });
       } else {
-        handleSetAvailable(campaignId);
+        handleSetAvailable({ campaignId });
       }
     } else if (
       validCampaigns?.length > 0 &&
       isAvailable === "campaign" &&
       hasNormalSlot
     ) {
-      handleSetUnavailable(validCampaigns.map((x) => x.campaignId));
+      handleSetUnavailable({
+        campaignId: validCampaigns.map((x) => x.campaignId),
+      });
+    } else if (organizationId) {
+      if (
+        organizationForSlot &&
+        organizationForSlot.organizationId === organizationId
+      ) {
+        handleSetUnavailable({ organizationId });
+      } else {
+        handleSetAvailable({ organizationId });
+      }
     } else {
       isAvailable && isAvailable !== "campaign"
-        ? handleSetUnavailable(null)
-        : handleSetAvailable(null);
+        ? handleSetUnavailable({ campaignId: null })
+        : handleSetAvailable({ campaignId: null });
     }
   };
+
   const handleMenuSecondClick = () => {
     if (consultation) {
       handleViewProfile(consultation, isPast);
@@ -129,18 +145,29 @@ export const ProviderAvailability = ({
           className="provider-availability__sponsor-badge"
         />
       )}
-      {isAvailable === "campaign" && !consultation && (
-        <img
-          src={
-            AMAZON_S3_BUCKET +
-            "/" +
-            (numberOfCampaignsSetAsAvailable > 1
-              ? "default-sponsor"
-              : campaignData?.sponsorImage)
-          }
-          className="provider-availability__sponsor-badge"
-        />
-      )}
+      {(isAvailable === "campaign" || isAvailable === "organization") &&
+        !consultation && (
+          <div className="provider-availability__badge-container">
+            {numberOfCampaignsSetAsAvailable > 0 && (
+              <img
+                src={
+                  AMAZON_S3_BUCKET +
+                  "/" +
+                  (numberOfCampaignsSetAsAvailable > 1
+                    ? "default-sponsor"
+                    : campaignData?.sponsorImage)
+                }
+                className="provider-availability__sponsor-badge"
+              />
+            )}
+            {organizationForSlot && (
+              <img
+                src={AMAZON_S3_BUCKET + "/" + "default-sponsor"}
+                className="provider-availability__sponsor-badge"
+              />
+            )}
+          </div>
+        )}
       {consultation && (
         <div className="provider-availability__content">
           <div
@@ -168,24 +195,28 @@ export const ProviderAvailability = ({
       )}
 
       <>
-        {!isLive && !consultation && !campaignData && (
+        {!isLive && !consultation && !campaignData && !organizationForSlot && (
           <p className="small-text provider-availability__available-text">
             {isAvailable ? t("available") : t("not_available")}
           </p>
         )}
-        {!isLive && !consultation && campaignData && width >= 768 && (
-          <p className="small-text provider-availability__content__campaign-name">
-            <strong>
-              {numberOfCampaignsSetAsAvailable > 1
-                ? t("coupon")
-                : campaignData.campaignName}{" "}
-            </strong>
-            {numberOfCampaignsSetAsAvailable > 1 &&
-              t("more_campaigns", {
-                amount: numberOfCampaignsSetAsAvailable,
-              })}
-          </p>
-        )}
+        {!isLive &&
+          !consultation &&
+          (campaignData || organizationForSlot) &&
+          width >= 768 && (
+            <p className="small-text provider-availability__content__campaign-name">
+              {campaignData &&
+                (numberOfCampaignsSetAsAvailable > 1
+                  ? t("more_campaigns", {
+                      amount: numberOfCampaignsSetAsAvailable,
+                    })
+                  : campaignData.campaignName)}
+              <br />
+              <span style={{ color: "#20809e" }}>
+                {organizationForSlot && organizationForSlot.name}
+              </span>
+            </p>
+          )}
         {width >= 1200 && (
           <div className="provider-availability__icon-container">
             <Icon name="three-dots-vertical" color="#20809E" />
@@ -274,6 +305,38 @@ export const ProviderAvailability = ({
                         classes="provider-availability__controls__single--campaign__icon"
                         name={
                           isCampaignAvailableInSlot
+                            ? "circle-close"
+                            : "circle-actions-success"
+                        }
+                        color="#373737"
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+            {!consultation && organizations?.length > 0 && (
+              <div className="provider-availability__controls__organization">
+                {organizations.map((organization) => {
+                  const isOrganizationAvailableInSlot = organizationForSlot
+                    ? organizationForSlot.organizationId ===
+                      organization.organizationId
+                    : false;
+                  return (
+                    <div
+                      className="provider-availability__controls__single provider-availability__controls__single--organization"
+                      key={organization.organizationId}
+                      onClick={() =>
+                        handleAvailabilityChange({
+                          organizationId: organization.organizationId,
+                        })
+                      }
+                    >
+                      <p className="small-text">{organization.name}</p>
+                      <Icon
+                        classes="provider-availability__controls__single--organization__icon"
+                        name={
+                          isOrganizationAvailableInSlot
                             ? "circle-close"
                             : "circle-actions-success"
                         }
