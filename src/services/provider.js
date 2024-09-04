@@ -373,11 +373,17 @@ async function enrollProviderInCampaign(campaignId) {
   return res;
 }
 
-async function removeMultipleAvailableSlots(startDate, slot, campaignIds) {
+async function removeMultipleAvailableSlots(
+  startDate,
+  slot,
+  campaignIds,
+  organizationId
+) {
   const data = {
     startDate: startDate.toString(),
     slot: slot.toString(),
     campaignIds,
+    organizationId,
   };
   const res = await http.delete(`${API_ENDPOINT}/availability/clear-slot`, {
     data,
