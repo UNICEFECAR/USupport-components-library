@@ -64,14 +64,6 @@ export const ProviderAvailability = ({
       } else {
         handleSetAvailable({ campaignId });
       }
-    } else if (
-      validCampaigns?.length > 0 &&
-      isAvailable === "campaign" &&
-      hasNormalSlot
-    ) {
-      handleSetUnavailable({
-        campaignId: validCampaigns.map((x) => x.campaignId),
-      });
     } else if (organizationId) {
       if (
         organizationForSlot &&
@@ -81,8 +73,17 @@ export const ProviderAvailability = ({
       } else {
         handleSetAvailable({ organizationId });
       }
+    } else if (
+      ((validCampaigns?.length > 0 && isAvailable === "campaign") ||
+        (organizationForSlot && isAvailable === "organization")) &&
+      hasNormalSlot
+    ) {
+      handleSetUnavailable({
+        campaignId: validCampaigns?.map((x) => x.campaignId) || [],
+        organizationId: organizationForSlot?.organizationId || null,
+      });
     } else {
-      isAvailable && isAvailable !== "campaign"
+      hasNormalSlot
         ? handleSetUnavailable({ campaignId: null })
         : handleSetAvailable({ campaignId: null });
     }
