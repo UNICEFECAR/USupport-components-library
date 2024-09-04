@@ -226,14 +226,16 @@ export const ProviderDetails = ({
                 {provider.totalConsultations} {t("consultations")}
               </p>
             </div>
-            <div className="provider-details__information-container">
-              <p className="paragraph provider-details__information-container__heading">
-                {t("organizations_label")}
-              </p>
-              <p className="paragraph provider-details__information-container__text">
-                {provider.organizations?.map((org) => org.name).join(", ")}
-              </p>
-            </div>
+            {renderIn !== "client" && renderIn !== "website" && (
+              <div className="provider-details__information-container">
+                <p className="paragraph provider-details__information-container__heading">
+                  {t("organizations_label")}
+                </p>
+                <p className="paragraph provider-details__information-container__text">
+                  {provider.organizations?.map((org) => org.name).join(", ")}
+                </p>
+              </div>
+            )}
           </GridItem>
         </Grid>
       </GridItem>
