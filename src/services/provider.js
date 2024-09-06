@@ -200,6 +200,7 @@ async function blockSlot(
       typeof slotTimestamp === "object"
         ? {
             campaign_id: slotTimestamp.campaign_id,
+            organization_id: slotTimestamp.organization_id,
             time: JSON.stringify(new Date(slotTimestamp.time).getTime() / 1000),
           }
         : JSON.stringify(slotTimestamp / 1000),
