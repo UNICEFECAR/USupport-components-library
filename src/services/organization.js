@@ -8,8 +8,14 @@ const getAllOrganizations = async () => {
   return response.data;
 };
 
+const getOrganizationsWithDetails = async () => {
+  const response = await http.get(`${API_ENDPOINT}/all/details`);
+  return response.data;
+};
+
 const exportedFunctions = {
   getAllOrganizations,
+  getOrganizationsWithDetails,
 };
 
 export default exportedFunctions;
