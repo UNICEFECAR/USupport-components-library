@@ -11,4 +11,5 @@ export { default as messageSvc } from "./message.js";
 export { default as notificationsSvc } from "./notifications.js";
 export { default as paymentsSvc } from "./payments.js";
 export { default as videoSvc } from "./video.js";
+export { default as organizationSvc } from "./organization.js";
 export * from "./log.js";
