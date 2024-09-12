@@ -13,9 +13,21 @@ const getOrganizationsWithDetails = async () => {
   return response.data;
 };
 
+const createOrganization = async (payload) => {
+  const response = await http.post(`${API_ENDPOINT}/`, payload);
+  return response.data;
+};
+
+const editOrganization = async (payload) => {
+  const response = await http.put(`${API_ENDPOINT}/`, payload);
+  return response.data;
+};
+
 const exportedFunctions = {
   getAllOrganizations,
   getOrganizationsWithDetails,
+  createOrganization,
+  editOrganization,
 };
 
 export default exportedFunctions;
