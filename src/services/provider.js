@@ -429,6 +429,11 @@ async function addPlatformRating(payload) {
   return response;
 }
 
+async function joinConsultation(payload) {
+  const response = await http.put(`${API_ENDPOINT}/consultation/join`, payload);
+  return response;
+}
+
 const exportedFunctions = {
   addAvailableSlot,
   addTemplateAvailability,
@@ -475,5 +480,6 @@ const exportedFunctions = {
   addAnswerToQuestion,
   archiveQuestion,
   addPlatformRating,
+  joinConsultation,
 };
 export default exportedFunctions;
