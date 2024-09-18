@@ -43,6 +43,7 @@ export const Consultation = ({
   onClick,
   hasMenu,
   classes,
+  organizationName,
 }) => {
   const {
     consultationId,
@@ -248,6 +249,11 @@ export const Consultation = ({
           </div>
         )}
       </div>
+      {organizationName && (
+        <div className="consultation__organization">
+          <p>{organizationName}</p>
+        </div>
+      )}
       {!overview && !suggested && buttonAction === "join" && (
         <div className="consultation__button-container">
           <p className="text consultation__button-container__now-text">
