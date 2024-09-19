@@ -295,8 +295,8 @@ const TableIcon = ({ menuOptions, handleClickCallbackProp, index }) => {
       >
         <div className="table-icon__content">
           <Icon
-            size="md"
-            name="three-dots-vertical"
+            size="xl"
+            name="table-menu"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             classes={
               index + (1 % 2) === 0 ? "table-icon__content__icon--even" : ""
