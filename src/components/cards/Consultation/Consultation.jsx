@@ -44,6 +44,7 @@ export const Consultation = ({
   hasMenu,
   classes,
   organizationName,
+  withOrganization,
 }) => {
   const {
     consultationId,
@@ -226,6 +227,12 @@ export const Consultation = ({
                   <img
                     className="provider-consultation__icon-container__price-badge__sponsor-image"
                     src={AMAZON_S3_BUCKET + "/" + sponsorImage}
+                    alt="sponsor"
+                  />
+                ) : withOrganization ? (
+                  <img
+                    className="provider-consultation__icon-container__price-badge__sponsor-image"
+                    src={AMAZON_S3_BUCKET + "/" + "default-sponsor"}
                     alt="sponsor"
                   />
                 ) : null}
