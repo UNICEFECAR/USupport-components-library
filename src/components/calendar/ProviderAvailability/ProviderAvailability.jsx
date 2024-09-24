@@ -146,6 +146,12 @@ export const ProviderAvailability = ({
           className="provider-availability__sponsor-badge"
         />
       )}
+      {consultation?.organizationId && (
+        <img
+          src={AMAZON_S3_BUCKET + "/" + "default-sponsor"}
+          className="provider-availability__sponsor-badge"
+        />
+      )}
       {(isAvailable === "campaign" || isAvailable === "organization") &&
         !consultation && (
           <div className="provider-availability__badge-container">
