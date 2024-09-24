@@ -419,6 +419,11 @@ async function changePassword(payload) {
   return response;
 }
 
+async function getAllProviderNames() {
+  const response = await http.get(`${API_ENDPOINT}/all-provider-names`);
+  return response;
+}
+
 const exportedFunctions = {
   createAdmin,
   deleteArticle,
@@ -466,6 +471,7 @@ const exportedFunctions = {
   getQuestions,
   changePassword,
   getProviderRatings,
+  getAllProviderNames,
 };
 
 export default exportedFunctions;
