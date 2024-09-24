@@ -61,9 +61,13 @@
           margin-top: 0;
         }
 
-        & button:first-of-type {
+        & button {
           margin-right: $spacing_1_0;
         }
+      }
+
+      &__third-button {
+        margin-top: $spacing_1_4;
       }
 
       @media screen and (min-width: $screen-md) {

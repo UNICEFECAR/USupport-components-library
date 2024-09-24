@@ -292,6 +292,48 @@ const parseUTCDate = (dateString) => {
   return new Date(Date.UTC(...dateParams));
 };
 
+const getFirstAndLastDayOfPastMonth = () => {
+  const now = new Date();
+  // Get the first day of the current month, then subtract one day to get the last day of the past month
+  let lastDayOfPastMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+
+  lastDayOfPastMonth.setHours(23, 59, 59, 999);
+
+  // Get the first day of the past month by setting the day to 1 for the last day of the past month
+  let firstDayOfPastMonth = new Date(
+    lastDayOfPastMonth.getFullYear(),
+    lastDayOfPastMonth.getMonth(),
+    1
+  );
+
+  firstDayOfPastMonth.setHours(0, 0, 0, 0);
+
+  return {
+    firstDay: getDateDashes(firstDayOfPastMonth),
+    lastDay: getDateDashes(lastDayOfPastMonth),
+  };
+};
+
+const formatDateWithTimeRange = (date) => {
+  const padZero = (num) => (num < 10 ? `0${num}` : num);
+
+  // Get hours and minutes from the original date
+  const hours = padZero(date.getHours());
+  const minutes = padZero(date.getMinutes());
+
+  // Add one hour to get the end time
+  const endDate = new Date(date);
+  endDate.setHours(date.getHours() + 1);
+  const endHours = padZero(endDate.getHours());
+
+  // Format the date as DD.MM.YY
+  const day = padZero(date.getDate());
+  const month = padZero(date.getMonth() + 1); // Months are 0-indexed
+  const year = String(date.getFullYear()).slice(-2); // Get last two digits of the year
+
+  return `${hours}:${minutes} - ${endHours}:${minutes} ${day}.${month}.${year}`;
+};
+
 export {
   getDayOfTheWeek,
   isDateToday,
@@ -315,4 +357,6 @@ export {
   FIVE_MINUTES,
   getTime,
   parseUTCDate,
+  getFirstAndLastDayOfPastMonth,
+  formatDateWithTimeRange,
 };
