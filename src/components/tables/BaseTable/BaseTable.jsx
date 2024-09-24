@@ -31,6 +31,8 @@ export const BaseTable = ({
   buttonAction,
   secondaryButtonLabel,
   secondaryButtonAction,
+  thirdButtonLabel,
+  thirdButtonAction,
   isButtonDisabled = false,
   isSecondaryButtonDisabled = false,
   noteText,
@@ -160,7 +162,9 @@ export const BaseTable = ({
                     index={dataIndex}
                     menuOptions={menuOptions}
                     handleClickCallbackProp={
-                      data ? data[dataIndex][handleClickPropName] : null
+                      data && data[dataIndex]
+                        ? data[dataIndex][handleClickPropName]
+                        : null
                     }
                   />
                 )}
@@ -212,6 +216,14 @@ export const BaseTable = ({
               />
             )}
           </div>
+          {thirdButtonLabel && (
+            <Button
+              label={thirdButtonLabel}
+              color="purple"
+              onClick={thirdButtonAction}
+              classes="table__container__search-container__third-button"
+            />
+          )}
         </div>
       )}
       {noteText && (
@@ -283,8 +295,8 @@ const TableIcon = ({ menuOptions, handleClickCallbackProp, index }) => {
       >
         <div className="table-icon__content">
           <Icon
-            size="md"
-            name="three-dots-vertical"
+            size="xl"
+            name="table-menu"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             classes={
               index + (1 % 2) === 0 ? "table-icon__content__icon--even" : ""
