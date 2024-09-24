@@ -43,6 +43,8 @@ export const Consultation = ({
   onClick,
   hasMenu,
   classes,
+  organizationName,
+  withOrganization,
 }) => {
   const {
     consultationId,
@@ -227,6 +229,12 @@ export const Consultation = ({
                     src={AMAZON_S3_BUCKET + "/" + sponsorImage}
                     alt="sponsor"
                   />
+                ) : withOrganization ? (
+                  <img
+                    className="provider-consultation__icon-container__price-badge__sponsor-image"
+                    src={AMAZON_S3_BUCKET + "/" + "default-sponsor"}
+                    alt="sponsor"
+                  />
                 ) : null}
                 <p className="small-text">
                   {isBookedWithCoupon && renderIn === "client"
@@ -248,6 +256,11 @@ export const Consultation = ({
           </div>
         )}
       </div>
+      {organizationName && (
+        <div className="consultation__organization">
+          <p>{organizationName}</p>
+        </div>
+      )}
       {!overview && !suggested && buttonAction === "join" && (
         <div className="consultation__button-container">
           <p className="text consultation__button-container__now-text">
