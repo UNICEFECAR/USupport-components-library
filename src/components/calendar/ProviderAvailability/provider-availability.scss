@@ -44,19 +44,32 @@
     }
   }
 
-  &__sponsor-badge {
-    width: 1.8rem;
-    height: 1.8rem;
+  &__badge-container {
     position: absolute;
     top: calc(-1.8rem / 4);
     left: calc(-1.8rem / 4);
+
+    display: flex;
+    flex-direction: column;
+
+    @media screen and (min-width: 1200px) {
+      top: calc(-3rem / 4);
+      left: calc(-3rem / 4);
+    }
+  }
+
+  &__sponsor-badge {
+    width: 1.8rem;
+    height: 1.8rem;
     border-radius: 50%;
+
+    &:nth-child(2) {
+      margin-top: 1rem;
+    }
 
     @media screen and (min-width: 1200px) {
       width: 3rem;
       height: 3rem;
-      top: calc(-3rem / 4);
-      left: calc(-3rem / 4);
     }
   }
 
@@ -196,6 +209,7 @@
 
     &__campaign-name {
       text-align: left;
+      margin-left: 1.8rem;
 
       & strong {
         text-overflow: ellipsis; /* With this the name gets clipped with dots(...) at the end, without it the overflow is scroll */
@@ -274,13 +288,20 @@
     height: auto;
     z-index: 100;
 
-    &__campaign {
+    &__campaign,
+    &__organization {
       max-height: 30rem;
       overflow-x: auto;
       display: flex;
       width: 100%;
       flex-direction: column;
       justify-content: space-between;
+    }
+
+    &__organization {
+      border-top: 1px solid $color_gray_344054;
+      padding-top: 1.2rem;
+      margin-top: 1.2rem;
     }
 
     &__right-0 {
@@ -323,7 +344,8 @@
         margin-right: $spacing_0_8;
       }
 
-      &--campaign {
+      &--campaign,
+      &--organization {
         & > p {
           color: $color_blue_3d527b;
           text-decoration: none;
