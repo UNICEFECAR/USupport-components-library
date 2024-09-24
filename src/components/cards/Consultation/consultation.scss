@@ -104,59 +104,64 @@
       }
     }
   }
+
+  &__organization {
+    padding-top: $spacing_1_2;
+  }
 }
-
-.provider-consultation__icon-container__price-badge {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  background-color: $color_purple_dac3f6;
-  color: $color_secondary_9749fa;
-  border-radius: $border_radius_1_6;
-  margin-right: $spacing_1_4;
-
-  & .small-text {
-    padding: $spacing_0_4 $spacing_0_8;
-    @include themifyCustom(
-      $themes,
-      "color",
-      "$color_secondary_9749fa",
-      "color_black_31"
-    );
-  }
-
-  &--free {
-    background-color: rgba(32, 128, 158, 0.3);
+.provider-consultation__icon-container {
+  &__price-badge {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: $color_purple_dac3f6;
+    color: $color_secondary_9749fa;
+    border-radius: $border_radius_1_6;
+    margin-right: $spacing_1_4;
 
     & .small-text {
-      color: $color_primary_20809e;
+      padding: $spacing_0_4 $spacing_0_8;
       @include themifyCustom(
         $themes,
         "color",
-        "$color_primary_20809e",
-        "color_primary_20809e"
+        "$color_secondary_9749fa",
+        "color_black_31"
       );
     }
-  }
 
-  &--gray {
-    background-color: $color_gray_ea;
+    &--free {
+      background-color: rgba(32, 128, 158, 0.3);
 
-    color: $color_gray_66768d;
-    & .small-text {
-      @include themifyCustom(
-        $themes,
-        "color",
-        "$color_gray_66768d",
-        "$color_purple_c39af9"
-      );
+      & .small-text {
+        color: $color_primary_20809e;
+        @include themifyCustom(
+          $themes,
+          "color",
+          "$color_primary_20809e",
+          "color_primary_20809e"
+        );
+      }
     }
-  }
 
-  &__sponsor-image {
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 50%;
+    &--gray {
+      background-color: $color_gray_ea;
+
+      color: $color_gray_66768d;
+      & .small-text {
+        @include themifyCustom(
+          $themes,
+          "color",
+          "$color_gray_66768d",
+          "$color_purple_c39af9"
+        );
+      }
+    }
+
+    &__sponsor-image {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+    }
   }
 }
