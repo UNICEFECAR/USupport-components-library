@@ -148,7 +148,7 @@ export const ProviderAvailability = ({
       )}
       {consultation?.organizationId && (
         <img
-          src={AMAZON_S3_BUCKET + "/" + "default-sponsor"}
+          src={AMAZON_S3_BUCKET + "/" + "organization"}
           className="provider-availability__sponsor-badge"
         />
       )}
