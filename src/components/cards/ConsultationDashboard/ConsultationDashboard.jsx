@@ -47,6 +47,7 @@ export const ConsultationDashboard = ({
   const isBookedWithCoupon = couponPrice || campaignId;
 
   const isLive = checkIsFiveMinutesBefore(timestamp);
+  const withOrganization = !!consultation?.organizationId;
 
   const startDate = new Date(timestamp);
   const ordinal = getOrdinal(startDate?.getDate());
@@ -81,6 +82,13 @@ export const ConsultationDashboard = ({
                   className="consultation-dashboard__content__date__price__badge__sponsor-image"
                   src={AMAZON_S3_BUCKET + "/" + sponsorImage}
                   alt="sponsor"
+                />
+              ) : null}
+              {withOrganization ? (
+                <img
+                  className="consultation-dashboard__content__date__price__badge__sponsor-image"
+                  src={AMAZON_S3_BUCKET + "/" + "organization"}
+                  alt="ogranization"
                 />
               ) : null}
               <p className="small-text">

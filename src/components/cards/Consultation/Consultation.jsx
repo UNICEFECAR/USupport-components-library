@@ -232,8 +232,8 @@ export const Consultation = ({
                 ) : withOrganization ? (
                   <img
                     className="provider-consultation__icon-container__price-badge__sponsor-image"
-                    src={AMAZON_S3_BUCKET + "/" + "default-sponsor"}
-                    alt="sponsor"
+                    src={AMAZON_S3_BUCKET + "/" + "organization"}
+                    alt="ogranization"
                   />
                 ) : null}
                 <p className="small-text">
