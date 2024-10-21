@@ -47,7 +47,7 @@ export const ConsultationDashboard = ({
   const isBookedWithCoupon = couponPrice || campaignId;
 
   const isLive = checkIsFiveMinutesBefore(timestamp);
-  const withOrganization = !!consultation.organizationId;
+  const withOrganization = !!consultation?.organizationId;
 
   const startDate = new Date(timestamp);
   const ordinal = getOrdinal(startDate?.getDate());
