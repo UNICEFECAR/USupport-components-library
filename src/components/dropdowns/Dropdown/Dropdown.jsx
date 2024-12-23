@@ -27,24 +27,24 @@ export const Dropdown = ({
   const [isOpen, setIsOpen] = useState(false);
   const { theme } = useContext(ThemeContext);
 
-  let placeHolderText = "Select";
+  let placeholderText = "Select";
   if (!placeholder || placeholder === "Select") {
     const language = localStorage.getItem("language");
     switch (language) {
       case "en":
-        placeHolderText = "Select";
+        placeholderText = "Select";
         break;
       case "kk":
-        placeHolderText = "Таңдау";
+        placeholderText = "Таңдау";
         break;
       case "ru":
-        placeHolderText = "Выбрать";
+        placeholderText = "Выбрать";
         break;
       case "pl":
-        placeHolderText = "Wybierz";
+        placeholderText = "Wybierz";
         break;
       default:
-        placeHolderText = "Select";
+        placeholderText = "Select";
     }
   }
 
@@ -161,7 +161,7 @@ export const Dropdown = ({
           {selected ? (
             <p className="text">{selectedLabel}</p>
           ) : (
-            <p className="text placeholder">{placeholder}</p>
+            <p className="text placeholder">{placeholderText}</p>
           )}
           <Icon
             name="arrow-chevron-down"
