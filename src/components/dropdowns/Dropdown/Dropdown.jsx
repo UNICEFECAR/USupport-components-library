@@ -27,6 +27,27 @@ export const Dropdown = ({
   const [isOpen, setIsOpen] = useState(false);
   const { theme } = useContext(ThemeContext);
 
+  let placeHolderText = "Select";
+  if (!placeholder || placeholder === "Select") {
+    const language = localStorage.getItem("language");
+    switch (language) {
+      case "en":
+        placeHolderText = "Select";
+        break;
+      case "kk":
+        placeHolderText = "Таңдау";
+        break;
+      case "ru":
+        placeHolderText = "Выбрать";
+        break;
+      case "pl":
+        placeHolderText = "Wybierz";
+        break;
+      default:
+        placeHolderText = "Select";
+    }
+  }
+
   const selectedLabel =
     options.find((option) => option.value === selected)?.label || "";
 
