@@ -14,5 +14,27 @@
       top: 0;
       width: auto;
     }
+    &:not(.has-value):before {
+      color: lightgray;
+    }
   }
+
+  &-placeholder {
+    position: absolute;
+    top: 54%;
+    left: 2.8rem;
+    cursor: pointer;
+    z-index: 999;
+  }
+}
+
+input[type="date"]:in-range::-webkit-datetime-edit-year-field,
+input[type="date"]:in-range::-webkit-datetime-edit-month-field,
+input[type="date"]:in-range::-webkit-datetime-edit-day-field,
+input[type="date"]:in-range::-webkit-datetime-edit-text {
+  color: transparent;
+}
+
+input[type="date"] {
+  color: transparent;
 }
