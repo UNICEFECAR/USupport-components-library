@@ -43,8 +43,10 @@ export const IdleTimer = ({
 
   const [returnNavigate, setReturnNavigate] = useState(false);
 
+  const IS_DEVELOPMENT = process.env.NODE_ENV === "development";
   const timeoutRef = useRef();
   const handleLogout = () => {
+    if (IS_DEVELOPMENT) return;
     timeoutRef.current = null;
     if (isInAdmin) {
       adminSvc.logout();
