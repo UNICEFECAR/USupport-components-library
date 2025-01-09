@@ -14,11 +14,26 @@ import "./store-button.scss";
  *
  * @return {jsx}
  */
-export const StoreButton = ({ downloadText, store, ...props }) => {
+export const StoreButton = ({
+  downloadText,
+  store,
+  browserLabel,
+  ...props
+}) => {
   const { theme } = useContext(ThemeContext);
 
-  const icon = store === "google-play" ? "google-play" : "app-store";
-  const label = store === "google-play" ? "Google Play" : "App Store";
+  const icon =
+    store === "google-play"
+      ? "google-play"
+      : store === "web"
+      ? "globe"
+      : "app-store";
+  const label =
+    store === "google-play"
+      ? "Google Play"
+      : store === "web"
+      ? browserLabel
+      : "App Store";
 
   return (
     <Button
