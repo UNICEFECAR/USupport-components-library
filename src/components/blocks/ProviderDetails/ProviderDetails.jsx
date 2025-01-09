@@ -128,20 +128,21 @@ export const ProviderDetails = ({
                 <p className="paragraph">{provider.email}</p>
               </div>
             )}
-            {provider.consultationPrice > 0 ? (
-              <div className="provider-details__information-container-with-icon">
-                <Icon
-                  name="dollar"
-                  size="md"
-                  color="#66768D"
-                  classes="provider-details__information-container-with-icon__icon"
-                />
-                <p className="paragraph">
-                  {provider.consultationPrice}
-                  {currencySymbol} {t("hour_consultation")}
-                </p>
-              </div>
-            ) : null}
+            <div className="provider-details__information-container-with-icon">
+              <Icon
+                name="dollar"
+                size="md"
+                color="#66768D"
+                classes="provider-details__information-container-with-icon__icon"
+              />
+              <p className="paragraph">
+                {provider.consultationPrice > 0
+                  ? `${provider.consultationPrice} ${currencySymbol} ${t(
+                      "hour_consultation"
+                    )}`
+                  : t("free")}
+              </p>
+            </div>
 
             {provider.city && (
               <>
