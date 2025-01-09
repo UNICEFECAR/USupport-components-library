@@ -14,14 +14,31 @@ import "./date-input.scss";
 export const DateInput = ({ classes = [], ...props }) => {
   const inputRef = useRef();
   return (
-    <Input
-      classes={classNames([...classes, "date-input"])}
-      type="date"
-      ref={inputRef}
-      onFocus={() => {
+    <div
+      style={{
+        position: "relative",
+      }}
+      onClick={(e) => {
+        e.stopPropagation();
         inputRef.current?.showPicker();
       }}
-      {...props}
-    />
+    >
+      <p
+        className="date-input-placeholder text"
+        onClick={(e) => {
+          e.stopPropagation();
+          inputRef.current?.showPicker();
+        }}
+      >
+        {props.value || props.placeholder}
+      </p>
+
+      <Input
+        classes={classNames([...classes, "date-input"])}
+        type="date"
+        ref={inputRef}
+        {...props}
+      />
+    </div>
   );
 };
