@@ -10,6 +10,7 @@ const faqsEndpoint = CMS_API_URL + "/faqs";
 const sosCentersEndpoint = CMS_API_URL + "/sos-centers";
 const cookiePolicyEndpoint = CMS_API_URL + "/policy-cookies";
 const termsOfUseEndpoint = CMS_API_URL + "/terms-of-uses";
+const abousUsEndpoint = CMS_API_URL + "/about-us-pages";
 
 /**
  * generate a querry string from an object
@@ -331,6 +332,16 @@ async function getSOSCenterAvailableLocales(id) {
   return data;
 }
 
+async function getAbousUsContentForCountry({ country, language }) {
+  const querryString = generateQuerryString({
+    locale: language,
+    countryAlpha2: country,
+  });
+  let res = await http.get(`${abousUsEndpoint}/find${querryString}`);
+
+  return res.data;
+}
+
 export default {
   getArticles,
   getArticleById,
@@ -345,4 +356,5 @@ export default {
   getFAQAvailableLocales,
   getSOSCenters,
   getSOSCenterAvailableLocales,
+  getAbousUsContentForCountry,
 };
