@@ -72,15 +72,28 @@ export const Navbar = ({
     initialLanguage || englishLanguage
   );
   const [selectedCountry, setSelectedCountry] = useState(kazakhstanCountry);
+  const [hasPassedInitialSelection, setHasPassedInitialSelection] =
+    useState(false);
 
   useEffect(() => {
-    if (initialLanguage) {
-      setSelectedLanguage(initialLanguage);
+    if (!hasPassedInitialSelection && initialCountry && initialLanguage) {
+      if (initialLanguage) {
+        setSelectedLanguage(initialLanguage);
+      }
+      if (initialCountry) {
+        setSelectedCountry(initialCountry);
+      }
+      setHasPassedInitialSelection(true);
     }
-    if (initialCountry) {
-      setSelectedCountry(initialCountry);
+  }, [initialLanguage, initialCountry, hasPassedInitialSelection]);
+
+  useEffect(() => {
+    if (selectedLanguage && countries && languages) {
+      if (!languages.find((x) => x.value === selectedLanguage.value)) {
+        handleLanguageClick(languages[0]);
+      }
     }
-  }, [initialLanguage, initialCountry]);
+  }, [countries, languages, selectedLanguage]);
 
   const scrollTop = () => window.scrollTo(0, 0);
   const toggleNavbar = () => {
@@ -362,6 +375,16 @@ export const Navbar = ({
     return (
       <div className="nav__dropdown-content">
         {data.map((option) => {
+          let isSelected = false;
+          if (type === "languages") {
+            isSelected =
+              option.value.toLowerCase() ===
+              selectedLanguage.value.toLowerCase();
+          } else {
+            isSelected =
+              option.value.toLowerCase() ===
+              selectedCountry.value.toLowerCase();
+          }
           return (
             <div
               onClick={(e) => handleOptionSelect(e, option)}
@@ -375,8 +398,7 @@ export const Navbar = ({
               {type === "countries" && <IconFlag flagName={option.iconName} />}
               <p
                 className={`paragraph nav__dropdown-content__lang-label ${
-                  option.value.toLowerCase() ===
-                  selectedLanguage.value.toLowerCase()
+                  isSelected
                     ? "nav__dropdown-content__lang-label--selected"
                     : ""
                 }`}
