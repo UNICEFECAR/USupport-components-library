@@ -72,24 +72,25 @@ export const Navbar = ({
     initialLanguage || englishLanguage
   );
   const [selectedCountry, setSelectedCountry] = useState(kazakhstanCountry);
-  const [hasPassedInitialSelection, setHasPassedInitialSelection] =
-    useState(false);
 
   useEffect(() => {
-    if (!hasPassedInitialSelection && initialCountry && initialLanguage) {
-      if (initialLanguage) {
-        setSelectedLanguage(initialLanguage);
-      }
-      if (initialCountry) {
-        setSelectedCountry(initialCountry);
-      }
-      setHasPassedInitialSelection(true);
+    if (initialLanguage) {
+      setSelectedLanguage(initialLanguage);
     }
-  }, [initialLanguage, initialCountry, hasPassedInitialSelection]);
+    if (initialCountry) {
+      setSelectedCountry(initialCountry);
+    }
+  }, [initialLanguage, initialCountry]);
 
   useEffect(() => {
     if (selectedLanguage && countries && languages) {
-      if (!languages.find((x) => x.value === selectedLanguage.value)) {
+      if (
+        !languages.find(
+          (x) =>
+            x.value.toLocaleLowerCase() ===
+            selectedLanguage.value.toLocaleLowerCase()
+        )
+      ) {
         handleLanguageClick(languages[0]);
       }
     }
@@ -229,7 +230,7 @@ export const Navbar = ({
     window.dispatchEvent(new Event("countryChanged"));
   };
 
-  const handleLanguageClick = (language) => {
+  const handleLanguageClick = (language = { value: "en" }) => {
     setSelectedLanguage(language);
     setLanguagesShown(false);
     i18n.changeLanguage(language.value);
