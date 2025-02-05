@@ -13,6 +13,7 @@
 .input-with-dropdown {
   width: 34.3rem;
   margin: 0 auto;
+  margin-bottom: $spacing_1_6 !important;
   z-index: 2;
 
   @media screen and (min-width: $screen-lg) {
@@ -34,7 +35,7 @@
 
   &__selected-tags-wrapper {
     display: flex;
-    margin-top: $spacing_2_0;
+    // margin-top: $spacing_2_0;
   }
 
   &__label {
@@ -46,8 +47,8 @@
   &__selected-tags-wrapper {
     display: flex;
     flex-direction: column;
-    position: absolute;
-    top: $spacing_6_4;
+    // position: absolute;
+    // top: $spacing_6_4;
   }
 
   &__tags-container {
