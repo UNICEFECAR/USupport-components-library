@@ -407,9 +407,9 @@ async function deleteQuestion(questionId) {
   return response;
 }
 
-async function getQuestions(type) {
+async function getQuestions(type, languageId) {
   const response = await http.get(
-    `${API_ENDPOINT}/my-qa/questions?type=${type}`
+    `${API_ENDPOINT}/my-qa/questions?type=${type}&languageId=${languageId}`
   );
   return response;
 }
