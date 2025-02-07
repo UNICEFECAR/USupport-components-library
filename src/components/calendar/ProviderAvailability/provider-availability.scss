@@ -147,6 +147,20 @@
     }
   }
 
+  &--disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+
+    &:hover {
+      & .provider-availability__available-text {
+        visibility: hidden !important;
+      }
+
+      border-color: transparent !important;
+      box-shadow: unset !important;
+    }
+  }
+
   &__image {
     width: 3.2rem;
     height: 3.2rem;
