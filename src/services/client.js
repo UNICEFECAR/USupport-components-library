@@ -132,8 +132,10 @@ async function addQuestion(question) {
   return response;
 }
 
-async function getClientQuestions() {
-  const response = await http.get(`${API_ENDPOINT}/my-qa/client-questions`);
+async function getClientQuestions(languageId) {
+  const response = await http.get(
+    `${API_ENDPOINT}/my-qa/client-questions?languageId=${languageId}`
+  );
   return response;
 }
 
