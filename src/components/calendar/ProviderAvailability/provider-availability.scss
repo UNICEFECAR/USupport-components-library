@@ -348,6 +348,7 @@
       & > p {
         color: $color_gray_344054;
         text-decoration: underline;
+        flex: 0.8;
       }
 
       &:not(:last-of-type) {

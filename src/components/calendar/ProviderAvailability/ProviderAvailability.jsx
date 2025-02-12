@@ -216,7 +216,7 @@ export const ProviderAvailability = ({
         {!isLive &&
           !consultation &&
           (campaignData || organizationForSlot) &&
-          width >= 768 && (
+          width >= 1024 && (
             <p className="small-text provider-availability__content__campaign-name">
               {campaignData &&
                 (numberOfCampaignsSetAsAvailable > 1
