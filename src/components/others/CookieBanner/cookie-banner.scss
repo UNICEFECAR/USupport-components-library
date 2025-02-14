@@ -1,0 +1,37 @@
+@import "../../../styles/theme";
+
+.cookie-banner {
+  position: fixed;
+  bottom: $spacing_2_0;
+  width: "90%";
+  z-index: 1001;
+  // height: 200px;
+  background-color: white;
+  padding: $spacing_2_0;
+  border-radius: $border_radius_4_0;
+  box-shadow: $shadow_1;
+
+  @media screen and (min-width: $screen_md) {
+    left: $spacing_10_0;
+    width: 38%;
+  }
+
+  & .toggle-wrapper {
+    margin-top: $spacing_1_2;
+  }
+
+  & p {
+    margin-top: $spacing_1_2;
+  }
+
+  &__buttons {
+    margin-top: $spacing_1_8;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    & .btn:nth-of-type(1) {
+      margin-right: $spacing_1_2;
+    }
+  }
+}
