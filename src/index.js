@@ -38,3 +38,4 @@ export * from "./components/rows";
 export * from "./components/tables";
 export * from './components/images';
 export * from './components/charts';
+export * from './components/others';
