@@ -18,6 +18,11 @@
     padding: $spacing_1_6 $spacing_0_8 $spacing_0_8 $spacing_0_8;
   }
 
+  @media screen and (min-width: 998px) {
+    width: calc(11.5rem - 2 * $spacing_0_8);
+    height: calc(11.5rem - $spacing_1_6 - $spacing_0_8);
+  }
+
   &__date-as-string.text {
     font-weight: $font_bold;
   }
@@ -50,6 +55,7 @@
 
   .consultation-text {
     color: $color_gray_66768d;
+    font-size: 12px;
   }
 
   &-no-consultations {
@@ -60,6 +66,10 @@
     @media screen and (min-width: $screen_md) {
       height: calc(9.6rem - 2 * $spacing_0_8);
       padding: $spacing_0_8;
+    }
+    @media screen and (min-width: 998px) {
+      width: calc(11.5rem - 2 * $spacing_0_8);
+      height: calc(11.8rem - $spacing_1_6 - $spacing_0_8);
     }
   }
 
