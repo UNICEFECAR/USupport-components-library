@@ -23,22 +23,22 @@ export const DateInput = ({ classes = [], ...props }) => {
         inputRef.current?.showPicker();
       }}
     >
-      <p
-        className="date-input-placeholder text"
-        onClick={(e) => {
-          e.stopPropagation();
-          inputRef.current?.showPicker();
-        }}
-      >
-        {props.value || props.placeholder}
-      </p>
-
       <Input
         classes={classNames([...classes, "date-input"])}
         type="date"
         ref={inputRef}
         {...props}
-      />
+      >
+        <p
+          className="date-input-placeholder text"
+          onClick={(e) => {
+            e.stopPropagation();
+            inputRef.current?.showPicker();
+          }}
+        >
+          {props.value || props.placeholder}
+        </p>
+      </Input>
     </div>
   );
 };
