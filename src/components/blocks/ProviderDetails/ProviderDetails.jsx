@@ -22,6 +22,9 @@ export const ProviderDetails = ({
   renderIn,
 }) => {
   const currencySymbol = localStorage.getItem("currency_symbol");
+  const hasAcceptedAllCookies = !!Number(
+    localStorage.getItem("acceptAllCookies")
+  );
 
   const allOptionsToString = (option) => {
     return provider[option]?.join(", ");
@@ -65,6 +68,7 @@ export const ProviderDetails = ({
       provider.earliestAvailableSlot
     )} - ${getTimeFromDate(new Date(provider.earliestAvailableSlot))}`;
   }
+
   return (
     <Grid classes="provider-details__grid">
       <GridItem md={4} lg={4}>
@@ -93,7 +97,7 @@ export const ProviderDetails = ({
           </p>
         </div>
 
-        {provider.videoLink && (
+        {provider.videoLink && hasAcceptedAllCookies && (
           <div className="provider-details__video-container">
             <p className="paragraph provider-details__information-container__heading">
               {t("video_label")}
