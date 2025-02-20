@@ -35,6 +35,7 @@ export const ProviderAvailability = ({
   enrolledCampaignsForSlot,
   organizations,
   organizationForSlot,
+  isDisabled,
   t,
 }) => {
   const currencySymbol = localStorage.getItem("currency_symbol");
@@ -136,9 +137,14 @@ export const ProviderAvailability = ({
         consultation ? "provider-availability--booked" : "",
         isBookedWithCoupon ? "provider-availability--coupon" : "",
         isLive ? "provider-availability--live" : "",
+        isDisabled ? "provider-availability--disabled" : "",
         classNames(classes),
       ].join(" ")}
-      onClick={() => setIsMenuOpen(!isMenuOpen)}
+      onClick={() => {
+        if (!isDisabled) {
+          setIsMenuOpen(!isMenuOpen);
+        }
+      }}
     >
       {isBookedWithCoupon && (
         <img
@@ -210,7 +216,7 @@ export const ProviderAvailability = ({
         {!isLive &&
           !consultation &&
           (campaignData || organizationForSlot) &&
-          width >= 768 && (
+          width >= 1024 && (
             <p className="small-text provider-availability__content__campaign-name">
               {campaignData &&
                 (numberOfCampaignsSetAsAvailable > 1
