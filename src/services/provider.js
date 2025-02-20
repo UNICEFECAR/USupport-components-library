@@ -404,8 +404,10 @@ async function getProviderStatusById(providerId) {
   return res;
 }
 
-async function getQuestions(type) {
-  const res = await http.get(`${API_ENDPOINT}/my-qa/questions?type=${type}`);
+async function getQuestions(type, languageId) {
+  const res = await http.get(
+    `${API_ENDPOINT}/my-qa/questions?type=${type}&languageId=${languageId}`
+  );
   return res;
 }
 
