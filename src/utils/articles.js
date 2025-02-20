@@ -18,7 +18,7 @@ function destructureArticleData(article) {
   const categoryId = articleData.category?.data?.id;
   const categoryName = articleData.category?.data?.attributes?.name;
   const description = articleData.description;
-  const ageGroupId = articleData.age_groups.data[0].id;
+  const ageGroupId = articleData.age_groups.data[0]?.id;
 
   // const creator =
   //   articleData.createdBy.data.attributes.firstname +

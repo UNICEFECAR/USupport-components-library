@@ -240,6 +240,7 @@ export const Navbar = ({
         console.log(err, "Error when changing language");
       });
     }
+    window.dispatchEvent(new Event("languageChanged"));
   };
 
   const handleProfileClick = () => {

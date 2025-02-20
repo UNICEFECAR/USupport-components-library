@@ -37,11 +37,13 @@ export const Statistic = ({
       </div>
       {orientation === "portrait" ? (
         <h3 className="statistic-card__text">
-          {textBold} <span>{text}</span>
+          {textBold}
+          <br /> <span>{text}</span>
         </h3>
       ) : (
         <h4 className="statistic-card__text">
-          {textBold} <span>{text}</span>
+          {textBold}
+          <br /> <span>{text}</span>
         </h4>
       )}
     </Box>
