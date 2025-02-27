@@ -407,15 +407,20 @@ async function deleteQuestion(questionId) {
   return response;
 }
 
-async function getQuestions(type) {
+async function getQuestions(type, languageId) {
   const response = await http.get(
-    `${API_ENDPOINT}/my-qa/questions?type=${type}`
+    `${API_ENDPOINT}/my-qa/questions?type=${type}&languageId=${languageId}`
   );
   return response;
 }
 
 async function changePassword(payload) {
   const response = await http.patch(`${API_ENDPOINT}/password`, payload);
+  return response;
+}
+
+async function getAllProviderNames() {
+  const response = await http.get(`${API_ENDPOINT}/all-provider-names`);
   return response;
 }
 
@@ -466,6 +471,7 @@ const exportedFunctions = {
   getQuestions,
   changePassword,
   getProviderRatings,
+  getAllProviderNames,
 };
 
 export default exportedFunctions;

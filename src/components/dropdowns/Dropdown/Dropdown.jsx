@@ -27,6 +27,27 @@ export const Dropdown = ({
   const [isOpen, setIsOpen] = useState(false);
   const { theme } = useContext(ThemeContext);
 
+  let placeholderText = "Select";
+  if (!placeholder || placeholder === "Select") {
+    const language = localStorage.getItem("language");
+    switch (language) {
+      case "en":
+        placeholderText = "Select";
+        break;
+      case "kk":
+        placeholderText = "Таңдау";
+        break;
+      case "ru":
+        placeholderText = "Выбрать";
+        break;
+      case "pl":
+        placeholderText = "Wybierz";
+        break;
+      default:
+        placeholderText = "Select";
+    }
+  }
+
   const selectedLabel =
     options.find((option) => option.value === selected)?.label || "";
 
@@ -123,6 +144,7 @@ export const Dropdown = ({
           }}
           onClick={(e) => {
             e.stopPropagation();
+            if (disabled) return;
             if (isOpen && !isFirstOpen) {
               setIsOpen(false);
               setTimeout(() => {
@@ -139,7 +161,7 @@ export const Dropdown = ({
           {selected ? (
             <p className="text">{selectedLabel}</p>
           ) : (
-            <p className="text placeholder">{placeholder}</p>
+            <p className="text placeholder">{placeholderText}</p>
           )}
           <Icon
             name="arrow-chevron-down"

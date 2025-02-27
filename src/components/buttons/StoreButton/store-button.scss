@@ -19,10 +19,20 @@
     }
   }
 
+  .btn__content-container {
+    justify-content: flex-start;
+
+    .icon {
+      // padding-right: $spacing_1_4;
+    }
+  }
+
   .btn__text-container {
     display: flex;
     flex-direction: column;
-    padding-left: $spacing_1_2;
+    justify-content: center;
+    width: 100%;
+    // padding-left: $spacing_1_2;
 
     .download {
       font-size: $font_size_1_2;

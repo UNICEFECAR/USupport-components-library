@@ -25,6 +25,11 @@
       margin: 0 auto;
       text-align: center;
       margin-top: $spacing_3_0;
+
+      & span {
+        word-break: break-word;
+        font-size: 26px;
+      }
     }
 
     .statistic-card__icon {

@@ -22,6 +22,9 @@ export const ProviderDetails = ({
   renderIn,
 }) => {
   const currencySymbol = localStorage.getItem("currency_symbol");
+  const hasAcceptedAllCookies = !!Number(
+    localStorage.getItem("acceptAllCookies")
+  );
 
   const allOptionsToString = (option) => {
     return provider[option]?.join(", ");
@@ -65,6 +68,7 @@ export const ProviderDetails = ({
       provider.earliestAvailableSlot
     )} - ${getTimeFromDate(new Date(provider.earliestAvailableSlot))}`;
   }
+
   return (
     <Grid classes="provider-details__grid">
       <GridItem md={4} lg={4}>
@@ -93,7 +97,7 @@ export const ProviderDetails = ({
           </p>
         </div>
 
-        {provider.videoLink && (
+        {provider.videoLink && hasAcceptedAllCookies && (
           <div className="provider-details__video-container">
             <p className="paragraph provider-details__information-container__heading">
               {t("video_label")}
@@ -128,20 +132,21 @@ export const ProviderDetails = ({
                 <p className="paragraph">{provider.email}</p>
               </div>
             )}
-            {provider.consultationPrice > 0 ? (
-              <div className="provider-details__information-container-with-icon">
-                <Icon
-                  name="dollar"
-                  size="md"
-                  color="#66768D"
-                  classes="provider-details__information-container-with-icon__icon"
-                />
-                <p className="paragraph">
-                  {provider.consultationPrice}
-                  {currencySymbol} {t("hour_consultation")}
-                </p>
-              </div>
-            ) : null}
+            <div className="provider-details__information-container-with-icon">
+              <Icon
+                name="dollar"
+                size="md"
+                color="#66768D"
+                classes="provider-details__information-container-with-icon__icon"
+              />
+              <p className="paragraph">
+                {provider.consultationPrice > 0
+                  ? `${provider.consultationPrice} ${currencySymbol} ${t(
+                      "hour_consultation"
+                    )}`
+                  : t("free")}
+              </p>
+            </div>
 
             {provider.city && (
               <>
@@ -226,6 +231,16 @@ export const ProviderDetails = ({
                 {provider.totalConsultations} {t("consultations")}
               </p>
             </div>
+            {renderIn !== "client" && renderIn !== "website" && (
+              <div className="provider-details__information-container">
+                <p className="paragraph provider-details__information-container__heading">
+                  {t("organizations_label")}
+                </p>
+                <p className="paragraph provider-details__information-container__text">
+                  {provider.organizations?.map((org) => org.name).join(", ")}
+                </p>
+              </div>
+            )}
           </GridItem>
         </Grid>
       </GridItem>

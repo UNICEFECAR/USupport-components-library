@@ -66,12 +66,15 @@ async function getConsultationsForWeek(startDate) {
  *
  * @param {Number} startDate - start date timestamp in milliseconds in UTC
  * @param {Number} slot - slot timestamp in milliseconds in UTC
+ * @param {String} campaignId - campaign id
+ * @param {String} organizationId - organization id
  */
-async function addAvailableSlot(startDate, slot, campaignId) {
+async function addAvailableSlot(startDate, slot, campaignId, organizationId) {
   const payload = {
     startDate: startDate.toString(),
     slot: slot.toString(),
     campaignId,
+    organizationId,
   };
   if (!campaignId) delete payload.campaignId;
   const response = await http.put(
@@ -85,14 +88,23 @@ async function addAvailableSlot(startDate, slot, campaignId) {
  *
  * @param {Number} startDate - start date timestamp in milliseconds in UTC
  * @param {Number} slot - slot timestamp in milliseconds in UTC
+ * @param {String} campaignId - campaign id
+ * @param {String} organizationId - organization id
  */
-async function removeAvailableSlot(startDate, slot, campaignId) {
+async function removeAvailableSlot(
+  startDate,
+  slot,
+  campaignId,
+  organizationId
+) {
   const data = {
     startDate: startDate.toString(),
     slot: slot.toString(),
     campaignId,
+    organizationId,
   };
   if (!campaignId) delete data.campaignId;
+
   const response = await http.delete(
     `${API_ENDPOINT}/availability/single-week`,
     {
@@ -188,6 +200,7 @@ async function blockSlot(
       typeof slotTimestamp === "object"
         ? {
             campaign_id: slotTimestamp.campaign_id,
+            organization_id: slotTimestamp.organization_id,
             time: JSON.stringify(new Date(slotTimestamp.time).getTime() / 1000),
           }
         : JSON.stringify(slotTimestamp / 1000),
@@ -361,11 +374,17 @@ async function enrollProviderInCampaign(campaignId) {
   return res;
 }
 
-async function removeMultipleAvailableSlots(startDate, slot, campaignIds) {
+async function removeMultipleAvailableSlots(
+  startDate,
+  slot,
+  campaignIds,
+  organizationId
+) {
   const data = {
     startDate: startDate.toString(),
     slot: slot.toString(),
     campaignIds,
+    organizationId,
   };
   const res = await http.delete(`${API_ENDPOINT}/availability/clear-slot`, {
     data,
@@ -385,8 +404,10 @@ async function getProviderStatusById(providerId) {
   return res;
 }
 
-async function getQuestions(type) {
-  const res = await http.get(`${API_ENDPOINT}/my-qa/questions?type=${type}`);
+async function getQuestions(type, languageId) {
+  const res = await http.get(
+    `${API_ENDPOINT}/my-qa/questions?type=${type}&languageId=${languageId}`
+  );
   return res;
 }
 
@@ -407,6 +428,11 @@ async function archiveQuestion(data) {
 
 async function addPlatformRating(payload) {
   const response = await http.post(`${API_ENDPOINT}/add-rating`, payload);
+  return response;
+}
+
+async function joinConsultation(payload) {
+  const response = await http.put(`${API_ENDPOINT}/consultation/join`, payload);
   return response;
 }
 
@@ -456,5 +482,6 @@ const exportedFunctions = {
   addAnswerToQuestion,
   archiveQuestion,
   addPlatformRating,
+  joinConsultation,
 };
 export default exportedFunctions;

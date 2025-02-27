@@ -62,6 +62,7 @@ export const Navbar = ({
   let { width } = useWindowDimensions();
   const imageURL = AMAZON_S3_BUCKET + "/" + image;
   const pathname = window.location.pathname;
+  const currentUrl = window.location.href;
 
   const [isNavbarExpanded, setIsNavbarExpanded] = useState(false);
   const [languagesShown, setLanguagesShown] = useState(false);
@@ -81,6 +82,20 @@ export const Navbar = ({
     }
   }, [initialLanguage, initialCountry]);
 
+  useEffect(() => {
+    if (selectedLanguage && countries && languages) {
+      if (
+        !languages.find(
+          (x) =>
+            x.value.toLocaleLowerCase() ===
+            selectedLanguage.value.toLocaleLowerCase()
+        )
+      ) {
+        handleLanguageClick(languages[0]);
+      }
+    }
+  }, [countries, languages, selectedLanguage]);
+
   const scrollTop = () => window.scrollTo(0, 0);
   const toggleNavbar = () => {
     if (width < 1050) {
@@ -88,6 +103,10 @@ export const Navbar = ({
       setLanguagesShown(false);
     }
   };
+
+  const isInConsultation =
+    (renderIn === "client" || renderIn === "provider") &&
+    currentUrl.endsWith("/consultation");
 
   const handleNavbarLinkClick = (page) => {
     if (isTmpUser && page.url === "/consultations") {
@@ -134,6 +153,7 @@ export const Navbar = ({
           </div>
         ) : (
           <NavLink
+            target={isInConsultation ? "_blank" : "_self"}
             to={page.url}
             className={({ isActive }) =>
               "nav__item" + (isActive ? " nav__item--current" : "")
@@ -210,7 +230,7 @@ export const Navbar = ({
     window.dispatchEvent(new Event("countryChanged"));
   };
 
-  const handleLanguageClick = (language) => {
+  const handleLanguageClick = (language = { value: "en" }) => {
     setSelectedLanguage(language);
     setLanguagesShown(false);
     i18n.changeLanguage(language.value);
@@ -220,10 +240,15 @@ export const Navbar = ({
         console.log(err, "Error when changing language");
       });
     }
+    window.dispatchEvent(new Event("languageChanged"));
   };
 
   const handleProfileClick = () => {
-    navigate("/profile");
+    if (isInConsultation) {
+      window.open(`/${renderIn}/profile`, "_blank");
+    } else {
+      navigate("/profile");
+    }
   };
 
   const toggleLanguages = () => {
@@ -292,9 +317,10 @@ export const Navbar = ({
     if (isTmpUser) {
       setIsNavbarExpanded(false);
       isTmpUserAction();
-    } else {
-      navigate("/notifications");
     }
+    if (isInConsultation) {
+      window.open(`/${renderIn}/notifications`, "_blank");
+    } else navigate("/notifications");
   };
 
   const isInNotifications = pathname.includes("notifications");
@@ -351,6 +377,16 @@ export const Navbar = ({
     return (
       <div className="nav__dropdown-content">
         {data.map((option) => {
+          let isSelected = false;
+          if (type === "languages") {
+            isSelected =
+              option.value.toLowerCase() ===
+              selectedLanguage.value.toLowerCase();
+          } else {
+            isSelected =
+              option.value.toLowerCase() ===
+              selectedCountry.value.toLowerCase();
+          }
           return (
             <div
               onClick={(e) => handleOptionSelect(e, option)}
@@ -364,8 +400,7 @@ export const Navbar = ({
               {type === "countries" && <IconFlag flagName={option.iconName} />}
               <p
                 className={`paragraph nav__dropdown-content__lang-label ${
-                  option.value.toLowerCase() ===
-                  selectedLanguage.value.toLowerCase()
+                  isSelected
                     ? "nav__dropdown-content__lang-label--selected"
                     : ""
                 }`}
@@ -412,8 +447,12 @@ export const Navbar = ({
           alt="logo"
           tabIndex="0"
           onClick={() => {
-            navigate("/");
-            scrollTop();
+            if (isInConsultation) {
+              window.open(`/${renderIn}/`, "_blank");
+            } else {
+              navigate("/");
+              scrollTop();
+            }
           }}
         />
         <div className="nav__clickable-area" onClick={toggleNavbar}>
@@ -468,11 +507,9 @@ export const Navbar = ({
           `}
         >
           <Box
-            classes={`nav__languages__content
-             ${languagesShown ? "nav__languages__content--shown" : ""}
-             ${
-               countriesShown ? "nav__countries__content--shown" : ""
-             }              `}
+            classes={`nav__languages__content ${
+              languagesShown ? "nav__languages__content--shown" : ""
+            } ${countriesShown ? "nav__countries__content--shown" : ""}`}
           >
             {width >= 1050 && (
               <h4>{languagesShown ? languageLabel : countryLabel}</h4>
