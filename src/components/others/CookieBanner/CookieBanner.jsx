@@ -13,7 +13,7 @@ import "./cookie-banner.scss";
  *
  * @return {jsx}
  */
-export const CookieBanner = ({ t, isInClient = false }) => {
+export const CookieBanner = ({ t, isInClient = false, text }) => {
   const hasHandledCookies = !!Number(localStorage.getItem("hasHandledCookies"));
   const showBanner = !hasHandledCookies;
 
@@ -45,7 +45,7 @@ export const CookieBanner = ({ t, isInClient = false }) => {
   return (
     <Box className="cookie-banner">
       <h3>{t("cookie_banner_header")}</h3>
-      <p>{t("cookie_banner_text")}</p>
+      <p>{text}</p>
       {isInClient && (
         <div>
           <Toggle
