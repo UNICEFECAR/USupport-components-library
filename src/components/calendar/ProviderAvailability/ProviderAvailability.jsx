@@ -45,6 +45,7 @@ export const ProviderAvailability = ({
   const isPast = consultation
     ? new Date(consultation.time).getTime() < new Date().getTime()
     : false;
+  const IS_KZ_COUNTRY = localStorage.getItem("country") === "KZ";
 
   const price = consultation?.couponPrice || consultation?.price;
   const isBookedWithCoupon = consultation?.campaignId;
@@ -195,7 +196,11 @@ export const ProviderAvailability = ({
             }`}
           >
             <p className="provider-availability__content__price__text small-text">
-              {price > 0 ? `${price}${currencySymbol}` : t("free")}
+              {price > 0
+                ? `${price}${currencySymbol}`
+                : // Kazakhstan has free consultations, so they don't want to the label to be "free"
+                  // in terms of price, but booked in terms of availability
+                  t(IS_KZ_COUNTRY ? "booked" : "free")}
             </p>
           </div>
 
