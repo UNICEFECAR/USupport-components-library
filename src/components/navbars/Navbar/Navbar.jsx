@@ -24,6 +24,12 @@ const kazakhstanCountry = {
   iconName: "KZ",
 };
 
+const polandCountry = {
+  value: "PL",
+  label: "Poland",
+  iconName: "PL",
+};
+
 /**
  * Navbar
  *
@@ -71,19 +77,28 @@ export const Navbar = ({
   const [selectedLanguage, setSelectedLanguage] = useState(
     initialLanguage || englishLanguage
   );
-  const [selectedCountry, setSelectedCountry] = useState(kazakhstanCountry);
+
+  const defaultCountry =
+    localStorage.getItem("country") === "KZ"
+      ? kazakhstanCountry
+      : polandCountry;
+
+  const [selectedCountry, setSelectedCountry] = useState(defaultCountry);
+
+  useEffect(() => {
+    if (initialCountry) {
+      setSelectedCountry(initialCountry);
+    }
+  }, [initialCountry]);
 
   useEffect(() => {
     if (initialLanguage) {
       setSelectedLanguage(initialLanguage);
     }
-    if (initialCountry) {
-      setSelectedCountry(initialCountry);
-    }
-  }, [initialLanguage, initialCountry]);
+  }, [initialLanguage]);
 
   useEffect(() => {
-    if (selectedLanguage && countries && languages) {
+    if (selectedLanguage && countries?.length && languages?.length) {
       if (
         !languages.find(
           (x) =>
