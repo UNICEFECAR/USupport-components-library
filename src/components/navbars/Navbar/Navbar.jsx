@@ -98,7 +98,7 @@ export const Navbar = ({
   }, [initialLanguage]);
 
   useEffect(() => {
-    if (selectedLanguage && countries && languages) {
+    if (selectedLanguage && countries?.length && languages?.length) {
       if (
         !languages.find(
           (x) =>
