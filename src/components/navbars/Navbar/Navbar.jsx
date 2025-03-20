@@ -61,6 +61,7 @@ export const Navbar = ({
   hasUnreadNotifications,
   renderIn = "website",
   hasThemeButton = false,
+  setInitialCountry,
   t,
 }) => {
   const { theme, setTheme } = useContext(ThemeContext);
@@ -77,6 +78,8 @@ export const Navbar = ({
   const [selectedLanguage, setSelectedLanguage] = useState(
     initialLanguage || englishLanguage
   );
+  const [hasSelectedInitialCountry, setHasSelectedInitialCountry] =
+    useState(false);
 
   const defaultCountry =
     localStorage.getItem("country") === "KZ"
@@ -86,10 +89,11 @@ export const Navbar = ({
   const [selectedCountry, setSelectedCountry] = useState(defaultCountry);
 
   useEffect(() => {
-    if (initialCountry) {
+    if (initialCountry && !hasSelectedInitialCountry) {
       setSelectedCountry(initialCountry);
+      setHasSelectedInitialCountry(true);
     }
-  }, [initialCountry]);
+  }, [initialCountry, hasSelectedInitialCountry]);
 
   useEffect(() => {
     if (initialLanguage) {
@@ -237,6 +241,9 @@ export const Navbar = ({
   }
 
   const handleCountryClick = (country) => {
+    if (setInitialCountry) {
+      setInitialCountry(country);
+    }
     setSelectedCountry(country);
     setCountriesShown(false);
     localStorage.setItem("country_id", country.countryID);
