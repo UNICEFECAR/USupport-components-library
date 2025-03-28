@@ -22,6 +22,7 @@ export const PasswordModal = ({
   placeholder,
 }) => {
   const [value, setValue] = useState("");
+  return null;
   return (
     <Modal
       overlayClasses="password-modal"
