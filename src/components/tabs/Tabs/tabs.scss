@@ -5,6 +5,8 @@
   flex-direction: row;
   align-items: center;
   padding-bottom: $spacing_1_6;
+  max-width: 99vw;
+  overflow-x: auto;
 
   .tab {
     padding: $spacing_0_4 $spacing_2_4;
