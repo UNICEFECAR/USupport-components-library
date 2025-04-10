@@ -3,7 +3,7 @@
 .controls {
   width: calc(34.3rem - 2 * $spacing_1_6);
   padding: 0 0 $spacing_1_6 0;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.9) !important;
 
   &__sponsored-by {
     padding: 0 $spacing_2_4 $spacing_1_6;
