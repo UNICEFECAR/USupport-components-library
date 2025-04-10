@@ -124,8 +124,9 @@ export const Navbar = ({
   };
 
   const isInConsultation =
-    (renderIn === "client" || renderIn === "provider") &&
-    currentUrl.endsWith("/consultation");
+    ((renderIn === "client" || renderIn === "provider") &&
+      currentUrl.endsWith("/consultation")) ||
+    currentUrl.endsWith("/jitsi");
 
   const handleNavbarLinkClick = (page) => {
     if (isTmpUser && page.url === "/consultations") {
