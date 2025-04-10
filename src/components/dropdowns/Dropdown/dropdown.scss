@@ -112,7 +112,7 @@
   }
 
   &--expanded {
-    z-index: $z_index_2;
+    z-index: 5;
 
     .heading {
       border: 0.1rem solid $color-secondary-9749fa;
