@@ -254,7 +254,12 @@ export const Navbar = ({
     localStorage.setItem("currency_symbol", country.currencySymbol);
     window.dispatchEvent(new Event("countryChanged"));
 
-    window.location.href = `https://${country.label.toLocaleLowerCase()}.usupport.online`;
+    if (
+      !window.location.href.includes("localhost") &&
+      !window.location.href.includes("staging")
+    ) {
+      window.location.href = `https://${country.label.toLocaleLowerCase()}.usupport.online`;
+    }
   };
 
   const handleLanguageClick = (language = { value: "en" }) => {
