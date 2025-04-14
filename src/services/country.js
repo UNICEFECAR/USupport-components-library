@@ -7,8 +7,14 @@ async function getActiveCountries() {
   return response;
 }
 
+async function getActiveCountriesWithLanguages() {
+  const response = await http.get(`${API_ENDPOINT}/countries-with-languages`);
+  return response;
+}
+
 const exportedFunctions = {
   getActiveCountries,
+  getActiveCountriesWithLanguages,
 };
 
 export default exportedFunctions;

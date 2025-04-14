@@ -55,6 +55,7 @@ export const Navbar = ({
   navigate,
   NavLink,
   languages,
+  setLanguages,
   countries,
   initialLanguage,
   initialCountry,
@@ -247,10 +248,13 @@ export const Navbar = ({
     }
     setSelectedCountry(country);
     setCountriesShown(false);
+    setLanguages(country.languages);
     localStorage.setItem("country_id", country.countryID);
     localStorage.setItem("country", country.value);
     localStorage.setItem("currency_symbol", country.currencySymbol);
     window.dispatchEvent(new Event("countryChanged"));
+
+    window.location.href = `https://${country.label.toLocaleLowerCase()}.usupport.online`;
   };
 
   const handleLanguageClick = (language = { value: "en" }) => {
