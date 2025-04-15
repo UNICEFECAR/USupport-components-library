@@ -137,7 +137,7 @@ export const Footer = ({ lists, navigate, Link, showSocials = true }) => {
             alt="logo"
             tabIndex="0"
             onClick={() => {
-              navigate("/");
+              navigate(`/${localStorage.getItem("language")}/`);
             }}
           />
           {showSocials && (
