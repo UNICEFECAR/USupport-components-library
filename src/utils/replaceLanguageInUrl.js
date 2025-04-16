@@ -13,4 +13,10 @@ export default function replaceLanguageInUrl(newLanguage) {
   window.history.replaceState(null, "", newPath);
 }
 
-export { replaceLanguageInUrl };
+const getLanguageFromUrl = () => {
+  const url = window.location.pathname;
+  const segments = url.split("/");
+  return segments[1];
+};
+
+export { replaceLanguageInUrl, getLanguageFromUrl };
