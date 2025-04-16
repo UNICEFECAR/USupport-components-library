@@ -108,11 +108,11 @@ export const Navbar = ({
         !languages.find(
           (x) =>
             x.value.toLocaleLowerCase() ===
-            selectedLanguage.value.toLocaleLowerCase()
+            selectedLanguage.value?.toLocaleLowerCase()
         )
       ) {
         const newLanguage = languages[0];
-        const label = newLanguage.label.toLocaleLowerCase();
+        const label = newLanguage.value.toLocaleLowerCase();
         handleLanguageClick(languages[0]);
         replaceLanguageInUrl(label);
       }
