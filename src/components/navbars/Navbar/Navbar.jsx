@@ -178,7 +178,9 @@ export const Navbar = ({
         ) : (
           <NavLink
             target={isInConsultation ? "_blank" : "_self"}
-            to={`/${localStorage.getItem("language")}${page.url}`}
+            to={`/${localStorage.getItem("language")}${
+              renderIn === "website" ? "" : `/${renderIn}`
+            }${page.url}`}
             className={({ isActive }) =>
               "nav__item" + (isActive ? " nav__item--current" : "")
             }
@@ -292,7 +294,7 @@ export const Navbar = ({
         "_blank"
       );
     } else {
-      navigate(`/${localStorage.getItem("language")}/profile`);
+      navigate(`/${localStorage.getItem("language")}/${renderIn}/profile`);
     }
   };
 
