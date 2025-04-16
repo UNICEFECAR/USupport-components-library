@@ -367,7 +367,11 @@ export const Navbar = ({
     }
     if (isInConsultation) {
       window.open(`/${renderIn}/notifications`, "_blank");
-    } else navigate("/notifications");
+    } else {
+      navigate(
+        `/${localStorage.getItem("language")}/${renderIn}/notifications`
+      );
+    }
   };
 
   const isInNotifications = pathname.includes("notifications");
