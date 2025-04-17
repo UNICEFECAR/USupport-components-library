@@ -56,7 +56,7 @@ export const ContactForm = ({
 
   const handleEmailSuccessCtaClick = () => {
     closeSuccessModal();
-    navigate("/");
+    navigate(`/${localStorage.getItem("language")}`);
   };
 
   const schema = Joi.object({

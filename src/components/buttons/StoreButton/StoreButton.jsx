@@ -35,10 +35,30 @@ export const StoreButton = ({
       ? browserLabel
       : "App Store";
 
+  const handleClick = () => {
+    if (store === "google-play") {
+      window.open(
+        "https://play.google.com/store/apps/details?id=org.unicef.ecar.usupport",
+        "_blank"
+      );
+    } else if (store === "app-store") {
+      window.open(
+        "https://apps.apple.com/us/app/usupport/id6443585747",
+        "_blank"
+      );
+    } else if (store === "web") {
+      window.location.href = `/${localStorage.getItem(
+        "language"
+      )}/client/register-preview`;
+      window.scrollTo(0, 0);
+    }
+  };
+
   return (
     <Button
       type="secondary"
       classes={["btn--store", theme === "dark" && "btn--store--dark"].join(" ")}
+      onClick={handleClick}
       {...props}
     >
       {store === "google-play" ? (
