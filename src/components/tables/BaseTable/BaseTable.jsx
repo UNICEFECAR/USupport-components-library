@@ -6,8 +6,13 @@ import { Loading } from "../../loaders";
 import { Icon } from "../../icons/Icon";
 import { InputSearch } from "../../inputs";
 import { Button } from "../../buttons";
+import { Label } from "../../labels";
 
 import "./base-table.scss";
+
+function camelToSnake(str) {
+  return str.replace(/([A-Z])/g, "_$1").toLowerCase();
+}
 
 /**
  * BaseTable
@@ -38,6 +43,7 @@ export const BaseTable = ({
   noteText,
   customSort,
   customSearch,
+  filters,
 }) => {
   const [searchValue, setSearchValue] = useState("");
 
@@ -224,6 +230,27 @@ export const BaseTable = ({
               classes="table__container__search-container__third-button"
             />
           )}
+        </div>
+      )}
+      {filters && (
+        <div className="table__container__filters">
+          {Object.keys(filters).map((key) => {
+            if (!filters[key]) return null;
+            return (
+              <Label
+                // handleDelete={() => {
+                //   setFilters((prev) => ({
+                //     ...prev,
+                //     [key]: typeof filters[key] === "boolean" ? false : null,
+                //   }));
+                // }}
+                showSuccess={typeof filters[key] === "boolean" && filters[key]}
+                text={`${t(camelToSnake(key))}: ${
+                  typeof filters[key] === "boolean" ? "" : filters[key]
+                }`}
+              />
+            );
+          })}
         </div>
       )}
       {noteText && (
