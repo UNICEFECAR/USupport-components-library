@@ -80,9 +80,17 @@ export const ProviderAvailability = ({
         (organizationForSlot && isAvailable === "organization")) &&
       hasNormalSlot
     ) {
+      const campaignIds =
+        isAvailable === "campaign"
+          ? validCampaigns?.map((x) => x.campaignId)
+          : [];
+      const organizationIds =
+        isAvailable === "organization"
+          ? organizations?.map((x) => x.organizationId)
+          : null;
       handleSetUnavailable({
-        campaignId: validCampaigns?.map((x) => x.campaignId) || [],
-        organizationId: organizationForSlot?.organizationId || null,
+        campaignId: campaignIds,
+        organizationId: organizationIds,
       });
     } else {
       hasNormalSlot
