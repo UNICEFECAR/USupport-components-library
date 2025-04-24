@@ -141,7 +141,7 @@ export const ProviderDetails = ({
               />
               <p className="paragraph">
                 {provider.consultationPrice > 0
-                  ? `${provider.consultationPrice} ${currencySymbol} ${t(
+                  ? `${provider.consultationPrice}${currencySymbol || "€"} ${t(
                       "hour_consultation"
                     )}`
                   : t("free")}
