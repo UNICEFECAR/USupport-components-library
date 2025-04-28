@@ -46,7 +46,7 @@ export const Footer = ({
   useEventListener("countryChanged", handler);
 
   useEffect(() => {
-    if (selectedCountry) {
+    if (selectedCountry && selectedCountry !== "global") {
       setLogoUrl(
         `${AMAZON_S3_BUCKET}/logo-horizontal-${selectedCountry}${
           theme === "dark" ? "-dark" : ""
