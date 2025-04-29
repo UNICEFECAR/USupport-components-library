@@ -30,6 +30,12 @@ const polandCountry = {
   iconName: "PL",
 };
 
+const globalCountry = {
+  value: "global",
+  label: "Global",
+  iconName: "global",
+};
+
 /**
  * Navbar
  *
@@ -83,7 +89,9 @@ export const Navbar = ({
     useState(false);
 
   const defaultCountry =
-    localStorage.getItem("country") === "KZ"
+    localStorage.getItem("country") === "global"
+      ? globalCountry
+      : localStorage.getItem("country") === "KZ"
       ? kazakhstanCountry
       : polandCountry;
 
@@ -248,13 +256,23 @@ export const Navbar = ({
   }
 
   const handleCountryClick = (country) => {
+    if (country.value === selectedCountry.value) {
+      return;
+    }
     const subdomain = window.location.hostname.split(".")[0];
     if (
       !window.location.href.includes("localhost") &&
       subdomain !== "staging"
     ) {
       const label = country.label.toLocaleLowerCase();
-      const newUrl = window.location.href.replace(subdomain, label);
+      let newUrl;
+      if (subdomain === "usupport") {
+        newUrl = window.location.href.replace(subdomain, `${label}.usupport`);
+      } else if (country.value === "global") {
+        newUrl = window.location.href.replace(`${subdomain}.`, "");
+      } else {
+        newUrl = window.location.href.replace(subdomain, label);
+      }
 
       window.location.href = newUrl;
     } else {
@@ -457,7 +475,9 @@ export const Navbar = ({
                 }`}
               >
                 {`${option.label} ${
-                  option.label !== "English" ? `(${option.localName})` : ""
+                  option.label !== "English" && option.label !== "Global"
+                    ? `(${option.localName})`
+                    : ""
                 }`}
               </p>
             </div>
@@ -472,7 +492,11 @@ export const Navbar = ({
   const [logoUrl, setLogoUrl] = useState(defaultLogo);
 
   useEffect(() => {
-    if (selectedCountry?.value && renderIn !== "global-admin") {
+    if (
+      selectedCountry?.value &&
+      selectedCountry.value !== "global" &&
+      renderIn !== "global-admin"
+    ) {
       setLogoUrl(
         `${AMAZON_S3_BUCKET}/logo-horizontal-${selectedCountry.value}${
           theme === "dark" ? "-dark" : ""
