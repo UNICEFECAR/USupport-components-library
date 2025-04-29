@@ -364,6 +364,10 @@ async function getAbousUsContentForCountry({ country, language }) {
   return res.data;
 }
 
+async function addRating({ id, action }) {
+  return http.put(`${articlesEndpoint}/addRating/${id}`, { action });
+}
+
 export default {
   getArticles,
   getArticleById,
@@ -380,4 +384,5 @@ export default {
   getSOSCenterAvailableLocales,
   getAbousUsContentForCountry,
   getGlobalFAQs,
+  addRating,
 };
