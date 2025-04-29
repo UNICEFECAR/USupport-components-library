@@ -40,6 +40,8 @@ function destructureArticleData(article) {
     categoryName: categoryName,
     description,
     ageGroupId,
+    likes: articleData.likes || 0,
+    dislikes: articleData.dislikes || 0,
   };
 }
 

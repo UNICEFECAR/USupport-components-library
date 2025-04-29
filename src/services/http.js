@@ -10,6 +10,9 @@ axios.interceptors.request.use((config) => {
   config.headers["x-language-alpha-2"] = localStorage.getItem("language") || "";
 
   const requestURI = axios.getUri(config) || "VITE CMS API URL";
+  const url = window.location.href;
+  const platform = url.split("/")[4];
+  config.headers["x-platform"] = platform || "";
 
   if (!requestURI.includes(VITE_CMS_API_URL)) {
     const token = localStorage.getItem("token");
