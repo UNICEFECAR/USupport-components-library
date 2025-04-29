@@ -7,6 +7,7 @@ import { Box } from "../../boxes/Box/Box";
 import { Label } from "../../labels/Label/Label";
 import { Grid } from "../../grids/Grid/Grid";
 import { GridItem } from "../../grids/GridItem/GridItem";
+import { Like } from "../../icons/Like/Like";
 
 import "./card-media.scss";
 
@@ -31,6 +32,10 @@ export const CardMedia = ({
   showLabels,
   readingTime,
   categoryName,
+  likes,
+  dislikes,
+  isLikedByUser,
+  isDislikedByUser,
   children,
   t,
   ...props
@@ -61,29 +66,41 @@ export const CardMedia = ({
             </div>
           </GridItem>
         </Grid>
-        <div className={"card-media__details"}>
-          {creator && <p className={"small-text"}>{t("by", { creator })}</p>}
+        <div className="card-media__content__details">
+          <div>
+            <div className={"card-media__details"}>
+              {creator && (
+                <p className={"small-text"}>{t("by", { creator })}</p>
+              )}
 
-          <Icon name={"time"} size="sm" color={"#66768d"} />
-          <p className={"small-text"}>
-            {readingTime} {t("min_read")}
-          </p>
-        </div>
-        {showLabels && (
-          <div className={"card-media__labels"}>
-            {labels.length > 0 &&
-              labels &&
-              labels.map((label, index) => {
-                return (
-                  <Label
-                    classes={"card-media__label"}
-                    text={label.name}
-                    key={index}
-                  />
-                );
-              })}
+              <Icon name={"time"} size="sm" color={"#66768d"} />
+              <p className={"small-text"}>
+                {readingTime} {t("min_read")}
+              </p>
+            </div>
+            {showLabels && (
+              <div className={"card-media__labels"}>
+                {labels.length > 0 &&
+                  labels &&
+                  labels.map((label, index) => {
+                    return (
+                      <Label
+                        classes={"card-media__label"}
+                        text={label.name}
+                        key={index}
+                      />
+                    );
+                  })}
+              </div>
+            )}
           </div>
-        )}
+          <Like
+            isLiked={isLikedByUser}
+            isDisliked={isDislikedByUser}
+            likes={likes}
+            dislikes={dislikes}
+          />
+        </div>
         <div className={"card-media__description"}>
           <p className={" small-text"} id="description">
             {showDescription && description}

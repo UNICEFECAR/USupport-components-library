@@ -45,6 +45,15 @@
     }
   }
 
+  &__content {
+    &__details {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
   &__category {
     display: flex;
     align-content: center;
