@@ -50,6 +50,18 @@
     }
   }
 
+  &__canceled-text {
+    margin-top: $spacing_0_8;
+    // margin-inline: auto;
+    margin-left: auto;
+    text-align: center;
+    width: max-content;
+    height: max-content;
+    border: 1px solid $color_gray_66768d;
+    border-radius: $border_radius_1_6;
+    padding: $spacing_0_4 $spacing_1_2;
+  }
+
   &__button-container {
     width: 100%;
     display: flex;
