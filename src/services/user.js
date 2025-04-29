@@ -275,6 +275,23 @@ async function addPlatformAccess(platform) {
   return response;
 }
 
+async function addContentRating(payload) {
+  const response = await http.post(`${API_ENDPOINT}/content-rating`, payload);
+  return response;
+}
+
+async function getUserContentRatings() {
+  const response = await http.get(`${API_ENDPOINT}/content-ratings`);
+  return response;
+}
+
+async function getRatingsForContent({ contentId, contentType }) {
+  const response = await http.get(
+    `${API_ENDPOINT}/ratings-for-content?contentId=${contentId}&contentType=${contentType}`
+  );
+  return response;
+}
+
 const exportedFunctions = {
   changePassword,
   generateClientAccesToken,
@@ -301,6 +318,9 @@ const exportedFunctions = {
   validateCaptcha,
   validatePlatformPassword,
   addPlatformAccess,
+  addContentRating,
+  getUserContentRatings,
+  getRatingsForContent,
 };
 
 export default exportedFunctions;

@@ -50,7 +50,7 @@ Icon.propTypes = {
   /**
    * Size of the icon
    * */
-  size: PropTypes.oneOf(["sm", "md", "lg"]),
+  size: PropTypes.oneOf(["sm", "md", "lg", "xl"]),
 
   /**
    * Color of the icon in HEX format (does not work for all types of icons)
