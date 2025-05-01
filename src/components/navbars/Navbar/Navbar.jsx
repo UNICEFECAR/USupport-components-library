@@ -178,7 +178,7 @@ export const Navbar = ({
   let items = [];
   pages.forEach((page) => {
     const url = `${
-      renderIn === "website" ? "/" : `/${renderIn}`
+      renderIn === "website" ? "" : `/${renderIn}`
     }/${localStorage.getItem("language")}${page.url}`;
 
     items.push({
