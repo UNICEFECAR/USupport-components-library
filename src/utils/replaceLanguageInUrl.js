@@ -3,7 +3,7 @@ export default function replaceLanguageInUrl(newLanguage) {
   const segments = pathname.split("/").filter(Boolean);
 
   if (segments.length > 0) {
-    segments[0] = newLanguage;
+    segments[1] = newLanguage;
   } else {
     segments.unshift(newLanguage);
   }
@@ -16,7 +16,7 @@ export default function replaceLanguageInUrl(newLanguage) {
 const getLanguageFromUrl = () => {
   const url = window.location.pathname;
   const segments = url.split("/");
-  return segments[1];
+  return segments[2];
 };
 
 export { replaceLanguageInUrl, getLanguageFromUrl };
