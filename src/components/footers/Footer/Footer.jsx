@@ -85,9 +85,9 @@ export const Footer = ({
   }
 
   const getLink = (url) => {
-    return `/${localStorage.getItem("language")}${
+    return `${
       renderIn === "website" ? "" : `/${renderIn}`
-    }${url}`;
+    }/${localStorage.getItem("language")}${url}`;
   };
 
   let list1 = [];
@@ -149,7 +149,11 @@ export const Footer = ({
             alt="logo"
             tabIndex="0"
             onClick={() => {
-              navigate(`/${localStorage.getItem("language")}/`);
+              navigate(
+                `${
+                  renderIn === "website" ? "/" : `/${renderIn}`
+                }/${localStorage.getItem("language")}/`
+              );
             }}
           />
           {showSocials && (
