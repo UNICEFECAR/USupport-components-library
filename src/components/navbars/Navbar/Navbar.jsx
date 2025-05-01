@@ -527,17 +527,15 @@ export const Navbar = ({
           alt="logo"
           tabIndex="0"
           onClick={() => {
+            const language = localStorage.getItem("language");
             if (isInConsultation) {
-              window.open(
-                `/${renderIn}/${localStorage.getItem("language")}`,
-                "_blank"
-              );
+              window.open(`/${renderIn}/${language}`, "_blank");
             } else {
-              navigate(
-                `${
-                  renderIn === "website" ? "" : `/${renderIn}`
-                }/${localStorage.getItem("language")}`
-              );
+              const url =
+                renderIn === "website"
+                  ? `/${language}`
+                  : `/${renderIn}/${language}`;
+              navigate(url);
               scrollTop();
             }
           }}
