@@ -177,6 +177,10 @@ export const Navbar = ({
 
   let items = [];
   pages.forEach((page) => {
+    const url = `${
+      renderIn === "website" ? "" : `/${renderIn}`
+    }/${localStorage.getItem("language")}${page.url}`;
+
     items.push({
       value:
         isTmpUser && page.url === "/consultations" ? (
@@ -186,9 +190,7 @@ export const Navbar = ({
         ) : (
           <NavLink
             target={isInConsultation ? "_blank" : "_self"}
-            to={`/${localStorage.getItem("language")}${
-              renderIn === "website" ? "" : `/${renderIn}`
-            }${page.url}`}
+            to={url}
             className={({ isActive }) =>
               "nav__item" + (isActive ? " nav__item--current" : "")
             }
@@ -306,13 +308,11 @@ export const Navbar = ({
   };
 
   const handleProfileClick = () => {
+    const url = `/${renderIn}/${localStorage.getItem("language")}/profile`;
     if (isInConsultation) {
-      window.open(
-        `/${localStorage.getItem("language")}/${renderIn}/profile`,
-        "_blank"
-      );
+      window.open(url, "_blank");
     } else {
-      navigate(`/${localStorage.getItem("language")}/${renderIn}/profile`);
+      navigate(`/${renderIn}/${localStorage.getItem("language")}/profile`);
     }
   };
 
@@ -369,7 +369,9 @@ export const Navbar = ({
       color="green"
       classes="nav__login"
       onClick={() => {
-        window.location.href = "/client/register-preview";
+        window.location.href = `/client/${localStorage.getItem(
+          "language"
+        )}/register-preview`;
         scrollTop();
       }}
       web={width >= 1110}
@@ -384,10 +386,13 @@ export const Navbar = ({
       isTmpUserAction();
     }
     if (isInConsultation) {
-      window.open(`/${renderIn}/notifications`, "_blank");
+      window.open(
+        `/${renderIn}/${localStorage.getItem("language")}/notifications`,
+        "_blank"
+      );
     } else {
       navigate(
-        `/${localStorage.getItem("language")}/${renderIn}/notifications`
+        `/${renderIn}/${localStorage.getItem("language")}/notifications`
       );
     }
   };
@@ -522,10 +527,15 @@ export const Navbar = ({
           alt="logo"
           tabIndex="0"
           onClick={() => {
+            const language = localStorage.getItem("language");
             if (isInConsultation) {
-              window.open(`/${renderIn}/`, "_blank");
+              window.open(`/${renderIn}/${language}`, "_blank");
             } else {
-              navigate(`/${localStorage.getItem("language")}`);
+              const url =
+                renderIn === "website"
+                  ? `/${language}`
+                  : `/${renderIn}/${language}`;
+              navigate(url);
               scrollTop();
             }
           }}
