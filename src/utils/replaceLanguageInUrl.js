@@ -8,6 +8,7 @@ export default function replaceLanguageInUrl(newLanguage) {
   const isInWebsite = platforms.every(
     (platform) => !segments.includes(platform)
   );
+
   if (isInWebsite) {
     segments[0] = newLanguage;
   } else if (segments.length > 0) {
@@ -26,11 +27,10 @@ const getLanguageFromUrl = () => {
   const isInWebsite = platforms.every(
     (platform) => !segments.includes(platform)
   );
-
   if (isInWebsite) {
     return segments[0];
   }
-  return segments[2];
+  return segments[1];
 };
 
 export { replaceLanguageInUrl, getLanguageFromUrl };
