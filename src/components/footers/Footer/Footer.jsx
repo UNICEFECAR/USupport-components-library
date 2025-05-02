@@ -86,7 +86,7 @@ export const Footer = ({
 
   const getLink = (url) => {
     return `${
-      renderIn === "website" ? "/" : `/${renderIn}`
+      renderIn === "website" ? "" : `/${renderIn}`
     }/${localStorage.getItem("language")}${url}`;
   };
 
