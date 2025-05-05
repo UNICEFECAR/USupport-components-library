@@ -11,6 +11,7 @@ const sosCentersEndpoint = CMS_API_URL + "/sos-centers";
 const cookiePolicyEndpoint = CMS_API_URL + "/policy-cookies";
 const termsOfUseEndpoint = CMS_API_URL + "/terms-of-uses";
 const abousUsEndpoint = CMS_API_URL + "/about-us-pages";
+const videosEndpoint = CMS_API_URL + "/videos";
 
 /**
  * generate a querry string from an object
@@ -368,6 +369,21 @@ async function addRating({ id, action }) {
   return http.put(`${articlesEndpoint}/addRating/${id}`, { action });
 }
 
+async function getVideos(queryObj) {
+  const querryString = generateQuerryString(queryObj);
+  const { data } = await http.get(`${videosEndpoint}${querryString}`);
+
+  return data;
+}
+
+async function getVideoById(id) {
+  const querryString = generateQuerryString({ populate: true });
+
+  const { data } = await http.get(`${videosEndpoint}/${id}${querryString}`);
+
+  return data;
+}
+
 export default {
   getArticles,
   getArticleById,
@@ -385,4 +401,6 @@ export default {
   getAbousUsContentForCountry,
   getGlobalFAQs,
   addRating,
+  getVideos,
+  getVideoById,
 };

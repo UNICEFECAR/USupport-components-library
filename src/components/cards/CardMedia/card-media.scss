@@ -42,6 +42,7 @@
 
     &__text {
       height: 7.2rem;
+      height: max-content;
     }
   }
 
@@ -51,6 +52,12 @@
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
+    }
+
+    & .like {
+      @media screen and (min-width: $screen-lg) {
+        margin-left: $spacing_2_4;
+      }
     }
   }
 
@@ -215,6 +222,9 @@
       .card-media__title {
         @media screen and (min-width: $screen-lg) {
           -webkit-line-clamp: 2;
+        }
+        &__text {
+          height: max-content;
         }
       }
 

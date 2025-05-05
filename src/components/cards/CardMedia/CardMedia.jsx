@@ -72,11 +72,14 @@ export const CardMedia = ({
               {creator && (
                 <p className={"small-text"}>{t("by", { creator })}</p>
               )}
-
-              <Icon name={"time"} size="sm" color={"#66768d"} />
-              <p className={"small-text"}>
-                {readingTime} {t("min_read")}
-              </p>
+              {readingTime && (
+                <React.Fragment>
+                  <Icon name={"time"} size="sm" color={"#66768d"} />
+                  <p className={"small-text"}>
+                    {readingTime} {t("min_read")}
+                  </p>
+                </React.Fragment>
+              )}
             </div>
             {showLabels && (
               <div className={"card-media__labels"}>
