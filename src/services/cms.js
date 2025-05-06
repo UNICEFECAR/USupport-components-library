@@ -373,13 +373,19 @@ async function getVideos(queryObj) {
   const querryString = generateQuerryString(queryObj);
   const { data } = await http.get(`${videosEndpoint}${querryString}`);
 
-  return data;
+  return { data };
 }
 
 async function getVideoById(id) {
   const querryString = generateQuerryString({ populate: true });
 
   const { data } = await http.get(`${videosEndpoint}/${id}${querryString}`);
+
+  return data;
+}
+
+async function getVideoLocales(id) {
+  const { data } = await http.get(`${videosEndpoint}/available-locales/${id}`);
 
   return data;
 }
@@ -403,4 +409,5 @@ export default {
   addRating,
   getVideos,
   getVideoById,
+  getVideoLocales,
 };
