@@ -365,8 +365,14 @@ async function getAbousUsContentForCountry({ country, language }) {
   return res.data;
 }
 
-async function addRating({ id, action }) {
-  return http.put(`${articlesEndpoint}/addRating/${id}`, { action });
+async function addRating({ id, action, contentType }) {
+  const endpoint =
+    contentType === "article"
+      ? articlesEndpoint
+      : contentType === "video"
+      ? videosEndpoint
+      : null;
+  return http.put(`${endpoint}/addRating/${id}`, { action });
 }
 
 async function getVideos(queryObj) {
@@ -376,8 +382,8 @@ async function getVideos(queryObj) {
   return { data };
 }
 
-async function getVideoById(id) {
-  const querryString = generateQuerryString({ populate: true });
+async function getVideoById(id, locale = "en") {
+  const querryString = generateQuerryString({ populate: true, locale });
 
   const { data } = await http.get(`${videosEndpoint}/${id}${querryString}`);
 
