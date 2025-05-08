@@ -23,7 +23,13 @@ const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
  *
  * @return {jsx}
  */
-export const Footer = ({ lists, navigate, Link, showSocials = true }) => {
+export const Footer = ({
+  lists,
+  navigate,
+  Link,
+  renderIn,
+  showSocials = true,
+}) => {
   const currentYear = new Date().getFullYear();
   const { theme } = useContext(ThemeContext);
   const { width } = useWindowDimensions();
@@ -40,7 +46,7 @@ export const Footer = ({ lists, navigate, Link, showSocials = true }) => {
   useEventListener("countryChanged", handler);
 
   useEffect(() => {
-    if (selectedCountry) {
+    if (selectedCountry && selectedCountry !== "global") {
       setLogoUrl(
         `${AMAZON_S3_BUCKET}/logo-horizontal-${selectedCountry}${
           theme === "dark" ? "-dark" : ""
@@ -78,11 +84,17 @@ export const Footer = ({ lists, navigate, Link, showSocials = true }) => {
     if (link !== "") window.open(link, "_blank", "noreferrer").focus();
   }
 
+  const getLink = (url) => {
+    return `${
+      renderIn === "website" ? "" : `/${renderIn}`
+    }/${localStorage.getItem("language")}${url}`;
+  };
+
   let list1 = [];
   lists.list1.forEach((listItem) => {
     list1.push({
       value: (
-        <Link to={listItem.url ? listItem.url : "#"} rel="noopener noreferrer">
+        <Link to={getLink(listItem.url)} rel="noopener noreferrer">
           <Button
             type="text"
             size="lg"
@@ -98,7 +110,7 @@ export const Footer = ({ lists, navigate, Link, showSocials = true }) => {
   lists.list2.forEach((listItem) => {
     list2.push({
       value: (
-        <Link to={listItem.url ? listItem.url : "#"} rel="noopener noreferrer">
+        <Link to={getLink(listItem.url)} rel="noopener noreferrer">
           <Button
             type="text"
             size="lg"
@@ -114,7 +126,7 @@ export const Footer = ({ lists, navigate, Link, showSocials = true }) => {
   lists.list3.forEach((listItem) => {
     list3.push({
       value: (
-        <Link to={listItem.url ? listItem.url : "#"} rel="noopener noreferrer">
+        <Link to={getLink(listItem.url)} rel="noopener noreferrer">
           <Button
             type="text"
             size="lg"
@@ -137,7 +149,11 @@ export const Footer = ({ lists, navigate, Link, showSocials = true }) => {
             alt="logo"
             tabIndex="0"
             onClick={() => {
-              navigate("/");
+              navigate(
+                `${
+                  renderIn === "website" ? "/" : `/${renderIn}`
+                }/${localStorage.getItem("language")}/`
+              );
             }}
           />
           {showSocials && (
