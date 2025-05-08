@@ -36,6 +36,7 @@ export const CardMedia = ({
   dislikes,
   isLikedByUser,
   isDislikedByUser,
+  contentType = "articles",
   children,
   t,
   ...props
@@ -116,7 +117,9 @@ export const CardMedia = ({
               ? "link"
               : "primary"
           }
-          label={t("read_more_button")}
+          label={t(
+            contentType === "articles" ? "read_more_button" : "view_more"
+          )}
           onClick={() => {
             onClick && onClick();
           }}

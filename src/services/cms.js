@@ -12,7 +12,7 @@ const cookiePolicyEndpoint = CMS_API_URL + "/policy-cookies";
 const termsOfUseEndpoint = CMS_API_URL + "/terms-of-uses";
 const abousUsEndpoint = CMS_API_URL + "/about-us-pages";
 const videosEndpoint = CMS_API_URL + "/videos";
-
+const podcastsEndpoint = CMS_API_URL + "/podcasts";
 /**
  * generate a querry string from an object
  *
@@ -396,6 +396,29 @@ async function getVideoLocales(id) {
   return data;
 }
 
+async function getPodcasts(queryObj) {
+  const querryString = generateQuerryString(queryObj);
+  const { data } = await http.get(`${podcastsEndpoint}${querryString}`);
+
+  return { data };
+}
+
+async function getPodcastById(id, locale = "en") {
+  const querryString = generateQuerryString({ populate: true, locale });
+
+  const { data } = await http.get(`${podcastsEndpoint}/${id}${querryString}`);
+
+  return data;
+}
+
+async function getPodcastLocales(id) {
+  const { data } = await http.get(
+    `${podcastsEndpoint}/available-locales/${id}`
+  );
+
+  return data;
+}
+
 export default {
   getArticles,
   getArticleById,
@@ -416,4 +439,7 @@ export default {
   getVideos,
   getVideoById,
   getVideoLocales,
+  getPodcasts,
+  getPodcastById,
+  getPodcastLocales,
 };

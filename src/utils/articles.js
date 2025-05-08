@@ -130,4 +130,43 @@ function computeArticleLabels(labels) {
   });
 }
 
-export { destructureArticleData, destructureVideoData };
+const destructurePodcastData = (data) => {
+  const parts = data.attributes.url.split("/");
+  const type = parts[parts.length - 2];
+  const id = parts[parts.length - 1].split("?")[0];
+  const spotifyId = `${type}/${id}`;
+
+  const thumbnail = data.attributes.thumbnail?.data?.attributes;
+
+  // Get thumbnail URLs with fallbacks
+  const thumbnailData = thumbnail?.data?.attributes;
+  const imageLarge = thumbnailData?.url || "";
+  const imageMedium = thumbnailData?.formats?.small?.url || imageLarge;
+  const imageSmall = thumbnailData?.formats?.thumbnail?.url || imageMedium;
+
+  const categoryData = data.attributes.category?.data?.attributes;
+  const categoryName = categoryData?.name || "";
+  const categoryId = data.attributes.category?.data?.id || null;
+
+  const labelsData = data.attributes.labels?.data || [];
+  const labels = computeArticleLabels(labelsData || []);
+
+  return {
+    id: data.id,
+    title: data.attributes.title,
+    description: data.attributes.description,
+    url: data.attributes.url,
+    imageLarge,
+    imageMedium,
+    imageSmall,
+    categoryName,
+    categoryId,
+    labels,
+    view_count: Number(data.attributes.view_count) || 0,
+    likes: Number(data.attributes.likes) || 0,
+    dislikes: Number(data.attributes.dislikes) || 0,
+    spotifyId,
+  };
+};
+
+export { destructureArticleData, destructureVideoData, destructurePodcastData };

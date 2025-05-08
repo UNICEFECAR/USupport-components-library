@@ -6,6 +6,8 @@ const API_ENDPOINT_COUNTRIES_SOS_CENTERS =
   API_ENDPOINT + "/country/sos-centers";
 const API_ENDPOINT_COUNTRIES_ARTICLES = API_ENDPOINT + "/country/articles";
 const API_ENDPOINT_COUNTRIES_VIDEOS = API_ENDPOINT + "/country/videos";
+const API_ENDPOINT_COUNTRIES_PODCASTS = API_ENDPOINT + "/country/podcasts";
+
 async function createAdmin(payload) {
   const response = await http.post(`${API_ENDPOINT}/signup`, payload);
   return response;
@@ -430,9 +432,7 @@ async function getAllProviderNames() {
  *
  */
 async function getVideos() {
-  console.log("GetVideos");
   const response = await http.get(`${API_ENDPOINT_COUNTRIES_VIDEOS}`);
-  console.log(response.data);
   return response.data;
 }
 
@@ -462,6 +462,11 @@ async function deleteVideo(id) {
     data: { id: id },
   });
   return response;
+}
+
+async function getPodcasts() {
+  const response = await http.get(`${API_ENDPOINT_COUNTRIES_PODCASTS}`);
+  return response.data;
 }
 
 const exportedFunctions = {
@@ -515,6 +520,7 @@ const exportedFunctions = {
   changePassword,
   getProviderRatings,
   getAllProviderNames,
+  getPodcasts,
 };
 
 export default exportedFunctions;
