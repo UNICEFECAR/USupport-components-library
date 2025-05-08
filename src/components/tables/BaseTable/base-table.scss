@@ -77,6 +77,16 @@
       }
     }
 
+    &__filters {
+      display: flex;
+      flex-direction: row;
+      margin-bottom: $spacing_1_2;
+
+      & .label-component {
+        margin-right: 12px;
+      }
+    }
+
     &__note {
       color: $color_gray_a6b4b8;
       text-align: left;

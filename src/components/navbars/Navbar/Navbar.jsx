@@ -7,7 +7,7 @@ import { Button } from "../../buttons";
 import { Box } from "../../boxes";
 import useWindowDimensions from "../../../utils/useWindowDimensions";
 import { userSvc } from "../../../services";
-import { ThemeContext } from "../../../utils";
+import { ThemeContext, replaceLanguageInUrl } from "../../../utils";
 
 const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
 
@@ -28,6 +28,12 @@ const polandCountry = {
   value: "PL",
   label: "Poland",
   iconName: "PL",
+};
+
+const globalCountry = {
+  value: "global",
+  label: "Global",
+  iconName: "global",
 };
 
 /**
@@ -83,7 +89,9 @@ export const Navbar = ({
     useState(false);
 
   const defaultCountry =
-    localStorage.getItem("country") === "KZ"
+    localStorage.getItem("country") === "global"
+      ? globalCountry
+      : localStorage.getItem("country") === "KZ"
       ? kazakhstanCountry
       : polandCountry;
 
@@ -108,10 +116,13 @@ export const Navbar = ({
         !languages.find(
           (x) =>
             x.value.toLocaleLowerCase() ===
-            selectedLanguage.value.toLocaleLowerCase()
+            selectedLanguage.value?.toLocaleLowerCase()
         )
       ) {
+        const newLanguage = languages[0];
+        const label = newLanguage.value.toLocaleLowerCase();
         handleLanguageClick(languages[0]);
+        replaceLanguageInUrl(label);
       }
     }
   }, [countries, languages, selectedLanguage]);
@@ -166,6 +177,10 @@ export const Navbar = ({
 
   let items = [];
   pages.forEach((page) => {
+    const url = `${
+      renderIn === "website" ? "" : `/${renderIn}`
+    }/${localStorage.getItem("language")}${page.url}`;
+
     items.push({
       value:
         isTmpUser && page.url === "/consultations" ? (
@@ -175,7 +190,7 @@ export const Navbar = ({
         ) : (
           <NavLink
             target={isInConsultation ? "_blank" : "_self"}
-            to={page.url}
+            to={url}
             className={({ isActive }) =>
               "nav__item" + (isActive ? " nav__item--current" : "")
             }
@@ -243,22 +258,38 @@ export const Navbar = ({
   }
 
   const handleCountryClick = (country) => {
-    if (setInitialCountry) {
-      setInitialCountry(country);
+    if (country.value === selectedCountry.value) {
+      return;
     }
-    setSelectedCountry(country);
-    setCountriesShown(false);
-    setLanguages(country.languages);
-    localStorage.setItem("country_id", country.countryID);
-    localStorage.setItem("country", country.value);
-    localStorage.setItem("currency_symbol", country.currencySymbol);
-    window.dispatchEvent(new Event("countryChanged"));
-
+    const subdomain = window.location.hostname.split(".")[0];
     if (
       !window.location.href.includes("localhost") &&
-      !window.location.href.includes("staging")
+      subdomain !== "staging"
     ) {
-      window.location.href = `https://${country.label.toLocaleLowerCase()}.usupport.online`;
+      const label = country.label.toLocaleLowerCase();
+      let newUrl;
+      if (subdomain === "usupport") {
+        newUrl = window.location.href.replace(subdomain, `${label}.usupport`);
+      } else if (country.value === "global") {
+        newUrl = window.location.href.replace(`${subdomain}.`, "");
+      } else {
+        newUrl = window.location.href.replace(subdomain, label);
+      }
+
+      window.location.href = newUrl;
+    } else {
+      if (setInitialCountry) {
+        setInitialCountry(country);
+      }
+      if (setLanguages) {
+        setLanguages(country.languages);
+      }
+      setSelectedCountry(country);
+      setCountriesShown(false);
+      localStorage.setItem("country_id", country.countryID);
+      localStorage.setItem("country", country.value);
+      localStorage.setItem("currency_symbol", country.currencySymbol);
+      window.dispatchEvent(new Event("countryChanged"));
     }
   };
 
@@ -273,13 +304,15 @@ export const Navbar = ({
       });
     }
     window.dispatchEvent(new Event("languageChanged"));
+    replaceLanguageInUrl(language.value);
   };
 
   const handleProfileClick = () => {
+    const url = `/${renderIn}/${localStorage.getItem("language")}/profile`;
     if (isInConsultation) {
-      window.open(`/${renderIn}/profile`, "_blank");
+      window.open(url, "_blank");
     } else {
-      navigate("/profile");
+      navigate(`/${renderIn}/${localStorage.getItem("language")}/profile`);
     }
   };
 
@@ -336,7 +369,9 @@ export const Navbar = ({
       color="green"
       classes="nav__login"
       onClick={() => {
-        window.location.href = "/client/register-preview";
+        window.location.href = `/client/${localStorage.getItem(
+          "language"
+        )}/register-preview`;
         scrollTop();
       }}
       web={width >= 1110}
@@ -351,8 +386,15 @@ export const Navbar = ({
       isTmpUserAction();
     }
     if (isInConsultation) {
-      window.open(`/${renderIn}/notifications`, "_blank");
-    } else navigate("/notifications");
+      window.open(
+        `/${renderIn}/${localStorage.getItem("language")}/notifications`,
+        "_blank"
+      );
+    } else {
+      navigate(
+        `/${renderIn}/${localStorage.getItem("language")}/notifications`
+      );
+    }
   };
 
   const isInNotifications = pathname.includes("notifications");
@@ -438,7 +480,9 @@ export const Navbar = ({
                 }`}
               >
                 {`${option.label} ${
-                  option.label !== "English" ? `(${option.localName})` : ""
+                  option.label !== "English" && option.label !== "Global"
+                    ? `(${option.localName})`
+                    : ""
                 }`}
               </p>
             </div>
@@ -453,7 +497,11 @@ export const Navbar = ({
   const [logoUrl, setLogoUrl] = useState(defaultLogo);
 
   useEffect(() => {
-    if (selectedCountry?.value && renderIn !== "global-admin") {
+    if (
+      selectedCountry?.value &&
+      selectedCountry.value !== "global" &&
+      renderIn !== "global-admin"
+    ) {
       setLogoUrl(
         `${AMAZON_S3_BUCKET}/logo-horizontal-${selectedCountry.value}${
           theme === "dark" ? "-dark" : ""
@@ -479,10 +527,15 @@ export const Navbar = ({
           alt="logo"
           tabIndex="0"
           onClick={() => {
+            const language = localStorage.getItem("language");
             if (isInConsultation) {
-              window.open(`/${renderIn}/`, "_blank");
+              window.open(`/${renderIn}/${language}`, "_blank");
             } else {
-              navigate("/");
+              const url =
+                renderIn === "website"
+                  ? `/${language}`
+                  : `/${renderIn}/${language}`;
+              navigate(url);
               scrollTop();
             }
           }}

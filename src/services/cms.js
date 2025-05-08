@@ -95,6 +95,10 @@ function generateQuerryString(queryObj) {
     querry += `&platform=${queryObj.platform}`;
   }
 
+  if (queryObj.isForGlobal) {
+    querry += `&filters[global][$eq]=${queryObj.isForGlobal}&isForAdmin=true`;
+  }
+
   if (querry.includes("?&")) {
     querry = querry.replace("?&", "?");
   }
@@ -289,6 +293,17 @@ async function getFAQs(queryObj) {
   return { data };
 }
 
+async function getGlobalFAQs(queryObj) {
+  const querryString = generateQuerryString({
+    ...queryObj,
+    isForGlobal: true,
+  });
+
+  const { data } = await http.get(`${faqsEndpoint}${querryString}`);
+
+  return { data };
+}
+
 /**
  * send request to get available locales for a specific FAQ, by id
  *
@@ -333,13 +348,24 @@ async function getSOSCenterAvailableLocales(id) {
 }
 
 async function getAbousUsContentForCountry({ country, language }) {
-  const querryString = generateQuerryString({
+  let queryParams = {
     locale: language,
-    countryAlpha2: country,
-  });
+  };
+
+  if (country === "GLOBAL") {
+    queryParams.global = true;
+  } else {
+    queryParams.countryAlpha2 = country;
+  }
+
+  const querryString = generateQuerryString(queryParams);
   let res = await http.get(`${abousUsEndpoint}/find${querryString}`);
 
   return res.data;
+}
+
+async function addRating({ id, action }) {
+  return http.put(`${articlesEndpoint}/addRating/${id}`, { action });
 }
 
 export default {
@@ -357,4 +383,6 @@ export default {
   getSOSCenters,
   getSOSCenterAvailableLocales,
   getAbousUsContentForCountry,
+  getGlobalFAQs,
+  addRating,
 };
