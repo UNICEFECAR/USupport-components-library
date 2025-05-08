@@ -124,7 +124,7 @@ export const Dropdown = ({
         borderSize="md"
         classes={[
           "dropdown",
-          theme === "dark" && "dropdown--dark",
+          theme === "dark" ? "dropdown--dark" : "",
           isOpen ? "dropdown--expanded" : "",
           disabled ? "dropdown--disabled" : "",
         ]}
