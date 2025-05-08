@@ -211,7 +211,13 @@ export const Consultation = ({
             </div>
           </div>
         </div>
-        {true && (
+        {overview &&
+        renderIn === "provider" &&
+        consultation.status === "canceled" ? (
+          <p className="small-text consultation__canceled-text">
+            {t("canceled")}
+          </p>
+        ) : (
           <div className="provider-consultation__icon-container">
             {hasPriceBadge && (
               <div
@@ -256,6 +262,7 @@ export const Consultation = ({
           </div>
         )}
       </div>
+
       {organizationName && (
         <div className="consultation__organization">
           <p>{organizationName}</p>
