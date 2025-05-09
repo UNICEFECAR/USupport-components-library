@@ -371,6 +371,8 @@ async function addRating({ id, action, contentType }) {
       ? articlesEndpoint
       : contentType === "video"
       ? videosEndpoint
+      : contentType === "podcast"
+      ? podcastsEndpoint
       : null;
   return http.put(`${endpoint}/addRating/${id}`, { action });
 }
