@@ -136,8 +136,7 @@ const destructurePodcastData = (data) => {
   const id = parts[parts.length - 1].split("?")[0];
   const spotifyId = `${type}/${id}`;
 
-  const thumbnail = data.attributes.thumbnail?.data?.attributes;
-
+  const thumbnail = data.attributes.thumbnail;
   // Get thumbnail URLs with fallbacks
   const thumbnailData = thumbnail?.data?.attributes;
   const imageLarge = thumbnailData?.url || "";
