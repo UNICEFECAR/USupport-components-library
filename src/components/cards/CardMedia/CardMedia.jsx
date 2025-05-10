@@ -68,11 +68,9 @@ export const CardMedia = ({
           </GridItem>
         </Grid>
         <div className="card-media__content__details">
-          <div>
+          <div className="card-media__content__details__left">
+            {creator && <p className={"small-text"}>{t("by", { creator })}</p>}
             <div className={"card-media__details"}>
-              {creator && (
-                <p className={"small-text"}>{t("by", { creator })}</p>
-              )}
               {readingTime && (
                 <React.Fragment>
                   <Icon name={"time"} size="sm" color={"#66768d"} />
@@ -82,19 +80,17 @@ export const CardMedia = ({
                 </React.Fragment>
               )}
             </div>
-            {showLabels && (
+            {showLabels && labels?.length > 0 && (
               <div className={"card-media__labels"}>
-                {labels.length > 0 &&
-                  labels &&
-                  labels.map((label, index) => {
-                    return (
-                      <Label
-                        classes={"card-media__label"}
-                        text={label.name}
-                        key={index}
-                      />
-                    );
-                  })}
+                {labels.map((label, index) => {
+                  return (
+                    <Label
+                      classes={"card-media__label"}
+                      text={label.name}
+                      key={index}
+                    />
+                  );
+                })}
               </div>
             )}
           </div>
