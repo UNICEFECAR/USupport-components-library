@@ -469,6 +469,20 @@ async function getPodcasts() {
   return response.data;
 }
 
+async function putPodcast(id) {
+  const response = await http.put(`${API_ENDPOINT_COUNTRIES_PODCASTS}`, {
+    id: id,
+  });
+  return response;
+}
+
+async function deletePodcast(id) {
+  const response = await http.delete(`${API_ENDPOINT_COUNTRIES_PODCASTS}`, {
+    data: { id: id },
+  });
+  return response;
+}
+
 const exportedFunctions = {
   createAdmin,
   deleteArticle,
@@ -521,6 +535,8 @@ const exportedFunctions = {
   getProviderRatings,
   getAllProviderNames,
   getPodcasts,
+  putPodcast,
+  deletePodcast,
 };
 
 export default exportedFunctions;
