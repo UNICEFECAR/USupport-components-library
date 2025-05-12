@@ -1,3 +1,5 @@
+import { getLanguageFromUrl } from "./replaceLanguageInUrl";
+
 /**
  * @description - This funciton is used to set 'isSelected' property to true for the selected items
  *
@@ -51,6 +53,8 @@ const getCountryLabelFromAlpha2 = (alpha2) => {
 const redirectToLocalStorageCountry = (renderIn) => {
   const localStorageCountry = localStorage.getItem("country");
   const localStorageLanguage = localStorage.getItem("language");
+  const language = getLanguageFromUrl() || localStorageLanguage || "en";
+
   if (localStorageCountry && localStorageCountry !== "global") {
     const countryLabel = getCountryLabelFromAlpha2(localStorageCountry);
     if (countryLabel) {
@@ -59,10 +63,10 @@ const redirectToLocalStorageCountry = (renderIn) => {
         `${countryLabel}.usupport`
       );
     } else {
-      window.location.href = `/${renderIn}/${localStorageLanguage}`;
+      window.location.href = `/${renderIn}/${language}`;
     }
   } else {
-    window.location.href = `/${renderIn}/${localStorageLanguage}`;
+    window.location.href = `/${renderIn}/${language}`;
   }
 };
 
