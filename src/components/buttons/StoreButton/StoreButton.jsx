@@ -47,9 +47,9 @@ export const StoreButton = ({
         "_blank"
       );
     } else if (store === "web") {
-      window.location.href = `/${localStorage.getItem(
+      window.location.href = `/client/${localStorage.getItem(
         "language"
-      )}/client/register-preview`;
+      )}/register-preview`;
       window.scrollTo(0, 0);
     }
   };
