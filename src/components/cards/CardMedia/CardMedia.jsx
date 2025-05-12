@@ -36,6 +36,7 @@ export const CardMedia = ({
   dislikes,
   isLikedByUser,
   isDislikedByUser,
+  contentType = "articles",
   children,
   t,
   ...props
@@ -67,30 +68,29 @@ export const CardMedia = ({
           </GridItem>
         </Grid>
         <div className="card-media__content__details">
-          <div>
+          <div className="card-media__content__details__left">
+            {creator && <p className={"small-text"}>{t("by", { creator })}</p>}
             <div className={"card-media__details"}>
-              {creator && (
-                <p className={"small-text"}>{t("by", { creator })}</p>
+              {readingTime && (
+                <React.Fragment>
+                  <Icon name={"time"} size="sm" color={"#66768d"} />
+                  <p className={"small-text"}>
+                    {readingTime} {t("min_read")}
+                  </p>
+                </React.Fragment>
               )}
-
-              <Icon name={"time"} size="sm" color={"#66768d"} />
-              <p className={"small-text"}>
-                {readingTime} {t("min_read")}
-              </p>
             </div>
-            {showLabels && (
+            {showLabels && labels?.length > 0 && (
               <div className={"card-media__labels"}>
-                {labels.length > 0 &&
-                  labels &&
-                  labels.map((label, index) => {
-                    return (
-                      <Label
-                        classes={"card-media__label"}
-                        text={label.name}
-                        key={index}
-                      />
-                    );
-                  })}
+                {labels.map((label, index) => {
+                  return (
+                    <Label
+                      classes={"card-media__label"}
+                      text={label.name}
+                      key={index}
+                    />
+                  );
+                })}
               </div>
             )}
           </div>
@@ -113,7 +113,9 @@ export const CardMedia = ({
               ? "link"
               : "primary"
           }
-          label={t("read_more_button")}
+          label={t(
+            contentType === "articles" ? "read_more_button" : "view_more"
+          )}
           onClick={() => {
             onClick && onClick();
           }}
