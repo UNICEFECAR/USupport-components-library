@@ -268,7 +268,7 @@ export const Navbar = ({
     ) {
       const label = country.label.toLocaleLowerCase();
       let newUrl;
-      if (subdomain === "usupport") {
+      if (subdomain === "usupport" && label !== "global") {
         newUrl = window.location.href.replace(subdomain, `${label}.usupport`);
       } else if (country.value === "global") {
         newUrl = window.location.href.replace(`${subdomain}.`, "");
@@ -369,9 +369,14 @@ export const Navbar = ({
       color="green"
       classes="nav__login"
       onClick={() => {
-        window.location.href = `/client/${localStorage.getItem(
-          "language"
-        )}/register-preview`;
+        const country = localStorage.getItem("country");
+        if (country === "global") {
+          window.location.href = `/client/${localStorage.getItem("language")}`;
+        } else {
+          window.location.href = `/client/${localStorage.getItem(
+            "language"
+          )}/register-preview`;
+        }
         scrollTop();
       }}
       web={width >= 1110}
