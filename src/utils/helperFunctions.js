@@ -34,4 +34,41 @@ const downloadCSVFile = (data, fileName) => {
   link.remove();
 };
 
-export { filterAdminData, downloadCSVFile };
+const countriesMap = {
+  global: "global",
+  kz: "kazakhstan",
+  pl: "poland",
+  ro: "romania",
+};
+
+const getCountryLabelFromAlpha2 = (alpha2) => {
+  return countriesMap[alpha2.toLocaleLowerCase()];
+};
+
+// If the user is on the main domain(usupport.online), but they have a country in their local storage,
+// different than `global`, we redirect them to the country subdomain.
+// If they don't have a country in their local storage, we redirect them to the Welcome page to choose a country
+const redirectToLocalStorageCountry = (renderIn) => {
+  const localStorageCountry = localStorage.getItem("country");
+  const localStorageLanguage = localStorage.getItem("language");
+  if (localStorageCountry && localStorageCountry !== "global") {
+    const countryLabel = getCountryLabelFromAlpha2(localStorageCountry);
+    if (countryLabel) {
+      window.location.href = window.location.href.replace(
+        "usupport",
+        `${countryLabel}.usupport`
+      );
+    } else {
+      window.location.href = `/${renderIn}/${localStorageLanguage}`;
+    }
+  } else {
+    window.location.href = `/${renderIn}/${localStorageLanguage}`;
+  }
+};
+
+export {
+  filterAdminData,
+  downloadCSVFile,
+  getCountryLabelFromAlpha2,
+  redirectToLocalStorageCountry,
+};
