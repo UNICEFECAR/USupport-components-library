@@ -5,6 +5,8 @@ const API_ENDPOINT_COUNTRIES_FAQ = API_ENDPOINT + "/country/faqs";
 const API_ENDPOINT_COUNTRIES_SOS_CENTERS =
   API_ENDPOINT + "/country/sos-centers";
 const API_ENDPOINT_COUNTRIES_ARTICLES = API_ENDPOINT + "/country/articles";
+const API_ENDPOINT_COUNTRIES_VIDEOS = API_ENDPOINT + "/country/videos";
+const API_ENDPOINT_COUNTRIES_PODCASTS = API_ENDPOINT + "/country/podcasts";
 
 async function createAdmin(payload) {
   const response = await http.post(`${API_ENDPOINT}/signup`, payload);
@@ -424,12 +426,70 @@ async function getAllProviderNames() {
   return response;
 }
 
+/**
+ *
+ * @returns {object} the object containing the data for the videos.
+ *
+ */
+async function getVideos() {
+  const response = await http.get(`${API_ENDPOINT_COUNTRIES_VIDEOS}`);
+  return response.data;
+}
+
+/**
+ *
+ * @param {string} id the id of the video to be added
+ *
+ * @returns {promise} the promise of the http request
+ *
+ */
+async function putVideo(id) {
+  const response = await http.put(`${API_ENDPOINT_COUNTRIES_VIDEOS}`, {
+    id: id,
+  });
+  return response;
+}
+
+/**
+ *
+ * @param {string} id the id of the video to be deleted
+ *
+ * @returns {promise} the promise of the http request
+ *
+ */
+async function deleteVideo(id) {
+  const response = await http.delete(`${API_ENDPOINT_COUNTRIES_VIDEOS}`, {
+    data: { id: id },
+  });
+  return response;
+}
+
+async function getPodcasts() {
+  const response = await http.get(`${API_ENDPOINT_COUNTRIES_PODCASTS}`);
+  return response.data;
+}
+
+async function putPodcast(id) {
+  const response = await http.put(`${API_ENDPOINT_COUNTRIES_PODCASTS}`, {
+    id: id,
+  });
+  return response;
+}
+
+async function deletePodcast(id) {
+  const response = await http.delete(`${API_ENDPOINT_COUNTRIES_PODCASTS}`, {
+    data: { id: id },
+  });
+  return response;
+}
+
 const exportedFunctions = {
   createAdmin,
   deleteArticle,
   deleteAdminById,
   deleteFAQ,
   deleteSOSCenters,
+  deleteVideo,
   generateForgotPasswordLink,
   getAllGlobalAdmins,
   getAllCountryAdminsByCountry,
@@ -440,12 +500,14 @@ const exportedFunctions = {
   getDataById,
   getFAQs,
   getSOSCenters,
+  getVideos,
   requestOTP,
   login,
   logout,
   putArticle,
   putFAQ,
   putSOSCenters,
+  putVideo,
   refreshToken,
   resetPassword,
   updateData,
@@ -472,6 +534,9 @@ const exportedFunctions = {
   changePassword,
   getProviderRatings,
   getAllProviderNames,
+  getPodcasts,
+  putPodcast,
+  deletePodcast,
 };
 
 export default exportedFunctions;
