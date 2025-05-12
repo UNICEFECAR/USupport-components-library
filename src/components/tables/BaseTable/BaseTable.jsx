@@ -255,7 +255,7 @@ export const BaseTable = ({
       )}
       {noteText && (
         <p className="table__container__note">
-          <Trans components={[<b></b>]}>{t("note")}</Trans>
+          <Trans components={[<b></b>]}>{noteText}</Trans>
         </p>
       )}
       {(!rowsData || rowsData.length === 0) && !isLoading ? (
