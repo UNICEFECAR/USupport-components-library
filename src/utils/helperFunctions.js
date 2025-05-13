@@ -83,10 +83,21 @@ const redirectToLocalStorageCountry = (renderIn) => {
   }
 };
 
+const constructShareUrl = ({ contentType, id }) => {
+  const country = localStorage.getItem("country");
+  const language = localStorage.getItem("language");
+
+  const countryName = countriesMap[country.toLocaleLowerCase()];
+
+  const url = `https://${countryName}.usupport.online/${language}/information-portal/${contentType}/${id}`;
+  return url;
+};
+
 export {
   filterAdminData,
   downloadCSVFile,
   getCountryLabelFromAlpha2,
   redirectToLocalStorageCountry,
   getCountryFromSubdomain,
+  constructShareUrl,
 };
