@@ -47,6 +47,19 @@ const getCountryLabelFromAlpha2 = (alpha2) => {
   return countriesMap[alpha2.toLocaleLowerCase()];
 };
 
+const getCountryFromSubdomain = () => {
+  const subdomain = window.location.hostname.split(".")[0];
+  if (subdomain === "usupport") {
+    return "global";
+  } else {
+    // the subdomain is value from countriesMap
+    const countryAlpha2 = Object.keys(countriesMap).find(
+      (key) => countriesMap[key] === subdomain
+    );
+    return countryAlpha2?.toLocaleUpperCase() || "global";
+  }
+};
+
 // If the user is on the main domain(usupport.online), but they have a country in their local storage,
 // different than `global`, we redirect them to the country subdomain.
 // If they don't have a country in their local storage, we redirect them to the Welcome page to choose a country
@@ -63,10 +76,10 @@ const redirectToLocalStorageCountry = (renderIn) => {
         `${countryLabel}.usupport`
       );
     } else {
-      window.location.href = `/${renderIn}/${language}`;
+      window.location.href = `/${renderIn}/${language}/`;
     }
   } else {
-    window.location.href = `/${renderIn}/${language}`;
+    window.location.href = `/${renderIn}/${language}/`;
   }
 };
 
@@ -75,4 +88,5 @@ export {
   downloadCSVFile,
   getCountryLabelFromAlpha2,
   redirectToLocalStorageCountry,
+  getCountryFromSubdomain,
 };
