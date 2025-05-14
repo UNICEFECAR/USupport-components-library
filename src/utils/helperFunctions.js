@@ -86,7 +86,15 @@ const redirectToLocalStorageCountry = (renderIn) => {
 const constructShareUrl = ({ contentType, id }) => {
   const country = localStorage.getItem("country");
   const language = localStorage.getItem("language");
+  const subdomain = window.location.hostname.split(".")[0];
 
+  if (subdomain === "staging") {
+    return `https://staging.usupport.online/${language}/information-portal/${contentType}/${id}`;
+  }
+
+  if (country === "global") {
+    return `https://usupport.online/${language}/information-portal/${contentType}/${id}`;
+  }
   const countryName = countriesMap[country.toLocaleLowerCase()];
 
   const url = `https://${countryName}.usupport.online/${language}/information-portal/${contentType}/${id}`;
