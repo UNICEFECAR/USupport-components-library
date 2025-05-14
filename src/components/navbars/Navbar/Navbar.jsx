@@ -262,16 +262,15 @@ export const Navbar = ({
       return;
     }
     const subdomain = window.location.hostname.split(".")[0];
-    if (
-      !window.location.href.includes("localhost") &&
-      subdomain !== "staging"
-    ) {
+    if (!window.location.href.includes("localhost")) {
       const label = country.label.toLocaleLowerCase();
       let newUrl;
       if (subdomain === "usupport" && label !== "global") {
         newUrl = window.location.href.replace(subdomain, `${label}.usupport`);
       } else if (country.value === "global") {
         newUrl = window.location.href.replace(`${subdomain}.`, "");
+      } else if (subdomain === "staging") {
+        newUrl = window.location.href.replace(subdomain, `${label}.staging`);
       } else {
         newUrl = window.location.href.replace(subdomain, label);
       }
