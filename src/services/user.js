@@ -292,6 +292,13 @@ async function getRatingsForContent({ contentId, contentType }) {
   return response;
 }
 
+async function generatePdf(payload) {
+  const response = await http.post(`${API_ENDPOINT}/generate-pdf`, payload, {
+    responseType: "blob",
+  });
+  return response;
+}
+
 const exportedFunctions = {
   changePassword,
   generateClientAccesToken,
@@ -321,6 +328,7 @@ const exportedFunctions = {
   addContentRating,
   getUserContentRatings,
   getRatingsForContent,
+  generatePdf,
 };
 
 export default exportedFunctions;
