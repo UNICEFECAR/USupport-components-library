@@ -77,6 +77,7 @@ export const Navbar = ({
   const imageURL = AMAZON_S3_BUCKET + "/" + image;
   const pathname = window.location.pathname;
   const currentUrl = window.location.href;
+  const subdomain = window.location.hostname.split(".")[0];
 
   const [isNavbarExpanded, setIsNavbarExpanded] = useState(false);
   const [languagesShown, setLanguagesShown] = useState(false);
@@ -87,9 +88,10 @@ export const Navbar = ({
   );
   const [hasSelectedInitialCountry, setHasSelectedInitialCountry] =
     useState(false);
-
   const defaultCountry =
-    localStorage.getItem("country") === "global"
+    subdomain === "usupport" || subdomain === "staging"
+      ? globalCountry
+      : localStorage.getItem("country") === "global"
       ? globalCountry
       : localStorage.getItem("country") === "KZ"
       ? kazakhstanCountry
