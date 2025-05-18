@@ -25,7 +25,7 @@ jobs:
             echo "Triggering update for $repo"
             curl -X POST \
               -H "Accept: application/vnd.github.v3+json" \
-              -H "Authorization: token $GITHUB_TOKEN" \
+              -H "Authorization: Bearer $GITHUB_TOKEN" \
               https://api.github.com/repos/$repo/dispatches \
               -d '{"event_type": "submodule-updated-staging", "client_payload": {}}'
           done
