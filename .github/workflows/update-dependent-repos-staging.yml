@@ -15,7 +15,7 @@ jobs:
 
       - name: Trigger UI Updates Staging
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         run: |
           repos=(
             "UNICEFECAR/USupport-website-ui"
