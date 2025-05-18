@@ -12,7 +12,11 @@ function filterAdminData(data, selectedIds) {
     let currentData = data[i];
     const currentDataId = currentData.id;
     const isSlected = selectedIds.includes(currentDataId.toString());
-    if (isSlected) {
+    const isAnotherLocaleSelected =
+      currentData.attributes.localizations?.data.some((localization) => {
+        return selectedIds.includes(localization.id.toString());
+      });
+    if (isSlected || isAnotherLocaleSelected) {
       currentData.isSelected = true;
     }
   }
