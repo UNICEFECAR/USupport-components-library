@@ -498,23 +498,19 @@ export const Navbar = ({
   const defaultLogo = `${AMAZON_S3_BUCKET}/logo-horizontal${
     theme === "dark" ? "-dark" : ""
   }`;
-  const [logoUrl, setLogoUrl] = useState(defaultLogo);
 
-  useEffect(() => {
-    if (
-      selectedCountry?.value &&
-      selectedCountry.value !== "global" &&
-      renderIn !== "global-admin"
-    ) {
-      setLogoUrl(
-        `${AMAZON_S3_BUCKET}/logo-horizontal-${selectedCountry.value}${
-          theme === "dark" ? "-dark" : ""
-        }`
-      );
-    } else {
-      setLogoUrl(defaultLogo);
-    }
-  }, [selectedCountry, theme]);
+  let logoUrl = defaultLogo;
+  if (
+    selectedCountry?.value &&
+    selectedCountry.value !== "global" &&
+    renderIn !== "global-admin"
+  ) {
+    logoUrl = `${AMAZON_S3_BUCKET}/logo-horizontal-${selectedCountry.value}${
+      theme === "dark" ? "-dark" : ""
+    }`;
+  } else {
+    logoUrl = defaultLogo;
+  }
 
   return (
     <>
