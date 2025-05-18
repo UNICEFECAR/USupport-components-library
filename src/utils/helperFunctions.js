@@ -105,6 +105,10 @@ const constructShareUrl = ({ contentType, id }) => {
   return url;
 };
 
+const redirectToUrl = (url) => {
+  window.open(url, "_self", "noreferrer").focus();
+};
+
 export {
   filterAdminData,
   downloadCSVFile,
@@ -112,4 +116,5 @@ export {
   redirectToLocalStorageCountry,
   getCountryFromSubdomain,
   constructShareUrl,
+  redirectToUrl,
 };
