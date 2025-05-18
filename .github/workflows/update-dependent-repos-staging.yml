@@ -1,0 +1,31 @@
+name: Update Dependent Repositories
+
+on:
+  push:
+    branches:
+      - staging
+
+jobs:
+  update-uis:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Trigger UI Updates
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          repos=(
+            "UNICEFECAR/USupport-website-ui"
+          )
+
+          for repo in "${repos[@]}"; do
+            echo "Triggering update for $repo"
+            curl -X POST \
+              -H "Accept: application/vnd.github.v3+json" \
+              -H "Authorization: token $GITHUB_TOKEN" \
+              https://api.github.com/repos/$repo/dispatches \
+              -d '{"event_type": "submodule-updated-staging", "client_payload": {}}'
+          done
