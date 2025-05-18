@@ -34,7 +34,9 @@ export const Footer = ({
   const { theme } = useContext(ThemeContext);
   const { width } = useWindowDimensions();
 
-  const defaultLogo = `${AMAZON_S3_BUCKET}/logo-horizontal`;
+  const defaultLogo = `${AMAZON_S3_BUCKET}/logo-horizontal${
+    theme === "dark" ? "-dark" : ""
+  }`;
   const [logoUrl, setLogoUrl] = useState(defaultLogo);
   const [selectedCountry, setSelectedCountry] = useState(
     localStorage.getItem("country") || "KZ"
