@@ -30,6 +30,7 @@
     border: 0.1rem solid transparent;
     border-radius: $border_radius_2_4;
     background-color: $color_white_ff;
+    @include themify($themes, "background-color", "color_card");
 
     &--dark {
       background-color: $color_black_31;
