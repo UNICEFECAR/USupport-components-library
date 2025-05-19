@@ -3,8 +3,7 @@
 .nav {
   min-width: $screen-sm;
   // background: $color_white_ff;
-  // @include themify($themes, "background", "color_white_ff");
-  background: red;
+  @include themify($themes, "background", "color_white_ff");
   box-shadow: $shadow_1;
   display: flex;
   justify-content: space-between;
