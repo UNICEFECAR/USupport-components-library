@@ -97,14 +97,15 @@ export const ProviderDetails = ({
           </p>
         </div>
 
-        {provider.videoLink && hasAcceptedAllCookies && (
-          <div className="provider-details__video-container">
-            <p className="paragraph provider-details__information-container__heading">
-              {t("video_label")}
-            </p>
-            <ReactPlayer width="96%" url={provider.videoLink} />
-          </div>
-        )}
+        {provider.videoLink &&
+          (hasAcceptedAllCookies || renderIn === "provider") && (
+            <div className="provider-details__video-container">
+              <p className="paragraph provider-details__information-container__heading">
+                {t("video_label")}
+              </p>
+              <ReactPlayer width="96%" url={provider.videoLink} />
+            </div>
+          )}
       </GridItem>
 
       <GridItem md={4} lg={8}>
