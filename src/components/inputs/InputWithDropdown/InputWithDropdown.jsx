@@ -35,16 +35,16 @@ export const InputWithDropdown = ({
 
     let optionsCopy = [];
     const lowerCaseOptions = initialOptions.map((option) => {
-      return { label: option.label.toLowerCase(), id: option.id };
+      return { label: option.label.toLocaleLowerCase(), id: option.id };
     });
     const alreadyExist = lowerCaseOptions.find(
-      (option) => option.label === value
+      (option) => option.label === value.toLocaleLowerCase()
     );
 
     if (!alreadyExist) optionsCopy.push({ label: value, id: value });
 
     const filteredOptions = initialOptions.filter((option) =>
-      option.label.toLowerCase().includes(value.toLowerCase())
+      option.label.toLocaleLowerCase().includes(value.toLocaleLowerCase())
     );
 
     optionsCopy.push(...filteredOptions);
