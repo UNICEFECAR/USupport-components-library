@@ -5,6 +5,7 @@ import {
   MarkerF,
   MarkerClusterer,
 } from "@react-google-maps/api";
+import classNames from "classnames";
 
 import { Loading } from "../../loaders";
 import { ButtonOnlyIcon } from "../../buttons";
@@ -19,7 +20,7 @@ import "./interactive-map.scss";
  *
  * @return {jsx}
  */
-export const InteractiveMap = ({ providers }) => {
+export const InteractiveMap = ({ providers, classes, onMapReady }) => {
   const [map, setMap] = React.useState(null);
   const [userLocation, setUserLocation] = React.useState(null);
 
@@ -36,9 +37,22 @@ export const InteractiveMap = ({ providers }) => {
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
   });
 
-  const onMapLoad = React.useCallback((mapInstance) => {
-    setMap(mapInstance);
-  }, []);
+  const onMapLoad = React.useCallback(
+    (mapInstance) => {
+      setMap(mapInstance);
+
+      // Pass the zoom function to parent component
+      if (onMapReady) {
+        onMapReady({
+          zoomToLocation: (lat, lng, zoom = 12) => {
+            mapInstance.panTo({ lat, lng });
+            mapInstance.setZoom(zoom);
+          },
+        });
+      }
+    },
+    [onMapReady]
+  );
 
   const onUnmount = React.useCallback(() => {
     setMap(null);
@@ -101,28 +115,16 @@ export const InteractiveMap = ({ providers }) => {
   }, [requestUserLocation]);
 
   const renderMarkers = () => {
-    return (
-      <MarkerClusterer
-        averageCenter
-        enableRetinaIcons
-        gridSize={60}
-        minimumClusterSize={3}
-        className="interactive-map__marker-clusterer"
-      >
-        {(clusterer) => (
-          <>
-            {providers.map((location, index) => (
-              <MarkerF
-                key={`marker-${location.name}-${index}`}
-                position={{ lat: location.lat, lng: location.lng }}
-                title={location.name}
-                clusterer={clusterer}
-              />
-            ))}
-          </>
-        )}
-      </MarkerClusterer>
-    );
+    return providers.map((provider, index) => (
+      <MarkerF
+        key={`marker-${provider.providerDetailId}-${index}`}
+        position={{
+          lat: provider.address.lat,
+          lng: provider.address.lng,
+        }}
+        title={provider.name}
+      />
+    ));
   };
 
   const renderUserLocationMarker = () => {
@@ -153,7 +155,7 @@ export const InteractiveMap = ({ providers }) => {
   }
 
   return (
-    <div className="interactive-map">
+    <div className={["interactive-map", classNames(classes)].join(" ")}>
       <GoogleMap
         mapContainerClassName="interactive-map__container"
         center={initialCenter}
@@ -188,4 +190,19 @@ const mapOptions = {
   fullscreenControl: false,
 };
 
-InteractiveMap.defaultProps = {};
+InteractiveMap.defaultProps = {
+  /**
+   * Array of provider locations to display on the map
+   */
+  providers: [],
+
+  /**
+   * Custom CSS classes for the map container
+   */
+  classes: "",
+
+  /**
+   * Callback function called when map is ready with map controls
+   */
+  onMapReady: null,
+};
