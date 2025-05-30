@@ -203,6 +203,30 @@ async function addArticleReadCount(id) {
   return http.put(`${articlesEndpoint}/addReadCount/${id}`);
 }
 
+//--------------------- PUT Requests ---------------------//;
+/**
+ * send request to increment download count for an article
+ *
+ * @param {string} id - the id of the article
+ *
+ * @returns {object} the ageGroups data
+ */
+async function addArticleDownloadCount(id) {
+  return http.put(`${articlesEndpoint}/addDownloadCount/${id}`);
+}
+
+//--------------------- PUT Requests ---------------------//;
+/**
+ * send request to increment share count for an article
+ *
+ * @param {string} id - the id of the article
+ *
+ * @returns {object} the ageGroups data
+ */
+async function addArticleShareCount(id) {
+  return http.put(`${articlesEndpoint}/addShareCount/${id}`);
+}
+
 //--------------------- Categories ---------------------//;
 /**
  * send request to get all ageGroups
@@ -444,4 +468,6 @@ export default {
   getPodcasts,
   getPodcastById,
   getPodcastLocales,
+  addArticleDownloadCount,
+  addArticleShareCount,
 };
