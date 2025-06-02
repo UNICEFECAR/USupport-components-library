@@ -445,6 +445,10 @@ async function getPodcastLocales(id) {
   return data;
 }
 
+async function addPodcastShareCount(id) {
+  return http.put(`${podcastsEndpoint}/addShareCount/${id}`);
+}
+
 export default {
   getArticles,
   getArticleById,
@@ -470,4 +474,5 @@ export default {
   getPodcastLocales,
   addArticleDownloadCount,
   addArticleShareCount,
+  addPodcastShareCount,
 };
