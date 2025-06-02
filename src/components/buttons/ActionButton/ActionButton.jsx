@@ -13,10 +13,10 @@ import "./action-button.scss";
  *
  * @return {jsx}
  */
-export const ActionButton = ({ handleClick, isLoading, iconName, classes }) => {
+export const ActionButton = ({ onClick, isLoading, iconName, classes }) => {
   return (
     <div
-      onClick={handleClick}
+      onClick={onClick}
       className={["action-button", classNames(classes)].join(" ")}
     >
       {isLoading ? (
