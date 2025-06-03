@@ -449,6 +449,10 @@ async function addPodcastShareCount(id) {
   return http.put(`${podcastsEndpoint}/addShareCount/${id}`);
 }
 
+async function addVideoShareCount(id) {
+  return http.put(`${videosEndpoint}/addShareCount/${id}`);
+}
+
 export default {
   getArticles,
   getArticleById,
@@ -475,4 +479,5 @@ export default {
   addArticleDownloadCount,
   addArticleShareCount,
   addPodcastShareCount,
+  addVideoShareCount,
 };
