@@ -32,7 +32,7 @@ ActionButton.propTypes = {
   /**
    * Function to handle click event
    */
-  handleClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
 
   /**
    * Boolean to indicate if the button is loading
