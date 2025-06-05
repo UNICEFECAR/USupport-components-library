@@ -46,6 +46,12 @@
 
   &__text {
     margin-left: $spacing_1_8;
+
+    &--no-icon {
+      margin-left: 0;
+      text-align: center;
+    }
+
     & span {
       font-weight: $font_regular;
     }
