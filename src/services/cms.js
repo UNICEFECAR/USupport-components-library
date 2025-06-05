@@ -453,6 +453,16 @@ async function addVideoShareCount(id) {
   return http.put(`${videosEndpoint}/addShareCount/${id}`);
 }
 
+/**
+ * Get comprehensive statistics for all categories
+ *
+ * @returns {object} comprehensive category statistics
+ */
+async function getAllCategoriesStatistics() {
+  const { data } = await http.get(`${CMS_API_URL}/category-statistics/all`);
+  return data;
+}
+
 export default {
   getArticles,
   getArticleById,
@@ -480,4 +490,5 @@ export default {
   addArticleShareCount,
   addPodcastShareCount,
   addVideoShareCount,
+  getAllCategoriesStatistics,
 };
