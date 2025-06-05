@@ -483,6 +483,11 @@ async function deletePodcast(id) {
   return response;
 }
 
+async function getPlatformMetrics() {
+  const response = await http.get(`${API_ENDPOINT}/platform-metrics`);
+  return response;
+}
+
 const exportedFunctions = {
   createAdmin,
   deleteArticle,
@@ -537,6 +542,7 @@ const exportedFunctions = {
   getPodcasts,
   putPodcast,
   deletePodcast,
+  getPlatformMetrics,
 };
 
 export default exportedFunctions;
