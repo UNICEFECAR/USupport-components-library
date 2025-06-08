@@ -50,8 +50,8 @@ export const MapProvider = ({
     : "";
 
   const navigateToParking = (app) => {
-    if (parking && parking.location) {
-      const { lat, lng } = parking.location;
+    if (geolocation && geolocation.lat && geolocation.lng) {
+      const { lat, lng } = geolocation;
       let navigationUrl = "";
 
       if (app === "google") {
@@ -110,12 +110,14 @@ export const MapProvider = ({
           iconName="google-maps"
           type="secondary"
           size="sm"
+          onClick={() => navigateToParking("google")}
         />
         <ButtonWithIcon
           label={"Waze"}
           iconName="waze"
           type="secondary"
           size="sm"
+          onClick={() => navigateToParking("waze")}
         />
       </div>
     </div>
