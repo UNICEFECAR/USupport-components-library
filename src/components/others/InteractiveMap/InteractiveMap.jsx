@@ -3,12 +3,13 @@ import {
   GoogleMap,
   useJsApiLoader,
   MarkerF,
-  MarkerClusterer,
+  InfoWindowF,
 } from "@react-google-maps/api";
 import classNames from "classnames";
 
 import { Loading } from "../../loaders";
 import { ButtonOnlyIcon } from "../../buttons";
+import { MapProvider } from "../../cards";
 
 import "./interactive-map.scss";
 
@@ -20,14 +21,22 @@ import "./interactive-map.scss";
  *
  * @return {jsx}
  */
-export const InteractiveMap = ({ providers, classes, onMapReady }) => {
+export const InteractiveMap = ({
+  providers,
+  classes,
+  onMapReady,
+  onProviderSelect, // Add prop for handling provider selection
+  t, // Add translation prop
+  freeLabel = "Free", // Add free label prop
+}) => {
   const [map, setMap] = React.useState(null);
   const [userLocation, setUserLocation] = React.useState(null);
+  const [selectedMarker, setSelectedMarker] = React.useState(null);
 
   const [initialCenter, setInitialCenter] = React.useState({
     lat: 44.4268,
     lng: 26.1025,
-  }); // Bucharest default
+  }); // Default to Bucharest coordinates
   const [hasSetInitialView, setHasSetInitialView] = React.useState(false);
   const [locationPermissionDenied, setLocationPermissionDenied] =
     React.useState(false);
@@ -41,12 +50,19 @@ export const InteractiveMap = ({ providers, classes, onMapReady }) => {
     (mapInstance) => {
       setMap(mapInstance);
 
-      // Pass the zoom function to parent component
       if (onMapReady) {
         onMapReady({
           zoomToLocation: (lat, lng, zoom = 12) => {
             mapInstance.panTo({ lat, lng });
             mapInstance.setZoom(zoom);
+          },
+          selectProvider: (provider) => {
+            // Close any existing info window first
+            setSelectedMarker(null);
+            // Open the new info window with a small delay to ensure clean transition
+            setTimeout(() => {
+              setSelectedMarker(provider);
+            }, 100);
           },
         });
       }
@@ -114,6 +130,27 @@ export const InteractiveMap = ({ providers, classes, onMapReady }) => {
     requestUserLocation(false);
   }, [requestUserLocation]);
 
+  const handleMarkerClick = React.useCallback((provider) => {
+    setSelectedMarker(null);
+    setTimeout(() => {
+      setSelectedMarker(provider);
+    }, 0);
+  }, []);
+
+  const handleInfoWindowClose = React.useCallback(() => {
+    setSelectedMarker(null);
+  }, []);
+
+  const handleProviderViewProfile = React.useCallback(
+    (provider) => {
+      if (onProviderSelect) {
+        onProviderSelect(provider);
+      }
+      setSelectedMarker(null);
+    },
+    [onProviderSelect]
+  );
+
   const renderMarkers = () => {
     return providers.map((provider, index) => (
       <MarkerF
@@ -123,6 +160,7 @@ export const InteractiveMap = ({ providers, classes, onMapReady }) => {
           lng: provider.address.lng,
         }}
         title={provider.name}
+        onClick={() => handleMarkerClick(provider)}
       />
     ));
   };
@@ -150,6 +188,43 @@ export const InteractiveMap = ({ providers, classes, onMapReady }) => {
     );
   };
 
+  const renderInfoWindow = () => {
+    if (!selectedMarker) return null;
+
+    return (
+      <InfoWindowF
+        key={`info-window-${selectedMarker.providerDetailId}`}
+        position={{
+          lat: selectedMarker.address.lat,
+          lng: selectedMarker.address.lng,
+        }}
+        options={{
+          pixelOffset: new window.google.maps.Size(0, -38),
+          disableAutoPan: false,
+        }}
+        onCloseClick={handleInfoWindowClose}
+      >
+        <MapProvider
+          image={selectedMarker.image}
+          name={selectedMarker.name}
+          patronym={selectedMarker.patronym}
+          surname={selectedMarker.surname}
+          specializations={selectedMarker.specializations}
+          price={selectedMarker.price}
+          freeLabel={freeLabel}
+          providerStatus={selectedMarker.providerStatus}
+          earliestAvailableSlot={selectedMarker.earliestAvailableSlot}
+          onViewProfile={() => handleProviderViewProfile(selectedMarker)}
+          geolocation={{
+            lat: selectedMarker.address.lat,
+            lng: selectedMarker.address.lng,
+          }}
+          t={t}
+        />
+      </InfoWindowF>
+    );
+  };
+
   if (!isLoaded) {
     return <Loading />;
   }
@@ -163,9 +238,11 @@ export const InteractiveMap = ({ providers, classes, onMapReady }) => {
         options={mapOptions}
         onLoad={onMapLoad}
         onUnmount={onUnmount}
+        onClick={() => setSelectedMarker(null)} // Close info window when clicking on map
       >
         {renderMarkers()}
         {renderUserLocationMarker()}
+        {renderInfoWindow()}
       </GoogleMap>
 
       {!locationPermissionDenied && (
@@ -205,4 +282,19 @@ InteractiveMap.defaultProps = {
    * Callback function called when map is ready with map controls
    */
   onMapReady: null,
+
+  /**
+   * Callback function called when a provider is selected from the map
+   */
+  onProviderSelect: null,
+
+  /**
+   * Translation function
+   */
+  t: (key) => key,
+
+  /**
+   * Label for free services
+   */
+  freeLabel: "Free",
 };

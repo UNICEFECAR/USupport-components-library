@@ -34,4 +34,42 @@
     align-items: center;
     justify-content: center;
   }
+
+  // Legacy info window styles (keeping for backward compatibility)
+  &__info-window {
+    min-width: 20rem;
+
+    .gm-style-iw .gm-style-iw-c {
+      padding: 0;
+    }
+
+    &__name {
+      font-weight: $font_semi_bold;
+    }
+  }
+
+  .gm-style {
+    padding: 0;
+  }
+
+  .gm-style-iw-c {
+    padding: 0;
+  }
+
+  .gm-style-iw {
+    padding: 0;
+  }
+
+  .gm-style-iw-d {
+    padding: 0;
+    overflow: hidden !important;
+  }
+
+  .gm-style-iw-ch {
+    padding: 0;
+  }
+
+  .gm-style-iw-chr {
+    display: none;
+  }
 }
