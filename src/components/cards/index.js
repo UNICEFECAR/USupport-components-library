@@ -18,3 +18,4 @@ export * from './CardPartner';
 export * from './MoodTrackDetails';
 export * from './Answer';
 export * from './StatusBadge';
+export * from './MapProvider';
