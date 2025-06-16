@@ -83,11 +83,11 @@
     cursor: pointer;
 
     @media screen and (min-width: $navbar-tight) {
-      padding: 0 1.2rem 0 0;
+      padding: 0 1rem 0 0;
     }
 
     @media screen and (min-width: $screen-lg) {
-      padding: 0 3rem 0 0;
+      padding: 0 2.5rem 0 0;
     }
 
     & p {
@@ -111,7 +111,7 @@
         padding-top: 12px;
         position: absolute;
         left: 0;
-        transition: width 0.3s;
+        transition: width 0.3s ease;
         width: 0%;
       }
     }
@@ -139,8 +139,32 @@
       padding-top: 12px;
       position: absolute;
       left: 0;
-      transition: width 0.3s;
+      transition: width 0.3s ease;
       width: 100%;
+    }
+  }
+
+  &__dropdown-item {
+    align-items: center;
+    position: relative;
+
+    & > .icon--arrow-chevron-down {
+      transition: transform 0.3s ease-in-out;
+    }
+
+    &--expanded {
+      & > .icon--arrow-chevron-down {
+        transform: rotate(180deg);
+      }
+    }
+
+    // Show chevron rotation on hover for desktop
+    @media screen and (min-width: $navbar-tight) {
+      &:hover {
+        & > .icon--arrow-chevron-down {
+          transform: rotate(180deg);
+        }
+      }
     }
   }
 
@@ -188,7 +212,8 @@
     left: 1rem;
     top: 50rem;
     opacity: 0;
-    transition: opacity 0.1s ease-in-out;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
 
     @media screen and (min-width: $navbar-tight) {
       top: 7.5rem;
@@ -207,6 +232,7 @@
 
     &--shown {
       opacity: 1;
+      visibility: visible;
     }
 
     &--mobile {
@@ -221,16 +247,15 @@
       position: relative;
       padding: $spacing_1_8;
       max-height: 0;
+      overflow: hidden;
       transition: max-height 0.4s ease-in-out;
-      overflow-y: auto;
       @include scrollbar-secondary;
 
       &--shown {
-        height: 16rem;
         max-height: 16rem;
+        overflow-y: auto;
 
         @media screen and (min-width: $navbar-tight) {
-          height: 20rem;
           max-height: 20rem;
         }
       }
@@ -295,6 +320,83 @@
   &__countries {
     @media screen and (min-width: $navbar-spread) {
       right: 10rem;
+    }
+  }
+
+  // Enhanced Page dropdown styles
+  &__page-dropdown {
+    position: fixed;
+    z-index: $z_index_emergency_button;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+    pointer-events: none;
+
+    &--visible {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    &--animating {
+      pointer-events: none;
+    }
+
+    &__content {
+      position: relative;
+      padding: $spacing_0_8 0;
+      max-height: 20rem;
+      overflow-y: auto;
+      @include scrollbar-secondary;
+      min-width: 12rem;
+      box-shadow: $shadow_1;
+      @include themify($themes, "background", "color_white_ff");
+      border-radius: $spacing_0_4;
+      margin-top: $spacing_0_4;
+
+      &--visible {
+        // Remove animation
+      }
+    }
+  }
+
+  &__page-dropdown-content {
+    padding: $spacing_0_4 0;
+  }
+
+  &__page-dropdown-item {
+    cursor: pointer;
+    padding: $spacing_1_0 $spacing_1_6;
+    white-space: nowrap;
+
+    &:hover {
+      & p {
+        @include themify($themes, "color", "color_primary_20809e");
+      }
+    }
+
+    &--active {
+      & p {
+        @include themify($themes, "color", "color_primary_20809e");
+        text-decoration: underline;
+        font-weight: $font_bold;
+      }
+    }
+
+    &:first-child {
+      padding-top: $spacing_1_2;
+    }
+
+    &:last-child {
+      padding-bottom: $spacing_1_2;
+    }
+
+    & p {
+      margin: 0;
+      padding: 0;
+      text-align: left;
+      font-size: 1.4rem;
+      line-height: 1.4;
     }
   }
 
@@ -409,6 +511,10 @@
       &::after {
         width: 100%;
       }
+    }
+
+    &__yellow-text {
+      @include themify($themes, "color", "color_yellow_fdda0d");
     }
   }
 }
