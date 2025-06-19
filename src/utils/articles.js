@@ -18,7 +18,7 @@ function destructureArticleData(article) {
   const categoryId = articleData.category?.data?.id;
   const categoryName = articleData.category?.data?.attributes?.name;
   const description = articleData.description;
-  const ageGroupId = articleData.age_groups.data[0]?.id;
+  const ageGroupId = articleData.age_groups?.data[0]?.id;
 
   const author = articleData.author;
 
@@ -125,8 +125,8 @@ const destructureVideoData = (videoData) => {
 };
 
 function computeArticleLabels(labels) {
-  return labels.map((label) => {
-    return { name: label.attributes.Name };
+  return labels?.map((label) => {
+    return { name: label.attributes.Name, id: label.id };
   });
 }
 
