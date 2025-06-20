@@ -9,6 +9,10 @@
   position: relative;
   @include themify($themes, "background-color", "color_white_ff");
 
+  &--read {
+    opacity: 0.75 !important;
+  }
+
   &__labels {
     display: flex;
     flex-wrap: wrap;
@@ -94,6 +98,23 @@
 
     .small-text {
       font-weight: $font_bold;
+      @include themify($themes, "color", "color_66768d_3d527b");
+    }
+  }
+
+  &__read {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: $color_green_7ec680;
+    border-bottom-left-radius: 1.2rem;
+    border-top-right-radius: $border_radius_2_4;
+    padding: $spacing_0_6 $spacing_1_6;
+    text-align: center;
+
+    &__text {
+      font-weight: $font_bold;
+      color: $color_white_ff !important;
     }
   }
 

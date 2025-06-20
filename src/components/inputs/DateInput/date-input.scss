@@ -21,7 +21,7 @@
 
   &-placeholder {
     position: absolute;
-    top: 50%;
+    top: 53.5%;
     left: 2.8rem;
     cursor: pointer;
     z-index: 2;
@@ -37,4 +37,5 @@ input[type="date"]:in-range::-webkit-datetime-edit-text {
 
 input[type="date"] {
   color: transparent !important;
+  font-size: 0;
 }
