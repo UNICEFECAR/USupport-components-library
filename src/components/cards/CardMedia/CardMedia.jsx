@@ -37,6 +37,7 @@ export const CardMedia = ({
   isLikedByUser,
   isDislikedByUser,
   contentType = "articles",
+  isRead,
   children,
   t,
   ...props
@@ -44,7 +45,10 @@ export const CardMedia = ({
   return (
     <Box
       classes={[
-        `card-media card-media--${type} card-media--${size}`,
+        `card-media card-media--${type} card-media--${size} ${
+          isRead ? " card-media--read" : ""
+        }`,
+        ,
         classNames(classes),
       ].join("")}
       {...props}
@@ -65,6 +69,11 @@ export const CardMedia = ({
                 {categoryName}
               </p>
             </div>
+            {isRead && (
+              <div className="card-media__read">
+                <p className="small-text card-media__read__text">{t("read")}</p>
+              </div>
+            )}
           </GridItem>
         </Grid>
         <div className="card-media__content__details">
