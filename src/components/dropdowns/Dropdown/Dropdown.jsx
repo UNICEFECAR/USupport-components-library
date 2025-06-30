@@ -45,7 +45,7 @@ export const Dropdown = ({
     return () => window.removeEventListener("resize", updateWidth);
   }, [selected]);
 
-  let placeholderText = "Select";
+  let placeholderText = placeholder || "Select";
   if (!placeholder || placeholder === "Select") {
     const language = localStorage.getItem("language");
     switch (language) {
