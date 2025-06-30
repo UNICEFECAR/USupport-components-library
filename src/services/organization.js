@@ -64,6 +64,36 @@ const removeProviderFromOrganization = async (payload) => {
   return response.data;
 };
 
+const getOrganizationWorkWith = async () => {
+  const response = await http.get(`${API_ENDPOINT}/work/with`);
+  return response.data;
+};
+
+const getDistricts = async () => {
+  const response = await http.get(`${API_ENDPOINT}/districts`);
+  return response.data;
+};
+
+const getPaymentMethods = async () => {
+  const response = await http.get(`${API_ENDPOINT}/payment-methods`);
+  return response.data;
+};
+
+const getUserInteractions = async () => {
+  const response = await http.get(`${API_ENDPOINT}/user-interactions`);
+  return response.data;
+};
+
+const getOrganizationSpecialisations = async () => {
+  const response = await http.get(`${API_ENDPOINT}/specialisations`);
+  return response.data;
+};
+
+async function getOrganizationMetadata() {
+  const response = await http.get(`${API_ENDPOINT}/metadata`);
+  return response.data;
+}
+
 const exportedFunctions = {
   getAllOrganizations,
   getOrganizationsWithDetails,
@@ -72,6 +102,12 @@ const exportedFunctions = {
   editOrganization,
   assignProvidersToOrganization,
   removeProviderFromOrganization,
+  getOrganizationWorkWith,
+  getDistricts,
+  getPaymentMethods,
+  getUserInteractions,
+  getOrganizationSpecialisations,
+  getOrganizationMetadata,
 };
 
 export default exportedFunctions;

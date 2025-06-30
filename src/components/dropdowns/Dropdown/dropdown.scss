@@ -21,6 +21,17 @@
     width: 36.8rem;
   }
 
+  &--small {
+    width: max-content;
+    max-width: 34.3rem;
+    display: flex;
+
+    @media screen and (min-width: $screen-lg) {
+      width: max-content;
+      display: flex;
+    }
+  }
+
   .heading {
     padding: $spacing_1_0 $spacing_1_6;
     display: flex;
@@ -52,6 +63,13 @@
     .placeholder {
       color: $color_gray_a6b4b8;
     }
+
+    .text {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 25rem;
+    }
   }
 
   &-content {
@@ -68,6 +86,10 @@
 
     @media screen and (min-width: $screen-lg) {
       width: 35.2rem;
+    }
+
+    &--small {
+      max-width: calc(34.3rem - $spacing_1_6);
     }
 
     &__options-container {
@@ -135,6 +157,10 @@
       &__options-container {
         transition: max-height 0.3s ease-in-out;
         max-height: 16.4rem;
+      }
+
+      &--small {
+        margin-right: 0;
       }
     }
   }

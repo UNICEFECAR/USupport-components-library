@@ -88,5 +88,5 @@ StoreButton.propTypes = {
   /**
    * Store to render in the StoreButton component
    **/
-  store: PropTypes.oneOf(["google-play", "app-store"]).isRequired,
+  store: PropTypes.oneOf(["google-play", "app-store", "web"]).isRequired,
 };
