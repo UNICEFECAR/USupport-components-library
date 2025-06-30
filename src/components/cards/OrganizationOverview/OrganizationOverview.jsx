@@ -75,7 +75,9 @@ export const OrganizationOverview = ({
           )}
           {address && (
             <div className="organization-overview-card__address">
-              <Icon name="location" size="sm" color="#20809E" />
+              <div>
+                <Icon name="location" size="sm" color="#20809E" />
+              </div>
               <p className="small-text">{address}</p>
             </div>
           )}
