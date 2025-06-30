@@ -26,11 +26,12 @@ export const InteractiveMap = ({
   classes,
   onMapReady,
   onSelectItem,
+  userLocation,
+  setUserLocation,
   t,
   navigate,
 }) => {
   const [map, setMap] = React.useState(null);
-  const [userLocation, setUserLocation] = React.useState(null);
   const [selectedMarker, setSelectedMarker] = React.useState(null);
 
   const [initialCenter, setInitialCenter] = React.useState({
