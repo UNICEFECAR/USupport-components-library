@@ -22,12 +22,12 @@ import "./interactive-map.scss";
  * @return {jsx}
  */
 export const InteractiveMap = ({
-  providers,
+  data,
   classes,
   onMapReady,
-  onProviderSelect, // Add prop for handling provider selection
-  t, // Add translation prop
-  freeLabel = "Free", // Add free label prop
+  onSelectItem,
+  t,
+  navigate,
 }) => {
   const [map, setMap] = React.useState(null);
   const [userLocation, setUserLocation] = React.useState(null);
@@ -130,10 +130,10 @@ export const InteractiveMap = ({
     requestUserLocation(false);
   }, [requestUserLocation]);
 
-  const handleMarkerClick = React.useCallback((provider) => {
+  const handleMarkerClick = React.useCallback((organization) => {
     setSelectedMarker(null);
     setTimeout(() => {
-      setSelectedMarker(provider);
+      setSelectedMarker(organization);
     }, 0);
   }, []);
 
@@ -142,25 +142,27 @@ export const InteractiveMap = ({
   }, []);
 
   const handleProviderViewProfile = React.useCallback(
-    (provider) => {
-      if (onProviderSelect) {
-        onProviderSelect(provider);
+    (organization) => {
+      if (onSelectItem) {
+        onSelectItem(organization);
       }
       setSelectedMarker(null);
     },
-    [onProviderSelect]
+    [onSelectItem]
   );
 
   const renderMarkers = () => {
-    return providers.map((provider, index) => (
+    if (!data || !Array.isArray(data)) return null;
+
+    return data.map((item) => (
       <MarkerF
-        key={`marker-${provider.providerDetailId}-${index}`}
+        key={`marker-${item.organizationId}`}
         position={{
-          lat: provider.address.lat,
-          lng: provider.address.lng,
+          lat: item.location.latitude,
+          lng: item.location.longitude,
         }}
-        title={provider.name}
-        onClick={() => handleMarkerClick(provider)}
+        title={item.name}
+        onClick={() => handleMarkerClick(item)}
       />
     ));
   };
@@ -193,10 +195,10 @@ export const InteractiveMap = ({
 
     return (
       <InfoWindowF
-        key={`info-window-${selectedMarker.providerDetailId}`}
+        key={`info-window-${selectedMarker.organizationId}`}
         position={{
-          lat: selectedMarker.address.lat,
-          lng: selectedMarker.address.lng,
+          lat: selectedMarker.location.latitude,
+          lng: selectedMarker.location.longitude,
         }}
         options={{
           pixelOffset: new window.google.maps.Size(0, -38),
@@ -204,23 +206,7 @@ export const InteractiveMap = ({
         }}
         onCloseClick={handleInfoWindowClose}
       >
-        <MapProvider
-          image={selectedMarker.image}
-          name={selectedMarker.name}
-          patronym={selectedMarker.patronym}
-          surname={selectedMarker.surname}
-          specializations={selectedMarker.specializations}
-          price={selectedMarker.price}
-          freeLabel={freeLabel}
-          providerStatus={selectedMarker.providerStatus}
-          earliestAvailableSlot={selectedMarker.earliestAvailableSlot}
-          onViewProfile={() => handleProviderViewProfile(selectedMarker)}
-          geolocation={{
-            lat: selectedMarker.address.lat,
-            lng: selectedMarker.address.lng,
-          }}
-          t={t}
-        />
+        <MapProvider organization={selectedMarker} t={t} navigate={navigate} />
       </InfoWindowF>
     );
   };
@@ -286,15 +272,10 @@ InteractiveMap.defaultProps = {
   /**
    * Callback function called when a provider is selected from the map
    */
-  onProviderSelect: null,
+  onSelectItem: null,
 
   /**
    * Translation function
    */
   t: (key) => key,
-
-  /**
-   * Label for free services
-   */
-  freeLabel: "Free",
 };

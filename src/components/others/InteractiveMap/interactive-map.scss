@@ -5,6 +5,12 @@
   border-radius: $border_radius_1_6;
   overflow: hidden;
   border: 0.1rem solid $color_black_00;
+  max-width: 96%;
+  margin: 0 auto;
+
+  @media screen and (min-width: $screen-md) {
+    max-width: 100%;
+  }
 
   &__container {
     width: 100%;
