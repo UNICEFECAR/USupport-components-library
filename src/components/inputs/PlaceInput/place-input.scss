@@ -1,0 +1,182 @@
+@import "../../../styles/theme";
+
+.place-input-container {
+  position: relative;
+  width: 34.3rem;
+  border-radius: $border_radius_2_4;
+  cursor: pointer;
+  z-index: $z_index_1;
+
+  @media screen and (min-width: $screen-lg) {
+    width: 36.8rem;
+  }
+
+  .place-input-loading {
+    padding: 0 $spacing_1_0;
+    display: flex;
+    align-items: center;
+
+    span {
+      font-size: 1.4rem;
+      animation: spin 1s linear infinite;
+      color: $color_secondary_9749fa;
+    }
+  }
+
+  .input-container {
+    .input-wrapper {
+      padding: $spacing_1_0 $spacing_1_6;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      border: 0.1rem solid transparent;
+      border-radius: $border_radius_2_4;
+      @include themify($themes, "background-color", "color_card");
+      transition: border-color 0.2s ease;
+
+      &:hover,
+      &:focus-within {
+        border: 0.1rem solid $color_secondary_9749fa;
+        outline: none;
+      }
+
+      input {
+        border: none;
+        background: transparent;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        font-size: 1.4rem;
+        color: $color_black_37;
+        @include themify($themes, "color", "text_primary");
+
+        &::placeholder {
+          color: $color_gray_a6b4b8;
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+
+    &.has-suggestions {
+      .input-wrapper {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        border: 0.1rem solid $color_secondary_9749fa;
+      }
+    }
+
+    &.loading {
+      .input-wrapper {
+        opacity: 0.8;
+      }
+    }
+
+    &.place-error {
+      .input-wrapper {
+        border: 0.1rem solid $color_red_eb5757;
+      }
+    }
+  }
+}
+
+.place-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  background-color: $color_white_ff;
+  @include themify($themes, "background-color", "color_card");
+  border: 0.1rem solid $color_secondary_9749fa;
+  border-top: none;
+  border-bottom-left-radius: $border_radius_2_4;
+  border-bottom-right-radius: $border_radius_2_4;
+  box-shadow: $shadow_1;
+  max-height: 16.4rem;
+  overflow-y: auto;
+  @include scrollbar-secondary;
+  padding: $spacing_0_8;
+
+  @media screen and (max-width: $screen-md) {
+    max-height: 16.4rem;
+  }
+}
+
+.place-suggestion {
+  padding: $spacing_0_8;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-radius: $border_radius_0_4;
+
+  &:hover,
+  &.selected {
+    background-color: $color_green_f4f7fe;
+    @include themifyCustom(
+      $themes,
+      "background-color",
+      "color_green_f4f7fe",
+      "color_primary_20809e"
+    );
+  }
+
+  &:focus {
+    outline: $color_gray_ea auto 0.1px;
+    border: 1px solid;
+  }
+
+  &__main {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: $color_black_37;
+    @include themify($themes, "color", "text_primary");
+    line-height: 1.4;
+    margin-bottom: 0.2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__secondary {
+    font-size: 1.2rem;
+    color: $color_gray_a6b4b8;
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @media screen and (max-width: $screen-md) {
+    padding: $spacing_0_8;
+
+    &__main {
+      font-size: 1.3rem;
+    }
+
+    &__secondary {
+      font-size: 1.1rem;
+    }
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.create-organizations__container {
+  .place-input-container {
+    margin-bottom: $spacing_2_4;
+
+    + .address-display {
+      margin-top: $spacing_1_6;
+    }
+  }
+}

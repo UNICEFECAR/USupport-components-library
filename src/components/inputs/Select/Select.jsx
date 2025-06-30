@@ -46,7 +46,7 @@ export const Select = ({
   };
 
   return (
-    <div className={classes} style={{ marginTop: "24px" }}>
+    <div className={classes}>
       {label ? <p className="text select-container__label">{label}</p> : null}
       <ReactSelect
         placeholder={<p className="select__placeholder">{placeholder}</p>}
