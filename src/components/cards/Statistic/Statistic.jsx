@@ -18,6 +18,7 @@ export const Statistic = ({
   iconName,
   orientation,
   landscapeSize,
+  hasIcon = true,
 }) => {
   return (
     <Box
@@ -28,20 +29,32 @@ export const Statistic = ({
       ].join(" ")}
     >
       <div className="statistic-card__icon-container">
-        <Icon
-          name={iconName}
-          color="#9749FA"
-          size="lg"
-          classes="statistic-card__icon"
-        />
+        {hasIcon && (
+          <Icon
+            name={iconName}
+            color="#9749FA"
+            size="lg"
+            classes="statistic-card__icon"
+          />
+        )}
       </div>
-      {orientation === "portrait" ? (
-        <h3 className="statistic-card__text">
+      {orientation === "portraite" ? (
+        <h3
+          className={[
+            "statistic-card__text",
+            !hasIcon && "statistic-card__text--no-icon",
+          ].join(" ")}
+        >
           {textBold}
           <br /> <span>{text}</span>
         </h3>
       ) : (
-        <h4 className="statistic-card__text">
+        <h4
+          className={[
+            "statistic-card__text",
+            !hasIcon && "statistic-card__text--no-icon",
+          ].join(" ")}
+        >
           {textBold}
           <br /> <span>{text}</span>
         </h4>

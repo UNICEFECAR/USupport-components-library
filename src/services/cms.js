@@ -203,6 +203,30 @@ async function addArticleReadCount(id) {
   return http.put(`${articlesEndpoint}/addReadCount/${id}`);
 }
 
+//--------------------- PUT Requests ---------------------//;
+/**
+ * send request to increment download count for an article
+ *
+ * @param {string} id - the id of the article
+ *
+ * @returns {object} the ageGroups data
+ */
+async function addArticleDownloadCount(id) {
+  return http.put(`${articlesEndpoint}/addDownloadCount/${id}`);
+}
+
+//--------------------- PUT Requests ---------------------//;
+/**
+ * send request to increment share count for an article
+ *
+ * @param {string} id - the id of the article
+ *
+ * @returns {object} the ageGroups data
+ */
+async function addArticleShareCount(id) {
+  return http.put(`${articlesEndpoint}/addShareCount/${id}`);
+}
+
 //--------------------- Categories ---------------------//;
 /**
  * send request to get all ageGroups
@@ -421,6 +445,24 @@ async function getPodcastLocales(id) {
   return data;
 }
 
+async function addPodcastShareCount(id) {
+  return http.put(`${podcastsEndpoint}/addShareCount/${id}`);
+}
+
+async function addVideoShareCount(id) {
+  return http.put(`${videosEndpoint}/addShareCount/${id}`);
+}
+
+/**
+ * Get comprehensive statistics for all categories
+ *
+ * @returns {object} comprehensive category statistics
+ */
+async function getAllCategoriesStatistics() {
+  const { data } = await http.get(`${CMS_API_URL}/category-statistics/all`);
+  return data;
+}
+
 async function getRecommendedArticlesForCategory(payload) {
   const { data } = await http.put(
     `${articlesEndpoint}/recommended/category`,
@@ -453,5 +495,10 @@ export default {
   getPodcasts,
   getPodcastById,
   getPodcastLocales,
+  addArticleDownloadCount,
+  addArticleShareCount,
+  addPodcastShareCount,
+  addVideoShareCount,
+  getAllCategoriesStatistics,
   getRecommendedArticlesForCategory,
 };

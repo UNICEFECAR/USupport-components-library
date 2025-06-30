@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import PropTypes from "prop-types";
 import OutsideClickHandler from "react-outside-click-handler";
 import { Icon, IconFlag } from "../../icons";
@@ -79,9 +79,17 @@ export const Navbar = ({
   const currentUrl = window.location.href;
   const subdomain = window.location.hostname.split(".")[0];
 
+  // Refs for hover delay management
+  const hoverTimeoutRef = useRef(null);
+  const dropdownTimeoutRef = useRef(null);
+
   const [isNavbarExpanded, setIsNavbarExpanded] = useState(false);
   const [languagesShown, setLanguagesShown] = useState(false);
   const [countriesShown, setCountriesShown] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState(null);
+  const [dropdownPosition, setDropdownPosition] = useState({ left: 0, top: 0 });
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+  const [isDropdownAnimating, setIsDropdownAnimating] = useState(false);
 
   const [selectedLanguage, setSelectedLanguage] = useState(
     initialLanguage || englishLanguage
@@ -129,11 +137,25 @@ export const Navbar = ({
     }
   }, [countries, languages, selectedLanguage]);
 
+  // Cleanup timeouts on unmount
+  useEffect(() => {
+    return () => {
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current);
+      }
+      if (dropdownTimeoutRef.current) {
+        clearTimeout(dropdownTimeoutRef.current);
+      }
+    };
+  }, []);
+
   const scrollTop = () => window.scrollTo(0, 0);
   const toggleNavbar = () => {
     if (width < 1050) {
       setIsNavbarExpanded((prev) => !prev);
       setLanguagesShown(false);
+      setActiveDropdown(null);
+      closePageDropdown();
     }
   };
 
@@ -146,6 +168,105 @@ export const Navbar = ({
     if (isTmpUser && page.url === "/consultations") {
       isTmpUserAction();
     }
+  };
+
+  const closePageDropdown = () => {
+    if (dropdownTimeoutRef.current) {
+      clearTimeout(dropdownTimeoutRef.current);
+    }
+    setIsDropdownAnimating(true);
+    setIsDropdownVisible(false);
+
+    dropdownTimeoutRef.current = setTimeout(() => {
+      setActiveDropdown(null);
+      setIsDropdownAnimating(false);
+    }, 200); // Match the CSS transition duration
+  };
+
+  const openPageDropdown = (pageIndex, event) => {
+    if (dropdownTimeoutRef.current) {
+      clearTimeout(dropdownTimeoutRef.current);
+    }
+
+    const rect = event.currentTarget.getBoundingClientRect();
+    setDropdownPosition({
+      left: rect.left,
+      top: rect.bottom,
+    });
+
+    setActiveDropdown(pageIndex);
+    setLanguagesShown(false);
+    setCountriesShown(false);
+
+    // Small delay to ensure proper animation
+    setTimeout(() => {
+      setIsDropdownVisible(true);
+      setIsDropdownAnimating(false);
+    }, 10);
+  };
+
+  const handleDropdownHover = (pageIndex, event) => {
+    if (width >= 1050) {
+      // Clear any pending close timeout
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current);
+      }
+
+      // If different dropdown or no dropdown open, open immediately
+      if (activeDropdown !== pageIndex) {
+        openPageDropdown(pageIndex, event);
+      }
+    }
+  };
+
+  const handleDropdownLeave = () => {
+    if (width >= 1050) {
+      // Clear any existing timeout
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current);
+      }
+
+      // Set a delay before closing to allow mouse movement to dropdown
+      hoverTimeoutRef.current = setTimeout(() => {
+        closePageDropdown();
+      }, 150); // Small delay to allow mouse movement
+    }
+  };
+
+  const handleDropdownContentEnter = () => {
+    if (width >= 1050) {
+      // Clear the close timeout when entering dropdown content
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current);
+      }
+    }
+  };
+
+  const handleDropdownContentLeave = () => {
+    if (width >= 1050) {
+      // Close dropdown when leaving dropdown content
+      closePageDropdown();
+    }
+  };
+
+  const handleDropdownClick = (pageIndex) => {
+    if (width < 1050) {
+      // Only on mobile
+      setActiveDropdown(activeDropdown === pageIndex ? null : pageIndex);
+      setLanguagesShown(false);
+      setCountriesShown(false);
+    }
+  };
+
+  const handleDropdownItemClick = (url) => {
+    const fullUrl = `${
+      renderIn === "website" ? "" : `/${renderIn}`
+    }/${localStorage.getItem("language")}${url}`;
+
+    navigate(fullUrl);
+    setActiveDropdown(null);
+    closePageDropdown();
+    scrollTop();
   };
 
   const themeButton = () => {
@@ -178,33 +299,91 @@ export const Navbar = ({
   };
 
   let items = [];
-  pages.forEach((page) => {
-    const url = `${
-      renderIn === "website" ? "" : `/${renderIn}`
-    }/${localStorage.getItem("language")}${page.url}`;
+  pages.forEach((page, index) => {
+    if (page.isDropdown) {
+      // Handle dropdown pages
+      if (width >= 1050) {
+        // Desktop: Show as dropdown
+        const isActive = page.dropdownItems?.some((item) =>
+          pathname.includes(
+            item.url.replace("?tab=articles", "").replace("?", "")
+          )
+        );
 
-    items.push({
-      value:
-        isTmpUser && page.url === "/consultations" ? (
-          <div onClick={isTmpUserAction} className="nav__item" role="button">
-            <p className="paragraph">{page.name}</p>
-          </div>
-        ) : (
-          <NavLink
-            target={isInConsultation ? "_blank" : "_self"}
-            to={url}
-            className={({ isActive }) =>
-              "nav__item" + (isActive ? " nav__item--current" : "")
-            }
-            onClick={() => handleNavbarLinkClick(page)}
-            end={page.exact ? page.exact : false}
-            role="button"
-          >
-            <p className="paragraph">{page.name}</p>
-          </NavLink>
-        ),
-      onClick: scrollTop,
-    });
+        items.push({
+          value: (
+            <div
+              className={[
+                "nav__item",
+                "nav__dropdown-item",
+                activeDropdown === index ? "nav__dropdown-item--expanded" : "",
+                isActive ? "nav__item--current" : "",
+              ].join(" ")}
+              role="button"
+              onMouseEnter={(e) => handleDropdownHover(index, e)}
+              onMouseLeave={handleDropdownLeave}
+              onClick={() => handleDropdownClick(index)}
+            >
+              <p className="paragraph">{page.name}</p>
+              <Icon name="arrow-chevron-down" size="sm" color="#20809e" />
+            </div>
+          ),
+          onClick: scrollTop,
+        });
+      } else {
+        // Mobile/Tablet: Show dropdown items as regular pages
+        page.dropdownItems?.forEach((dropdownItem) => {
+          const url = `${
+            renderIn === "website" ? "" : `/${renderIn}`
+          }/${localStorage.getItem("language")}${dropdownItem.url}`;
+
+          items.push({
+            value: (
+              <NavLink
+                target={isInConsultation ? "_blank" : "_self"}
+                to={url}
+                className={({ isActive }) =>
+                  "nav__item" + (isActive ? " nav__item--current" : "")
+                }
+                onClick={() => handleNavbarLinkClick(dropdownItem)}
+                role="button"
+              >
+                <p className="paragraph">{dropdownItem.name}</p>
+              </NavLink>
+            ),
+            onClick: scrollTop,
+          });
+        });
+      }
+    } else {
+      // Handle regular pages
+      const url = `${
+        renderIn === "website" ? "" : `/${renderIn}`
+      }/${localStorage.getItem("language")}${page.url}`;
+
+      items.push({
+        value:
+          isTmpUser && page.url === "/consultations" ? (
+            <div onClick={isTmpUserAction} className="nav__item" role="button">
+              <p className="paragraph">{page.name}</p>
+            </div>
+          ) : (
+            <NavLink
+              target={isInConsultation ? "_blank" : "_self"}
+              to={url}
+              className={({ isActive }) =>
+                "nav__item" + (isActive ? " nav__item--current" : "")
+              }
+              onClick={() => handleNavbarLinkClick(page)}
+              end={page.exact ? page.exact : false}
+              role="button"
+            >
+              <p className="paragraph">{page.name}</p>
+            </NavLink>
+          ),
+        onClick: scrollTop,
+      });
+    }
   });
 
   if (hasThemeButton) {
@@ -320,6 +499,8 @@ export const Navbar = ({
   const toggleLanguages = () => {
     if (!languagesShown) {
       setLanguagesShown(true);
+      setActiveDropdown(null);
+      closePageDropdown();
     }
   };
 
@@ -328,6 +509,8 @@ export const Navbar = ({
       setCountriesShown(true);
     }
     setLanguagesShown(false);
+    setActiveDropdown(null);
+    closePageDropdown();
   };
 
   const renderCtaLoginMobile = () => {
@@ -497,6 +680,37 @@ export const Navbar = ({
       </div>
     );
   };
+
+  // Render page dropdown content
+  const renderPageDropdownContent = (pageIndex) => {
+    const page = pages[pageIndex];
+    if (!page?.dropdownItems) return null;
+
+    return (
+      <div className="nav__page-dropdown-content">
+        {page.dropdownItems.map((item) => {
+          // Check if this dropdown item is currently active
+          const isActive = pathname.includes(
+            item.url.replace("?tab=articles", "").replace("?", "")
+          );
+
+          return (
+            <div
+              key={item.url}
+              onClick={() => handleDropdownItemClick(item.url)}
+              className={[
+                "nav__page-dropdown-item",
+                isActive ? "nav__page-dropdown-item--active" : "",
+              ].join(" ")}
+            >
+              <p className="paragraph">{item.name}</p>
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+
   const defaultLogo = `${AMAZON_S3_BUCKET}/logo-horizontal${
     theme === "dark" ? "-dark" : ""
   }`;
@@ -571,9 +785,12 @@ export const Navbar = ({
             setLanguagesShown(false);
           } else if (countriesShown) {
             setCountriesShown(false);
+          } else if (activeDropdown !== null) {
+            closePageDropdown();
           }
         }}
       >
+        {/* Language/Country Dropdowns */}
         <div
           className={`
           ${languagesShown ? "nav__languages" : "nav__countries "}
@@ -605,6 +822,33 @@ export const Navbar = ({
             {countriesShown ? renderDropdownContent("countries") : null}
           </Box>
         </div>
+
+        {/* Page Dropdowns - Only show on desktop */}
+        {(activeDropdown !== null || isDropdownAnimating) && width >= 1050 && (
+          <div
+            className={[
+              "nav__page-dropdown",
+              isDropdownVisible ? "nav__page-dropdown--visible" : "",
+              isDropdownAnimating ? "nav__page-dropdown--animating" : "",
+            ].join(" ")}
+            style={{
+              left: `${dropdownPosition.left}px`,
+              top: `${dropdownPosition.top}px`,
+            }}
+            onMouseEnter={handleDropdownContentEnter}
+            onMouseLeave={handleDropdownContentLeave}
+          >
+            <Box
+              classes={[
+                "nav__page-dropdown__content",
+                isDropdownVisible ? "nav__page-dropdown__content--visible" : "",
+              ].join(" ")}
+            >
+              {activeDropdown !== null &&
+                renderPageDropdownContent(activeDropdown)}
+            </Box>
+          </div>
+        )}
       </OutsideClickHandler>
     </>
   );
@@ -619,6 +863,13 @@ Navbar.propTypes = {
       name: PropTypes.string.isRequired,
       url: PropTypes.string,
       exact: PropTypes.bool,
+      isDropdown: PropTypes.bool,
+      dropdownItems: PropTypes.arrayOf(
+        PropTypes.shape({
+          name: PropTypes.string.isRequired,
+          url: PropTypes.string.isRequired,
+        })
+      ),
     })
   ).isRequired,
 
