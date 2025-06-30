@@ -89,6 +89,11 @@ const getOrganizationSpecialisations = async () => {
   return response.data;
 };
 
+async function getOrganizationMetadata() {
+  const response = await http.get(`${API_ENDPOINT}/metadata`);
+  return response.data;
+}
+
 const exportedFunctions = {
   getAllOrganizations,
   getOrganizationsWithDetails,
@@ -102,6 +107,7 @@ const exportedFunctions = {
   getPaymentMethods,
   getUserInteractions,
   getOrganizationSpecialisations,
+  getOrganizationMetadata,
 };
 
 export default exportedFunctions;
