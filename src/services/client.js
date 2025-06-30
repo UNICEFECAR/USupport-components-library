@@ -70,6 +70,11 @@ async function getOrganizations(filters) {
   if (filters.userInteraction) {
     filtersQuery += `&userInteraction=${filters.userInteraction}`;
   }
+
+  if (filters.userLocation) {
+    filtersQuery += `&userLocationLat=${filters.userLocation.lat}&userLocationLng=${filters.userLocation.lng}`;
+  }
+
   const response = await http.get(
     `${API_ENDPOINT}/organization${filtersQuery ? `?${filtersQuery}` : ""}`
   );
