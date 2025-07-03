@@ -117,4 +117,5 @@ export {
   getCountryFromSubdomain,
   constructShareUrl,
   redirectToUrl,
+  countriesMap,
 };
