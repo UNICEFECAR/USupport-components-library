@@ -12,7 +12,12 @@ import "./organization-details.scss";
  *
  * @return {jsx}
  */
-export const OrganizationDetails = ({ organization, t, buttonComponent }) => {
+export const OrganizationDetails = ({
+  organization,
+  t,
+  buttonComponent,
+  handleCopyLink,
+}) => {
   const renderWorkWith = React.useCallback(() => {
     if (organization) {
       return organization.workWith.map((x) => t(x.topic))?.join(", ");
@@ -35,9 +40,17 @@ export const OrganizationDetails = ({ organization, t, buttonComponent }) => {
               classes="organization-details__header__organization-container__avatar"
             /> */}
             <div className="organization-details__header__organization-container__text-container">
-              <h4 className="organization-details__header__organization-container__text-container__name">
-                {organization.name}
-              </h4>
+              <div className="organization-details__header__organization-container__text-container__name-container">
+                <h4 className="organization-details__header__organization-container__text-container__name">
+                  {organization.name}
+                </h4>
+                <div
+                  onClick={handleCopyLink}
+                  className="organization-details__header__organization-container__text-container__share"
+                >
+                  <Icon name="share" size="sm" />
+                </div>
+              </div>
               {organization.unitName && (
                 <p className="paragraph">{organization.unitName}</p>
               )}
