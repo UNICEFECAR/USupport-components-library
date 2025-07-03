@@ -92,16 +92,23 @@ const constructShareUrl = ({ contentType, id }) => {
   const language = localStorage.getItem("language");
   const subdomain = window.location.hostname.split(".")[0];
 
+  let contentUrl = `information-portal/${contentType}/${id}`;
+
+  if (contentType === "organization") {
+    contentUrl = `organization-overview/${id}`;
+  }
+
   if (subdomain === "staging") {
-    return `https://staging.usupport.online/${language}/information-portal/${contentType}/${id}`;
+    return `https://staging.usupport.online/${language}/${contentUrl}`;
   }
 
   if (country === "global") {
-    return `https://usupport.online/${language}/information-portal/${contentType}/${id}`;
+    return `https://usupport.online/${language}/${contentUrl}`;
   }
   const countryName = countriesMap[country.toLocaleLowerCase()];
 
-  const url = `https://${countryName}.usupport.online/${language}/information-portal/${contentType}/${id}`;
+  const url = `https://${countryName}.usupport.online/${language}/${contentUrl}`;
+  console.log("url", url);
   return url;
 };
 
