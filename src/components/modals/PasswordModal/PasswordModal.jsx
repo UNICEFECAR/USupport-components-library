@@ -20,14 +20,12 @@ export const PasswordModal = ({
   handleSubmit,
   isLoading,
   placeholder,
+  environment,
 }) => {
   const [value, setValue] = useState("");
-  console.log(process.env.NODE_ENV, "process.env.NODE_ENV");
+  console.log(environment, "environment");
   console.log(isOpen, "isOpen");
-  if (
-    process.env.NODE_ENV === "development" ||
-    process.env.NODE_ENV === "production"
-  ) {
+  if (environment === "development" || environment === "production") {
     return null;
   }
   return (
