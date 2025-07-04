@@ -22,7 +22,13 @@ export const PasswordModal = ({
   placeholder,
 }) => {
   const [value, setValue] = useState("");
-  return null;
+
+  if (
+    process.env.NODE_ENV === "development" ||
+    process.env.NODE_ENV === "production"
+  ) {
+    return null;
+  }
   return (
     <Modal
       overlayClasses="password-modal"
