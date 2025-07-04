@@ -20,14 +20,13 @@ export const PasswordModal = ({
   handleSubmit,
   isLoading,
   placeholder,
-  environment,
 }) => {
   const [value, setValue] = useState("");
-  console.log(environment, "environment");
-  console.log(isOpen, "isOpen");
-  if (environment === "development" || environment === "production") {
+  const isStaging = window.location.hostname.includes("staging");
+  if (!isStaging) {
     return null;
   }
+
   return (
     <Modal
       overlayClasses="password-modal"
