@@ -8,8 +8,12 @@ const getAllOrganizations = async () => {
   return response.data;
 };
 
-const getOrganizationsWithDetails = async () => {
-  const response = await http.get(`${API_ENDPOINT}/all/details`);
+const getOrganizationsWithDetails = async (search) => {
+  let filtersQuery = "";
+
+  if (search) filtersQuery += `?search=${search}`;
+
+  const response = await http.get(`${API_ENDPOINT}/all/details${filtersQuery}`);
   return response.data;
 };
 
