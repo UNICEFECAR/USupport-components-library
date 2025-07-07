@@ -168,4 +168,25 @@ const destructurePodcastData = (data) => {
   };
 };
 
-export { destructureArticleData, destructureVideoData, destructurePodcastData };
+const createArticleSlug = (title) => {
+  return (
+    title
+      .toLowerCase()
+      // Normalize Unicode characters (NFD = decomposed form)
+      .normalize("NFD")
+      // Remove diacritics/accents but keep the base characters
+      .replace(/[\u0300-\u036f]/g, "")
+      // Replace whitespace and non-word characters with hyphens
+      // \p{L} matches any Unicode letter, \p{N} matches any Unicode number
+      .replace(/[^\p{L}\p{N}]+/gu, "-")
+      // Remove leading and trailing hyphens
+      .replace(/^-+|-+$/g, "")
+  );
+};
+
+export {
+  destructureArticleData,
+  destructureVideoData,
+  destructurePodcastData,
+  createArticleSlug,
+};
