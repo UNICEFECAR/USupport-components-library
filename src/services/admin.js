@@ -488,6 +488,21 @@ async function getPlatformMetrics() {
   return response;
 }
 
+/**
+ * Update content type active status for a country
+ * @param {Object} payload
+ * @param {string} payload.contentType - The content type (videos or podcasts)
+ * @param {string} payload.status - The status (enabled or disabled)
+ * @returns {Promise} the promise of the http request
+ */
+async function updateContentActiveStatus(payload) {
+  const response = await http.put(
+    `${API_ENDPOINT}/content-active-status`,
+    payload
+  );
+  return response;
+}
+
 const exportedFunctions = {
   createAdmin,
   deleteArticle,
@@ -543,6 +558,7 @@ const exportedFunctions = {
   putPodcast,
   deletePodcast,
   getPlatformMetrics,
+  updateContentActiveStatus,
 };
 
 export default exportedFunctions;
