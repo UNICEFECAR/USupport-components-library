@@ -69,6 +69,8 @@ export const Navbar = ({
   renderIn = "website",
   hasThemeButton = false,
   setInitialCountry,
+  setIsPodcastsActive,
+  setIsVideosActive,
   t,
 }) => {
   const { theme, setTheme } = useContext(ThemeContext);
@@ -466,6 +468,14 @@ export const Navbar = ({
       }
       setSelectedCountry(country);
       setCountriesShown(false);
+
+      if (setIsPodcastsActive) {
+        setIsPodcastsActive(country.podcastsActive);
+      }
+      if (setIsVideosActive) {
+        setIsVideosActive(country.videosActive);
+      }
+
       localStorage.setItem("country_id", country.countryID);
       localStorage.setItem("country", country.value);
       localStorage.setItem("currency_symbol", country.currencySymbol);
