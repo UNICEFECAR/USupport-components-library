@@ -273,6 +273,13 @@ async function getInformationPortalSuggestions(countryId) {
   return response;
 }
 
+async function getPlatformSuggestions(type) {
+  const response = await http.get(
+    `${API_ENDPOINT}/statistics/platform-suggestions?type=${type}`
+  );
+  return response;
+}
+
 async function getClientRatings(countryId) {
   const response = await http.get(
     `${API_ENDPOINT}/statistics/client-ratings?countryId=${countryId}`
@@ -534,6 +541,7 @@ const exportedFunctions = {
   updateDataById,
   getSecurityChecks,
   getInformationPortalSuggestions,
+  getPlatformSuggestions,
   getClientRatings,
   getContactForms,
   getProviderActivitiesById,
