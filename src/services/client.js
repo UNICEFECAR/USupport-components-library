@@ -223,6 +223,20 @@ async function getCategoryInteractions() {
   return response;
 }
 
+/**
+ *
+ * @param {string} suggestion
+ * @param {string} type "information-portal" | "my-qa" | "consultations" | "organizations" | "mood-tracker"
+ * @returns {Promise} the response of the request
+ */
+async function sendPlatformSuggestion({ suggestion, type }) {
+  const response = await http.post(`${API_ENDPOINT}/add-platform-suggestion`, {
+    suggestion,
+    type,
+  });
+  return response;
+}
+
 const exportedFunctions = {
   addMoodTrack,
   getClientData,
@@ -251,6 +265,7 @@ const exportedFunctions = {
   getCategoryInteractions,
   getOrganizations,
   getOrganizationById,
+  sendPlatformSuggestion,
 };
 
 export default exportedFunctions;
