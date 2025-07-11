@@ -455,11 +455,13 @@ async function addVideoShareCount(id) {
 
 /**
  * Get comprehensive statistics for all categories
- *
+ * @param {string} contentType - the type of content to get statistics for e.g. articles, videos, podcasts, all
  * @returns {object} comprehensive category statistics
  */
-async function getAllCategoriesStatistics() {
-  const { data } = await http.get(`${CMS_API_URL}/category-statistics/all`);
+async function getAllCategoriesStatistics(contentType) {
+  const { data } = await http.get(
+    `${CMS_API_URL}/category-statistics/all?contentType=${contentType}`
+  );
   return data;
 }
 
