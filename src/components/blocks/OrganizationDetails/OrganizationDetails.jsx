@@ -76,7 +76,6 @@ export const OrganizationDetails = ({
                   <Icon name="share" size="sm" />
                 </div>
               </div>
-              {/* Removed unitName since it's no longer in the database */}
             </div>
           </div>
         </div>

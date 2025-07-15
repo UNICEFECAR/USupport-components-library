@@ -18,7 +18,6 @@ const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
  */
 export const OrganizationOverview = ({
   name,
-  unitName,
   image,
   paymentMethod,
   specialisations = [],
@@ -39,11 +38,6 @@ export const OrganizationOverview = ({
               <p className="organization-overview-card__content__text-content__name">
                 {name}
               </p>
-              {unitName && (
-                <p className="organization-overview-card__content__text-content__unit-name small-text">
-                  {unitName}
-                </p>
-              )}
             </div>
             {paymentMethod?.id && (
               <div
@@ -95,11 +89,6 @@ OrganizationOverview.propTypes = {
    * Organization name
    */
   name: PropTypes.string.isRequired,
-
-  /**
-   * Unit name of the organization
-   */
-  unitName: PropTypes.string,
 
   /**
    * Image URL for the organization
