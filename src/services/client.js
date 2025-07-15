@@ -75,6 +75,14 @@ async function getOrganizations(filters) {
     filtersQuery += `&userLocationLat=${filters.userLocation.lat}&userLocationLng=${filters.userLocation.lng}`;
   }
 
+  if (filters.specialisation) {
+    filtersQuery += `&specialisation=${filters.specialisation}`;
+  }
+
+  if (filters.propertyType) {
+    filtersQuery += `&propertyType=${filters.propertyType}`;
+  }
+
   const response = await http.get(
     `${API_ENDPOINT}/organization${filtersQuery ? `?${filtersQuery}` : ""}`
   );
