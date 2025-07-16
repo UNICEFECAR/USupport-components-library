@@ -19,16 +19,41 @@ export const OrganizationDetails = ({
   handleCopyLink,
 }) => {
   const renderWorkWith = React.useCallback(() => {
-    if (organization) {
+    if (organization?.workWith?.length > 0) {
       return organization.workWith.map((x) => t(x.topic))?.join(", ");
     }
-  }, [organization]);
+    return null;
+  }, [organization, t]);
 
   const renderSpecialisations = React.useCallback(() => {
-    if (organization) {
+    if (organization?.specialisations?.length > 0) {
       return organization.specialisations.map((x) => t(x.name))?.join(", ");
     }
-  }, [organization]);
+    return null;
+  }, [organization, t]);
+
+  const renderPaymentMethods = React.useCallback(() => {
+    if (organization?.paymentMethods?.length > 0) {
+      return organization.paymentMethods.map((x) => t(x.name))?.join(", ");
+    }
+    return null;
+  }, [organization, t]);
+
+  const renderUserInteractions = React.useCallback(() => {
+    if (organization?.userInteractions?.length > 0) {
+      return organization.userInteractions
+        .map((x) => t(x.name + "_interaction"))
+        ?.join(", ");
+    }
+    return null;
+  }, [organization, t]);
+
+  const renderPropertyTypes = React.useCallback(() => {
+    if (organization?.propertyTypes?.length > 0) {
+      return organization.propertyTypes.map((x) => t(x.name))?.join(", ");
+    }
+    return null;
+  }, [organization, t]);
 
   return (
     <Grid classes="organization-details__grid">
@@ -42,7 +67,7 @@ export const OrganizationDetails = ({
             <div className="organization-details__header__organization-container__text-container">
               <div className="organization-details__header__organization-container__text-container__name-container">
                 <h4 className="organization-details__header__organization-container__text-container__name">
-                  {organization.name}
+                  {organization?.name}
                 </h4>
                 <div
                   onClick={handleCopyLink}
@@ -51,14 +76,11 @@ export const OrganizationDetails = ({
                   <Icon name="share" size="sm" />
                 </div>
               </div>
-              {organization.unitName && (
-                <p className="paragraph">{organization.unitName}</p>
-              )}
             </div>
           </div>
         </div>
 
-        {organization.phone && (
+        {organization?.phone && (
           <div className="organization-details__information-container-with-icon">
             <div>
               <Icon
@@ -71,7 +93,7 @@ export const OrganizationDetails = ({
             <p className="paragraph">{organization.phone}</p>
           </div>
         )}
-        {organization.email && (
+        {organization?.email && (
           <div className="organization-details__information-container-with-icon">
             <div>
               <Icon
@@ -84,7 +106,7 @@ export const OrganizationDetails = ({
             <p className="paragraph">{organization.email}</p>
           </div>
         )}
-        {organization.websiteUrl && (
+        {organization?.websiteUrl && (
           <div className="organization-details__information-container-with-icon">
             <div>
               <Icon
@@ -110,7 +132,7 @@ export const OrganizationDetails = ({
       <GridItem md={8} lg={8}>
         <Grid>
           <GridItem md={4} lg={6} classes="organization-details__grid__item">
-            {organization.address && (
+            {organization?.address && (
               <div className="organization-details__information-container">
                 <p className="paragraph organization-details__information-container__heading">
                   {t("address_label")}
@@ -121,10 +143,10 @@ export const OrganizationDetails = ({
               </div>
             )}
 
-            {organization.district?.name && (
+            {organization?.district?.name && (
               <div className="organization-details__information-container">
                 <p className="paragraph organization-details__information-container__heading">
-                  {t("district_label")}
+                  {t("sector_label")}
                 </p>
                 <p className="paragraph organization-details__information-container__text">
                   {t(organization.district.name)}
@@ -132,17 +154,40 @@ export const OrganizationDetails = ({
               </div>
             )}
 
-            {organization.paymentMethod?.name && (
+            {renderPaymentMethods() && (
               <div className="organization-details__information-container">
                 <p className="paragraph organization-details__information-container__heading">
-                  {t("payment_method_label")}
+                  {t("payment_methods_label")}
                 </p>
                 <p className="paragraph organization-details__information-container__text">
-                  {t(organization.paymentMethod.name)}
+                  {renderPaymentMethods()}
                 </p>
               </div>
             )}
-            {organization.workWith?.length > 0 && (
+
+            {renderUserInteractions() && (
+              <div className="organization-details__information-container">
+                <p className="paragraph organization-details__information-container__heading">
+                  {t("user_interactions_label")}
+                </p>
+                <p className="paragraph organization-details__information-container__text">
+                  {renderUserInteractions()}
+                </p>
+              </div>
+            )}
+
+            {renderPropertyTypes() && (
+              <div className="organization-details__information-container">
+                <p className="paragraph organization-details__information-container__heading">
+                  {t("property_types_label")}
+                </p>
+                <p className="paragraph organization-details__information-container__text">
+                  {renderPropertyTypes()}
+                </p>
+              </div>
+            )}
+
+            {renderWorkWith() && (
               <div className="organization-details__information-container">
                 <p className="paragraph organization-details__information-container__heading">
                   {t("work_with_label")}
@@ -153,10 +198,10 @@ export const OrganizationDetails = ({
               </div>
             )}
 
-            {organization.specialisations?.length > 0 && (
+            {renderSpecialisations() && (
               <div className="organization-details__information-container">
                 <p className="paragraph organization-details__information-container__heading">
-                  {t("specialisations_label")}
+                  {t("offered_services_label")}
                 </p>
                 <p className="paragraph organization-details__information-container__text">
                   {renderSpecialisations()}
@@ -164,7 +209,7 @@ export const OrganizationDetails = ({
               </div>
             )}
 
-            {organization.providers?.length > 0 && (
+            {organization?.providers?.length > 0 && (
               <div className="organization-details__information-container">
                 <p className="paragraph organization-details__information-container__heading">
                   {t("providers_label")}
@@ -179,10 +224,10 @@ export const OrganizationDetails = ({
           </GridItem>
 
           <GridItem md={4} lg={6} classes="organization-details__grid__item">
-            {organization.description && (
+            {organization?.description && (
               <div className="organization-details__information-container">
                 <p className="paragraph organization-details__information-container__heading">
-                  {t("description_label")}
+                  {t("other_services_label")}
                 </p>
                 <p className="paragraph organization-details__information-container__text">
                   {organization.description}
@@ -205,11 +250,6 @@ OrganizationDetails.propTypes = {
   organization: PropTypes.object,
 
   /**
-   * The url of the image
-   */
-  // image: PropTypes.string,
-
-  /**
    * The button component to be rendered at the bottom of the grid
    */
   buttonComponent: PropTypes.element,
@@ -218,4 +258,9 @@ OrganizationDetails.propTypes = {
    * Translation function
    */
   t: PropTypes.func,
+
+  /**
+   * Handle copy link function
+   */
+  handleCopyLink: PropTypes.func,
 };

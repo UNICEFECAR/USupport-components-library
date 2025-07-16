@@ -16,7 +16,6 @@ const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
  */
 export const MapProvider = ({ organization, t, navigate }) => {
   const displayName = organization.name;
-  const unitName = organization.unitName;
   const paymentMethod = organization.paymentMethod;
   const specializations = organization.specialisations || [];
 
@@ -49,10 +48,6 @@ export const MapProvider = ({ organization, t, navigate }) => {
       )}
 
       <p className="text map-provider__name">{displayName}</p>
-
-      {unitName && (
-        <p className="small-text map-provider__unit-name">{unitName}</p>
-      )}
 
       <div className="map-provider__payment-container">
         {paymentMethod && (
