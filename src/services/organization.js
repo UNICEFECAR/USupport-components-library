@@ -98,6 +98,11 @@ async function getOrganizationMetadata() {
   return response.data;
 }
 
+async function deleteOrganization(organizationId) {
+  const response = await http.delete(`${API_ENDPOINT}/${organizationId}`);
+  return response.data;
+}
+
 const exportedFunctions = {
   getAllOrganizations,
   getOrganizationsWithDetails,
@@ -112,6 +117,7 @@ const exportedFunctions = {
   getUserInteractions,
   getOrganizationSpecialisations,
   getOrganizationMetadata,
+  deleteOrganization,
 };
 
 export default exportedFunctions;
