@@ -42,6 +42,14 @@ export const CardMedia = ({
   t,
   ...props
 }) => {
+  const renderLabels = () => {
+    return labels.map((label, index) => {
+      return (
+        <Label classes={"card-media__label"} text={label.name} key={index} />
+      );
+    });
+  };
+
   return (
     <Box
       classes={[
@@ -52,57 +60,75 @@ export const CardMedia = ({
         classNames(classes),
       ].join("")}
       {...props}
+      onClick={onClick}
     >
       <img
         className="card-media__image"
         src={image ? image : "https://picsum.photos/343/400"}
         alt="card-media"
+        onClick={onClick}
       />
+      <div className="card-media__category">
+        <p className="small-text card-media__category__text">{categoryName}</p>
+      </div>
+      {isRead && (
+        <div className="card-media__read">
+          <p className="small-text card-media__read__text">{t("read")}</p>
+        </div>
+      )}
       <div className={"card-media__content"}>
+        {showLabels && labels?.length > 0 && (
+          <div className={"card-media__labels"}>{renderLabels()}</div>
+        )}
+        <div className="card-media__content__details">
+          <div className="card-media__content__details__left">
+            <div className="card-media__content__details__left__read-time-creator-like">
+              <div className="card-media__content__details__left__read-time-creator">
+                {creator && (
+                  <p className={"small-text"}>{t("by", { creator })}</p>
+                )}
+                <div className={"card-media__details"}>
+                  {readingTime && (
+                    <React.Fragment>
+                      <Icon name={"time"} size="sm" color={"#66768d"} />
+                      <p className={"small-text"}>
+                        {readingTime} {t("min_read")}
+                      </p>
+                    </React.Fragment>
+                  )}
+                </div>
+              </div>
+              {/* <Like
+                isLiked={isLikedByUser}
+                isDisliked={isDislikedByUser}
+                likes={likes}
+                dislikes={dislikes}
+              /> */}
+            </div>
+          </div>
+        </div>
         <Grid>
           <GridItem xs={4} md={8} lg={12} classes="card-media__title">
             <h4 className="card-media__title__text">{title}</h4>
           </GridItem>
-          <GridItem xs={4} md={8} lg={12} classes="card-media__title">
-            <div className="card-media__category">
-              <p className="small-text card-media__category__text">
-                {categoryName}
-              </p>
-            </div>
-            {isRead && (
-              <div className="card-media__read">
-                <p className="small-text card-media__read__text">{t("read")}</p>
-              </div>
-            )}
-          </GridItem>
         </Grid>
-        <div className="card-media__content__details">
-          <div className="card-media__content__details__left">
-            {creator && <p className={"small-text"}>{t("by", { creator })}</p>}
-            <div className={"card-media__details"}>
-              {readingTime && (
-                <React.Fragment>
-                  <Icon name={"time"} size="sm" color={"#66768d"} />
-                  <p className={"small-text"}>
-                    {readingTime} {t("min_read")}
-                  </p>
-                </React.Fragment>
-              )}
-            </div>
-            {showLabels && labels?.length > 0 && (
-              <div className={"card-media__labels"}>
-                {labels.map((label, index) => {
-                  return (
-                    <Label
-                      classes={"card-media__label"}
-                      text={label.name}
-                      key={index}
-                    />
-                  );
-                })}
-              </div>
+        <div className={"card-media__description"}>
+          <p className={" small-text"} id="description">
+            {showDescription && description}
+          </p>
+        </div>
+
+        <div className="card-media__bottom-container">
+          <Button
+            type={"text"}
+            label={t(
+              contentType === "articles" ? "read_more_button" : "view_more"
             )}
-          </div>
+            onClick={() => {
+              onClick && onClick();
+            }}
+            classes="card-media__read-more-button"
+          />
           <Like
             isLiked={isLikedByUser}
             isDisliked={isDislikedByUser}
@@ -110,25 +136,6 @@ export const CardMedia = ({
             dislikes={dislikes}
           />
         </div>
-        <div className={"card-media__description"}>
-          <p className={" small-text"} id="description">
-            {showDescription && description}
-          </p>
-        </div>
-
-        <Button
-          type={
-            type === "landscape" && (size === "sm" || size == "md")
-              ? "link"
-              : "primary"
-          }
-          label={t(
-            contentType === "articles" ? "read_more_button" : "view_more"
-          )}
-          onClick={() => {
-            onClick && onClick();
-          }}
-        />
       </div>
 
       {children}

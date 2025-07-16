@@ -4,10 +4,17 @@
   text-align: left;
   display: flex;
   box-shadow: $shadow_1;
-  width: 34.3rem;
+  width: 100%;
   margin: auto;
   position: relative;
-  @include themify($themes, "background-color", "color_white_ff");
+  cursor: pointer;
+  // @include themify($themes, "background-color", "color_white_ff");
+  @include themifyCustom(
+    $themes,
+    "background-color",
+    "color_blue_eaf7f9",
+    "color_blue_263238"
+  );
 
   &--read {
     opacity: 0.75 !important;
@@ -16,14 +23,13 @@
   &__labels {
     display: flex;
     flex-wrap: wrap;
-    height: 2.7rem;
     overflow: hidden;
     overflow-x: hidden;
   }
 
   & .card-media__label {
     margin-bottom: $spacing_0_8;
-    max-width: 90%;
+    // max-width: 90%;
     overflow: hidden;
     padding: 0 $spacing_1_6;
 
@@ -43,6 +49,7 @@
   &__title {
     display: -webkit-box;
     overflow: hidden;
+    width: 100%;
 
     &__text {
       height: 7.2rem;
@@ -51,6 +58,9 @@
   }
 
   &__content {
+    position: relative;
+    width: 90%;
+
     &__details {
       display: flex;
       flex-direction: row;
@@ -60,14 +70,26 @@
 
       &__left {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+        align-items: center;
         justify-content: center;
-      }
-    }
+        // width: 100%;
 
-    & .like {
-      @media screen and (min-width: $screen-lg) {
-        margin-left: $spacing_2_4;
+        &__read-time-creator-like {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          width: 100%;
+          position: relative;
+          padding-top: $spacing_1_0;
+        }
+
+        &__read-time-creator {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          max-width: 100%;
+        }
       }
     }
   }
@@ -78,8 +100,8 @@
     justify-content: center;
     flex-direction: column;
     height: 2.2rem;
-    background-color: $color_blue_c1d7e0;
-    border-radius: $border_radius_2_5;
+    background-color: $color_white_ff;
+    border-radius: $border_radius_0_4;
     margin-bottom: $spacing_0_4;
     overflow: hidden;
     padding: 0 $spacing_1_2 0 $spacing_1_2;
@@ -120,11 +142,9 @@
 
   &__details {
     display: flex;
-    padding-bottom: $spacing_0_8;
-    margin-top: $spacing_0_8;
     .icon {
+      margin-left: $spacing_0_5;
       margin-right: $spacing_0_5;
-      // margin-left: $spacing_1_6;
     }
   }
 
@@ -137,6 +157,21 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     width: 98%;
+  }
+
+  &__read-more-button {
+    &.btn--text.btn--green {
+      color: #6989a4;
+      font-weight: $font_semi_bold;
+    }
+  }
+
+  &__bottom-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
   }
 
   &--portrait {
@@ -159,7 +194,7 @@
 
     &.card-media--sm {
       .card-media__image {
-        height: 16rem;
+        height: 21.2rem;
       }
     }
 
@@ -194,8 +229,14 @@
       }
     }
 
-    .card-media__category {
-      position: unset;
+    .card-media__bottom-container {
+      position: static;
+    }
+
+    & .like {
+      position: absolute;
+      right: $spacing_2_0;
+      top: $spacing_1_6;
     }
 
     .card-media__image {
@@ -203,6 +244,7 @@
       width: 20rem;
       height: 12rem;
       border-radius: $spacing_2_4;
+      object-fit: cover;
       @media screen and (min-width: $screen-lg) {
         display: block;
       }
@@ -234,7 +276,7 @@
 
     &.card-media--lg {
       @media screen and (min-width: $screen-lg) {
-        width: 113.6rem;
+        width: 100%;
       }
 
       .card-media__content {
@@ -244,8 +286,8 @@
       }
 
       .card-media__image {
-        width: 48rem;
-        height: 40rem;
+        width: 76.8rem;
+        height: 28.6rem;
         border-radius: $spacing_2_2 0 0 $spacing_2_2;
       }
 
@@ -262,10 +304,6 @@
         @media screen and (min-width: $screen-lg) {
           padding-bottom: $spacing_2_5;
         }
-      }
-
-      .card-media__details {
-        padding-bottom: $spacing_2_4;
       }
 
       .card-media__description {
