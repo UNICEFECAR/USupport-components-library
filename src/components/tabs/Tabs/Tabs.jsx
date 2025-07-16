@@ -1,115 +1,45 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import OutsideClickHandler from "react-outside-click-handler";
-import { Box } from "../../boxes/Box";
 
 import "./tabs.scss";
 
 /**
  * Tabs
  *
- * Tabs component
+ * Tabs component with horizontal scroll
  *
  * @return {jsx}
  */
 export const Tabs = ({ options, handleSelect, t = () => {} }) => {
-  const NO_OPTIONS_TO_RENDER = 4;
-  const [isOpen, setIsOpen] = useState(false);
-  const [isMoreOptionSelected, setIsMoreOptionSelected] = useState(false);
-
-  const handleOnSelect = (option) => {
-    handleSelect ? handleSelect(option) : () => {};
-    setIsOpen(false);
+  const handleOnSelect = (index) => {
+    if (handleSelect) {
+      handleSelect(index);
+    }
   };
 
   const renderOptions = () => {
-    if (options) {
-      return options
-        ? options.map((option, index) => {
-            if (index >= NO_OPTIONS_TO_RENDER) {
-              return;
-            }
-            return (
-              <div
-                className={[
-                  "tab",
-                  option.isSelected ? "tab--selected" : "",
-                  option.isInactive ? "tab--inactive" : "",
-                ].join(" ")}
-                onClick={
-                  option.isInactive
-                    ? () => {}
-                    : () => {
-                        handleSelect(index);
-                        setIsMoreOptionSelected(false);
-                      }
-                }
-                key={index}
-              >
-                <p className="paragraph">{option.label}</p>
-              </div>
-            );
-          })
-        : null;
+    if (!options || !Array.isArray(options)) {
+      return null;
     }
-  };
 
-  const renderShowMoreOptions = () => {
-    if (options) {
-      return options.map((option, index) => {
-        if (index >= NO_OPTIONS_TO_RENDER) {
-          return (
-            <div
-              className={[
-                "option",
-                option.isSelected ? "option--selected" : "",
-                option.isInactive ? "option--inactive" : "",
-              ].join(" ")}
-              onClick={
-                option.isInactive
-                  ? () => {}
-                  : () => {
-                      handleOnSelect(index);
-                      setIsMoreOptionSelected(option.isSelected);
-                    }
-              }
-              key={index}
-            >
-              <p className="paragraph">{option.label}</p>
-            </div>
-          );
-        }
-      });
-    }
+    return options.map((option, index) => (
+      <div
+        className={[
+          "tab",
+          option.isSelected ? "tab--selected" : "",
+          option.isInactive ? "tab--inactive" : "",
+        ].join(" ")}
+        onClick={option.isInactive ? undefined : () => handleOnSelect(index)}
+        key={index}
+      >
+        <p className="paragraph">{option.label}</p>
+      </div>
+    ));
   };
 
   return (
     <div className="tabs-wrapper">
-      <OutsideClickHandler onOutsideClick={() => setIsOpen(false)}>
-        <div className="tabs">
-          {renderOptions()}
-          {options.length > NO_OPTIONS_TO_RENDER && (
-            <p
-              className={[
-                "text",
-                "show-more__text",
-                isMoreOptionSelected ? "show-more__text--selected" : "",
-              ].join(" ")}
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              +
-              {t("number_of_more_options", {
-                count: options.length - NO_OPTIONS_TO_RENDER,
-              })}
-            </p>
-          )}
-        </div>
-        {isOpen ? (
-          <Box shadow={1} classes="show-more">
-            <div className="show-more__options">{renderShowMoreOptions()}</div>
-          </Box>
-        ) : null}
-      </OutsideClickHandler>
+      <div className="tabs">{renderOptions()}</div>
     </div>
   );
 };
@@ -124,6 +54,14 @@ Tabs.propTypes = {
    * handleSelect function to be called when an option is selected
    **/
   handleSelect: PropTypes.func,
+
+  /**
+   * translation function
+   **/
+  t: PropTypes.func,
 };
 
-Tabs.defaultProps = {};
+Tabs.defaultProps = {
+  options: [],
+  t: () => {},
+};

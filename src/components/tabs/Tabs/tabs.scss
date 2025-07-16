@@ -1,90 +1,94 @@
 @import "../../../styles/theme";
 
+.tabs-wrapper {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+  isolation: isolate;
+}
+
 .tabs {
   display: flex;
   flex-direction: row;
   align-items: center;
   padding-bottom: $spacing_1_6;
-  max-width: 99vw;
   overflow-x: auto;
+  overflow-y: hidden;
+  gap: $spacing_0_4;
+  width: 100%;
+  box-sizing: border-box;
+
+  contain: layout style;
+
+  &::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 3px;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.1);
 
   .tab {
     padding: $spacing_0_4 $spacing_2_4;
     cursor: pointer;
+    flex-shrink: 0;
+    min-width: fit-content;
     @include themifyCustom(
       $themes,
       "background-color",
-      "color_green_f4f7fe",
+      "#CDD8E1",
       "color_black_31"
     );
-    border-radius: $border_radius_4_0;
-    margin: 0 $spacing_0_4;
-    color: $color_black_37;
-    border: 1px solid transparent;
+
+    border-radius: $border_radius_1_2;
+    color: #6989a4;
+    border: 1px solid #cdd8e1;
+    transition: all 0.2s ease-in-out;
+
+    &:hover:not(&--inactive) {
+      background-color: #d8e4ed;
+      border-color: #b8c7d4;
+    }
 
     &--selected {
-      background-color: $color_white_ff;
-      border: 1px solid $color_secondary_9749fa;
+      background-color: #eaf7f9;
+      border: 1px solid #eaf7f9;
+      color: #0e202f;
+
+      &:hover {
+        background-color: #eaf7f9;
+        border-color: #eaf7f9;
+      }
     }
 
     &--inactive {
-      cursor: normal;
+      cursor: not-allowed;
       opacity: 0.2;
-      cursor: default;
+
+      &:hover {
+        background-color: inherit;
+        border-color: inherit;
+      }
     }
 
     & .paragraph {
       white-space: nowrap;
+      margin: 0;
+      font-size: inherit;
     }
-  }
-
-  .show-more__text {
-    color: $color_primary_20809e;
-    cursor: pointer;
-    text-decoration: underline;
-    padding-left: $spacing_0_8;
-    white-space: nowrap;
-
-    &--selected {
-      color: $color_secondary_pressed_6c16d9;
-      font-weight: $font_semi_bold;
-    }
-  }
-}
-
-.show-more {
-  position: absolute;
-  margin: $spacing_0_8 0 $spacing_0_8 0;
-  padding: $spacing_0_8 0;
-  width: 34.3rem;
-  border: 0.1rem solid rgba(217, 217, 217, 0.63);
-  z-index: 2;
-
-  @media screen and (min-width: $screen-md) {
-    left: 50%;
-    margin-left: -17rem;
-  }
-
-  &__options {
-    padding: $spacing_0_8 $spacing_1_6;
-    overflow-y: auto;
-    margin-right: $spacing_1_6;
-    max-height: 22rem;
-
-    .option {
-      padding: $spacing_0_8;
-      cursor: pointer;
-
-      &--selected {
-        color: $color_secondary_9749fa;
-      }
-
-      &--inactive {
-        opacity: 0.2;
-        cursor: default;
-      }
-    }
-
-    @include scrollbar-secondary;
   }
 }
