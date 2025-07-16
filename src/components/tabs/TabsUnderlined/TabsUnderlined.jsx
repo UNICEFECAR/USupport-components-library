@@ -10,7 +10,27 @@ import "./tabs-underlined.scss";
  *
  * @return {jsx}
  */
-export const TabsUnderlined = ({ options, handleSelect, t }) => {
+export const TabsUnderlined = ({
+  options,
+  handleSelect,
+  t,
+  textType = "h4",
+}) => {
+  const renderText = (option) => {
+    if (textType === "h1") {
+      return <h1>{t ? t(`${option.value}_tab_label`) : option.label}</h1>;
+    } else if (textType === "h2") {
+      return <h2>{t ? t(`${option.value}_tab_label`) : option.label}</h2>;
+    } else if (textType === "h3") {
+      return <h3>{t ? t(`${option.value}_tab_label`) : option.label}</h3>;
+    }
+    return (
+      <h4 className="label">
+        {t ? t(`${option.value}_tab_label`) : option.label}
+      </h4>
+    );
+  };
+
   const renderAllOptions = () => {
     if (options) {
       return options
@@ -25,9 +45,7 @@ export const TabsUnderlined = ({ options, handleSelect, t }) => {
                 onClick={() => (option.isInactive ? {} : handleSelect(index))}
                 key={index}
               >
-                <h4 className="label">
-                  {t ? t(`${option.value}_tab_label`) : option.label}
-                </h4>
+                {renderText(option)}
               </div>
             );
           })
@@ -48,8 +66,4 @@ TabsUnderlined.propTypes = {
    *handleSelect function to be called when an option is selected
    **/
   handleSelect: PropTypes.func,
-};
-
-TabsUnderlined.defaultProps = {
-  // Add defaultProps here
 };
