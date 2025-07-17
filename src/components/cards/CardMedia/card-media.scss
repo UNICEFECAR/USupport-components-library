@@ -27,11 +27,14 @@
     overflow-x: hidden;
   }
 
-  & .card-media__label {
+  &__label {
     margin-bottom: $spacing_0_8;
     // max-width: 90%;
     overflow: hidden;
     padding: 0 $spacing_1_6;
+    border-radius: $border_radius_0_4;
+    border-color: #cdd8e1;
+    color: #6989a4;
 
     &:not(:last-child) {
       margin-right: $spacing_0_8;
