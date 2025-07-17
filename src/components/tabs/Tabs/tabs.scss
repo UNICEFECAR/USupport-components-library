@@ -6,89 +6,158 @@
   position: relative;
   box-sizing: border-box;
   isolation: isolate;
+  display: flex;
+  flex-direction: row;
 }
 
 .tabs {
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding-bottom: $spacing_1_6;
-  overflow-x: auto;
-  overflow-y: hidden;
-  gap: $spacing_0_4;
+  gap: $spacing_0_8;
   width: 100%;
   box-sizing: border-box;
-
   contain: layout style;
 
-  &::-webkit-scrollbar {
-    height: 6px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.1);
-    border-radius: 3px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 3px;
-
-    &:hover {
-      background: rgba(0, 0, 0, 0.5);
-    }
-  }
-
-  scrollbar-width: thin;
-  scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.1);
-
-  .tab {
-    padding: $spacing_0_4 $spacing_2_4;
+  .tab-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
     cursor: pointer;
-    flex-shrink: 0;
-    min-width: fit-content;
-    @include themifyCustom(
-      $themes,
-      "background-color",
-      "#CDD8E1",
-      "color_black_31"
-    );
-
-    border-radius: $border_radius_1_2;
-    color: #6989a4;
-    border: 1px solid #cdd8e1;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     transition: all 0.2s ease-in-out;
+    flex-shrink: 0;
+    z-index: 1;
 
-    &:hover:not(&--inactive) {
-      background-color: #d8e4ed;
-      border-color: #b8c7d4;
+    &:hover:not(&--disabled) {
+      background-color: rgba(255, 255, 255, 0.9);
+      border-color: rgba(0, 0, 0, 0.2);
     }
 
-    &--selected {
-      background-color: #eaf7f9;
-      border: 1px solid #eaf7f9;
-      color: #0e202f;
-
-      &:hover {
-        background-color: #eaf7f9;
-        border-color: #eaf7f9;
-      }
-    }
-
-    &--inactive {
+    &--disabled {
       cursor: not-allowed;
-      opacity: 0.2;
+      opacity: 0.3;
 
       &:hover {
-        background-color: inherit;
-        border-color: inherit;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-color: rgba(0, 0, 0, 0.1);
       }
     }
 
-    & .paragraph {
-      white-space: nowrap;
-      margin: 0;
-      font-size: inherit;
+    &--left {
+      margin-right: $spacing_0_4;
+    }
+
+    &--right {
+      margin-left: $spacing_0_4;
+    }
+  }
+
+  .tabs-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: $spacing_0_8;
+    flex: 1;
+    min-width: 0;
+    scroll-behavior: smooth;
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tab {
+      padding: $spacing_0_4 $spacing_2_4;
+      cursor: pointer;
+      flex-shrink: 0;
+      min-width: fit-content;
+      max-width: 200px;
+      @include themifyCustom(
+        $themes,
+        "background-color",
+        "#CDD8E1",
+        "color_black_31"
+      );
+
+      border-radius: $border_radius_1_2;
+      color: #6989a4;
+      border: 1px solid #cdd8e1;
+      transition: all 0.2s ease-in-out;
+
+      &:hover:not(&--inactive) {
+        background-color: #d8e4ed;
+        border-color: #b8c7d4;
+      }
+
+      &--selected {
+        background-color: #eaf7f9;
+        border: 1px solid #eaf7f9;
+        color: #0e202f;
+
+        &:hover {
+          background-color: #eaf7f9;
+          border-color: #eaf7f9;
+        }
+      }
+
+      &--inactive {
+        cursor: not-allowed;
+        opacity: 0.2;
+
+        &:hover {
+          background-color: inherit;
+          border-color: inherit;
+        }
+      }
+
+      & .paragraph {
+        white-space: nowrap;
+        margin: 0;
+        font-size: inherit;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}
+
+@media (max-width: $screen_md) {
+  .tabs {
+    .tab-arrow {
+      width: 28px;
+      height: 28px;
+    }
+
+    .tabs-container {
+      .tab {
+        padding: $spacing_0_4 $spacing_1_6;
+        max-width: 150px;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .tabs {
+    .tab-arrow {
+      width: 24px;
+      height: 24px;
+    }
+
+    .tabs-container {
+      .tab {
+        padding: $spacing_0_4 $spacing_1_2;
+        max-width: 120px;
+      }
     }
   }
 }
