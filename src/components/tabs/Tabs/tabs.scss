@@ -87,18 +87,29 @@
         "#CDD8E1",
         "color_black_31"
       );
+      @include themifyCustom($themes, "color", "#6989A4", "color_gray_a6b4b8");
 
       border-radius: $border_radius_1_2;
-      color: #6989a4;
       border: 1px solid #cdd8e1;
       transition: all 0.2s ease-in-out;
 
       &:hover:not(&--inactive) {
-        background-color: #d8e4ed;
+        @include themifyCustom(
+          $themes,
+          "background-color",
+          "#d8e4ed",
+          "color_blue_263238"
+        );
         border-color: #b8c7d4;
       }
 
       &--selected {
+        @include themifyCustom(
+          $themes,
+          border-color,
+          "#20809E",
+          "color_primary_20809e"
+        );
         background-color: #eaf7f9;
         border: 1px solid #eaf7f9;
         color: #0e202f;
