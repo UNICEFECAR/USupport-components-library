@@ -6,12 +6,6 @@ import {
 
 import "./articles-grid.scss";
 
-/**
- * Calculate grid span for articles based on 2-3-1 pattern
- * @param {number} index - Article index
- * @param {number[]} pattern - Array representing items per row [2, 3, 1]
- * @returns {number} Grid span value
- */
 const getGridSpanForIndex = (index, pattern = [2, 3, 1]) => {
   const totalItemsInCycle = pattern.reduce((sum, count) => sum + count, 0);
   const cyclePosition = index % totalItemsInCycle;
@@ -27,22 +21,9 @@ const getGridSpanForIndex = (index, pattern = [2, 3, 1]) => {
     currentPosition += itemsInThisRow;
   }
 
-  return 4; // fallback
+  return 4;
 };
 
-/**
- * ArticlesGrid
- *
- * Renders a grid of article cards with responsive layout
- *
- * @param {Object} props
- * @param {Array} props.articles - Array of article objects
- * @param {Function} props.onArticleClick - Callback function when article is clicked
- * @param {Function} props.t - Translation function
- * @param {Array} props.pattern - Grid pattern for layout [2, 3, 1]
- * @param {string} props.className - Additional CSS classes
- * @returns {JSX.Element}
- */
 export const ArticlesGrid = ({
   articles = [],
   onArticleClick,
@@ -91,23 +72,17 @@ export const ArticlesGrid = ({
                   }
                   size={gridSpan === 12 && !isNotDescktop ? "lg" : "sm"}
                   title={articleData.title}
-                  image={articleData.imageMedium}
+                  image={articleData.imageMedium || articleData.imageSmall}
                   description={articleData.description}
-                  labels={
-                    articleData.labels || [
-                      { name: "anxiety", id: "1" },
-                      { name: "depression", id: "2" },
-                      { name: "stress", id: "3" },
-                    ]
-                  }
-                  creator={
-                    articleData.creator || "A very long creator name that"
-                  }
+                  labels={articleData.labels}
+                  creator={articleData.creator}
                   readingTime={articleData.readingTime}
+                  categoryName={articleData.categoryName}
+                  isLikedByUser={article.isLikedByUser}
+                  isDislikedByUser={article.isDislikedByUser}
                   likes={articleData.likes || 0}
                   dislikes={articleData.dislikes || 0}
-                  categoryName={articleData.categoryName}
-                  showDescription={false}
+                  isRead={article.isRead}
                   t={t}
                   onClick={() => handleArticleClick(articleData)}
                 />
