@@ -1,0 +1,86 @@
+@import "../../../styles/theme";
+
+.articles-grid {
+  padding-top: $spacing_1_2;
+  padding-bottom: $spacing_0_8;
+
+  @media screen and (min-width: $screen-lg) {
+    padding-top: $spacing_2_4;
+  }
+
+  &__container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: $spacing_1_2;
+
+    @media screen and (min-width: $screen-md) {
+      gap: $spacing_2_0;
+    }
+
+    @media screen and (min-width: $screen-lg) {
+      gap: $spacing_2_4;
+    }
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+
+    & > * {
+      height: 100%;
+    }
+  }
+
+  &__no-results {
+    text-align: center;
+
+    p {
+      color: $color_white_ff !important;
+    }
+  }
+
+  // Mobile responsiveness - single column
+  @media screen and (max-width: calc($screen-md - 1px)) {
+    &__container {
+      grid-template-columns: 1fr;
+    }
+
+    &__item {
+      grid-column: span 1 !important;
+    }
+  }
+
+  // Tablet responsiveness - two columns
+  @media screen and (min-width: $screen-md) and (max-width: calc($screen-lg - 1px)) {
+    &__container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    &__item {
+      grid-column: span 1 !important;
+    }
+  }
+
+  // Desktop grid pattern (2-3-1 cycle)
+  @media screen and (min-width: $screen-lg) {
+    &__item {
+      // First row: 2 items (6 columns each)
+      &:nth-child(6n + 1),
+      &:nth-child(6n + 2) {
+        grid-column: span 6;
+      }
+
+      // Second row: 3 items (4 columns each)
+      &:nth-child(6n + 3),
+      &:nth-child(6n + 4),
+      &:nth-child(6n + 5) {
+        grid-column: span 4;
+      }
+
+      // Third row: 1 item (full width)
+      &:nth-child(6n + 6) {
+        grid-column: span 12;
+      }
+    }
+  }
+}
