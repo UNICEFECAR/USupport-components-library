@@ -35,14 +35,37 @@ export const ContactForm = ({
   isSuccessModalOpen,
   closeSuccessModal,
   t,
+  country,
 }) => {
+  const IS_PL = country === "PL";
+
   const initialReasons = [
-    { value: "information", label: t("contact_reason_1") },
-    { value: "technical-problem", label: t("contact_reason_2") },
-    { value: "join-as-provider", label: t("contact_reason_3") },
-    { value: "partnerships", label: t("contact_reason_4") },
-    { value: "other", label: t("contact_reason_5") },
+    {
+      value: "information",
+      label: t(IS_PL ? "contact_reason_1_pl" : "contact_reason_1"),
+    },
+    {
+      value: "technical-problem",
+      label: t(IS_PL ? "contact_reason_2_pl" : "contact_reason_2"),
+    },
+    {
+      value: "join-as-provider",
+      label: t(IS_PL ? "contact_reason_3_pl" : "contact_reason_3"),
+    },
+    {
+      value: "partnerships",
+      label: t(IS_PL ? "contact_reason_4_pl" : "contact_reason_4"),
+    },
+    ...(!IS_PL
+      ? [
+          {
+            value: "other",
+            label: t("contact_reason_5"),
+          },
+        ]
+      : []),
   ];
+
   const [data, setData] = useState(initialData);
   const [reasons, setReasons] = useState(initialReasons);
   const [errors, setErrors] = useState({});
