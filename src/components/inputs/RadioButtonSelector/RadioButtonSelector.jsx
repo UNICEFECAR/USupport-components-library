@@ -19,6 +19,7 @@ export const RadioButtonSelector = ({ size, disabled, classes, ...props }) => {
       classes={[
         "radio-button-selector",
         `radio-button-selector--${size}`,
+        props.isChecked ? "radio-button-selector--selected" : "",
         disabled ? "radio-button-selector--disabled" : "",
         classNames(classes),
       ].join(" ")}
