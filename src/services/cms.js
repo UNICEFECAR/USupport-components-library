@@ -252,13 +252,21 @@ async function getAgeGroups(locale) {
  * @returns {object} the policies data
  *
  */
-async function getPolicies(locale, countryAlpha2, platform) {
-  const querryString = generateQuerryString({
-    locale: locale,
-    countryAlpha2: countryAlpha2,
-    platform: platform,
-  });
-  let res = await http.get(`${policiesEndpoint}/find${querryString}`);
+async function getPolicies(locale, country, platform) {
+  let queryParams = {
+    locale,
+    platform,
+  };
+
+  if (country === "GLOBAL") {
+    queryParams.global = true;
+  } else {
+    queryParams.countryAlpha2 = country;
+  }
+
+  const queryString = generateQuerryString(queryParams);
+
+  let res = await http.get(`${policiesEndpoint}/find${queryString}`);
 
   return res;
 }
@@ -292,13 +300,21 @@ async function getCookiePolicy(locale, countryAlpha2, platform) {
  * @returns {object} the Terms Of Use data
  *
  */
-async function getTermsOfUse(locale, countryAlpha2, platform) {
-  const querryString = generateQuerryString({
-    locale: locale,
-    countryAlpha2: countryAlpha2,
-    platform: platform,
-  });
-  let res = await http.get(`${termsOfUseEndpoint}/find${querryString}`);
+async function getTermsOfUse(locale, country, platform) {
+  let queryParams = {
+    locale,
+    platform,
+  };
+
+  if (country === "GLOBAL") {
+    queryParams.global = true;
+  } else {
+    queryParams.countryAlpha2 = country;
+  }
+
+  const queryString = generateQuerryString(queryParams);
+
+  let res = await http.get(`${termsOfUseEndpoint}/find${queryString}`);
 
   return res;
 }
