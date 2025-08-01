@@ -49,6 +49,12 @@ export const CookieBanner = ({
       });
     } else {
       localStorage.setItem("acceptAllCookies", acceptAllCookies ? 1 : 0);
+      setCookieState({
+        ...cookieState,
+        hasAcceptedCookies: true,
+        hasHandledCookies: true,
+        isBannerOpen: false,
+      });
     }
   };
 
@@ -103,7 +109,11 @@ export const CookieBanner = ({
         <Button
           size="md"
           label={t(isInClient ? "save" : "accept_all_cookies")}
-          disabled={!acceptAllCookies && !acceptOnlyNecessaryCookies}
+          disabled={
+            isInClient
+              ? !acceptAllCookies && !acceptOnlyNecessaryCookies
+              : false
+          }
           onClick={handleSave}
         />
         {!isInClient && (
