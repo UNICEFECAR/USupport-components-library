@@ -55,10 +55,6 @@ async function getOrganizations(filters) {
     filtersQuery += `&search=${filters.search}`;
   }
 
-  if (filters.workWith) {
-    filtersQuery += `&workWith=${filters.workWith}`;
-  }
-
   if (filters.district) {
     filtersQuery += `&district=${filters.district}`;
   }
