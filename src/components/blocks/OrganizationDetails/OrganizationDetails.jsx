@@ -180,17 +180,6 @@ export const OrganizationDetails = ({
               </div>
             )}
 
-            {organization?.workWith && (
-              <div className="organization-details__information-container">
-                <p className="paragraph organization-details__information-container__heading">
-                  {t("work_with_label")}
-                </p>
-                <p className="paragraph organization-details__information-container__text">
-                  {organization.workWith}
-                </p>
-              </div>
-            )}
-
             {renderSpecialisations() && (
               <div className="organization-details__information-container">
                 <p className="paragraph organization-details__information-container__heading">
