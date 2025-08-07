@@ -167,7 +167,6 @@ MapProvider.propTypes = {
       id: PropTypes.string,
       name: PropTypes.string,
     }),
-    workWith: PropTypes.array,
     providers: PropTypes.array,
     specialisations: PropTypes.array,
     image: PropTypes.string,
