@@ -127,33 +127,38 @@ export const SecurityCheckReport = ({ securityCheck, t }) => {
               }
               return true;
             })
-            .map((key, index) => (
-              <GridItem
-                classes="security-check-report__answers-grid__item"
-                key={key}
-              >
-                <p className="text">
-                  {index + 1}. {t(`question_${index + 1}`)}
-                </p>
-                <p
-                  className={`security-check-report__answers-grid__item__answer ${
-                    answers[key] === true || key === "moreDetails"
-                      ? "security-check-report__answers-grid__item__answer--danger"
-                      : ""
-                  }`}
+            .map((key, index) => {
+              console.log(key, index);
+              return (
+                <GridItem
+                  classes="security-check-report__answers-grid__item"
+                  key={key}
                 >
-                  <strong>
-                    {key === "feeling"
-                      ? t(answers[key])
-                      : typeof answers[key] != "boolean"
-                      ? answers[key]
-                      : answers[key] === true
-                      ? t("yes")
-                      : t("no")}
-                  </strong>
-                </p>
-              </GridItem>
-            ))}
+                  <p className="text">
+                    {index + 1}. {t(`question_${index + 1}`)}
+                  </p>
+                  <p
+                    className={`security-check-report__answers-grid__item__answer ${
+                      answers[key] === true || key === "moreDetails"
+                        ? "security-check-report__answers-grid__item__answer--danger"
+                        : ""
+                    }`}
+                  >
+                    <strong>
+                      {key === "feeling"
+                        ? answers[key] == null
+                          ? "-"
+                          : t(answers[key])
+                        : typeof answers[key] != "boolean"
+                        ? answers[key]
+                        : answers[key] === true
+                        ? t("yes")
+                        : t("no")}
+                    </strong>
+                  </p>
+                </GridItem>
+              );
+            })}
         </Grid>
       )}
     </Box>
