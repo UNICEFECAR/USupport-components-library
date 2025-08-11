@@ -55,10 +55,6 @@ async function getOrganizations(filters) {
     filtersQuery += `&search=${filters.search}`;
   }
 
-  if (filters.workWith) {
-    filtersQuery += `&workWith=${filters.workWith}`;
-  }
-
   if (filters.district) {
     filtersQuery += `&district=${filters.district}`;
   }
@@ -245,6 +241,21 @@ async function sendPlatformSuggestion({ suggestion, type }) {
   return response;
 }
 
+/**
+ *
+ * @param {Object} payload
+ * @param {number} payload.sosCenterId - The ID of the SOS center that was clicked
+ * @param {boolean} payload.isMain - Whether this is the main SOS center
+ * @param {string} payload.platform - The platform where the click occurred (web, mobile, etc.)
+ * @returns {Promise} the response of the request
+ */
+async function addSOSCenterClick(payload) {
+  const response = await http.post(`${API_ENDPOINT}/sos-center-click`, {
+    ...payload,
+  });
+  return response;
+}
+
 async function getScreeningQuestions() {
   const response = await http.get(`${API_ENDPOINT}/screening/questions`);
   return response;
@@ -321,6 +332,7 @@ const exportedFunctions = {
   getOrganizations,
   getOrganizationById,
   sendPlatformSuggestion,
+  addSOSCenterClick,
   getScreeningQuestions,
   createScreeningSession,
   addScreeningAnswer,

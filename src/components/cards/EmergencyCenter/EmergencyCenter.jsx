@@ -19,9 +19,13 @@ export const EmergencyCenter = ({
   phone,
   btnLabelLink,
   btnLabelCall,
+  onClick,
   image,
 }) => {
   const handleClick = (type) => {
+    if (onClick) {
+      onClick();
+    }
     if (type === "phone") {
       window.open(`tel:${phone}`);
     } else if (type === "link") {

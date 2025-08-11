@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Box } from "../../boxes/Box";
 import { Toggle } from "../../inputs/Toggle";
@@ -13,34 +13,65 @@ import "./cookie-banner.scss";
  *
  * @return {jsx}
  */
-export const CookieBanner = ({ t, isInClient = false, text }) => {
-  const hasHandledCookies = !!Number(localStorage.getItem("hasHandledCookies"));
-  const showBanner = !hasHandledCookies;
-
+export const CookieBanner = ({
+  t,
+  isInClient = false,
+  text,
+  cookieState,
+  setCookieState,
+}) => {
   const [acceptAllCookies, setAcceptAllCookies] = useState(true);
   const [acceptOnlyNecessaryCookies, setAcceptOnlyNecessaryCookies] =
     useState(false);
-  const [showCookiePolicyBanner, setShowCookiePolicyBanner] =
-    useState(showBanner);
+
+  useEffect(() => {
+    if (cookieState.isBannerOpen && cookieState.hasHandledCookies) {
+      setAcceptAllCookies(cookieState.hasAcceptedAllCookies);
+      setAcceptOnlyNecessaryCookies(cookieState.hasAcceptedNecessaryCookies);
+    }
+  }, [cookieState]);
 
   const handleSave = () => {
-    setShowCookiePolicyBanner(false);
-    localStorage.setItem("acceptAllCookies", acceptAllCookies ? 1 : 0);
-    localStorage.setItem(
-      "acceptOnlyNecessaryCookies",
-      acceptOnlyNecessaryCookies ? 1 : 0
-    );
     localStorage.setItem("hasHandledCookies", 1);
+    if (isInClient) {
+      localStorage.setItem("acceptAllCookies", acceptAllCookies ? 1 : 0);
+      localStorage.setItem(
+        "acceptOnlyNecessaryCookies",
+        acceptOnlyNecessaryCookies ? 1 : 0
+      );
+
+      setCookieState({
+        ...cookieState,
+        hasAcceptedAllCookies: acceptAllCookies,
+        hasAcceptedNecessaryCookies: acceptOnlyNecessaryCookies,
+        hasHandledCookies: true,
+        isBannerOpen: false,
+      });
+    } else {
+      localStorage.setItem("acceptAllCookies", acceptAllCookies ? 1 : 0);
+      setCookieState({
+        ...cookieState,
+        hasAcceptedCookies: true,
+        hasHandledCookies: true,
+        isBannerOpen: false,
+      });
+    }
   };
 
   const handleReject = () => {
-    setShowCookiePolicyBanner(false);
     localStorage.setItem("acceptAllCookies", 0);
     localStorage.setItem("acceptOnlyNecessaryCookies", 0);
     localStorage.setItem("hasHandledCookies", 1);
+    setCookieState({
+      ...cookieState,
+      hasAcceptedAllCookies: false,
+      hasAcceptedNecessaryCookies: false,
+      hasHandledCookies: true,
+      isBannerOpen: false,
+    });
   };
 
-  if (!showCookiePolicyBanner) return null;
+  if (!cookieState.isBannerOpen) return null;
 
   return (
     <Box className="cookie-banner">
@@ -78,7 +109,11 @@ export const CookieBanner = ({ t, isInClient = false, text }) => {
         <Button
           size="md"
           label={t(isInClient ? "save" : "accept_all_cookies")}
-          disabled={!acceptAllCookies && !acceptOnlyNecessaryCookies}
+          disabled={
+            isInClient
+              ? !acceptAllCookies && !acceptOnlyNecessaryCookies
+              : false
+          }
           onClick={handleSave}
         />
         {!isInClient && (

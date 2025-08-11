@@ -18,13 +18,6 @@ export const OrganizationDetails = ({
   buttonComponent,
   handleCopyLink,
 }) => {
-  const renderWorkWith = React.useCallback(() => {
-    if (organization?.workWith?.length > 0) {
-      return organization.workWith.map((x) => t(x.topic))?.join(", ");
-    }
-    return null;
-  }, [organization, t]);
-
   const renderSpecialisations = React.useCallback(() => {
     if (organization?.specialisations?.length > 0) {
       return organization.specialisations.map((x) => t(x.name))?.join(", ");
@@ -183,17 +176,6 @@ export const OrganizationDetails = ({
                 </p>
                 <p className="paragraph organization-details__information-container__text">
                   {renderPropertyTypes()}
-                </p>
-              </div>
-            )}
-
-            {renderWorkWith() && (
-              <div className="organization-details__information-container">
-                <p className="paragraph organization-details__information-container__heading">
-                  {t("work_with_label")}
-                </p>
-                <p className="paragraph organization-details__information-container__text">
-                  {renderWorkWith()}
                 </p>
               </div>
             )}

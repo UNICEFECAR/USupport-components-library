@@ -24,6 +24,8 @@ export const MapProvider = ({ organization, t, navigate }) => {
     lng: organization.location?.longitude,
   };
 
+  console.log(organization);
+
   const navigateToOrganization = (app) => {
     if (geolocation && geolocation.lat && geolocation.lng) {
       const { lat, lng } = geolocation;
@@ -49,7 +51,7 @@ export const MapProvider = ({ organization, t, navigate }) => {
 
       <p className="text map-provider__name">{displayName}</p>
 
-      <div className="map-provider__payment-container">
+      {/* <div className="map-provider__payment-container">
         {paymentMethod && (
           <div className="map-provider__payment-badge">
             <p className="small-text map-provider__payment-text">
@@ -57,7 +59,7 @@ export const MapProvider = ({ organization, t, navigate }) => {
             </p>
           </div>
         )}
-      </div>
+      </div> */}
 
       <div className="map-provider__content">
         {specializations.length > 0 && (
@@ -165,7 +167,6 @@ MapProvider.propTypes = {
       id: PropTypes.string,
       name: PropTypes.string,
     }),
-    workWith: PropTypes.array,
     providers: PropTypes.array,
     specialisations: PropTypes.array,
     image: PropTypes.string,
