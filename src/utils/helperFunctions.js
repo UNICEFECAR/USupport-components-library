@@ -87,6 +87,24 @@ const redirectToLocalStorageCountry = (renderIn) => {
   }
 };
 
+const constructWebsiteUrl = (url) => {
+  const country = localStorage.getItem("country");
+  const language = localStorage.getItem("language");
+  const hostname = window.location.hostname;
+  const subdomain = hostname.split(".")[0];
+
+  if (subdomain === "staging") {
+    return `https://staging.usupport.online/${language}/${url}`;
+  }
+
+  if (country === "global") {
+    return `https://usupport.online/${language}/${url}`;
+  }
+
+  const countryName = countriesMap[country.toLocaleLowerCase()];
+  return `https://${countryName}.usupport.online/${language}/${url}`;
+};
+
 const constructShareUrl = ({ contentType, id }) => {
   const country = localStorage.getItem("country");
   const language = localStorage.getItem("language");
@@ -131,4 +149,5 @@ export {
   constructShareUrl,
   redirectToUrl,
   countriesMap,
+  constructWebsiteUrl,
 };
