@@ -8,6 +8,12 @@
   margin: auto;
   position: relative;
   cursor: pointer;
+  min-width: 34.3rem;
+
+  @media screen and (min-width: $screen-md) {
+    min-width: 43rem;
+  }
+
   // @include themify($themes, "background-color", "color_white_ff");
   @include themifyCustom(
     $themes,
@@ -209,7 +215,7 @@
 
     &.card-media--lg {
       @media screen and (min-width: $screen-lg) {
-        // width: 55.9rem;
+        min-width: 55.9rem;
       }
       .card-media__image {
         height: 24.4rem;
