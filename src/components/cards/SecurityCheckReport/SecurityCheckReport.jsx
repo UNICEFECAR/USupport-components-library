@@ -117,17 +117,8 @@ export const SecurityCheckReport = ({ securityCheck, t }) => {
             <h4>{t("content_heading")}</h4>
           </GridItem>
 
-          {Object.keys(answers)
-            .filter((key) => {
-              if (
-                (key === "moreDetails" || key === "additionalComment") &&
-                !answers[key]
-              ) {
-                return false;
-              }
-              return true;
-            })
-            .map((key, index) => (
+          {Object.keys(answers).map((key, index) => {
+            return (
               <GridItem
                 classes="security-check-report__answers-grid__item"
                 key={key}
@@ -143,7 +134,9 @@ export const SecurityCheckReport = ({ securityCheck, t }) => {
                   }`}
                 >
                   <strong>
-                    {key === "feeling"
+                    {answers[key] == null || answers[key] === ""
+                      ? "  -  "
+                      : key === "feeling"
                       ? t(answers[key])
                       : typeof answers[key] != "boolean"
                       ? answers[key]
@@ -153,7 +146,8 @@ export const SecurityCheckReport = ({ securityCheck, t }) => {
                   </strong>
                 </p>
               </GridItem>
-            ))}
+            );
+          })}
         </Grid>
       )}
     </Box>
