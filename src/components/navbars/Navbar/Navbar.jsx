@@ -409,7 +409,9 @@ export const Navbar = ({
           toggleLanguages();
         }}
       >
-        <p className="nav__current-language">{selectedLanguage.value}</p>
+        <p className="nav__current-language">
+          {selectedLanguage.value === "uk" ? "ua" : selectedLanguage.value}
+        </p>
         <Icon name="arrow-chevron-down" size="sm" color="#20809e" />
       </div>
     ),
@@ -660,6 +662,7 @@ export const Navbar = ({
               option.value.toLowerCase() ===
               selectedCountry.value.toLowerCase();
           }
+
           return (
             <div
               onClick={(e) => handleOptionSelect(e, option)}
