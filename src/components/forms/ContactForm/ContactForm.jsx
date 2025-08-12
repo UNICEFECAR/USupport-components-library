@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { use, useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import Joi from "joi";
 import classNames from "classnames";
@@ -39,32 +39,34 @@ export const ContactForm = ({
 }) => {
   const IS_PL = country === "PL";
 
-  const initialReasons = [
-    {
-      value: "information",
-      label: t(IS_PL ? "contact_reason_1_pl" : "contact_reason_1"),
-    },
-    {
-      value: "technical-problem",
-      label: t(IS_PL ? "contact_reason_2_pl" : "contact_reason_2"),
-    },
-    {
-      value: "join-as-provider",
-      label: t(IS_PL ? "contact_reason_3_pl" : "contact_reason_3"),
-    },
-    {
-      value: "partnerships",
-      label: t(IS_PL ? "contact_reason_4_pl" : "contact_reason_4"),
-    },
-    ...(!IS_PL
-      ? [
-          {
-            value: "other",
-            label: t("contact_reason_5"),
-          },
-        ]
-      : []),
-  ];
+  const initialReasons = useMemo(() => {
+    return [
+      {
+        value: "information",
+        label: t(IS_PL ? "contact_reason_1_pl" : "contact_reason_1"),
+      },
+      {
+        value: "technical-problem",
+        label: t(IS_PL ? "contact_reason_2_pl" : "contact_reason_2"),
+      },
+      {
+        value: "join-as-provider",
+        label: t(IS_PL ? "contact_reason_3_pl" : "contact_reason_3"),
+      },
+      {
+        value: "partnerships",
+        label: t(IS_PL ? "contact_reason_4_pl" : "contact_reason_4"),
+      },
+      ...(!IS_PL
+        ? [
+            {
+              value: "other",
+              label: t("contact_reason_5"),
+            },
+          ]
+        : []),
+    ];
+  }, [t, IS_PL]);
 
   const [data, setData] = useState(initialData);
   const [reasons, setReasons] = useState(initialReasons);
@@ -76,6 +78,10 @@ export const ContactForm = ({
       setReasons(initialReasons);
     }
   }, [isSuccessModalOpen]);
+
+  useEffect(() => {
+    setReasons(initialReasons);
+  }, [t]);
 
   const handleEmailSuccessCtaClick = () => {
     closeSuccessModal();
