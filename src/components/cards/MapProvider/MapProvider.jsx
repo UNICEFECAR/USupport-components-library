@@ -2,9 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import { Avatar } from "../../avatars/Avatar/Avatar";
+import { ButtonWithIcon } from "../../buttons";
+import { useWindowDimensions } from "../../../utils";
 
 import "./map-provider.scss";
-import { ButtonWithIcon } from "../../buttons";
 
 const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
 
@@ -15,16 +16,16 @@ const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
  * @return {jsx}
  */
 export const MapProvider = ({ organization, t, navigate }) => {
+  const { width } = useWindowDimensions();
+  const isMobile = width < 768;
+
   const displayName = organization.name;
-  const paymentMethod = organization.paymentMethod;
   const specializations = organization.specialisations || [];
 
   const geolocation = {
     lat: organization.location?.latitude,
     lng: organization.location?.longitude,
   };
-
-  console.log(organization);
 
   const navigateToOrganization = (app) => {
     if (geolocation && geolocation.lat && geolocation.lng) {
@@ -71,7 +72,7 @@ export const MapProvider = ({ organization, t, navigate }) => {
         )}
 
         <div className="map-provider__contact-info">
-          {organization.phone && (
+          {!isMobile && organization.phone && (
             <div className="map-provider__contact-item">
               <p className="small-text">
                 <span className="map-provider__contact-label">
@@ -81,7 +82,7 @@ export const MapProvider = ({ organization, t, navigate }) => {
               </p>
             </div>
           )}
-          {organization.email && (
+          {!isMobile && organization.email && (
             <div className="map-provider__contact-item">
               <p className="small-text">
                 <span className="map-provider__contact-label">
