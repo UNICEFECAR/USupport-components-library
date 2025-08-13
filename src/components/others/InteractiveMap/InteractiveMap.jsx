@@ -47,6 +47,10 @@ export const InteractiveMap = ({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
   });
 
+  React.useEffect(() => {
+    setSelectedMarker(null);
+  }, [data]);
+
   const onMapLoad = React.useCallback(
     (mapInstance) => {
       setMap(mapInstance);
