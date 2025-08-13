@@ -75,7 +75,7 @@ export const Backdrop = ({
         className={[
           "backdrop",
           isOpen ? "backdrop__shown" : "",
-          theme === "dark" ? "backdrop--dark" : "",
+          theme !== "light" ? "" : "backdrop--dark",
           classNames(classes),
         ].join(" ")}
       >

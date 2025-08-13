@@ -42,4 +42,154 @@
       @include themify($themes, "color", "color_primary_4");
     }
   }
+
+  // High Contrast Mode - Complete Override System
+  &--high-contrast {
+    // Core high contrast variables for consistency
+    $hc-bg-primary: #000000;
+    $hc-text-primary: #ffffff;
+    $hc-border-primary: #ffffff;
+    $hc-bg-secondary: #ffffff;
+    $hc-text-secondary: #000000;
+    $hc-border-width: 2px;
+
+    // Base styling for high contrast store button
+    &.btn {
+      background-color: transparent !important;
+      color: $hc-text-primary !important;
+      border: $hc-border-width solid $hc-border-primary !important;
+      box-shadow: none !important;
+
+      &:hover:enabled {
+        background-color: $hc-bg-secondary !important;
+        color: $hc-text-secondary !important;
+        border-color: $hc-text-secondary !important;
+        box-shadow: 0 0 8px rgba(255, 255, 255, 0.5) !important;
+      }
+
+      &:active:enabled {
+        background-color: $hc-bg-secondary !important;
+        color: $hc-text-secondary !important;
+        border-color: $hc-text-secondary !important;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+      }
+
+      &:disabled {
+        background-color: #333333 !important;
+        color: #666666 !important;
+        border-color: #666666 !important;
+        opacity: 1 !important;
+        cursor: not-allowed !important;
+      }
+    }
+
+    // Text elements styling
+    .btn__text-container {
+      .text,
+      .label {
+        color: inherit !important; // Inherit from button
+      }
+
+      .download {
+        color: inherit !important; // Inherit from button
+      }
+    }
+
+    // Icon styling
+    .btn__content-container {
+      .icon {
+        color: inherit !important; // Inherit from button
+
+        svg {
+          color: inherit !important;
+          fill: currentColor !important;
+        }
+      }
+    }
+
+    // Hover state for all child elements
+    &.btn:hover:enabled {
+      .btn__text-container {
+        .text,
+        .label,
+        .download {
+          color: $hc-text-secondary !important;
+        }
+      }
+
+      .btn__content-container {
+        .icon {
+          color: $hc-text-secondary !important;
+
+          svg {
+            color: $hc-text-secondary !important;
+            fill: currentColor !important;
+          }
+        }
+      }
+    }
+
+    // Active state for all child elements
+    &.btn:active:enabled {
+      .btn__text-container {
+        .text,
+        .label,
+        .download {
+          color: $hc-text-secondary !important;
+        }
+      }
+
+      .btn__content-container {
+        .icon {
+          color: $hc-text-secondary !important;
+
+          svg {
+            color: $hc-text-secondary !important;
+            fill: currentColor !important;
+          }
+        }
+      }
+    }
+
+    // Disabled state for all child elements
+    &.btn:disabled {
+      .btn__text-container {
+        .text,
+        .label,
+        .download {
+          color: #666666 !important;
+        }
+      }
+
+      .btn__content-container {
+        .icon {
+          color: #666666 !important;
+
+          svg {
+            color: #666666 !important;
+            fill: currentColor !important;
+          }
+        }
+      }
+    }
+
+    &.btn:focus-visible {
+      outline: $hc-border-primary solid 3px !important;
+      outline-offset: 2px;
+      box-shadow: 0 0 0 1px $hc-bg-primary, 0 0 0 4px $hc-border-primary !important;
+    }
+
+    // Motion preferences
+    @media (prefers-reduced-motion: reduce) {
+      &.btn {
+        transition: none !important;
+        transform: none !important;
+
+        &:hover:enabled,
+        &:active:enabled {
+          transform: none !important;
+        }
+      }
+    }
+  }
 }

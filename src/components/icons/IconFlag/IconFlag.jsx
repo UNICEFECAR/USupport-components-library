@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 
-import "./iconflag.scss";
 import { Icon } from "../Icon";
+import { ThemeContext } from "../../../utils";
+
+import "./iconflag.scss";
 
 /**
  * IconFlag
@@ -12,7 +14,20 @@ import { Icon } from "../Icon";
  * @return {jsx}
  */
 export const IconFlag = ({ flagName }) => {
-  return <Icon name={`flag-${flagName}`} size="md" aria-label={flagName} />;
+  const { theme } = useContext(ThemeContext);
+
+  return (
+    <Icon
+      name={`flag-${flagName}`}
+      size="md"
+      aria-label={flagName}
+      color={
+        theme === "highContrast" && flagName === "global"
+          ? "#ffff00"
+          : undefined
+      }
+    />
+  );
 };
 
 IconFlag.propTypes = {

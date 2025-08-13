@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+
+import { ThemeContext } from "../../../utils/theme-context";
 import { Icon } from "../../icons/Icon";
 
 import "./collapsible.scss";
@@ -19,6 +21,8 @@ export const Collapsible = ({
   iconColor,
   classes,
 }) => {
+  const { theme } = useContext(ThemeContext);
+
   const [isExpanded, setIsExpanded] = React.useState(false);
 
   return (
@@ -35,7 +39,11 @@ export const Collapsible = ({
         onClick={() => setIsExpanded(!isExpanded)}
       >
         {heading}
-        <Icon name={"arrow-chevron-down"} size={iconSize} color={iconColor} />
+        <Icon
+          name={"arrow-chevron-down"}
+          size={iconSize}
+          color={theme === "highContrast" ? "#ffff00" : iconColor}
+        />
       </div>
       <div className="collapsible__content">{content}</div>
     </div>

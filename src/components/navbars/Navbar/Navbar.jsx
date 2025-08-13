@@ -286,15 +286,21 @@ export const Navbar = ({
           name={theme === "light" ? "dark-mode-switch" : "light-mode"}
           size="lg"
           classes="nav__theme-button__icon"
-          color={theme === "light" ? "#20809E" : "#FDDA0D"}
+          color={
+            theme === "light"
+              ? "#20809E"
+              : theme === "dark"
+              ? "#FDDA0D"
+              : "#ffff00"
+          }
         />
         <p
           className={[
             "paragraph",
-            theme === "dark" && "nav__theme-button__yellow-text",
+            theme === "light" ? "" : "nav__theme-button__yellow-text",
           ].join(" ")}
         >
-          {t(theme === "light" ? "dark" : "light")}
+          {t(theme === "light" ? "light" : "dark")}
         </p>
       </div>
     );
@@ -327,7 +333,11 @@ export const Navbar = ({
               onClick={() => handleDropdownClick(index)}
             >
               <p className="paragraph">{page.name}</p>
-              <Icon name="arrow-chevron-down" size="sm" color="#20809e" />
+              <Icon
+                name="arrow-chevron-down"
+                size="sm"
+                color={theme === "highContrast" ? "#ffff00" : "#20809e"}
+              />
             </div>
           ),
           onClick: scrollTop,
@@ -412,7 +422,11 @@ export const Navbar = ({
         <p className="nav__current-language">
           {selectedLanguage.value === "uk" ? "ua" : selectedLanguage.value}
         </p>
-        <Icon name="arrow-chevron-down" size="sm" color="#20809e" />
+        <Icon
+          name="arrow-chevron-down"
+          size="sm"
+          color={theme === "highContrast" ? "#ffff00" : "#20809e"}
+        />
       </div>
     ),
   });
@@ -436,7 +450,11 @@ export const Navbar = ({
             <IconFlag flagName={selectedCountry.iconName} />
           )}
           {width < 1050 && <p className="paragraph">{"Country"}</p>}
-          <Icon name="arrow-chevron-down" size="sm" color="#20809e" />
+          <Icon
+            name="arrow-chevron-down"
+            size="sm"
+            color={theme === "highContrast" ? "#ffff00" : "#20809e"}
+          />
         </div>
       ),
     });
@@ -725,7 +743,7 @@ export const Navbar = ({
   };
 
   const defaultLogo = `${AMAZON_S3_BUCKET}/logo-horizontal${
-    theme === "dark" ? "-dark" : ""
+    theme === "light" ? "" : "-dark"
   }`;
 
   let logoUrl = defaultLogo;
@@ -735,7 +753,7 @@ export const Navbar = ({
     renderIn !== "global-admin"
   ) {
     logoUrl = `${AMAZON_S3_BUCKET}/logo-horizontal-${selectedCountry.value}${
-      theme === "dark" ? "-dark" : ""
+      theme === "light" ? "" : "-dark"
     }`;
   } else {
     logoUrl = defaultLogo;
@@ -774,7 +792,7 @@ export const Navbar = ({
             classes="nav__toggler"
             name={isNavbarExpanded ? "close-x" : "navbar-burger"}
             size="md"
-            color={theme === "dark" ? "#fff" : "#373737"}
+            color={theme === "light" ? "#373737" : "#fff"}
           />
         </div>
 

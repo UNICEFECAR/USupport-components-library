@@ -297,4 +297,384 @@
   &--transparent {
     background-color: transparent;
   }
+
+  // High Contrast Mode - Complete Override System
+  &.btn--high-contrast {
+    // Core high contrast variables for consistency
+    $hc-bg-primary: #000000;
+    $hc-text-primary: #ffffff;
+    $hc-border-primary: #ffffff;
+    $hc-bg-secondary: #ffffff;
+    $hc-text-secondary: #000000;
+    $hc-disabled-bg: #333333;
+    $hc-disabled-text: #666666;
+    $hc-disabled-border: #666666;
+    $hc-border-width: 2px;
+    $hc-focus-width: 3px;
+
+    // Base high contrast styling - applies to all button types
+    background-color: $hc-bg-primary !important;
+    color: $hc-text-primary !important;
+    border: $hc-border-width solid $hc-border-primary !important;
+    box-shadow: none !important;
+    font-weight: $font_bold !important; // Increased weight for better readability
+
+    // Enhanced focus styling for accessibility
+    &:focus-visible {
+      outline: $hc-border-primary solid $hc-focus-width !important;
+      outline-offset: 2px;
+      box-shadow: 0 0 0 1px $hc-bg-primary, 0 0 0 4px $hc-border-primary !important;
+    }
+
+    // PRIMARY BUTTON OVERRIDES
+    &.btn--primary {
+      background-color: $hc-bg-primary !important;
+      color: $hc-text-primary !important;
+      border: $hc-border-width solid $hc-border-primary !important;
+
+      &:hover:enabled {
+        background-color: $hc-bg-secondary !important;
+        color: $hc-text-secondary !important;
+        border-color: $hc-text-secondary !important;
+        box-shadow: 0 0 8px rgba(255, 255, 255, 0.5) !important;
+        transform: translateY(-1px); // Subtle lift effect
+      }
+
+      &:active:enabled {
+        background-color: $hc-bg-secondary !important;
+        color: $hc-text-secondary !important;
+        border-color: $hc-text-secondary !important;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+        transform: translateY(0);
+      }
+
+      // Override all color variants for primary
+      &.btn--green,
+      &.btn--purple,
+      &.btn--red {
+        background-color: $hc-bg-primary !important;
+        color: $hc-text-primary !important;
+        border: $hc-border-width solid $hc-border-primary !important;
+
+        &:hover:enabled {
+          background-color: $hc-bg-secondary !important;
+          color: $hc-text-secondary !important;
+          border-color: $hc-text-secondary !important;
+          box-shadow: 0 0 8px rgba(255, 255, 255, 0.5) !important;
+          filter: none !important;
+          transform: translateY(-1px);
+        }
+
+        &:active:enabled {
+          background-color: $hc-bg-secondary !important;
+          color: $hc-text-secondary !important;
+          border-color: $hc-text-secondary !important;
+          box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+          filter: none !important;
+          transform: translateY(0);
+        }
+      }
+    }
+
+    // SECONDARY BUTTON OVERRIDES
+    &.btn--secondary {
+      background-color: transparent !important;
+      color: $hc-text-primary !important;
+      border: $hc-border-width solid $hc-border-primary !important;
+
+      &:hover:enabled {
+        background-color: $hc-bg-secondary !important;
+        color: $hc-text-secondary !important;
+        border-color: $hc-text-secondary !important;
+        box-shadow: 0 0 8px rgba(255, 255, 255, 0.5) !important;
+      }
+
+      &:active:enabled {
+        background-color: $hc-bg-secondary !important;
+        color: $hc-text-secondary !important;
+        border-color: $hc-text-secondary !important;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+      }
+
+      // Override all color variants for secondary
+      &.btn--green,
+      &.btn--purple,
+      &.btn--red {
+        background-color: transparent !important;
+        color: $hc-text-primary !important;
+        border: $hc-border-width solid $hc-border-primary !important;
+
+        &:hover:enabled {
+          background-color: $hc-bg-secondary !important;
+          color: $hc-text-secondary !important;
+          border-color: $hc-text-secondary !important;
+          box-shadow: 0 0 8px rgba(255, 255, 255, 0.5) !important;
+        }
+
+        &:active:enabled {
+          background-color: $hc-bg-secondary !important;
+          color: $hc-text-secondary !important;
+          border-color: $hc-text-secondary !important;
+          box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+        }
+      }
+    }
+
+    // GHOST BUTTON OVERRIDES
+    &.btn--ghost {
+      background-color: transparent !important;
+      color: $hc-text-primary !important;
+      border: $hc-border-width solid $hc-border-primary !important;
+      box-shadow: none !important;
+
+      &:hover:enabled {
+        background-color: $hc-bg-secondary !important;
+        color: $hc-text-secondary !important;
+        border-color: $hc-text-secondary !important;
+        filter: none !important;
+      }
+
+      &:active:enabled {
+        background-color: $hc-bg-secondary !important;
+        color: $hc-text-secondary !important;
+        border-color: $hc-text-secondary !important;
+        filter: none !important;
+      }
+
+      // Override all color variants for ghost
+      &.btn--green,
+      &.btn--purple,
+      &.btn--red {
+        color: $hc-text-primary !important;
+
+        &:hover:enabled {
+          background-color: $hc-bg-secondary !important;
+          color: $hc-text-secondary !important;
+          border-color: $hc-text-secondary !important;
+        }
+
+        &:active:enabled {
+          background-color: $hc-bg-secondary !important;
+          color: $hc-text-secondary !important;
+          border-color: $hc-text-secondary !important;
+        }
+      }
+
+      // Special handling for transparent ghost buttons
+      &.btn--transparent:not(:disabled) {
+        background-color: transparent !important;
+        border: $hc-border-width solid $hc-border-primary !important;
+
+        &:hover:enabled {
+          background-color: $hc-bg-secondary !important;
+          color: $hc-text-secondary !important;
+          border-color: $hc-text-secondary !important;
+          filter: none !important;
+        }
+
+        &:active:enabled {
+          background-color: $hc-bg-secondary !important;
+          color: $hc-text-secondary !important;
+          border-color: $hc-text-secondary !important;
+          filter: none !important;
+        }
+      }
+    }
+
+    // TEXT BUTTON OVERRIDES
+    &.btn--text {
+      background-color: transparent !important;
+      color: $hc-text-primary !important;
+      border: 1px solid $hc-border-primary !important; // Thinner border for text buttons
+      box-shadow: none !important;
+      padding: $spacing_0_4 $spacing_0_8 !important; // Add some padding for better click target
+
+      &:hover:enabled {
+        background-color: $hc-bg-secondary !important;
+        color: $hc-text-secondary !important;
+        border-color: $hc-text-secondary !important;
+      }
+
+      &:active:enabled {
+        background-color: $hc-bg-secondary !important;
+        color: $hc-text-secondary !important;
+        border-color: $hc-text-secondary !important;
+      }
+
+      // Override all color variants for text
+      &.btn--green,
+      &.btn--purple {
+        color: $hc-text-primary !important;
+
+        &:hover:enabled {
+          background-color: $hc-bg-secondary !important;
+          color: $hc-text-secondary !important;
+          border-color: $hc-text-secondary !important;
+        }
+
+        &:active:enabled {
+          background-color: $hc-bg-secondary !important;
+          color: $hc-text-secondary !important;
+          border-color: $hc-text-secondary !important;
+        }
+      }
+    }
+
+    // LINK BUTTON OVERRIDES
+    &.btn--link {
+      background-color: transparent !important;
+      color: $hc-text-primary !important;
+      border: none !important;
+      text-decoration: underline !important;
+      text-decoration-thickness: 2px !important; // Thicker underline for visibility
+      text-underline-offset: 2px !important;
+      box-shadow: none !important;
+      padding: $spacing_0_2 $spacing_0_4 !important; // Minimal padding for better click target
+
+      &:hover:enabled {
+        background-color: $hc-bg-secondary !important;
+        color: $hc-text-secondary !important;
+        text-decoration-color: $hc-text-secondary !important;
+        padding: $spacing_0_2 $spacing_0_4 !important;
+      }
+
+      &:active:enabled {
+        background-color: $hc-bg-secondary !important;
+        color: $hc-text-secondary !important;
+        text-decoration-color: $hc-text-secondary !important;
+      }
+
+      // Override all color variants for link
+      &.btn--green,
+      &.btn--purple {
+        color: $hc-text-primary !important;
+        text-decoration-color: $hc-text-primary !important;
+
+        &:hover:enabled {
+          background-color: $hc-bg-secondary !important;
+          color: $hc-text-secondary !important;
+          text-decoration-color: $hc-text-secondary !important;
+        }
+
+        &:active:enabled {
+          background-color: $hc-bg-secondary !important;
+          color: $hc-text-secondary !important;
+          text-decoration-color: $hc-text-secondary !important;
+        }
+      }
+    }
+
+    // DISABLED STATE - Universal override
+    &:disabled {
+      background-color: $hc-disabled-bg !important;
+      color: $hc-disabled-text !important;
+      border-color: $hc-disabled-border !important;
+      opacity: 1 !important; // Override default opacity
+      cursor: not-allowed !important;
+      transform: none !important;
+      box-shadow: none !important;
+
+      // Ensure disabled state works for all button types
+      &.btn--primary,
+      &.btn--secondary,
+      &.btn--ghost,
+      &.btn--text,
+      &.btn--link {
+        background-color: $hc-disabled-bg !important;
+        color: $hc-disabled-text !important;
+        border-color: $hc-disabled-border !important;
+
+        &.btn--green,
+        &.btn--purple,
+        &.btn--red {
+          background-color: $hc-disabled-bg !important;
+          color: $hc-disabled-text !important;
+          border-color: $hc-disabled-border !important;
+        }
+      }
+
+      // Special case for link buttons when disabled
+      &.btn--link {
+        background-color: transparent !important;
+        text-decoration-color: $hc-disabled-text !important;
+      }
+    }
+
+    // TRANSPARENT VARIANT - Special handling
+    &.btn--transparent {
+      background-color: transparent !important;
+      border: $hc-border-width solid $hc-border-primary !important;
+
+      &:hover:enabled {
+        background-color: $hc-bg-secondary !important;
+        color: $hc-text-secondary !important;
+        border-color: $hc-text-secondary !important;
+        filter: none !important;
+      }
+
+      &:active:enabled {
+        background-color: $hc-bg-secondary !important;
+        color: $hc-text-secondary !important;
+        border-color: $hc-text-secondary !important;
+        filter: none !important;
+      }
+    }
+
+    // LOADING STATE - Ensure loading indicator is visible
+    .btn__content-container {
+      .loading {
+        // Target your loading component specifically
+        color: inherit !important;
+
+        // If using a spinner, ensure it's visible
+        svg,
+        .spinner {
+          color: inherit !important;
+          fill: currentColor !important;
+        }
+      }
+    }
+
+    // SIZE-SPECIFIC ADJUSTMENTS for better accessibility
+    &.btn--xs {
+      min-height: 3.2rem; // Ensure minimum touch target
+      font-size: $font_size_1_2;
+    }
+
+    &.btn--sm {
+      min-height: 3.6rem;
+      font-size: $font_size_1_2;
+    }
+
+    &.btn--md {
+      min-height: 4rem;
+      font-size: 1.4rem;
+    }
+
+    &.btn--lg {
+      min-height: 4.8rem;
+      font-size: $font_size_1_8;
+    }
+
+    // MEDIA QUERIES for responsive high contrast
+    @media (max-width: $screen-sm) {
+      font-size: 1.4rem !important; // Slightly larger on mobile
+      min-height: 4.4rem !important; // Larger touch targets on mobile
+      padding: $spacing_1_0 $spacing_1_6 !important;
+    }
+
+    // MOTION PREFERENCES - Respect user preferences
+    @media (prefers-reduced-motion: reduce) {
+      transition: none !important;
+      transform: none !important;
+
+      &:hover:enabled {
+        transform: none !important;
+      }
+
+      &:active:enabled {
+        transform: none !important;
+      }
+    }
+  }
 }

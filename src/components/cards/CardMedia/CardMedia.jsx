@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+
 import { Button } from "../../buttons/Button/Button";
 import { Icon } from "../../icons/Icon/Icon";
 import { Box } from "../../boxes/Box/Box";
@@ -8,6 +9,7 @@ import { Label } from "../../labels/Label/Label";
 import { Grid } from "../../grids/Grid/Grid";
 import { GridItem } from "../../grids/GridItem/GridItem";
 import { Like } from "../../icons/Like/Like";
+import { ThemeContext } from "../../../utils";
 
 import "./card-media.scss";
 
@@ -42,6 +44,8 @@ export const CardMedia = ({
   t,
   ...props
 }) => {
+  const { theme } = useContext(ThemeContext);
+
   const renderLabels = () => {
     return labels.map((label, index) => {
       return (
@@ -69,7 +73,13 @@ export const CardMedia = ({
         onClick={onClick}
       />
       <div className="card-media__category">
-        <p className="small-text card-media__category__text">{categoryName}</p>
+        <p
+          className={`small-text card-media__category__text ${
+            theme === "highContrast" ? "card-media__category__text--hc" : ""
+          }`}
+        >
+          {categoryName}
+        </p>
       </div>
       {isRead && (
         <div className="card-media__read">
@@ -90,7 +100,11 @@ export const CardMedia = ({
                 <div className={"card-media__details"}>
                   {readingTime && (
                     <React.Fragment>
-                      <Icon name={"time"} size="sm" color={"#66768d"} />
+                      <Icon
+                        name={"time"}
+                        size="sm"
+                        color={theme === "highContrast" ? "#ffff00" : "#66768d"}
+                      />
                       <p className={"small-text"}>
                         {readingTime} {t("min_read")}
                       </p>

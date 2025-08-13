@@ -35,7 +35,7 @@ export const Footer = ({
   const { width } = useWindowDimensions();
 
   const defaultLogo = `${AMAZON_S3_BUCKET}/logo-horizontal${
-    theme === "dark" ? "-dark" : ""
+    theme === "light" ? "" : "-dark"
   }`;
   const [logoUrl, setLogoUrl] = useState(defaultLogo);
   const [selectedCountry, setSelectedCountry] = useState(
@@ -51,7 +51,7 @@ export const Footer = ({
     if (selectedCountry && selectedCountry !== "global") {
       setLogoUrl(
         `${AMAZON_S3_BUCKET}/logo-horizontal-${selectedCountry}${
-          theme === "dark" ? "-dark" : ""
+          theme === "light" ? "" : "-dark"
         }`
       );
     } else {
@@ -140,6 +140,13 @@ export const Footer = ({
     });
   });
 
+  const iconColor =
+    theme === "light"
+      ? "#3D527B"
+      : theme === "highContrast"
+      ? "#ffff00"
+      : "20809E";
+
   return (
     <Block classes="footer" animation={null} isFooter={true}>
       <Grid>
@@ -165,21 +172,21 @@ export const Footer = ({
                 name="linkedin"
                 size={"lg"}
                 onClick={() => handleContactsClick("linkedin")}
-                color={theme === "dark" ? "20809E" : "#3D527B"}
+                color={iconColor}
               />
               <Icon
                 classes="footer__icon"
                 name="twitter"
                 size={"lg"}
                 onClick={() => handleContactsClick("twitter")}
-                color={theme === "dark" ? "20809E" : "#3D527B"}
+                color={iconColor}
               />
               <Icon
                 classes="footer__icon"
                 name="facebook"
                 size={"lg"}
                 onClick={() => handleContactsClick("facebook")}
-                color={theme === "dark" ? "20809E" : "#3D527B"}
+                color={iconColor}
               />
             </div>
           )}

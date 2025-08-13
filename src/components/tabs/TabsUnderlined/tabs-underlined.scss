@@ -41,5 +41,9 @@
         font-weight: $font_bold;
       }
     }
+
+    &--hc {
+      border-bottom: 0.3rem solid yellow;
+    }
   }
 }

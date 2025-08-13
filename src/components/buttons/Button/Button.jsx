@@ -35,7 +35,7 @@ export const Button = ({
       className={[
         `btn btn--${size} btn--${color} btn--${
           theme === "dark" && type === "secondary" ? "primary" : type
-        }`,
+        } ${theme === "highContrast" ? "btn--high-contrast" : ""}`,
         web ? "btn--web" : "",
         classNames(classes),
       ].join(" ")}

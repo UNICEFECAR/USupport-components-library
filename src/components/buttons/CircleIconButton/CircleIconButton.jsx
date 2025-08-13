@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 
-import "./circle-icon-button.scss";
 import useWindowDimensions from "../../../utils/useWindowDimensions";
+import { ThemeContext } from "../../../utils/theme-context";
 import { ButtonWithIcon } from "../ButtonWithIcon";
+
+import "./circle-icon-button.scss";
 
 /**
  * CircleIconButton
@@ -22,12 +24,15 @@ export const CircleIconButton = ({
 }) => {
   const { width } = useWindowDimensions();
   const isMobile = width < 768;
+
+  const { theme } = useContext(ThemeContext);
+
   return (
     <ButtonWithIcon
       color="red"
       iconName={iconName}
       iconSize={iconSize}
-      iconColor="#fff"
+      iconColor={theme === "highContrast" ? "#ed5657" : "#fff"}
       onlyIcon={isMobile || !label}
       label={isMobile || !label ? "" : label}
       size="md"
