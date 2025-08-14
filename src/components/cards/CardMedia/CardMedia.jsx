@@ -56,7 +56,11 @@ export const CardMedia = ({
   };
 
   const shouldShowPlayIcon =
-    handlePlay && (contentType === "videos" || contentType === "podcasts");
+    handlePlay &&
+    (contentType === "videos" ||
+      contentType === "podcasts" ||
+      contentType === "video" ||
+      contentType === "podcast");
 
   console.log(!!handlePlay);
   console.log(contentType);
@@ -242,7 +246,13 @@ CardMedia.propTypes = {
   /**
    * Content type to determine behavior and styling
    * */
-  contentType: PropTypes.oneOf(["articles", "videos", "podcasts"]),
+  contentType: PropTypes.oneOf([
+    "articles",
+    "videos",
+    "podcasts",
+    "video",
+    "podcast",
+  ]),
 
   /**
    * Function to handle play action for videos and podcasts
