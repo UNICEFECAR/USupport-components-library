@@ -22,6 +22,7 @@ export const VideoPlayer = ({
   t,
   className = "",
   playlistId,
+  autoplay = false,
 }) => {
   // Check if user has accepted cookies required for video playback
   const DISPLAY_VIDEO =
@@ -97,7 +98,16 @@ export const VideoPlayer = ({
     if (playlistId) {
       embedUrl = `https://www.youtube.com/embed/videoid?list=${playlistId}`;
     }
-    console.log(embedUrl);
+
+    if (autoplay) {
+      const separator = embedUrl.includes("?") ? "&" : "?";
+      if (isVimeo) {
+        embedUrl += `${separator}autoplay=1`;
+      } else {
+        embedUrl += `${separator}autoplay=1&mute=1`;
+      }
+    }
+
     return (
       <Box boxShadow={3} classes="video-player__box">
         <div className="video-player__box__embed-container">
@@ -157,6 +167,10 @@ VideoPlayer.propTypes = {
    * Whether the video is a playlist
    */
   playlistId: propTypes.string,
+  /**
+   * Whether to automatically start the video on render
+   */
+  autoplay: propTypes.bool,
 };
 
 VideoPlayer.defaultProps = {
@@ -167,4 +181,5 @@ VideoPlayer.defaultProps = {
   setCookieState: null,
   t: null,
   className: "",
+  autoplay: false,
 };
