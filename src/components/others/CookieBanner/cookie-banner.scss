@@ -4,7 +4,7 @@
   position: fixed;
   bottom: $spacing_2_0;
   width: "90%";
-  z-index: 1001;
+  z-index: 10001;
   // height: 200px;
   @include themify($themes, "background-color", "color_white_ff");
   padding: $spacing_2_0;
