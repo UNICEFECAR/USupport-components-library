@@ -41,6 +41,7 @@ export const CardMedia = ({
   contentType = "articles",
   isRead,
   children,
+  handlePlay,
   t,
   ...props
 }) => {
@@ -54,6 +55,13 @@ export const CardMedia = ({
     });
   };
 
+  const shouldShowPlayIcon =
+    handlePlay && (contentType === "videos" || contentType === "podcasts");
+
+  console.log(!!handlePlay);
+  console.log(contentType);
+  console.log(shouldShowPlayIcon);
+
   return (
     <Box
       classes={[
@@ -66,12 +74,25 @@ export const CardMedia = ({
       {...props}
       onClick={onClick}
     >
-      <img
-        className="card-media__image"
-        src={image ? image : "https://picsum.photos/343/400"}
-        alt="card-media"
-        onClick={onClick}
-      />
+      <div className="card-media__image-container">
+        <img
+          className="card-media__image"
+          src={image ? image : "https://picsum.photos/343/400"}
+          alt="card-media"
+          onClick={onClick}
+        />
+        {shouldShowPlayIcon && (
+          <div
+            className="card-media__play-overlay"
+            onClick={(e) => {
+              e.stopPropagation();
+              handlePlay();
+            }}
+          >
+            <Icon name="play" color="#ffffff" size="xl" />
+          </div>
+        )}
+      </div>
       <div className="card-media__category">
         <p
           className={`small-text card-media__category__text ${
@@ -219,6 +240,16 @@ CardMedia.propTypes = {
   categoryName: PropTypes.string,
 
   /**
+   * Content type to determine behavior and styling
+   * */
+  contentType: PropTypes.oneOf(["articles", "videos", "podcasts"]),
+
+  /**
+   * Function to handle play action for videos and podcasts
+   * */
+  handlePlay: PropTypes.func,
+
+  /**
    * Additional classes to be added to the CardMedia component
    **/
   classes: PropTypes.oneOfType([
@@ -241,4 +272,6 @@ CardMedia.defaultProps = {
   categoryName: null,
   readingTime: null,
   showDescription: true,
+  contentType: "articles",
+  handlePlay: undefined,
 };
