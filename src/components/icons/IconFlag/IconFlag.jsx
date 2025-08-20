@@ -26,7 +26,7 @@ export const IconFlag = ({ flagName }) => {
           ? theme === "highContrast"
             ? "#ffff00"
             : "#20809e"
-          : undefined
+          : null
       }
     />
   );
