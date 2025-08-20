@@ -472,6 +472,7 @@
       cursor: pointer;
       display: flex;
       justify-content: flex-start;
+      text-align: left;
 
       &:not(:first-of-type) {
         padding-top: $spacing_0_8;
