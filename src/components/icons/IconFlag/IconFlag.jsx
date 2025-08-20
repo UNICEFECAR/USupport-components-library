@@ -22,9 +22,11 @@ export const IconFlag = ({ flagName }) => {
       size="md"
       aria-label={flagName}
       color={
-        theme === "highContrast" && flagName === "global"
-          ? "#ffff00"
-          : "#20809e"
+        flagName === "global"
+          ? theme === "highContrast"
+            ? "#ffff00"
+            : "#20809e"
+          : undefined
       }
     />
   );
