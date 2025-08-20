@@ -24,7 +24,7 @@ export const IconFlag = ({ flagName }) => {
       color={
         theme === "highContrast" && flagName === "global"
           ? "#ffff00"
-          : undefined
+          : "#20809e"
       }
     />
   );
