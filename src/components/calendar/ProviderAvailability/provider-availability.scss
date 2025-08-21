@@ -312,6 +312,10 @@
       justify-content: space-between;
     }
 
+    &__campaign {
+      margin-top: 2.4rem;
+    }
+
     &__organization {
       border-top: 1px solid $color_gray_344054;
       padding-top: 1.2rem;
@@ -352,7 +356,8 @@
       }
 
       &:not(:last-of-type) {
-        margin-bottom: $spacing_2_4;
+        margin-bottom: $spacing_1_0;
+        margin-top: $spacing_1_0;
       }
 
       & .icon {
