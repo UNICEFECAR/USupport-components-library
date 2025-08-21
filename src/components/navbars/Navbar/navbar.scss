@@ -214,6 +214,7 @@
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    width: 30rem;
 
     @media screen and (min-width: $navbar-tight) {
       top: 7.5rem;
@@ -472,6 +473,7 @@
       cursor: pointer;
       display: flex;
       justify-content: flex-start;
+      text-align: left;
 
       &:not(:first-of-type) {
         padding-top: $spacing_0_8;

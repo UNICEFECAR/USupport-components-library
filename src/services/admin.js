@@ -7,6 +7,7 @@ const API_ENDPOINT_COUNTRIES_SOS_CENTERS =
 const API_ENDPOINT_COUNTRIES_ARTICLES = API_ENDPOINT + "/country/articles";
 const API_ENDPOINT_COUNTRIES_VIDEOS = API_ENDPOINT + "/country/videos";
 const API_ENDPOINT_COUNTRIES_PODCASTS = API_ENDPOINT + "/country/podcasts";
+const API_ENDPOINT_BASELINE_ASSESSMENT = API_ENDPOINT + "/baseline-assessment";
 
 async function createAdmin(payload) {
   const response = await http.post(`${API_ENDPOINT}/signup`, payload);
@@ -496,6 +497,17 @@ async function getPlatformMetrics() {
 }
 
 /**
+ * Get SOS center click statistics
+ * @returns {Promise} the promise of the http request
+ */
+async function getSOSCenterClicks() {
+  const response = await http.get(
+    `${API_ENDPOINT}/statistics/sos-center-clicks`
+  );
+  return response;
+}
+
+/**
  * Update content type active status for a country
  * @param {Object} payload
  * @param {string} payload.contentType - The content type (videos or podcasts)
@@ -506,6 +518,40 @@ async function updateContentActiveStatus(payload) {
   const response = await http.put(
     `${API_ENDPOINT}/content-active-status`,
     payload
+  );
+  return response;
+}
+
+/**
+ * Get all baseline assessment thresholds for a country
+ * @returns {Promise} the promise of the http request
+ */
+async function getAllBaselineAssessmentThresholds() {
+  const response = await http.get(API_ENDPOINT_BASELINE_ASSESSMENT);
+  return response;
+}
+
+/**
+ * Update baseline assessment threshold by ID
+ * @param {string} id - The threshold ID to update
+ * @param {Object} payload - The threshold data to update
+ * @returns {Promise} the promise of the http request
+ */
+async function updateBaselineAssessmentThreshold(id, payload) {
+  const response = await http.put(
+    `${API_ENDPOINT_BASELINE_ASSESSMENT}/${id}`,
+    payload
+  );
+  return response;
+}
+
+/**
+ * Get baseline assessment analysis with median calculations
+ * @returns {Promise} the promise of the http request
+ */
+async function getBaselineAssessmentAnalysis() {
+  const response = await http.get(
+    `${API_ENDPOINT_BASELINE_ASSESSMENT}/analysis`
   );
   return response;
 }
@@ -566,7 +612,11 @@ const exportedFunctions = {
   putPodcast,
   deletePodcast,
   getPlatformMetrics,
+  getSOSCenterClicks,
   updateContentActiveStatus,
+  getAllBaselineAssessmentThresholds,
+  updateBaselineAssessmentThreshold,
+  getBaselineAssessmentAnalysis,
 };
 
 export default exportedFunctions;
