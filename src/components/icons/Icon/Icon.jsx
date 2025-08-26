@@ -34,6 +34,7 @@ export const Icon = ({ name, size, color, classes, role, ...props }) => {
       }
       style={{ WebkitFilter: svgFilter ? svgFilter : "" }}
       role={role ? role : "none"}
+      alt={`icon-${name}`}
       {...props}
     >
       <use href={`${sprite}#icon-${name}`} />
