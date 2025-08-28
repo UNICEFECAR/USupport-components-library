@@ -62,10 +62,6 @@ export const CardMedia = ({
       contentType === "video" ||
       contentType === "podcast");
 
-  console.log(!!handlePlay);
-  console.log(contentType);
-  console.log(shouldShowPlayIcon);
-
   return (
     <Box
       classes={[
