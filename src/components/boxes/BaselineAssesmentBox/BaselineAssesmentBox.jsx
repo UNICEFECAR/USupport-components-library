@@ -22,7 +22,7 @@ export const BaselineAssesmentBox = ({
   startedAt,
   currentPosition,
   completionPercentage,
-  handleViewSession,
+  handleViewAssessment,
   t,
 }) => {
   return (
@@ -34,7 +34,7 @@ export const BaselineAssesmentBox = ({
       <ProgressBar progress={progress} showPercentage />
       <p>{t("started_at", { date: getDateView(startedAt) })}</p>
       <p>{currentPosition}/27</p>
-      <Button onClick={handleViewSession} variant="secondary">
+      <Button onClick={handleViewAssessment} variant="secondary">
         {status === "in_progress" ? t("continue") : t("view")}
       </Button>
     </Box>
