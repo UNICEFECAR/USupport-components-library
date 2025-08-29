@@ -59,7 +59,8 @@ export const CheckBoxGroup = ({
         <p
           className={[
             "text checkbox-group__label",
-            "checkbox-group__label--dark",
+            theme === "dark" ? "checkbox-group__label--dark" : "",
+            theme === "highContrast" ? "checkbox-group__label--hc" : "",
           ].join(" ")}
         >
           {label}

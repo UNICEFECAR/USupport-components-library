@@ -36,7 +36,7 @@ export const RadioButton = ({
       />
       {label ? (
         <p
-          className={["text label", theme === "dark" && "label--dark"].join(
+          className={["text label", theme !== "light" && "label--dark"].join(
             " "
           )}
         >

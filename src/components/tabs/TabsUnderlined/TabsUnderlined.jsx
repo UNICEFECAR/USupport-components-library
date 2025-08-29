@@ -29,7 +29,7 @@ export const TabsUnderlined = ({
       return <h3>{t ? t(`${option.value}_tab_label`) : option.label}</h3>;
     }
     return (
-      <h4 className="label">
+      <h4 className={theme !== "highContrast" && "label"}>
         {t ? t(`${option.value}_tab_label`) : option.label}
       </h4>
     );

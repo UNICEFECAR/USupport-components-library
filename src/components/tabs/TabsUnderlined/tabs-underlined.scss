@@ -42,8 +42,16 @@
       }
     }
 
-    &--hc {
-      border-bottom: 0.3rem solid yellow;
+    &--hc.tab--selected {
+      border-bottom: 0.4rem solid yellow;
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        color: yellow !important;
+        font-weight: $font_bold;
+      }
     }
   }
 }

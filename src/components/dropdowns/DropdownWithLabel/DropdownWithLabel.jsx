@@ -28,6 +28,7 @@ export const DropdownWithLabel = ({
           "text",
           "dropdown-with-label__label",
           theme === "dark" && "dropdown-with-label__label--dark",
+          theme === "highContrast" && "dropdown-with-label__label--hc",
           classNames(labelClasses),
         ].join(" ")}
       >
