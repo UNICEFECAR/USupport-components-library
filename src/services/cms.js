@@ -13,6 +13,7 @@ const termsOfUseEndpoint = CMS_API_URL + "/terms-of-uses";
 const abousUsEndpoint = CMS_API_URL + "/about-us-pages";
 const videosEndpoint = CMS_API_URL + "/videos";
 const podcastsEndpoint = CMS_API_URL + "/podcasts";
+const assessmentResultEndpoint = CMS_API_URL + "/assessment-results";
 /**
  * generate a querry string from an object
  *
@@ -102,6 +103,16 @@ function generateQuerryString(queryObj) {
 
   if (querry.includes("?&")) {
     querry = querry.replace("?&", "?");
+  }
+
+  if (queryObj.psychological) {
+    querry += `&filters[psychological][$eq]=${queryObj.psychological}`;
+  }
+  if (queryObj.social) {
+    querry += `&filters[social][$eq]=${queryObj.social}`;
+  }
+  if (queryObj.biological) {
+    querry += `&filters[biological][$eq]=${queryObj.biological}`;
   }
 
   return querry;
@@ -490,6 +501,23 @@ async function getRecommendedArticlesForCategory(payload) {
   return data;
 }
 
+/**
+ * Get assessment result based on psychological, social, and biological scores
+ * @param {object} queryObj - the object containing query parameters
+ * @param {string} queryObj.language - the language/locale for the results
+ * @param {number} queryObj.psychological - 'low', 'moderate', 'high'
+ * @param {number} queryObj.social - 'low', 'moderate', 'high'
+ * @param {number} queryObj.biological - 'low', 'moderate', 'high'
+ * @returns {object} assessment result data
+ */
+async function getAssessmentResult(queryObj) {
+  const queryString = `?populate[articles][populate]=*&populate[podcasts][populate]=*&populate[videos][populate]=*&filters[psychological][$eq]=${queryObj.psychological}&filters[social][$eq]=${queryObj.social}&filters[biological][$eq]=${queryObj.biological}`;
+
+  const { data } = await http.get(`${assessmentResultEndpoint}${queryString}`);
+
+  return { data };
+}
+
 export default {
   getArticles,
   getArticleById,
@@ -519,4 +547,5 @@ export default {
   addVideoShareCount,
   getAllCategoriesStatistics,
   getRecommendedArticlesForCategory,
+  getAssessmentResult,
 };

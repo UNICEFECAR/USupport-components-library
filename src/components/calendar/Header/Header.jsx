@@ -72,9 +72,10 @@ export const Header = ({ handleDayChange, setStartDate, startDate, t }) => {
           className={[
             "header__day-of-week",
             isToday ? "header__day-of-week--current" : "",
-            isToday && theme === "dark"
+            isToday && theme !== "light"
               ? "header__day-of-week--current--dark"
               : "",
+            theme === "highContrast" && "header__day-of-week--hc",
           ].join(" ")}
           key={index}
           onClick={() => handleSelectDay(day)}
@@ -114,16 +115,16 @@ export const Header = ({ handleDayChange, setStartDate, startDate, t }) => {
           }}
           size="md"
           name="arrow-chevron-back"
-          color={theme === "dark" ? "#fff" : "#373737"}
+          color={theme === "light" ? "#373737" : "#fff"}
         />
-        <p className={theme === "dark" && "header__month-name--dark"}>
+        <p className={theme !== "light" && "header__month-name--dark"}>
           {t(months[today.getMonth()].toLowerCase())}
         </p>
         <Icon
           onClick={() => handleMonthChange(1)}
           size="md"
           name="arrow-chevron-forward"
-          color={theme === "dark" ? "#fff" : "#373737"}
+          color={theme === "light" ? "#373737" : "#fff"}
         />
       </div>
 

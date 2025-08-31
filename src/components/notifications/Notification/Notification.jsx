@@ -43,7 +43,7 @@ export const Notification = ({
       className={[
         "notification",
         isRead ? "" : "notification-new",
-        !isRead && theme === "dark" && "notification-new--dark",
+        !isRead && theme !== "light" && "notification-new--dark",
         classNames(classes),
       ].join(" ")}
       onClick={handleClick}

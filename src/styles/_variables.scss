@@ -542,7 +542,7 @@ $themes: (
   }
 }
 
-@mixin themifyCustom($themes, $property, $color_1, $color_2) {
+@mixin themifyCustom($themes, $property, $color_1, $color_2, $color_3: null) {
   @each $theme, $map in $themes {
     .theme-#{$theme} & {
       $theme-map: () !global;
@@ -557,8 +557,11 @@ $themes: (
       }
       @if $theme == "light" {
         #{$property}: map-get($theme-map, $color_1);
-      } @else {
+      } @else if $theme == "dark" {
         #{$property}: map-get($theme-map, $color_2);
+      } @else {
+        $fallback-color: if($color_3, $color_3, $color_2);
+        #{$property}: map-get($theme-map, $fallback-color);
       }
     }
   }
@@ -607,6 +610,8 @@ $color_red_eb5757: #eb5757;
 $color_red_cc4c4c: #cc4c4c;
 $color_red_a63d3d: #a63d3d;
 $color_red_ed5657: #ed5657;
+
+$color_yellow_f9c74f: #f9c74f;
 
 $color_orange_fb6514: #fb6514;
 $color_orange_fddcab: #fddcab;

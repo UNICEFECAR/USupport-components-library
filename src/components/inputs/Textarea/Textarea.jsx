@@ -37,9 +37,10 @@ export const Textarea = ({
       {label ? <p className="text label">{label}</p> : null}
       <textarea
         placeholder={placeholder}
-        className={["textarea text", theme === "dark" && "textarea--dark"].join(
-          " "
-        )}
+        className={[
+          "textarea text",
+          theme !== "light" && "textarea--dark",
+        ].join(" ")}
         value={value}
         onChange={(e) => onChange(e.currentTarget.value)}
         {...props}

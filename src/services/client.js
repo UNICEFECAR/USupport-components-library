@@ -256,6 +256,69 @@ async function addSOSCenterClick(payload) {
   return response;
 }
 
+async function getLatestBaselineAssessment() {
+  const response = await http.get(`${API_ENDPOINT}/baseline-assessment/latest`);
+  return response;
+}
+
+async function getClientAnswersForBaselineAssessmentById(assessmentId) {
+  const response = await http.get(
+    `${API_ENDPOINT}/baseline-assessment/answers?assessmentId=${assessmentId}`
+  );
+  return response;
+}
+
+async function getBaselineAssessmentQuestions() {
+  const response = await http.get(
+    `${API_ENDPOINT}/baseline-assessment/questions`
+  );
+  return response;
+}
+
+async function createBaselineAssessment() {
+  const response = await http.post(
+    `${API_ENDPOINT}/baseline-assessment/create-assessment`
+  );
+  return response;
+}
+
+async function addBaselineAssessmentAnswer({
+  questionId,
+  answerValue,
+  baselineAssessmentId,
+  currentPosition,
+}) {
+  const response = await http.post(
+    `${API_ENDPOINT}/baseline-assessment/add-answer`,
+    {
+      questionId,
+      answerValue,
+      baselineAssessmentId,
+      currentPosition,
+    }
+  );
+  return response;
+}
+
+async function getBaselineAssessments() {
+  const response = await http.get(
+    `${API_ENDPOINT}/baseline-assessment/assessments`
+  );
+  return response;
+}
+
+async function updateClientHasCheckedBaselineAssessment(
+  hasCheckedBaselineAssessment
+) {
+  const response = await http.patch(
+    `${API_ENDPOINT}/has-checked-baseline-assessment`,
+    {
+      hasCheckedBaselineAssessment,
+    }
+  );
+  return response;
+}
+
 const exportedFunctions = {
   addMoodTrack,
   getClientData,
@@ -286,6 +349,13 @@ const exportedFunctions = {
   getOrganizationById,
   sendPlatformSuggestion,
   addSOSCenterClick,
+  addBaselineAssessmentAnswer,
+  getLatestBaselineAssessment,
+  updateClientHasCheckedBaselineAssessment,
+  getBaselineAssessmentQuestions,
+  createBaselineAssessment,
+  getBaselineAssessments,
+  getClientAnswersForBaselineAssessmentById,
 };
 
 export default exportedFunctions;

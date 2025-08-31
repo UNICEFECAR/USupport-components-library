@@ -1,4 +1,5 @@
 @import "../../../styles/theme";
+
 .terms-agreement {
   margin-top: $spacing_2_0;
   display: flex;
@@ -17,6 +18,11 @@
     & .privacy-policy-link {
       color: $color_secondary_9749fa;
       cursor: pointer;
+
+      &--hc {
+        color: #fff;
+        text-decoration: underline;
+      }
     }
   }
 }
