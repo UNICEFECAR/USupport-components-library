@@ -62,6 +62,10 @@
 
     .placeholder {
       color: $color_gray_a6b4b8;
+
+      .theme-highContrast & {
+        color: yellow;
+      }
     }
 
     .text {
@@ -172,4 +176,19 @@
       border: 0.1rem solid $color_gray_a6b4b8;
     }
   }
+}
+
+.theme-highContrast
+  .dropdown
+  .dropdown-content
+  .option-container.option-selected {
+  background-color: #000000 !important;
+}
+
+.theme-highContrast
+  .dropdown
+  .dropdown-content
+  .option-container.option-selected
+  .text {
+  color: yellow !important;
 }

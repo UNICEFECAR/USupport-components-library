@@ -10,7 +10,7 @@ import "./store-button.scss";
 /**
  * StoreButton
  *
- * StoreButton component
+ * StoreButton component with high contrast mode support
  *
  * @return {jsx}
  */
@@ -28,6 +28,7 @@ export const StoreButton = ({
       : store === "web"
       ? "globe"
       : "app-store";
+
   const label =
     store === "google-play"
       ? "Google Play"
@@ -54,39 +55,46 @@ export const StoreButton = ({
     }
   };
 
+  const getStoreButtonClasses = () => {
+    const classes = ["btn--store"];
+
+    if (theme === "highContrast") {
+      classes.push("btn--store--high-contrast", "btn--high-contrast");
+    }
+
+    return classes.join(" ");
+  };
+
+  const getIconColor = () => {
+    if (theme === "highContrast") {
+      return undefined;
+    }
+
+    if (store !== "google-play") {
+      return theme === "dark" ? "#fff" : "#373737";
+    }
+
+    return undefined;
+  };
+
   return (
     <Button
-      type="secondary"
-      classes={["btn--store", theme === "dark" && "btn--store--dark"].join(" ")}
+      type={theme === "highContrast" ? "primary" : "secondary"}
+      classes={getStoreButtonClasses()}
       onClick={handleClick}
+      aria-label={`${downloadText} ${label}`}
       {...props}
     >
-      {store === "google-play" ? (
-        <Icon name={icon} size="lg" />
-      ) : (
-        <Icon
-          name={icon}
-          size="lg"
-          color={
-            store !== "google-play"
-              ? theme === "dark"
-                ? "#fff"
-                : "#373737"
-              : undefined
-          }
-        />
-      )}
+      <Icon
+        name={icon}
+        size="lg"
+        color={getIconColor()}
+        aria-hidden={theme === "highContrast" ? "true" : undefined}
+      />
       <div className="btn__text-container">
         <p className="download">{downloadText}</p>
         <p className="text label">{label}</p>
       </div>
     </Button>
   );
-};
-
-StoreButton.propTypes = {
-  /**
-   * Store to render in the StoreButton component
-   **/
-  store: PropTypes.oneOf(["google-play", "app-store", "web"]).isRequired,
 };

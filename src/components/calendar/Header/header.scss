@@ -45,12 +45,13 @@
     &:nth-of-type(6) > &__date,
     &:nth-of-type(7) > &__date {
       color: $color_gray_92989b;
-      @include themifyCustom(
-        $themes,
-        "color",
-        "$color_gray_92989b",
-        "color_gray_d2dcde"
-      );
+    }
+
+    &--hc {
+      &:nth-of-type(6) > .header__day-of-week__date,
+      &:nth-of-type(7) > .header__day-of-week__date {
+        color: #ffffff;
+      }
     }
 
     &--current {

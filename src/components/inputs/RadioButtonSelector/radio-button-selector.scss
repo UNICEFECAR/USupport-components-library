@@ -20,4 +20,8 @@
       width: calc(36.8rem - 2 * $spacing_1_6);
     }
   }
+
+  &--hc-selected {
+    border: 1px solid #ffff00;
+  }
 }

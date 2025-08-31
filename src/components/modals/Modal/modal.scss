@@ -18,6 +18,15 @@
     color: $color_blue_c1d7e0;
   }
 
+  &--hc {
+    background-color: $color_black_37;
+    color: yellow;
+
+    .base-modal__header__text {
+      color: yellow;
+    }
+  }
+
   @media screen and (min-width: $screen-md) {
     padding: $spacing_2_4 $spacing_2_4;
   }

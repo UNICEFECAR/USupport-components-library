@@ -91,7 +91,7 @@ export const Dropdown = ({
               "option-container",
               selected ? selected === option.value && "option-selected" : "",
               selected === option.value &&
-                theme === "dark" &&
+                theme !== "light" &&
                 "option-selected--dark",
               option.isDisabled && "disabled",
             ].join(" ")}
@@ -142,7 +142,7 @@ export const Dropdown = ({
         borderSize="md"
         classes={[
           "dropdown",
-          theme === "dark" ? "dropdown--dark" : "",
+          theme !== "light" ? "dropdown--dark" : "",
           isOpen ? "dropdown--expanded" : "",
           disabled ? "dropdown--disabled" : "",
           isSmall ? "dropdown--small" : "",
@@ -185,13 +185,13 @@ export const Dropdown = ({
           )}
           <Icon
             name="arrow-chevron-down"
-            color={theme === "dark" ? "#fff" : "#373737"}
+            color={theme === "light" ? "#373737" : "#fff"}
           />
         </div>
         <div
           className={[
             "dropdown-content",
-            theme === "dark" && "dropdown-content--dark",
+            theme !== "light" && "dropdown-content--dark",
             isSmall ? "dropdown-content--small" : "",
           ].join(" ")}
           style={isSmall && width ? { width: `${width - 16}px` } : {}}

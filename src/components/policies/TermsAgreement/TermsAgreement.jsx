@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
+
 import { CheckBox } from "../../inputs/CheckBox";
+import { ThemeContext } from "../../../utils";
 
 import "./terms-agreement.scss";
 const WEBSITE_URL = `${import.meta.env.VITE_WEBSITE_URL}`;
@@ -20,6 +22,8 @@ export const TermsAgreement = ({
   textFour,
   Link,
 }) => {
+  const { theme } = useContext(ThemeContext);
+
   return (
     <div className="terms-agreement">
       <CheckBox
@@ -31,7 +35,10 @@ export const TermsAgreement = ({
       <p className="text">
         {textOne}{" "}
         <span
-          className="privacy-policy-link"
+          className={[
+            "privacy-policy-link",
+            theme === "highContrast" && "privacy-policy-link--hc",
+          ].join(" ")}
           onClick={() =>
             window
               .open(`${WEBSITE_URL}/privacy-policy`, "_blank", "noreferrer")
@@ -42,7 +49,10 @@ export const TermsAgreement = ({
         </span>{" "}
         {textThree} <br />
         <span
-          className="privacy-policy-link"
+          className={[
+            "privacy-policy-link",
+            theme === "highContrast" && "privacy-policy-link--hc",
+          ].join(" ")}
           onClick={() =>
             window
               .open(`${WEBSITE_URL}/terms-of-use`, "_blank", "noreferrer")

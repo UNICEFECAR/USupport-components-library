@@ -29,16 +29,16 @@ body {
 }
 
 .Toastify__toast {
-  border-radius: 1.2rem !important;
-  color: $color_gray_66768d !important;
+  border-radius: 1.2rem;
+  color: $color_gray_66768d;
 }
 
 .Toastify__toast-body {
-  font-size: $font_size_2_0 !important;
+  font-size: $font_size_2_0;
 }
 
 .Toastify__progress-bar--default {
-  background: $gradient_toastify !important;
+  background: $gradient_toastify;
 }
 
 p,
@@ -129,4 +129,87 @@ h4 {
 a {
   text-decoration: none;
   color: $color_gray_66768d;
+}
+
+.theme-highContrast {
+  // Text outline mixin for reusability
+  @mixin text-outline($color: #000000, $width: 1px) {
+    text-shadow: -#{$width} -#{$width} 0 #{$color},
+      #{$width} -#{$width} 0 #{$color}, -#{$width} #{$width} 0 #{$color},
+      #{$width} #{$width} 0 #{$color}, 0 -#{$width} 0 #{$color},
+      0 #{$width} 0 #{$color}, -#{$width} 0 0 #{$color}, #{$width} 0 0 #{$color};
+  }
+
+  // Stronger outline for headings
+  @mixin text-outline-strong($color: #000000, $width: 2px) {
+    text-shadow: -#{$width} -#{$width} 0 #{$color},
+      #{$width} -#{$width} 0 #{$color}, -#{$width} #{$width} 0 #{$color},
+      #{$width} #{$width} 0 #{$color}, 0 -#{$width} 0 #{$color},
+      0 #{$width} 0 #{$color}, -#{$width} 0 0 #{$color}, #{$width} 0 0 #{$color},
+      // Additional shadow for stronger effect
+      -#{$width * 0.5} -#{$width * 0.5} 0 #{$color},
+      #{$width * 0.5} -#{$width * 0.5} 0 #{$color},
+      -#{$width * 0.5} #{$width * 0.5} 0 #{$color},
+      #{$width * 0.5} #{$width * 0.5} 0 #{$color};
+  }
+
+  // Apply outlines to all text elements
+
+  // Headings - stronger outline for better visibility
+  h1 {
+    @include text-outline-strong(#000000, 2px);
+    color: #ffff00;
+    font-weight: $font_bold; // Increase weight for better readability
+  }
+
+  h2 {
+    @include text-outline-strong(#000000, 2px);
+    color: #ffff00;
+    font-weight: $font_bold;
+  }
+
+  h3 {
+    @include text-outline(#000000, 1.5px);
+    color: #ffff00;
+    font-weight: $font_bold;
+  }
+
+  h4 {
+    @include text-outline(#000000, 1px);
+    color: #ffff00;
+    font-weight: $font_bold;
+  }
+
+  // Paragraphs and text elements - subtle outline
+  p,
+  .paragraph {
+    @include text-outline(#000000, 1px);
+    color: #ffff00;
+    font-weight: $font_semi_bold; // Slightly increase weight
+  }
+
+  .text {
+    @include text-outline(#000000, 1px);
+    color: #ffff00;
+    font-weight: $font_semi_bold;
+  }
+
+  .small-text {
+    @include text-outline(#000000, 0.5px);
+    color: #ffff00;
+    font-weight: $font_semi_bold;
+  }
+
+  a {
+    @include text-outline(#000000, 1px);
+    color: #ffff00;
+    font-weight: $font_semi_bold;
+
+    &:hover {
+      @include text-outline(#ffff00, 1px);
+      color: #000000;
+      border-radius: 2px;
+      transition: all 0.2s ease;
+    }
+  }
 }

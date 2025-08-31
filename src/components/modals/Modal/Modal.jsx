@@ -56,7 +56,11 @@ export const Modal = ({
       ].join(" ")}
       className={[
         "base-modal",
-        theme === "dark" && "base-modal--dark",
+        theme === "dark"
+          ? "base-modal--dark"
+          : theme === "highContrast"
+          ? "base-modal--hc"
+          : "",
         classNames(classes),
       ].join(" ")}
       bodyOpenClassName="base-modal--open"

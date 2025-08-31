@@ -304,7 +304,7 @@ export const ProviderAvailability = ({
               />
             ) : null}
 
-            {!consultation && validCampaigns?.length > 0 && (
+            {!consultation && validCampaigns?.length > 0 && !IS_KZ_COUNTRY && (
               <div className="provider-availability__controls__campaign">
                 {validCampaigns.map((campaign) => {
                   const isCampaignAvailableInSlot =

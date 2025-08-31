@@ -45,6 +45,7 @@ const countriesMap = {
   kz: "kazakhstan",
   pl: "poland",
   ro: "romania",
+  am: "armenia",
 };
 
 const getCountryLabelFromAlpha2 = (alpha2) => {
