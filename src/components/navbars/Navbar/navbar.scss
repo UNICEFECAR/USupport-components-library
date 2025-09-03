@@ -519,4 +519,17 @@
       @include themify($themes, "color", "color_yellow_fdda0d");
     }
   }
+
+  &__accessibility-controller {
+    position: static;
+
+    @media screen and (min-width: $navbar-tight) {
+      display: flex;
+      position: fixed;
+      z-index: 99;
+      right: 50%;
+      transform: translateX(50%);
+      bottom: 5vh;
+    }
+  }
 }

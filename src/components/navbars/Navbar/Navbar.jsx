@@ -1,13 +1,18 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import PropTypes from "prop-types";
 import OutsideClickHandler from "react-outside-click-handler";
+
 import { Icon, IconFlag } from "../../icons";
 import { List } from "../../lists";
 import { Button } from "../../buttons";
 import { Box } from "../../boxes";
-import useWindowDimensions from "../../../utils/useWindowDimensions";
+import { AccessibilityController } from "../../cards";
 import { userSvc } from "../../../services";
-import { ThemeContext, replaceLanguageInUrl } from "../../../utils";
+import {
+  useWindowDimensions,
+  ThemeContext,
+  replaceLanguageInUrl,
+} from "../../../utils";
 
 const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
 
@@ -742,6 +747,16 @@ export const Navbar = ({
     );
   };
 
+  const renderAccessibilityController = () => {
+    const shouldRender = renderIn === "client" || renderIn === "website";
+
+    if (shouldRender) {
+      return (
+        <AccessibilityController classes="nav__accessibility-controller" />
+      );
+    }
+  };
+
   const defaultLogo = `${AMAZON_S3_BUCKET}/logo-horizontal${
     theme === "light" ? "" : "-dark"
   }`;
@@ -795,7 +810,6 @@ export const Navbar = ({
             color={theme === "light" ? "#373737" : "#fff"}
           />
         </div>
-
         {renderCtaLoginMobile()}
         {showNotifications && renderNotificationIconMobile()}
 
@@ -808,6 +822,7 @@ export const Navbar = ({
         {renderCtaDesktop()}
         {renderProfileContainerDesktop()}
         {renderProfileContainerMobile()}
+        {renderAccessibilityController()}
       </nav>
 
       <OutsideClickHandler

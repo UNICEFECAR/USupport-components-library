@@ -13,7 +13,7 @@ import "./accessibility-controller.scss";
  *
  * @return {jsx}
  */
-export const AccessibilityController = () => {
+export const AccessibilityController = ({ classes }) => {
   const { theme, setTheme } = useContext(ThemeContext);
   const [fontSizeStep, setFontSizeStep] = useState(0); // Steps from base (0 = 62.5%)
 
@@ -88,7 +88,7 @@ export const AccessibilityController = () => {
   const canDecrease = fontSizeStep > minSteps;
 
   return (
-    <Box classes="accessibility-controller">
+    <Box classes={["accessibility-controller", classes]}>
       <ButtonOnlyIcon
         iconName="zoom-out"
         onClick={decreaseFontSize}
