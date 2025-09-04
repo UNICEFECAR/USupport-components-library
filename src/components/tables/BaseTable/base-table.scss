@@ -9,12 +9,21 @@
   min-width: 100rem;
   width: 100%;
 
+  & thead {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
   & th {
     padding-right: $spacing_1_0;
-    right: 0;
+    position: sticky;
+    top: 0;
+    background-color: $color_gray_66768d;
 
-    &--sticky:last-of-type {
-      position: sticky;
+    &:last-child {
+      right: 0;
+      z-index: 11;
       background-color: $color_gray_66768d;
     }
 
@@ -42,14 +51,13 @@
   }
 
   &__container {
-    padding-top: $spacing_3_6;
-    padding-bottom: $spacing_10_0;
+    // padding-bottom: $spacing_10_0;
 
     &__search-container {
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding-top: $spacing_2_4;
+      padding-top: $spacing_1_6;
       padding-bottom: $spacing_2_4;
 
       &__buttons-container {
@@ -115,6 +123,49 @@
     &__no-data {
       padding-top: $spacing_2_4;
     }
+
+    &__truncation {
+      padding: $spacing_1_6 $spacing_1_4;
+      text-align: center;
+      border-bottom: 1px solid $color_gray_a6b4b8;
+      @include themifyCustom(
+        $themes,
+        "border-color",
+        "color_gray_a6b4b8",
+        "color_black_37"
+      );
+
+      &__content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: $spacing_1_0;
+      }
+
+      &__dots {
+        color: $color_gray_a6b4b8;
+        font-size: 18px;
+        font-weight: bold;
+        letter-spacing: 2px;
+      }
+
+      &__button {
+        background: none;
+        border: none;
+        color: $color_blue_3d527b;
+        cursor: pointer;
+        text-decoration: underline;
+        font-size: 14px;
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+
+    &__tr--truncated {
+      background-color: transparent !important;
+    }
   }
 
   &__td {
@@ -133,6 +184,16 @@
     &--sticky:last-child {
       position: sticky;
       right: 0;
+      background-color: inherit; // Inherit background from row
+    }
+
+    &--truncated {
+      cursor: help;
+      position: relative;
+
+      &:hover {
+        background-color: rgba(32, 128, 158, 0.1);
+      }
     }
 
     & p {
@@ -144,15 +205,37 @@
     }
   }
 
+  &__tooltip {
+    position: absolute;
+    background-color: $color_black_37;
+    color: $color_white_ff;
+    padding: $spacing_1_0 $spacing_1_4;
+    border-radius: $border_radius_0_4;
+    font-size: 14px;
+    max-width: 300px;
+    word-wrap: break-word;
+    z-index: 1000;
+    box-shadow: $shadow_1;
+    white-space: pre-wrap;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: -5px;
+      left: 10px;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-bottom: 5px solid $color_black_37;
+    }
+  }
+
   &-icon {
     background-color: $color_white_ff;
-    // border-bottom: unset;
     cursor: pointer;
     margin-top: $spacing_1_0;
     padding: $spacing_1_2;
     position: sticky;
     right: 0;
-    // z-index: 999;
 
     &--even {
       background-color: $color_gray_ea;

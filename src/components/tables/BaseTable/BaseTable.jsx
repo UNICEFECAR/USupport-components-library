@@ -14,10 +14,24 @@ function camelToSnake(str) {
   return str.replace(/([A-Z])/g, "_$1").toLowerCase();
 }
 
+// Helper function to truncate text
+const truncateText = (text, maxLength = 50) => {
+  if (!text) return text;
+  const textStr = String(text);
+  if (textStr.length <= maxLength) return textStr;
+  return textStr.substring(0, maxLength) + "...";
+};
+
+// Helper function to check if content should be truncated
+const shouldTruncateContent = (content, maxLength = 50) => {
+  if (!content) return false;
+  return String(content).length > maxLength;
+};
+
 /**
  * BaseTable
  *
- * Base table component
+ * Base table component with tooltip truncation
  *
  * @return {jsx}
  */
@@ -44,10 +58,18 @@ export const BaseTable = ({
   customSort,
   customSearch,
   filters,
+  truncateLength = 50,
+  enableTooltips = true,
+  maxHeightInVH = 60,
 }) => {
   const [searchValue, setSearchValue] = useState("");
-
   const [sorting, setSorting] = useState();
+  const [tooltip, setTooltip] = useState({
+    show: false,
+    content: "",
+    x: 0,
+    y: 0,
+  });
 
   useEffect(() => {
     setSorting(
@@ -119,6 +141,22 @@ export const BaseTable = ({
     return isMatching;
   };
 
+  const handleMouseEnter = (e, fullContent) => {
+    if (enableTooltips && shouldTruncateContent(fullContent, truncateLength)) {
+      const rect = e.target.getBoundingClientRect();
+      setTooltip({
+        show: true,
+        content: fullContent,
+        x: rect.left + window.scrollX,
+        y: rect.bottom + window.scrollY + 5,
+      });
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setTooltip({ show: false, content: "", x: 0, y: 0 });
+  };
+
   const renderItems = useCallback(() => {
     if (isLoading)
       return (
@@ -131,6 +169,7 @@ export const BaseTable = ({
           </td>
         </tr>
       );
+
     const filteredData = rowsData?.filter((x, i) => {
       if (searchValue && hasSearch && !customSearch) {
         if (!filterDataBySearch(i)) {
@@ -156,12 +195,29 @@ export const BaseTable = ({
       return (
         <tr className="table__body__tr" key={"dataIndex" + dataIndex}>
           {rowData?.map((dataItem, dataItemIndex) => {
+            const originalContent =
+              data && data[dataIndex] && rows[dataItemIndex]?.sortingKey
+                ? data[dataIndex][rows[dataItemIndex].sortingKey]
+                : dataItem;
+
+            const displayContent =
+              enableTooltips &&
+              shouldTruncateContent(originalContent, truncateLength)
+                ? truncateText(originalContent, truncateLength)
+                : dataItem;
+
             return (
               <React.Fragment key={"dataItem" + dataItemIndex}>
                 <td
-                  className={`table__td ${hasMenu ? "table__td--sticky" : ""}`}
+                  className={`table__td ${hasMenu ? "table__td--sticky" : ""} ${
+                    shouldTruncateContent(originalContent, truncateLength)
+                      ? "table__td--truncated"
+                      : ""
+                  }`}
+                  onMouseEnter={(e) => handleMouseEnter(e, originalContent)}
+                  onMouseLeave={handleMouseLeave}
                 >
-                  {dataItem}
+                  {displayContent}
                 </td>
                 {hasMenu && dataItemIndex === rowData.length - 1 && (
                   <TableIcon
@@ -180,7 +236,7 @@ export const BaseTable = ({
         </tr>
       );
     });
-  }, [rowsData, searchValue]);
+  }, [rowsData, searchValue, enableTooltips, truncateLength]);
 
   const handleSearch = (val) => {
     setSearchValue(val);
@@ -238,12 +294,7 @@ export const BaseTable = ({
             if (!filters[key]) return null;
             return (
               <Label
-                // handleDelete={() => {
-                //   setFilters((prev) => ({
-                //     ...prev,
-                //     [key]: typeof filters[key] === "boolean" ? false : null,
-                //   }));
-                // }}
+                key={key}
                 showSuccess={typeof filters[key] === "boolean" && filters[key]}
                 text={`${t(camelToSnake(key))}: ${
                   typeof filters[key] === "boolean" ? "" : filters[key]
@@ -258,10 +309,14 @@ export const BaseTable = ({
           <Trans components={[<b></b>]}>{noteText}</Trans>
         </p>
       )}
+
       {(!rowsData || rowsData.length === 0) && !isLoading ? (
         <p>{t("no_data_found")}</p>
       ) : (
-        <div className="scrollable-table">
+        <div
+          className="scrollable-table"
+          style={{ maxHeight: `${maxHeightInVH}vh` || "60vh" }}
+        >
           <table className={`table ${hasMenu ? "table--sticky" : ""}`}>
             <thead>
               <tr className="table__heading">
@@ -281,16 +336,18 @@ export const BaseTable = ({
                         >
                           {row.label}
                           {row.sortingKey && (
-                            <Icon
-                              size="sm"
-                              color="#eaeaea"
-                              name={
-                                rowSort === "asc" ? "sort-desc" : "sort-asc"
-                              }
-                              onClick={() =>
-                                handleSort(row.sortingKey, rowSort)
-                              }
-                            />
+                            <div>
+                              <Icon
+                                size="sm"
+                                color="#eaeaea"
+                                name={
+                                  rowSort === "asc" ? "sort-desc" : "sort-asc"
+                                }
+                                onClick={() =>
+                                  handleSort(row.sortingKey, rowSort)
+                                }
+                              />
+                            </div>
                           )}
                         </div>
                       </th>
@@ -305,6 +362,19 @@ export const BaseTable = ({
             </thead>
             <tbody className="table__body">{renderItems()}</tbody>
           </table>
+        </div>
+      )}
+
+      {/* Tooltip */}
+      {tooltip.show && (
+        <div
+          className="table__tooltip"
+          style={{
+            left: `${tooltip.x}px`,
+            top: `${tooltip.y}px`,
+          }}
+        >
+          {tooltip.content}
         </div>
       )}
     </div>
@@ -361,5 +431,6 @@ BaseTable.propTypes = {
 };
 
 BaseTable.defaultProps = {
-  // Add defaultProps here
+  truncateLength: 50,
+  enableTooltips: true,
 };
