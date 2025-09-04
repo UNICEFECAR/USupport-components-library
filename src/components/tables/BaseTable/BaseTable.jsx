@@ -14,6 +14,34 @@ function camelToSnake(str) {
   return str.replace(/([A-Z])/g, "_$1").toLowerCase();
 }
 
+// Helper function to get text content from React elements
+const getTextContent = (content) => {
+  if (typeof content === "string" || typeof content === "number") {
+    return String(content);
+  }
+  if (React.isValidElement(content)) {
+    if (content.props?.children) {
+      if (typeof content.props.children === "string") {
+        return content.props.children;
+      }
+      if (Array.isArray(content.props.children)) {
+        return content.props.children
+          .map((child) => getTextContent(child))
+          .filter((text) => text)
+          .join(" ");
+      }
+    }
+    // For links and other elements, try to extract meaningful text
+    if (content.props?.href && content.props?.children) {
+      return getTextContent(content.props.children);
+    }
+    if (content.props?.title) {
+      return content.props.title;
+    }
+  }
+  return String(content || "");
+};
+
 // Helper function to truncate text
 const truncateText = (text, maxLength = 50) => {
   if (!text) return text;
@@ -25,13 +53,51 @@ const truncateText = (text, maxLength = 50) => {
 // Helper function to check if content should be truncated
 const shouldTruncateContent = (content, maxLength = 50) => {
   if (!content) return false;
-  return String(content).length > maxLength;
+  const textContent = getTextContent(content);
+  return textContent.length > maxLength;
+};
+
+// Helper function to create truncated version of React elements
+const createTruncatedElement = (originalElement, maxLength = 50) => {
+  if (
+    typeof originalElement === "string" ||
+    typeof originalElement === "number"
+  ) {
+    return truncateText(String(originalElement), maxLength);
+  }
+
+  if (React.isValidElement(originalElement)) {
+    const textContent = getTextContent(originalElement);
+
+    // Don't truncate links, buttons, or interactive elements - show them as is
+    if (
+      originalElement.type === "a" ||
+      originalElement.props?.href ||
+      originalElement.props?.onClick
+    ) {
+      return originalElement;
+    }
+
+    // For simple text elements, create truncated version
+    if (
+      originalElement.type === "p" &&
+      typeof originalElement.props?.children === "string"
+    ) {
+      const truncatedText = truncateText(
+        originalElement.props.children,
+        maxLength
+      );
+      return React.cloneElement(originalElement, {}, truncatedText);
+    }
+  }
+
+  return originalElement;
 };
 
 /**
  * BaseTable
  *
- * Base table component with tooltip truncation
+ * Base table component with inline tooltip truncation
  *
  * @return {jsx}
  */
@@ -64,12 +130,7 @@ export const BaseTable = ({
 }) => {
   const [searchValue, setSearchValue] = useState("");
   const [sorting, setSorting] = useState();
-  const [tooltip, setTooltip] = useState({
-    show: false,
-    content: "",
-    x: 0,
-    y: 0,
-  });
+  const [hoveredCell, setHoveredCell] = useState(null); // Track which cell is hovered
 
   useEffect(() => {
     setSorting(
@@ -141,20 +202,14 @@ export const BaseTable = ({
     return isMatching;
   };
 
-  const handleMouseEnter = (e, fullContent) => {
-    if (enableTooltips && shouldTruncateContent(fullContent, truncateLength)) {
-      const rect = e.target.getBoundingClientRect();
-      setTooltip({
-        show: true,
-        content: fullContent,
-        x: rect.left + window.scrollX,
-        y: rect.bottom + window.scrollY + 5,
-      });
+  const handleMouseEnter = (dataIndex, dataItemIndex) => {
+    if (enableTooltips) {
+      setHoveredCell(`${dataIndex}-${dataItemIndex}`);
     }
   };
 
   const handleMouseLeave = () => {
-    setTooltip({ show: false, content: "", x: 0, y: 0 });
+    setHoveredCell(null);
   };
 
   const renderItems = useCallback(() => {
@@ -195,29 +250,43 @@ export const BaseTable = ({
       return (
         <tr className="table__body__tr" key={"dataIndex" + dataIndex}>
           {rowData?.map((dataItem, dataItemIndex) => {
-            const originalContent =
-              data && data[dataIndex] && rows[dataItemIndex]?.sortingKey
-                ? data[dataIndex][rows[dataItemIndex].sortingKey]
-                : dataItem;
+            // Get the original content for tooltip
+            const originalContent = dataItem;
+            const cellId = `${dataIndex}-${dataItemIndex}`;
+            const isHovered = hoveredCell === cellId;
 
+            // Create display content (truncated if necessary)
             const displayContent =
               enableTooltips &&
               shouldTruncateContent(originalContent, truncateLength)
-                ? truncateText(originalContent, truncateLength)
+                ? createTruncatedElement(originalContent, truncateLength)
                 : dataItem;
+
+            const shouldShowTooltip =
+              enableTooltips &&
+              shouldTruncateContent(originalContent, truncateLength);
+
+            const fullContent = shouldShowTooltip
+              ? getTextContent(originalContent)
+              : null;
 
             return (
               <React.Fragment key={"dataItem" + dataItemIndex}>
                 <td
                   className={`table__td ${hasMenu ? "table__td--sticky" : ""} ${
-                    shouldTruncateContent(originalContent, truncateLength)
-                      ? "table__td--truncated"
-                      : ""
+                    shouldShowTooltip ? "table__td--truncated" : ""
                   }`}
-                  onMouseEnter={(e) => handleMouseEnter(e, originalContent)}
+                  onMouseEnter={() =>
+                    handleMouseEnter(dataIndex, dataItemIndex)
+                  }
                   onMouseLeave={handleMouseLeave}
                 >
-                  {displayContent}
+                  <div className="table__td__content">
+                    <div className="table__td__display">{displayContent}</div>
+                    {shouldShowTooltip && isHovered && (
+                      <div className="table__td__tooltip">{fullContent}</div>
+                    )}
+                  </div>
                 </td>
                 {hasMenu && dataItemIndex === rowData.length - 1 && (
                   <TableIcon
@@ -236,7 +305,20 @@ export const BaseTable = ({
         </tr>
       );
     });
-  }, [rowsData, searchValue, enableTooltips, truncateLength]);
+  }, [
+    rowsData,
+    searchValue,
+    enableTooltips,
+    truncateLength,
+    data,
+    rows,
+    hasMenu,
+    menuOptions,
+    handleClickPropName,
+    isLoading,
+    t,
+    hoveredCell,
+  ]);
 
   const handleSearch = (val) => {
     setSearchValue(val);
@@ -362,19 +444,6 @@ export const BaseTable = ({
             </thead>
             <tbody className="table__body">{renderItems()}</tbody>
           </table>
-        </div>
-      )}
-
-      {/* Tooltip */}
-      {tooltip.show && (
-        <div
-          className="table__tooltip"
-          style={{
-            left: `${tooltip.x}px`,
-            top: `${tooltip.y}px`,
-          }}
-        >
-          {tooltip.content}
         </div>
       )}
     </div>
