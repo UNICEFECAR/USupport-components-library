@@ -50,13 +50,17 @@ export const ButtonSelector = ({
       <p
         className={[
           "btn-selector__label",
-          theme === "dark" && "btn-selector__label--dark",
+          theme !== "dark" && "btn-selector__label--dark",
         ].join(" ")}
       >
         {label}
       </p>
       <div className="btn-selector__right-icon-container">
-        <Icon name="arrow-chevron-forward" color="#3D527B" size="sm" />
+        <Icon
+          name="arrow-chevron-forward"
+          color={theme === "highContrast" ? "#ffff00" : "#3D527B"}
+          size="sm"
+        />
       </div>
     </button>
   );

@@ -97,7 +97,11 @@ export const ReportCollapsible = ({
           <GridItem md={8} lg={12}>
             <p className="text">{contentText}</p>
           </GridItem>
-          {children && <GridItem>{children}</GridItem>}
+          {children && (
+            <GridItem md={8} lg={12}>
+              {children}
+            </GridItem>
+          )}
         </Grid>
       )}
       {contentMenuOptions && isContentMenuOpen && (

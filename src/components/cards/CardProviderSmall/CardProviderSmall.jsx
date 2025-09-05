@@ -28,7 +28,7 @@ export const CardProviderSmall = ({
       onClick={onClick}
       role="button"
     >
-      <img src={imageUrl} />
+      <img src={imageUrl} alt={providerName} />
       <div className="card-provider-small__information">
         <h4>{providerName}</h4>
         <p className="text">{description}</p>

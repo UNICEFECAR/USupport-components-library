@@ -1,13 +1,19 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import PropTypes from "prop-types";
 import OutsideClickHandler from "react-outside-click-handler";
+
 import { Icon, IconFlag } from "../../icons";
 import { List } from "../../lists";
 import { Button } from "../../buttons";
+import { Toggle } from "../../inputs";
 import { Box } from "../../boxes";
-import useWindowDimensions from "../../../utils/useWindowDimensions";
+import { AccessibilityController } from "../../cards";
 import { userSvc } from "../../../services";
-import { ThemeContext, replaceLanguageInUrl } from "../../../utils";
+import {
+  useWindowDimensions,
+  ThemeContext,
+  replaceLanguageInUrl,
+} from "../../../utils";
 
 const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
 
@@ -281,21 +287,39 @@ export const Navbar = ({
     };
 
     return (
-      <div onClick={toggleTheme} className="nav__theme-button">
+      <div
+        className="nav__theme-button"
+        role="group"
+        aria-label={t("high_contrast")}
+      >
         <Icon
           name={theme === "light" ? "dark-mode-switch" : "light-mode"}
           size="lg"
           classes="nav__theme-button__icon"
-          color={theme === "light" ? "#20809E" : "#FDDA0D"}
+          color={
+            theme === "light"
+              ? "#20809E"
+              : theme === "dark"
+              ? "#FDDA0D"
+              : "#ffff00"
+          }
         />
         <p
           className={[
             "paragraph",
-            theme === "dark" && "nav__theme-button__yellow-text",
+            theme === "light" ? "" : "nav__theme-button__yellow-text",
           ].join(" ")}
         >
-          {t(theme === "light" ? "dark" : "light")}
+          {t(theme === "light" ? "light" : "dark")}
         </p>
+        <div className="nav__theme-button__toggle">
+          <Toggle
+            isToggled={theme === "dark"}
+            shouldChangeState
+            setParentState={toggleTheme}
+            size="sm"
+          />
+        </div>
       </div>
     );
   };
@@ -327,7 +351,11 @@ export const Navbar = ({
               onClick={() => handleDropdownClick(index)}
             >
               <p className="paragraph">{page.name}</p>
-              <Icon name="arrow-chevron-down" size="sm" color="#20809e" />
+              <Icon
+                name="arrow-chevron-down"
+                size="sm"
+                color={theme === "highContrast" ? "#ffff00" : "#20809e"}
+              />
             </div>
           ),
           onClick: scrollTop,
@@ -350,7 +378,21 @@ export const Navbar = ({
                 onClick={() => handleNavbarLinkClick(dropdownItem)}
                 role="button"
               >
-                <p className="paragraph">{dropdownItem.name}</p>
+                <div className="nav__item__content">
+                  <Icon
+                    name={dropdownItem.icon}
+                    size="md"
+                    classes="nav__item__icon"
+                    color={theme === "light" ? "#20809e" : "#ffffff"}
+                  />
+                  <p className="paragraph">{dropdownItem.name}</p>
+                </div>
+                <Icon
+                  name="arrow-chevron-forward"
+                  size="sm"
+                  classes="nav__item__icon"
+                  color={theme === "highContrast" ? "#ffff00" : "#20809e"}
+                />
               </NavLink>
             ),
             onClick: scrollTop,
@@ -380,19 +422,27 @@ export const Navbar = ({
               end={page.exact ? page.exact : false}
               role="button"
             >
-              <p className="paragraph">{page.name}</p>
+              <div className="nav__item__content">
+                <Icon
+                  name={page.icon}
+                  size="md"
+                  classes="nav__item__icon"
+                  color={theme === "light" ? "#20809e" : "#ffffff"}
+                />
+                <p className="paragraph">{page.name}</p>
+              </div>
+              <Icon
+                name="arrow-chevron-forward"
+                size="sm"
+                classes="nav__item__icon"
+                color={theme === "highContrast" ? "#ffff00" : "#20809e"}
+              />
             </NavLink>
           ),
         onClick: scrollTop,
       });
     }
   });
-
-  if (hasThemeButton) {
-    items.push({
-      value: themeButton(),
-    });
-  }
 
   items.push({
     value: (
@@ -409,8 +459,14 @@ export const Navbar = ({
           toggleLanguages();
         }}
       >
-        <p className="nav__current-language">{selectedLanguage.value}</p>
-        <Icon name="arrow-chevron-down" size="sm" color="#20809e" />
+        <p className="nav__current-language">
+          {selectedLanguage.value === "uk" ? "ua" : selectedLanguage.value}
+        </p>
+        <Icon
+          name="arrow-chevron-down"
+          size="sm"
+          color={theme === "highContrast" ? "#ffff00" : "#20809e"}
+        />
       </div>
     ),
   });
@@ -434,9 +490,19 @@ export const Navbar = ({
             <IconFlag flagName={selectedCountry.iconName} />
           )}
           {width < 1050 && <p className="paragraph">{"Country"}</p>}
-          <Icon name="arrow-chevron-down" size="sm" color="#20809e" />
+          <Icon
+            name="arrow-chevron-down"
+            size="sm"
+            color={theme === "highContrast" ? "#ffff00" : "#20809e"}
+          />
         </div>
       ),
+    });
+  }
+
+  if (hasThemeButton) {
+    items.push({
+      value: themeButton(),
     });
   }
 
@@ -647,6 +713,7 @@ export const Navbar = ({
         handleCountryClick(option);
       }
     };
+
     return (
       <div className="nav__dropdown-content">
         {data.map((option) => {
@@ -660,6 +727,7 @@ export const Navbar = ({
               option.value.toLowerCase() ===
               selectedCountry.value.toLowerCase();
           }
+
           return (
             <div
               onClick={(e) => handleOptionSelect(e, option)}
@@ -721,8 +789,21 @@ export const Navbar = ({
     );
   };
 
+  const renderAccessibilityController = () => {
+    const shouldRender = renderIn === "client" || renderIn === "website";
+
+    if (shouldRender) {
+      return (
+        <AccessibilityController
+          classes="nav__accessibility-controller"
+          t={t}
+        />
+      );
+    }
+  };
+
   const defaultLogo = `${AMAZON_S3_BUCKET}/logo-horizontal${
-    theme === "dark" ? "-dark" : ""
+    theme === "light" ? "" : "-dark"
   }`;
 
   let logoUrl = defaultLogo;
@@ -732,7 +813,7 @@ export const Navbar = ({
     renderIn !== "global-admin"
   ) {
     logoUrl = `${AMAZON_S3_BUCKET}/logo-horizontal-${selectedCountry.value}${
-      theme === "dark" ? "-dark" : ""
+      theme === "light" ? "" : "-dark"
     }`;
   } else {
     logoUrl = defaultLogo;
@@ -744,6 +825,7 @@ export const Navbar = ({
         className={[
           "nav",
           "collapsible",
+          renderIn === "website" ? "nav--website" : "",
           `${isNavbarExpanded ? "collapsible--expanded" : ""}`,
         ].join(" ")}
       >
@@ -771,10 +853,9 @@ export const Navbar = ({
             classes="nav__toggler"
             name={isNavbarExpanded ? "close-x" : "navbar-burger"}
             size="md"
-            color={theme === "dark" ? "#fff" : "#373737"}
+            color={theme === "light" ? "#373737" : "#fff"}
           />
         </div>
-
         {renderCtaLoginMobile()}
         {showNotifications && renderNotificationIconMobile()}
 
@@ -787,6 +868,7 @@ export const Navbar = ({
         {renderCtaDesktop()}
         {renderProfileContainerDesktop()}
         {renderProfileContainerMobile()}
+        {renderAccessibilityController()}
       </nav>
 
       <OutsideClickHandler

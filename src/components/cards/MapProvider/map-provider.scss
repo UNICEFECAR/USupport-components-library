@@ -13,6 +13,15 @@
       color: $color_primary_20809e;
       font-weight: $font_semi_bold;
     }
+
+    @media screen and (max-width: 767px) {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-wrap: break-word;
+    }
   }
 
   &__unit-name {
@@ -90,6 +99,15 @@
     &.small-text {
       line-height: 1.3;
     }
+
+    @media screen and (max-width: 767px) {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-wrap: break-word;
+    }
   }
 
   &__contact-info {
@@ -121,11 +139,15 @@
 
   &__btn-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
     gap: $spacing_0_8;
     padding-top: $spacing_1_6;
+
+    @media screen and (min-width: $screen_md) {
+      flex-direction: row;
+    }
   }
 
   &__website {

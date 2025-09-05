@@ -98,9 +98,17 @@
       margin-top: 0;
     }
 
-    > .text {
+    &__text {
       margin-left: $spacing_1_4;
       color: $color_primary_20809e;
+
+      &--hc {
+        .text {
+          color: #fff;
+        }
+        border: 1px solid #fff;
+        padding: $spacing_0_2 $spacing_0_4;
+      }
     }
   }
 
@@ -155,5 +163,17 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-align: left;
+  }
+}
+
+.theme-highContrast {
+  .answer__schedule-button__text--hc {
+    color: #fff !important;
+
+    &:hover {
+      border: 2.5px solid #fff;
+      transform: scale(1.05);
+      margin-right: $spacing_0_4;
+    }
   }
 }

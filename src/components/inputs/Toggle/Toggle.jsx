@@ -21,6 +21,7 @@ export const Toggle = ({
   classes,
   label,
   labelClasses,
+  size = "lg",
 }) => {
   const { theme } = useContext(ThemeContext);
   const [checked, setChecked] = useState(isToggled);
@@ -41,11 +42,11 @@ export const Toggle = ({
   }, [isToggled, checked]);
 
   return (
-    <div className="toggle-wrapper">
+    <div className={["toggle-wrapper", classes].join(" ")}>
       {label && (
         <p
           className={[
-            `text toggle__label ${labelClasses}`,
+            `text toggle__label toggle__label--${size} ${labelClasses}`,
             theme === "dark" && "toggle__label--dark",
           ].join(" ")}
         >
@@ -55,8 +56,9 @@ export const Toggle = ({
       <label
         className={[
           "toggle",
+          `toggle--${size}`,
           isDisabled ? "toggle-disabled" : "",
-          classNames(classes),
+          classNames(labelClasses),
         ].join(" ")}
       >
         <input type="checkbox" checked={checked} onChange={handleChange} />
@@ -100,10 +102,27 @@ Toggle.propTypes = {
     PropTypes.string,
     PropTypes.arrayOf(PropTypes.string),
   ]),
+
+  /**
+   * Size of the toggle
+   * @default "lg"
+   */
+  size: PropTypes.oneOf(["sm", "lg"]),
+
+  /**
+   * Label for the toggle
+   */
+  label: PropTypes.string,
+
+  /**
+   * Additional classes for the label
+   */
+  labelClasses: PropTypes.string,
 };
 
 Toggle.defaultProps = {
   isDisabled: false,
   setParentState: () => {},
   shouldChangeState: true,
+  size: "lg",
 };

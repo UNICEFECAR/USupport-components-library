@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 
+import { ThemeContext } from "../../../utils";
 import { Icon } from "../";
 
 import "./like.scss";
@@ -21,6 +22,8 @@ export const Like = ({
   answerId,
   renderInClient = false,
 }) => {
+  const { theme } = useContext(ThemeContext);
+
   return (
     <div className="like">
       <div className="like__vote-wrapper">
@@ -34,7 +37,10 @@ export const Like = ({
             isLiked && "like__icon-container--selected",
           ].join(" ")}
         >
-          <Icon name="like" />
+          <Icon
+            name="like"
+            color={theme === "highContrast" ? "#ffff00" : "#20809e"}
+          />
           <div className="like__icon-container__text-container">
             <p className="small-text">{likes}</p>
           </div>
@@ -51,7 +57,10 @@ export const Like = ({
             isDisliked && "like__icon-container--selected",
           ].join(" ")}
         >
-          <Icon name="dislike" />
+          <Icon
+            name="dislike"
+            color={theme === "highContrast" ? "#ffff00" : "#20809e"}
+          />
           <div className="like__icon-container__text-container">
             <p className="small-text">{dislikes}</p>
           </div>

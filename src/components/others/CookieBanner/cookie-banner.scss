@@ -4,9 +4,9 @@
   position: fixed;
   bottom: $spacing_2_0;
   width: "90%";
-  z-index: 1001;
+  z-index: 10001;
   // height: 200px;
-  background-color: white;
+  @include themify($themes, "background-color", "color_white_ff");
   padding: $spacing_2_0;
   border-radius: $border_radius_4_0;
   box-shadow: $shadow_3;
@@ -26,6 +26,10 @@
     & a {
       color: $color_blue_3d527b;
       text-decoration: underline;
+    }
+
+    & .page__cookie-policy-banner__link--hc {
+      color: $color_white_ff;
     }
   }
 

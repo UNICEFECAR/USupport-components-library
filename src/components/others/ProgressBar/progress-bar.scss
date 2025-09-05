@@ -1,0 +1,62 @@
+@import "../../../styles/theme";
+
+.progress-bar {
+  display: flex;
+  align-items: center;
+  gap: $spacing_1_2;
+  width: 100%;
+
+  &__track {
+    flex: 1;
+    border-radius: $border_radius_2_4;
+    overflow: hidden;
+    @include themify($themes, "background-color", "color_gray_ea");
+  }
+
+  &__fill {
+    height: 100%;
+    background: $color_green_7ec680;
+    border-radius: $border_radius_2_4;
+    transition: width 0.3s ease;
+
+    &--animated {
+      animation: progress-fill 0.5s ease-out;
+    }
+  }
+
+  &__percentage {
+    font-size: $font_size_1_6;
+    font-weight: $font_medium;
+    min-width: 3rem;
+    text-align: right;
+    @include themify($themes, "color", "color_3d527b_white");
+  }
+
+  // Height variants
+  &--sm {
+    .progress-bar__track {
+      height: $spacing_0_4;
+    }
+  }
+
+  &--md {
+    .progress-bar__track {
+      height: $spacing_0_8;
+    }
+  }
+
+  &--lg {
+    .progress-bar__track {
+      height: $spacing_1_2;
+    }
+  }
+}
+
+@keyframes progress-fill {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}

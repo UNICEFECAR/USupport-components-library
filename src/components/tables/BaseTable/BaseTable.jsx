@@ -14,10 +14,90 @@ function camelToSnake(str) {
   return str.replace(/([A-Z])/g, "_$1").toLowerCase();
 }
 
+// Helper function to get text content from React elements
+const getTextContent = (content) => {
+  if (typeof content === "string" || typeof content === "number") {
+    return String(content);
+  }
+  if (React.isValidElement(content)) {
+    if (content.props?.children) {
+      if (typeof content.props.children === "string") {
+        return content.props.children;
+      }
+      if (Array.isArray(content.props.children)) {
+        return content.props.children
+          .map((child) => getTextContent(child))
+          .filter((text) => text)
+          .join(" ");
+      }
+    }
+    // For links and other elements, try to extract meaningful text
+    if (content.props?.href && content.props?.children) {
+      return getTextContent(content.props.children);
+    }
+    if (content.props?.title) {
+      return content.props.title;
+    }
+  }
+  return String(content || "");
+};
+
+// Helper function to truncate text
+const truncateText = (text, maxLength = 50) => {
+  if (!text) return text;
+  const textStr = String(text);
+  if (textStr.length <= maxLength) return textStr;
+  return textStr.substring(0, maxLength) + "...";
+};
+
+// Helper function to check if content should be truncated
+const shouldTruncateContent = (content, maxLength = 50) => {
+  if (!content) return false;
+  const textContent = getTextContent(content);
+  return textContent.length > maxLength;
+};
+
+// Helper function to create truncated version of React elements
+const createTruncatedElement = (originalElement, maxLength = 50) => {
+  if (
+    typeof originalElement === "string" ||
+    typeof originalElement === "number"
+  ) {
+    return truncateText(String(originalElement), maxLength);
+  }
+
+  if (React.isValidElement(originalElement)) {
+    const textContent = getTextContent(originalElement);
+
+    // Don't truncate links, buttons, or interactive elements - show them as is
+    if (
+      originalElement.type === "a" ||
+      originalElement.props?.href ||
+      originalElement.props?.onClick
+    ) {
+      return originalElement;
+    }
+
+    // For simple text elements, create truncated version
+    if (
+      originalElement.type === "p" &&
+      typeof originalElement.props?.children === "string"
+    ) {
+      const truncatedText = truncateText(
+        originalElement.props.children,
+        maxLength
+      );
+      return React.cloneElement(originalElement, {}, truncatedText);
+    }
+  }
+
+  return originalElement;
+};
+
 /**
  * BaseTable
  *
- * Base table component
+ * Base table component with inline tooltip truncation
  *
  * @return {jsx}
  */
@@ -44,10 +124,13 @@ export const BaseTable = ({
   customSort,
   customSearch,
   filters,
+  truncateLength = 50,
+  enableTooltips = true,
+  maxHeightInVH = 60,
 }) => {
   const [searchValue, setSearchValue] = useState("");
-
   const [sorting, setSorting] = useState();
+  const [hoveredCell, setHoveredCell] = useState(null); // Track which cell is hovered
 
   useEffect(() => {
     setSorting(
@@ -119,6 +202,16 @@ export const BaseTable = ({
     return isMatching;
   };
 
+  const handleMouseEnter = (dataIndex, dataItemIndex) => {
+    if (enableTooltips) {
+      setHoveredCell(`${dataIndex}-${dataItemIndex}`);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredCell(null);
+  };
+
   const renderItems = useCallback(() => {
     if (isLoading)
       return (
@@ -131,6 +224,7 @@ export const BaseTable = ({
           </td>
         </tr>
       );
+
     const filteredData = rowsData?.filter((x, i) => {
       if (searchValue && hasSearch && !customSearch) {
         if (!filterDataBySearch(i)) {
@@ -156,12 +250,43 @@ export const BaseTable = ({
       return (
         <tr className="table__body__tr" key={"dataIndex" + dataIndex}>
           {rowData?.map((dataItem, dataItemIndex) => {
+            // Get the original content for tooltip
+            const originalContent = dataItem;
+            const cellId = `${dataIndex}-${dataItemIndex}`;
+            const isHovered = hoveredCell === cellId;
+
+            // Create display content (truncated if necessary)
+            const displayContent =
+              enableTooltips &&
+              shouldTruncateContent(originalContent, truncateLength)
+                ? createTruncatedElement(originalContent, truncateLength)
+                : dataItem;
+
+            const shouldShowTooltip =
+              enableTooltips &&
+              shouldTruncateContent(originalContent, truncateLength);
+
+            const fullContent = shouldShowTooltip
+              ? getTextContent(originalContent)
+              : null;
+
             return (
               <React.Fragment key={"dataItem" + dataItemIndex}>
                 <td
-                  className={`table__td ${hasMenu ? "table__td--sticky" : ""}`}
+                  className={`table__td ${hasMenu ? "table__td--sticky" : ""} ${
+                    shouldShowTooltip ? "table__td--truncated" : ""
+                  }`}
+                  onMouseEnter={() =>
+                    handleMouseEnter(dataIndex, dataItemIndex)
+                  }
+                  onMouseLeave={handleMouseLeave}
                 >
-                  {dataItem}
+                  <div className="table__td__content">
+                    <div className="table__td__display">{displayContent}</div>
+                    {shouldShowTooltip && isHovered && (
+                      <div className="table__td__tooltip">{fullContent}</div>
+                    )}
+                  </div>
                 </td>
                 {hasMenu && dataItemIndex === rowData.length - 1 && (
                   <TableIcon
@@ -180,7 +305,20 @@ export const BaseTable = ({
         </tr>
       );
     });
-  }, [rowsData, searchValue]);
+  }, [
+    rowsData,
+    searchValue,
+    enableTooltips,
+    truncateLength,
+    data,
+    rows,
+    hasMenu,
+    menuOptions,
+    handleClickPropName,
+    isLoading,
+    t,
+    hoveredCell,
+  ]);
 
   const handleSearch = (val) => {
     setSearchValue(val);
@@ -238,12 +376,7 @@ export const BaseTable = ({
             if (!filters[key]) return null;
             return (
               <Label
-                // handleDelete={() => {
-                //   setFilters((prev) => ({
-                //     ...prev,
-                //     [key]: typeof filters[key] === "boolean" ? false : null,
-                //   }));
-                // }}
+                key={key}
                 showSuccess={typeof filters[key] === "boolean" && filters[key]}
                 text={`${t(camelToSnake(key))}: ${
                   typeof filters[key] === "boolean" ? "" : filters[key]
@@ -258,10 +391,14 @@ export const BaseTable = ({
           <Trans components={[<b></b>]}>{noteText}</Trans>
         </p>
       )}
+
       {(!rowsData || rowsData.length === 0) && !isLoading ? (
         <p>{t("no_data_found")}</p>
       ) : (
-        <div className="scrollable-table">
+        <div
+          className="scrollable-table"
+          style={{ maxHeight: `${maxHeightInVH}vh` || "60vh" }}
+        >
           <table className={`table ${hasMenu ? "table--sticky" : ""}`}>
             <thead>
               <tr className="table__heading">
@@ -281,16 +418,18 @@ export const BaseTable = ({
                         >
                           {row.label}
                           {row.sortingKey && (
-                            <Icon
-                              size="sm"
-                              color="#eaeaea"
-                              name={
-                                rowSort === "asc" ? "sort-desc" : "sort-asc"
-                              }
-                              onClick={() =>
-                                handleSort(row.sortingKey, rowSort)
-                              }
-                            />
+                            <div>
+                              <Icon
+                                size="sm"
+                                color="#eaeaea"
+                                name={
+                                  rowSort === "asc" ? "sort-desc" : "sort-asc"
+                                }
+                                onClick={() =>
+                                  handleSort(row.sortingKey, rowSort)
+                                }
+                              />
+                            </div>
                           )}
                         </div>
                       </th>
@@ -361,5 +500,6 @@ BaseTable.propTypes = {
 };
 
 BaseTable.defaultProps = {
-  // Add defaultProps here
+  truncateLength: 50,
+  enableTooltips: true,
 };

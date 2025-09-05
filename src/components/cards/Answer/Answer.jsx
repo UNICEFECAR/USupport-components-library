@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 
 import { Box } from "../../boxes";
@@ -7,7 +7,7 @@ import { Line } from "../../separators";
 import { Button } from "../../buttons";
 import { Avatar } from "../../avatars";
 import { Icon, Like } from "../../icons";
-import { isDateToday } from "../../../utils/date";
+import { ThemeContext, isDateToday } from "../../../utils";
 
 const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
 
@@ -33,6 +33,8 @@ export const Answer = ({
   classes,
   t,
 }) => {
+  const { theme } = useContext(ThemeContext);
+
   const providerInfo = question.providerData;
 
   const getDateText = () => {
@@ -191,8 +193,19 @@ export const Answer = ({
                 className="answer__schedule-button"
                 onClick={() => handleScheduleConsultationClick(question)}
               >
-                <Icon name="calendar" color="#20809e" />
-                <p className="text">{t("schedule_consultation")}</p>
+                <Icon
+                  name="calendar"
+                  color={theme === "highContrast" ? "#fff" : "#20809e"}
+                />
+                <p
+                  className={`text answer__schedule-button__text ${
+                    theme === "highContrast"
+                      ? "answer__schedule-button__text--hc"
+                      : ""
+                  }`}
+                >
+                  {t("schedule_consultation")}
+                </p>
               </div>
             </div>
           ) : null}

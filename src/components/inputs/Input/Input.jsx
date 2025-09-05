@@ -38,9 +38,11 @@ export const Input = React.forwardRef((props, ref) => {
     >
       {label ? (
         <p
-          className={["text label", theme === "dark" && "label--dark"].join(
-            " "
-          )}
+          className={[
+            "text label",
+            theme === "dark" ? "label--dark" : "",
+            theme === "highContrast" ? "label--hc" : "",
+          ].join(" ")}
         >
           {label}
         </p>
@@ -48,7 +50,7 @@ export const Input = React.forwardRef((props, ref) => {
       <div
         className={[
           "input-wrapper",
-          theme === "dark" && "input-wrapper--dark",
+          theme !== "light" && "input-wrapper--dark",
           errorMessage ? "error" : "",
         ].join(" ")}
       >
@@ -56,7 +58,7 @@ export const Input = React.forwardRef((props, ref) => {
         <input
           type={type}
           disabled={disabled}
-          className={["input text", theme === "dark" && "input--dark"].join(
+          className={["input text", theme !== "light" && "input--dark"].join(
             " "
           )}
           value={value}

@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
+
+import { ThemeContext } from "../../../utils/theme-context";
 
 import "./tabs-underlined.scss";
 
@@ -16,6 +18,8 @@ export const TabsUnderlined = ({
   t,
   textType = "h4",
 }) => {
+  const { theme } = useContext(ThemeContext);
+
   const renderText = (option) => {
     if (textType === "h1") {
       return <h1>{t ? t(`${option.value}_tab_label`) : option.label}</h1>;
@@ -25,7 +29,7 @@ export const TabsUnderlined = ({
       return <h3>{t ? t(`${option.value}_tab_label`) : option.label}</h3>;
     }
     return (
-      <h4 className="label">
+      <h4 className={theme !== "highContrast" && "label"}>
         {t ? t(`${option.value}_tab_label`) : option.label}
       </h4>
     );
@@ -41,6 +45,7 @@ export const TabsUnderlined = ({
                   "tab",
                   option.isSelected ? "tab--selected" : "",
                   option.isInactive ? "tab--inactive" : "",
+                  theme === "highContrast" ? "tab--hc" : "",
                 ].join(" ")}
                 onClick={() => (option.isInactive ? {} : handleSelect(index))}
                 key={index}

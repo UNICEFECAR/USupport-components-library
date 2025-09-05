@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import { Box } from "../../boxes";
 import { Grid, GridItem } from "../../grids";
 import { Icon } from "../../icons";
@@ -119,15 +118,10 @@ export const SecurityCheckReport = ({ securityCheck, t }) => {
           </GridItem>
 
           {Object.keys(answers).map((key, index) => {
-            if (
-              (key === "moreDetails" || key === "additionalComment") &&
-              !answers[key]
-            )
-              return null;
             return (
               <GridItem
                 classes="security-check-report__answers-grid__item"
-                key={index}
+                key={key}
               >
                 <p className="text">
                   {index + 1}. {t(`question_${index + 1}`)}
@@ -140,7 +134,9 @@ export const SecurityCheckReport = ({ securityCheck, t }) => {
                   }`}
                 >
                   <strong>
-                    {key === "feeling"
+                    {answers[key] == null || answers[key] === ""
+                      ? "  -  "
+                      : key === "feeling"
                       ? t(answers[key])
                       : typeof answers[key] != "boolean"
                       ? answers[key]
@@ -156,12 +152,4 @@ export const SecurityCheckReport = ({ securityCheck, t }) => {
       )}
     </Box>
   );
-};
-
-SecurityCheckReport.propTypes = {
-  // Add propTypes here
-};
-
-SecurityCheckReport.defaultProps = {
-  // Add defaultProps here
 };

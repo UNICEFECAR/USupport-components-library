@@ -21,6 +21,10 @@
     &--dark {
       color: $color_primary_20809e;
     }
+
+    &--hc {
+      color: #ffff00;
+    }
   }
 
   .input-wrapper {
@@ -76,4 +80,8 @@
       border: 0.1rem solid $color_red_eb5757;
     }
   }
+}
+
+.theme-highContrast .input-container .input-wrapper .input::placeholder {
+  color: yellow !important;
 }

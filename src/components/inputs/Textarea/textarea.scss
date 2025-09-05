@@ -61,3 +61,7 @@
     }
   }
 }
+
+.theme-highContrast .textarea--container .textarea::placeholder {
+  color: yellow !important;
+}

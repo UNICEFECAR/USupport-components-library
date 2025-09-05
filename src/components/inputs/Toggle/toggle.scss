@@ -10,9 +10,17 @@
 .toggle {
   cursor: pointer;
   display: inline-block;
-  height: 3.36rem;
   position: relative;
-  width: 5.6rem;
+
+  &--lg {
+    height: 3.36rem;
+    width: 5.6rem;
+  }
+
+  &--sm {
+    height: 2.4rem;
+    width: 4rem;
+  }
 
   &-disabled {
     opacity: 0.5;
@@ -48,23 +56,36 @@
     &:before {
       background-color: $color_white_ff;
       border-radius: 50%;
-      bottom: 0.29rem;
       content: "";
-      height: 2.8rem;
-      left: 0.28rem;
       position: absolute;
       transition: 0.4s;
-      width: 2.8rem;
-      -webkit-transition: 0.4s;
       -webkit-transition: 0.4s;
     }
+  }
+
+  &--lg &__slider:before {
+    bottom: 0.29rem;
+    height: 2.8rem;
+    left: 0.28rem;
+    width: 2.8rem;
+  }
+
+  &--sm &__slider:before {
+    bottom: 0.2rem;
+    height: 2rem;
+    left: 0.2rem;
+    width: 2rem;
   }
 
   input:checked + &__slider {
     background-color: $color_secondary_9749fa;
   }
 
-  input:checked + &__slider:before {
+  &--lg input:checked + &__slider:before {
     transform: translateX(2.2rem);
+  }
+
+  &--sm input:checked + &__slider:before {
+    transform: translateX(1.6rem);
   }
 }

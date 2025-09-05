@@ -241,6 +241,84 @@ async function sendPlatformSuggestion({ suggestion, type }) {
   return response;
 }
 
+/**
+ *
+ * @param {Object} payload
+ * @param {number} payload.sosCenterId - The ID of the SOS center that was clicked
+ * @param {boolean} payload.isMain - Whether this is the main SOS center
+ * @param {string} payload.platform - The platform where the click occurred (web, mobile, etc.)
+ * @returns {Promise} the response of the request
+ */
+async function addSOSCenterClick(payload) {
+  const response = await http.post(`${API_ENDPOINT}/sos-center-click`, {
+    ...payload,
+  });
+  return response;
+}
+
+async function getLatestBaselineAssessment() {
+  const response = await http.get(`${API_ENDPOINT}/baseline-assessment/latest`);
+  return response;
+}
+
+async function getClientAnswersForBaselineAssessmentById(assessmentId) {
+  const response = await http.get(
+    `${API_ENDPOINT}/baseline-assessment/answers?assessmentId=${assessmentId}`
+  );
+  return response;
+}
+
+async function getBaselineAssessmentQuestions() {
+  const response = await http.get(
+    `${API_ENDPOINT}/baseline-assessment/questions`
+  );
+  return response;
+}
+
+async function createBaselineAssessment() {
+  const response = await http.post(
+    `${API_ENDPOINT}/baseline-assessment/create-assessment`
+  );
+  return response;
+}
+
+async function addBaselineAssessmentAnswer({
+  questionId,
+  answerValue,
+  baselineAssessmentId,
+  currentPosition,
+}) {
+  const response = await http.post(
+    `${API_ENDPOINT}/baseline-assessment/add-answer`,
+    {
+      questionId,
+      answerValue,
+      baselineAssessmentId,
+      currentPosition,
+    }
+  );
+  return response;
+}
+
+async function getBaselineAssessments() {
+  const response = await http.get(
+    `${API_ENDPOINT}/baseline-assessment/assessments`
+  );
+  return response;
+}
+
+async function updateClientHasCheckedBaselineAssessment(
+  hasCheckedBaselineAssessment
+) {
+  const response = await http.patch(
+    `${API_ENDPOINT}/has-checked-baseline-assessment`,
+    {
+      hasCheckedBaselineAssessment,
+    }
+  );
+  return response;
+}
+
 const exportedFunctions = {
   addMoodTrack,
   getClientData,
@@ -270,6 +348,14 @@ const exportedFunctions = {
   getOrganizations,
   getOrganizationById,
   sendPlatformSuggestion,
+  addSOSCenterClick,
+  addBaselineAssessmentAnswer,
+  getLatestBaselineAssessment,
+  updateClientHasCheckedBaselineAssessment,
+  getBaselineAssessmentQuestions,
+  createBaselineAssessment,
+  getBaselineAssessments,
+  getClientAnswersForBaselineAssessmentById,
 };
 
 export default exportedFunctions;

@@ -68,7 +68,7 @@
 
   &__list {
     width: 100%;
-    padding: $spacing_4_0 0 0 $spacing_1_6;
+    padding: $spacing_4_0 $spacing_3_2 0 $spacing_1_6;
 
     @media screen and (min-width: $navbar-tight) {
       width: auto;
@@ -81,6 +81,7 @@
   &__item {
     display: flex;
     cursor: pointer;
+    width: 100%;
 
     @media screen and (min-width: $navbar-tight) {
       padding: 0 1rem 0 0;
@@ -88,6 +89,18 @@
 
     @media screen and (min-width: $screen-lg) {
       padding: 0 2.5rem 0 0;
+    }
+
+    &__content {
+      display: flex;
+      width: 100%;
+      gap: $spacing_0_8;
+    }
+
+    &__icon {
+      @media screen and (min-width: $navbar-tight) {
+        display: none;
+      }
     }
 
     & p {
@@ -208,12 +221,13 @@
   &__languages,
   &__countries {
     position: fixed;
-    z-index: $z_index_emergency_button;
+    z-index: 100;
     left: 1rem;
     top: 50rem;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    width: 30rem;
 
     @media screen and (min-width: $navbar-tight) {
       top: 7.5rem;
@@ -353,10 +367,6 @@
       @include themify($themes, "background", "color_white_ff");
       border-radius: $spacing_0_4;
       margin-top: $spacing_0_4;
-
-      &--visible {
-        // Remove animation
-      }
     }
   }
 
@@ -450,6 +460,7 @@
       cursor: pointer;
       display: flex;
       justify-content: center;
+      z-index: 999;
 
       &-label--selected {
         font-weight: $font_bold;
@@ -472,6 +483,7 @@
       cursor: pointer;
       display: flex;
       justify-content: flex-start;
+      text-align: left;
 
       &:not(:first-of-type) {
         padding-top: $spacing_0_8;
@@ -488,17 +500,26 @@
     flex-direction: row;
     align-items: center;
     cursor: pointer;
-    padding-right: $spacing_3_0;
-    margin-bottom: $spacing_2_4;
+    margin-top: $spacing_2_4;
+    margin-right: $spacing_0_8;
 
     @media screen and (min-width: $navbar-tight) {
-      margin-bottom: 0;
+      margin-top: 0;
+      padding-right: $spacing_3_0;
     }
 
     &__icon {
       margin-right: $spacing_0_8;
       width: 2.6rem;
       height: 2.6rem;
+    }
+
+    &__toggle {
+      margin-left: auto;
+
+      @media screen and (min-width: $navbar-tight) {
+        display: none;
+      }
     }
 
     &:hover p {
@@ -517,4 +538,41 @@
       @include themify($themes, "color", "color_yellow_fdda0d");
     }
   }
+
+  &__accessibility-controller {
+    position: static;
+    margin-top: $spacing_2_4;
+    margin-left: $spacing_1_6;
+
+    @media screen and (min-width: $navbar-tight) {
+      display: flex;
+      position: fixed;
+      z-index: 99;
+      right: 50%;
+      transform: translateX(50%);
+      bottom: 5vh;
+    }
+  }
 }
+
+// Website-specific mobile separators
+// .nav--website {
+//   // Apply only on mobile/tablet
+//   @media screen and (max-width: ($navbar-tight - 1)) {
+//     .nav__languages--mobile {
+//       @include themifyNormal($themes) {
+//         border-top: 1px solid themed("color_gray_d2dcde");
+//       }
+//       padding-top: $spacing_1_6;
+//       margin-top: $spacing_1_6;
+//     }
+
+//     .nav__theme-button {
+//       @include themifyNormal($themes) {
+//         border-top: 1px solid themed("color_gray_d2dcde");
+//       }
+//       padding-top: $spacing_1_6;
+//       margin-top: $spacing_1_6;
+//     }
+//   }
+// }

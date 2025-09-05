@@ -62,6 +62,10 @@
 
     .placeholder {
       color: $color_gray_a6b4b8;
+
+      .theme-highContrast & {
+        color: yellow;
+      }
     }
 
     .text {
@@ -134,7 +138,7 @@
   }
 
   &--expanded {
-    z-index: 5;
+    z-index: 12;
 
     .heading {
       border: 0.1rem solid $color-secondary-9749fa;
@@ -172,4 +176,19 @@
       border: 0.1rem solid $color_gray_a6b4b8;
     }
   }
+}
+
+.theme-highContrast
+  .dropdown
+  .dropdown-content
+  .option-container.option-selected {
+  background-color: #000000 !important;
+}
+
+.theme-highContrast
+  .dropdown
+  .dropdown-content
+  .option-container.option-selected
+  .text {
+  color: yellow !important;
 }
