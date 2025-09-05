@@ -5,6 +5,7 @@ import OutsideClickHandler from "react-outside-click-handler";
 import { Icon, IconFlag } from "../../icons";
 import { List } from "../../lists";
 import { Button } from "../../buttons";
+import { Toggle } from "../../inputs";
 import { Box } from "../../boxes";
 import { AccessibilityController } from "../../cards";
 import { userSvc } from "../../../services";
@@ -286,7 +287,11 @@ export const Navbar = ({
     };
 
     return (
-      <div onClick={toggleTheme} className="nav__theme-button">
+      <div
+        className="nav__theme-button"
+        role="group"
+        aria-label={t("high_contrast")}
+      >
         <Icon
           name={theme === "light" ? "dark-mode-switch" : "light-mode"}
           size="lg"
@@ -307,6 +312,14 @@ export const Navbar = ({
         >
           {t(theme === "light" ? "light" : "dark")}
         </p>
+        <div className="nav__theme-button__toggle">
+          <Toggle
+            isToggled={theme === "dark"}
+            shouldChangeState
+            setParentState={toggleTheme}
+            size="sm"
+          />
+        </div>
       </div>
     );
   };
@@ -395,19 +408,27 @@ export const Navbar = ({
               end={page.exact ? page.exact : false}
               role="button"
             >
-              <p className="paragraph">{page.name}</p>
+              <div className="nav__item__content">
+                <Icon
+                  name={page.icon}
+                  size="md"
+                  classes="nav__item__icon"
+                  color={theme === "light" ? "#20809e" : "#ffffff"}
+                />
+                <p className="paragraph">{page.name}</p>
+              </div>
+              <Icon
+                name="arrow-chevron-forward"
+                size="sm"
+                classes="nav__item__icon"
+                color={theme === "highContrast" ? "#ffff00" : "#20809e"}
+              />
             </NavLink>
           ),
         onClick: scrollTop,
       });
     }
   });
-
-  if (hasThemeButton) {
-    items.push({
-      value: themeButton(),
-    });
-  }
 
   items.push({
     value: (
@@ -462,6 +483,12 @@ export const Navbar = ({
           />
         </div>
       ),
+    });
+  }
+
+  if (hasThemeButton) {
+    items.push({
+      value: themeButton(),
     });
   }
 
@@ -672,6 +699,7 @@ export const Navbar = ({
         handleCountryClick(option);
       }
     };
+
     return (
       <div className="nav__dropdown-content">
         {data.map((option) => {
@@ -752,7 +780,10 @@ export const Navbar = ({
 
     if (shouldRender) {
       return (
-        <AccessibilityController classes="nav__accessibility-controller" />
+        <AccessibilityController
+          classes="nav__accessibility-controller"
+          t={t}
+        />
       );
     }
   };
@@ -780,6 +811,7 @@ export const Navbar = ({
         className={[
           "nav",
           "collapsible",
+          renderIn === "website" ? "nav--website" : "",
           `${isNavbarExpanded ? "collapsible--expanded" : ""}`,
         ].join(" ")}
       >

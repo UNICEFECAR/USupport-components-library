@@ -11,15 +11,23 @@ import "./slider.scss";
  *
  * @return {jsx}
  */
-export const Slider = ({ min = 1, max = 10, value, ...props }) => {
+export const Slider = ({
+  min = 1,
+  max = 10,
+  value,
+  leftContent,
+  rightContent,
+  renderValue,
+  ...props
+}) => {
   return (
     <div className="slider">
       <div className="slider__wrapper">
-        <p className="slider__text--min">{min}</p>
+        <div className="slider__text--min">{leftContent ?? min}</div>
         <RCSlider value={value} min={min} max={max} {...props} />
-        <p className="slider__text--max">{max}</p>
+        <div className="slider__text--max">{rightContent ?? max}</div>
       </div>
-      <h4>{value}</h4>
+      <h4>{renderValue ? renderValue(value) : value}</h4>
     </div>
   );
 };

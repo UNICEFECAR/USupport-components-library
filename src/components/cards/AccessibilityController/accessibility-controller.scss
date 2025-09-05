@@ -1,11 +1,65 @@
 @import "@USupport-components-library/styles";
 
 .accessibility-controller {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: $spacing_0_8 $spacing_2_4;
-  background-color: $color_white_ff;
-  border-radius: $border_radius_3_2;
-  gap: $spacing_0_6;
+  width: 100%;
+  padding-right: $spacing_1_6;
+
+  &.box {
+    background-color: transparent;
+    box-shadow: none;
+    margin-right: $spacing_2_4;
+  }
+
+  @media screen and (min-width: $navbar-tight) {
+    width: auto;
+
+    &.box {
+      @include themify($themes, "background-color", "color_card");
+      box-shadow: $shadow_2;
+      margin-right: 0;
+    }
+  }
+
+  &__toggle-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: $spacing_0_6;
+
+    @media screen and (min-width: $navbar-tight) {
+      display: none;
+    }
+
+    &__toggle {
+      margin-left: auto;
+    }
+  }
+
+  &__zoom-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: $spacing_2_6;
+
+    @media screen and (min-width: $navbar-tight) {
+      padding: $spacing_0_8 $spacing_2_4;
+      border-radius: $border_radius_3_2;
+      gap: $spacing_0_6;
+      margin-top: 0;
+    }
+
+    &__high-contrast {
+      display: none;
+
+      @media screen and (min-width: $navbar-tight) {
+        display: block;
+      }
+    }
+  }
+
+  &__slider-container {
+    width: 100%;
+    min-width: 240px;
+    padding-top: $spacing_2_4;
+  }
 }
