@@ -378,7 +378,21 @@ export const Navbar = ({
                 onClick={() => handleNavbarLinkClick(dropdownItem)}
                 role="button"
               >
-                <p className="paragraph">{dropdownItem.name}</p>
+                <div className="nav__item__content">
+                  <Icon
+                    name={dropdownItem.icon}
+                    size="md"
+                    classes="nav__item__icon"
+                    color={theme === "light" ? "#20809e" : "#ffffff"}
+                  />
+                  <p className="paragraph">{dropdownItem.name}</p>
+                </div>
+                <Icon
+                  name="arrow-chevron-forward"
+                  size="sm"
+                  classes="nav__item__icon"
+                  color={theme === "highContrast" ? "#ffff00" : "#20809e"}
+                />
               </NavLink>
             ),
             onClick: scrollTop,
