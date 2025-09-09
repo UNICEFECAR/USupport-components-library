@@ -24,11 +24,6 @@ export default [
       },
     ],
     plugins: [
-      alias({
-        entries: [
-          { find: "#minpath", replacement: "vfile/lib/minpath.browser.js" },
-        ],
-      }),
       babel({
         babelHelpers: "bundled",
         exclude: "node_modules",
@@ -36,11 +31,7 @@ export default [
       }),
       scss(),
       external(),
-      resolve({
-        browser: true, // prefer browser builds
-        exportConditions: ["browser", "default"],
-        preferBuiltins: false,
-      }),
+      resolve(),
       terser(),
       svg(),
       image(),
