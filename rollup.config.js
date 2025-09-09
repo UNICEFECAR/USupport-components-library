@@ -7,6 +7,7 @@ import svg from "rollup-plugin-svg";
 import image from "@rollup/plugin-image";
 import json from "@rollup/plugin-json";
 import commonjs from "@rollup/plugin-commonjs";
+import alias from "@rollup/plugin-alias";
 
 export default [
   {
@@ -19,10 +20,15 @@ export default [
       {
         file: "dist/index.es.js",
         format: "es",
-        exports: "named"
+        exports: "named",
       },
     ],
     plugins: [
+      alias({
+        entries: [
+          { find: "#minpath", replacement: "vfile/lib/minpath.browser.js" },
+        ],
+      }),
       babel({
         babelHelpers: "bundled",
         exclude: "node_modules",
@@ -30,7 +36,11 @@ export default [
       }),
       scss(),
       external(),
-      resolve(),
+      resolve({
+        browser: true, // prefer browser builds
+        exportConditions: ["browser", "default"],
+        preferBuiltins: false,
+      }),
       terser(),
       svg(),
       image(),
