@@ -102,7 +102,19 @@ const constructWebsiteUrl = (url) => {
     return `https://usupport.online/${language}/${url}`;
   }
 
+  if (!country) {
+    if (hostname.includes("staging")) {
+      return `https://staging.usupport.online/${language}/${url}`;
+    }
+    return `https://usupport.online/${language}/${url}`;
+  }
+
   const countryName = countriesMap[country.toLocaleLowerCase()];
+
+  if (hostname.includes("staging")) {
+    return `https://${countryName}.staging.usupport.online/${language}/${url}`;
+  }
+
   return `https://${countryName}.usupport.online/${language}/${url}`;
 };
 
