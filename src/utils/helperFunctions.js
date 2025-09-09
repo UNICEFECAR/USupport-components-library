@@ -155,8 +155,8 @@ const redirectToUrl = (url) => {
 
 const COUNTRIES_DEFAULT_LANGUAGES = {
   pl: "pl",
-  kk: "kk",
-  hy: "hy",
+  kz: "kk",
+  am: "hy",
   // ro:'ro', // TODO: add ro to the list of countries when translations are added
   global: "en",
   undefined: "en",
