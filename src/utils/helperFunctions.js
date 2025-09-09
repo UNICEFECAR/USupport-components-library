@@ -141,6 +141,20 @@ const redirectToUrl = (url) => {
   window.open(url, "_self", "noreferrer").focus();
 };
 
+const COUNTRIES_DEFAULT_LANGUAGES = {
+  pl: "pl",
+  kk: "kk",
+  hy: "hy",
+  // ro:'ro', // TODO: add ro to the list of countries when translations are added
+  global: "en",
+  undefined: "en",
+};
+
+const getCountryDefaultLanguage = () => {
+  const country = getCountryFromSubdomain();
+  return COUNTRIES_DEFAULT_LANGUAGES[country.toLocaleLowerCase()];
+};
+
 export {
   filterAdminData,
   downloadCSVFile,
@@ -151,4 +165,5 @@ export {
   redirectToUrl,
   countriesMap,
   constructWebsiteUrl,
+  getCountryDefaultLanguage,
 };
