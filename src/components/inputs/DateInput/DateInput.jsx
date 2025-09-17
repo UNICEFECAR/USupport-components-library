@@ -30,7 +30,7 @@ export const DateInput = ({ classes = [], ...props }) => {
         {...props}
       >
         <p
-          className="date-input-placeholder text"
+          className="date-input__placeholder text"
           onClick={(e) => {
             e.stopPropagation();
             inputRef.current?.showPicker();
