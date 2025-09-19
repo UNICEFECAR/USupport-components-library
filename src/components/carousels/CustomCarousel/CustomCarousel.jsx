@@ -37,13 +37,14 @@ export const CustomCarousel = ({
   breakpointItems,
   children,
   speed = 3000,
+  autoPlay = true,
 }) => {
   return (
     <div className={["custom-carousel", classNames(classes)].join(" ")}>
       <Carousel
         responsive={breakpointItems ? breakpointItems : defaultBreakpointItems}
         renderDotsOutside={true}
-        autoPlay={true}
+        autoPlay={autoPlay}
         infinite={true}
         showDots={true}
         arrows={false}
