@@ -306,6 +306,49 @@ async function getProviderActivitiesById(providerId) {
   return response;
 }
 
+async function generateProviderFreeSlotsReport(payload) {
+  const { startDate, endDate } = payload || {};
+
+  // Build query params if dates are provided
+  const queryParams = new URLSearchParams();
+  if (startDate) queryParams.append("startDate", startDate);
+  if (endDate) queryParams.append("endDate", endDate);
+
+  const requestUrl = `${API_ENDPOINT}/statistics/providers/availability/report${
+    queryParams.toString() ? `?${queryParams.toString()}` : ""
+  }`;
+
+  const response = await http.get(requestUrl, {
+    responseType: "blob",
+  });
+
+  // Create a blob URL and trigger download
+  const blob = new Blob([response.data], { type: "text/csv" });
+  const downloadUrl = window.URL.createObjectURL(blob);
+
+  // Extract filename from response headers or create a default one
+  const contentDisposition = response.headers["content-disposition"];
+  let filename = "provider-availability-report.csv";
+
+  if (contentDisposition) {
+    const filenameMatch = contentDisposition.match(/filename="(.+)"/);
+    if (filenameMatch) {
+      filename = filenameMatch[1];
+    }
+  }
+
+  // Create download link and trigger download
+  const link = document.createElement("a");
+  link.href = downloadUrl;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  window.URL.revokeObjectURL(downloadUrl);
+
+  return { success: true, message: "Report downloaded successfully" };
+}
+
 async function getAllSponsorsData() {
   const response = await http.get(`${API_ENDPOINT}/sponsor`);
   return response;
@@ -617,6 +660,7 @@ const exportedFunctions = {
   getAllBaselineAssessmentThresholds,
   updateBaselineAssessmentThreshold,
   getBaselineAssessmentAnalysis,
+  generateProviderFreeSlotsReport,
 };
 
 export default exportedFunctions;

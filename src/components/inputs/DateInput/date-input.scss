@@ -19,12 +19,17 @@
     }
   }
 
-  &-placeholder {
+  .input-wrapper {
+    position: relative;
+  }
+
+  &__placeholder {
     position: absolute;
-    top: 53.5%;
+    top: 50%;
     left: 2.8rem;
     cursor: pointer;
     z-index: 2;
+    transform: translateY(-50%);
   }
 }
 

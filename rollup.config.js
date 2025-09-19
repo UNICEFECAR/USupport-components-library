@@ -7,6 +7,7 @@ import svg from "rollup-plugin-svg";
 import image from "@rollup/plugin-image";
 import json from "@rollup/plugin-json";
 import commonjs from "@rollup/plugin-commonjs";
+import alias from "@rollup/plugin-alias";
 
 export default [
   {
@@ -19,7 +20,7 @@ export default [
       {
         file: "dist/index.es.js",
         format: "es",
-        exports: "named"
+        exports: "named",
       },
     ],
     plugins: [
