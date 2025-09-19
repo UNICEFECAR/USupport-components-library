@@ -21,6 +21,7 @@ export const Like = ({
   isDisliked,
   answerId,
   renderInClient = false,
+  isTmpUser = false,
 }) => {
   const { theme } = useContext(ThemeContext);
 
@@ -33,6 +34,7 @@ export const Like = ({
           }
           className={[
             "like__icon-container",
+            isTmpUser && "like__icon-container--disabled",
             renderInClient && "like__icon-container--client",
             isLiked && "like__icon-container--selected",
           ].join(" ")}
@@ -53,6 +55,7 @@ export const Like = ({
           }
           className={[
             "like__icon-container",
+            isTmpUser && "like__icon-container--disabled",
             renderInClient && "like__icon-container--client",
             isDisliked && "like__icon-container--selected",
           ].join(" ")}

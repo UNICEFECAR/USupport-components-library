@@ -286,9 +286,20 @@ async function getUserContentRatings() {
   return response;
 }
 
-async function getRatingsForContent({ contentId, contentType }) {
+async function getRatingsForContent({
+  contentId,
+  contentType,
+  isTmpUser = false,
+}) {
+  let headers = {};
+  if (isTmpUser) {
+    headers["x-is-guest"] = true;
+  }
   const response = await http.get(
-    `${API_ENDPOINT}/ratings-for-content?contentId=${contentId}&contentType=${contentType}`
+    `${API_ENDPOINT}/ratings-for-content?contentId=${contentId}&contentType=${contentType}`,
+    {
+      headers,
+    }
   );
   return response;
 }

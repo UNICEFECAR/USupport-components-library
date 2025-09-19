@@ -102,7 +102,19 @@ const constructWebsiteUrl = (url) => {
     return `https://usupport.online/${language}/${url}`;
   }
 
+  if (!country) {
+    if (hostname.includes("staging")) {
+      return `https://staging.usupport.online/${language}/${url}`;
+    }
+    return `https://usupport.online/${language}/${url}`;
+  }
+
   const countryName = countriesMap[country.toLocaleLowerCase()];
+
+  if (hostname.includes("staging")) {
+    return `https://${countryName}.staging.usupport.online/${language}/${url}`;
+  }
+
   return `https://${countryName}.usupport.online/${language}/${url}`;
 };
 
@@ -141,6 +153,20 @@ const redirectToUrl = (url) => {
   window.open(url, "_self", "noreferrer").focus();
 };
 
+const COUNTRIES_DEFAULT_LANGUAGES = {
+  pl: "pl",
+  kz: "kk",
+  am: "hy",
+  // ro:'ro', // TODO: add ro to the list of countries when translations are added
+  global: "en",
+  undefined: "en",
+};
+
+const getCountryDefaultLanguage = () => {
+  const country = getCountryFromSubdomain();
+  return COUNTRIES_DEFAULT_LANGUAGES[country.toLocaleLowerCase()];
+};
+
 export {
   filterAdminData,
   downloadCSVFile,
@@ -151,4 +177,5 @@ export {
   redirectToUrl,
   countriesMap,
   constructWebsiteUrl,
+  getCountryDefaultLanguage,
 };

@@ -21,6 +21,8 @@ export const Select = ({
   handleChange,
   label,
   classes,
+  maxMenuHeight = 200,
+  isSearchable = true,
   ...rest
 }) => {
   const [selectedOptions, setSelectedOptions] = useState(null);
@@ -57,6 +59,11 @@ export const Select = ({
         classNamePrefix="select"
         closeMenuOnSelect={false}
         isMulti
+        isSearchable={isSearchable}
+        maxMenuHeight={maxMenuHeight}
+        components={{
+          ...makeAnimated(),
+        }}
         {...rest}
       />
       {errorMessage && <Error message={errorMessage} />}

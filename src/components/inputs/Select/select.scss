@@ -7,6 +7,10 @@
     width: 36.8rem;
   }
 
+  &--full-width {
+    width: 100%;
+  }
+
   &__label {
     color: $color_blue_3d527b;
     text-align: left;
@@ -15,13 +19,14 @@
 
   & .select {
     &__control {
-      border-radius: 3rem;
+      border-radius: $border_radius_2_4;
       box-shadow: $shadow_1;
       border: 0.1rem solid transparent;
       text-align: left;
-      padding: $spacing_0_4 $spacing_0_2;
       color: $color_gray_a6b4b8;
-      overflow: hidden;
+      min-height: 3.8rem;
+      max-height: 15rem;
+      overflow-y: auto;
 
       &--is-focused {
         border: 0.1rem solid $color_secondary_9749fa;
@@ -32,9 +37,26 @@
       }
     }
 
+    &__value-container {
+      max-height: 9.5rem;
+      overflow-y: auto;
+      flex-wrap: wrap;
+      padding: $spacing_0_4 $spacing_0_8;
+
+      @include scrollbar-secondary;
+    }
+
     &__placeholder {
       color: $color_gray_a6b4b8;
-      padding-left: $spacing_0_2;
+      padding-left: 0;
+    }
+
+    &__indicators {
+      padding: $spacing_0_4 $spacing_0_8;
+    }
+
+    &__indicator-separator {
+      display: none;
     }
 
     &__menu {
@@ -53,6 +75,29 @@
       background-color: $color_white_ff;
       box-shadow: $shadow_2;
       overflow: hidden;
+      margin: 0.2rem;
+      font-size: 1.3rem;
+      max-width: calc(100% - 0.4rem);
+    }
+
+    &__multi-value__label {
+      padding: 0.4rem 0.8rem;
+      color: $color_blue_3d527b;
+      font-size: 1.3rem;
+      white-space: nowrap;
+      overflow: hidden;
+      // text-overflow: ellipsis;
+      // max-width: 15rem;
+    }
+
+    &__multi-value__remove {
+      padding: 0.4rem;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $color_red_eb5757;
+        color: $color_white_ff;
+      }
     }
 
     &__option {
