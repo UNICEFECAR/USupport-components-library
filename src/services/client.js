@@ -71,8 +71,8 @@ async function getOrganizations(filters) {
     filtersQuery += `&userLocationLat=${filters.userLocation.lat}&userLocationLng=${filters.userLocation.lng}`;
   }
 
-  if (filters.specialisation) {
-    filtersQuery += `&specialisation=${filters.specialisation}`;
+  if (filters.specialisations && filters.specialisations.length > 0) {
+    filtersQuery += `&specialisations=${filters.specialisations.join(",")}`;
   }
 
   if (filters.propertyType) {
@@ -319,6 +319,11 @@ async function updateClientHasCheckedBaselineAssessment(
   return response;
 }
 
+async function getPersonalizedOrganizations() {
+  const response = await http.get(`${API_ENDPOINT}/organization/personalized`);
+  return response;
+}
+
 const exportedFunctions = {
   addMoodTrack,
   getClientData,
@@ -356,6 +361,7 @@ const exportedFunctions = {
   createBaselineAssessment,
   getBaselineAssessments,
   getClientAnswersForBaselineAssessmentById,
+  getPersonalizedOrganizations,
 };
 
 export default exportedFunctions;
