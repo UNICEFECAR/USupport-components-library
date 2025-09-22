@@ -62,7 +62,7 @@
     padding-right: $spacing_1_0;
     position: sticky;
     top: 0;
-    background-color: $color_gray_66768d;
+    background-color: transparent;
 
     @media screen and (max-width: $screen-sm) {
       padding-right: $spacing_0_8;
@@ -72,7 +72,7 @@
     &:last-child {
       right: 0;
       z-index: 11;
-      background-color: $color_gray_66768d;
+      background-color: transparent;
     }
 
     & .icon {
@@ -197,6 +197,25 @@
     }
 
     & tr:nth-child(even) {
+      @include themifyCustom(
+        $themes,
+        "background-color",
+        "color_gray_ea",
+        "color_gray_344054"
+      );
+    }
+
+    // Ensure odd rows are white background
+    & tr:nth-child(odd) {
+      background-color: $color_white_ff;
+    }
+
+    // Match sticky last cell background to row background for both parities
+    & tr:nth-child(odd) .table__td--sticky:last-child {
+      background-color: $color_white_ff;
+    }
+
+    & tr:nth-child(even) .table__td--sticky:last-child {
       @include themifyCustom(
         $themes,
         "background-color",
