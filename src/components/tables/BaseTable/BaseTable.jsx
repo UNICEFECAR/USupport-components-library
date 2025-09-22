@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { Trans } from "react-i18next";
 import OutsideClickHandler from "react-outside-click-handler";
 
@@ -270,12 +270,16 @@ export const BaseTable = ({
               ? getTextContent(originalContent)
               : null;
 
+            // Get the column label for mobile data-label attribute
+            const columnLabel = rows[dataItemIndex]?.label || "";
+
             return (
               <React.Fragment key={"dataItem" + dataItemIndex}>
                 <td
                   className={`table__td ${hasMenu ? "table__td--sticky" : ""} ${
                     shouldShowTooltip ? "table__td--truncated" : ""
                   }`}
+                  data-label={columnLabel}
                   onMouseEnter={() =>
                     handleMouseEnter(dataIndex, dataItemIndex)
                   }
@@ -396,8 +400,7 @@ export const BaseTable = ({
         <p>{t("no_data_found")}</p>
       ) : (
         <div
-          className="scrollable-table"
-          style={{ maxHeight: `${maxHeightInVH}vh` || "60vh" }}
+          className={`scrollable-table scrollable-table--height-${maxHeightInVH}`}
         >
           <table className={`table ${hasMenu ? "table--sticky" : ""}`}>
             <thead>
@@ -452,46 +455,103 @@ export const BaseTable = ({
 
 const TableIcon = ({ menuOptions, handleClickCallbackProp, index }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [menuPosition, setMenuPosition] = useState({ top: "100%", right: 0 });
+  const menuRef = useRef(null);
+  const iconRef = useRef(null);
+
+  // Calculate optimal menu position to avoid viewport overflow
+  const calculateMenuPosition = useCallback(() => {
+    if (!iconRef.current || !isMenuOpen) return;
+
+    const iconRect = iconRef.current.getBoundingClientRect();
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    // Estimated menu dimensions
+    const menuWidth = 200;
+    const menuHeight = menuOptions.length * 40 + 32; // Rough estimate
+
+    let position = { top: "100%", right: 0 };
+
+    // Check if menu would overflow right edge
+    if (iconRect.right - menuWidth < 0) {
+      position.right = "auto";
+      position.left = 0;
+    }
+
+    // Check if menu would overflow bottom edge
+    if (iconRect.bottom + menuHeight > viewportHeight) {
+      position.top = "auto";
+      position.bottom = "100%";
+    }
+
+    setMenuPosition(position);
+  }, [isMenuOpen, menuOptions.length]);
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      calculateMenuPosition();
+      const handleReposition = () => calculateMenuPosition();
+      window.addEventListener("scroll", handleReposition, true);
+      window.addEventListener("resize", handleReposition);
+
+      return () => {
+        window.removeEventListener("scroll", handleReposition, true);
+        window.removeEventListener("resize", handleReposition);
+      };
+    }
+  }, [isMenuOpen, calculateMenuPosition]);
+
+  const handleToggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
-    <React.Fragment>
-      <td
-        className={`table__td table__td--sticky table-icon ${
-          (index + 1) % 2 === 0 ? "table-icon--even" : ""
-        }`}
-      >
-        <div className="table-icon__content">
-          <Icon
-            size="xl"
-            name="table-menu"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            classes={
-              index + (1 % 2) === 0 ? "table-icon__content__icon--even" : ""
-            }
-          />
-        </div>
-      </td>
-      <OutsideClickHandler onOutsideClick={() => setIsMenuOpen(false)}>
-        {isMenuOpen && (
-          <div className="table-icon__menu">
-            {menuOptions?.map((option, index) => {
-              return (
-                <div
-                  key={"option" + index}
-                  className="table-icon__menu__option"
-                  onClick={() => option.handleClick(handleClickCallbackProp)}
-                >
-                  <Icon
-                    color={option.iconColor || "#20809E"}
-                    name={option.icon}
-                  />
-                  <p>{option.text}</p>
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </OutsideClickHandler>
-    </React.Fragment>
+    <td
+      className={`table__td table__td--sticky table-icon ${
+        (index + 1) % 2 === 0 ? "table-icon--even" : ""
+      } ${isMenuOpen ? "table-icon--open" : ""}`}
+    >
+      <div className="table-icon__content" ref={iconRef}>
+        <Icon
+          size="xl"
+          name="table-menu"
+          onClick={handleToggleMenu}
+          classes={
+            index + (1 % 2) === 0 ? "table-icon__content__icon--even" : ""
+          }
+        />
+        <OutsideClickHandler onOutsideClick={() => setIsMenuOpen(false)}>
+          {isMenuOpen && (
+            <div
+              className={`table-icon__menu ${
+                menuPosition.top === "auto" ? "table-icon__menu--above" : ""
+              } ${menuPosition.left === 0 ? "table-icon__menu--left" : ""}`}
+              ref={menuRef}
+            >
+              {menuOptions?.map((option, optionIndex) => {
+                return (
+                  <div
+                    key={"option" + optionIndex}
+                    className="table-icon__menu__option"
+                    onClick={() => {
+                      option.handleClick(handleClickCallbackProp);
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    <Icon
+                      color={option.iconColor || "#20809E"}
+                      name={option.icon}
+                    />
+                    <p>{option.text}</p>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </OutsideClickHandler>
+      </div>
+    </td>
   );
 };
 
