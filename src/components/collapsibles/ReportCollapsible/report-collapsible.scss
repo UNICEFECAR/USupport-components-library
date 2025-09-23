@@ -1,7 +1,7 @@
 @import "../../../styles/theme";
 
 .report-collapsible {
-  padding: $spacing_2_0;
+  // padding: $spacing_2_0;
   margin: $spacing_1_6 0;
   cursor: pointer;
   max-height: 15rem;
@@ -19,8 +19,13 @@
     }
   }
 
+  &--no-pointer {
+    cursor: default;
+  }
+
   &__grid {
     grid-template-columns: repeat(8, 1fr);
+    padding: $spacing_2_0;
 
     &__arrow {
       transition: all 0.5s;
@@ -73,17 +78,10 @@
   }
 
   &__content-grid {
+    padding: $spacing_2_0;
     margin-top: $spacing_1_8;
     border-top: 1px solid $color_gray_a6b4b8;
     text-align: left;
-
-    &__heading {
-      padding-top: $spacing_1_6;
-
-      @media screen and (min-width: $screen-md) {
-        padding-top: $spacing_3_2;
-      }
-    }
   }
 
   &__content-heading-container {

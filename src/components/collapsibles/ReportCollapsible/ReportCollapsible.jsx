@@ -23,6 +23,7 @@ export const ReportCollapsible = ({
   contentMenuOptions,
   componentId = "",
   children,
+  canCollapse = true,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { width } = useWindowDimensions();
@@ -30,11 +31,20 @@ export const ReportCollapsible = ({
 
   return (
     <Box
-      classes={`report-collapsible ${isOpen ? "report-collapsible--open" : ""}`}
+      classes={`report-collapsible ${
+        isOpen ? "report-collapsible--open" : ""
+      } ${!canCollapse ? "report-collapsible--no-pointer" : ""}`}
       boxShadow={2}
       borderSize="sm"
     >
-      <Grid classes="report-collapsible__grid">
+      <Grid
+        classes="report-collapsible__grid"
+        onClick={() => {
+          if (canCollapse) {
+            setIsOpen(!isOpen);
+          }
+        }}
+      >
         {headingItems.map((item, index) => {
           return (
             <div
@@ -51,19 +61,19 @@ export const ReportCollapsible = ({
               }
               `}
               key={index}
-              onClick={() => setIsOpen(!isOpen)}
             >
               {item}
               {((width < 900 && index === 0) ||
                 (width >= 900 &&
                   index === headingItems.length - 1 &&
-                  headingItems.length === 2)) && (
-                <Icon
-                  name="arrow-chevron-down"
-                  classes="report-collapsible__grid__arrow"
-                  color="#20809E"
-                />
-              )}
+                  headingItems.length === 2)) &&
+                canCollapse && (
+                  <Icon
+                    name="arrow-chevron-down"
+                    classes="report-collapsible__grid__arrow"
+                    color="#20809E"
+                  />
+                )}
             </div>
           );
         })}
