@@ -534,8 +534,22 @@ async function deletePodcast(id) {
   return response;
 }
 
-async function getPlatformMetrics() {
-  const response = await http.get(`${API_ENDPOINT}/platform-metrics`);
+async function getPlatformMetrics({ startDate, endDate }) {
+  const startDateTimestamp = JSON.stringify(
+    new Date(new Date(startDate).setHours(0, 0, 0, 0)).getTime() / 1000
+  );
+
+  const endDateTimestamp = JSON.stringify(
+    new Date(new Date(endDate).setHours(23, 59, 59)).getTime() / 1000
+  );
+
+  const params = new URLSearchParams();
+  if (startDate) params.append("startDate", startDateTimestamp);
+  if (endDate) params.append("endDate", endDateTimestamp);
+
+  const response = await http.get(
+    `${API_ENDPOINT}/platform-metrics?${params.toString()}`
+  );
   return response;
 }
 
