@@ -98,10 +98,11 @@ async function getOrganizationById(organizationId) {
  * @param {string} mood the value of the mood
  * @returns {Promise} the response of the request
  */
-async function addMoodTrack(mood, comment) {
+async function addMoodTrack(mood, comment, emergency) {
   const response = await http.post(`${API_ENDPOINT}/mood-tracker`, {
     comment,
     mood,
+    emergency,
   });
   return response;
 }
