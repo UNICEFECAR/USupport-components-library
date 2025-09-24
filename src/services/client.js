@@ -206,6 +206,13 @@ async function deleteChatHistory() {
   return response;
 }
 
+async function deleteMoodTrackerHistory() {
+  const response = await http.put(
+    `${API_ENDPOINT}/mood-tracker/history/delete`
+  );
+  return response;
+}
+
 /**
  *
  * @param {Object} payload
@@ -349,6 +356,7 @@ const exportedFunctions = {
   getQuestions,
   addQuestionVote,
   deleteChatHistory,
+  deleteMoodTrackerHistory,
   addClientCategoryInteraction,
   getCategoryInteractions,
   getOrganizations,
