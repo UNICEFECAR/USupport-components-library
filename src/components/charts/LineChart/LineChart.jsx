@@ -86,11 +86,12 @@ export const LineChart = ({ data, handleSelectItem, selectedItemId }) => {
           pointBackgroundColor: function (context) {
             const index = context.index;
 
-            if (index === selectedItemIndex) {
-              return "#54CFD9";
-            } else {
-              return "#C1EAEA";
-            }
+            const isCritical = data?.[index]?.is_critical;
+            return isCritical
+              ? "#FF0000"
+              : index === selectedItemIndex
+              ? "#54CFD9"
+              : "#C1EAEA";
           },
         },
       ],
