@@ -606,9 +606,23 @@ async function updateBaselineAssessmentThreshold(id, payload) {
  * Get baseline assessment analysis with median calculations
  * @returns {Promise} the promise of the http request
  */
-async function getBaselineAssessmentAnalysis() {
+async function getBaselineAssessmentAnalysis(params = {}) {
+  const queryParams = new URLSearchParams();
+
+  if (params.startDate) {
+    queryParams.append("startDate", params.startDate);
+  }
+
+  if (params.endDate) {
+    queryParams.append("endDate", params.endDate);
+  }
+
+  const queryString = queryParams.toString();
+
   const response = await http.get(
-    `${API_ENDPOINT_BASELINE_ASSESSMENT}/analysis`
+    `${API_ENDPOINT_BASELINE_ASSESSMENT}/analysis${
+      queryString ? `?${queryString}` : ""
+    }`
   );
   return response;
 }
