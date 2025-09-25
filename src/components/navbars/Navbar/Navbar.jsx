@@ -289,8 +289,14 @@ export const Navbar = ({
     return (
       <div
         className="nav__theme-button"
-        role="group"
+        role="button"
         aria-label={t("high_contrast")}
+        tabIndex="0"
+        onClick={() => {
+          if (width >= 1050) {
+            toggleTheme();
+          }
+        }}
       >
         <Icon
           name={theme === "light" ? "dark-mode-switch" : "light-mode"}
@@ -312,7 +318,12 @@ export const Navbar = ({
         >
           {t(theme === "light" ? "light" : "dark")}
         </p>
-        <div className="nav__theme-button__toggle">
+        <div
+          className="nav__theme-button__toggle"
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
           <Toggle
             isToggled={theme === "dark"}
             shouldChangeState
