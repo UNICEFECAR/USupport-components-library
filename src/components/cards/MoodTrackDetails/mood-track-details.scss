@@ -21,9 +21,13 @@
   &__comment.text {
     text-align: left;
     margin-top: $spacing_1_6;
-    margin-left: $spacing_0_8;
     color: $color_primary_20809e;
     font-weight: $font_regular;
+  }
+
+  &__critical-text {
+    text-align: left;
+    margin-top: $spacing_1_6;
   }
 
   &__close-icon {

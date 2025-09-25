@@ -49,6 +49,11 @@ export const MoodTrackDetails = ({ mood, handleClose, t }) => {
         </p>
       </div>
       <p className="text mood-track-details__comment">{mood.comment}</p>
+      {mood.is_critical && (
+        <p className="text mood-track-details__critical-text">
+          {t("critical_text")}
+        </p>
+      )}
     </Box>
   );
 };

@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useMemo } from "react";
-import PropTypes from "prop-types";
 
 import {
   Chart as ChartJS,
@@ -70,7 +69,11 @@ export const LineChart = ({ data, handleSelectItem, selectedItemId }) => {
           borderColor: "#20809E",
           hoverBackgroundColor: "#C1EAEA",
           borderWidth: 1,
-          pointBorderWidth: 1,
+          pointBorderWidth: function (context) {
+            const index = context.index;
+            const isCritical = data?.[index]?.is_critical;
+            return isCritical ? 2 : 1;
+          },
           pointHoverBorderColor: "#20809E",
           pointHoverBorderWidth: 2,
           pointRadius: function (context) {
@@ -85,12 +88,12 @@ export const LineChart = ({ data, handleSelectItem, selectedItemId }) => {
           pointHoverRadius: 7,
           pointBackgroundColor: function (context) {
             const index = context.index;
-
-            if (index === selectedItemIndex) {
-              return "#54CFD9";
-            } else {
-              return "#C1EAEA";
-            }
+            return index === selectedItemIndex ? "#54CFD9" : "#C1EAEA";
+          },
+          pointBorderColor: function (context) {
+            const index = context.index;
+            const isCritical = data?.[index]?.is_critical;
+            return isCritical ? "#FF0000" : "#C1EAEA";
           },
         },
       ],

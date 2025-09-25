@@ -98,10 +98,11 @@ async function getOrganizationById(organizationId) {
  * @param {string} mood the value of the mood
  * @returns {Promise} the response of the request
  */
-async function addMoodTrack(mood, comment) {
+async function addMoodTrack(mood, comment, emergency) {
   const response = await http.post(`${API_ENDPOINT}/mood-tracker`, {
     comment,
     mood,
+    emergency,
   });
   return response;
 }
@@ -202,6 +203,13 @@ async function deleteChatHistory() {
   const response = await http.put(`${API_ENDPOINT}/chat-history`, {
     time: JSON.stringify(new Date().getTime()),
   });
+  return response;
+}
+
+async function deleteMoodTrackerHistory() {
+  const response = await http.put(
+    `${API_ENDPOINT}/mood-tracker/history/delete`
+  );
   return response;
 }
 
@@ -348,6 +356,7 @@ const exportedFunctions = {
   getQuestions,
   addQuestionVote,
   deleteChatHistory,
+  deleteMoodTrackerHistory,
   addClientCategoryInteraction,
   getCategoryInteractions,
   getOrganizations,
