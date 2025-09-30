@@ -93,15 +93,17 @@ export const CardMedia = ({
           </div>
         )}
       </div>
-      <div className="card-media__category">
-        <p
-          className={`small-text card-media__category__text ${
-            theme === "highContrast" ? "card-media__category__text--hc" : ""
-          }`}
-        >
-          {categoryName}
-        </p>
-      </div>
+      {categoryName && (
+        <div className="card-media__category">
+          <p
+            className={`small-text card-media__category__text ${
+              theme === "highContrast" ? "card-media__category__text--hc" : ""
+            }`}
+          >
+            {categoryName}
+          </p>
+        </div>
+      )}
       {isRead && (
         <div className="card-media__read">
           <p className="small-text card-media__read__text">{t("read")}</p>
