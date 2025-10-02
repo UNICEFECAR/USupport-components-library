@@ -384,6 +384,13 @@ async function getPersonalizedOrganizations() {
   return response;
 }
 
+async function getOrganizationSpecializations() {
+  const response = await http.get(
+    `${API_ENDPOINT}/organization/specializations`
+  );
+  return response;
+}
+
 const exportedFunctions = {
   addMoodTrack,
   getClientData,
@@ -414,6 +421,7 @@ const exportedFunctions = {
   getCategoryInteractions,
   getOrganizations,
   getOrganizationById,
+  getOrganizationSpecializations,
   sendPlatformSuggestion,
   addSOSCenterClick,
   addBaselineAssessmentAnswer,
