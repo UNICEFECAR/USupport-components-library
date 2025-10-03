@@ -26,6 +26,8 @@ export const Controls = ({
   isRoomConnecting,
   hasUnreadMessages = true,
   isInSession,
+  isHidden = false,
+  toggleControlsVisibility,
   t,
 }) => {
   const [isMicOpen, setIsMicOpen] = useState(isMicrophoneOn);
@@ -69,6 +71,14 @@ export const Controls = ({
     leaveConsultation();
   };
 
+  const renderMinimizedView = () => {
+    return (
+      <div className="controls-minimized" onClick={toggleControlsVisibility}>
+        <Icon name="view" size="lg" color="#20809E" />
+      </div>
+    );
+  };
+
   const renderAllButtons = () => {
     return (
       <div className="button-container">
@@ -98,6 +108,10 @@ export const Controls = ({
       </div>
     );
   };
+
+  if (isHidden) {
+    return renderMinimizedView();
+  }
 
   return (
     <Box classes="controls">
