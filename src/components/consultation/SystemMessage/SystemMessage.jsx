@@ -69,7 +69,3 @@ SystemMessage.propTypes = {
    * */
   showDate: PropTypes.bool,
 };
-
-SystemMessage.defaultProps = {
-  iconName: "consultation",
-};

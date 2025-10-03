@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import OutsideClickHandler from "react-outside-click-handler";
 import classNames from "classnames";
 import { ButtonWithIcon } from "../../buttons/ButtonWithIcon";
@@ -378,23 +377,4 @@ export const ProviderAvailability = ({
       ) : null}
     </div>
   );
-};
-
-ProviderAvailability.propTypes = {
-  /**
-   * If the provider is available or not
-   */
-  isAvailable: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-
-  /**
-   * Additional classes to be added to the provier availability component
-   **/
-  classes: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.arrayOf(PropTypes.string),
-  ]),
-};
-
-ProviderAvailability.defaultProps = {
-  isAvailable: false,
 };
