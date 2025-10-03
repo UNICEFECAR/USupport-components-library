@@ -119,6 +119,58 @@ async function getMoodTrackEntries(limit, pageNum) {
   return response;
 }
 
+async function generateMoodTrackReport(payload) {
+  const { startDate, endDate } = payload || {};
+
+  const queryParams = new URLSearchParams();
+  if (startDate) queryParams.append("startDate", startDate);
+  if (endDate) queryParams.append("endDate", endDate);
+
+  const response = await http.get(
+    `${API_ENDPOINT}/mood-tracker/report?${queryParams.toString()}`
+  );
+
+  // The API returns JSON: { csvData, fileName, ... }
+  // but we also support the fallback where the API returns raw CSV string.
+  const responseData = response?.data;
+  let csvString = "";
+  let filename = "mood-track-report.csv";
+
+  if (typeof responseData === "string") {
+    // Server returned raw CSV
+    csvString = responseData;
+    const contentDisposition = response.headers?.["content-disposition"];
+    if (contentDisposition) {
+      const filenameMatch = contentDisposition.match(/filename="(.+)"/);
+      if (filenameMatch) {
+        filename = filenameMatch[1];
+      }
+    }
+  } else if (responseData && typeof responseData.csvData === "string") {
+    // Server returned JSON with csvData
+    csvString = responseData.csvData;
+    if (responseData.fileName) {
+      filename = responseData.fileName;
+    }
+  } else {
+    // Unexpected shape; do a safe stringify so the user still gets a file
+    csvString = JSON.stringify(responseData ?? {});
+  }
+
+  const blob = new Blob([csvString], { type: "text/csv;charset=utf-8" });
+  const downloadUrl = window.URL.createObjectURL(blob);
+
+  const link = document.createElement("a");
+  link.href = downloadUrl;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  window.URL.revokeObjectURL(downloadUrl);
+
+  return { success: true, message: "Report downloaded successfully" };
+}
+
 async function getSecurityCheckAnswersByConsultationId(consultationId) {
   const response = await http.get(
     `${API_ENDPOINT}/consultation/security-check?consultationId=${consultationId}`
@@ -332,6 +384,13 @@ async function getPersonalizedOrganizations() {
   return response;
 }
 
+async function getOrganizationSpecializations() {
+  const response = await http.get(
+    `${API_ENDPOINT}/organization/specializations`
+  );
+  return response;
+}
+
 const exportedFunctions = {
   addMoodTrack,
   getClientData,
@@ -348,6 +407,7 @@ const exportedFunctions = {
   sendInformationPortalSuggestion,
   getMoodTrackForToday,
   getMoodTrackEntries,
+  generateMoodTrackReport,
   addPlatformRating,
   checkIsCouponAvailable,
   unblockSlot,
@@ -361,6 +421,7 @@ const exportedFunctions = {
   getCategoryInteractions,
   getOrganizations,
   getOrganizationById,
+  getOrganizationSpecializations,
   sendPlatformSuggestion,
   addSOSCenterClick,
   addBaselineAssessmentAnswer,

@@ -19,8 +19,10 @@ export const EmergencyCenter = ({
   phone,
   btnLabelLink,
   btnLabelCall,
+  btnLabelCustom,
   onClick,
   image,
+  showCustomButton,
 }) => {
   const handleClick = (type) => {
     if (onClick) {
@@ -57,6 +59,14 @@ export const EmergencyCenter = ({
             onClick={() => handleClick("link")}
           />
         ) : null}
+        {showCustomButton && (
+          <Button
+            color="purple"
+            size="sm"
+            label={btnLabelCustom}
+            onClick={() => handleClick("custom")}
+          />
+        )}
       </div>
     </Box>
   );

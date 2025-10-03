@@ -14,6 +14,8 @@ const abousUsEndpoint = CMS_API_URL + "/about-us-pages";
 const videosEndpoint = CMS_API_URL + "/videos";
 const podcastsEndpoint = CMS_API_URL + "/podcasts";
 const assessmentResultEndpoint = CMS_API_URL + "/assessment-results";
+const moodTrackerEndpoint = CMS_API_URL + "/mood-tracker-recomendations";
+
 /**
  * generate a querry string from an object
  *
@@ -518,6 +520,14 @@ async function getAssessmentResult(queryObj) {
   return { data };
 }
 
+async function getMoodTrackerRecommendations(moodType) {
+  const queryString = `?populate[articles][populate]=*&populate[podcasts][populate]=*&populate[videos][populate]=*&filters[mood][$eq]=${moodType}`;
+
+  const { data } = await http.get(`${moodTrackerEndpoint}${queryString}`);
+
+  return { data };
+}
+
 export default {
   getArticles,
   getArticleById,
@@ -548,4 +558,5 @@ export default {
   getAllCategoriesStatistics,
   getRecommendedArticlesForCategory,
   getAssessmentResult,
+  getMoodTrackerRecommendations,
 };
