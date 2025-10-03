@@ -299,6 +299,14 @@ async function getContactForms() {
   return response;
 }
 
+async function getMoodTrackerReport(queryString = "") {
+  const url = `${API_ENDPOINT}/statistics/mood-tracker-report${
+    queryString ? `?${queryString}` : ""
+  }`;
+  const response = await http.get(url);
+  return response;
+}
+
 async function getProviderActivitiesById(providerId) {
   const response = await http.get(
     `${API_ENDPOINT}/statistics/provider-activities?providerId=${providerId}`
@@ -661,6 +669,7 @@ const exportedFunctions = {
   getPlatformSuggestions,
   getClientRatings,
   getContactForms,
+  getMoodTrackerReport,
   getProviderActivitiesById,
   getAllSponsorsData,
   getSponsorDataById,
