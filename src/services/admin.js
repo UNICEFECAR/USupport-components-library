@@ -331,7 +331,7 @@ async function generateProviderFreeSlotsReport(payload) {
   });
 
   // Create a blob URL and trigger download
-  const blob = new Blob([response.data], { type: "text/csv" });
+  const blob = new Blob([response.data], { type: "text/csv;charset=utf-8" });
   const downloadUrl = window.URL.createObjectURL(blob);
 
   // Extract filename from response headers or create a default one
