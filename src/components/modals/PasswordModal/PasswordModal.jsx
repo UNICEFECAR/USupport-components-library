@@ -22,10 +22,10 @@ export const PasswordModal = ({
   placeholder,
 }) => {
   const [value, setValue] = useState("");
-  const isStaging = window.location.hostname.includes("staging");
-  if (!isStaging) {
-    return null;
-  }
+  // const isStaging = window.location.hostname.includes("staging");
+  // if (!isStaging) {
+  return null;
+  // }
 
   return (
     <Modal
