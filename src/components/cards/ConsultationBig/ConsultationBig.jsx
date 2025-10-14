@@ -30,6 +30,7 @@ export const ConsultationBig = ({
   handleChange,
   handleAcceptSuggestion,
   t,
+  toast,
 }) => {
   const { providerName, timestamp, image, status, price } = consultation;
   const imageUrl = AMAZON_S3_BUCKET + "/" + (image || "default");
@@ -80,13 +81,26 @@ export const ConsultationBig = ({
             onClick={() => handleJoin(consultation)}
           />
         ) : (
-          <Button
-            label={t("change_button_label")}
-            type="secondary"
-            color="purple"
-            classes="consultation-big__button"
-            onClick={() => handleChange(consultation)}
-          />
+          <div>
+            <div
+              className="consultation-big__edit__disabled-button-wrapper"
+              onClick={() => toast.info(t("join_button_label_tooltip"))}
+            >
+              <Button
+                label={t("join_button_label")}
+                color="purple"
+                classes="consultation-big__button"
+                disabled
+              />
+            </div>
+            <Button
+              label={t("change_button_label")}
+              type="secondary"
+              color="purple"
+              classes="consultation-big__button"
+              onClick={() => handleChange(consultation)}
+            />
+          </div>
         )}
       </div>
       <img src={mascot} className="consultation-big__mascot" />

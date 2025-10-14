@@ -51,4 +51,14 @@
     width: 12.8rem;
     height: 10rem;
   }
+
+  &__edit {
+    &__disabled-button-wrapper {
+      cursor: pointer;
+
+      & button {
+        pointer-events: none;
+      }
+    }
+  }
 }

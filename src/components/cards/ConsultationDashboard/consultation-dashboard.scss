@@ -101,4 +101,25 @@
       align-self: center;
     }
   }
+
+  &__button-container {
+    display: flex;
+    flex-direction: column;
+    padding-top: $spacing_1_2;
+    gap: $spacing_0_8;
+    width: 100%;
+    justify-content: space-between;
+
+    @media screen and (min-width: $screen_lg) {
+      flex-direction: row;
+    }
+  }
+
+  &__disabled-button-wrapper {
+    cursor: pointer;
+
+    & button {
+      pointer-events: none;
+    }
+  }
 }

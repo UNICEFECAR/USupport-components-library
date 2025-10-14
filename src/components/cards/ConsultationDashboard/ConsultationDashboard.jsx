@@ -30,6 +30,7 @@ export const ConsultationDashboard = ({
   handleAcceptSuggestion,
   handleSchedule,
   t,
+  toast,
 }) => {
   const currencySymbol = localStorage.getItem("currency_symbol");
   const {
@@ -122,13 +123,26 @@ export const ConsultationDashboard = ({
               onClick={() => handleJoin(consultation)}
             />
           ) : (
-            <Button
-              label={t("change_button_label")}
-              type="secondary"
-              size="sm"
-              color="purple"
-              onClick={() => handleEdit(consultation)}
-            />
+            <div className="consultation-dashboard__button-container">
+              <div
+                className="consultation-dashboard__disabled-button-wrapper"
+                onClick={() => toast.info(t("join_button_label_tooltip"))}
+              >
+                <Button
+                  label={t("join_button_label")}
+                  size="sm"
+                  color="purple"
+                  disabled
+                />
+              </div>
+              <Button
+                label={t("change_button_label")}
+                type="secondary"
+                size="sm"
+                color="purple"
+                onClick={() => handleEdit(consultation)}
+              />
+            </div>
           )}
         </div>
       ) : (
