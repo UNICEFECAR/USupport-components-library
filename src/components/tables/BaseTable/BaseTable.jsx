@@ -276,7 +276,7 @@ export const BaseTable = ({
             return (
               <React.Fragment key={"dataItem" + dataItemIndex}>
                 <td
-                  className={`table__td ${hasMenu ? "table__td--sticky" : ""} ${
+                  className={`table__td ${
                     shouldShowTooltip ? "table__td--truncated" : ""
                   }`}
                   data-label={columnLabel}
