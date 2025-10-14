@@ -3,6 +3,7 @@
 .scrollable-table {
   width: 100%;
   overflow: auto;
+  padding-bottom: $spacing_12_0;
 
   // Dynamic max height classes
   &--height-40 {
