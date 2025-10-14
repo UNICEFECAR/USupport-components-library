@@ -8,3 +8,4 @@ export * from "./pascalToSnakeCase.js";
 export * from "./systemMessageTypes.js";
 export * from "./theme-context.js";
 export * from "./replaceLanguageInUrl.js";
+export * from "./generateVisitorId.js";
