@@ -12,6 +12,9 @@ axios.interceptors.request.use((config) => {
   const requestURI = axios.getUri(config) || "VITE CMS API URL";
   const url = window.location.href;
   const platform = url.split("/")[3];
+  const visitorId = localStorage.getItem("visitorId");
+
+  config.headers["x-visitor-id"] = visitorId || "";
   config.headers["x-platform"] = platform || "";
 
   if (!requestURI.includes(VITE_CMS_API_URL)) {
