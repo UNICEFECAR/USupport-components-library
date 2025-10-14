@@ -77,6 +77,21 @@
       color: $color_secondary_9749fa;
       font-weight: $font_bold;
     }
+
+    &__edit {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding-top: $spacing_0_8;
+
+      &__join {
+        cursor: pointer;
+
+        & button {
+          pointer-events: none;
+        }
+      }
+    }
   }
 
   &__request-container {

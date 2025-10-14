@@ -30,7 +30,7 @@ export const ButtonSelector = ({
       disabled={disabled}
       className={[
         "btn-selector",
-        theme === "dark" && "btn-selector--dark",
+        theme !== "light" && "btn-selector--dark",
         classNames(classes),
       ].join(" ")}
       onClick={disabled ? () => {} : onClick}
@@ -50,7 +50,7 @@ export const ButtonSelector = ({
       <p
         className={[
           "btn-selector__label",
-          theme !== "dark" && "btn-selector__label--dark",
+          theme !== "light" && "btn-selector__label--dark",
         ].join(" ")}
       >
         {label}

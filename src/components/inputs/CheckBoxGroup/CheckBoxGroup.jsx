@@ -17,23 +17,14 @@ import "./check-box-group.scss";
 export const CheckBoxGroup = ({
   name,
   options,
-  setOptions,
+  selectValue,
   label,
   classes,
 }) => {
   const { theme } = useContext(ThemeContext);
 
   const handleSelect = (value) => {
-    let newOptions = [...options];
-
-    newOptions = newOptions.map((option) => {
-      if (option.value === value) {
-        option.isSelected = !option.isSelected;
-      }
-      return option;
-    });
-
-    setOptions(newOptions);
+    selectValue(value);
   };
 
   const renderAllOptions = () => {
@@ -85,9 +76,9 @@ CheckBoxGroup.propTypes = {
   options: PropTypes.arrayOf(PropTypes.object),
 
   /**
-   * Function to set the options
+   * Function to select the value
    * */
-  setOptions: PropTypes.func,
+  selectValue: PropTypes.func,
 
   /**
    * Label for the CheckBoxGroup
@@ -101,10 +92,4 @@ CheckBoxGroup.propTypes = {
     PropTypes.string,
     PropTypes.arrayOf(PropTypes.string),
   ]),
-};
-
-CheckBoxGroup.defaultProps = {
-  name: "",
-  options: [],
-  setOptions: () => {},
 };

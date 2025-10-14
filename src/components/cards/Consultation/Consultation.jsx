@@ -45,6 +45,7 @@ export const Consultation = ({
   classes,
   organizationName,
   withOrganization,
+  toast,
 }) => {
   const {
     consultationId,
@@ -311,7 +312,18 @@ export const Consultation = ({
       )}
 
       {!overview && !suggested && buttonAction === "edit" && (
-        <div className="consultation__button-container">
+        <div className="consultation__button-container__edit">
+          <div
+            className="consultation__button-container__edit__join"
+            onClick={() => toast.info(t("join_button_label_tooltip"))}
+          >
+            <Button
+              label={t("join")}
+              size="sm"
+              color={renderIn === "provider" ? "purple" : "green"}
+              disabled
+            />
+          </div>
           <Button
             onClick={handleEdit}
             label={buttonLabel}

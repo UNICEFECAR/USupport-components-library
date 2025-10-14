@@ -3,6 +3,7 @@
 .scrollable-table {
   width: 100%;
   overflow: auto;
+  padding-bottom: $spacing_12_0;
 
   // Dynamic max height classes
   &--height-40 {
@@ -69,16 +70,20 @@
       font-size: 14px;
     }
 
-    &:last-child {
-      right: 0;
-      z-index: 11;
-      background-color: transparent;
-    }
+    // Last header cell should be sticky only when table has a menu column
+    // Scope to `.table--sticky` which is applied from JSX when `hasMenu` is true
 
     & .icon {
       margin-left: $spacing_0_4;
       cursor: pointer;
     }
+  }
+
+  // Make the last header cell sticky only when a menu column exists
+  &.table--sticky th:last-child {
+    right: 0;
+    z-index: 11;
+    background-color: transparent;
   }
 
   &__heading {
@@ -556,12 +561,4 @@
 //   }
 // }
 
-@media screen and (min-width: #{$screen-md + 1px}) and (max-width: $screen-lg) {
-  .table__td:nth-child(n + 7):not(.table__td--sticky) {
-    display: none;
-  }
-
-  .table th:nth-child(n + 7):not(:last-child) {
-    display: none;
-  }
-}
+// Allow horizontal scrolling on md screens by not hiding columns
