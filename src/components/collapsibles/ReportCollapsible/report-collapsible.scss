@@ -60,6 +60,10 @@
           grid-column: span 5;
         }
 
+        &--xxl {
+          grid-column: span 8;
+        }
+
         // grid-column: span 2;
 
         // &:nth-child(1) {

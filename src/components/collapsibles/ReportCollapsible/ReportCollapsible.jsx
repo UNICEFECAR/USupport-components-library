@@ -55,6 +55,8 @@ export const ReportCollapsible = ({
                   ? index === 1
                     ? "xl"
                     : "md"
+                  : headingItems.length === 1
+                  ? "xxl"
                   : index === 1
                   ? "md"
                   : "sm"
@@ -63,17 +65,18 @@ export const ReportCollapsible = ({
               key={index}
             >
               {item}
-              {((width < 900 && index === 0) ||
+              {((((width < 900 && index === 0) ||
                 (width >= 900 &&
                   index === headingItems.length - 1 &&
                   headingItems.length === 2)) &&
-                canCollapse && (
-                  <Icon
-                    name="arrow-chevron-down"
-                    classes="report-collapsible__grid__arrow"
-                    color="#20809E"
-                  />
-                )}
+                canCollapse) ||
+                (canCollapse && headingItems.length === 1)) && (
+                <Icon
+                  name="arrow-chevron-down"
+                  classes="report-collapsible__grid__arrow"
+                  color="#20809E"
+                />
+              )}
             </div>
           );
         })}
