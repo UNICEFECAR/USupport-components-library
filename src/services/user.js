@@ -311,6 +311,17 @@ async function generatePdf(payload) {
   return response;
 }
 
+/**
+ * Track country event (registration clicks, consultation actions, etc.)
+ * @param {Object} payload
+ * @param {string} payload.eventType - Type of event (e.g., 'web_email_register_click')
+ * @returns {Promise} the response of the request
+ */
+async function addCountryEvent(payload) {
+  const response = await http.post(`${API_ENDPOINT}/country-event`, payload);
+  return response;
+}
+
 const exportedFunctions = {
   changePassword,
   generateClientAccesToken,
@@ -341,6 +352,8 @@ const exportedFunctions = {
   getUserContentRatings,
   getRatingsForContent,
   generatePdf,
+
+  addCountryEvent,
 };
 
 export default exportedFunctions;
