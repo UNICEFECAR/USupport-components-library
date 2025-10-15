@@ -193,6 +193,7 @@ async function blockSlot(
   rescheduleCampaignSlot
 ) {
   const response = await http.post(`${API_ENDPOINT}/consultation/block`, {
+    bookedFrom: providerId ? "web" : null,
     clientId,
     providerId,
     rescheduleCampaignSlot,
@@ -290,6 +291,7 @@ async function getCalendarData(startDate) {
 async function acceptConsultation(consultationId) {
   const res = await http.put(`${API_ENDPOINT}/consultation/accept-suggest`, {
     consultationId,
+    bookedFrom: "web",
   });
   return res;
 }
