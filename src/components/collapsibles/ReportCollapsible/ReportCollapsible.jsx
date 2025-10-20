@@ -9,6 +9,45 @@ import { Icon } from "../../icons";
 import { useWindowDimensions } from "../../../utils";
 import { useState } from "react";
 
+const ContentMenu = ({ setIsContentMenuOpen, options, componentId }) => {
+  const renderOptions = () => {
+    return options.map((option, index) => {
+      return (
+        <div
+          key={index}
+          className={[
+            "report-collapsible__content-menu__button",
+            option.color &&
+              `report-collapsible__content-menu__button--${option.color}`,
+          ].join(" ")}
+          onClick={() => {
+            setIsContentMenuOpen(false);
+            option.onClick(componentId);
+          }}
+        >
+          <p className="text">{option.label}</p>
+        </div>
+      );
+    });
+  };
+
+  return (
+    <Box classes="report-collapsible__content-menu">{renderOptions()}</Box>
+  );
+};
+
+ContentMenu.propTypes = {
+  setIsContentMenuOpen: PropTypes.func.isRequired,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      color: PropTypes.string,
+      onClick: PropTypes.func.isRequired,
+    })
+  ).isRequired,
+  componentId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+};
+
 /**
  * ReportCollapsible
  *
@@ -18,6 +57,7 @@ import { useState } from "react";
  */
 export const ReportCollapsible = ({
   headingItems,
+  headingText,
   contentHeading,
   contentText,
   contentMenuOptions,
@@ -89,6 +129,16 @@ export const ReportCollapsible = ({
             />
           </div>
         ) : null}
+        {headingText ? (
+          <div className="report-collapsible__grid__item report-collapsible__grid__item--xxl">
+            <div className="report-collapsible__info-container">
+              <div>
+                <Icon name="info" size="sm" />
+              </div>
+              <p className="small-text">{headingText}</p>
+            </div>
+          </div>
+        ) : null}
       </Grid>
       {isOpen && (
         <Grid classes="report-collapsible__content-grid">
@@ -137,39 +187,44 @@ ReportCollapsible.propTypes = {
   headingItems: PropTypes.arrayOf(PropTypes.node).isRequired,
 
   /**
+   * Optional info text displayed under the heading items
+   */
+  headingText: PropTypes.string,
+
+  /**
    * The heading of the collapsible part of the component
    */
-  contentHeading: PropTypes.string.isRequired,
+  contentHeading: PropTypes.oneOfType([PropTypes.string, PropTypes.node])
+    .isRequired,
 
   /**
    * Content displayed in the collapsible part of the component
    */
   contentText: PropTypes.string.isRequired,
-};
 
-const ContentMenu = ({ setIsContentMenuOpen, options, componentId }) => {
-  const renderOptions = () => {
-    return options.map((option, index) => {
-      return (
-        <div
-          key={index}
-          className={[
-            "report-collapsible__content-menu__button",
-            option.color &&
-              `report-collapsible__content-menu__button--${option.color}`,
-          ].join(" ")}
-          onClick={() => {
-            setIsContentMenuOpen(false);
-            option.onClick(componentId);
-          }}
-        >
-          <p className="text">{option.label}</p>
-        </div>
-      );
-    });
-  };
+  /**
+   * Optional menu options for the content section
+   */
+  contentMenuOptions: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      color: PropTypes.string,
+      onClick: PropTypes.func.isRequired,
+    })
+  ),
 
-  return (
-    <Box classes="report-collapsible__content-menu">{renderOptions()}</Box>
-  );
+  /**
+   * Optional id passed back from menu actions
+   */
+  componentId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+  /**
+   * Optional children rendered inside the collapsible content
+   */
+  children: PropTypes.node,
+
+  /**
+   * Whether the collapsible can be toggled open/closed
+   */
+  canCollapse: PropTypes.bool,
 };

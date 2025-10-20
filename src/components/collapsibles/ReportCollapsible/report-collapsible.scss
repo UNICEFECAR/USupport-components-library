@@ -26,6 +26,7 @@
   &__grid {
     grid-template-columns: repeat(8, 1fr);
     padding: $spacing_2_0;
+    row-gap: $spacing_1_0;
 
     &__arrow {
       transition: all 0.5s;
@@ -81,6 +82,16 @@
     }
   }
 
+  &__info-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: $spacing_0_8;
+    text-align: left;
+    width: 100%;
+  }
+
   &__content-grid {
     padding: $spacing_2_0;
     margin-top: $spacing_1_8;
@@ -97,6 +108,17 @@
 
     &__three-dots {
       z-index: 2;
+    }
+
+    &__info-container {
+      display: flex;
+      flex-direction: row;
+      gap: $spacing_0_8;
+      align-items: center;
+
+      & .small-text {
+        text-align: left;
+      }
     }
   }
 
