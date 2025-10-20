@@ -5,6 +5,7 @@
   height: 10rem;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   padding: 0 $spacing_8_0;
@@ -17,9 +18,10 @@
 
   &--portrait {
     width: 21.5rem;
-    height: calc(25.2rem);
+    height: calc(29rem);
     padding: 0 $spacing_3_2;
     flex-direction: column;
+    flex-wrap: nowrap; // keep items stacked in portrait
 
     .statistic-card__text {
       margin: 0 auto;
@@ -55,5 +57,15 @@
     & span {
       font-weight: $font_regular;
     }
+  }
+
+  &__info-container {
+    display: flex;
+    flex-direction: row;
+    gap: $spacing_0_8;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: $spacing_0_6;
   }
 }

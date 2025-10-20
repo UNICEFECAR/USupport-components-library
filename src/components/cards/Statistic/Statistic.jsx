@@ -19,6 +19,7 @@ export const Statistic = ({
   orientation,
   landscapeSize,
   hasIcon = true,
+  tooltip,
 }) => {
   return (
     <Box
@@ -38,7 +39,7 @@ export const Statistic = ({
           />
         )}
       </div>
-      {orientation === "portraite" ? (
+      {orientation === "portrait" ? (
         <h3
           className={[
             "statistic-card__text",
@@ -49,15 +50,22 @@ export const Statistic = ({
           <br /> <span>{text}</span>
         </h3>
       ) : (
-        <h4
-          className={[
-            "statistic-card__text",
-            !hasIcon && "statistic-card__text--no-icon",
-          ].join(" ")}
-        >
-          {textBold}
-          <br /> <span>{text}</span>
-        </h4>
+        <div>
+          <h4
+            className={[
+              "statistic-card__text",
+              !hasIcon && "statistic-card__text--no-icon",
+            ].join(" ")}
+          >
+            {textBold}
+          </h4>
+        </div>
+      )}
+      {tooltip && (
+        <div className="statistic-card__info-container">
+          <Icon name="info" size="sm" />
+          <p className="small-text">{tooltip}</p>
+        </div>
       )}
     </Box>
   );
@@ -92,6 +100,14 @@ Statistic.propTypes = {
    * @default lg
    */
   landscapeSize: PropTypes.oneOf(["sm", "lg"]),
+  /**
+   * Whether to display the leading icon
+   */
+  hasIcon: PropTypes.bool,
+  /**
+   * Optional tooltip content
+   */
+  tooltip: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
 };
 
 Statistic.defaultProps = {
