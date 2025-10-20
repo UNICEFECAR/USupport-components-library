@@ -265,6 +265,11 @@ async function deleteMoodTrackerHistory() {
   return response;
 }
 
+async function getHasCompletedMoodTrackerEver() {
+  const response = await http.get(`${API_ENDPOINT}/mood-tracker/has-completed`);
+  return response;
+}
+
 /**
  *
  * @param {Object} payload
@@ -432,6 +437,7 @@ const exportedFunctions = {
   getBaselineAssessments,
   getClientAnswersForBaselineAssessmentById,
   getPersonalizedOrganizations,
+  getHasCompletedMoodTrackerEver,
 };
 
 export default exportedFunctions;
