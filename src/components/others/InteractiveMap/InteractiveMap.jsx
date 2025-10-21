@@ -30,6 +30,7 @@ export const InteractiveMap = ({
   setUserLocation,
   t,
   navigate,
+  organizationsKey,
 }) => {
   const [map, setMap] = React.useState(null);
   const [selectedMarker, setSelectedMarker] = React.useState(null);
@@ -44,7 +45,7 @@ export const InteractiveMap = ({
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
+    googleMapsApiKey: organizationsKey,
   });
 
   React.useEffect(() => {
