@@ -322,6 +322,18 @@ async function addCountryEvent(payload) {
   return response;
 }
 
+/**
+ *
+ * @param {string} platform
+ * @returns {Promise}  {data:{organizationsKey: string}}
+ */
+async function getOrganizationKey(platform) {
+  const response = await http.get(
+    `${API_ENDPOINT}/organizations-key?platform=${platform}`
+  );
+  return response;
+}
+
 const exportedFunctions = {
   changePassword,
   generateClientAccesToken,
@@ -352,8 +364,8 @@ const exportedFunctions = {
   getUserContentRatings,
   getRatingsForContent,
   generatePdf,
-
   addCountryEvent,
+  getOrganizationKey,
 };
 
 export default exportedFunctions;
