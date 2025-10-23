@@ -16,6 +16,7 @@ export const Tabs = ({ options, handleSelect, t = () => {} }) => {
   const scrollContainerRef = useRef(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
+  const [isOverflowing, setIsOverflowing] = useState(false);
 
   const handleOnSelect = (index) => {
     if (handleSelect) {
@@ -28,8 +29,12 @@ export const Tabs = ({ options, handleSelect, t = () => {} }) => {
       const { scrollLeft, scrollWidth, clientWidth } =
         scrollContainerRef.current;
       const tolerance = 1;
-      setCanScrollLeft(scrollLeft > tolerance);
-      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - tolerance);
+      const hasOverflow = scrollWidth > clientWidth;
+      setIsOverflowing(hasOverflow);
+      setCanScrollLeft(hasOverflow && scrollLeft > tolerance);
+      setCanScrollRight(
+        hasOverflow && scrollLeft < scrollWidth - clientWidth - tolerance
+      );
     }
   };
 
@@ -95,25 +100,29 @@ export const Tabs = ({ options, handleSelect, t = () => {} }) => {
   return (
     <div className="tabs-wrapper">
       <div className="tabs">
-        <div
-          className={`tab-arrow tab-arrow--left ${
-            !canScrollLeft ? "tab-arrow--disabled" : ""
-          }`}
-          onClick={() => canScrollLeft && scrollTabs("left")}
-        >
-          <Icon name="arrow-chevron-back" />
-        </div>
+        {isOverflowing && (
+          <div
+            className={`tab-arrow tab-arrow--left ${
+              !canScrollLeft ? "tab-arrow--disabled" : ""
+            }`}
+            onClick={() => canScrollLeft && scrollTabs("left")}
+          >
+            <Icon name="arrow-chevron-back" />
+          </div>
+        )}
         <div className="tabs-container" ref={scrollContainerRef}>
           {renderOptions()}
         </div>
-        <div
-          className={`tab-arrow tab-arrow--right ${
-            !canScrollRight ? "tab-arrow--disabled" : ""
-          }`}
-          onClick={() => canScrollRight && scrollTabs("right")}
-        >
-          <Icon name="arrow-chevron-forward" />
-        </div>
+        {isOverflowing && (
+          <div
+            className={`tab-arrow tab-arrow--right ${
+              !canScrollRight ? "tab-arrow--disabled" : ""
+            }`}
+            onClick={() => canScrollRight && scrollTabs("right")}
+          >
+            <Icon name="arrow-chevron-forward" />
+          </div>
+        )}
       </div>
     </div>
   );
