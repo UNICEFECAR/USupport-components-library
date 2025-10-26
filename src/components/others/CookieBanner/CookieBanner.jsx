@@ -48,7 +48,7 @@ export const CookieBanner = ({
         isBannerOpen: false,
       });
     } else {
-      localStorage.setItem("acceptAllCookies", acceptAllCookies ? 1 : 0);
+      localStorage.setItem("acceptAllCookies", 1);
       setCookieState({
         ...cookieState,
         hasAcceptedCookies: true,
