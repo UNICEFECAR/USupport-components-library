@@ -34,6 +34,8 @@ export const Footer = ({
   const { theme } = useContext(ThemeContext);
   const { width } = useWindowDimensions();
 
+  const IS_RTL = localStorage.getItem("language") === "ar";
+
   const defaultLogo = `${AMAZON_S3_BUCKET}/logo-horizontal${
     theme === "light" ? "" : "-dark"
   }`;
@@ -148,7 +150,11 @@ export const Footer = ({
       : "20809E";
 
   return (
-    <Block classes="footer" animation={null} isFooter={true}>
+    <Block
+      classes={`footer ${IS_RTL ? "footer--rtl" : ""}`}
+      animation={null}
+      isFooter={true}
+    >
       <Grid>
         <GridItem xs={4} md={8} lg={5}>
           <StaticImage
@@ -158,11 +164,7 @@ export const Footer = ({
             alt="logo"
             tabIndex="0"
             onClick={() => {
-              navigate(
-                `${
-                  renderIn === "website" ? "/" : `/${renderIn}`
-                }/${localStorage.getItem("language")}/`
-              );
+              navigate(`${renderIn === "website" ? "/" : `/${renderIn}`}`);
             }}
           />
           {showSocials && (

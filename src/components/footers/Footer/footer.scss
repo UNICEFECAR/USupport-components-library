@@ -11,6 +11,10 @@
     padding-top: $spacing_6_4;
   }
 
+  &--rtl {
+    direction: rtl;
+  }
+
   &__logo {
     width: 17.6rem;
     height: 4.8rem;
