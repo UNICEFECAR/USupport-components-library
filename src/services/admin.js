@@ -635,6 +635,13 @@ async function getBaselineAssessmentAnalysis(params = {}) {
   return response;
 }
 
+async function getPlayAndHealVisits() {
+  const response = await http.get(
+    `${API_ENDPOINT}/statistics/playandheal-visits`
+  );
+  return response;
+}
+
 const exportedFunctions = {
   createAdmin,
   deleteArticle,
@@ -671,6 +678,7 @@ const exportedFunctions = {
   getContactForms,
   getMoodTrackerReport,
   getProviderActivitiesById,
+  getPlayAndHealVisits,
   getAllSponsorsData,
   getSponsorDataById,
   addSponsor,
