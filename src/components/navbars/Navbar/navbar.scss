@@ -235,7 +235,7 @@
   &__languages,
   &__countries {
     position: fixed;
-    z-index: 100;
+    z-index: 102;
     left: 1rem;
     top: 50rem;
     opacity: 0;
@@ -271,8 +271,13 @@
       }
     }
 
+    &--playandheal {
+      top: 25rem !important;
+    }
+
     &--rtl {
       right: 1rem;
+      left: unset;
 
       @media screen and (min-width: $navbar-spread) {
         top: 8.5rem;

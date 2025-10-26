@@ -906,6 +906,7 @@ export const Navbar = ({
           ${languagesShown ? "nav__languages" : "nav__countries "} ${
             IS_RTL ? "nav__languages--rtl" : ""
           }
+          ${IS_PS ? "nav__languages--playandheal" : ""}
           ${languagesShown ? "nav__languages--shown" : ""}
           ${countriesShown ? "nav__countries--shown" : ""}
           ${
