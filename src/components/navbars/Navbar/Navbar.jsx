@@ -115,6 +115,9 @@ export const Navbar = ({
 
   const [selectedCountry, setSelectedCountry] = useState(defaultCountry);
 
+  const IS_PS = localStorage.getItem("country") === "PS";
+  const IS_RTL = localStorage.getItem("language") === "ar";
+
   useEffect(() => {
     if (initialCountry && !hasSelectedInitialCountry) {
       setSelectedCountry(initialCountry);
@@ -399,7 +402,7 @@ export const Navbar = ({
                   <p className="paragraph">{dropdownItem.name}</p>
                 </div>
                 <Icon
-                  name="arrow-chevron-forward"
+                  name={IS_RTL ? "arrow-chevron-back" : "arrow-chevron-forward"}
                   size="sm"
                   classes="nav__item__icon"
                   color={theme === "highContrast" ? "#ffff00" : "#20809e"}
@@ -443,7 +446,7 @@ export const Navbar = ({
                 <p className="paragraph">{page.name}</p>
               </div>
               <Icon
-                name="arrow-chevron-forward"
+                name={IS_RTL ? "arrow-chevron-back" : "arrow-chevron-forward"}
                 size="sm"
                 classes="nav__item__icon"
                 color={theme === "highContrast" ? "#ffff00" : "#20809e"}
@@ -633,7 +636,7 @@ export const Navbar = ({
     }
   };
 
-  const ctaLogin = (
+  const ctaLogin = buttonText ? (
     <Button
       type="primary"
       size={width < 1050 || width >= 1200 ? "sm" : "xs"}
@@ -654,7 +657,7 @@ export const Navbar = ({
     >
       {buttonText}
     </Button>
-  );
+  ) : null;
 
   const handleNotificationIconClick = () => {
     if (isTmpUser) {
@@ -838,6 +841,7 @@ export const Navbar = ({
           "collapsible",
           renderIn === "website" ? "nav--website" : "",
           `${isNavbarExpanded ? "collapsible--expanded" : ""}`,
+          `${IS_RTL ? "nav--rtl" : ""}`,
         ].join(" ")}
       >
         <img
@@ -896,7 +900,9 @@ export const Navbar = ({
         {/* Language/Country Dropdowns */}
         <div
           className={`
-          ${languagesShown ? "nav__languages" : "nav__countries "}
+          ${languagesShown ? "nav__languages" : "nav__countries "} ${
+            IS_RTL ? "nav__languages--rtl" : ""
+          }
           ${languagesShown ? "nav__languages--shown" : ""}
           ${countriesShown ? "nav__countries--shown" : ""}
           ${
