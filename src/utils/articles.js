@@ -19,6 +19,8 @@ function destructureArticleData(article) {
   const categoryName = articleData.category?.data?.attributes?.name;
   const description = articleData.description;
   const ageGroupId = articleData.age_groups?.data[0]?.id;
+  const pdf = articleData.pdf;
+  const pdfUrl = pdf?.data?.attributes?.url;
 
   const author = articleData.author;
 
@@ -38,6 +40,7 @@ function destructureArticleData(article) {
     ageGroupId,
     likes: Number(articleData.likes) || 0,
     dislikes: Number(articleData.dislikes) || 0,
+    pdfUrl,
   };
 }
 
@@ -65,6 +68,7 @@ const destructureVideoData = (videoData) => {
     vimeoThumbnailUrl,
     likes,
     dislikes,
+    aws_url,
   } = videoData.attributes;
 
   // Get thumbnail URLs with fallbacks
@@ -97,6 +101,10 @@ const destructureVideoData = (videoData) => {
       videoId = url.split("/").pop().split("?")[0];
       image = vimeoThumbnailUrl;
     }
+
+    if (!image) {
+      image = imageLarge || imageMedium || imageSmall;
+    }
   } catch (error) {
     console.error("Error parsing video URL:", error);
   }
@@ -121,6 +129,7 @@ const destructureVideoData = (videoData) => {
     likes: Number(likes),
     dislikes: Number(dislikes),
     creator: null,
+    awsUrl: aws_url,
   };
 };
 
