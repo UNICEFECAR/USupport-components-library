@@ -720,7 +720,7 @@ export const Navbar = ({
     const data =
       type === "languages"
         ? languages || []
-        : countries.filter((x) => x.alpha2 !== "PS") || [];
+        : countries.filter((x) => x.value !== "PS") || [];
 
     const handleOptionSelect = (e, option) => {
       e.stopPropagation();
