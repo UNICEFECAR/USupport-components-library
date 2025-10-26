@@ -717,7 +717,10 @@ export const Navbar = ({
   );
 
   const renderDropdownContent = (type) => {
-    const data = type === "languages" ? languages || [] : countries || [];
+    const data =
+      type === "languages"
+        ? languages || []
+        : countries.filter((x) => x.alpha2 !== "PS") || [];
 
     const handleOptionSelect = (e, option) => {
       e.stopPropagation();
