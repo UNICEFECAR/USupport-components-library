@@ -1,6 +1,20 @@
 @import "../../../styles/theme";
 
 .nav {
+  &--rtl {
+    direction: rtl;
+
+    & .nav__logo {
+      padding-left: 0;
+      padding-right: $spacing_2_4;
+    }
+
+    & .nav__theme-button {
+      margin-left: $spacing_2_4;
+      margin-right: 0;
+    }
+  }
+
   min-width: $screen-sm;
   // background: $color_white_ff;
   @include themify($themes, "background", "color_white_ff");
@@ -254,6 +268,19 @@
 
       & > .nav__current-language {
         padding: 0;
+      }
+    }
+
+    &--rtl {
+      right: 1rem;
+
+      @media screen and (min-width: $navbar-spread) {
+        top: 8.5rem;
+        left: 10rem !important;
+      }
+
+      @media screen and (min-width: $screen-lg) {
+        left: 14rem !important;
       }
     }
 

@@ -62,13 +62,16 @@ export const CardMedia = ({
       contentType === "video" ||
       contentType === "podcast");
 
+  const IS_PS = localStorage.getItem("country") === "PS";
+  const IS_RTL = localStorage.getItem("language") === "ar";
+
   return (
     <Box
       classes={[
         `card-media card-media--${type} card-media--${size} ${
           isRead ? " card-media--read" : ""
         }`,
-        ,
+        IS_RTL ? "card-media--rtl" : "",
         classNames(classes),
       ].join("")}
       {...props}
@@ -166,12 +169,14 @@ export const CardMedia = ({
             }}
             classes="card-media__read-more-button"
           />
-          <Like
-            isLiked={isLikedByUser}
-            isDisliked={isDislikedByUser}
-            likes={likes}
-            dislikes={dislikes}
-          />
+          {!IS_PS && (
+            <Like
+              isLiked={isLikedByUser}
+              isDisliked={isDislikedByUser}
+              likes={likes}
+              dislikes={dislikes}
+            />
+          )}
         </div>
       </div>
 
