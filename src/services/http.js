@@ -4,6 +4,15 @@ import { log } from "./log";
 const API_ENDPOINT = `${import.meta.env.VITE_API_ENDPOINT}/v1/user`;
 const VITE_CMS_API_URL = import.meta.env.VITE_CMS_API_URL;
 
+const platforms = [
+  "website",
+  "country-admin",
+  "client",
+  "provider",
+  "global-admin",
+  "country-admin",
+];
+
 // On every request add the JWT token, language and country to the headers
 axios.interceptors.request.use((config) => {
   config.headers["x-country-alpha-2"] = localStorage.getItem("country") || "";
@@ -11,8 +20,12 @@ axios.interceptors.request.use((config) => {
 
   const requestURI = axios.getUri(config) || "VITE CMS API URL";
   const url = window.location.href;
-  const platform = url.split("/")[3];
+  let platform = url.split("/")[3];
   const visitorId = localStorage.getItem("visitorId");
+
+  if (!platforms.includes(platform)) {
+    platform = "website";
+  }
 
   config.headers["x-visitor-id"] = visitorId || "";
   config.headers["x-platform"] = platform || "";
