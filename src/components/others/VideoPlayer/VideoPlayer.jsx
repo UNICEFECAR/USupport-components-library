@@ -1,6 +1,8 @@
 import React from "react";
 import propTypes from "prop-types";
 
+import ReactHlsPlayer from "react-hls-player";
+
 import { Button } from "../../buttons/Button";
 import { Box } from "../../boxes/Box";
 
@@ -64,7 +66,9 @@ export const VideoPlayer = ({
   };
 
   const renderVideoEmbed = () => {
-    if (!extractedVideoId && !playlistId) {
+    const isAwsUrl = url && url.includes("aws");
+
+    if (!extractedVideoId && !playlistId && !isAwsUrl) {
       return (
         <div className="video-player__error">
           <p>{t ? t("invalid_video_url") : "Invalid video URL"}</p>
@@ -106,6 +110,24 @@ export const VideoPlayer = ({
       } else {
         embedUrl += `${separator}autoplay=1&mute=1`;
       }
+    }
+
+    if (isAwsUrl) {
+      return (
+        <div className="video-player__box">
+          <ReactHlsPlayer
+            src={url}
+            autoPlay={true}
+            controls={true}
+            width="100%"
+            height="auto"
+            hlsConfig={{
+              startLevel: -1,
+              capLevelOnFPSDrop: true,
+            }}
+          />
+        </div>
+      );
     }
 
     return (
