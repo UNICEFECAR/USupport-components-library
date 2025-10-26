@@ -31,6 +31,7 @@ const moodTrackerEndpoint = CMS_API_URL + "/mood-tracker-recomendations";
  * @param {string} queryObj.sortOrder - the order to sort by, possible values are "asc" and "desc"
  * @param {string} queryObj.excludeId - the id to exclude from the results
  * @param {string} queryObj.countryAlpha2 - the country alpha2 code to filter by
+ * @param {string} queryObj.is_playandheal - the play and heal flag to filter by
  *
  */
 function generateQuerryString(queryObj) {
@@ -40,6 +41,10 @@ function generateQuerryString(queryObj) {
 
   if (queryObj.populate) {
     querry += "&populate=*";
+  }
+
+  if (queryObj.is_playandheal) {
+    querry += `&filters[is_playandheal][$eq]=${queryObj.is_playandheal}`;
   }
 
   if (queryObj.limit) {
@@ -329,7 +334,7 @@ async function getAgeGroups(locale) {
  * @returns {object} the policies data
  *
  */
-async function getPolicies(locale, country, platform) {
+async function getPolicies(locale, country, platform, is_playandheal) {
   let queryParams = {
     locale,
     platform,
@@ -337,6 +342,8 @@ async function getPolicies(locale, country, platform) {
 
   if (country === "GLOBAL") {
     queryParams.global = true;
+  } else if (is_playandheal) {
+    queryParams.is_playandheal = true;
   } else {
     queryParams.countryAlpha2 = country;
   }
@@ -357,12 +364,23 @@ async function getPolicies(locale, country, platform) {
  * @returns {object} the Cookie Policy data
  *
  */
-async function getCookiePolicy(locale, countryAlpha2, platform) {
-  const querryString = generateQuerryString({
+async function getCookiePolicy(
+  locale,
+  countryAlpha2,
+  platform,
+  is_playandheal
+) {
+  let queryParams = {
     locale: locale,
-    countryAlpha2: countryAlpha2,
     platform: platform,
-  });
+    countryAlpha2: countryAlpha2,
+  };
+
+  if (is_playandheal) {
+    queryParams.is_playandheal = true;
+  }
+
+  const querryString = generateQuerryString(queryParams);
   let res = await http.get(`${cookiePolicyEndpoint}/find${querryString}`);
 
   return res;
@@ -377,7 +395,7 @@ async function getCookiePolicy(locale, countryAlpha2, platform) {
  * @returns {object} the Terms Of Use data
  *
  */
-async function getTermsOfUse(locale, country, platform) {
+async function getTermsOfUse(locale, country, platform, is_playandheal) {
   let queryParams = {
     locale,
     platform,
@@ -385,6 +403,8 @@ async function getTermsOfUse(locale, country, platform) {
 
   if (country === "GLOBAL") {
     queryParams.global = true;
+  } else if (is_playandheal) {
+    queryParams.is_playandheal = true;
   } else {
     queryParams.countryAlpha2 = country;
   }
@@ -465,13 +485,19 @@ async function getSOSCenterAvailableLocales(id) {
   return data;
 }
 
-async function getAbousUsContentForCountry({ country, language }) {
+async function getAbousUsContentForCountry({
+  country,
+  language,
+  is_playandheal,
+}) {
   let queryParams = {
     locale: language,
   };
 
   if (country === "GLOBAL") {
     queryParams.global = true;
+  } else if (is_playandheal) {
+    queryParams.is_playandheal = true;
   } else {
     queryParams.countryAlpha2 = country;
   }
