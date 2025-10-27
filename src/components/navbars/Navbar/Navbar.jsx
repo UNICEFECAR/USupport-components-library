@@ -291,7 +291,9 @@ export const Navbar = ({
 
     return (
       <div
-        className="nav__theme-button"
+        className={`nav__theme-button ${
+          IS_RTL ? "nav__theme-button--rtl" : ""
+        }`}
         role="button"
         aria-label={t("high_contrast")}
         tabIndex="0"
@@ -304,7 +306,9 @@ export const Navbar = ({
         <Icon
           name={theme === "light" ? "dark-mode-switch" : "light-mode"}
           size="lg"
-          classes="nav__theme-button__icon"
+          classes={`nav__theme-button__icon ${
+            IS_RTL ? "nav__theme-button__icon--rtl" : ""
+          }`}
           color={
             theme === "light"
               ? "#20809E"
@@ -322,7 +326,9 @@ export const Navbar = ({
           {t(theme === "light" ? "light" : "dark")}
         </p>
         <div
-          className="nav__theme-button__toggle"
+          className={`nav__theme-button__toggle ${
+            IS_RTL ? "nav__theme-button__toggle--rtl" : ""
+          }`}
           onClick={(e) => {
             e.stopPropagation();
           }}
@@ -812,7 +818,9 @@ export const Navbar = ({
     if (shouldRender) {
       return (
         <AccessibilityController
-          classes="nav__accessibility-controller"
+          classes={`nav__accessibility-controller ${
+            IS_RTL ? "nav__accessibility-controller--rtl" : ""
+          }`}
           t={t}
         />
       );
@@ -858,9 +866,7 @@ export const Navbar = ({
               window.open(`/${renderIn}/${language}`, "_blank");
             } else {
               const url =
-                renderIn === "website"
-                  ? `/${language}`
-                  : `/${renderIn}/${language}`;
+                renderIn === "website" ? `/` : `/${renderIn}/${language}`;
               navigate(url);
               scrollTop();
             }
@@ -868,7 +874,7 @@ export const Navbar = ({
         />
         <div className="nav__clickable-area" onClick={toggleNavbar}>
           <Icon
-            classes="nav__toggler"
+            classes={`nav__toggler ${IS_RTL ? "nav__toggler--rtl" : ""}`}
             name={isNavbarExpanded ? "close-x" : "navbar-burger"}
             size="md"
             color={theme === "light" ? "#373737" : "#fff"}
