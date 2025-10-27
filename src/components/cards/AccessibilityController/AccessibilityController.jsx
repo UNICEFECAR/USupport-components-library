@@ -114,8 +114,22 @@ export const AccessibilityController = ({ classes, t }) => {
             min={minSteps}
             max={maxSteps}
             value={fontSizeStep}
-            leftContent={<Icon name="zoom-out" size="md" color={"#20809e"} />}
-            rightContent={<Icon name="zoom" size="md" color={"#20809e"} />}
+            leftContent={
+              <Icon
+                name="zoom-out"
+                size="md"
+                color={"#20809e"}
+                onClick={decreaseFontSize}
+              />
+            }
+            rightContent={
+              <Icon
+                name="zoom"
+                size="md"
+                color={"#20809e"}
+                onClick={increaseFontSize}
+              />
+            }
             renderValue={(v) => `${v}`}
             onChange={(val) => {
               const clamped = Math.max(minSteps, Math.min(maxSteps, val));
