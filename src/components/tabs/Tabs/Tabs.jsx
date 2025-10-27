@@ -1,8 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import PropTypes from "prop-types";
-
 import { Icon } from "../../icons";
-
 import "./tabs.scss";
 
 /**
@@ -13,56 +11,76 @@ import "./tabs.scss";
  * @return {jsx}
  */
 export const Tabs = ({ options, handleSelect, t = () => {} }) => {
+  const IS_RTL = localStorage.getItem("language") === "ar";
+
   const scrollContainerRef = useRef(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
   const [isOverflowing, setIsOverflowing] = useState(false);
 
   const handleOnSelect = (index) => {
-    if (handleSelect) {
-      handleSelect(index);
-    }
+    if (handleSelect) handleSelect(index);
   };
 
   const checkScrollability = () => {
-    if (scrollContainerRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } =
-        scrollContainerRef.current;
-      const tolerance = 1;
-      const hasOverflow = scrollWidth > clientWidth;
-      setIsOverflowing(hasOverflow);
-      setCanScrollLeft(hasOverflow && scrollLeft > tolerance);
-      setCanScrollRight(
-        hasOverflow && scrollLeft < scrollWidth - clientWidth - tolerance
-      );
+    const el = scrollContainerRef.current;
+    if (!el) return;
+
+    const { scrollWidth, clientWidth } = el;
+    const tolerance = 1;
+    let scrollLeft = el.scrollLeft;
+
+    // Normalize RTL scroll behavior
+    if (IS_RTL) {
+      const isFirefox = navigator.userAgent.toLowerCase().includes("firefox");
+      if (isFirefox) {
+        // Firefox: 0 at right edge, increases leftward
+        scrollLeft = scrollWidth - clientWidth - scrollLeft;
+      } else {
+        // Chrome / Edge: negative values when scrolling leftward
+        scrollLeft = -scrollLeft;
+      }
     }
+
+    const hasOverflow = scrollWidth > clientWidth;
+    setIsOverflowing(hasOverflow);
+    setCanScrollLeft(hasOverflow && scrollLeft > tolerance);
+    setCanScrollRight(
+      hasOverflow && scrollLeft < scrollWidth - clientWidth - tolerance
+    );
   };
 
   const scrollTabs = (direction) => {
-    if (scrollContainerRef.current) {
-      const scrollAmount = scrollContainerRef.current.clientWidth / 2.5;
-      const newScrollLeft =
-        direction === "left"
-          ? scrollContainerRef.current.scrollLeft - scrollAmount
-          : scrollContainerRef.current.scrollLeft + scrollAmount;
+    const el = scrollContainerRef.current;
+    if (!el) return;
 
-      scrollContainerRef.current.scrollTo({
-        left: newScrollLeft,
-        behavior: "smooth",
-      });
+    const scrollAmount = el.clientWidth / 2.5;
+    let newScrollLeft = el.scrollLeft;
+
+    // Flip scroll direction in RTL
+    const isLeft = direction === "left";
+    const move = isLeft ? -scrollAmount : scrollAmount;
+
+    if (IS_RTL) {
+      // In RTL, scrolling visually left means increasing scrollLeft in Chrome,
+      // but decreasing in Firefox — so we need to detect and adjust.
+      const isFirefox = navigator.userAgent.toLowerCase().includes("firefox");
+      newScrollLeft += isFirefox ? move : -move;
+    } else {
+      newScrollLeft += move;
     }
+
+    el.scrollTo({
+      left: newScrollLeft,
+      behavior: "smooth",
+    });
   };
 
   useEffect(() => {
     checkScrollability();
 
-    const handleResize = () => {
-      checkScrollability();
-    };
-
-    const handleScroll = () => {
-      checkScrollability();
-    };
+    const handleResize = () => checkScrollability();
+    const handleScroll = () => checkScrollability();
 
     window.addEventListener("resize", handleResize);
     if (scrollContainerRef.current) {
@@ -75,12 +93,10 @@ export const Tabs = ({ options, handleSelect, t = () => {} }) => {
         scrollContainerRef.current.removeEventListener("scroll", handleScroll);
       }
     };
-  }, [options]);
+  }, [options, IS_RTL]);
 
   const renderOptions = () => {
-    if (!options || !Array.isArray(options)) {
-      return null;
-    }
+    if (!Array.isArray(options)) return null;
 
     return options.map((option, index) => (
       <div
@@ -98,7 +114,7 @@ export const Tabs = ({ options, handleSelect, t = () => {} }) => {
   };
 
   return (
-    <div className="tabs-wrapper">
+    <div className={`tabs-wrapper ${IS_RTL ? "tabs-wrapper--rtl" : ""}`}>
       <div className="tabs">
         {isOverflowing && (
           <div
@@ -107,10 +123,16 @@ export const Tabs = ({ options, handleSelect, t = () => {} }) => {
             }`}
             onClick={() => canScrollLeft && scrollTabs("left")}
           >
-            <Icon name="arrow-chevron-back" />
+            <Icon
+              name={IS_RTL ? "arrow-chevron-forward" : "arrow-chevron-back"}
+            />
           </div>
         )}
-        <div className="tabs-container" ref={scrollContainerRef}>
+        <div
+          className="tabs-container"
+          ref={scrollContainerRef}
+          dir={IS_RTL ? "rtl" : "ltr"}
+        >
           {renderOptions()}
         </div>
         {isOverflowing && (
@@ -120,7 +142,9 @@ export const Tabs = ({ options, handleSelect, t = () => {} }) => {
             }`}
             onClick={() => canScrollRight && scrollTabs("right")}
           >
-            <Icon name="arrow-chevron-forward" />
+            <Icon
+              name={IS_RTL ? "arrow-chevron-back" : "arrow-chevron-forward"}
+            />
           </div>
         )}
       </div>
@@ -129,19 +153,8 @@ export const Tabs = ({ options, handleSelect, t = () => {} }) => {
 };
 
 Tabs.propTypes = {
-  /**
-   * options to be displayed
-   * */
   options: PropTypes.arrayOf(PropTypes.object),
-
-  /**
-   * handleSelect function to be called when an option is selected
-   **/
   handleSelect: PropTypes.func,
-
-  /**
-   * translation function
-   **/
   t: PropTypes.func,
 };
 
