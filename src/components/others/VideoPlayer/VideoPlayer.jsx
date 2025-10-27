@@ -26,9 +26,11 @@ export const VideoPlayer = ({
   playlistId,
   autoplay = false,
 }) => {
+  const IS_PS = localStorage.getItem("country") === "PS";
   // Check if user has accepted cookies required for video playback
-  const DISPLAY_VIDEO =
-    cookieState?.hasAcceptedAllCookies || cookieState?.hasAcceptedCookies;
+  const DISPLAY_VIDEO = IS_PS
+    ? true
+    : cookieState?.hasAcceptedAllCookies || cookieState?.hasAcceptedCookies;
 
   // Extract video ID from URL if not provided
   const getVideoId = () => {

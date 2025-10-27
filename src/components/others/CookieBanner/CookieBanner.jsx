@@ -20,6 +20,7 @@ export const CookieBanner = ({
   cookieState,
   setCookieState,
 }) => {
+  const IS_PS = localStorage.getItem("country") === "PS";
   const [acceptAllCookies, setAcceptAllCookies] = useState(true);
   const [acceptOnlyNecessaryCookies, setAcceptOnlyNecessaryCookies] =
     useState(false);
@@ -71,7 +72,7 @@ export const CookieBanner = ({
     });
   };
 
-  if (!cookieState.isBannerOpen) return null;
+  if (!cookieState.isBannerOpen || IS_PS) return null;
 
   return (
     <Box className="cookie-banner">
