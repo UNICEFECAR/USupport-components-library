@@ -315,12 +315,17 @@ async function getProviderActivitiesById(providerId) {
 }
 
 async function generateProviderFreeSlotsReport(payload) {
-  const { startDate, endDate } = payload || {};
+  const { startDate, endDate, startTime, endTime } = payload || {};
 
-  // Build query params if dates are provided
+  const startDateTimestamp = new Date(startDate).getTime();
+  const endDateTimestamp = new Date(endDate).getTime();
+
   const queryParams = new URLSearchParams();
-  if (startDate) queryParams.append("startDate", startDate);
-  if (endDate) queryParams.append("endDate", endDate);
+
+  queryParams.append("startDate", startDateTimestamp);
+  queryParams.append("endDate", endDateTimestamp);
+  queryParams.append("startTime", startTime);
+  queryParams.append("endTime", endTime);
 
   const requestUrl = `${API_ENDPOINT}/statistics/providers/availability/report${
     queryParams.toString() ? `?${queryParams.toString()}` : ""
