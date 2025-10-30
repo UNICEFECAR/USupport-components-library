@@ -37,6 +37,10 @@
       }
     }
 
+    &__control--dark {
+      background-color: $color_black_31;
+    }
+
     &__value-container {
       max-height: 9.5rem;
       overflow-y: auto;
@@ -49,6 +53,7 @@
     &__placeholder {
       color: $color_gray_a6b4b8;
       padding-left: 0;
+      font-size: 1.6rem;
     }
 
     &__indicators {
@@ -64,6 +69,11 @@
       overflow: hidden;
       border: 0;
       box-shadow: $shadow_2;
+      font-size: 1.6rem;
+    }
+
+    &__menu--dark {
+      background-color: $color_black_31;
     }
 
     &__menu-list {
@@ -80,6 +90,10 @@
       max-width: calc(100% - 0.4rem);
     }
 
+    &__multi-value--dark {
+      background-color: $color_black_31;
+    }
+
     &__multi-value__label {
       padding: 0.4rem 0.8rem;
       color: $color_blue_3d527b;
@@ -88,6 +102,10 @@
       overflow: hidden;
       // text-overflow: ellipsis;
       // max-width: 15rem;
+    }
+
+    &__multi-value__label--dark {
+      color: $color_white_ff;
     }
 
     &__multi-value__remove {
@@ -102,8 +120,43 @@
 
     &__option {
       &:hover {
-        background-color: $color_purple_dac3f6;
+        background-color: $color_purple_dac3f6 !important;
       }
+
+      &--is-focused {
+        background-color: $color_purple_dac3f6 !important;
+      }
+
+      &--is-selected {
+        background-color: $color_green_f4f7fe !important;
+      }
+    }
+
+    &__option--dark {
+      color: $color_white_ff;
+
+      &:hover {
+        background-color: $color_primary_20809e !important;
+        color: $color_white_ff;
+      }
+
+      &.select__option--is-focused {
+        background-color: $color_primary_20809e !important;
+        color: $color_white_ff;
+      }
+
+      &.select__option--is-selected {
+        background-color: $color_primary_20809e !important;
+        color: $color_white_ff;
+      }
+    }
+
+    &__single-value {
+      color: inherit;
+    }
+
+    &__single-value--dark {
+      color: $color_white_ff;
     }
   }
 }

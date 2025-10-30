@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import ReactSelect from "react-select";
 import makeAnimated from "react-select/animated";
 
 import { Error } from "../../errors";
+import { ThemeContext } from "../../../utils";
 
 import "./select.scss";
 
@@ -26,6 +27,8 @@ export const Select = ({
   ...rest
 }) => {
   const [selectedOptions, setSelectedOptions] = useState(null);
+  const { theme } = useContext(ThemeContext);
+  const isDark = theme !== "light";
 
   useEffect(() => {
     setSelectedOptions(options.filter((option) => option.selected));
@@ -55,8 +58,20 @@ export const Select = ({
         options={options}
         value={selectedOptions}
         onChange={handleSelect}
-        className="select-container"
+        className={[
+          "select-container",
+          isDark && "select-container--dark",
+        ].join(" ")}
         classNamePrefix="select"
+        classNames={{
+          control: (state) => (isDark ? "select__control--dark" : ""),
+          menu: (state) => (isDark ? "select__menu--dark" : ""),
+          multiValue: (state) => (isDark ? "select__multi-value--dark" : ""),
+          multiValueLabel: (state) =>
+            isDark ? "select__multi-value__label--dark" : "",
+          option: (state) => (isDark ? "select__option--dark" : ""),
+          singleValue: (state) => (isDark ? "select__single-value--dark" : ""),
+        }}
         closeMenuOnSelect={false}
         isMulti
         isSearchable={isSearchable}
