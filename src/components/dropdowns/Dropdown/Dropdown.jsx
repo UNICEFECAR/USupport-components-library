@@ -184,8 +184,17 @@ export const Dropdown = ({
             <p className="text placeholder">{placeholderText}</p>
           )}
           <Icon
+            size="sm"
             name="arrow-chevron-down"
-            color={theme === "light" ? "#373737" : "#fff"}
+            color={
+              theme === "light"
+                ? isOpen
+                  ? "#373737"
+                  : "#cbcbcb"
+                : isOpen
+                ? "#fff"
+                : "#cbcbcb"
+            }
           />
         </div>
         <div
