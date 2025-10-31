@@ -202,7 +202,11 @@ async function getArticleLocales(id) {
  * @returns {array} array of unique category IDs
  */
 async function getArticleCategoryIds(locale, ageGroupId, articleIds) {
-  let queryString = "?locale=" + locale + "&ageGroupId=" + ageGroupId;
+  let queryString = "?locale=" + locale;
+
+  if (ageGroupId) {
+    queryString += "&ageGroupId=" + ageGroupId;
+  }
 
   if (articleIds && articleIds.length > 0) {
     queryString += "&ids=" + articleIds.join(",");
