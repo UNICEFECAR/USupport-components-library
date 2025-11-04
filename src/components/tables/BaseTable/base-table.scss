@@ -105,6 +105,60 @@
         justify-content: center;
       }
     }
+
+    &__label-container {
+      display: flex;
+      align-items: center;
+      gap: $spacing_0_4;
+    }
+
+    &__info-icon {
+      position: relative;
+
+      & .icon {
+        margin: 0;
+      }
+    }
+
+    &__tooltip {
+      animation: fadeIn 0.2s ease-in-out;
+      backdrop-filter: blur(2px);
+      background-color: rgba(55, 55, 55, 0.95);
+      border-radius: $border_radius_0_4;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      color: $color_white_ff;
+      font-size: 13px;
+      hyphens: auto;
+      left: 50%;
+      line-height: 1.4;
+      margin-top: $spacing_0_4;
+      max-width: 200px;
+      min-width: 100px;
+      overflow-wrap: break-word;
+      overflow: hidden;
+      padding: $spacing_0_8 $spacing_1_0;
+      pointer-events: none; // Prevent tooltip from interfering with hover
+      position: absolute;
+      text-overflow: ellipsis;
+      top: 100%;
+      transform: translateX(-50%);
+      white-space: normal;
+      word-wrap: break-word;
+      z-index: 30;
+
+      @media screen and (min-width: $screen-md) {
+        font-size: 12px;
+        padding: $spacing_0_6 $spacing_0_8;
+        white-space: normal;
+        max-width: 350px;
+        min-width: 120px;
+      }
+
+      &__text {
+        color: white !important;
+      }
+    }
   }
 
   &__container {
