@@ -131,6 +131,7 @@ export const BaseTable = ({
   const [searchValue, setSearchValue] = useState("");
   const [sorting, setSorting] = useState();
   const [hoveredCell, setHoveredCell] = useState(null); // Track which cell is hovered
+  const [hoveredHeader, setHoveredHeader] = useState(null); // Track which header is hovered
 
   useEffect(() => {
     setSorting(
@@ -210,6 +211,14 @@ export const BaseTable = ({
 
   const handleMouseLeave = () => {
     setHoveredCell(null);
+  };
+
+  const handleHeaderMouseEnter = (headerIndex) => {
+    setHoveredHeader(headerIndex);
+  };
+
+  const handleHeaderMouseLeave = () => {
+    setHoveredHeader(null);
   };
 
   const renderItems = useCallback(() => {
@@ -322,6 +331,7 @@ export const BaseTable = ({
     isLoading,
     t,
     hoveredCell,
+    hoveredHeader,
   ]);
 
   const handleSearch = (val) => {
@@ -413,13 +423,33 @@ export const BaseTable = ({
                     return (
                       <th key={"row" + index}>
                         <div
+                          onMouseEnter={() =>
+                            row.headerTooltip
+                              ? handleHeaderMouseEnter(index)
+                              : null
+                          }
+                          onMouseLeave={handleHeaderMouseLeave}
                           className={`table__heading-container ${
                             row.isCentered
                               ? "table__heading-container--centered"
                               : ""
                           }`}
                         >
-                          {row.label}
+                          <div className="table__heading__label-container">
+                            {row.label}
+                            {row.headerTooltip ? (
+                              <div className="table__heading__info-icon">
+                                <Icon size="sm" color="#fff" name="info" />
+                                {hoveredHeader === index && (
+                                  <div className="table__heading__tooltip">
+                                    <p className="table__heading__tooltip__text">
+                                      {row.headerTooltip}
+                                    </p>
+                                  </div>
+                                )}
+                              </div>
+                            ) : null}
+                          </div>
                           {row.sortingKey && (
                             <div>
                               <Icon
