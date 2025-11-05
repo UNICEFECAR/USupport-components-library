@@ -326,6 +326,10 @@ async function generateProviderFreeSlotsReport(payload) {
   queryParams.append("endDate", endDateTimestamp);
   queryParams.append("startTime", startTime);
   queryParams.append("endTime", endTime);
+  queryParams.append(
+    "timezone",
+    Intl.DateTimeFormat().resolvedOptions().timeZone
+  );
 
   const requestUrl = `${API_ENDPOINT}/statistics/providers/availability/report${
     queryParams.toString() ? `?${queryParams.toString()}` : ""
