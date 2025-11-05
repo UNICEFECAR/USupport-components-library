@@ -262,7 +262,8 @@ export const ProviderAvailability = ({
                 : ""
             }`}
           >
-            {consultation && isPast ? null : (
+            {consultation && isPast ? null : !consultation &&
+              !hasNormalSlot ? null : (
               <div
                 className="provider-availability__controls__single"
                 onClick={handleAvailabilityChange}
