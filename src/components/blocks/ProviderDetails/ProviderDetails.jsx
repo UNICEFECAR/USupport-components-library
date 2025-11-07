@@ -21,11 +21,10 @@ export const ProviderDetails = ({
   buttonComponent,
   renderIn,
   hasCookies = true,
+  cookieState,
+  setCookieState,
 }) => {
   const currencySymbol = localStorage.getItem("currency_symbol");
-  const hasAcceptedAllCookies = !!Number(
-    localStorage.getItem("acceptAllCookies")
-  );
 
   const allOptionsToString = (option) => {
     return provider[option]?.join(", ");
@@ -108,6 +107,8 @@ export const ProviderDetails = ({
             url={provider.videoLink}
             hasCookies={hasCookies}
             classes="provider-details__video-container__video-player"
+            cookieState={cookieState}
+            setCookieState={setCookieState}
           />
         </div>
         {/* )} */}
