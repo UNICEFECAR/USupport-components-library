@@ -97,21 +97,20 @@ export const ProviderDetails = ({
           </p>
         </div>
 
-        {/* {provider.videoLink && */}
-        {/* (hasAcceptedAllCookies || renderIn === "provider") && ( */}
-        <div className="provider-details__video-container">
-          <p className="paragraph provider-details__information-container__heading">
-            {t("video_label")}
-          </p>
-          <VideoPlayer
-            url={provider.videoLink}
-            hasCookies={hasCookies}
-            classes="provider-details__video-container__video-player"
-            cookieState={cookieState}
-            setCookieState={setCookieState}
-          />
-        </div>
-        {/* )} */}
+        {provider.videoLink && (
+          <div className="provider-details__video-container">
+            <p className="paragraph provider-details__information-container__heading">
+              {t("video_label")}
+            </p>
+            <VideoPlayer
+              url={provider.videoLink}
+              hasCookies={hasCookies}
+              classes="provider-details__video-container__video-player"
+              cookieState={cookieState}
+              setCookieState={setCookieState}
+            />
+          </div>
+        )}
       </GridItem>
 
       <GridItem md={4} lg={8}>
