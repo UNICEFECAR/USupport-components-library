@@ -1,10 +1,10 @@
 import React, { useCallback } from "react";
 import PropTypes from "prop-types";
-import ReactPlayer from "react-player";
 import { Grid, GridItem } from "../../grids";
 import { Icon } from "../../icons";
 import { Avatar } from "../../avatars";
 import { getTimeFromDate, getDateView } from "../../../utils/";
+import { VideoPlayer } from "../../others";
 import "./provider-details.scss";
 
 /**
@@ -20,6 +20,7 @@ export const ProviderDetails = ({
   t,
   buttonComponent,
   renderIn,
+  hasCookies = true,
 }) => {
   const currencySymbol = localStorage.getItem("currency_symbol");
   const hasAcceptedAllCookies = !!Number(
@@ -97,15 +98,19 @@ export const ProviderDetails = ({
           </p>
         </div>
 
-        {provider.videoLink &&
-          (hasAcceptedAllCookies || renderIn === "provider") && (
-            <div className="provider-details__video-container">
-              <p className="paragraph provider-details__information-container__heading">
-                {t("video_label")}
-              </p>
-              <ReactPlayer width="96%" url={provider.videoLink} />
-            </div>
-          )}
+        {/* {provider.videoLink && */}
+        {/* (hasAcceptedAllCookies || renderIn === "provider") && ( */}
+        <div className="provider-details__video-container">
+          <p className="paragraph provider-details__information-container__heading">
+            {t("video_label")}
+          </p>
+          <VideoPlayer
+            url={provider.videoLink}
+            hasCookies={hasCookies}
+            classes="provider-details__video-container__video-player"
+          />
+        </div>
+        {/* )} */}
       </GridItem>
 
       <GridItem md={4} lg={8}>

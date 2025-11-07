@@ -166,5 +166,13 @@
     & p {
       margin-bottom: $spacing_0_8;
     }
+
+    & .video-player__box {
+      padding: 0;
+    }
+
+    & .box--box-shadow-3 {
+      box-shadow: none;
+    }
   }
 }
