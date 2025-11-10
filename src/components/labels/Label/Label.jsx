@@ -13,7 +13,14 @@ import "./label.scss";
  *
  * @return {jsx}
  */
-export const Label = ({ text, onClick, classes, showSuccess }) => {
+export const Label = ({
+  text,
+  onClick,
+  classes,
+  showSuccess,
+  showRemove,
+  onRemove,
+}) => {
   return (
     <div
       className={["label-component", classNames(classes)].join(" ")}
@@ -21,6 +28,9 @@ export const Label = ({ text, onClick, classes, showSuccess }) => {
     >
       <p className="small-text">{text}</p>
       {showSuccess && <Icon name="check" size="sm" />}
+      {showRemove && (
+        <Icon name="close-x" size="sm" color="#000" onClick={onRemove} />
+      )}
     </div>
   );
 };
@@ -44,10 +54,6 @@ Label.propTypes = {
     PropTypes.arrayOf(PropTypes.string),
   ]),
   showSuccess: PropTypes.bool,
-};
-
-Label.defaultProps = {
-  text: "",
-  onClick: () => {},
-  classes: null,
+  showRemove: PropTypes.bool,
+  onRemove: PropTypes.func,
 };
