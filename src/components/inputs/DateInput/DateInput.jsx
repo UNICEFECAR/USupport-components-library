@@ -15,9 +15,7 @@ export const DateInput = ({ classes = [], ...props }) => {
   const inputRef = useRef();
   return (
     <div
-      style={{
-        position: "relative",
-      }}
+      className="date-input__container"
       onClick={(e) => {
         e.stopPropagation();
         inputRef.current?.showPicker();

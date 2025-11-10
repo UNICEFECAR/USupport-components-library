@@ -1,4 +1,8 @@
 .date-input {
+  &__container {
+    position: relative;
+    width: 34.3rem;
+  }
   & input {
     text-transform: uppercase;
 
