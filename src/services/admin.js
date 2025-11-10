@@ -551,7 +551,13 @@ async function deletePodcast(id) {
   return response;
 }
 
-async function getPlatformMetrics({ startDate, endDate }) {
+async function getPlatformMetrics({
+  startDate,
+  endDate,
+  sex,
+  urbanRural,
+  yearOfBirth,
+}) {
   const startDateTimestamp = JSON.stringify(
     new Date(new Date(startDate).setHours(0, 0, 0, 0)).getTime() / 1000
   );
@@ -563,6 +569,9 @@ async function getPlatformMetrics({ startDate, endDate }) {
   const params = new URLSearchParams();
   if (startDate) params.append("startDate", startDateTimestamp);
   if (endDate) params.append("endDate", endDateTimestamp);
+  if (sex) params.append("sex", sex);
+  if (urbanRural) params.append("urbanRural", urbanRural);
+  if (yearOfBirth) params.append("yearOfBirth", yearOfBirth);
 
   const response = await http.get(
     `${API_ENDPOINT}/platform-metrics?${params.toString()}`
