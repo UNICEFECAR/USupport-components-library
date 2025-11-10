@@ -70,7 +70,7 @@
       padding-left: $spacing_2_4;
     }
 
-    @media screen and (min-width: $screen-lg) {
+    @media screen and (min-width: $screen-xl) {
       height: 4.8rem;
       width: 17.8rem;
     }
@@ -78,6 +78,7 @@
 
   &__login {
     margin-right: $spacing_1_6;
+    margin-left: auto;
   }
 
   &.collapsible--expanded {
@@ -105,14 +106,14 @@
       padding: 0 1rem 0 0;
     }
 
-    @media screen and (min-width: $screen-lg) {
+    @media screen and (min-width: $screen-xl) {
       padding: 0 2.5rem 0 0;
     }
 
     &__content {
       display: flex;
       width: 100%;
-      gap: $spacing_0_8;
+      // gap: $spacing_0_8;
     }
 
     &__icon {
@@ -258,7 +259,7 @@
       right: 10rem;
     }
 
-    @media screen and (min-width: $screen-lg) {
+    @media screen and (min-width: $screen-xl) {
       right: 14rem;
     }
 
@@ -292,7 +293,7 @@
         left: 10rem !important;
       }
 
-      @media screen and (min-width: $screen-lg) {
+      @media screen and (min-width: $screen-xl) {
         left: 14rem !important;
       }
     }
@@ -546,7 +547,7 @@
 
     @media screen and (min-width: $navbar-tight) {
       margin-top: 0;
-      padding-right: $spacing_3_0;
+      padding-right: $spacing_1_6;
 
       &--rtl {
         padding-right: 0;

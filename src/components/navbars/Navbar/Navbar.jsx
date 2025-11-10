@@ -370,7 +370,7 @@ export const Navbar = ({
               onMouseLeave={handleDropdownLeave}
               onClick={() => handleDropdownClick(index)}
             >
-              <p className="paragraph">{page.name}</p>
+              <p className="small-text">{page.name}</p>
               <Icon
                 name="arrow-chevron-down"
                 size="sm"
