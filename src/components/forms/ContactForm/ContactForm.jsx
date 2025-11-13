@@ -38,6 +38,7 @@ export const ContactForm = ({
   country,
 }) => {
   const IS_PL = country === "PL";
+  const IS_RO = country === "RO";
 
   const initialReasons = useMemo(() => {
     return [
@@ -51,7 +52,13 @@ export const ContactForm = ({
       },
       {
         value: "join-as-provider",
-        label: t(IS_PL ? "contact_reason_3_pl" : "contact_reason_3"),
+        label: t(
+          IS_RO
+            ? "contact_reason_3_ro"
+            : IS_PL
+            ? "contact_reason_3_pl"
+            : "contact_reason_3"
+        ),
       },
       {
         value: "partnerships",
