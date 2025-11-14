@@ -479,9 +479,7 @@ export const Navbar = ({
           toggleLanguages();
         }}
       >
-        <p className="nav__current-language">
-          {selectedLanguage.value === "uk" ? "ua" : selectedLanguage.value}
-        </p>
+        <p className="nav__current-language">{selectedLanguage.value}</p>
         <Icon
           name="arrow-chevron-down"
           size="sm"
@@ -669,8 +667,7 @@ export const Navbar = ({
     if (isTmpUser) {
       setIsNavbarExpanded(false);
       isTmpUserAction();
-    }
-    if (isInConsultation) {
+    } else if (isInConsultation) {
       window.open(
         `/${renderIn}/${localStorage.getItem("language")}/notifications`,
         "_blank"
