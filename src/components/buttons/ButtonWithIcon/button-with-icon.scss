@@ -1,6 +1,8 @@
 @import "../../../styles/theme";
 
 .btn--with-icon {
+  text-align: left;
+
   .icon {
     margin-right: $spacing_0_6;
   }

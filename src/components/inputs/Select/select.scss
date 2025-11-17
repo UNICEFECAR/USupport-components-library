@@ -120,6 +120,7 @@
 
     &__option {
       &:hover {
+        cursor: pointer;
         background-color: $color_purple_dac3f6 !important;
       }
 
@@ -133,9 +134,11 @@
     }
 
     &__option--dark {
-      color: $color_white_ff;
+      // Match dark dropdown text color (#c1d7e0 from .theme-dark p)
+      color: #c1d7e0;
 
       &:hover {
+        cursor: pointer;
         background-color: $color_primary_20809e !important;
         color: $color_white_ff;
       }
