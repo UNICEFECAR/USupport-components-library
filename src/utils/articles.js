@@ -1,3 +1,5 @@
+import { userSvc } from "../services";
+
 /**
  *
  * @param {*} object with article data
@@ -38,8 +40,8 @@ function destructureArticleData(article) {
     categoryName: categoryName,
     description,
     ageGroupId,
-    likes: Number(articleData.likes) || 0,
-    dislikes: Number(articleData.dislikes) || 0,
+    likes: Number(article.likes) || 0,
+    dislikes: Number(article.dislikes) || 0,
     pdfUrl,
   };
 }
@@ -66,8 +68,7 @@ const destructureVideoData = (videoData) => {
     category,
     labels: labelsData,
     vimeoThumbnailUrl,
-    likes,
-    dislikes,
+
     aws_url,
   } = videoData.attributes;
 
@@ -109,6 +110,13 @@ const destructureVideoData = (videoData) => {
     console.error("Error parsing video URL:", error);
   }
 
+  const likes = Object.hasOwn(videoData, "likes")
+    ? Number(videoData.likes)
+    : Number(videoData.attributes?.likes);
+  const dislikes = Object.hasOwn(videoData, "dislikes")
+    ? Number(videoData.dislikes)
+    : Number(videoData.attributes?.dislikes);
+
   return {
     id,
     title,
@@ -126,8 +134,8 @@ const destructureVideoData = (videoData) => {
     labels,
     vimeoThumbnailUrl,
     image,
-    likes: Number(likes),
-    dislikes: Number(dislikes),
+    likes,
+    dislikes,
     creator: null,
     awsUrl: aws_url,
   };
@@ -169,6 +177,13 @@ const destructurePodcastData = async (data) => {
   const labelsData = data.attributes.labels?.data || [];
   const labels = computeArticleLabels(labelsData || []);
 
+  const likes = Object.hasOwn(data, "likes")
+    ? Number(data.likes)
+    : Number(data.attributes?.likes);
+  const dislikes = Object.hasOwn(data, "dislikes")
+    ? Number(data.dislikes)
+    : Number(data.attributes?.dislikes);
+
   return {
     id: data.id,
     title: data.attributes.title,
@@ -181,8 +196,8 @@ const destructurePodcastData = async (data) => {
     categoryId,
     labels,
     view_count: Number(data.attributes.view_count) || 0,
-    likes: Number(data.attributes.likes) || 0,
-    dislikes: Number(data.attributes.dislikes) || 0,
+    likes,
+    dislikes,
     spotifyId,
   };
 };
@@ -231,10 +246,78 @@ const getSpotifyThumbnail = async (spotifyId) => {
   }
 };
 
+const isLikedOrDislikedByUser = ({
+  contentType,
+  contentData,
+  userEngagements,
+}) => {
+  let isLiked = false;
+  let isDisliked = false;
+
+  if (!userEngagements || !contentData)
+    return { isLiked: false, isDisliked: false };
+
+  for (const {
+    content_type: type,
+    content_id: id,
+    action,
+  } of userEngagements) {
+    if (type === contentType && id === contentData.id) {
+      if (action === "like") isLiked = true;
+      if (action === "dislike") isDisliked = true;
+      if (isLiked && isDisliked) break; // early exit if both found
+    }
+  }
+
+  return { isLiked, isDisliked };
+};
+
+/**
+ *
+ * @param {String[]} ids - Array of content IDs
+ * @param {String} contentType - Type of content ("article", "video", "podcast")
+ * @returns {Object} - Object with content likes and dislikes
+ * @property {Map<string, number>} likes - Map of content ids and their likes
+ * @property {Map<string, number>} dislikes - Map of content ids and their dislikes
+ */
+const getLikesAndDislikesForContent = async (ids, contentType = "article") => {
+  if (!ids) return { likes: new Map(), dislikes: new Map() };
+  const { data } = await userSvc.getContentEngagementsById({
+    ids: ids,
+    contentType: contentType,
+  });
+
+  const likes = new Map();
+  const dislikes = new Map();
+
+  data.forEach((engagement) => {
+    const { content_id: id, action } = engagement;
+    if (action === "like") {
+      if (likes.has(id)) {
+        likes.set(id, likes.get(id) + 1);
+      } else {
+        likes.set(id, 1);
+      }
+    } else if (action === "dislike") {
+      if (dislikes.has(id)) {
+        dislikes.set(id, dislikes.get(id) + 1);
+      } else {
+        dislikes.set(id, 1);
+      }
+    }
+  });
+  return {
+    likes,
+    dislikes,
+  };
+};
+
 export {
   destructureArticleData,
   destructureVideoData,
   destructurePodcastData,
   createArticleSlug,
   getSpotifyThumbnail,
+  isLikedOrDislikedByUser,
+  getLikesAndDislikesForContent,
 };
