@@ -136,11 +136,6 @@ export const ProviderAvailability = ({
   const hasNormalSlotItem =
     !(consultation && isPast) && (countryHasNormalSlots || hasNormalSlot);
 
-  console.log(validCampaigns?.length, "validCampaigns?.length ++++++++++");
-  console.log(hasNormalSlotItem, "hasNormalSlotItem ++++++++++");
-  console.log(countryHasNormalSlots, "countryHasNormalSlots ++++++++++");
-  console.log(hasNormalSlot, "hasNormalSlot ++++++++++");
-
   return (
     <div
       className={[
