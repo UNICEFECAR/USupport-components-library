@@ -36,6 +36,7 @@ export const ProviderAvailability = ({
   organizationForSlot,
   isDisabled,
   t,
+  countryHasNormalSlots,
 }) => {
   const currencySymbol = localStorage.getItem("currency_symbol");
   const isLive = consultation
@@ -131,6 +132,14 @@ export const ProviderAvailability = ({
         (x) => x.campaignId === campaign.campaignId
       );
     })?.length;
+
+  const hasNormalSlotItem =
+    !(consultation && isPast) && (countryHasNormalSlots || hasNormalSlot);
+
+  console.log(validCampaigns?.length, "validCampaigns?.length ++++++++++");
+  console.log(hasNormalSlotItem, "hasNormalSlotItem ++++++++++");
+  console.log(countryHasNormalSlots, "countryHasNormalSlots ++++++++++");
+  console.log(hasNormalSlot, "hasNormalSlot ++++++++++");
 
   return (
     <div
@@ -262,8 +271,7 @@ export const ProviderAvailability = ({
                 : ""
             }`}
           >
-            {consultation && isPast ? null : !consultation &&
-              !hasNormalSlot ? null : (
+            {hasNormalSlotItem && (
               <div
                 className="provider-availability__controls__single"
                 onClick={handleAvailabilityChange}
@@ -305,7 +313,13 @@ export const ProviderAvailability = ({
             ) : null}
 
             {!consultation && validCampaigns?.length > 0 && !IS_KZ_COUNTRY && (
-              <div className="provider-availability__controls__campaign">
+              <div
+                className={classNames(
+                  "provider-availability__controls__campaign",
+                  hasNormalSlotItem &&
+                    "provider-availability__controls__campaign--border"
+                )}
+              >
                 {validCampaigns.map((campaign) => {
                   const isCampaignAvailableInSlot =
                     enrolledCampaignsForSlot?.some(
@@ -342,7 +356,15 @@ export const ProviderAvailability = ({
               </div>
             )}
             {!consultation && organizations?.length > 0 && (
-              <div className="provider-availability__controls__organization">
+              <div
+                className={classNames(
+                  "provider-availability__controls__organization",
+                  ((!IS_KZ_COUNTRY && validCampaigns?.length > 0) ||
+                    (hasNormalSlotItem && validCampaigns?.length === 0) ||
+                    (hasNormalSlot && IS_KZ_COUNTRY)) &&
+                    "provider-availability__controls__organization--border"
+                )}
+              >
                 {organizations.map((organization) => {
                   const isOrganizationAvailableInSlot = organizationForSlot
                     ? organizationForSlot.organizationId ===
