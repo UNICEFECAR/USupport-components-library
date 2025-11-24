@@ -63,9 +63,7 @@ export const Answer = ({
                 })}
             </div>
           </>
-        ) : (
-          <p className="text answer__limited-text">{question.question}</p>
-        )}
+        ) : null}
       </div>
     );
   };
