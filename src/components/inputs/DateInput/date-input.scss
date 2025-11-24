@@ -1,7 +1,13 @@
+@import "../../../styles/theme";
+
 .date-input {
   &__container {
     position: relative;
     width: 34.3rem;
+
+    @media screen and (min-width: $screen-lg) {
+      width: 36.8rem;
+    }
   }
   & input {
     text-transform: uppercase;
