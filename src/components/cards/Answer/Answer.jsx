@@ -22,7 +22,6 @@ import "./answer.scss";
  */
 export const Answer = ({
   question,
-  isInYourQuestions = false,
   renderIn = "client",
   handleLike = () => {},
   handleReadMore = () => {},
@@ -70,28 +69,23 @@ export const Answer = ({
       </div>
     );
   };
-  const isAskedByCurrentClient = question.isAskedByCurrentClient;
 
   return (
     <Box classes={["answer", classes]}>
       {question.answerTitle ? (
         <>
           <div className="answer__heading-container">
-            {isInYourQuestions || isAskedByCurrentClient ? (
-              <div>
-                <div className="answer__date-container">
-                  <Icon name="calendar" color="#92989B" />
-                  <p className="text answer__date-container__text">
-                    {getDateText()}
-                  </p>
-                </div>
-                <p className="text answer__heading-container__question-text answer__limited-text">
-                  {question.question}
+            <div>
+              <div className="answer__date-container">
+                <Icon name="calendar" color="#92989B" />
+                <p className="text answer__date-container__text">
+                  {getDateText()}
                 </p>
               </div>
-            ) : (
-              renderHeadingAndLabels()
-            )}
+              <p className="text answer__heading-container__question-text answer__limited-text">
+                {question.question}
+              </p>
+            </div>
             <Like
               handleClick={handleLike}
               likes={question.likes}
@@ -124,7 +118,7 @@ export const Answer = ({
       <Line classes="answer__line" />
       {question.answerTitle ? (
         <>
-          {isInYourQuestions && renderHeadingAndLabels()}
+          {renderHeadingAndLabels()}
           {renderIn === "provider" ||
           (renderIn === "country-admin" && question.answerText) ? (
             <>
@@ -248,12 +242,6 @@ Answer.propTypes = {
    * @required
    */
   question: PropTypes.object.isRequired,
-
-  /**
-   * isInYourQuestions boolean
-   * @default false
-   */
-  isInYourQuestions: PropTypes.bool,
 
   /**
    * renderIn string
