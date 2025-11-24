@@ -38,7 +38,7 @@ export const Answer = ({
   const providerInfo = question.providerData;
 
   const getDateText = () => {
-    const date = new Date(question.questionCreatedAt);
+    const date = new Date(question.answerCreatedAt);
 
     if (isDateToday(date)) {
       return t("today");
