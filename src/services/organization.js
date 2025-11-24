@@ -38,6 +38,10 @@ const getOrganizationById = async (organizationId, filters) => {
                    &weekdays=${filters.weekdays ? 1 : 0}
                    &weekends=${filters.weekends ? 1 : 0}`;
 
+  if (filters.timeZone) {
+    filtersQuery += `&timeZone=${encodeURIComponent(filters.timeZone)}`;
+  }
+
   if (filters.search) {
     filtersQuery += `&search=${filters.search}`;
   }
