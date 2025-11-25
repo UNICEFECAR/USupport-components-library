@@ -60,6 +60,10 @@
     }
 
     &__provider-name {
+      cursor: default;
+    }
+
+    &__provider-name--clickable {
       cursor: pointer;
     }
 
@@ -86,6 +90,12 @@
     }
 
     &--client {
+      & img {
+        cursor: default;
+      }
+    }
+
+    &--client--clickable {
       & img {
         cursor: pointer;
       }

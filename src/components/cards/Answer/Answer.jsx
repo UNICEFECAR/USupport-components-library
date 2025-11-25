@@ -71,6 +71,11 @@ export const Answer = ({
     );
   };
 
+  const providerIdForRedirection =
+    providerInfo?.providerId || providerInfo?.provider_detail_id;
+
+  const canRedirectToProvider = !!providerIdForRedirection;
+
   return (
     <Box classes={["answer", classes]}>
       {question.answerTitle ? (
@@ -160,25 +165,35 @@ export const Answer = ({
           )}
           {renderIn === "client" || renderIn === "website" ? (
             <div className="answer__bottom-container">
-              <div className="answer__answered-by-container answer__answered-by-container--client">
+              <div
+                className={`answer__answered-by-container answer__answered-by-container--client ${
+                  canRedirectToProvider
+                    ? "answer__answered-by-container--client--clickable"
+                    : ""
+                }`}
+              >
                 <p className="text">{t("answer_by")}</p>
                 <Avatar
                   image={AMAZON_S3_BUCKET + "/" + providerInfo.image}
                   alt="Specialist avatar"
                   size="xs"
-                  onClick={() =>
-                    handleProviderClick(
-                      providerInfo.providerId || providerInfo.provider_detail_id
-                    )
+                  onClick={
+                    canRedirectToProvider
+                      ? () => handleProviderClick(providerIdForRedirection)
+                      : undefined
                   }
                   classes="answer__answered-by-container__avatar"
                 />
                 <p
-                  className="text answer__bottom-container__provider-name"
-                  onClick={() =>
-                    handleProviderClick(
-                      providerInfo.providerId || providerInfo.provider_detail_id
-                    )
+                  className={`text answer__bottom-container__provider-name ${
+                    canRedirectToProvider
+                      ? "answer__bottom-container__provider-name--clickable"
+                      : ""
+                  }`}
+                  onClick={
+                    canRedirectToProvider
+                      ? () => handleProviderClick(providerIdForRedirection)
+                      : undefined
                   }
                 >
                   {providerInfo.name} {providerInfo.surname}
