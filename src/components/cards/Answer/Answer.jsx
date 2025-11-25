@@ -107,7 +107,9 @@ export const Answer = ({
         <>
           <div className="answer__date-container">
             <Icon name="calendar" color="#92989B" />
-            <p className="text answer__date-container__text">{getDateText()}</p>
+            <p className="text answer__date-container__text">
+              {getDateText(question.questionCreatedAt)}
+            </p>
           </div>
           <p className="text answer__question-heading answer__limited-text">
             {question.question}
@@ -160,6 +162,11 @@ export const Answer = ({
               />
               <p className="text">
                 {providerInfo.name} {providerInfo.surname}
+              </p>
+              <p className="text answer__bottom-container__answer-date">
+                {t("date_answered", {
+                  date: getDateText(question.answerCreatedAt),
+                })}
               </p>
             </div>
           )}
