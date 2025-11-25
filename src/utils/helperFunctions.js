@@ -1,4 +1,5 @@
 import { getLanguageFromUrl } from "./replaceLanguageInUrl";
+import { createArticleSlug } from "./articles";
 
 /**
  * @description - This funciton is used to set 'isSelected' property to true for the selected items
