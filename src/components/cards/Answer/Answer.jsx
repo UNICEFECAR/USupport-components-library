@@ -36,17 +36,20 @@ export const Answer = ({
 
   const providerInfo = question.providerData;
 
-  const getDateText = () => {
-    const date = new Date(question.answerCreatedAt);
+  const getDateText = (dateString) => {
+    const date = new Date(dateString);
 
     if (isDateToday(date)) {
       return t("today");
     } else {
-      return `${date.getDate() > 9 ? date.getDate() : `0${date.getDate()}`}.${
+      const day = date.getDate() > 9 ? date.getDate() : `0${date.getDate()}`;
+      const month =
         date.getMonth() + 1 > 9
           ? date.getMonth() + 1
-          : `0${date.getMonth() + 1}`
-      }`;
+          : `0${date.getMonth() + 1}`;
+      const year = date.getFullYear();
+
+      return `${day}.${month}.${year}`;
     }
   };
 
@@ -77,7 +80,7 @@ export const Answer = ({
               <div className="answer__date-container">
                 <Icon name="calendar" color="#92989B" />
                 <p className="text answer__date-container__text">
-                  {getDateText()}
+                  {getDateText(question.questionCreatedAt)}
                 </p>
               </div>
               <p className="text answer__heading-container__question-text answer__limited-text">
@@ -179,6 +182,11 @@ export const Answer = ({
                   }
                 >
                   {providerInfo.name} {providerInfo.surname}
+                </p>
+                <p className="text answer__bottom-container__answer-date">
+                  {t("date_answered", {
+                    date: getDateText(question.answerCreatedAt),
+                  })}
                 </p>
               </div>
               <div
