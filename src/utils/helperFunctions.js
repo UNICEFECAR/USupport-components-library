@@ -119,13 +119,15 @@ const constructWebsiteUrl = (url) => {
   return `https://${countryName}.usupport.online/${language}/${url}`;
 };
 
-const constructShareUrl = ({ contentType, id }) => {
+const constructShareUrl = ({ contentType, id, name }) => {
   const country = localStorage.getItem("country");
   const language = localStorage.getItem("language");
   const hostname = window.location.hostname;
   const subdomain = hostname.split(".")[0];
 
-  let contentUrl = `information-portal/${contentType}/${id}`;
+  let contentUrl = `information-portal/${contentType}/${id}/${createArticleSlug(
+    name
+  )}`;
 
   if (contentType === "organization") {
     contentUrl = `organization-overview/${id}`;
