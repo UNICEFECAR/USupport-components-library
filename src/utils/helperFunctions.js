@@ -126,12 +126,14 @@ const constructShareUrl = ({ contentType, id, name }) => {
   const hostname = window.location.hostname;
   const subdomain = hostname.split(".")[0];
 
-  let contentUrl = `information-portal/${contentType}/${id}/${createArticleSlug(
-    name
-  )}`;
+  let contentUrl = "";
 
   if (contentType === "organization") {
     contentUrl = `organization-overview/${id}`;
+  } else {
+    contentUrl = `information-portal/${contentType}/${id}/${createArticleSlug(
+      name
+    )}`;
   }
 
   if (subdomain === "staging") {
