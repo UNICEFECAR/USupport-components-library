@@ -1,4 +1,5 @@
 import { getLanguageFromUrl } from "./replaceLanguageInUrl";
+import { createArticleSlug } from "./articles";
 
 /**
  * @description - This funciton is used to set 'isSelected' property to true for the selected items
@@ -119,16 +120,20 @@ const constructWebsiteUrl = (url) => {
   return `https://${countryName}.usupport.online/${language}/${url}`;
 };
 
-const constructShareUrl = ({ contentType, id }) => {
+const constructShareUrl = ({ contentType, id, name }) => {
   const country = localStorage.getItem("country");
   const language = localStorage.getItem("language");
   const hostname = window.location.hostname;
   const subdomain = hostname.split(".")[0];
 
-  let contentUrl = `information-portal/${contentType}/${id}`;
+  let contentUrl = "";
 
   if (contentType === "organization") {
     contentUrl = `organization-overview/${id}`;
+  } else {
+    contentUrl = `information-portal/${contentType}/${id}/${createArticleSlug(
+      name
+    )}`;
   }
 
   if (subdomain === "staging") {

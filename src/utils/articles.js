@@ -203,6 +203,10 @@ const destructurePodcastData = async (data) => {
 };
 
 const createArticleSlug = (title) => {
+  if (!title || typeof title !== "string") {
+    return "";
+  }
+
   return (
     title
       .toLowerCase()
