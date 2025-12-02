@@ -69,7 +69,7 @@
         padding-top: $spacing_0_4;
 
         &--danger {
-          color: $color_red_eb5757;
+          color: $color_red_eb5757 !important;
         }
       }
     }

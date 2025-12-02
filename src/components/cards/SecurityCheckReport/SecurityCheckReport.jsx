@@ -128,7 +128,13 @@ export const SecurityCheckReport = ({ securityCheck, t }) => {
                 </p>
                 <p
                   className={`security-check-report__answers-grid__item__answer ${
-                    answers[key] === true || key === "moreDetails"
+                    key !== "moreDetails" &&
+                    ((answers[key] === true && key !== "providerAttend") ||
+                      key === "moreDetails" ||
+                      (key === "providerAttend" && answers[key] === false) ||
+                      (answers["providerAttend"] === true &&
+                        typeof answers[key] === "number" &&
+                        answers[key] < 6))
                       ? "security-check-report__answers-grid__item__answer--danger"
                       : ""
                   }`}
