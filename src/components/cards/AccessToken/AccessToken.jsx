@@ -22,6 +22,8 @@ export const AccessToken = ({
   showInstructions = false,
   activateAnimation = false,
   classes,
+  name,
+  autoComplete,
 }) => {
   const handleCopyToClipboard = () => {
     navigator.clipboard.writeText(accessToken);
@@ -34,7 +36,19 @@ export const AccessToken = ({
         <p className="access-token-container__label">{accessTokenLabel}</p>
       )}
       <div className="access-token-container">
-        {isLoading ? <Loading size="sm" /> : <h4>{accessToken}</h4>}
+        {isLoading ? (
+          <Loading size="sm" />
+        ) : (
+          <input
+            type="text"
+            className="access-token-container__input"
+            value={accessToken || ""}
+            readOnly
+            name={name}
+            autoComplete={autoComplete}
+            aria-label={accessTokenLabel || "Access token"}
+          />
+        )}
         <Icon
           name="copy"
           color="#9749FA"
@@ -81,6 +95,16 @@ AccessToken.propTypes = {
     PropTypes.string,
     PropTypes.arrayOf(PropTypes.string),
   ]),
+
+  /**
+   * Input name attribute for form submission
+   * */
+  name: PropTypes.string,
+
+  /**
+   * Input autocomplete attribute for browser password manager
+   * */
+  autoComplete: PropTypes.string,
 };
 
 AccessToken.defaultProps = {
