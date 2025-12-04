@@ -4,6 +4,7 @@
   width: 100%;
   overflow: auto;
   padding-bottom: $spacing_12_0;
+  position: relative;
 
   // Dynamic max height classes
   &--height-40 {
@@ -242,6 +243,20 @@
       @media screen and (min-width: $screen-md) {
         padding: 0;
       }
+    }
+
+    &__loading {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 999;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
   }
 

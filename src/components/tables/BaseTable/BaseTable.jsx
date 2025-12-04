@@ -124,6 +124,7 @@ export const BaseTable = ({
   customSort,
   customSearch,
   filters,
+  handleRemoveFilter,
   truncateLength = 50,
   enableTooltips = true,
   maxHeightInVH = 60,
@@ -222,7 +223,7 @@ export const BaseTable = ({
   };
 
   const renderItems = useCallback(() => {
-    if (isLoading)
+    if (isLoading && (!rowsData || rowsData.length === 0))
       return (
         <tr>
           <td
@@ -391,6 +392,8 @@ export const BaseTable = ({
             return (
               <Label
                 key={key}
+                showRemove={!!handleRemoveFilter}
+                onRemove={() => handleRemoveFilter(key)}
                 showSuccess={typeof filters[key] === "boolean" && filters[key]}
                 text={`${t(camelToSnake(key))}: ${
                   typeof filters[key] === "boolean" ? "" : filters[key]
@@ -412,6 +415,11 @@ export const BaseTable = ({
         <div
           className={`scrollable-table scrollable-table--height-${maxHeightInVH}`}
         >
+          {isLoading && rowsData && rowsData.length > 0 && (
+            <div className="table__container__loading">
+              <Loading />
+            </div>
+          )}
           <table className={`table ${hasMenu ? "table--sticky" : ""}`}>
             <thead>
               <tr className="table__heading">
