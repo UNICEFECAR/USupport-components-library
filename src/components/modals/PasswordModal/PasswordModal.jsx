@@ -24,7 +24,7 @@ export const PasswordModal = ({
   const [value, setValue] = useState("");
   // const isStaging = window.location.hostname.includes("staging");
   // if (!isStaging) {
-  return null;
+  // return null;
   // }
 
   return (
