@@ -586,11 +586,15 @@ async function getAllCategoriesStatistics({
   sex,
   yearOfBirth,
   urbanRural,
+  startDate,
+  endDate,
 }) {
   let queryString = `?contentType=${contentType}`;
   if (sex) queryString += `&sex=${sex}`;
   if (yearOfBirth) queryString += `&yearOfBirth=${yearOfBirth}`;
   if (urbanRural) queryString += `&urbanRural=${urbanRural}`;
+  if (startDate) queryString += `&startDate=${startDate}`;
+  if (endDate) queryString += `&endDate=${endDate}`;
   const { data } = await http.get(
     `${CMS_API_URL}/category-statistics/all${queryString}`
   );
