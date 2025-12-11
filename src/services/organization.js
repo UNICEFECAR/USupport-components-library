@@ -8,12 +8,19 @@ const getAllOrganizations = async () => {
   return response.data;
 };
 
-const getOrganizationsWithDetails = async (search) => {
-  let filtersQuery = "";
+const getOrganizationsWithDetails = async (filters = {}) => {
+  const params = new URLSearchParams();
 
-  if (search) filtersQuery += `?search=${search}`;
+  if (filters.search) params.set("search", filters.search);
+  if (filters.startDate) params.set("startDate", filters.startDate);
+  if (filters.endDate) params.set("endDate", filters.endDate);
+  if (filters.timeZone) params.set("timeZone", filters.timeZone);
 
-  const response = await http.get(`${API_ENDPOINT}/all/details${filtersQuery}`);
+  const queryString = params.toString();
+
+  const response = await http.get(
+    `${API_ENDPOINT}/all/details${queryString ? `?${queryString}` : ""}`
+  );
   return response.data;
 };
 
