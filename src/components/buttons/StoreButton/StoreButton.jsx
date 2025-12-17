@@ -44,7 +44,7 @@ export const StoreButton = ({
       );
     } else if (store === "app-store") {
       window.open(
-        "https://apps.apple.com/bg/app/usupport/id6447319853",
+        "https://apps.apple.com/kz/app/usupport/id6447319853",
         "_blank"
       );
     } else if (store === "web") {
