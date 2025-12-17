@@ -89,6 +89,11 @@ async function deleteOrganization(organizationId) {
   return response.data;
 }
 
+async function translateText(payload) {
+  const response = await http.post(`${API_ENDPOINT}/translate`, payload);
+  return response.data;
+}
+
 const exportedFunctions = {
   getAllOrganizations,
   getOrganizationsWithDetails,
@@ -99,6 +104,7 @@ const exportedFunctions = {
   removeProviderFromOrganization,
   getOrganizationMetadata,
   deleteOrganization,
+  translateText,
 };
 
 export default exportedFunctions;
