@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 import { Grid, GridItem } from "../../grids";
 import { Icon } from "../../icons";
 import { Avatar } from "../../avatars";
@@ -47,6 +48,22 @@ export const OrganizationDetails = ({
     }
     return null;
   }, [organization, t]);
+
+  const { i18n } = useTranslation();
+
+  const description = React.useMemo(() => {
+    const language = i18n.language?.toLowerCase();
+
+    if (language === "ro") {
+      return organization?.descriptionRO || null;
+    }
+
+    if (language === "uk") {
+      return organization?.descriptionUK || null;
+    }
+
+    return organization?.description || null;
+  }, [organization, i18n.language]);
 
   return (
     <Grid classes="organization-details__grid">
@@ -206,13 +223,13 @@ export const OrganizationDetails = ({
           </GridItem>
 
           <GridItem md={4} lg={6} classes="organization-details__grid__item">
-            {organization?.description && (
+            {description && (
               <div className="organization-details__information-container">
                 <p className="paragraph organization-details__information-container__heading">
                   {t("other_services_label")}
                 </p>
                 <p className="paragraph organization-details__information-container__text">
-                  {organization.description}
+                  {description}
                 </p>
               </div>
             )}
