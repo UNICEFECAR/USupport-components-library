@@ -132,6 +132,10 @@ export const SecurityCheckReport = ({ securityCheck, t }) => {
                     ((answers[key] === true && key !== "providerAttend") ||
                       key === "moreDetails" ||
                       (key === "providerAttend" && answers[key] === false) ||
+                      (key === "feeling" &&
+                        (answers[key] === "very_dissatisfied" ||
+                          answers[key] === "dissatisfied" ||
+                          answers[key] === "neutral")) ||
                       (answers["providerAttend"] === true &&
                         typeof answers[key] === "number" &&
                         answers[key] < 6))
