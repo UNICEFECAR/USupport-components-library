@@ -35,7 +35,9 @@ const getOrganizationById = async (organizationId, filters) => {
   );
 
   const endDateTimestamp = JSON.stringify(
-    new Date(new Date(filters.endDate).setHours(23, 59, 59)).getTime() / 1000
+    new Date(
+      new Date(filters.endDate || new Date()).setHours(23, 59, 59)
+    ).getTime() / 1000
   );
 
   filtersQuery += `&startDate=${startDateTimestamp}
