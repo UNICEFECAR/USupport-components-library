@@ -61,6 +61,9 @@ export const Dropdown = ({
       case "pl":
         placeholderText = "Wybierz";
         break;
+      case "el":
+        placeholderText = "Επιλογή";
+        break;
       default:
         placeholderText = "Select";
     }
