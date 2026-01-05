@@ -41,6 +41,7 @@ export const Backdrop = ({
   reference,
   headingComponent = null,
   showAlwaysAsBackdrop = false,
+  customButton,
 }) => {
   const { theme } = useContext(ThemeContext);
 
@@ -105,6 +106,7 @@ export const Backdrop = ({
         {hasButtons && (
           <div className="backdrop__buttons-container">
             {errorMessage ? <Error message={errorMessage} /> : null}
+            {customButton}
             {ctaLabel &&
               (isCtaDisabled && showLoadingIfDisabled ? (
                 <Loading padding="2rem" size="md" />
@@ -159,6 +161,7 @@ export const Backdrop = ({
         isSecondaryCtaDisabled,
         showLoadingIfDisabled,
         headingComponent,
+        customButton,
       }}
     >
       {children}
@@ -237,6 +240,11 @@ Backdrop.propTypes = {
    * Error message to be displayed
    */
   errorMessage: PropTypes.string,
+
+  /**
+   * Custom button to be rendered in the backdrop/modal
+   */
+  customButton: PropTypes.node,
 
   /**
    * Children to be rendered in the backdrop/modal

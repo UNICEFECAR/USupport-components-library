@@ -43,6 +43,7 @@ export const Modal = ({
   reference,
   overlayClasses,
   headingComponent,
+  customButton,
 }) => {
   const { theme } = useContext(ThemeContext);
   const hasButtons = ctaLabel || secondaryCtaLabel;
@@ -102,6 +103,7 @@ export const Modal = ({
       {hasButtons && (
         <div className="base-modal__footer">
           {errorMessage ? <Error message={errorMessage} /> : null}
+          {customButton}
           {ctaLabel &&
             (isCtaDisabled && showLoadingIfDisabled ? (
               <Loading padding="2rem" size="md" />
@@ -214,6 +216,11 @@ Modal.propTypes = {
    * Error message to be displayed
    */
   errorMessage: PropTypes.string,
+
+  /**
+   * Custom button to be rendered in the backdrop/modal
+   */
+  customButton: PropTypes.node,
 
   /**
    * Children to be rendered in the modal
