@@ -299,13 +299,20 @@ export const Consultation = ({
       )}
 
       {!overview && suggested && renderIn === "provider" && (
-        <div className="consultation__button-container">
+        <div className="consultation__button-container__edit">
           <Button
             onClick={() => handleCancelRequest()}
             label={t("suggested")}
             type="secondary"
             size="sm"
             disabled
+            color="purple"
+          />
+          <Button
+            onClick={handleCancel}
+            label={t("cancel")}
+            type="secondary"
+            size="sm"
             color="purple"
           />
         </div>
