@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 import { Avatar } from "../../avatars/Avatar/Avatar";
 import { ButtonWithIcon } from "../../buttons";
+import { Icon } from "../../icons";
 import { useWindowDimensions } from "../../../utils";
 
 import "./map-provider.scss";
