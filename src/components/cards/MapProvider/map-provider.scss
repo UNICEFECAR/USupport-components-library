@@ -117,6 +117,13 @@
     padding-top: $spacing_0_4;
   }
 
+  &__contact-item-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: $spacing_0_8;
+  }
+
   &__contact-item {
     display: flex;
     align-items: center;

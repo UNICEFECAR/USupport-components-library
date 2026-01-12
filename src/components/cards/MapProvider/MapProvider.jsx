@@ -73,33 +73,42 @@ export const MapProvider = ({ organization, t, navigate }) => {
 
         <div className="map-provider__contact-info">
           {!isMobile && organization.phone && (
-            <div className="map-provider__contact-item">
-              <p className="small-text">
-                <span className="map-provider__contact-label">
-                  {t("phone")}:
-                </span>{" "}
-                {organization.phone}
-              </p>
+            <div className="map-provider__contact-item-container">
+              <Icon name="phone" />
+              <div className="map-provider__contact-item">
+                <p className="small-text">
+                  <span className="map-provider__contact-label">
+                    {t("phone")}:
+                  </span>{" "}
+                  {organization.phone}
+                </p>
+              </div>
             </div>
           )}
           {!isMobile && organization.email && (
-            <div className="map-provider__contact-item">
-              <p className="small-text">
-                <span className="map-provider__contact-label">
-                  {t("email")}:
-                </span>{" "}
-                {organization.email}
-              </p>
+            <div className="map-provider__contact-item-container">
+              <Icon name="email" />
+              <div className="map-provider__contact-item">
+                <p className="small-text">
+                  <span className="map-provider__contact-label">
+                    {t("email")}:
+                  </span>{" "}
+                  {organization.email}
+                </p>
+              </div>
             </div>
           )}
           {organization.address && (
-            <div className="map-provider__contact-item">
-              <p className="small-text">
-                <span className="map-provider__contact-label">
-                  {t("address")}:
-                </span>{" "}
-                {organization.address}
-              </p>
+            <div className="map-provider__contact-item-container">
+              <Icon name="location" />
+              <div className="map-provider__contact-item">
+                <p className="small-text">
+                  <span className="map-provider__contact-label">
+                    {t("address")}:
+                  </span>{" "}
+                  {organization.address}
+                </p>
+              </div>
             </div>
           )}
         </div>
