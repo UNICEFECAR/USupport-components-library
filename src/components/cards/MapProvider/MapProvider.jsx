@@ -75,7 +75,7 @@ export const MapProvider = ({ organization, t, navigate }) => {
         <div className="map-provider__contact-info">
           {!isMobile && organization.phone && (
             <div className="map-provider__contact-item-container">
-              <Icon name="phone" />
+              <Icon name="phone" size="sm" color="#20809e" />
               <div className="map-provider__contact-item">
                 <p className="small-text">
                   <span className="map-provider__contact-label">
@@ -88,7 +88,7 @@ export const MapProvider = ({ organization, t, navigate }) => {
           )}
           {!isMobile && organization.email && (
             <div className="map-provider__contact-item-container">
-              <Icon name="email" />
+              <Icon name="email" size="sm" color="#20809e" />
               <div className="map-provider__contact-item">
                 <p className="small-text">
                   <span className="map-provider__contact-label">
@@ -101,7 +101,7 @@ export const MapProvider = ({ organization, t, navigate }) => {
           )}
           {organization.address && (
             <div className="map-provider__contact-item-container">
-              <Icon name="location" />
+              <Icon name="location" size="sm" color="#20809e" />
               <div className="map-provider__contact-item">
                 <p className="small-text">
                   <span className="map-provider__contact-label">
