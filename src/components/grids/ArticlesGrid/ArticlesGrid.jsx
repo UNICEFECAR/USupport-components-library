@@ -72,7 +72,11 @@ export const ArticlesGrid = ({
                   }
                   size={gridSpan === 12 && !isNotDescktop ? "lg" : "sm"}
                   title={articleData.title}
-                  image={articleData.imageMedium || articleData.imageSmall}
+                  image={
+                    articleData.imageMedium ||
+                    articleData.imageSmall ||
+                    articleData.imageThumbnail
+                  }
                   description={articleData.description}
                   labels={articleData.labels}
                   creator={articleData.creator}
