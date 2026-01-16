@@ -13,7 +13,11 @@ function destructureArticleData(article) {
   const articleReadingTime = articleData.reading_time;
 
   const imageData = article.attributes.image?.data?.attributes;
-  const articleThumbnailImage = imageData?.formats?.thumbnail?.url;
+
+  let unformattedImage = imageData?.url || "";
+
+  const articleThumbnailImage =
+    imageData?.formats?.thumbnail?.url || unformattedImage;
   const articleImageMedium = imageData?.formats?.medium?.url;
   const articleImageSmall = imageData?.formats?.small?.url;
 
