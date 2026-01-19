@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import OutsideClickHandler from "react-outside-click-handler";
 
@@ -46,9 +46,57 @@ export const ProviderOverview = ({
   const currencySymbol = localStorage.getItem("currency_symbol");
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isTextOverflowing, setIsTextOverflowing] = useState(false);
+  const nameRef = useRef(null);
+  const [isSpecializationsOverflowing, setIsSpecializationsOverflowing] =
+    useState(false);
+  const specializationsRef = useRef(null);
   const displayName = patronym
     ? `${name} ${patronym} ${surname}`
     : `${name} ${surname}`;
+  const specializationsText = specializations?.join(", ") ?? "";
+
+  useEffect(() => {
+    const checkOverflow = () => {
+      if (nameRef.current) {
+        const element = nameRef.current;
+        const isOverflowing = element.scrollHeight > element.clientHeight;
+        setIsTextOverflowing(isOverflowing);
+      }
+    };
+
+    requestAnimationFrame(() => {
+      checkOverflow();
+    });
+
+    window.addEventListener("resize", checkOverflow);
+
+    return () => {
+      window.removeEventListener("resize", checkOverflow);
+    };
+  }, [displayName]);
+
+  useEffect(() => {
+    const checkOverflow = () => {
+      if (specializationsRef.current) {
+        const element = specializationsRef.current;
+        const isOverflowing = element.scrollHeight > element.clientHeight;
+        setIsSpecializationsOverflowing(isOverflowing);
+      } else {
+        setIsSpecializationsOverflowing(false);
+      }
+    };
+
+    requestAnimationFrame(() => {
+      checkOverflow();
+    });
+
+    window.addEventListener("resize", checkOverflow);
+
+    return () => {
+      window.removeEventListener("resize", checkOverflow);
+    };
+  }, [specializationsText]);
 
   const handleIconClick = () => {
     if (hasMenu) {
@@ -83,7 +131,13 @@ export const ProviderOverview = ({
       <div className="provider-overview__content">
         <div className="provider-overview__content__text-content">
           <div className="provider-overview__content__text-content__name-container">
-            <p className="text">{displayName}</p>
+            <p 
+              ref={nameRef}
+              className="text" 
+              title={isTextOverflowing ? displayName : undefined}
+            >
+              {displayName}
+            </p>
             <div
               className={[
                 "provider-overview__content__text-content__name-container__price-badge",
@@ -96,8 +150,12 @@ export const ProviderOverview = ({
               </p>
             </div>
           </div>
-          <p className="small-text provider-overview__types">
-            {specializations?.join(", ")}
+          <p
+            ref={specializationsRef}
+            className="small-text provider-overview__types"
+            title={isSpecializationsOverflowing ? specializationsText : undefined}
+          >
+            {specializationsText}
           </p>
           {earliestAvailableSlot && (
             <>
