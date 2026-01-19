@@ -89,6 +89,8 @@ export const Consultation = ({
   const today = new Date().getTime();
   const isFiveMinutesBefore = checkIsFiveMinutesBefore(timestamp);
 
+  const startsInLessThan24Hours = (startDate - today) < 24 * 60 * 60 * 1000;
+
   let buttonLabel, buttonAction;
   if (isFiveMinutesBefore) {
     buttonLabel = t("join");
@@ -336,6 +338,7 @@ export const Consultation = ({
             label={buttonLabel}
             size="sm"
             type="secondary"
+            disabled={startsInLessThan24Hours}
             color={renderIn === "provider" ? "purple" : "green"}
           />
         </div>
