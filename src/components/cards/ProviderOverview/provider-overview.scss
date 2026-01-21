@@ -10,6 +10,7 @@
   text-align: left;
   width: calc(34.3rem - 2 * $spacing_1_6);
   position: relative;
+  height: 100%;
 
   @media screen and (min-width: $screen_lg) {
     width: calc(36.8rem - 2 * $spacing_1_6);
@@ -47,6 +48,8 @@
           text-overflow: ellipsis;
           word-break: break-word;
           line-height: 1.4;
+          min-height: calc(1.4em * 2);
+          max-height: calc(1.4em * 2);
         }
 
         &__price-badge {
