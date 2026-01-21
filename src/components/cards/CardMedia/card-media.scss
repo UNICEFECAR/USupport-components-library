@@ -83,9 +83,22 @@
     flex-wrap: wrap;
     overflow: hidden;
     overflow-x: hidden;
+
+    @media screen and (min-width: $screen-md) {
+      min-height: 5.6rem;
+      max-height: 5.6rem;
+      overflow: hidden;
+    }
+
+    @media screen and (min-width: $screen-lg) {
+      min-height: 2.8rem;
+      max-height: 2.8rem;
+    }
   }
 
   &__label {
+    max-height: 50%;
+    
     margin-bottom: $spacing_0_8;
     overflow: hidden;
     padding: 0 $spacing_1_6;
