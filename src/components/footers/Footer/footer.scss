@@ -16,11 +16,15 @@
   }
 
   &__logo {
-    width: 17.6rem;
-    height: 4.8rem;
+    width: 20rem;
     padding-bottom: $spacing_3_2;
     cursor: pointer;
-    width: 17.6rem;
+    
+    @media screen and (min-width: $screen-sm){
+      width: 17.6rem;
+      height: 4.8rem;
+
+    }
   }
 
   &__icon {

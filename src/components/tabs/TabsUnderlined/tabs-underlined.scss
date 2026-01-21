@@ -10,7 +10,10 @@
     margin: 0 $spacing_0_8;
     border-bottom: 0.2rem solid transparent;
     cursor: pointer;
-    width: 20%;
+    
+    @media screen and (min-width: $screen-sm) {
+      width: 20%;
+    }
 
     &:first-child {
       margin-left: 0;
