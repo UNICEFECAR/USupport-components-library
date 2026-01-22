@@ -113,8 +113,8 @@ export const CardMedia = ({
         </div>
       )}
       <div className={"card-media__content"}>
-        {showLabels && labels?.length > 0 && (
-          <div className={"card-media__labels"}>{renderLabels()}</div>
+        {showLabels && (
+          <div className={"card-media__labels"}>{labels?.length > 0 && renderLabels()}</div>
         )}
         <div className="card-media__content__details">
           <div className="card-media__content__details__left">
