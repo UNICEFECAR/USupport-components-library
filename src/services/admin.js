@@ -556,7 +556,8 @@ async function getPlatformMetrics({
   endDate,
   sex,
   urbanRural,
-  yearOfBirth,
+  yearOfBirthFrom,
+  yearOfBirthTo,
 }) {
   const startDateTimestamp = JSON.stringify(
     new Date(new Date(startDate).setHours(0, 0, 0, 0)).getTime() / 1000
@@ -571,7 +572,8 @@ async function getPlatformMetrics({
   if (endDate) params.append("endDate", endDateTimestamp);
   if (sex) params.append("sex", sex);
   if (urbanRural) params.append("urbanRural", urbanRural);
-  if (yearOfBirth) params.append("yearOfBirth", yearOfBirth);
+  if (yearOfBirthFrom) params.append("yearOfBirthFrom", yearOfBirthFrom);
+  if (yearOfBirthTo) params.append("yearOfBirthTo", yearOfBirthTo);
 
   const response = await http.get(
     `${API_ENDPOINT}/platform-metrics?${params.toString()}`
