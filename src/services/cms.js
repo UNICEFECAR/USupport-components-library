@@ -584,14 +584,16 @@ async function addVideoShareCount(id) {
 async function getAllCategoriesStatistics({
   contentType,
   sex,
-  yearOfBirth,
+  yearOfBirthFrom,
+  yearOfBirthTo,  
   urbanRural,
   startDate,
   endDate,
 }) {
   let queryString = `?contentType=${contentType}`;
   if (sex) queryString += `&sex=${sex}`;
-  if (yearOfBirth) queryString += `&yearOfBirth=${yearOfBirth}`;
+  if (yearOfBirthFrom) queryString += `&yearOfBirthFrom=${yearOfBirthFrom}`;
+  if (yearOfBirthTo) queryString += `&yearOfBirthTo=${yearOfBirthTo}`;
   if (urbanRural) queryString += `&urbanRural=${urbanRural}`;
   if (startDate) queryString += `&startDate=${startDate}`;
   if (endDate) queryString += `&endDate=${endDate}`;
