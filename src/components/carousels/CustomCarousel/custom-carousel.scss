@@ -1,6 +1,20 @@
 @import "../../../styles/theme";
 
 .custom-carousel {
+  .react-multi-carousel-track {
+    .react-multi-carousel-item {
+      min-width: 34.8rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      @media screen and (max-width: $screen-sm) {
+        min-width: 100%;
+        width: 100%;
+      }
+    }
+  }
+
   .react-multi-carousel-dot-list {
     position: relative;
     padding-top: $spacing_3_2;
