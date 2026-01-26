@@ -1,0 +1,99 @@
+@import "../../../styles/theme";
+
+.wysa-button {
+  background-color: #B1D7DB;
+  border: none;
+  border-radius: $border_radius_4_0;
+  padding: $spacing_0_4 $spacing_2_4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing_0_6;
+  cursor: pointer;
+  box-shadow: $shadow_1;
+  min-width: 16.8rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  position: fixed;
+  bottom: calc(5vh + 6rem);
+  right: $spacing_1_6;
+  
+  @media screen and (max-width: 767px) {
+    min-width: unset;
+    width: 4.8rem;
+    height: 4.8rem;
+    padding: 0;
+    border-radius: 50%;
+  }
+
+  @media screen and (min-width: 768px) {
+    right: $spacing_3_2;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow_2;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &--mobile {
+    min-width: unset;
+    width: 4.8rem;
+    height: 4.8rem;
+    padding: 0;
+    border-radius: 50%;
+    justify-content: center;
+
+    .wysa-button__text {
+      display: none;
+    }
+  }
+
+  &__logo {
+    height: 3.4rem;
+    width: auto;
+    object-fit: contain;
+
+    .wysa-button--mobile & {
+      height: 3.4rem;
+      width: 3.4rem;
+    }
+
+    @media screen and (max-width: 767px) {
+      height: 3.4rem;
+      width: 3.4rem;
+    }
+  }
+
+  &__text {
+    font-weight: $font_semi_bold;
+    font-size: $font_size_1_2;
+    line-height: $line_height_2_2;
+    color: $color_black_00;
+    white-space: nowrap;
+
+    @media screen and (max-width: 767px) {
+      display: none;
+    }
+  }
+
+  &__badge {
+    position: absolute;
+    top: -$spacing_0_8;
+    right: -$spacing_0_8;
+    background-color: #FF69B4;
+    color: $color_white_ff;
+    border-radius: 50%;
+    width: $spacing_2_4;
+    height: $spacing_2_4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: $font_bold;
+    font-size: $font_size_1_2;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+}

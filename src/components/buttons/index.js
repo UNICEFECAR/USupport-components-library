@@ -5,3 +5,4 @@ export * from "./ButtonOnlyIcon";
 export * from "./CircleIconButton";
 export * from "./ButtonSelector";
 export * from './ActionButton';
+export * from './WysaButton';

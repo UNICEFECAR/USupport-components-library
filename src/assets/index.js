@@ -28,3 +28,4 @@ export { default as noImagePlaceholder } from "./no-image-placeholder.png";
 export { default as NunitoSans } from "./NunitoSans-Regular.ttf";
 export { default as NunitoSansSemiBold } from "./NunitoSans-SemiBold.ttf";
 export { default as NunitoSansBold } from "./NunitoSans-Bold.ttf";
+export { default as wysaLogo } from "./wysa-logo.avif";
