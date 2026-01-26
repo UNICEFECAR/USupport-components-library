@@ -193,7 +193,7 @@ export const Wysa = ({ isOpen, onClose }) => {
         aria-label="Wysa Widget"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="wysa-modal__header">
+        <div className="wysa-modal__header"/>
         <div className="wysa-modal__close-button">
             <Icon
               name="close-x"
@@ -201,7 +201,6 @@ export const Wysa = ({ isOpen, onClose }) => {
               onClick={handleClose}
               color={theme === "dark" ? "#c1d7e0" : undefined}
             />
-          </div>
           </div>
         <div className="wysa-modal__content">
           {isLoading && (

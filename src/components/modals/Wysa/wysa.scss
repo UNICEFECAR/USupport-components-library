@@ -64,13 +64,18 @@
     height: 5rem;
     z-index: $z_index_modal;
     padding-inline: $spacing_3_2;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
   }
 
   &__close-button {
     cursor: pointer;
+    position: absolute;
+    right: $spacing_1_6;
+    top: $spacing_1_4;
+    z-index: $z_index_modal;
+    
+    @media screen and (min-width: $screen-md) {
+      right: $spacing_3_2;  
+    }
   }
 
   &__overlay {
