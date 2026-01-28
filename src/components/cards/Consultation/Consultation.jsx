@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import OutsideClickHandler from "react-outside-click-handler";
-import { Box } from "../../boxes/Box";
+import { Card } from "../../boxes/Card";
 import { Avatar } from "../../avatars/Avatar";
 import { Icon } from "../../icons/Icon";
-import { Button } from "../../buttons/Button";
+import { NewButton, Button } from "../../buttons/Button";
 import {
   checkIsFiveMinutesBefore,
   getDateView,
@@ -178,9 +178,9 @@ export const Consultation = ({
   };
 
   return (
-    <Box
+    <Card
       onClick={onClick}
-      shadow={2}
+      borderColor={buttonAction === "join" ? "purple" : undefined}
       classes={[
         "consultation",
         buttonAction === "join" && "consultation--purple",
@@ -188,28 +188,18 @@ export const Consultation = ({
       ].join(" ")}
     >
       <div className="consultation__content">
-        <Avatar image={imageUrl} size="sm" />
+        <Avatar image={imageUrl} size="sm" isCircle={false} />
         <div className="consultation__content__text-container">
           <div className="consultation__content__text-container__name-container">
-            <p
-              className={[
-                "text",
-                buttonAction === "join" && "text--purple",
-              ].join(" ")}
-            >
+            <p className="text consultation__content__text-container__name-container__date-text">
+              {dateText}
+            </p>
+            <p className="text consultation__content__text-container__name-container__time-text">
+              {timeText}
+            </p>
+            <p className="text consultation__content__text-container__name">
               {name}
             </p>
-            <div className="consultation__content__text-container__date-container">
-              <Icon
-                name="calendar"
-                size="sm"
-                color={buttonAction === "join" ? "#9749fa" : "#66768D"}
-              />
-              <div className="consultation__content__text-container__date-container__text">
-                <p className="small-text">{dateText}</p>
-                <p className="small-text">{timeText}</p>
-              </div>
-            </div>
           </div>
         </div>
         {overview &&
@@ -226,8 +216,8 @@ export const Consultation = ({
                   "provider-consultation__icon-container__price-badge",
                   !price &&
                     "provider-consultation__icon-container__price-badge--free",
-                  buttonAction === "details" &&
-                    "provider-consultation__icon-container__price-badge--gray",
+                  // buttonAction === "details" &&
+                  //   "provider-consultation__icon-container__price-badge--gray",
                 ].join(" ")}
               >
                 {isBookedWithCoupon && sponsorImage ? (
@@ -274,10 +264,10 @@ export const Consultation = ({
           <p className="text consultation__button-container__now-text">
             {t("active")}
           </p>
-          <Button
+          <NewButton
             onClick={() => handleJoin()}
             label={buttonLabel}
-            color={"purple"}
+            type="solid"
             size="sm"
           />
         </div>
@@ -324,18 +314,19 @@ export const Consultation = ({
             className="consultation__button-container__edit__join"
             onClick={() => toast.info(t("join_button_label_tooltip"))}
           >
-            <Button
+            <NewButton
               label={t("join")}
               size="sm"
+              type="solid"
               color={renderIn === "provider" ? "purple" : "green"}
               disabled
             />
           </div>
-          <Button
+          <NewButton
             onClick={handleEdit}
             label={buttonLabel}
             size="sm"
-            type="secondary"
+            type="outline"
             color={renderIn === "provider" ? "purple" : "green"}
           />
         </div>
@@ -388,7 +379,7 @@ export const Consultation = ({
           </div>
         </OutsideClickHandler>
       )}
-    </Box>
+    </Card>
   );
 };
 

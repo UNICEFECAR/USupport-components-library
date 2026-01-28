@@ -19,6 +19,7 @@ body {
   line-height: $line_height_2_4;
   color: $color_gray_66768d;
   -webkit-tap-highlight-color: $color_transparent; /* Remove the tap highlight */
+  @include themify($themes, "color", "color_text_main");
   @include scrollbar-primary;
 
   @media screen and (min-width: $screen-lg) {
@@ -26,6 +27,11 @@ body {
     line-height: $line_height_2_8;
     letter-spacing: -0.02rem;
   }
+}
+
+// Disable body scroll when modal or backdrop is open
+.base-modal--open {
+  overflow: hidden;
 }
 
 .Toastify__toast {
@@ -51,7 +57,7 @@ h4 {
 }
 
 p {
-  @include themify($themes, "color", "color_66768d_c1d7e0");
+  @include themify($themes, "color", "color_text_main");
 }
 
 h1,
@@ -59,8 +65,8 @@ h2,
 h3,
 h4 {
   font-weight: $font_semi_bold;
-  color: $color_blue_3d527b;
-  @include themify($themes, "color", "color_66768d_c1d7e0");
+  color: #0e202f;
+  @include themify($themes, "color", "color_text_main");
 }
 
 h1 {
@@ -134,18 +140,28 @@ a {
 .theme-highContrast {
   // Text outline mixin for reusability
   @mixin text-outline($color: #000000, $width: 1px) {
-    text-shadow: -#{$width} -#{$width} 0 #{$color},
-      #{$width} -#{$width} 0 #{$color}, -#{$width} #{$width} 0 #{$color},
-      #{$width} #{$width} 0 #{$color}, 0 -#{$width} 0 #{$color},
-      0 #{$width} 0 #{$color}, -#{$width} 0 0 #{$color}, #{$width} 0 0 #{$color};
+    text-shadow:
+      -#{$width} -#{$width} 0 #{$color},
+      #{$width} -#{$width} 0 #{$color},
+      -#{$width} #{$width} 0 #{$color},
+      #{$width} #{$width} 0 #{$color},
+      0 -#{$width} 0 #{$color},
+      0 #{$width} 0 #{$color},
+      -#{$width} 0 0 #{$color},
+      #{$width} 0 0 #{$color};
   }
 
   // Stronger outline for headings
   @mixin text-outline-strong($color: #000000, $width: 2px) {
-    text-shadow: -#{$width} -#{$width} 0 #{$color},
-      #{$width} -#{$width} 0 #{$color}, -#{$width} #{$width} 0 #{$color},
-      #{$width} #{$width} 0 #{$color}, 0 -#{$width} 0 #{$color},
-      0 #{$width} 0 #{$color}, -#{$width} 0 0 #{$color}, #{$width} 0 0 #{$color},
+    text-shadow:
+      -#{$width} -#{$width} 0 #{$color},
+      #{$width} -#{$width} 0 #{$color},
+      -#{$width} #{$width} 0 #{$color},
+      #{$width} #{$width} 0 #{$color},
+      0 -#{$width} 0 #{$color},
+      0 #{$width} 0 #{$color},
+      -#{$width} 0 0 #{$color},
+      #{$width} 0 0 #{$color},
       // Additional shadow for stronger effect
       -#{$width * 0.5} -#{$width * 0.5} 0 #{$color},
       #{$width * 0.5} -#{$width * 0.5} 0 #{$color},

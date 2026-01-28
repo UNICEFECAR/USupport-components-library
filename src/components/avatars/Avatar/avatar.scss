@@ -1,8 +1,12 @@
 @import "../../../styles/theme";
 
 .avatar {
-  border-radius: $border_radius_4_8;
   object-fit: cover;
+  border-radius: $border_radius_0_8;
+
+  &--circle {
+    border-radius: $border_radius_4_8;
+  }
 
   &--xs {
     width: 2.6rem;

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import useWindowDimensions from "../../../utils/useWindowDimensions";
 import { Modal } from "../Modal";
 import { Icon } from "../../icons";
-import { Button } from "../../buttons";
+import { NewButton } from "../../buttons";
 import { Error } from "../../errors";
 import { Loading } from "../../loaders/";
 import { ThemeContext } from "../../../utils";
@@ -42,6 +42,12 @@ export const Backdrop = ({
   headingComponent = null,
   showAlwaysAsBackdrop = false,
   customButton,
+  thirdCtaLabel,
+  thirdCtaHandleClick,
+  isThirdCtaDisabled,
+  hasCloseIcon = true,
+  hasGoBackArrow = false,
+  handleGoBack = () => {},
 }) => {
   const { theme } = useContext(ThemeContext);
 
@@ -58,7 +64,7 @@ export const Backdrop = ({
   }, [isOpen]);
 
   const { width } = useWindowDimensions();
-  const hasButtons = ctaLabel || secondaryCtaLabel;
+  const hasButtons = ctaLabel || secondaryCtaLabel || thirdCtaLabel;
 
   const handleClose = () => {
     onClose();
@@ -75,20 +81,51 @@ export const Backdrop = ({
       <div
         className={[
           "backdrop",
+          `theme-${theme}`,
           isOpen ? "backdrop__shown" : "",
           theme !== "light" ? "backdrop--dark" : "",
           classNames(classes),
         ].join(" ")}
       >
-        <div className="backdrop__header">
-          {headingComponent}
-          {heading && <h4 className="backdrop__header-text">{heading}</h4>}
-          <Icon
-            size="md"
-            name="close-x"
-            color="#20809E"
-            onClick={handleClose}
-          />
+        <div
+          className={[
+            "backdrop__header",
+            !hasGoBackArrow && !hasCloseIcon && "backdrop__header--no-close",
+          ].join(" ")}
+        >
+          {(hasGoBackArrow || hasCloseIcon) && (
+            <div className="backdrop__header__left-container">
+              {hasGoBackArrow && (
+                <Icon
+                  name="arrow-chevron-back"
+                  size="md"
+                  onClick={handleGoBack}
+                />
+              )}
+            </div>
+          )}
+          {headingComponent || (
+            <h4
+              className={[
+                "backdrop__header__text",
+                theme === "dark" && "backdrop__header__text--dark",
+              ].join(" ")}
+            >
+              {heading}
+            </h4>
+          )}
+          {(hasGoBackArrow || hasCloseIcon) && (
+            <div className="backdrop__header__icon-container">
+              {hasCloseIcon && (
+                <Icon
+                  name="close-x"
+                  size="md"
+                  onClick={handleClose}
+                  color={theme === "dark" ? "#c1d7e0" : "#20809E"}
+                />
+              )}
+            </div>
+          )}
         </div>
 
         {text && <p className="text backdrop__text">{text}</p>}
@@ -104,36 +141,43 @@ export const Backdrop = ({
         </div>
 
         {hasButtons && (
-          <div className="backdrop__buttons-container">
-            {errorMessage ? <Error message={errorMessage} /> : null}
-            {customButton}
-            {ctaLabel &&
-              (isCtaDisabled && showLoadingIfDisabled ? (
-                <Loading padding="2rem" size="md" />
-              ) : (
-                <Button
-                  label={ctaLabel}
-                  disabled={isCtaDisabled}
-                  loading={isCtaLoading}
-                  onClick={ctaHandleClick}
-                  color={ctaColor}
-                  size="lg"
-                />
-              ))}
-            {secondaryCtaLabel &&
-              (isSecondaryCtaDisabled && showLoadingIfDisabled ? (
-                <Loading padding="2rem" size="md" />
-              ) : (
-                <Button
-                  label={secondaryCtaLabel}
-                  onClick={secondaryCtaHandleClick}
-                  loading={isSecondaryCtaLoading}
-                  disabled={isSecondaryCtaDisabled}
-                  size="lg"
-                  type={secondaryCtaType}
-                  color={secondaryCtaColor}
-                />
-              ))}
+          <div className="backdrop__footer-wrapper">
+            <div className="base-modal__footer">
+              {errorMessage ? <Error message={errorMessage} /> : null}
+              {customButton}
+              {ctaLabel &&
+                (isCtaDisabled && showLoadingIfDisabled ? (
+                  <Loading padding="2rem" size="md" />
+                ) : (
+                  <NewButton
+                    label={ctaLabel}
+                    disabled={isCtaDisabled}
+                    onClick={ctaHandleClick}
+                    loading={isCtaLoading}
+                  />
+                ))}
+              {secondaryCtaLabel &&
+                (isSecondaryCtaDisabled && showLoadingIfDisabled ? (
+                  <Loading padding="2rem" size="md" />
+                ) : (
+                  <NewButton
+                    label={secondaryCtaLabel}
+                    onClick={secondaryCtaHandleClick}
+                    disabled={isSecondaryCtaDisabled}
+                    loading={isSecondaryCtaLoading}
+                    type="outline"
+                  />
+                ))}
+            </div>
+            {thirdCtaLabel && (
+              <NewButton
+                label={thirdCtaLabel}
+                onClick={thirdCtaHandleClick}
+                classes="base-modal__footer__third-cta"
+                type="text"
+                disabled={isThirdCtaDisabled}
+              />
+            )}
           </div>
         )}
       </div>
@@ -162,6 +206,12 @@ export const Backdrop = ({
         showLoadingIfDisabled,
         headingComponent,
         customButton,
+        thirdCtaLabel,
+        thirdCtaHandleClick,
+        thirdCtaDisabled: isThirdCtaDisabled,
+        hasCloseIcon,
+        hasGoBackArrow,
+        handleGoBack,
       }}
     >
       {children}
@@ -250,4 +300,19 @@ Backdrop.propTypes = {
    * Children to be rendered in the backdrop/modal
    */
   children: PropTypes.node,
+
+  /**
+   * Whether to show the close icon
+   */
+  hasCloseIcon: PropTypes.bool,
+
+  /**
+   * Whether to show the go back arrow
+   */
+  hasGoBackArrow: PropTypes.bool,
+
+  /**
+   * Function to be called when the go back arrow is clicked
+   */
+  handleGoBack: PropTypes.func,
 };

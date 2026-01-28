@@ -26,6 +26,7 @@ export { default as mascotHappyPurpleFull } from "./mascot-happy-purple-full.png
 export { default as articlePlaceholder } from "./article-placeholder.png";
 export { default as noImagePlaceholder } from "./no-image-placeholder.png";
 export { default as NunitoSans } from "./NunitoSans-Regular.ttf";
+export { default as NunitoSansMedium } from "./NunitoSans-Medium.ttf";
 export { default as NunitoSansSemiBold } from "./NunitoSans-SemiBold.ttf";
 export { default as NunitoSansBold } from "./NunitoSans-Bold.ttf";
 export { default as wysaLogo } from "./wysa-logo.avif";

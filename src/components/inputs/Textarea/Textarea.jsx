@@ -22,6 +22,7 @@ export const Textarea = ({
   errorMessage,
   placeholder,
   size,
+  disabled,
   ...props
 }) => {
   const { theme } = useContext(ThemeContext);
@@ -31,21 +32,41 @@ export const Textarea = ({
       className={[
         "textarea--container",
         `textarea--container--${size}`,
+        disabled && "disabled",
         classNames(classes),
       ].join(" ")}
     >
-      {label ? <p className="text label">{label}</p> : null}
-      <textarea
-        placeholder={placeholder}
+      {label ? (
+        <p
+          className={[
+            "text label",
+            theme === "dark" ? "label--dark" : "",
+            theme === "highContrast" ? "label--hc" : "",
+          ].join(" ")}
+        >
+          {label}
+        </p>
+      ) : null}
+      <div
         className={[
-          "textarea text",
-          theme !== "light" && "textarea--dark",
+          "textarea-wrapper",
+          theme !== "light" && "textarea-wrapper--dark",
+          errorMessage ? "error" : "",
         ].join(" ")}
-        value={value}
-        onChange={(e) => onChange(e.currentTarget.value)}
-        {...props}
-      />
-      {errorMessage ? <Error message={errorMessage} /> : null}
+      >
+        <textarea
+          placeholder={placeholder}
+          className={[
+            "textarea text",
+            theme !== "light" && "textarea--dark",
+          ].join(" ")}
+          value={value}
+          disabled={disabled}
+          onChange={(e) => onChange(e.currentTarget.value)}
+          {...props}
+        />
+      </div>
+      {errorMessage && !disabled ? <Error message={errorMessage} /> : null}
     </div>
   );
 };
@@ -85,6 +106,12 @@ Textarea.propTypes = {
   size: PropTypes.oneOf(["sm", "md"]),
 
   /**
+   * Textarea disabled
+   *
+   **/
+  disabled: PropTypes.bool,
+
+  /**
    * Additional props to be passed to the input
    * */
   props: PropTypes.object,
@@ -92,4 +119,5 @@ Textarea.propTypes = {
 
 Textarea.defaultProps = {
   size: "md",
+  disabled: false,
 };

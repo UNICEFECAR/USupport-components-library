@@ -1,8 +1,22 @@
 @import "../../../styles/theme";
 
+.dropdown-container {
+  // width: 34.3rem;
+  text-align: left;
+  position: relative;
+
+  @media screen and (min-width: $screen-lg) {
+    // width: 36.8rem;
+  }
+
+  &.disabled {
+    opacity: 0.6;
+  }
+}
+
 .dropdown {
-  width: 34.3rem;
-  border-radius: $border_radius_2_4;
+  width: 100%;
+  border-radius: $border_radius_1_2;
   cursor: pointer;
   position: relative;
   z-index: $z_index_1;
@@ -17,13 +31,9 @@
     margin: 0;
   }
 
-  @media screen and (min-width: $screen-lg) {
-    width: 36.8rem;
-  }
-
   &--small {
     width: max-content;
-    max-width: 34.3rem;
+    max-width: 100%;
     display: flex;
 
     @media screen and (min-width: $screen-lg) {
@@ -32,28 +42,28 @@
     }
   }
 
-  .heading {
-    padding: $spacing_1_0 $spacing_1_6;
+  .dropdown-wrapper {
+    padding: $spacing_1_2 $spacing_1_6;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    border: 0.1rem solid transparent;
-    border-radius: $border_radius_2_4;
+    border-radius: $border_radius_1_2;
+    box-shadow: $shadow_1;
+    border: 0.1rem solid #cdd8e1;
+    background-color: $color_white_ff;
     @include themify($themes, "background-color", "color_card");
 
     &--dark {
       background-color: $color_black_31;
     }
 
-    &-error {
-      border: 0.1rem solid $color_red_eb5757;
-    }
+    .dropdown-text {
+      @include themify($themes, "color", "color_input_text");
 
-    &:hover,
-    &:focus {
-      border: 0.1rem solid $color_secondary_9749fa;
-      outline: $color_secondary_9749fa;
+      &--dark {
+        color: $color_white_ff;
+      }
     }
 
     .icon--arrow-chevron-down {
@@ -74,22 +84,34 @@
       text-overflow: ellipsis;
       max-width: 25rem;
     }
+
+    &:hover:not(&.error):not(.dropdown--disabled &),
+    &:focus-within:not(&.error):not(.dropdown--disabled &) {
+      outline: none;
+      border: 0.1rem solid $color_secondary_9749fa;
+    }
+
+    &.error {
+      border: 0.1rem solid $color_red_eb5757;
+    }
   }
 
   &-content {
     margin-right: $spacing_1_6;
     position: absolute;
-    width: 32.7rem;
+    // width: 32.7rem;
+    width: 100%;
     background-color: $color_white_ff;
     box-shadow: $shadow_1;
-    border-radius: $border_radius_2_4;
+    border-radius: $border_radius_1_2;
 
     &--dark {
       background-color: $color_black_31;
     }
 
     @media screen and (min-width: $screen-lg) {
-      width: 35.2rem;
+      // width: 35.2rem;
+      width: 100%;
     }
 
     &--small {
@@ -142,8 +164,8 @@
   &--expanded {
     z-index: 12;
 
-    .heading {
-      border: 0.1rem solid $color-secondary-9749fa;
+    .dropdown-wrapper {
+      border: 0.1rem solid $color_secondary_9749fa;
 
       .icon--arrow-chevron-down {
         transform: rotate(180deg);
@@ -174,8 +196,8 @@
 
   &--disabled {
     cursor: unset;
-    .heading,
-    .heading:hover {
+    .dropdown-wrapper,
+    .dropdown-wrapper:hover {
       border: 0.1rem solid $color_gray_a6b4b8;
     }
   }

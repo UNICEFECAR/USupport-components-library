@@ -23,17 +23,18 @@ export const DropdownWithLabel = ({
 
   return (
     <div className={["dropdown-with-label", classNames(classes)].join(" ")}>
-      <p
-        className={[
-          "text",
-          "dropdown-with-label__label",
-          theme === "dark" && "dropdown-with-label__label--dark",
-          theme === "highContrast" && "dropdown-with-label__label--hc",
-          classNames(labelClasses),
-        ].join(" ")}
-      >
-        {label}
-      </p>
+      {label ? (
+        <p
+          className={[
+            "text label",
+            theme === "dark" ? "label--dark" : "",
+            theme === "highContrast" ? "label--hc" : "",
+            classNames(labelClasses),
+          ].join(" ")}
+        >
+          {label}
+        </p>
+      ) : null}
       <Dropdown {...props} />
     </div>
   );

@@ -46,22 +46,39 @@
   }
 
   &__header {
-    align-items: center;
     display: flex;
+    align-items: center;
     justify-content: space-between;
     width: 100%;
-    padding-left: $spacing_1_2;
 
-    &-text {
-      font-weight: $font_semi_bold;
-      text-align: center;
-      width: 95%;
-      word-break: break-word;
-      text-align: left;
+    &--no-close {
+      justify-content: center;
     }
 
-    & > .icon {
-      margin-right: $spacing_1_6;
+    &__text {
+      font-weight: $font_semi_bold;
+      word-break: break-word;
+
+      &--dark {
+        color: $color_blue_c1d7e0;
+      }
+    }
+
+    &__icon-container {
+      cursor: pointer;
+      width: 2.4rem;
+      height: 2.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    &__left-container {
+      width: 2.4rem;
+      height: 2.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
     }
   }
 
@@ -71,7 +88,7 @@
   }
 
   &__children {
-    flex: 0.75;
+    flex: 0.87;
     padding-top: $spacing_0_8;
     overflow-y: auto;
 
@@ -88,7 +105,7 @@
     align-items: center;
     display: flex;
     flex-direction: column;
-    flex: 0.25;
+    flex: 0.15;
     justify-content: flex-end;
     padding-bottom: $spacing_2_4;
 
@@ -104,4 +121,56 @@
       margin-bottom: $spacing_1_6;
     }
   }
+
+  &__footer-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 0.13;
+    justify-content: flex-end;
+  }
+}
+
+// Footer styles for backdrop - positioned at bottom
+.backdrop .base-modal__footer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0;
+  padding-inline: $spacing_1_6;
+  padding-bottom: $spacing_2_4;
+  width: calc(100% - 2 * $spacing_1_6);
+  gap: $spacing_2_0;
+
+  // Error message takes full width and appears above buttons
+  & > .error-message {
+    margin: 0;
+    margin-bottom: $spacing_1_6;
+    text-align: center;
+    flex: 1 1 100%;
+    order: -1;
+    min-width: 100%;
+  }
+
+  // All buttons stay on one row and take equal width
+  // Using flex: 1 ensures equal distribution
+  & > button,
+  & > .button {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  & > .button {
+    &--lg {
+      @media screen and (min-width: $screen-lg) {
+        min-width: auto;
+      }
+    }
+  }
+}
+
+.backdrop .base-modal__footer__third-cta {
+  margin-top: $spacing_1_6;
+  margin-inline: auto;
+  padding-inline: $spacing_1_6;
 }

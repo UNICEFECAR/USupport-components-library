@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
-import PropTypes from "prop-types";
 import OutsideClickHandler from "react-outside-click-handler";
 
 import { Icon, IconFlag } from "../../icons";
@@ -51,6 +50,8 @@ const globalCountry = {
  */
 export const Navbar = ({
   pages,
+  mobilePages,
+  menuPages,
   languageLabel,
   countryLabel,
   buttonText,
@@ -78,6 +79,9 @@ export const Navbar = ({
   setIsPodcastsActive,
   setIsVideosActive,
   t,
+  clientName,
+  handleLogout,
+  openRegistrationModal,
 }) => {
   const { theme, setTheme } = useContext(ThemeContext);
 
@@ -94,10 +98,12 @@ export const Navbar = ({
   const [isNavbarExpanded, setIsNavbarExpanded] = useState(false);
   const [languagesShown, setLanguagesShown] = useState(false);
   const [countriesShown, setCountriesShown] = useState(false);
+  const [profileDropdownShown, setProfileDropdownShown] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [dropdownPosition, setDropdownPosition] = useState({ left: 0, top: 0 });
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [isDropdownAnimating, setIsDropdownAnimating] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const [selectedLanguage, setSelectedLanguage] = useState(
     initialLanguage || englishLanguage
@@ -147,6 +153,25 @@ export const Navbar = ({
       }
     }
   }, [countries, languages, selectedLanguage]);
+
+  // Handle scroll detection for shadow
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition =
+        window.scrollY || document.documentElement.scrollTop;
+      setIsScrolled(scrollPosition > 0);
+    };
+
+    // Check initial scroll position
+    handleScroll();
+
+    // Add scroll event listener
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   // Cleanup timeouts on unmount
   useEffect(() => {
@@ -280,7 +305,7 @@ export const Navbar = ({
     scrollTop();
   };
 
-  const themeButton = () => {
+  const themeButton = (showToggle = false) => {
     const toggleTheme = () => {
       if (theme === "light") {
         setTheme("dark");
@@ -293,12 +318,12 @@ export const Navbar = ({
       <div
         className={`nav__theme-button ${
           IS_RTL ? "nav__theme-button--rtl" : ""
-        }`}
+        } ${showToggle ? "nav__theme-button--with-toggle" : ""}`}
         role="button"
         aria-label={t("high_contrast")}
         tabIndex="0"
         onClick={() => {
-          if (width >= 1050) {
+          if (width >= 1050 || showToggle) {
             toggleTheme();
           }
         }}
@@ -319,7 +344,7 @@ export const Navbar = ({
         />
         <p
           className={[
-            "paragraph",
+            "",
             theme === "light" ? "" : "nav__theme-button__yellow-text",
           ].join(" ")}
         >
@@ -344,12 +369,186 @@ export const Navbar = ({
     );
   };
 
+  const handleProfileClick = () => {
+    if (width >= 1050 && showProfile) {
+      // On desktop, toggle dropdown instead of navigating
+      setProfileDropdownShown(!profileDropdownShown);
+      setLanguagesShown(false);
+      setCountriesShown(false);
+      closePageDropdown();
+    } else {
+      // On mobile, navigate to profile
+      const url = `/${renderIn}/${localStorage.getItem("language")}/profile`;
+      if (isInConsultation) {
+        window.open(url, "_blank");
+      } else {
+        navigate(`/${renderIn}/${localStorage.getItem("language")}/profile`);
+      }
+    }
+  };
+
+  const isInProfile =
+    pathname.includes("profile") || pathname.includes("details");
+
   let items = [];
-  pages.forEach((page, index) => {
-    if (page.isDropdown) {
-      // Handle dropdown pages
-      if (width >= 1050) {
-        // Desktop: Show as dropdown
+  let hasGroupWithControls = false;
+  let hasGroupWithAccessibilityController = false;
+
+  if (width < 1050 && (mobilePages || menuPages)) {
+    // Add profile container at the top of mobile menu
+    if (showProfile) {
+      items.push({
+        value: (
+          <div className="nav__profile--mobile-in-list">
+            <div className="nav__profile nav__profile--mobile-layout">
+              {showProfilePicture && (
+                <img
+                  src={imageURL}
+                  alt="profile-image"
+                  className="nav__profile__image nav__profile__image--no-pointer"
+                />
+              )}
+              <div className="nav__profile__info">
+                <p className="nav__profile__name">{clientName || "Guest"}</p>
+                <p className="nav__profile__edit" onClick={handleProfileClick}>
+                  {t("edit_profile")}
+                </p>
+              </div>
+              <Icon classes="nav__profile__logout-icon" name="exit" size="md" />
+            </div>
+          </div>
+        ),
+      });
+    }
+
+    // Mobile: Use mobilePages/menuPages with groups
+    (mobilePages || menuPages).forEach((group) => {
+      // Add group name if it exists
+      if (group.name) {
+        items.push({
+          value: (
+            <div className="nav__group-name" role="heading">
+              <p className="">{group.name}</p>
+            </div>
+          ),
+        });
+      }
+
+      // Add pages in the group
+      group.pages?.forEach((page) => {
+        const url = `${
+          renderIn === "website" ? "" : `/${renderIn}`
+        }/${localStorage.getItem("language")}${page.url}`;
+
+        items.push({
+          value:
+            isTmpUser && page.url === "/consultations" ? (
+              <div
+                onClick={isTmpUserAction}
+                className="nav__item"
+                role="button"
+              >
+                <div className="nav__item__content">
+                  {page.icon && (
+                    <Icon
+                      name={page.icon}
+                      size="md"
+                      classes="nav__item__icon"
+                      color={theme === "light" ? "#20809e" : "#ffffff"}
+                    />
+                  )}
+                  <p>{page.name}</p>
+                </div>
+              </div>
+            ) : (
+              <NavLink
+                target={isInConsultation ? "_blank" : "_self"}
+                to={url}
+                className={({ isActive }) =>
+                  "nav__item" + (isActive ? " nav__item--current" : "")
+                }
+                onClick={() => handleNavbarLinkClick(page)}
+                end={page.exact ? page.exact : false}
+                role="button"
+              >
+                <div className="nav__item__content">
+                  {page.icon && (
+                    <Icon
+                      name={page.icon}
+                      size="md"
+                      classes="nav__item__icon"
+                      color={theme === "light" ? "#20809e" : "#ffffff"}
+                    />
+                  )}
+                  <p>{page.name}</p>
+                </div>
+              </NavLink>
+            ),
+          onClick: scrollTop,
+        });
+      });
+
+      // Add controls within the group if props are set
+      if (group.hasLanguageSelector) {
+        hasGroupWithControls = true;
+        items.push({
+          value: (
+            <div
+              className={[
+                "nav__globe",
+                "nav__item",
+                languagesShown ? "nav__globe--expanded" : "",
+                "nav__languages--mobile",
+              ].join(" ")}
+              role="button"
+              tabIndex="0"
+              onClick={() => {
+                toggleLanguages();
+              }}
+            >
+              <Icon
+                classes="nav__profile__language-icon"
+                name="globe"
+                size="md"
+              />
+              <Icon
+                name="arrow-chevron-down"
+                size="sm"
+                color={theme === "highContrast" ? "#ffff00" : "#20809e"}
+              />
+            </div>
+          ),
+        });
+      }
+
+      if (group.hasDarkModeSeletor && hasThemeButton) {
+        hasGroupWithControls = true;
+        items.push({
+          value: themeButton(),
+        });
+      }
+
+      if (group.hasAccessibilityController) {
+        hasGroupWithControls = true;
+        hasGroupWithAccessibilityController = true;
+        const shouldRender = renderIn === "client" || renderIn === "website";
+        if (shouldRender) {
+          items.push({
+            value: (
+              <AccessibilityController
+                classes={`nav__accessibility-controller ${
+                  IS_RTL ? "nav__accessibility-controller--rtl" : ""
+                } nav__accessibility-controller--mobile`}
+                t={t}
+              />
+            ),
+          });
+        }
+      }
+    });
+  } else {
+    pages.forEach((page, index) => {
+      if (page.isDropdown) {
         const isActive = page.dropdownItems?.some((item) =>
           pathname.includes(
             item.url.replace("?tab=articles", "").replace("?", "")
@@ -370,7 +569,7 @@ export const Navbar = ({
               onMouseLeave={handleDropdownLeave}
               onClick={() => handleDropdownClick(index)}
             >
-              <p className="paragraph">{page.name}</p>
+              <p>{page.name}</p>
               <Icon
                 name="arrow-chevron-down"
                 size="sm"
@@ -381,113 +580,82 @@ export const Navbar = ({
           onClick: scrollTop,
         });
       } else {
-        // Mobile/Tablet: Show dropdown items as regular pages
-        page.dropdownItems?.forEach((dropdownItem) => {
-          const url = `${
-            renderIn === "website" ? "" : `/${renderIn}`
-          }/${localStorage.getItem("language")}${dropdownItem.url}`;
+        // Handle regular pages
+        const url = `${
+          renderIn === "website" ? "" : `/${renderIn}`
+        }/${localStorage.getItem("language")}${page.url}`;
 
-          items.push({
-            value: (
+        items.push({
+          value:
+            isTmpUser && page.url === "/consultations" ? (
+              <div
+                onClick={isTmpUserAction}
+                className="nav__item"
+                role="button"
+              >
+                <p>{page.name}</p>
+              </div>
+            ) : (
               <NavLink
                 target={isInConsultation ? "_blank" : "_self"}
                 to={url}
                 className={({ isActive }) =>
                   "nav__item" + (isActive ? " nav__item--current" : "")
                 }
-                onClick={() => handleNavbarLinkClick(dropdownItem)}
+                onClick={() => handleNavbarLinkClick(page)}
+                end={page.exact ? page.exact : false}
                 role="button"
               >
                 <div className="nav__item__content">
                   <Icon
-                    name={dropdownItem.icon}
+                    name={page.icon}
                     size="md"
                     classes="nav__item__icon"
-                    color={theme === "light" ? "#20809e" : "#ffffff"}
+                    color={theme === "light" ? "#6989A4" : "#ffffff"}
                   />
-                  <p className="paragraph">{dropdownItem.name}</p>
+                  <p>{page.name}</p>
                 </div>
-                <Icon
+                {/* <Icon
                   name={IS_RTL ? "arrow-chevron-back" : "arrow-chevron-forward"}
                   size="sm"
                   classes="nav__item__icon"
                   color={theme === "highContrast" ? "#ffff00" : "#20809e"}
-                />
+                /> */}
               </NavLink>
             ),
-            onClick: scrollTop,
-          });
+          onClick: scrollTop,
         });
       }
-    } else {
-      // Handle regular pages
-      const url = `${
-        renderIn === "website" ? "" : `/${renderIn}`
-      }/${localStorage.getItem("language")}${page.url}`;
+    });
+  }
 
-      items.push({
-        value:
-          isTmpUser && page.url === "/consultations" ? (
-            <div onClick={isTmpUserAction} className="nav__item" role="button">
-              <p className="paragraph">{page.name}</p>
-            </div>
-          ) : (
-            <NavLink
-              target={isInConsultation ? "_blank" : "_self"}
-              to={url}
-              className={({ isActive }) =>
-                "nav__item" + (isActive ? " nav__item--current" : "")
-              }
-              onClick={() => handleNavbarLinkClick(page)}
-              end={page.exact ? page.exact : false}
-              role="button"
-            >
-              <div className="nav__item__content">
-                <Icon
-                  name={page.icon}
-                  size="md"
-                  classes="nav__item__icon"
-                  color={theme === "light" ? "#20809e" : "#ffffff"}
-                />
-                <p className="paragraph">{page.name}</p>
-              </div>
-              <Icon
-                name={IS_RTL ? "arrow-chevron-back" : "arrow-chevron-forward"}
-                size="sm"
-                classes="nav__item__icon"
-                color={theme === "highContrast" ? "#ffff00" : "#20809e"}
-              />
-            </NavLink>
-          ),
-        onClick: scrollTop,
-      });
-    }
-  });
-
-  items.push({
-    value: (
-      <div
-        className={[
-          "nav__globe",
-          "nav__item",
-          languagesShown ? "nav__globe--expanded" : "",
-          width < 1050 ? "nav__languages--mobile" : "",
-        ].join(" ")}
-        role="button"
-        tabIndex="0"
-        onClick={() => {
-          toggleLanguages();
-        }}
-      >
-        <p className="nav__current-language">{selectedLanguage.value}</p>
-        <Icon
-          name="arrow-chevron-down"
-          size="sm"
-          color={theme === "highContrast" ? "#ffff00" : "#20809e"}
-        />
-      </div>
-    ),
-  });
+  // Only add standalone language selector if not already in a group
+  if (width < 1050 && !hasGroupWithControls) {
+    items.push({
+      value: (
+        <div
+          className={[
+            "nav__globe",
+            "nav__item",
+            languagesShown ? "nav__globe--expanded" : "",
+            "nav__languages--mobile",
+          ].join(" ")}
+          role="button"
+          tabIndex="0"
+          onClick={() => {
+            toggleLanguages();
+          }}
+        >
+          <Icon classes="nav__profile__language-icon" name="globe" size="md" />
+          <Icon
+            name="arrow-chevron-down"
+            size="sm"
+            color={theme === "highContrast" ? "#ffff00" : "#20809e"}
+          />
+        </div>
+      ),
+    });
+  }
 
   if (showCountries) {
     items.push({
@@ -507,7 +675,7 @@ export const Navbar = ({
           {selectedCountry.iconName && (
             <IconFlag flagName={selectedCountry.iconName} />
           )}
-          {width < 1050 && <p className="paragraph">{"Country"}</p>}
+          {width < 1050 && <p>{"Country"}</p>}
           <Icon
             name="arrow-chevron-down"
             size="sm"
@@ -518,7 +686,8 @@ export const Navbar = ({
     });
   }
 
-  if (hasThemeButton) {
+  // Theme button - only add to items array for mobile if not already in a group
+  if (hasThemeButton && width < 1050 && !hasGroupWithControls) {
     items.push({
       value: themeButton(),
     });
@@ -581,15 +750,6 @@ export const Navbar = ({
     replaceLanguageInUrl(language.value);
   };
 
-  const handleProfileClick = () => {
-    const url = `/${renderIn}/${localStorage.getItem("language")}/profile`;
-    if (isInConsultation) {
-      window.open(url, "_blank");
-    } else {
-      navigate(`/${renderIn}/${localStorage.getItem("language")}/profile`);
-    }
-  };
-
   const toggleLanguages = () => {
     if (!languagesShown) {
       setLanguagesShown(true);
@@ -619,6 +779,12 @@ export const Navbar = ({
     if (width < 1050 && showProfile) return notificationIcon;
   };
 
+  const renderWelcomeText = () => {
+    if (width >= 1050) return null;
+
+    return <p className="nav__welcome-text">Welcome back</p>;
+  };
+
   const renderProfileContainerMobile = () => {
     if (width < 1050 && showProfile) {
       return (
@@ -636,8 +802,69 @@ export const Navbar = ({
 
   const renderProfileContainerDesktop = () => {
     if (width >= 1050 && showProfile) {
-      return profileContainer;
+      return (
+        <div className="nav__profile-wrapper">
+          {profileContainer}
+          <div
+            className={[
+              "nav__globe",
+              "nav__item",
+              languagesShown ? "nav__globe--expanded" : "",
+            ].join(" ")}
+            role="button"
+            tabIndex="0"
+            onClick={() => {
+              toggleLanguages();
+            }}
+          >
+            <Icon
+              classes="nav__profile__language-icon"
+              name="globe"
+              size="md"
+            />
+            <Icon
+              name="arrow-chevron-down"
+              size="sm"
+              color={theme === "highContrast" ? "#ffff00" : "#20809e"}
+            />
+          </div>
+        </div>
+      );
     }
+  };
+
+  const renderLanguageSelectorDesktop = () => {
+    // Only render if profile is not shown (language selector is included in profile wrapper when profile is shown)
+    if (width >= 1050 && !showProfile) {
+      return (
+        <div className="nav__profile-wrapper">
+          <div
+            className={[
+              "nav__globe",
+              "nav__item",
+              languagesShown ? "nav__globe--expanded" : "",
+            ].join(" ")}
+            role="button"
+            tabIndex="0"
+            onClick={() => {
+              toggleLanguages();
+            }}
+          >
+            <Icon
+              classes="nav__profile__language-icon"
+              name="globe"
+              size="md"
+            />
+            <Icon
+              name="arrow-chevron-down"
+              size="sm"
+              color={theme === "highContrast" ? "#ffff00" : "#20809e"}
+            />
+          </div>
+        </div>
+      );
+    }
+    return null;
   };
 
   const ctaLogin = buttonText ? (
@@ -681,7 +908,7 @@ export const Navbar = ({
 
   const isInNotifications = pathname.includes("notifications");
   const notificationIcon = (
-    <div>
+    <div className="nav__profile__notification-wrapper">
       <Icon
         classes="nav__profile__notification-icon"
         name={`notifications${hasUnreadNotifications ? "-unread" : ""}${
@@ -693,8 +920,6 @@ export const Navbar = ({
     </div>
   );
 
-  const isInProfile =
-    pathname.includes("profile") || pathname.includes("details");
   const profileContainer = (
     <div className="nav__profile">
       {width >= 1050 && showNotifications && notificationIcon}
@@ -709,9 +934,7 @@ export const Navbar = ({
       {(renderIn === "global-admin" || renderIn === "country-admin") && (
         <p
           onClick={handleProfileClick}
-          className={`paragraph ${
-            isInProfile ? "nav__profile__text-active" : ""
-          }`}
+          className={` ${isInProfile ? "nav__profile__text-active" : ""}`}
         >
           {yourProfileText}
         </p>
@@ -760,7 +983,7 @@ export const Navbar = ({
             >
               {type === "countries" && <IconFlag flagName={option.iconName} />}
               <p
-                className={`paragraph nav__dropdown-content__lang-label ${
+                className={` nav__dropdown-content__lang-label ${
                   isSelected
                     ? "nav__dropdown-content__lang-label--selected"
                     : ""
@@ -801,7 +1024,7 @@ export const Navbar = ({
                 isActive ? "nav__page-dropdown-item--active" : "",
               ].join(" ")}
             >
-              <p className="paragraph">{item.name}</p>
+              <p>{item.name}</p>
             </div>
           );
         })}
@@ -824,6 +1047,174 @@ export const Navbar = ({
     }
   };
 
+  // Filter menuPages to exclude pages already in main navigation
+  const getFilteredMenuPages = () => {
+    if (!menuPages || !pages) return [];
+
+    const mainPageUrls = pages
+      .map((page) => {
+        // Handle dropdown pages
+        if (page.isDropdown && page.dropdownItems) {
+          return page.dropdownItems.map((item) => item.url);
+        }
+        return page.url;
+      })
+      .flat();
+
+    return menuPages
+      .map((group) => {
+        // Filter out pages that are already in main navigation
+        const filteredPages = group.pages?.filter((page) => {
+          const pageUrl = page.url.split("?")[0]; // Remove query params for comparison
+          return !mainPageUrls.some((mainUrl) => {
+            const mainUrlClean = mainUrl.split("?")[0];
+            return pageUrl === mainUrlClean;
+          });
+        });
+
+        return {
+          ...group,
+          pages: filteredPages,
+        };
+      })
+      .filter((group) => {
+        // Include groups that have pages or theme selector (for desktop dropdown)
+        // Only include theme selector group if hasDarkModeSeletor is explicitly true
+        return (
+          (group.pages && group.pages.length > 0) ||
+          (group.hasDarkModeSeletor === true && hasThemeButton && width >= 1050)
+        );
+      });
+  };
+
+  const handleRedirect = (redirectTo) => {
+    if (
+      (redirectTo === "/details" ||
+        redirectTo === "/notification-preferences") &&
+      isTmpUser
+    ) {
+      openRegistrationModal();
+    } else {
+      navigate(`/${renderIn}/${localStorage.getItem("language")}${redirectTo}`);
+    }
+  };
+
+  const renderProfileDropdownContent = () => {
+    const filteredMenuPages = getFilteredMenuPages();
+
+    return (
+      <div className="nav__profile-dropdown-content">
+        {/* Close Button */}
+        <div
+          className="nav__profile-dropdown-close"
+          onClick={() => setProfileDropdownShown(false)}
+          role="button"
+          tabIndex="0"
+          aria-label="Close menu"
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              setProfileDropdownShown(false);
+            }
+          }}
+        >
+          <Icon
+            name="close-x"
+            size="md"
+            color={theme === "dark" ? "#c1d7e0" : undefined}
+          />
+        </div>
+
+        {/* Profile Header */}
+        {showProfile && (
+          <div className="nav__profile-dropdown-header">
+            <div className="nav__profile nav__profile--mobile-layout">
+              {showProfilePicture && (
+                <img
+                  src={imageURL}
+                  alt="profile-image"
+                  className="nav__profile__image nav__profile__image--no-pointer"
+                />
+              )}
+              <div className="nav__profile__info">
+                <p className="nav__profile__name">{clientName || "Guest"}</p>
+                <p
+                  className="nav__profile__edit"
+                  onClick={() => handleRedirect("/details")}
+                >
+                  {t("edit_profile")}
+                </p>
+              </div>
+              {width >= 1050 && (
+                <Icon
+                  classes="nav__profile__logout-icon"
+                  name="exit"
+                  size="md"
+                  onClick={handleLogout}
+                />
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Menu Items */}
+        {filteredMenuPages.map((group, groupIndex) => (
+          <div key={groupIndex} className="nav__profile-dropdown-group">
+            {group.name && (
+              <div className="nav__profile-dropdown-group-name">
+                <p>{group.name}</p>
+              </div>
+            )}
+
+            {group.pages?.map((page) => {
+              const url = `${
+                renderIn === "website" ? "" : `/${renderIn}`
+              }/${localStorage.getItem("language")}${page.url}`;
+
+              return (
+                <NavLink
+                  key={page.url}
+                  target={isInConsultation ? "_blank" : "_self"}
+                  to={url}
+                  className={({ isActive }) =>
+                    "nav__profile-dropdown-item" +
+                    (isActive ? " nav__profile-dropdown-item--active" : "")
+                  }
+                  onClick={() => {
+                    setProfileDropdownShown(false);
+                    scrollTop();
+                  }}
+                  end={page.exact ? page.exact : false}
+                >
+                  <div className="nav__profile-dropdown-item__content">
+                    {page.icon && (
+                      <Icon
+                        name={page.icon}
+                        size="md"
+                        classes="nav__profile-dropdown-item__icon"
+                        color={theme === "light" ? "#20809e" : "#ffffff"}
+                      />
+                    )}
+                    <p>{page.name}</p>
+                  </div>
+                </NavLink>
+              );
+            })}
+
+            {/* Theme Button - Only show in desktop dropdown if hasDarkModeSeletor is true in menuPages */}
+            {group.hasDarkModeSeletor === true &&
+              hasThemeButton &&
+              width >= 1050 && (
+                <div className="nav__profile-dropdown-theme-button">
+                  {themeButton(true)}
+                </div>
+              )}
+          </div>
+        ))}
+      </div>
+    );
+  };
+
   const defaultLogo = `${AMAZON_S3_BUCKET}/logo-horizontal${
     theme === "light" ? "" : "-dark"
   }`;
@@ -841,17 +1232,9 @@ export const Navbar = ({
     logoUrl = defaultLogo;
   }
 
-  return (
-    <>
-      <nav
-        className={[
-          "nav",
-          "collapsible",
-          renderIn === "website" ? "nav--website" : "",
-          `${isNavbarExpanded ? "collapsible--expanded" : ""}`,
-          `${IS_RTL ? "nav--rtl" : ""}`,
-        ].join(" ")}
-      >
+  const renderLeftContainer = () => {
+    return (
+      <div className="nav__left-container">
         <img
           className="nav__logo"
           src={logoUrl}
@@ -878,18 +1261,45 @@ export const Navbar = ({
           />
         </div>
         {renderCtaLoginMobile()}
+        {renderWelcomeText()}
         {showNotifications && renderNotificationIconMobile()}
+      </div>
+    );
+  };
 
+  const renderRightContainer = () => {
+    return (
+      <div className="nav__right-container">
+        {renderCtaDesktop()}
+        {renderProfileContainerDesktop()}
+        {renderLanguageSelectorDesktop()}
+      </div>
+    );
+  };
+
+  return (
+    <>
+      <nav
+        className={[
+          "nav",
+          "collapsible",
+          renderIn === "website" ? "nav--website" : "",
+          `${isNavbarExpanded ? "collapsible--expanded" : ""}`,
+          `${IS_RTL ? "nav--rtl" : ""}`,
+          `${isScrolled ? "nav--scrolled" : ""}`,
+        ].join(" ")}
+      >
+        {renderLeftContainer()}
         <List
           items={items}
           inline={width >= 1050 ? true : false}
           classes={["nav__list", width < 1050 ? "collapsible__content" : ""]}
           aria-expanded={isNavbarExpanded}
         />
-        {renderCtaDesktop()}
-        {renderProfileContainerDesktop()}
-        {renderProfileContainerMobile()}
-        {renderAccessibilityController()}
+        {renderRightContainer()}
+        {/* Only render accessibility controller at bottom if not in mobile menu group */}
+        {!(width < 1050 && hasGroupWithAccessibilityController) &&
+          renderAccessibilityController()}
       </nav>
 
       <OutsideClickHandler
@@ -898,6 +1308,8 @@ export const Navbar = ({
             setLanguagesShown(false);
           } else if (countriesShown) {
             setCountriesShown(false);
+          } else if (profileDropdownShown) {
+            setProfileDropdownShown(false);
           } else if (activeDropdown !== null) {
             closePageDropdown();
           }
@@ -965,101 +1377,21 @@ export const Navbar = ({
             </Box>
           </div>
         )}
+
+        {/* Profile Dropdown - Only show on desktop */}
+        {profileDropdownShown && width >= 1050 && (
+          <div
+            className={[
+              "nav__profile-dropdown",
+              IS_RTL ? "nav__profile-dropdown--rtl" : "",
+            ].join(" ")}
+          >
+            <Box classes="nav__profile-dropdown__box">
+              {renderProfileDropdownContent()}
+            </Box>
+          </div>
+        )}
       </OutsideClickHandler>
     </>
   );
-};
-
-Navbar.propTypes = {
-  /**
-   * The pages to be displayed in the navbar
-   * */
-  pages: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      url: PropTypes.string,
-      exact: PropTypes.bool,
-      isDropdown: PropTypes.bool,
-      dropdownItems: PropTypes.arrayOf(
-        PropTypes.shape({
-          name: PropTypes.string.isRequired,
-          url: PropTypes.string.isRequired,
-        })
-      ),
-    })
-  ).isRequired,
-
-  /**
-   * The countries to be displayed in the navbar
-   *  */
-  languages: PropTypes.arrayOf(
-    PropTypes.shape({
-      value: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired,
-    })
-  ),
-  /**
-   * The countries to be displayed in the navbar
-   *  */
-  countries: PropTypes.arrayOf(
-    PropTypes.shape({
-      value: PropTypes.string,
-      label: PropTypes.string,
-    })
-  ),
-
-  /**
-   * The text to be displayed in the language dropdown
-   */
-  languageLabel: PropTypes.string,
-
-  /**
-   * The text to be displayed in the country dropdown
-   */
-  countryLabel: PropTypes.string,
-
-  /**
-   * The text to be displayed in the CTA button
-   */
-  buttonText: PropTypes.string,
-
-  /**
-   * Whether to show the CTA button
-   */
-  showCta: PropTypes.bool,
-
-  /**
-   * Whether to show the profile container
-   */
-  showProfile: PropTypes.bool,
-
-  /**
-   * Whether to show the countries dropdown
-   */
-  showCountries: PropTypes.bool,
-
-  /**
-   * The i18n instance
-   */
-  i18n: PropTypes.any,
-
-  /**
-   * Users image
-   */
-  image: PropTypes.string,
-
-  /**
-   * Is the user temporary
-   */
-  isTmpUser: PropTypes.bool,
-
-  /**
-   * The function to be called on a certain action if the user is temporary
-   */
-  onTmpUserAction: PropTypes.func,
-
-  /**
-   * The navigate function returned from the useNavigate hook
-   */
-  navigate: PropTypes.func.isRequired,
 };

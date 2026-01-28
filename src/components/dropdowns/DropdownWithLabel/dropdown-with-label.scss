@@ -1,10 +1,19 @@
 @import "../../../styles/theme";
 
 .dropdown-with-label {
-  &__label {
-    padding-bottom: $spacing_0_4;
+  // width: 34.3rem;
+  text-align: left;
+  position: relative;
+
+  // @media screen and (min-width: $screen-lg) {
+  //   width: 36.8rem;
+  // }
+
+  .label {
     color: $color_blue_3d527b;
-    @include themify($themes, "color", color_3d527b_20809e);
+    font-weight: $font_medium_bold;
+    @include themify($themes, "color", "color_text_main");
+    margin-bottom: $spacing_0_4;
 
     &--dark {
       color: $color_primary_20809e;

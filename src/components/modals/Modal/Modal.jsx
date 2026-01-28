@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { default as ModalPackage } from "react-modal";
 
 import { Icon } from "../../icons/";
-import { Button } from "../../buttons/";
+import { NewButton } from "../../buttons/";
 import { Error } from "../../errors";
 import { Loading } from "../../loaders/";
 import { ThemeContext } from "../../../utils";
@@ -44,31 +44,71 @@ export const Modal = ({
   overlayClasses,
   headingComponent,
   customButton,
+  hasGoBackArrow = false,
+  handleGoBack = () => {},
+  thirdCtaLabel,
+  thirdCtaHandleClick,
+  thirdCtaDisabled,
+  // thirdCtaType,
+  // thirdCtaColor,
+  // thirdCtaLoading,
 }) => {
   const { theme } = useContext(ThemeContext);
-  const hasButtons = ctaLabel || secondaryCtaLabel;
+  const hasButtons = ctaLabel || secondaryCtaLabel || thirdCtaLabel;
+
+  // Disable body scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
   return (
     <ModalPackage
       isOpen={isOpen}
       onRequestClose={closeModal}
       overlayClassName={[
         "base-modal__overlay",
+        `theme-${theme}`,
         classNames(overlayClasses),
       ].join(" ")}
       className={[
         "base-modal",
+        `theme-${theme}`,
         theme === "dark"
           ? "base-modal--dark"
           : theme === "highContrast"
-          ? "base-modal--hc"
-          : "",
+            ? "base-modal--hc"
+            : "",
         classNames(classes),
       ].join(" ")}
       bodyOpenClassName="base-modal--open"
       contentLabel="Base Modal"
       appElement={document.getElementById("root")}
     >
-      <div className="base-modal__header">
+      <div
+        className={[
+          "base-modal__header",
+          !hasGoBackArrow && !hasCloseIcon && "base-modal__header--no-close",
+        ].join(" ")}
+      >
+        {(hasGoBackArrow || hasCloseIcon) && (
+          <div className="base-modal__header__left-container">
+            {hasGoBackArrow && (
+              <Icon
+                name="arrow-chevron-back"
+                size="md"
+                onClick={handleGoBack}
+              />
+            )}
+          </div>
+        )}
         {headingComponent || (
           <h4
             className={[
@@ -79,14 +119,16 @@ export const Modal = ({
             {heading}
           </h4>
         )}
-        {hasCloseIcon && (
+        {(hasGoBackArrow || hasCloseIcon) && (
           <div className="base-modal__header__icon-container">
-            <Icon
-              name="close-x"
-              size="md"
-              onClick={closeModal}
-              color={theme === "dark" ? "#c1d7e0" : undefined}
-            />
+            {hasCloseIcon && (
+              <Icon
+                name="close-x"
+                size="md"
+                onClick={closeModal}
+                color={theme === "dark" ? "#c1d7e0" : undefined}
+              />
+            )}
           </div>
         )}
       </div>
@@ -101,37 +143,49 @@ export const Modal = ({
         {children}
       </div>
       {hasButtons && (
-        <div className="base-modal__footer">
-          {errorMessage ? <Error message={errorMessage} /> : null}
-          {customButton}
-          {ctaLabel &&
-            (isCtaDisabled && showLoadingIfDisabled ? (
-              <Loading padding="2rem" size="md" />
-            ) : (
-              <Button
-                label={ctaLabel}
-                type={ctaType}
-                disabled={isCtaDisabled}
-                onClick={ctaHandleClick}
-                loading={isCtaLoading}
-                color={ctaColor}
-                size="lg"
-              />
-            ))}
-          {secondaryCtaLabel &&
-            (isSecondaryCtaDisabled && showLoadingIfDisabled ? (
-              <Loading padding="2rem" size="md" />
-            ) : (
-              <Button
-                label={secondaryCtaLabel}
-                onClick={secondaryCtaHandleClick}
-                disabled={isSecondaryCtaDisabled}
-                loading={isSecondaryCtaLoading}
-                size="lg"
-                type={secondaryCtaType}
-                color={secondaryCtaColor}
-              />
-            ))}
+        <div>
+          <div className="base-modal__footer">
+            {errorMessage ? <Error message={errorMessage} /> : null}
+            {customButton}
+            {ctaLabel &&
+              (isCtaDisabled && showLoadingIfDisabled ? (
+                <Loading padding="2rem" size="md" />
+              ) : (
+                <NewButton
+                  label={ctaLabel}
+                  // type={ctaType}
+                  disabled={isCtaDisabled}
+                  onClick={ctaHandleClick}
+                  loading={isCtaLoading}
+                  // color={ctaColor}
+                  size="lg"
+                />
+              ))}
+            {secondaryCtaLabel &&
+              (isSecondaryCtaDisabled && showLoadingIfDisabled ? (
+                <Loading padding="2rem" size="md" />
+              ) : (
+                <NewButton
+                  label={secondaryCtaLabel}
+                  onClick={secondaryCtaHandleClick}
+                  disabled={isSecondaryCtaDisabled}
+                  loading={isSecondaryCtaLoading}
+                  size="lg"
+                  type="outline"
+                  // type={secondaryCtaType}
+                  // color={secondaryCtaColor}
+                />
+              ))}
+          </div>
+          {thirdCtaLabel && (
+            <NewButton
+              label={thirdCtaLabel}
+              onClick={thirdCtaHandleClick}
+              classes="base-modal__footer__third-cta"
+              type="text"
+              disabled={thirdCtaDisabled}
+            />
+          )}
         </div>
       )}
     </ModalPackage>

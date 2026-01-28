@@ -1,7 +1,7 @@
 @import "../../../styles/theme";
 
 .consultation {
-  padding: $spacing_1_6;
+  padding: $spacing_1_2;
   align-items: center;
   width: calc(34.3rem - 2 * $spacing_1_6);
   text-align: left;
@@ -25,15 +25,19 @@
       padding-left: $spacing_1_6;
 
       &__name-container {
-        & > .text {
-          color: $color_blue_3d527b;
-          @include themify($themes, "color", "color_3d527b_white");
-          font-weight: $font_bold;
+        &__date-text {
+          font-weight: 700;
           word-break: break-word;
         }
-        & > .text--purple {
-          color: $color_secondary_9749fa;
+
+        &__time-text {
+          font-weight: 400;
         }
+      }
+
+      &__name {
+        font-weight: 400;
+        color: #6989a4;
       }
 
       &__date-container {
@@ -137,6 +141,21 @@
   &__organization {
     padding-top: $spacing_1_2;
   }
+
+  p.consultation__content__text-container__name-container__date-text {
+    font-weight: 700;
+    color: #0e202f;
+  }
+
+  p.consultation__content__text-container__name-container__time-text {
+    font-weight: 400;
+    color: #0e202f;
+  }
+
+  p.consultation__content__text-container__name {
+    font-weight: 400;
+    color: #6989a4;
+  }
 }
 .provider-consultation__icon-container {
   &__price-badge {
@@ -144,7 +163,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    background-color: $color_purple_dac3f6;
+    @include themify($themes, "background-color", "color_6a4ffb_8c90eb");
     color: $color_secondary_9749fa;
     border-radius: $border_radius_1_6;
     margin-right: $spacing_1_4;
@@ -160,10 +179,10 @@
     }
 
     &--free {
-      background-color: rgba(32, 128, 158, 0.3);
+      background-color: #9749fa;
 
       & .small-text {
-        color: $color_primary_20809e;
+        color: $color_white_ff;
         @include themifyCustom(
           $themes,
           "color",

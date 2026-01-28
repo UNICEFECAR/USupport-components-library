@@ -6,7 +6,7 @@
   box-shadow: $shadow_1;
   width: 100%;
   min-width: 34.3rem;
-  max-width: 56rem;
+  max-width: 61.6rem;
   padding: $spacing_2_4 $spacing_1_6;
   margin: 0 $spacing_1_6;
   max-height: 80%;
@@ -47,9 +47,11 @@
     justify-content: space-between;
     width: 100%;
 
-    &__text {
-      margin-right: $spacing_3_0;
+    &--no-close {
+      justify-content: center;
+    }
 
+    &__text {
       &--dark {
         color: $color_blue_c1d7e0;
       }
@@ -57,6 +59,19 @@
 
     &__icon-container {
       cursor: pointer;
+      width: 2.4rem;
+      height: 2.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    &__left-container {
+      width: 2.4rem;
+      height: 2.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
     }
   }
 
@@ -73,7 +88,9 @@
     flex: 0.75;
     padding-top: $spacing_0_8;
     overflow-y: auto;
-    width: 100%;
+    padding-inline: $spacing_1_6;
+    width: calc(100% - 2 * $spacing_1_6);
+    z-index: $z_index_1;
 
     &--full-height {
       flex: 0.9;
@@ -82,22 +99,41 @@
 
   &__footer {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
     margin: $spacing_2_4 auto 0 auto;
-
-    & > .btn:nth-of-type(2) {
-      margin-top: $spacing_1_6;
-    }
+    padding-inline: $spacing_1_6;
+    width: calc(100% - 2 * $spacing_1_6);
+    gap: $spacing_2_0;
 
     @media screen and (min-width: $screen-md) {
       margin-top: $spacing_4_4;
     }
 
+    // Error message takes full width and appears above buttons
     & > .error-message {
       margin: 0;
       margin-bottom: $spacing_1_6;
       text-align: center;
+      flex: 1 1 100%;
+      order: -1;
+      min-width: 100%;
+    }
+
+    // All buttons stay on one row and take equal width
+    // Using flex: 1 ensures equal distribution
+    & > button,
+    & > .button {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+
+    & > .button {
+      &--lg {
+        @media screen and (min-width: $screen-lg) {
+          min-width: auto;
+        }
+      }
     }
 
     & > .btn--secondary {
@@ -127,6 +163,11 @@
           color: $color_secondary_pressed_6c16d9;
         }
       }
+    }
+
+    &__third-cta {
+      margin-top: $spacing_1_6;
+      margin-inline: auto;
     }
   }
 }

@@ -1,0 +1,12 @@
+@import "../../../styles/theme";
+
+.card {
+  @include themify($themes, "background-color", "color_card");
+
+  border-radius: $border_radius_1_6;
+  border: 0.1rem solid #cdd8e1;
+
+  &--border-purple {
+    border: 0.1rem solid #9749fa;
+  }
+}

@@ -32,17 +32,23 @@
 
     .label {
       font-weight: $font_medium;
-      color: $color_gray_66768d;
       font-size: 18px;
+      @include themify($themes, "color", "color_input_text");
+    }
+
+    &:not(.tab--selected) {
+      h1,
+      h2,
+      h3,
+      h4 {
+        @include themify($themes, "color", "color_input_text");
+        font-weight: $font_medium;
+      }
     }
 
     &--selected {
       border-bottom: 0.2rem solid $color_primary_20809e;
-
-      .label {
-        color: $color_primary_20809e;
-        font-weight: $font_bold;
-      }
+      @include themify($themes, "border-color", "color_6a4ffb_8c90eb");
     }
 
     &--hc.tab--selected {

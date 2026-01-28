@@ -15,6 +15,7 @@ $font_family: "Nunito", sans-serif;
 $font_ultra_light: 200;
 $font_regular: 300;
 $font_medium: 400;
+$font_medium_bold: 500;
 $font_semi_bold: 600;
 $font_bold: 700;
 $font_extra_bold: 800;
@@ -115,6 +116,12 @@ $spacing_40_3: 40.3rem;
 
 $themes: (
   light: (
+    color_text_main: #0e202f,
+
+    color_6a4ffb_8c90eb: #6a4ffb,
+
+    color_input_text: #6989a4,
+
     // Colors
     color_primary_20809e: #20809e,
     color_primary_pressed_156f8c: #156f8c,
@@ -172,13 +179,13 @@ $themes: (
 
     color_blue_yellow: #20809e,
     color_purple_blue: #9749fa,
+    color_purple_6a4ffb: #6a4ffb,
 
     color_3d527b_white: #3d527b,
     color_66768d_c1d7e0: #66768d,
     color_3d527b_20809e: #3d527b,
     color_66768d_3d527b: #66768d,
     color_card: #fff,
-    color_input_text: #373737,
 
     // Gradients
     gradient_primary:
@@ -244,6 +251,10 @@ $themes: (
     overlay_010101: rgba(1, 1, 1, 0.2),
   ),
   dark: (
+    color_text_main: #ededed,
+
+    color_6a4ffb_8c90eb: #8c90eb,
+    color_input_text: #c1d7e0,
     // Colors
     color_primary_20809e: #20809e,
     color_primary_pressed_156f8c: #156f8c,
@@ -300,13 +311,13 @@ $themes: (
 
     color_blue_yellow: #efe327,
     color_purple_blue: #98beff,
+    color_purple_6a4ffb: #6a4ffb,
 
     color_3d527b_white: #ffffff,
     color_66768d_c1d7e0: #c1d7e0,
     color_3d527b_20809e: #20809e,
     color_66768d_3d527b: #3d527b,
     color_card: #313131,
-    color_input_text: #fff,
 
     // Gradients
     gradient_primary:
@@ -372,6 +383,10 @@ $themes: (
     overlay_010101: rgba(1, 1, 1, 0.2),
   ),
   highContrast: (
+    color_text_main: #ffff00,
+
+    color_6a4ffb_8c90eb: #ffff00,
+
     // Colors
     color_primary_20809e: #ffff00,
     color_primary_pressed_156f8c: #156f8c,
@@ -599,6 +614,7 @@ $color_green_e6f1f4: #e6f1f4;
 $color_purple_dac3f6: #dac3f6;
 $color_purple_c39af9: #c39af9;
 $color_purple_c39af9_0_5: rgba(195, 154, 248, 0.5);
+$color_purple_6a4ffb: #6a4ffb;
 
 $color_blue_2a54bc: #2a54bc;
 $color_blue_3d527b: #3d527b;

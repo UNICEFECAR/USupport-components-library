@@ -140,80 +140,93 @@ export const Dropdown = ({
 
   return (
     <OutsideClickHandler onOutsideClick={() => setIsOpen(false)}>
-      <Box
-        boxShadow={"1"}
-        borderSize="md"
-        classes={[
-          "dropdown",
-          theme !== "light" ? "dropdown--dark" : "",
-          isOpen ? "dropdown--expanded" : "",
-          disabled ? "dropdown--disabled" : "",
-          isSmall ? "dropdown--small" : "",
-        ]}
-      >
-        <div
-          tabIndex={0}
-          role="navigation"
-          className={["heading", errorMessage ? "heading-error" : ""].join(" ")}
-          onFocus={(e) => {
-            e.stopPropagation();
-            if (isFirstOpen) {
-              handleOnClick();
-            }
-            setTimeout(() => {
-              setIsFirstOpen(false);
-            }, 150);
-          }}
-          onClick={(e) => {
-            e.stopPropagation();
-            if (disabled) return;
-            if (isOpen && !isFirstOpen) {
-              setIsOpen(false);
-              setTimeout(() => {
-                setIsFirstOpen(true);
-              }, 150);
-            } else {
-              setIsOpen(true);
+      <div className={["dropdown-container", disabled && "disabled"].join(" ")}>
+        <Box
+          boxShadow={"1"}
+          borderSize="md"
+          classes={[
+            "dropdown",
+            theme !== "light" ? "dropdown--dark" : "",
+            isOpen ? "dropdown--expanded" : "",
+            disabled ? "dropdown--disabled" : "",
+            isSmall ? "dropdown--small" : "",
+          ]}
+        >
+          <div
+            tabIndex={0}
+            role="navigation"
+            className={[
+              "dropdown-wrapper",
+              theme !== "light" && "dropdown-wrapper--dark",
+              errorMessage ? "error" : "",
+            ].join(" ")}
+            onFocus={(e) => {
+              e.stopPropagation();
+              if (isFirstOpen) {
+                handleOnClick();
+              }
               setTimeout(() => {
                 setIsFirstOpen(false);
               }, 150);
-            }
-          }}
-          ref={sourceRef}
-        >
-          {selected ? (
-            <p className="text">{selectedLabel}</p>
-          ) : (
-            <p className="text placeholder">{placeholderText}</p>
-          )}
-          <Icon
-            size="sm"
-            name="arrow-chevron-down"
-            color={
-              theme === "light"
-                ? isOpen
-                  ? "#373737"
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
+              if (disabled) return;
+              if (isOpen && !isFirstOpen) {
+                setIsOpen(false);
+                setTimeout(() => {
+                  setIsFirstOpen(true);
+                }, 150);
+              } else {
+                setIsOpen(true);
+                setTimeout(() => {
+                  setIsFirstOpen(false);
+                }, 150);
+              }
+            }}
+            ref={sourceRef}
+          >
+            {selected ? (
+              <p
+                className={[
+                  "text dropdown-text",
+                  theme !== "light" && "dropdown-text--dark",
+                ].join(" ")}
+              >
+                {selectedLabel}
+              </p>
+            ) : (
+              <p className="text placeholder">{placeholderText}</p>
+            )}
+            <Icon
+              size="sm"
+              name="arrow-chevron-down"
+              color={
+                theme === "light"
+                  ? isOpen
+                    ? "#373737"
+                    : "#cbcbcb"
+                  : isOpen
+                  ? "#fff"
                   : "#cbcbcb"
-                : isOpen
-                ? "#fff"
-                : "#cbcbcb"
-            }
-          />
-        </div>
-        <div
-          className={[
-            "dropdown-content",
-            theme !== "light" && "dropdown-content--dark",
-            isSmall ? "dropdown-content--small" : "",
-          ].join(" ")}
-          style={isSmall && width ? { width: `${width - 16}px` } : {}}
-        >
-          <ul role="menubar" className="dropdown-content__options-container">
-            {renderAllOptions()}
-          </ul>
-        </div>
-      </Box>
-      {errorMessage ? <Error message={errorMessage} /> : null}
+              }
+            />
+          </div>
+          <div
+            className={[
+              "dropdown-content",
+              theme !== "light" && "dropdown-content--dark",
+              isSmall ? "dropdown-content--small" : "",
+            ].join(" ")}
+            style={isSmall && width ? { width: `${width - 16}px` } : {}}
+          >
+            <ul role="menubar" className="dropdown-content__options-container">
+              {renderAllOptions()}
+            </ul>
+          </div>
+        </Box>
+        {errorMessage && !disabled ? <Error message={errorMessage} /> : null}
+      </div>
     </OutsideClickHandler>
   );
 };
