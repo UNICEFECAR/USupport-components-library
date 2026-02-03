@@ -1,7 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
+
 import { Icon } from "../../icons/Icon";
+import { NewButton } from "../../buttons";
 
 import "./profile-picture-preview.scss";
 
@@ -23,15 +25,22 @@ export const ProfilePicturePreview = ({
   return (
     <div className="profile-picture-preview-wrapper">
       <div className="profile-picture-preview">
-        <Icon
-          onClick={handleDeleteClick}
-          name="circle-action-close-purple"
-          size="md"
+        <div className="profile-picture-preview__image-container">
+          <div className="profile-picture-preview__image-container__delete-button">
+            <Icon
+              onClick={handleDeleteClick}
+              name="delete"
+              size="sm"
+              color="#fff"
+            />
+          </div>
+          <img src={imageSrc} alt="profile-picture" />
+        </div>
+        <NewButton
+          type="text"
+          onClick={handleChangeClick}
+          label={changePhotoText}
         />
-        <img src={imageSrc} alt="profile-picture" />
-        <p onClick={handleChangeClick} className="small-text">
-          {changePhotoText}
-        </p>
       </div>
     </div>
   );

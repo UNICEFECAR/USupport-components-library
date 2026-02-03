@@ -2,33 +2,44 @@
 
 .profile-picture-preview-wrapper {
   display: flex;
-  width: 34.3rem;
-
-  @media screen and (min-width: $screen_md) {
-    width: 36.8rem;
-  }
 }
 
 .profile-picture-preview {
-  width: 8rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: $spacing_1_2;
+
   position: relative;
   margin: 0 auto;
-  & img {
-    width: 8rem;
-    height: 8rem;
-    border-radius: 50%;
-    object-fit: cover;
-  }
 
+  &__image-container {
+    position: relative;
+
+    & img {
+      width: 6rem;
+      height: 6rem;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    &__delete-button {
+      position: absolute;
+      top: -$spacing_0_2;
+      right: -$spacing_0_6;
+      cursor: pointer;
+      background-color: $color_secondary_9749fa;
+      border: 0.2rem solid $color_white_ff;
+      width: 1.9rem;
+      height: 1.9rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
   & p {
     color: $color_secondary_9749fa;
-    cursor: pointer;
-  }
-
-  & .icon {
-    position: absolute;
-    top: 0;
-    right: 0;
     cursor: pointer;
   }
 }
