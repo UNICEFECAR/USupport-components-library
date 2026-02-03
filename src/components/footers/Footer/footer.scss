@@ -93,5 +93,7 @@
   &__link-button {
     text-align: left;
     border-radius: 0;
+    font-weight: $font_medium_bold;
+    @include themify($themes, "color", "color_text_main");
   }
 }
