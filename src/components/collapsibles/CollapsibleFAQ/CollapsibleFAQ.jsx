@@ -32,7 +32,7 @@ export const CollapsibleFAQ = ({ data }) => {
           }
           content={<p className="text faq-text">{faq.answer}</p>}
           classes="collapsible-faq"
-          iconColor={"#20809e"}
+          iconColor={"#6989A4"}
           iconSize="md"
         />
         {index < data.length - 1 && <Line />}

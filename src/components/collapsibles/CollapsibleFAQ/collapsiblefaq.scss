@@ -4,12 +4,13 @@
   text-align: left;
 
   .faq-header {
-    @include themify($themes, "color", "color_3d527b_20809e");
+    @include themify($themes, "color", "color_text_main");
+    font-weight: $font_medium_bold;
   }
 
   &.collapsible--expanded {
     .faq-header {
-      color: $color_primary_20809e;
+      @include themify($themes, "color", "color_6a4ffb_8c90eb");
 
       &--hc {
         color: #ffff00;
