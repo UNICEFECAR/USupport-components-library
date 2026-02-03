@@ -121,7 +121,12 @@ export const CardMedia = ({
             <div className="card-media__content__details__left__read-time-creator-like">
               <div className="card-media__content__details__left__read-time-creator">
                 {creator && (
-                  <p className={"small-text"}>{t("by", { creator })}</p>
+                  <p 
+                    className={"small-text card-media__content__details__left__creator"}
+                    title={t("by", { creator })}
+                  >
+                    {t("by", { creator })}
+                  </p>
                 )}
                 <div className={"card-media__details"}>
                   {readingTime && (
