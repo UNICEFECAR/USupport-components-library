@@ -3,8 +3,17 @@
 .rating {
   &__label {
     color: $color_blue_3d527b;
+    font-weight: $font_medium_bold;
+    @include themify($themes, "color", color_text_main);
     margin-bottom: $spacing_0_4;
-    display: block;
+
+    &--dark {
+      color: $color_primary_20809e;
+    }
+
+    &--hc {
+      color: #ffff00;
+    }
   }
 
   &__stars-container {

@@ -57,7 +57,7 @@ export const Rating = ({
       {label ? <p className="text rating__label">{label}</p> : null}
       <div className="rating__stars-container">
         {stars.map((star, index) => {
-          const starColor = star === "star" ? "#66768D" : "#9749fa";
+          const starColor = star === "star" ? "#6989A4" : "#B6E800";
           return (
             <Icon
               key={star + index}
