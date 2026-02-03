@@ -117,6 +117,7 @@ $spacing_40_3: 40.3rem;
 $themes: (
   light: (
     color_text_main: #0e202f,
+    color_card_background: #eaf7f9,
 
     color_6a4ffb_8c90eb: #6a4ffb,
 
@@ -188,60 +189,64 @@ $themes: (
     color_card: #fff,
 
     // Gradients
-    gradient_primary:
-      linear-gradient(
+    gradient_primary: linear-gradient(
         80.08deg,
         #20809e -27.58%,
         rgba(32, 128, 158, 0.23) 60.24%,
         #20809e 133.62%
       ),
-    gradient_secondary:
-      linear-gradient(270deg, #0daeb2 1.31%, #d6d2ff 42.92%, #814afd 93.14%),
+    gradient_secondary: linear-gradient(
+        270deg,
+        #0daeb2 1.31%,
+        #d6d2ff 42.92%,
+        #814afd 93.14%
+      ),
     // Make a cool gradient using the #814afd #9749fa #d6d2ff #0daeb2 colors
-    gradient_toastify:
-      linear-gradient(270deg, #0daeb2 1.31%, #d6d2ff 42.92%, #814afd 93.14%),
-    gradient_block:
-      linear-gradient(
+    gradient_toastify: linear-gradient(
+        270deg,
+        #0daeb2 1.31%,
+        #d6d2ff 42.92%,
+        #814afd 93.14%
+      ),
+    gradient_block: linear-gradient(
         90.14deg,
         rgba(13, 174, 178, 0.2) -0.27%,
         rgba(214, 210, 255, 0.0846922) 57.25%,
         rgba(129, 74, 253, 0.2) 99.5%
       ),
-    gradient_block_1:
-      linear-gradient(
+    gradient_block_1: linear-gradient(
         90.14deg,
         rgba(129, 74, 253, 0.2) -0.27%,
         rgba(214, 210, 255, 0.0846922) 57.25%,
         rgba(13, 174, 178, 0.2) 99.5%
       ),
-    gradient_secondary_0_1_opacity:
-      linear-gradient(
+    gradient_secondary_0_1_opacity: linear-gradient(
         270deg,
         rgba(13, 174, 178, 0.1) 1.31%,
         rgba(214, 210, 255, 0.1) 42.92%,
         rgba(129, 74, 253, 0.1) 93.14%
       ),
-    gradient_secondary_0_3_opacity:
-      linear-gradient(
+    gradient_secondary_0_3_opacity: linear-gradient(
         270deg,
         rgba(13, 174, 178, 0.4) 1.31%,
         rgba(214, 210, 255, 0.4) 42.92%,
         rgba(129, 74, 253, 0.2) 93.14%
       ),
-    radial_gradient_purple:
-      radial-gradient(
+    radial_gradient_purple: radial-gradient(
         50% 50% at 50% 50%,
         rgba(129, 74, 253, 0.3) 0%,
         rgba(129, 74, 253, 0) 100%
       ),
-    radial_gradient_blue:
-      radial-gradient(
+    radial_gradient_blue: radial-gradient(
         50% 50% at 50% 50%,
         rgba(84, 207, 217, 0.3) 0%,
         rgba(84, 207, 217, 0) 100%
       ),
-    gradient_transparent:
-      linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #ffffff 100%),
+    gradient_transparent: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0) 0%,
+        #ffffff 100%
+      ),
     // Shadows
     shadow_1: 2px 2px 12px rgba(104, 77, 253, 0.1),
     shadow_2: 0px 2px 18px rgba(104, 77, 253, 0.2),
@@ -252,6 +257,7 @@ $themes: (
   ),
   dark: (
     color_text_main: #ededed,
+    color_card_background: #0e202f,
 
     color_6a4ffb_8c90eb: #8c90eb,
     color_input_text: #c1d7e0,
@@ -320,60 +326,64 @@ $themes: (
     color_card: #313131,
 
     // Gradients
-    gradient_primary:
-      linear-gradient(
+    gradient_primary: linear-gradient(
         80.08deg,
         #20809e -27.58%,
         rgba(32, 128, 158, 0.23) 60.24%,
         #20809e 133.62%
       ),
-    gradient_secondary:
-      linear-gradient(270deg, #0daeb2 1.31%, #d6d2ff 42.92%, #814afd 93.14%),
+    gradient_secondary: linear-gradient(
+        270deg,
+        #0daeb2 1.31%,
+        #d6d2ff 42.92%,
+        #814afd 93.14%
+      ),
     // Make a cool gradient using the #814afd #9749fa #d6d2ff #0daeb2 colors
-    gradient_toastify:
-      linear-gradient(270deg, #0daeb2 1.31%, #d6d2ff 42.92%, #814afd 93.14%),
-    gradient_block:
-      linear-gradient(
+    gradient_toastify: linear-gradient(
+        270deg,
+        #0daeb2 1.31%,
+        #d6d2ff 42.92%,
+        #814afd 93.14%
+      ),
+    gradient_block: linear-gradient(
         90.14deg,
         rgba(13, 174, 178, 0.2) -0.27%,
         rgba(214, 210, 255, 0.0846922) 57.25%,
         rgba(129, 74, 253, 0.2) 99.5%
       ),
-    gradient_block_1:
-      linear-gradient(
+    gradient_block_1: linear-gradient(
         90.14deg,
         rgba(129, 74, 253, 0.2) -0.27%,
         rgba(214, 210, 255, 0.0846922) 57.25%,
         rgba(13, 174, 178, 0.2) 99.5%
       ),
-    gradient_secondary_0_1_opacity:
-      linear-gradient(
+    gradient_secondary_0_1_opacity: linear-gradient(
         270deg,
         rgba(13, 174, 178, 0.1) 1.31%,
         rgba(214, 210, 255, 0.1) 42.92%,
         rgba(129, 74, 253, 0.1) 93.14%
       ),
-    gradient_secondary_0_3_opacity:
-      linear-gradient(
+    gradient_secondary_0_3_opacity: linear-gradient(
         270deg,
         rgba(13, 174, 178, 0.4) 1.31%,
         rgba(214, 210, 255, 0.4) 42.92%,
         rgba(129, 74, 253, 0.2) 93.14%
       ),
-    radial_gradient_purple:
-      radial-gradient(
+    radial_gradient_purple: radial-gradient(
         50% 50% at 50% 50%,
         rgba(129, 74, 253, 0.3) 0%,
         rgba(129, 74, 253, 0) 100%
       ),
-    radial_gradient_blue:
-      radial-gradient(
+    radial_gradient_blue: radial-gradient(
         50% 50% at 50% 50%,
         rgba(84, 207, 217, 0.3) 0%,
         rgba(84, 207, 217, 0) 100%
       ),
-    gradient_transparent:
-      linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #ffffff 100%),
+    gradient_transparent: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0) 0%,
+        #ffffff 100%
+      ),
     // Shadows
     shadow_1: 2px 2px 12px rgba(104, 77, 253, 0.1),
     shadow_2: 0px 2px 18px rgba(104, 77, 253, 0.2),
@@ -384,6 +394,7 @@ $themes: (
   ),
   highContrast: (
     color_text_main: #ffff00,
+    color_card_background: #0e202f,
 
     color_6a4ffb_8c90eb: #ffff00,
 
@@ -452,60 +463,64 @@ $themes: (
     color_input_text: yellow,
 
     // Gradients
-    gradient_primary:
-      linear-gradient(
+    gradient_primary: linear-gradient(
         80.08deg,
         #20809e -27.58%,
         rgba(32, 128, 158, 0.23) 60.24%,
         #20809e 133.62%
       ),
-    gradient_secondary:
-      linear-gradient(270deg, #0daeb2 1.31%, #d6d2ff 42.92%, #814afd 93.14%),
+    gradient_secondary: linear-gradient(
+        270deg,
+        #0daeb2 1.31%,
+        #d6d2ff 42.92%,
+        #814afd 93.14%
+      ),
     // Make a cool gradient using the #814afd #9749fa #d6d2ff #0daeb2 colors
-    gradient_toastify:
-      linear-gradient(270deg, #0daeb2 1.31%, #d6d2ff 42.92%, #814afd 93.14%),
-    gradient_block:
-      linear-gradient(
+    gradient_toastify: linear-gradient(
+        270deg,
+        #0daeb2 1.31%,
+        #d6d2ff 42.92%,
+        #814afd 93.14%
+      ),
+    gradient_block: linear-gradient(
         90.14deg,
         rgba(13, 174, 178, 0.2) -0.27%,
         rgba(214, 210, 255, 0.0846922) 57.25%,
         rgba(129, 74, 253, 0.2) 99.5%
       ),
-    gradient_block_1:
-      linear-gradient(
+    gradient_block_1: linear-gradient(
         90.14deg,
         rgba(129, 74, 253, 0.2) -0.27%,
         rgba(214, 210, 255, 0.0846922) 57.25%,
         rgba(13, 174, 178, 0.2) 99.5%
       ),
-    gradient_secondary_0_1_opacity:
-      linear-gradient(
+    gradient_secondary_0_1_opacity: linear-gradient(
         270deg,
         rgba(13, 174, 178, 0.1) 1.31%,
         rgba(214, 210, 255, 0.1) 42.92%,
         rgba(129, 74, 253, 0.1) 93.14%
       ),
-    gradient_secondary_0_3_opacity:
-      linear-gradient(
+    gradient_secondary_0_3_opacity: linear-gradient(
         270deg,
         rgba(13, 174, 178, 0.4) 1.31%,
         rgba(214, 210, 255, 0.4) 42.92%,
         rgba(129, 74, 253, 0.2) 93.14%
       ),
-    radial_gradient_purple:
-      radial-gradient(
+    radial_gradient_purple: radial-gradient(
         50% 50% at 50% 50%,
         rgba(129, 74, 253, 0.3) 0%,
         rgba(129, 74, 253, 0) 100%
       ),
-    radial_gradient_blue:
-      radial-gradient(
+    radial_gradient_blue: radial-gradient(
         50% 50% at 50% 50%,
         rgba(84, 207, 217, 0.3) 0%,
         rgba(84, 207, 217, 0) 100%
       ),
-    gradient_transparent:
-      linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #ffffff 100%),
+    gradient_transparent: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0) 0%,
+        #ffffff 100%
+      ),
     // Shadows
     shadow_1: 2px 2px 12px rgba(104, 77, 253, 0.1),
     shadow_2: 0px 2px 18px rgba(104, 77, 253, 0.2),
