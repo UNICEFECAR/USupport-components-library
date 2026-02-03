@@ -175,6 +175,7 @@ export const Backdrop = ({
                 onClick={thirdCtaHandleClick}
                 classes="base-modal__footer__third-cta"
                 type="text"
+                size="sm"
                 disabled={isThirdCtaDisabled}
               />
             )}
