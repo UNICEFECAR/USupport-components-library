@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { default as ModalPackage } from "react-modal";
@@ -55,17 +55,41 @@ export const Modal = ({
 }) => {
   const { theme } = useContext(ThemeContext);
   const hasButtons = ctaLabel || secondaryCtaLabel || thirdCtaLabel;
+  const timeoutRef = useRef(null);
 
   // Disable body scroll when modal is open
   useEffect(() => {
+    // Clear any pending timeout from previous effect
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+
     if (isOpen) {
       document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = "";
+      // Restore scroll when modal closes
+      // Use setTimeout to ensure react-modal has finished its cleanup first
+      timeoutRef.current = setTimeout(() => {
+        document.body.style.overflow = "";
+        // Remove the class if react-modal didn't clean it up
+        if (document.body.classList.contains("base-modal--open")) {
+          document.body.classList.remove("base-modal--open");
+        }
+        timeoutRef.current = null;
+      }, 0);
     }
 
     return () => {
+      // Cleanup: clear timeout and restore scroll
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
       document.body.style.overflow = "";
+      if (document.body.classList.contains("base-modal--open")) {
+        document.body.classList.remove("base-modal--open");
+      }
     };
   }, [isOpen]);
 

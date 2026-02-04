@@ -35,7 +35,7 @@ export const LineChart = ({ data, handleSelectItem, selectedItemId }) => {
   const getMoodValue = (mood) => {
     switch (mood) {
       case "happy":
-        return 3.87;
+        return 3.88;
       case "good":
         return 3;
       case "sad":
@@ -66,9 +66,10 @@ export const LineChart = ({ data, handleSelectItem, selectedItemId }) => {
       datasets: [
         {
           data: data.map((mood) => getMoodValue(mood.mood)),
-          borderColor: "#20809E",
-          hoverBackgroundColor: "#C1EAEA",
-          borderWidth: 1,
+          borderColor: "#684DFD",
+          hoverBackgroundColor: "#c39af9",
+          borderWidth: 3,
+          tension: 0.2,
           pointBorderWidth: function (context) {
             const index = context.index;
             const isCritical = data?.[index]?.is_critical;
@@ -88,7 +89,7 @@ export const LineChart = ({ data, handleSelectItem, selectedItemId }) => {
           pointHoverRadius: 7,
           pointBackgroundColor: function (context) {
             const index = context.index;
-            return index === selectedItemIndex ? "#54CFD9" : "#C1EAEA";
+            return index === selectedItemIndex ? "#684DFD" : "#684DFD";
           },
           pointBorderColor: function (context) {
             const index = context.index;
@@ -105,7 +106,6 @@ export const LineChart = ({ data, handleSelectItem, selectedItemId }) => {
     maintainAspectRatio: false,
     scales: {
       x: {
-        display: false,
       },
       y: {
         min: 0,
@@ -116,9 +116,9 @@ export const LineChart = ({ data, handleSelectItem, selectedItemId }) => {
         border: { dash: [4, 4] },
         grid: {
           display: true,
-          color: "#A6B4B8",
+          color: "#E1E7ED",
           tickBorderDash: [4],
-          lineWidth: 0.5,
+          lineWidth: 1,
         },
         ticks: {
           count: 5,

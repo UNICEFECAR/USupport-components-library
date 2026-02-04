@@ -2,41 +2,18 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import "./mood-track-details.scss";
-import { Box } from "../../boxes";
-import { Emoticon, Icon } from "../../icons";
+import { Emoticon } from "../../icons";
 
 /**
  * MoodTrackDetails
  *
- * MoodTrackDetails card used in MoodTrackHistoryNew block
+ * MoodTrackDetails content component used in MoodTrackHistory block modal
  *
  * @return {jsx}
  */
-export const MoodTrackDetails = ({ mood, handleClose, t }) => {
-  const dateText = `${
-    mood.time.getDate() > 9 ? mood.time.getDate() : `0${mood.time.getDate()}`
-  }.${
-    mood.time.getMonth() + 1 > 9
-      ? mood.time.getMonth() + 1
-      : `0${mood.time.getMonth() + 1}`
-  }.${mood.time.getFullYear()}`;
-  const timeText = `${mood.time.getHours()}:${
-    mood.time.getMinutes() > 9
-      ? mood.time.getMinutes()
-      : `0${mood.time.getMinutes()}`
-  }`;
-
+export const MoodTrackDetails = ({ mood, t }) => {
   return (
-    <Box classes="mood-track-details">
-      <Icon
-        name="close-x"
-        size="sm"
-        classes="mood-track-details__close-icon"
-        onClick={() => handleClose()}
-      />
-      <h4>
-        {dateText}, {timeText}
-      </h4>
+    <div className="mood-track-details">
       <div className="mood-track-details__subheading-container">
         <p className="text">{t("you_felt")}</p>
         <Emoticon
@@ -54,7 +31,7 @@ export const MoodTrackDetails = ({ mood, handleClose, t }) => {
           {t("critical_text")}
         </p>
       )}
-    </Box>
+    </div>
   );
 };
 
@@ -65,7 +42,7 @@ MoodTrackDetails.propTypes = {
   mood: PropTypes.object.isRequired,
 
   /*
-   * Function to close the details
+   * Translation function
    */
-  handleClose: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired,
 };
