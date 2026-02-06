@@ -37,12 +37,14 @@ export const ButtonSelector = ({
       {...props}
     >
       {iconName && (
+        <div>
         <Icon
           classes="btn-selector__left-icon"
           name={iconName}
           color="#A6B4B8"
           size="md"
         />
+        </div>
       )}
       {!iconName && avatar && (
         <img className="btn-selector__avatar" src={avatar} alt="" />

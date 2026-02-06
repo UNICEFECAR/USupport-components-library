@@ -18,7 +18,6 @@ import "./radio-button-selector.scss";
 export const RadioButtonSelector = ({ size, disabled, classes, ...props }) => {
   const { theme } = useContext(ThemeContext);
 
-  console.log("Props.selected", props.isChecked);
 
   return (
     <Box
