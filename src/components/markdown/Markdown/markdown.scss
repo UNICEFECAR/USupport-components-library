@@ -13,4 +13,29 @@
   & li {
     @include themify($themes, "color", "color_66768d_c1d7e0");
   }
+
+  & p {
+    margin-bottom: 1rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  & blockquote {
+    margin: 1.5rem 0;
+    padding: 1rem 1.5rem;
+    border-left: 4px solid $color_primary_20809e;
+    background-color: rgba(32, 128, 158, 0.08);
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+
+    & p {
+      margin-bottom: 0.5rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
 }
