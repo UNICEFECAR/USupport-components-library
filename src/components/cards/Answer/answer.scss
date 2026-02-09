@@ -2,12 +2,8 @@
 
 .answer {
   padding: $spacing_2_0 $spacing_1_6;
-  max-width: 75.1rem;
-  width: 90%;
-
-  @media screen and (min-width: $screen-lg) {
-    width: 100%;
-  }
+  border-radius: $border_radius_1_2;
+  @include themify($themes, "background-color", "color_card_background");
 
   &__heading-container {
     display: flex;
@@ -26,17 +22,30 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: "row";
-    margin-top: $spacing_1_2;
+    margin-top: 0;
+    margin-bottom: $spacing_1_2;
+  }
 
-    > .label-component {
-      margin: $spacing_0_2;
-      // background-color: $color_gray_ea;
-      @include themifyCustom(
-        $themes,
-        "background-color",
-        "color_gray_ea",
-        "color_black_31"
-      );
+  &__label {
+    max-height: 2rem;
+    margin-bottom: $spacing_0_8;
+    overflow: hidden;
+    padding: 0 $spacing_1_6;
+    border-radius: $border_radius_0_4;
+    border: 0.1rem solid #cdd8e1 !important;
+    color: #6989a4 !important;
+
+    &:not(:last-child) {
+      margin-right: $spacing_0_8;
+    }
+
+    & > p {
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      display: -webkit-box;
+      text-overflow: ellipsis;
+      word-break: break-all;
+      color: #6989a4 !important;
     }
   }
 
@@ -46,6 +55,23 @@
 
   &__read-more-button {
     margin-top: $spacing_1_2;
+  }
+
+  &__title {
+    margin-top: $spacing_1_2;
+    margin-bottom: $spacing_1_2;
+    text-align: left;
+    font-weight: $font_semi_bold;
+    color: $color_gray_344054;
+  }
+
+  &__author-likes-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: $spacing_1_2;
+    margin-bottom: $spacing_1_2;
   }
 
   &__bottom-container {
@@ -82,8 +108,9 @@
 
   &__answered-by-container {
     display: flex;
-    flex-direction: "row";
-    margin-top: $spacing_1_0;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 0;
 
     &__avatar {
       margin: 0 $spacing_0_4;
@@ -103,18 +130,15 @@
   }
 
   &__schedule-button {
-    margin-top: $spacing_2_6;
+    margin-top: $spacing_1_2;
     display: flex;
     flex-direction: row;
     cursor: pointer;
-
-    @media screen and (min-width: $screen-md) {
-      margin-top: 0;
-    }
+    align-items: center;
 
     &__text {
-      margin-left: $spacing_1_4;
-      color: $color_primary_20809e;
+      margin-left: $spacing_0_8;
+      color: #8a4bf3;
 
       &--hc {
         .text {
@@ -146,7 +170,7 @@
   }
 
   &__line {
-    margin-top: $spacing_1_2;
+    margin-top: $spacing_1_6;
     margin-bottom: $spacing_1_2;
   }
 
@@ -165,6 +189,7 @@
   }
 
   &__read-more-container {
+    margin-top: $spacing_1_2;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
