@@ -106,7 +106,7 @@ export const Navbar = ({
   const [isScrolled, setIsScrolled] = useState(false);
 
   const [selectedLanguage, setSelectedLanguage] = useState(
-    initialLanguage || englishLanguage
+    initialLanguage || englishLanguage,
   );
   const [hasSelectedInitialCountry, setHasSelectedInitialCountry] =
     useState(false);
@@ -114,10 +114,10 @@ export const Navbar = ({
     subdomain === "usupport" || subdomain === "staging"
       ? globalCountry
       : localStorage.getItem("country") === "global"
-      ? globalCountry
-      : localStorage.getItem("country") === "KZ"
-      ? kazakhstanCountry
-      : polandCountry;
+        ? globalCountry
+        : localStorage.getItem("country") === "KZ"
+          ? kazakhstanCountry
+          : polandCountry;
 
   const [selectedCountry, setSelectedCountry] = useState(defaultCountry);
 
@@ -143,7 +143,7 @@ export const Navbar = ({
         !languages.find(
           (x) =>
             x.value.toLocaleLowerCase() ===
-            selectedLanguage.value?.toLocaleLowerCase()
+            selectedLanguage.value?.toLocaleLowerCase(),
         )
       ) {
         const newLanguage = languages[0];
@@ -338,8 +338,8 @@ export const Navbar = ({
             theme === "light"
               ? "#20809E"
               : theme === "dark"
-              ? "#FDDA0D"
-              : "#ffff00"
+                ? "#FDDA0D"
+                : "#ffff00"
           }
         />
         <p
@@ -551,8 +551,8 @@ export const Navbar = ({
       if (page.isDropdown) {
         const isActive = page.dropdownItems?.some((item) =>
           pathname.includes(
-            item.url.replace("?tab=articles", "").replace("?", "")
-          )
+            item.url.replace("?tab=articles", "").replace("?", ""),
+          ),
         );
 
         items.push({
@@ -879,7 +879,7 @@ export const Navbar = ({
           window.location.href = `/client/${localStorage.getItem("language")}`;
         } else {
           window.location.href = `/client/${localStorage.getItem(
-            "language"
+            "language",
           )}/register-preview`;
         }
         scrollTop();
@@ -897,11 +897,11 @@ export const Navbar = ({
     } else if (isInConsultation) {
       window.open(
         `/${renderIn}/${localStorage.getItem("language")}/notifications`,
-        "_blank"
+        "_blank",
       );
     } else {
       navigate(
-        `/${renderIn}/${localStorage.getItem("language")}/notifications`
+        `/${renderIn}/${localStorage.getItem("language")}/notifications`,
       );
     }
   };
@@ -1012,7 +1012,7 @@ export const Navbar = ({
         {page.dropdownItems.map((item) => {
           // Check if this dropdown item is currently active
           const isActive = pathname.includes(
-            item.url.replace("?tab=articles", "").replace("?", "")
+            item.url.replace("?tab=articles", "").replace("?", ""),
           );
 
           return (
