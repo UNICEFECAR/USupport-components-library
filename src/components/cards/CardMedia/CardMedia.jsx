@@ -114,15 +114,24 @@ export const CardMedia = ({
       )}
       <div className={"card-media__content"}>
         {showLabels && (
-          <div className={"card-media__labels"}>{labels?.length > 0 && renderLabels()}</div>
+          <div
+            className={[
+              "card-media__labels",
+              type === "landscape" ? "card-media__labels--landscape" : "",
+            ].join(" ")}
+          >
+            {labels?.length > 0 && renderLabels()}
+          </div>
         )}
         <div className="card-media__content__details">
           <div className="card-media__content__details__left">
             <div className="card-media__content__details__left__read-time-creator-like">
               <div className="card-media__content__details__left__read-time-creator">
                 {creator && (
-                  <p 
-                    className={"small-text card-media__content__details__left__creator"}
+                  <p
+                    className={
+                      "small-text card-media__content__details__left__creator"
+                    }
                     title={t("by", { creator })}
                   >
                     {t("by", { creator })}
@@ -167,7 +176,7 @@ export const CardMedia = ({
           <Button
             type={"text"}
             label={t(
-              contentType === "articles" ? "read_more_button" : "view_more"
+              contentType === "articles" ? "read_more_button" : "view_more",
             )}
             onClick={() => {
               onClick && onClick();
