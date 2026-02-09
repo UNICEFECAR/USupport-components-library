@@ -85,12 +85,7 @@
     overflow-x: hidden;
 
     @media screen and (min-width: $screen-md) {
-      min-height: 5.6rem;
-      max-height: 5.6rem;
       overflow: hidden;
-    }
-
-    @media screen and (min-width: $screen-lg) {
       min-height: 2.6rem;
       max-height: 2.6rem;
     }
