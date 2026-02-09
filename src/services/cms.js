@@ -26,6 +26,7 @@ const moodTrackerEndpoint = CMS_API_URL + "/mood-tracker-recomendations";
  * @param {string} queryObj.contains - the string to search for in the document title
  * @param {string} queryObj.ageGroupId - the age group id to filter by
  * @param {string} queryObj.categoryId - the category id to filter by
+ * @param {number} queryObj.decisionTreeSection - the decision tree section number to filter by
  * @param {string} queryObj.locale - the locale to filter by
  * @param {string} queryObj.sortBy - the field to sort by
  * @param {string} queryObj.sortOrder - the order to sort by, possible values are "asc" and "desc"
@@ -66,6 +67,13 @@ function generateQuerryString(queryObj) {
 
   if (queryObj.categoryId) {
     querry += `&filters[category][id][$in]=${queryObj.categoryId}`;
+  }
+
+  if (
+    queryObj.decisionTreeSection !== undefined &&
+    queryObj.decisionTreeSection !== null
+  ) {
+    querry += `&filters[decision_tree_section][$eq]=${queryObj.decisionTreeSection}`;
   }
 
   if (queryObj.sortBy && queryObj.sortOrder) {
@@ -135,6 +143,7 @@ function generateQuerryString(queryObj) {
  * @param {string} queryObj.contains - the string to search for in the document title
  * @param {string} queryObj.ageGroupId - the age group id to filter by
  * @param {string} queryObj.categoryId - the category id to filter by
+ * @param {number} queryObj.decisionTreeSection - the decision tree section number to filter by
  * @param {string} queryObj.locale - the locale to filter by
  * @param {string} queryObj.sortBy - the field to sort by
  * @param {string} queryObj.sortOrder - the order to sort by, possible values are "asc" and "desc"
@@ -585,7 +594,7 @@ async function getAllCategoriesStatistics({
   contentType,
   sex,
   yearOfBirthFrom,
-  yearOfBirthTo,  
+  yearOfBirthTo,
   urbanRural,
   startDate,
   endDate,

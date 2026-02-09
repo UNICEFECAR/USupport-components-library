@@ -4,12 +4,14 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  flex-wrap: nowrap;
 
   .tab {
     padding: $spacing_1_2 $spacing_1_2;
     margin: 0 $spacing_0_8;
     border-bottom: 0.2rem solid transparent;
     cursor: pointer;
+    white-space: nowrap;
     
     @media screen and (min-width: $screen-sm) {
       width: 20%;
@@ -45,6 +47,7 @@
         font-weight: $font_medium;
       }
     }
+    
 
     &--selected {
       border-bottom: 0.2rem solid $color_primary_20809e;

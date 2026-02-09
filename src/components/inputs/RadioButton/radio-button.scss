@@ -29,19 +29,21 @@
 
     width: 2rem;
     height: 2rem;
+    min-width: 2rem;
+    min-height: 2rem;
     border: $color_gray_92989b 0.15rem solid;
     border-radius: 50%;
 
     display: grid;
     place-content: center;
+    flex-shrink: 0;
 
     &.checked {
       border: 0;
       background-color: $color_white_ff;
       border: $color_secondary_9749fa 0.15rem solid;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: grid;
+      place-content: center;
 
       + .label {
         color: $color_blue_3d527b;

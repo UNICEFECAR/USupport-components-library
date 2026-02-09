@@ -4,7 +4,7 @@
   text-align: left;
   display: flex;
   box-shadow: $shadow_1;
-  width: 100%;
+  // width: 100%;
   margin: auto;
   position: relative;
   cursor: pointer;
@@ -91,14 +91,14 @@
     }
 
     @media screen and (min-width: $screen-lg) {
-      min-height: 2.8rem;
-      max-height: 2.8rem;
+      min-height: 2.6rem;
+      max-height: 2.6rem;
     }
   }
 
   &__label {
     max-height: 2rem;
-    
+
     margin-bottom: $spacing_0_8;
     overflow: hidden;
     padding: 0 $spacing_1_6;
@@ -122,7 +122,7 @@
   &__title {
     display: -webkit-box;
     overflow: hidden;
-    max-width: 70%;
+    // max-width: 80%;
     width: 100%;
 
     &__text {
@@ -156,6 +156,8 @@
   &__content {
     position: relative;
     width: 90%;
+    min-width: 0;
+    overflow: hidden;
 
     &__details {
       display: flex;
@@ -163,19 +165,25 @@
       justify-content: space-between;
       align-items: center;
       padding-right: $spacing_1_0;
+      min-width: 0;
+      overflow: hidden;
 
       &__left {
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        // width: 100%;
+        width: 100%;
+        min-width: 0;
+        overflow: hidden;
 
         &__read-time-creator-like {
           display: flex;
           flex-direction: row;
           align-items: center;
           width: 100%;
+          min-width: 0;
+          overflow: hidden;
           position: relative;
           padding-top: $spacing_1_0;
         }
@@ -185,6 +193,17 @@
           flex-direction: row;
           align-items: center;
           max-width: 100%;
+          width: 100%;
+          min-width: 0;
+          overflow: hidden;
+        }
+
+        &__creator {
+          max-width: 60%;
+          min-width: 0;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
       }
     }
@@ -205,7 +224,7 @@
     position: absolute;
     top: $spacing_1_6;
     left: $spacing_1_6;
-    z-index: 3; // Above play overlay
+    z-index: 3;
 
     &__text {
       -webkit-box-orient: vertical;

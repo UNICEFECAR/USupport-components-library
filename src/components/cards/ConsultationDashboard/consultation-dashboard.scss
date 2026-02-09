@@ -6,7 +6,7 @@
   flex-direction: column;
   width: 20rem;
   border-radius: $border_radius_1_6;
-  min-width: 34.8rem;
+  // min-width: 34.8rem;
 
   @media screen and (max-width: $screen-sm) {
     min-width: auto;
