@@ -25,6 +25,7 @@ export const NewButton = ({
   size = "md",
   onClick,
   iconName,
+  isFullWidth = false,
   ...props
 }) => {
   const { theme } = useContext(ThemeContext);
@@ -35,6 +36,7 @@ export const NewButton = ({
         "button",
         `button--${type}`,
         `button--${size}`,
+        isFullWidth ? "button--full-width" : "",
         classNames(classes),
       ].join(" ")}
       disabled={disabled || loading}
