@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Box } from "../../boxes/Box";
-import { Button } from "../../buttons/Button/Button";
+import { NewButton } from "../../buttons";
 
 import "./emergency-center.scss";
 
@@ -44,24 +44,21 @@ export const EmergencyCenter = ({
       <p className="small-text emergency-center__description">{text}</p>
       <div className="emergency-center__btn-container">
         {phone ? (
-          <Button
-            color="purple"
+          <NewButton
             size="sm"
             label={btnLabelCall}
             onClick={() => handleClick("phone")}
           />
         ) : null}
         {link ? (
-          <Button
-            color="purple"
+          <NewButton
             size="sm"
             label={btnLabelLink}
             onClick={() => handleClick("link")}
           />
         ) : null}
         {showCustomButton && (
-          <Button
-            color="purple"
+          <NewButton
             size="sm"
             label={btnLabelCustom}
             onClick={() => handleClick("custom")}
