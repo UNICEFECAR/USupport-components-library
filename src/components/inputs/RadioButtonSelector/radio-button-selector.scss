@@ -3,9 +3,19 @@
 .radio-button-selector {
   cursor: pointer;
   padding: $spacing_1_2 $spacing_1_6;
+  border-radius: $border_radius_1_2;
+  border: 0.1rem solid #cdd8e1;
 
   &--disabled {
     opacity: 0.4;
+  }
+
+  &--selected {
+    border: 0.1rem solid $color_secondary_9749fa;
+  }
+
+  &:hover:not(&--disabled) {
+    border: 0.1rem solid $color_secondary_9749fa;
   }
 
   &--sm {
