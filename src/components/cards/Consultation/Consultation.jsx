@@ -61,10 +61,10 @@ export const Consultation = ({
     campaignId && renderIn === "client"
       ? 0
       : !isNaN(couponPrice)
-      ? couponPrice
-      : !isNaN(consultationCouponPrice)
-      ? consultationCouponPrice
-      : consultationPrice;
+        ? couponPrice
+        : !isNaN(consultationCouponPrice)
+          ? consultationCouponPrice
+          : consultationPrice;
 
   const isBookedWithCoupon =
     couponPrice || consultation.couponPrice || campaignId;
@@ -81,7 +81,7 @@ export const Consultation = ({
 
   const startDate = new Date(timestamp);
   const endDate = new Date(
-    new Date(timestamp).setHours(new Date(timestamp).getHours() + 1)
+    new Date(timestamp).setHours(new Date(timestamp).getHours() + 1),
   );
   const dayOfWeek = t(getDayOfTheWeek(startDate));
   const dateText = `${dayOfWeek} ${getDateView(startDate).slice(0, 5)}`;
@@ -153,7 +153,7 @@ export const Consultation = ({
               name: consultation.clientName,
               chatId: consultation.chatId,
             },
-            isPast
+            isPast,
           );
         },
       },
@@ -195,7 +195,7 @@ export const Consultation = ({
               {dateText}
             </p>
             <p className="text consultation__content__text-container__name-container__time-text">
-              {timeText}
+              {buttonAction === "join" ? t("active") : timeText}
             </p>
             <p className="text consultation__content__text-container__name">
               {name}
@@ -210,7 +210,7 @@ export const Consultation = ({
           </p>
         ) : (
           <div className="provider-consultation__icon-container">
-            {hasPriceBadge && (
+            {/* {hasPriceBadge && (
               <div
                 className={[
                   "provider-consultation__icon-container__price-badge",
@@ -237,11 +237,11 @@ export const Consultation = ({
                   {isBookedWithCoupon && renderIn === "client"
                     ? t("coupon")
                     : price > 0
-                    ? `${consultation.price}${currencySymbol || ""}`
-                    : t("free")}
+                      ? `${consultation.price}${currencySymbol || ""}`
+                      : t("free")}
                 </p>
               </div>
-            )}
+            )} */}
             {hasMenu && (
               <Icon
                 name="three-dots-vertical"
@@ -261,14 +261,14 @@ export const Consultation = ({
       )}
       {!overview && !suggested && buttonAction === "join" && (
         <div className="consultation__button-container">
-          <p className="text consultation__button-container__now-text">
+          {/* <p className="text consultation__button-container__now-text">
             {t("active")}
-          </p>
+          </p> */}
           <NewButton
             onClick={() => handleJoin()}
             label={buttonLabel}
             type="solid"
-            size="sm"
+            classes={"consultation__button-container__join-button"}
           />
         </div>
       )}

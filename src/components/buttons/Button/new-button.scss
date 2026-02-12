@@ -31,7 +31,6 @@
         #6b52d9 65.14%,
         #5c42e9 90.04%
       );
-      //   box-shadow: 0 4px 12px rgba(104, 77, 253, 0.4);
     }
 
     &:active:enabled {
@@ -42,7 +41,6 @@
         #6145bf 65.14%,
         #5237d5 90.04%
       );
-      //   box-shadow: 0 2px 6px rgba(104, 77, 253, 0.4);
     }
   }
 
@@ -50,16 +48,16 @@
     @include themify($themes, "background-color", "color_6a4ffb_8c90eb");
 
     &:hover:enabled {
-      background-color: #5a3fe9; // Darker version of #6a4ffb
+      background-color: #5a3fe9;
       .theme-dark & {
-        background-color: #7c80d9; // Darker version of #8c90eb
+        background-color: #7c80d9;
       }
     }
 
     &:active:enabled {
-      background-color: #4a2fd7; // Even darker version of #6a4ffb
+      background-color: #4a2fd7;
       .theme-dark & {
-        background-color: #6c70c7; // Even darker version of #8c90eb
+        background-color: #6c70c7;
       }
     }
   }
@@ -69,16 +67,34 @@
     color: #6989a4;
     border: 0.1rem solid #cdd8e1;
 
+    .theme-dark &,
+    .theme-highContrast & {
+      color: #c1d7e0;
+      border-color: #c1d7e0;
+    }
+
     &:hover:enabled {
-      background-color: rgba(205, 216, 225, 0.1); // Light tint of #CDD8E1
-      color: #5a7a94; // Slightly darker version of #6989A4
+      background-color: rgba(205, 216, 225, 0.1);
+      color: #5a7a94;
       border-color: #cdd8e1;
+
+      .theme-dark &,
+      .theme-highContrast & {
+        color: #d4e4ec;
+        border-color: #c1d7e0;
+      }
     }
 
     &:active:enabled {
-      background-color: rgba(205, 216, 225, 0.2); // Stronger tint of #CDD8E1
-      color: #4b6b84; // Even darker version of #6989A4
+      background-color: rgba(205, 216, 225, 0.2);
+      color: #4b6b84;
       border-color: #cdd8e1;
+
+      .theme-dark &,
+      .theme-highContrast & {
+        color: #e7f1f7;
+        border-color: #c1d7e0;
+      }
     }
   }
 

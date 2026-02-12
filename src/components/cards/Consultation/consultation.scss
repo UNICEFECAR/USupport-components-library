@@ -26,18 +26,24 @@
 
       &__name-container {
         &__date-text {
-          font-weight: 700;
-          word-break: break-word;
+          &.text {
+            font-weight: 700;
+            word-break: break-word;
+          }
         }
 
         &__time-text {
-          font-weight: 400;
+          &.text {
+            font-weight: 400;
+          }
         }
       }
 
       &__name {
-        font-weight: 400;
-        color: #6989a4;
+        &.text {
+          font-weight: 400;
+          color: #6989a4;
+        }
       }
 
       &__date-container {
@@ -96,6 +102,10 @@
         }
       }
     }
+
+    &__join-button {
+      width: 100%;
+    }
   }
 
   &__request-container {
@@ -140,21 +150,6 @@
 
   &__organization {
     padding-top: $spacing_1_2;
-  }
-
-  p.consultation__content__text-container__name-container__date-text {
-    font-weight: 700;
-    color: #0e202f;
-  }
-
-  p.consultation__content__text-container__name-container__time-text {
-    font-weight: 400;
-    color: #0e202f;
-  }
-
-  p.consultation__content__text-container__name {
-    font-weight: 400;
-    color: #6989a4;
   }
 }
 .provider-consultation__icon-container {

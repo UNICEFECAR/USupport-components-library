@@ -43,7 +43,7 @@
   cursor: default;
   overflow: auto;
   height: 6rem;
-  
+
   @media screen and (min-width: $screen-sm) {
     height: 4.6rem;
   }
@@ -325,7 +325,9 @@
     top: 50rem;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    transition:
+      opacity 0.3s ease-in-out,
+      visibility 0.3s ease-in-out;
     width: 30rem;
 
     @media screen and (min-width: $navbar-tight) {
@@ -655,7 +657,9 @@
     z-index: $z_index_emergency_button;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+    transition:
+      opacity 0.2s ease-in-out,
+      visibility 0.2s ease-in-out;
     pointer-events: none;
 
     &--visible {

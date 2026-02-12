@@ -2,7 +2,11 @@
 
 .footer {
   background-color: $color_green_f4f7fe;
-  @include themifyCustom($themes, "background-color", "color_green_f4f7fe", "color_white_ff");
+
+  .theme-dark &,
+  .theme-highContrast & {
+    background-color: #193246;
+  }
   min-width: calc(34rem - 2 * $spacing_1_6);
 
   padding-top: $spacing_4_8;

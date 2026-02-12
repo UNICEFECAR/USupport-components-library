@@ -510,6 +510,13 @@ export const Navbar = ({
                 classes="nav__profile__language-icon"
                 name="globe"
                 size="md"
+                color={
+                  theme === "highContrast"
+                    ? "#ffff00"
+                    : theme !== "light"
+                      ? "#fff"
+                      : "#0e202f"
+                }
               />
               <Icon
                 name="arrow-chevron-down"
@@ -821,11 +828,24 @@ export const Navbar = ({
               classes="nav__profile__language-icon"
               name="globe"
               size="md"
+              color={
+                theme === "highContrast"
+                  ? "#ffff00"
+                  : theme !== "light"
+                    ? "#fff"
+                    : "#0e202f"
+              }
             />
             <Icon
               name="arrow-chevron-down"
               size="sm"
-              color={theme === "highContrast" ? "#ffff00" : "#20809e"}
+              color={
+                theme === "highContrast"
+                  ? "#ffff00"
+                  : theme !== "light"
+                    ? "#fff"
+                    : "#0e202f"
+              }
             />
           </div>
         </div>
@@ -1150,6 +1170,7 @@ export const Navbar = ({
                   classes="nav__profile__logout-icon"
                   name="exit"
                   size="md"
+                  color={theme !== "light" ? "#fff" : undefined}
                   onClick={handleLogout}
                 />
               )}
