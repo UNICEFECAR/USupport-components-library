@@ -1,11 +1,8 @@
 @import "../../../styles/theme";
 
 .select-container {
-  width: 34.3rem;
-
-  @media screen and (min-width: $screen-lg) {
-    width: 36.8rem;
-  }
+  width: 100%;
+  text-align: left;
 
   &--full-width {
     width: 100%;
@@ -13,17 +10,20 @@
 
   &__label {
     color: $color_blue_3d527b;
+    font-weight: $font_medium_bold;
+    @include themify($themes, "color", color_text_main);
     text-align: left;
     margin-bottom: $spacing_0_4;
   }
 
   & .select {
     &__control {
-      border-radius: $border_radius_2_4;
+      border-radius: $border_radius_1_2;
       box-shadow: $shadow_1;
-      border: 0.1rem solid transparent;
+      border: 0.1rem solid #cdd8e1;
       text-align: left;
-      color: $color_gray_a6b4b8;
+      @include themify($themes, "color", "color_input_text");
+      @include themify($themes, "background-color", "color_card");
       min-height: 3.8rem;
       max-height: 15rem;
       overflow-y: auto;
@@ -65,7 +65,7 @@
     }
 
     &__menu {
-      border-radius: 1.6rem;
+      border-radius: $border_radius_1_2;
       overflow: hidden;
       border: 0;
       box-shadow: $shadow_2;
@@ -100,8 +100,6 @@
       font-size: 1.3rem;
       white-space: nowrap;
       overflow: hidden;
-      // text-overflow: ellipsis;
-      // max-width: 15rem;
     }
 
     &__multi-value__label--dark {
@@ -134,7 +132,6 @@
     }
 
     &__option--dark {
-      // Match dark dropdown text color (#c1d7e0 from .theme-dark p)
       color: #c1d7e0;
 
       &:hover {
@@ -162,4 +159,8 @@
       color: $color_white_ff;
     }
   }
+}
+
+.theme-highContrast .select-container .select__placeholder {
+  color: yellow !important;
 }
