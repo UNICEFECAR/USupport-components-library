@@ -25,4 +25,12 @@
   &--inactive {
     background-color: $color_red_eb5757;
   }
+
+  &--in-progress {
+    @include themify($themes, "background-color", "color_6a4ffb_8c90eb");
+
+    & p {
+      color: $color_white_ff !important;
+    }
+  }
 }
