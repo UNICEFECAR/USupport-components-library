@@ -4,19 +4,19 @@
   @include themify($themes, "background-color", "color_card");
 
   &--border-radius-xs {
-    border-radius: $border_radius_1_6;
+    border-radius: $border_radius_1_2;
   }
 
   &--border-radius-sm {
-    border-radius: $border_radius_2_4;
+    border-radius: $border_radius_1_6;
   }
 
   &--border-radius-md {
-    border-radius: $border_radius_3_2;
+    border-radius: $border_radius_2_4;
   }
 
   &--border-radius-lg {
-    border-radius: $border_radius_4_8;
+    border-radius: $border_radius_3_2;
   }
 
   &--box-shadow-1 {
