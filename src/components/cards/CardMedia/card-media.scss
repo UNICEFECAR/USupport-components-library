@@ -80,9 +80,13 @@
     overflow-x: hidden;
 
     @media screen and (min-width: $screen-md) {
-      min-height: 2.6rem;
-      max-height: 2.6rem;
       overflow: hidden;
+      min-height: 2.5rem;
+      max-height: 2.5rem;
+    }
+
+    &--landscape {
+      max-width: 80%;
     }
   }
 
