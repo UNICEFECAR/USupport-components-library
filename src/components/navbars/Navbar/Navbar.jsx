@@ -418,7 +418,7 @@ export const Navbar = ({
                   {t("edit_profile")}
                 </p>
               </div>
-              <Icon classes="nav__profile__logout-icon" name="exit" size="md" />
+              <Icon classes="nav__profile__logout-icon" name="exit" size="md" onClick={handleLogout} />
             </div>
           </div>
         ),
