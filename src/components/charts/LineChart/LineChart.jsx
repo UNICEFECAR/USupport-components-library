@@ -21,7 +21,7 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
 );
 
 /**
@@ -55,7 +55,7 @@ export const LineChart = ({ data, handleSelectItem, selectedItemId }) => {
     const index = data.indexOf(
       data.find((x) => {
         return x.mood_tracker_id === selectedItemId;
-      })
+      }),
     );
     setSelectedItemIndex(index);
   }, [data, selectedItemId]);
@@ -106,6 +106,9 @@ export const LineChart = ({ data, handleSelectItem, selectedItemId }) => {
     maintainAspectRatio: false,
     scales: {
       x: {
+        ticks: {
+          display: false,
+        },
       },
       y: {
         min: 0,

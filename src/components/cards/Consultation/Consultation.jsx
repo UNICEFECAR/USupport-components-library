@@ -5,7 +5,7 @@ import OutsideClickHandler from "react-outside-click-handler";
 import { Card } from "../../boxes/Card";
 import { Avatar } from "../../avatars/Avatar";
 import { Icon } from "../../icons/Icon";
-import { NewButton, Button } from "../../buttons/Button";
+import { NewButton } from "../../buttons/Button";
 import {
   checkIsFiveMinutesBefore,
   getDateView,
@@ -274,15 +274,15 @@ export const Consultation = ({
       )}
       {!overview && suggested && renderIn === "client" && (
         <div className="consultation__request-container">
-          <Button
+          <NewButton
             onClick={handleAccepConsultationClick}
             label={t("accept")}
             size="sm"
           />
-          <Button
+          <NewButton
             onClick={handleRejectConsultationClick}
             label={t("reject")}
-            type="secondary"
+            type="outline"
             size="sm"
           />
         </div>
@@ -290,20 +290,17 @@ export const Consultation = ({
 
       {!overview && suggested && renderIn === "provider" && (
         <div className="consultation__button-container__edit">
-          <Button
+          <NewButton
             onClick={() => handleCancelRequest()}
             label={t("suggested")}
-            type="secondary"
             size="sm"
             disabled
-            color="purple"
           />
-          <Button
+          <NewButton
             onClick={handleCancel}
             label={t("cancel")}
-            type="secondary"
+            type="outline"
             size="sm"
-            color="purple"
           />
         </div>
       )}
@@ -334,12 +331,11 @@ export const Consultation = ({
 
       {!overview && !suggested && buttonAction === "cancel" && (
         <div className="consultation__button-container">
-          <Button
+          <NewButton
             onClick={handleCancel}
             label={buttonLabel}
             size="sm"
-            type="secondary"
-            color={renderIn === "provider" ? "purple" : "green"}
+            type="outline"
           />
         </div>
       )}
@@ -348,12 +344,11 @@ export const Consultation = ({
         seeDetails) && (
         <div className="consultation__button-container">
           {(renderIn === "client" && status === "finished") || seeDetails ? (
-            <Button
+            <NewButton
               onClick={handleSeeDetails}
               label={buttonLabel}
               size="sm"
-              type="secondary"
-              color={"green"}
+              type="outline"
             />
           ) : (
             <p className="small-text">

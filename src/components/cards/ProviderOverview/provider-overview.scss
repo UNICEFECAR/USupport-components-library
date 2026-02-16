@@ -1,44 +1,43 @@
 @import "../../../styles/theme";
 
 .provider-overview {
-  position: relative;
+  padding: $spacing_1_2;
   align-items: center;
-  cursor: pointer;
-  display: flex;
-  flex-direction: row;
-  padding: $spacing_0_8 $spacing_1_6;
-  text-align: left;
   width: calc(34.3rem - 2 * $spacing_1_6);
+  text-align: left;
   position: relative;
-  height: 100%;
+  transition: border-color 0.2s ease;
+
+  &:hover {
+    border: 0.1rem solid $color_secondary_9749fa;
+  }
 
   @media screen and (min-width: $screen_lg) {
-    width: calc(36.8rem - 2 * $spacing_1_6);
+    width: calc(35.8rem - 2 * $spacing_1_6);
   }
 
   &__content {
-    align-items: center;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    margin-left: $spacing_1_6;
     width: 100%;
+    cursor: pointer;
 
-    &__text-content {
-      padding-right: $spacing_1_0;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
+    &__text-container {
+      padding-left: $spacing_1_6;
+      flex: 1;
 
       &__name-container {
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
+        gap: $spacing_0_6;
         width: 100%;
+      }
 
-        & .text {
-          color: $color_primary_20809e;
+      &__name {
+        &.text {
+          padding-top: $spacing_0_4;
+          color: $color_purple_6a4ffb;
           font-weight: $font_semi_bold;
           display: -webkit-box;
           -webkit-line-clamp: 2;
@@ -50,59 +49,41 @@
           line-height: 1.4;
           min-height: calc(1.4em * 2);
           max-height: calc(1.4em * 2);
-        }
-
-        &__price-badge {
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          justify-content: center;
-          flex-shrink: 0;
-          background-color: #cdd8e1;
-          color: $color_secondary_9749fa;
-          border-radius: 0.6rem;
-          margin-left: $spacing_0_8;
-
-          & .small-text {
-            padding: $spacing_0_4 $spacing_0_6;
-            @include themifyCustom(
-              $themes,
-              "color",
-              "$color_secondary_9749fa",
-              "color_black_31"
-            );
-          }
-
-          &--free {
-            & .small-text {
-              color: #0e202f;
-            }
-          }
+          width: 100%;
         }
       }
 
-      &__name {
-        color: $color_primary_20809e;
-        font-weight: $font_bold;
-        word-break: break-word;
-        
+      &__free-badge {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #cdd8e1;
+        border-radius: 0.6rem;
+        margin-top: 0.2rem;
+
+        & .small-text {
+          padding: $spacing_0_2 $spacing_0_6;
+          color: #0e202f;
+          white-space: nowrap;
+        }
       }
-    }
 
-    &__earliest-text {
-      padding-top: $spacing_0_4;
-    }
-
-    &__earliest-container {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-
-      & .icon {
-        margin-right: $spacing_0_8;
+      &__earliest-text {
+        padding-top: $spacing_0_4;
       }
-      & p {
-        font-weight: $font_bold;
+
+      &__earliest-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        & .icon {
+          margin-right: $spacing_0_8;
+        }
+        & p {
+          font-weight: $font_bold;
+        }
       }
     }
   }
@@ -116,6 +97,39 @@
     overflow: hidden;
     text-overflow: ellipsis;
     line-height: 1.4;
+  }
+
+  &__icon-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    &__price-badge {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      background-color: #cdd8e1;
+      color: $color_secondary_9749fa;
+      border-radius: 0.6rem;
+      margin-right: $spacing_1_4;
+
+      & .small-text {
+        padding: $spacing_0_4 $spacing_0_6;
+        @include themifyCustom(
+          $themes,
+          "color",
+          "$color_secondary_9749fa",
+          "color_black_31"
+        );
+      }
+
+      &--free {
+        & .small-text {
+          color: #0e202f;
+        }
+      }
+    }
   }
 
   &__menu {
