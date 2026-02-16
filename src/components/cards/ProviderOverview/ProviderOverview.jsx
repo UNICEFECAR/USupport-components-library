@@ -127,13 +127,17 @@ export const ProviderOverview = ({
       shadow={2}
       classes={["provider-overview"].join(" ")}
     >
-      <Avatar image={AMAZON_S3_BUCKET + "/" + image} size="sm" />
+      <Avatar
+        image={AMAZON_S3_BUCKET + "/" + image}
+        size="sm"
+        isCircle={false}
+      />
       <div className="provider-overview__content">
         <div className="provider-overview__content__text-content">
           <div className="provider-overview__content__text-content__name-container">
-            <p 
+            <p
               ref={nameRef}
-              className="text" 
+              className="text"
               title={isTextOverflowing ? displayName : undefined}
             >
               {displayName}
@@ -153,7 +157,9 @@ export const ProviderOverview = ({
           <p
             ref={specializationsRef}
             className="small-text provider-overview__types"
-            title={isSpecializationsOverflowing ? specializationsText : undefined}
+            title={
+              isSpecializationsOverflowing ? specializationsText : undefined
+            }
           >
             {specializationsText}
           </p>
