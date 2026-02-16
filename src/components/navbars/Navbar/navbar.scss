@@ -2,6 +2,10 @@
 
 .nav {
   min-width: calc(34rem - 2 * $spacing_1_6);
+  @include themify($themes, "background", "color_white_ff");
+  box-shadow: none;
+  display: flex;
+  transition: box-shadow 0.3s ease;
 
   &--rtl {
     direction: rtl;
@@ -20,12 +24,6 @@
       }
     }
   }
-
-  min-width: $screen-sm;
-  @include themify($themes, "background", "color_white_ff");
-  box-shadow: none;
-  display: flex;
-  transition: box-shadow 0.3s ease;
 
   &--scrolled {
     box-shadow: $shadow_1;
@@ -60,7 +58,6 @@
     align-items: center;
     justify-content: space-between;
     flex: 1 1 0;
-    min-width: 0;
 
     @media screen and (min-width: $navbar-tight) {
       justify-content: flex-start;
@@ -72,7 +69,6 @@
     display: flex;
     align-items: center;
     flex: 1 1 0;
-    min-width: 0;
     justify-content: flex-end;
     padding-right: $spacing_1_6;
 
@@ -651,6 +647,182 @@
     }
   }
 
+  &__notifications-dropdown {
+    position: fixed;
+    z-index: 10000;
+    top: 7.5rem;
+    right: 7rem;
+    opacity: 1;
+    visibility: visible;
+    width: 59rem;
+    max-width: calc(100vw - 2rem);
+
+    @media screen and (min-width: $navbar-spread) {
+      top: 8.5rem;
+      right: 10rem;
+    }
+
+    @media screen and (min-width: $screen-xl) {
+      right: 14rem;
+    }
+
+    &--rtl {
+      right: auto;
+      left: 7rem;
+
+      @media screen and (min-width: $navbar-spread) {
+        left: 10rem;
+      }
+
+      @media screen and (min-width: $screen-xl) {
+        left: 14rem;
+      }
+    }
+
+    &__box {
+      @include themify($themes, "background", "color_white_ff");
+      border-radius: $spacing_0_8;
+      box-shadow: $shadow_1;
+      padding: 0;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+
+      @media screen and (min-width: $screen-lg) {
+        max-height: calc(100vh - 12rem);
+      }
+    }
+
+    &__content {
+      padding: $spacing_2_0 $spacing_2_4;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      flex: 1;
+      min-height: 0;
+    }
+
+    &__inner {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      flex: 1;
+      min-height: 0;
+    }
+
+    &__close {
+      position: absolute;
+      top: $spacing_2_4;
+      right: $spacing_2_4;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    &__header {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: $spacing_0_8;
+      padding-bottom: $spacing_1_6;
+      margin-bottom: $spacing_1_6;
+      border-bottom: 1px solid;
+      @include themifyNormal($themes) {
+        border-bottom-color: themed("color_gray_d2dcde");
+      }
+
+      &__subheading-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+
+        &__tabs {
+          margin-bottom: $spacing_1_2;
+        }
+
+        &__mark-read {
+          margin: 0 auto;
+          min-width: 30%;
+          @media screen and (min-width: $screen-lg) {
+            margin-left: auto;
+            margin-right: 0;
+          }
+        }
+      }
+    }
+
+    &__list {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing_0_8;
+      overflow-y: auto;
+      flex: 1;
+      min-height: 0;
+      @include scrollbar-secondary;
+    }
+
+    &__empty {
+      text-align: center;
+      padding: $spacing_3_2 0;
+      @include themify($themes, "color", "color_gray_a6b4b8");
+    }
+  }
+
+  &__notifications-mobile-panel {
+    position: fixed;
+    top: 6rem;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 101;
+    @include themify($themes, "background", "color_white_ff");
+    overflow: hidden;
+    padding: $spacing_2_0 $spacing_1_6;
+    display: flex;
+    flex-direction: column;
+
+    @media screen and (min-width: $screen-sm) {
+      top: 4.6rem;
+    }
+
+    &--rtl {
+      direction: rtl;
+    }
+
+    &__header {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: $spacing_1_6;
+      flex-shrink: 0;
+    }
+
+    &__close {
+      cursor: pointer;
+    }
+
+    .nav__notifications-dropdown__inner {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .nav__notifications-dropdown__header {
+      flex-shrink: 0;
+    }
+
+    .nav__notifications-dropdown__list {
+      overflow-y: auto;
+      flex: 1;
+      min-height: 0;
+      @include scrollbar-secondary;
+    }
+  }
+
   // Enhanced Page dropdown styles
   &__page-dropdown {
     position: fixed;
@@ -748,11 +920,22 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 4rem; // Match language selector height
-      margin-right: $spacing_1_6; // Match burger menu left padding on mobile
+      height: 4rem;
+      margin-right: $spacing_1_6;
+      position: relative;
 
       @media screen and (min-width: $navbar-tight) {
         margin-right: 0;
+      }
+
+      &--unread {
+        width: 0.6rem;
+        height: 0.6rem;
+        position: absolute;
+        top: 0.5rem;
+        right: 0.2rem;
+        background-color: $color_red_eb5757;
+        border-radius: 50%;
       }
     }
 

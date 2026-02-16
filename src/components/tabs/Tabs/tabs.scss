@@ -2,7 +2,7 @@
 
 .tabs-wrapper {
   width: 100%;
-  overflow: hidden;
+  // overflow: hidden; //NOTE: uncomment this if it breaks the layout somewhere
   position: relative;
   box-sizing: border-box;
   isolation: isolate;

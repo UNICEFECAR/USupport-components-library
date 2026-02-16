@@ -2,12 +2,7 @@
 
 .notification {
   padding: $spacing_1_6;
-  width: calc(37.7rem - 2 * $spacing_1_6);
-  cursor: pointer;
-
-  @media screen and (min-width: $screen_lg) {
-    width: calc(56rem - 2 * $spacing_1_6);
-  }
+  border-radius: $border_radius_0_8;
 
   &-new {
     background: $color_green_e6f1f4;

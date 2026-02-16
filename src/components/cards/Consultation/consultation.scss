@@ -158,13 +158,14 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    @include themify($themes, "background-color", "color_6a4ffb_8c90eb");
+    // @include themify($themes, "background-color", "color_6a4ffb_8c90eb");
+    background-color: #cdd8e1;
     color: $color_secondary_9749fa;
-    border-radius: $border_radius_1_6;
+    border-radius: 0.6rem;
     margin-right: $spacing_1_4;
 
     & .small-text {
-      padding: $spacing_0_4 $spacing_0_8;
+      padding: $spacing_0_4 $spacing_0_6;
       @include themifyCustom(
         $themes,
         "color",
@@ -174,16 +175,17 @@
     }
 
     &--free {
-      background-color: #9749fa;
+      // background-color: #9749fa;
 
       & .small-text {
-        color: $color_white_ff;
-        @include themifyCustom(
-          $themes,
-          "color",
-          "$color_primary_20809e",
-          "color_primary_20809e"
-        );
+        // color: $color_white_ff;
+        // @include themifyCustom(
+        //   $themes,
+        //   "color",
+        //   "$color_primary_20809e",
+        //   "color_primary_20809e"
+        // );
+        color: #0e202f;
       }
     }
 

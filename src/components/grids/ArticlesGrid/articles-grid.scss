@@ -26,6 +26,10 @@
     display: flex;
     flex-direction: column;
 
+    &__card-media {
+      width: 100%;
+    }
+
     & > * {
       height: 100%;
     }

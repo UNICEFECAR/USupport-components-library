@@ -89,6 +89,7 @@ export const ArticlesGrid = ({
                   isRead={article.isRead}
                   t={t}
                   onClick={() => handleArticleClick(articleData)}
+                  classes="articles-grid__item__card-media"
                 />
               </div>
             );

@@ -4,7 +4,7 @@
   text-align: left;
   display: flex;
   box-shadow: $shadow_1;
-  // width: 100%;
+  width: 100%;
   margin: auto;
   position: relative;
   cursor: pointer;
@@ -301,7 +301,7 @@
       width: 100%;
       height: auto; // Preserve aspect ratio
       min-height: 15rem; // Minimum height to ensure card doesn't become too short
-      border-radius: $border_radius_2_4 $border_radius_2_4 0 0;
+      border-radius: $border_radius_1_2 $border_radius_1_2 0 0;
       object-fit: cover;
       object-position: center;
     }

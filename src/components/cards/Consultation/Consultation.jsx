@@ -210,7 +210,7 @@ export const Consultation = ({
           </p>
         ) : (
           <div className="provider-consultation__icon-container">
-            {/* {hasPriceBadge && (
+            {hasPriceBadge && (
               <div
                 className={[
                   "provider-consultation__icon-container__price-badge",
@@ -241,7 +241,7 @@ export const Consultation = ({
                       : t("free")}
                 </p>
               </div>
-            )} */}
+            )}
             {hasMenu && (
               <Icon
                 name="three-dots-vertical"

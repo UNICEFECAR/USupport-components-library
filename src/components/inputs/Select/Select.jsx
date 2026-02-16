@@ -24,6 +24,7 @@ export const Select = ({
   classes,
   maxMenuHeight = 200,
   isSearchable = true,
+  isSmall = false,
   ...rest
 }) => {
   const [selectedOptions, setSelectedOptions] = useState(null);
@@ -61,6 +62,7 @@ export const Select = ({
         className={[
           "select-container",
           isDark && "select-container--dark",
+          isSmall && "select-container--small",
         ].join(" ")}
         classNamePrefix="select"
         classNames={{

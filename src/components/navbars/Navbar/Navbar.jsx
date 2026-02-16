@@ -82,6 +82,7 @@ export const Navbar = ({
   clientName,
   handleLogout,
   openRegistrationModal,
+  renderNotificationsContent,
 }) => {
   const { theme, setTheme } = useContext(ThemeContext);
 
@@ -99,6 +100,8 @@ export const Navbar = ({
   const [languagesShown, setLanguagesShown] = useState(false);
   const [countriesShown, setCountriesShown] = useState(false);
   const [profileDropdownShown, setProfileDropdownShown] = useState(false);
+  const [notificationsDropdownShown, setNotificationsDropdownShown] =
+    useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [dropdownPosition, setDropdownPosition] = useState({ left: 0, top: 0 });
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
@@ -373,16 +376,17 @@ export const Navbar = ({
     if (width >= 1050 && showProfile) {
       // On desktop, toggle dropdown instead of navigating
       setProfileDropdownShown(!profileDropdownShown);
+      setNotificationsDropdownShown(false);
       setLanguagesShown(false);
       setCountriesShown(false);
       closePageDropdown();
     } else {
-      // On mobile, navigate to profile
-      const url = `/${renderIn}/${localStorage.getItem("language")}/profile`;
+      // On mobile, navigate to profile details
+      const url = `/${renderIn}/${localStorage.getItem("language")}/details`;
       if (isInConsultation) {
         window.open(url, "_blank");
       } else {
-        navigate(`/${renderIn}/${localStorage.getItem("language")}/profile`);
+        navigate(`/${renderIn}/${localStorage.getItem("language")}/details`);
       }
     }
   };
@@ -914,6 +918,13 @@ export const Navbar = ({
     if (isTmpUser) {
       setIsNavbarExpanded(false);
       isTmpUserAction();
+    } else if (renderNotificationsContent) {
+      setNotificationsDropdownShown(!notificationsDropdownShown);
+      setIsNavbarExpanded(false);
+      setProfileDropdownShown(false);
+      setLanguagesShown(false);
+      setCountriesShown(false);
+      closePageDropdown();
     } else if (isInConsultation) {
       window.open(
         `/${renderIn}/${localStorage.getItem("language")}/notifications`,
@@ -926,17 +937,31 @@ export const Navbar = ({
     }
   };
 
-  const isInNotifications = pathname.includes("notifications");
+  const isInNotifications =
+    pathname.includes("notifications") || notificationsDropdownShown;
+
   const notificationIcon = (
-    <div className="nav__profile__notification-wrapper">
+    <div
+      className="nav__profile__notification-wrapper"
+      onClick={handleNotificationIconClick}
+    >
       <Icon
         classes="nav__profile__notification-icon"
-        name={`notifications${hasUnreadNotifications ? "-unread" : ""}${
-          isInNotifications ? "-active" : ""
-        }`}
+        name={`notifications`}
         size="md"
-        onClick={handleNotificationIconClick}
+        color={
+          isInNotifications
+            ? "#20809e"
+            : theme === "highContrast"
+              ? "#ffff00"
+              : theme !== "light"
+                ? "#fff"
+                : "#0e202f"
+        }
       />
+      {hasUnreadNotifications && (
+        <div className="nav__profile__notification-wrapper--unread" />
+      )}
     </div>
   );
 
@@ -1282,7 +1307,7 @@ export const Navbar = ({
           />
         </div>
         {renderCtaLoginMobile()}
-        {renderWelcomeText()}
+        {/* {renderWelcomeText()} */}
         {showNotifications && renderNotificationIconMobile()}
       </div>
     );
@@ -1329,6 +1354,8 @@ export const Navbar = ({
             setLanguagesShown(false);
           } else if (countriesShown) {
             setCountriesShown(false);
+          } else if (notificationsDropdownShown) {
+            setNotificationsDropdownShown(false);
           } else if (profileDropdownShown) {
             setProfileDropdownShown(false);
           } else if (activeDropdown !== null) {
@@ -1398,6 +1425,65 @@ export const Navbar = ({
             </Box>
           </div>
         )}
+
+        {/* Notifications Dropdown */}
+        {notificationsDropdownShown &&
+          renderNotificationsContent &&
+          (width >= 1050 ? (
+            <div
+              className={[
+                "nav__notifications-dropdown",
+                IS_RTL ? "nav__notifications-dropdown--rtl" : "",
+              ].join(" ")}
+            >
+              <Box classes="nav__notifications-dropdown__box">
+                <div className="nav__notifications-dropdown__content">
+                  <div
+                    className="nav__notifications-dropdown__close"
+                    onClick={() => setNotificationsDropdownShown(false)}
+                    role="button"
+                    tabIndex="0"
+                    aria-label="Close notifications"
+                  >
+                    <Icon
+                      name="close-x"
+                      size="md"
+                      color={theme === "dark" ? "#c1d7e0" : undefined}
+                    />
+                  </div>
+                  {renderNotificationsContent(() =>
+                    setNotificationsDropdownShown(false),
+                  )}
+                </div>
+              </Box>
+            </div>
+          ) : (
+            <div
+              className={[
+                "nav__notifications-mobile-panel",
+                IS_RTL ? "nav__notifications-mobile-panel--rtl" : "",
+              ].join(" ")}
+            >
+              <div className="nav__notifications-mobile-panel__header">
+                <div
+                  className="nav__notifications-mobile-panel__close"
+                  onClick={() => setNotificationsDropdownShown(false)}
+                  role="button"
+                  tabIndex="0"
+                  aria-label="Close notifications"
+                >
+                  <Icon
+                    name="close-x"
+                    size="md"
+                    color={theme === "dark" ? "#c1d7e0" : undefined}
+                  />
+                </div>
+              </div>
+              {renderNotificationsContent(() =>
+                setNotificationsDropdownShown(false),
+              )}
+            </div>
+          ))}
 
         {/* Profile Dropdown - Only show on desktop */}
         {profileDropdownShown && width >= 1050 && (

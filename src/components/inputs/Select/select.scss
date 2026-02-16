@@ -8,6 +8,13 @@
     width: 100%;
   }
 
+  &--small {
+    width: max-content;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
   &__label {
     color: $color_blue_3d527b;
     font-weight: $font_medium_bold;
@@ -27,6 +34,11 @@
       min-height: 3.8rem;
       max-height: 15rem;
       overflow-y: auto;
+
+      .select-container--small & {
+        min-height: unset;
+        max-height: unset;
+      }
 
       &--is-focused {
         border: 0.1rem solid $color_secondary_9749fa;
@@ -48,16 +60,29 @@
       padding: $spacing_0_4 $spacing_0_8;
 
       @include scrollbar-secondary;
+
+      .select-container--small & {
+        max-height: unset;
+        padding: $spacing_0_2 $spacing_0_4;
+      }
     }
 
     &__placeholder {
       color: $color_gray_a6b4b8;
       padding-left: 0;
       font-size: 1.6rem;
+
+      .select-container--small & {
+        font-size: 1.4rem;
+      }
     }
 
     &__indicators {
       padding: $spacing_0_4 $spacing_0_8;
+
+      .select-container--small & {
+        padding: $spacing_0_2 $spacing_0_4;
+      }
     }
 
     &__indicator-separator {
@@ -70,6 +95,10 @@
       border: 0;
       box-shadow: $shadow_2;
       font-size: 1.6rem;
+
+      .select-container--small & {
+        font-size: 1.4rem;
+      }
     }
 
     &__menu--dark {
@@ -81,9 +110,7 @@
     }
 
     &__multi-value {
-      border-radius: 2rem;
       background-color: $color_white_ff;
-      box-shadow: $shadow_2;
       overflow: hidden;
       margin: 0.2rem;
       font-size: 1.3rem;

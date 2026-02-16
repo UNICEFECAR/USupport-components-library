@@ -25,6 +25,7 @@ export const NewButton = ({
   size = "md",
   onClick,
   iconName,
+  iconColor,
   isFullWidth = false,
   ...props
 }) => {
@@ -48,7 +49,7 @@ export const NewButton = ({
           <Icon
             name={iconName}
             size="sm"
-            color="#ffffff"
+            color={iconColor || "#ffffff"}
             classes="button__content-container__icon"
           />
         )}

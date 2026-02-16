@@ -40,12 +40,19 @@ export const CardMedia = ({
   isDislikedByUser,
   contentType = "articles",
   isRead,
+  isWhiteBackground,
   children,
   handlePlay,
   t,
+  style,
   ...props
 }) => {
   const { theme } = useContext(ThemeContext);
+
+  const whiteBackgroundStyle =
+    isWhiteBackground && theme === "light"
+      ? { backgroundColor: "#ffffff", ...style }
+      : style;
 
   const renderLabels = () => {
     return labels.map((label, index) => {
@@ -71,10 +78,11 @@ export const CardMedia = ({
         `card-media card-media--${type} card-media--${size} ${
           isRead ? " card-media--read" : ""
         }`,
-        IS_RTL ? "card-media--rtl" : "",
+        IS_RTL ? " card-media--rtl" : "",
         classNames(classes),
       ].join("")}
       {...props}
+      style={whiteBackgroundStyle}
       onClick={onClick}
     >
       <div className="card-media__image-container">
@@ -272,6 +280,11 @@ CardMedia.propTypes = {
   ]),
 
   /**
+   * Whether the card background should be white in light theme
+   * */
+  isWhiteBackground: PropTypes.bool,
+
+  /**
    * Function to handle play action for videos and podcasts
    * */
   handlePlay: PropTypes.func,
@@ -300,5 +313,6 @@ CardMedia.defaultProps = {
   readingTime: null,
   showDescription: true,
   contentType: "articles",
+  isWhiteBackground: false,
   handlePlay: undefined,
 };

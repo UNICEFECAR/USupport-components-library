@@ -10,7 +10,7 @@ import "./tabs.scss";
  *
  * @return {jsx}
  */
-export const Tabs = ({ options, handleSelect, t = () => {} }) => {
+export const Tabs = ({ options, handleSelect, t = () => {}, classes }) => {
   const IS_RTL = localStorage.getItem("language") === "ar";
 
   const scrollContainerRef = useRef(null);
@@ -46,7 +46,7 @@ export const Tabs = ({ options, handleSelect, t = () => {} }) => {
     setIsOverflowing(hasOverflow);
     setCanScrollLeft(hasOverflow && scrollLeft > tolerance);
     setCanScrollRight(
-      hasOverflow && scrollLeft < scrollWidth - clientWidth - tolerance
+      hasOverflow && scrollLeft < scrollWidth - clientWidth - tolerance,
     );
   };
 

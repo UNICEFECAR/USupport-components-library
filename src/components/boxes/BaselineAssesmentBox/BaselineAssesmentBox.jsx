@@ -34,7 +34,7 @@ export const BaselineAssesmentBox = ({
       <ProgressBar progress={progress} showPercentage />
       <p>{t("started_at", { date: getDateView(startedAt) })}</p>
       <p>{currentPosition}/27</p>
-      <NewButton onClick={handleViewAssessment} variant="secondary">
+      <NewButton onClick={handleViewAssessment} size="lg">
         {status === "in_progress" ? t("continue") : t("view")}
       </NewButton>
     </Box>
