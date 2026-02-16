@@ -30,3 +30,8 @@ export { default as NunitoSansMedium } from "./NunitoSans-Medium.ttf";
 export { default as NunitoSansSemiBold } from "./NunitoSans-SemiBold.ttf";
 export { default as NunitoSansBold } from "./NunitoSans-Bold.ttf";
 export { default as wysaLogo } from "./wysa-logo.avif";
+export { default as moodTrackHappy } from "./mood-track-happy.png";
+export { default as moodTrackGood } from "./mood-track-good.png";
+export { default as moodTrackSad } from "./mood-track-sad.png";
+export { default as moodTrackDepressed } from "./mood-track-depressed.png";
+export { default as moodTrackWorried } from "./mood-track-worried.png";

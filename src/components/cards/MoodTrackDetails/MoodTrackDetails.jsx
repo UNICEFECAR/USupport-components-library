@@ -2,7 +2,21 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import "./mood-track-details.scss";
-import { Emoticon } from "../../icons";
+import {
+  moodTrackHappy,
+  moodTrackGood,
+  moodTrackSad,
+  moodTrackDepressed,
+  moodTrackWorried,
+} from "../../../assets";
+
+const moodImages = {
+  happy: moodTrackHappy,
+  good: moodTrackGood,
+  sad: moodTrackSad,
+  depressed: moodTrackDepressed,
+  worried: moodTrackWorried,
+};
 
 /**
  * MoodTrackDetails
@@ -16,10 +30,11 @@ export const MoodTrackDetails = ({ mood, t }) => {
     <div className="mood-track-details">
       <div className="mood-track-details__subheading-container">
         <p className="text">{t("you_felt")}</p>
-        <Emoticon
-          name={`emoticon-${mood.mood}`}
-          size="xs"
-          classes="mood-track-details__subheading-container__emoticon"
+        <img
+          src={moodImages[mood.mood]}
+          alt={mood.mood}
+          className="mood-track-details__subheading-container__emoticon"
+          style={{ width: "2.4rem", height: "2.4rem" }}
         />
         <p className="text">
           {t(mood.mood)} {t("comment_text")}
