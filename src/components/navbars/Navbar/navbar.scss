@@ -2,7 +2,7 @@
 
 .nav {
   min-width: calc(34rem - 2 * $spacing_1_6);
-  @include themify($themes, "background", "color_white_ff");
+  background-color: transparent;
   box-shadow: none;
   display: flex;
   transition: box-shadow 0.3s ease;
@@ -27,6 +27,7 @@
 
   &--scrolled {
     box-shadow: $shadow_1;
+    @include themify($themes, "background", "color_white_ff");
   }
   justify-content: space-between;
   flex-wrap: wrap;
