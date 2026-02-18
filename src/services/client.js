@@ -80,14 +80,14 @@ async function getOrganizations(filters) {
   }
 
   const response = await http.get(
-    `${API_ENDPOINT}/organization${filtersQuery ? `?${filtersQuery}` : ""}`
+    `${API_ENDPOINT}/organization${filtersQuery ? `?${filtersQuery}` : ""}`,
   );
   return response;
 }
 
 async function getOrganizationById(organizationId) {
   const response = await http.get(
-    `${API_ENDPOINT}/organization/${organizationId}`
+    `${API_ENDPOINT}/organization/${organizationId}`,
   );
   return response;
 }
@@ -112,9 +112,17 @@ async function getMoodTrackForToday() {
   return response;
 }
 
-async function getMoodTrackEntries(limit, pageNum) {
+async function getMoodTrackEntries(limit, pageNum, year) {
+  const queryParams = new URLSearchParams();
+  if (typeof limit !== "undefined") queryParams.append("limit", limit);
+  if (typeof pageNum !== "undefined") queryParams.append("pageNum", pageNum);
+  if (typeof year !== "undefined" && year !== null && year !== "") {
+    queryParams.append("year", year);
+  }
+  console.log("year", year);
+
   const response = await http.get(
-    `${API_ENDPOINT}/mood-tracker/entries?limit=${limit}&pageNum=${pageNum}`
+    `${API_ENDPOINT}/mood-tracker/entries?${queryParams.toString()}`,
   );
   return response;
 }
@@ -127,7 +135,7 @@ async function generateMoodTrackReport(payload) {
   if (endDate) queryParams.append("endDate", endDate);
 
   const response = await http.get(
-    `${API_ENDPOINT}/mood-tracker/report?${queryParams.toString()}`
+    `${API_ENDPOINT}/mood-tracker/report?${queryParams.toString()}`,
   );
 
   // The API returns JSON: { csvData, fileName, ... }
@@ -173,7 +181,7 @@ async function generateMoodTrackReport(payload) {
 
 async function getSecurityCheckAnswersByConsultationId(consultationId) {
   const response = await http.get(
-    `${API_ENDPOINT}/consultation/security-check?consultationId=${consultationId}`
+    `${API_ENDPOINT}/consultation/security-check?consultationId=${consultationId}`,
   );
   return response;
 }
@@ -181,7 +189,7 @@ async function getSecurityCheckAnswersByConsultationId(consultationId) {
 async function createConsultationSecurityCheck(payload) {
   const response = await http.post(
     `${API_ENDPOINT}/consultation/security-check`,
-    payload
+    payload,
   );
   return response;
 }
@@ -189,7 +197,7 @@ async function createConsultationSecurityCheck(payload) {
 async function updateConsultationSecurityCheck(payload) {
   const response = await http.put(
     `${API_ENDPOINT}/consultation/security-check`,
-    payload
+    payload,
   );
   return response;
 }
@@ -197,7 +205,7 @@ async function updateConsultationSecurityCheck(payload) {
 async function sendInformationPortalSuggestion(suggestion) {
   const response = await http.post(
     `${API_ENDPOINT}/information-portal-suggestion`,
-    { suggestion }
+    { suggestion },
   );
   return response;
 }
@@ -209,7 +217,7 @@ async function addPlatformRating(payload) {
 
 async function checkIsCouponAvailable(couponCode) {
   const response = await http.get(
-    `${API_ENDPOINT}/check-coupon?couponCode=${couponCode}`
+    `${API_ENDPOINT}/check-coupon?couponCode=${couponCode}`,
   );
   return response;
 }
@@ -224,21 +232,21 @@ async function unblockSlot(consultationId) {
 async function addQuestion(question) {
   const response = await http.post(
     `${API_ENDPOINT}/my-qa/create-question`,
-    question
+    question,
   );
   return response;
 }
 
 async function getClientQuestions(languageId) {
   const response = await http.get(
-    `${API_ENDPOINT}/my-qa/client-questions?languageId=${languageId}`
+    `${API_ENDPOINT}/my-qa/client-questions?languageId=${languageId}`,
   );
   return response;
 }
 
 async function getQuestions(orderBy, languageId) {
   const response = await http.get(
-    `${API_ENDPOINT}/my-qa/questions?orderBy=${orderBy}&languageId=${languageId}`
+    `${API_ENDPOINT}/my-qa/questions?orderBy=${orderBy}&languageId=${languageId}`,
   );
   return response;
 }
@@ -260,7 +268,7 @@ async function deleteChatHistory() {
 
 async function deleteMoodTrackerHistory() {
   const response = await http.put(
-    `${API_ENDPOINT}/mood-tracker/history/delete`
+    `${API_ENDPOINT}/mood-tracker/history/delete`,
   );
   return response;
 }
@@ -328,21 +336,21 @@ async function getLatestBaselineAssessment() {
 
 async function getClientAnswersForBaselineAssessmentById(assessmentId) {
   const response = await http.get(
-    `${API_ENDPOINT}/baseline-assessment/answers?assessmentId=${assessmentId}`
+    `${API_ENDPOINT}/baseline-assessment/answers?assessmentId=${assessmentId}`,
   );
   return response;
 }
 
 async function getBaselineAssessmentQuestions() {
   const response = await http.get(
-    `${API_ENDPOINT}/baseline-assessment/questions`
+    `${API_ENDPOINT}/baseline-assessment/questions`,
   );
   return response;
 }
 
 async function createBaselineAssessment() {
   const response = await http.post(
-    `${API_ENDPOINT}/baseline-assessment/create-assessment`
+    `${API_ENDPOINT}/baseline-assessment/create-assessment`,
   );
   return response;
 }
@@ -360,26 +368,26 @@ async function addBaselineAssessmentAnswer({
       answerValue,
       baselineAssessmentId,
       currentPosition,
-    }
+    },
   );
   return response;
 }
 
 async function getBaselineAssessments() {
   const response = await http.get(
-    `${API_ENDPOINT}/baseline-assessment/assessments`
+    `${API_ENDPOINT}/baseline-assessment/assessments`,
   );
   return response;
 }
 
 async function updateClientHasCheckedBaselineAssessment(
-  hasCheckedBaselineAssessment
+  hasCheckedBaselineAssessment,
 ) {
   const response = await http.patch(
     `${API_ENDPOINT}/has-checked-baseline-assessment`,
     {
       hasCheckedBaselineAssessment,
-    }
+    },
   );
   return response;
 }
@@ -391,7 +399,7 @@ async function getPersonalizedOrganizations() {
 
 async function getOrganizationSpecializations() {
   const response = await http.get(
-    `${API_ENDPOINT}/organization/specializations`
+    `${API_ENDPOINT}/organization/specializations`,
   );
   return response;
 }

@@ -207,8 +207,8 @@ export const Dropdown = ({
                     ? "#373737"
                     : "#cbcbcb"
                   : isOpen
-                  ? "#fff"
-                  : "#cbcbcb"
+                    ? "#fff"
+                    : "#cbcbcb"
               }
             />
           </div>

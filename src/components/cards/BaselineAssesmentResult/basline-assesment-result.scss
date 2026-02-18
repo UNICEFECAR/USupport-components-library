@@ -1,0 +1,21 @@
+@import "../../../styles/theme";
+
+.baseline-assesment-result {
+  border-radius: $border_radius_1_6;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: $shadow_1;
+  padding: $spacing_1_2 $spacing_1_2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & > p {
+    margin: 0;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+}

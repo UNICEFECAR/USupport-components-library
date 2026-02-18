@@ -26,7 +26,7 @@ export const BaselineAssesmentBox = ({
   t,
 }) => {
   return (
-    <Box classes="baseline-assesment-box">
+    <div className="baseline-assesment-box">
       <StatusBadge
         label={t(status)}
         status={status === "completed" ? "active" : "in-progress"}
@@ -37,14 +37,6 @@ export const BaselineAssesmentBox = ({
       <NewButton onClick={handleViewAssessment} size="lg">
         {status === "in_progress" ? t("continue") : t("view")}
       </NewButton>
-    </Box>
+    </div>
   );
-};
-
-BaselineAssesmentBox.propTypes = {
-  // Add propTypes here
-};
-
-BaselineAssesmentBox.defaultProps = {
-  // Add defaultProps here
 };
