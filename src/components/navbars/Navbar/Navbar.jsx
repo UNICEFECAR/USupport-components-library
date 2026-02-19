@@ -1021,19 +1021,25 @@ export const Navbar = ({
               selectedCountry.value.toLowerCase();
           }
 
+          const baseClass =
+            type === "languages"
+              ? "nav__dropdown-content__lang"
+              : "nav__dropdown-content__country";
+
+          const optionClasses =
+            type === "languages" && isSelected
+              ? `${baseClass} ${baseClass}--selected`
+              : baseClass;
+
           return (
             <div
               onClick={(e) => handleOptionSelect(e, option)}
               key={option.value}
-              className={
-                type === "languages"
-                  ? "nav__dropdown-content__lang"
-                  : "nav__dropdown-content__country"
-              }
+              className={optionClasses}
             >
               {type === "countries" && <IconFlag flagName={option.iconName} />}
               <p
-                className={` nav__dropdown-content__lang-label ${
+                className={`nav__dropdown-content__lang-label ${
                   isSelected
                     ? "nav__dropdown-content__lang-label--selected"
                     : ""
