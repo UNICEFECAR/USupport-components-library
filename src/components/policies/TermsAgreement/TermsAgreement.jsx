@@ -47,7 +47,7 @@ export const TermsAgreement = ({
         >
           {textTwo}
         </span>{" "}
-        {textThree} <br />
+        {textThree}{" "}
         <span
           className={[
             "privacy-policy-link",
