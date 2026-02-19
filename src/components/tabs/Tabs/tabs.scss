@@ -136,6 +136,10 @@
         font-size: inherit;
         overflow: hidden;
         text-overflow: ellipsis;
+
+        &::first-letter {
+          text-transform: uppercase;
+        }
       }
     }
   }
