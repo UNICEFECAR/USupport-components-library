@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { Box } from "../../boxes/Box";
 import { Toggle } from "../../inputs/Toggle";
-import { Button } from "../../buttons/Button";
+import { NewButton } from "../../buttons";
 
 import "./cookie-banner.scss";
 
@@ -38,7 +38,7 @@ export const CookieBanner = ({
       localStorage.setItem("acceptAllCookies", acceptAllCookies ? 1 : 0);
       localStorage.setItem(
         "acceptOnlyNecessaryCookies",
-        acceptOnlyNecessaryCookies ? 1 : 0
+        acceptOnlyNecessaryCookies ? 1 : 0,
       );
 
       setCookieState({
@@ -107,7 +107,7 @@ export const CookieBanner = ({
         </div>
       )}
       <div className="cookie-banner__buttons">
-        <Button
+        <NewButton
           size="md"
           label={t(isInClient ? "save" : "accept_all_cookies")}
           disabled={
@@ -118,7 +118,7 @@ export const CookieBanner = ({
           onClick={handleSave}
         />
         {!isInClient && (
-          <Button
+          <NewButton
             size="md"
             label={t("reject_all_cookies")}
             onClick={handleReject}
