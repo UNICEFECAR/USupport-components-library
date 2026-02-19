@@ -22,7 +22,7 @@ export const Icon = ({ name, size, color, classes, role, ...props }) => {
       setSvgFilter(
         `brightness(0) saturate(100%) ${result.filter
           .split("filter: ")[1]
-          .slice(0, -1)}`
+          .slice(0, -1)}`,
       );
     }
   }, [color]);
@@ -30,7 +30,8 @@ export const Icon = ({ name, size, color, classes, role, ...props }) => {
   return (
     <svg
       className={
-        `icon icon--${name} icon--${size}` + (classes ? ` ${classes}` : "")
+        `icon icon--${name} icon--${size} ${props.onClick ? "icon--clickable" : ""}` +
+        (classes ? ` ${classes}` : "")
       }
       style={{ WebkitFilter: svgFilter ? svgFilter : "" }}
       role={role ? role : "none"}
