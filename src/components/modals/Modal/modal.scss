@@ -107,13 +107,12 @@
     gap: $spacing_2_0;
 
     @media screen and (min-width: $screen-md) {
-      margin-top: $spacing_4_4;
+      margin-top: $spacing_1_6;
     }
 
     // Error message takes full width and appears above buttons
     & > .error-message {
       margin: 0;
-      margin-bottom: $spacing_1_6;
       text-align: center;
       flex: 1 1 100%;
       order: -1;
