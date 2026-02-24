@@ -33,7 +33,12 @@ export const AccessToken = ({
   return (
     <div className={[classNames(classes)].join(" ")}>
       {accessTokenLabel && (
-        <p className="access-token-container__label">{accessTokenLabel}</p>
+        <div className="access-token-container__label-container">
+          <Icon name="warning" size="md" />
+          <p className="access-token-container__label-container__label">
+            {accessTokenLabel}
+          </p>
+        </div>
       )}
       <div className="access-token-container">
         {isLoading ? (

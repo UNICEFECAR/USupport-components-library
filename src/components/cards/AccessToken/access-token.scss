@@ -6,11 +6,16 @@
   width: 100%;
   align-items: center;
   justify-content: center;
-  margin-top: $spacing_1_3;
-  margin-bottom: $spacing_3_6;
+  margin: $spacing_0_8 0;
 
-  &__label {
-    padding-bottom: $spacing_1_3;
+  &__label-container {
+    display: flex;
+    flex-direction: row;
+    gap: $spacing_0_8;
+
+    &__label {
+      padding-bottom: $spacing_0_8;
+    }
   }
 
   &__input {
@@ -45,11 +50,6 @@
     &::selection {
       background-color: rgba(151, 73, 250, 0.2);
     }
-  }
-
-  &__copy-icon {
-    margin-left: $spacing_1_2;
-    cursor: pointer;
   }
 
   &__copy-text {
