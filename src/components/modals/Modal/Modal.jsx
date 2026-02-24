@@ -49,6 +49,8 @@ export const Modal = ({
   thirdCtaLabel,
   thirdCtaHandleClick,
   thirdCtaDisabled,
+  removeTopPadding = false,
+  topHeaderComponent,
   // thirdCtaType,
   // thirdCtaColor,
   // thirdCtaLoading,
@@ -110,12 +112,16 @@ export const Modal = ({
           : theme === "highContrast"
             ? "base-modal--hc"
             : "",
+        removeTopPadding && "base-modal--no-top-padding",
         classNames(classes),
       ].join(" ")}
       bodyOpenClassName="base-modal--open"
       contentLabel="Base Modal"
       appElement={document.getElementById("root")}
     >
+      {topHeaderComponent && (
+        <div className="base-modal__top-header">{topHeaderComponent}</div>
+      )}
       <div
         className={[
           "base-modal__header",
@@ -304,6 +310,11 @@ Modal.propTypes = {
    * Children to be rendered in the modal
    */
   children: PropTypes.node,
+
+  /**
+   * If true, removes the top padding from the modal
+   */
+  removeTopPadding: PropTypes.bool,
 };
 
 Modal.defaultProps = {

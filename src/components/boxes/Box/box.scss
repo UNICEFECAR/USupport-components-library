@@ -1,7 +1,9 @@
 @import "../../../styles/theme";
 
 .box {
-  @include themify($themes, "background-color", "color_card");
+  &:not(.box--liquid-glass) {
+    @include themify($themes, "background-color", "color_card");
+  }
 
   &--border-radius-xs {
     border-radius: $border_radius_1_2;
@@ -29,5 +31,38 @@
 
   &--box-shadow-3 {
     box-shadow: $shadow_3;
+  }
+
+  &--liquid-glass {
+    position: relative;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.22),
+      rgba(255, 255, 255, 0.06)
+    );
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    box-shadow: 0 3px 8px rgba(15, 23, 42, 0.3);
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      background: radial-gradient(
+        circle at top left,
+        rgba(255, 255, 255, 0.5),
+        transparent 55%
+      );
+      opacity: 0.9;
+      mix-blend-mode: screen;
+    }
+
+    & > * {
+      position: relative;
+      z-index: 1;
+    }
   }
 }

@@ -1403,7 +1403,9 @@ export const Navbar = ({
             } ${countriesShown ? "nav__countries__content--shown" : ""}`}
           >
             {width >= 1050 && (
-              <h4>{languagesShown ? languageLabel : countryLabel}</h4>
+              <h4 className="nav__languages__content__header">
+                {languagesShown ? languageLabel : countryLabel}
+              </h4>
             )}
             {languagesShown ? renderDropdownContent("languages") : null}
             {countriesShown ? renderDropdownContent("countries") : null}

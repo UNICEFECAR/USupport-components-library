@@ -63,7 +63,7 @@
   }
 
   &--outline {
-    background-color: transparent;
+    background-color: #ffffff;
     color: #6989a4;
     border: 0.1rem solid #cdd8e1;
 
@@ -74,24 +74,26 @@
     }
 
     &:hover:enabled {
-      background-color: rgba(205, 216, 225, 0.1);
+      background-color: #f5f5f5;
       color: #5a7a94;
       border-color: #cdd8e1;
 
       .theme-dark &,
       .theme-highContrast & {
+        background-color: #162a3a;
         color: #d4e4ec;
         border-color: #c1d7e0;
       }
     }
 
     &:active:enabled {
-      background-color: rgba(205, 216, 225, 0.2);
+      background-color: #ebebeb;
       color: #4b6b84;
       border-color: #cdd8e1;
 
       .theme-dark &,
       .theme-highContrast & {
+        background-color: #1e3446;
         color: #e7f1f7;
         border-color: #c1d7e0;
       }

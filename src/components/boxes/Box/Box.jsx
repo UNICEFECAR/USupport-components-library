@@ -11,15 +11,25 @@ import "./box.scss";
  *
  * @return {jsx}
  */
-export const Box = ({ borderSize, boxShadow, classes, children, ...props }) => {
+export const Box = ({
+  borderSize,
+  boxShadow,
+  liquidGlass,
+  classes,
+  children,
+  ...props
+}) => {
   return (
     <div
       className={[
         "box",
         `box--border-radius-${borderSize}`,
         `box--box-shadow-${boxShadow}`,
+        ...(liquidGlass ? ["box--liquid-glass"] : []),
         classNames(classes),
-      ].join(" ")}
+      ]
+        .filter(Boolean)
+        .join(" ")}
       {...props}
     >
       {children}
@@ -39,6 +49,11 @@ Box.propTypes = {
   boxShadow: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
   /**
+   * Apply liquid glass background (frosted glass with blur and gradient)
+   */
+  liquidGlass: PropTypes.bool,
+
+  /**
    * Additional classes to be added to the box
    **/
   classes: PropTypes.oneOfType([
@@ -50,4 +65,5 @@ Box.propTypes = {
 Box.defaultProps = {
   borderSize: "sm",
   boxShadow: "1",
+  liquidGlass: false,
 };

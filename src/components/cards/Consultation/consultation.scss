@@ -93,18 +93,31 @@
       flex-direction: row;
       justify-content: space-between;
       padding-top: $spacing_0_8;
+      column-gap: $spacing_0_8;
+      width: 100%;
+
+      & .button {
+        width: 50%;
+      }
 
       &__join {
         cursor: pointer;
+        width: 50%;
+        box-sizing: border-box;
 
-        & button {
-          pointer-events: none;
+        & .button {
+          width: 100%;
+          box-sizing: border-box;
         }
       }
     }
 
     &__join-button {
       width: 100%;
+
+      @media screen and (min-width: $screen-md) {
+        width: 50%;
+      }
     }
   }
 

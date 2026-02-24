@@ -48,6 +48,8 @@ export const Backdrop = ({
   hasCloseIcon = true,
   hasGoBackArrow = false,
   handleGoBack = () => {},
+  hasLogoHeader = false,
+  topHeaderComponent,
 }) => {
   const { theme } = useContext(ThemeContext);
 
@@ -213,7 +215,9 @@ export const Backdrop = ({
         hasCloseIcon,
         hasGoBackArrow,
         handleGoBack,
+        hasLogoHeader,
       }}
+      topHeaderComponent={topHeaderComponent}
     >
       {children}
     </Modal>
@@ -316,4 +320,8 @@ Backdrop.propTypes = {
    * Function to be called when the go back arrow is clicked
    */
   handleGoBack: PropTypes.func,
+  /**
+   * Optional component to render as a full-width header above the modal content
+   */
+  topHeaderComponent: PropTypes.node,
 };

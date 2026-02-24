@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import OutsideClickHandler from "react-outside-click-handler";
+
 import { Card } from "../../boxes/Card";
 import { Avatar } from "../../avatars/Avatar";
 import { Icon } from "../../icons/Icon";
@@ -10,6 +11,7 @@ import {
   checkIsFiveMinutesBefore,
   getDateView,
   getDayOfTheWeek,
+  useWindowDimensions,
 } from "../../../utils";
 
 const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
@@ -46,7 +48,9 @@ export const Consultation = ({
   organizationName,
   withOrganization,
   toast,
+  liquidGlass = false,
 }) => {
+  const { width } = useWindowDimensions();
   const {
     consultationId,
     timestamp,
@@ -186,6 +190,7 @@ export const Consultation = ({
         buttonAction === "join" && "consultation--purple",
         classNames(classes),
       ].join(" ")}
+      liquidGlass={liquidGlass}
     >
       <div className="consultation__content">
         <Avatar image={imageUrl} size="sm" isCircle={false} />

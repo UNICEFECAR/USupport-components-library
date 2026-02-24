@@ -40,7 +40,7 @@ export const CardMedia = ({
   isDislikedByUser,
   contentType = "articles",
   isRead,
-  isWhiteBackground,
+  isWhiteBackground = false,
   children,
   handlePlay,
   t,
