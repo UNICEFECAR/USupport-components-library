@@ -13,6 +13,7 @@ import "./date-input.scss";
  */
 export const DateInput = ({ classes = [], ...props }) => {
   const inputRef = useRef();
+  const hasValue = !!props.value;
   return (
     <div
       className="date-input__container"
@@ -28,7 +29,9 @@ export const DateInput = ({ classes = [], ...props }) => {
         {...props}
       >
         <p
-          className="date-input__placeholder text"
+          className={classNames("date-input__placeholder text", {
+            "date-input__placeholder--placeholder": !hasValue,
+          })}
           onClick={(e) => {
             e.stopPropagation();
             inputRef.current?.showPicker();

@@ -3,11 +3,7 @@
 .date-input {
   &__container {
     position: relative;
-    width: 34.3rem;
-
-    @media screen and (min-width: $screen-lg) {
-      width: 36.8rem;
-    }
+    width: 100%;
   }
   & input {
     text-transform: uppercase;
@@ -34,12 +30,17 @@
   }
 
   &__placeholder {
+    @include themify($themes, "color", "color_input_text");
     position: absolute;
     top: 50%;
-    left: 2.8rem;
+    left: $spacing_1_6;
     cursor: pointer;
     z-index: 2;
     transform: translateY(-50%);
+  }
+
+  &__placeholder--placeholder {
+    color: $color_gray_a6b4b8;
   }
 }
 
@@ -52,5 +53,4 @@ input[type="date"]:in-range::-webkit-datetime-edit-text {
 
 input[type="date"] {
   color: transparent !important;
-  font-size: 0;
 }
