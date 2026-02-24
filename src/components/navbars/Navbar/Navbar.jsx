@@ -865,6 +865,32 @@ export const Navbar = ({
     }
   };
 
+  const getLanguageIconName = (languageValue) => {
+    const code = languageValue?.toLowerCase();
+
+    switch (code) {
+      case "en":
+        return "language-en";
+      case "uk":
+      case "ua":
+        return "language-ua";
+      case "kk":
+        return "language-kk";
+      case "ro":
+        return "language-ro";
+      case "ru":
+        return "language-ru";
+      case "el":
+        return "language-el";
+      case "hy":
+        return "language-hy";
+      case "tr":
+        return "language-tr";
+      default:
+        return null;
+    }
+  };
+
   const renderLanguageSelectorDesktop = () => {
     // Only render if profile is not shown (language selector is included in profile wrapper when profile is shown)
     if (width >= 1050 && !showProfile) {
@@ -1041,6 +1067,14 @@ export const Navbar = ({
               key={option.value}
               className={optionClasses}
             >
+              {type === "languages" &&
+                getLanguageIconName(option.value) && (
+                  <Icon
+                    name={getLanguageIconName(option.value)}
+                    size="md"
+                    classes="nav__dropdown-content__lang-icon"
+                  />
+                )}
               {type === "countries" && <IconFlag flagName={option.iconName} />}
               <p
                 className={`nav__dropdown-content__lang-label ${
