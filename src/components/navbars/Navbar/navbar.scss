@@ -284,7 +284,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    height: 4rem; // Match notification icon height
+    height: 4rem;
 
     p {
       padding: 0 $spacing_0_6;
@@ -296,7 +296,7 @@
     }
 
     & > .icon--arrow-chevron-down {
-      margin-left: $spacing_1_0;
+      margin-left: $spacing_0_6;
       transition: transform 0.3s ease-in-out;
     }
 
@@ -304,6 +304,10 @@
       & > .icon--arrow-chevron-down {
         transform: rotate(180deg);
       }
+    }
+
+    @media screen and (min-width: $navbar-tight) {
+      padding-right: $spacing_0_6;
     }
   }
 
@@ -917,7 +921,7 @@
   &__profile-wrapper {
     display: flex;
     align-items: center;
-    gap: $spacing_1_6;
+    gap: $spacing_0_8;
     padding-right: $spacing_1_6;
   }
 
@@ -936,7 +940,7 @@
       align-items: center;
       justify-content: center;
       height: 4rem;
-      margin-right: $spacing_1_6;
+      margin-right: $spacing_0_8;
       position: relative;
 
       @media screen and (min-width: $navbar-tight) {

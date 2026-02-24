@@ -816,11 +816,25 @@ export const Navbar = ({
     }
   };
 
+  const getLanguageTriggerColor = () => {
+    if (languagesShown) {
+      if (theme === "highContrast") {
+        return "#ffff00";
+      }
+      return "#20809e";
+    }
+
+    if (theme === "highContrast") {
+      return "#ffff00";
+    }
+
+    return theme !== "light" ? "#fff" : "#0e202f";
+  };
+
   const renderProfileContainerDesktop = () => {
     if (width >= 1050 && showProfile) {
       return (
         <div className="nav__profile-wrapper">
-          {profileContainer}
           <div
             className={[
               "nav__globe",
@@ -837,26 +851,15 @@ export const Navbar = ({
               classes="nav__profile__language-icon"
               name="globe"
               size="md"
-              color={
-                theme === "highContrast"
-                  ? "#ffff00"
-                  : theme !== "light"
-                    ? "#fff"
-                    : "#0e202f"
-              }
+              color={getLanguageTriggerColor()}
             />
-            <Icon
+            {/* <Icon
               name="arrow-chevron-down"
               size="sm"
-              color={
-                theme === "highContrast"
-                  ? "#ffff00"
-                  : theme !== "light"
-                    ? "#fff"
-                    : "#0e202f"
-              }
-            />
+              color={getLanguageTriggerColor()}
+            /> */}
           </div>
+          {profileContainer}
         </div>
       );
     }
@@ -883,11 +886,12 @@ export const Navbar = ({
               classes="nav__profile__language-icon"
               name="globe"
               size="md"
+              color={getLanguageTriggerColor()}
             />
             <Icon
               name="arrow-chevron-down"
               size="sm"
-              color={theme === "highContrast" ? "#ffff00" : "#20809e"}
+              color={getLanguageTriggerColor()}
             />
           </div>
         </div>
