@@ -121,6 +121,8 @@
   &__text {
     margin-top: $spacing_1_6;
     white-space: pre-line;
+    padding-inline: $spacing_1_6;
+    width: calc(100% - 2 * $spacing_1_6);
 
     @media screen and (min-width: $screen-md) {
       margin-top: $spacing_2_4;
