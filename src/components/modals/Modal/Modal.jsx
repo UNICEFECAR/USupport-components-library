@@ -26,14 +26,10 @@ export const Modal = ({
   text,
   ctaLabel,
   ctaHandleClick,
-  ctaColor = "green",
-  ctaType = "primary",
-  secondaryCtaColor = "green",
   isCtaDisabled,
   isCtaLoading,
   secondaryCtaLabel,
   secondaryCtaHandleClick,
-  secondaryCtaType,
   isSecondaryCtaLoading,
   isSecondaryCtaDisabled,
   showLoadingIfDisabled = false,
@@ -51,9 +47,6 @@ export const Modal = ({
   thirdCtaDisabled,
   removeTopPadding = false,
   topHeaderComponent,
-  // thirdCtaType,
-  // thirdCtaColor,
-  // thirdCtaLoading,
 }) => {
   const { theme } = useContext(ThemeContext);
   const hasButtons = ctaLabel || secondaryCtaLabel || thirdCtaLabel;
@@ -120,48 +113,65 @@ export const Modal = ({
       appElement={document.getElementById("root")}
     >
       {topHeaderComponent && (
-        <div className="base-modal__top-header">{topHeaderComponent}</div>
-      )}
-      <div
-        className={[
-          "base-modal__header",
-          !hasGoBackArrow && !hasCloseIcon && "base-modal__header--no-close",
-        ].join(" ")}
-      >
-        {(hasGoBackArrow || hasCloseIcon) && (
-          <div className="base-modal__header__left-container">
-            {hasGoBackArrow && (
+        <div className="base-modal__top-header">
+          {hasGoBackArrow && handleGoBack && (
+            <div className="base-modal__top-header__go-back-icon">
               <Icon
                 name="arrow-chevron-back"
                 size="md"
                 onClick={handleGoBack}
-              />
-            )}
-          </div>
-        )}
-        {headingComponent || (
-          <h4
-            className={[
-              "base-modal__header__text",
-              theme === "dark" && "base-modal__header__text--dark",
-            ].join(" ")}
-          >
-            {heading}
-          </h4>
-        )}
-        {(hasGoBackArrow || hasCloseIcon) && (
-          <div className="base-modal__header__icon-container">
-            {hasCloseIcon && (
-              <Icon
-                name="close-x"
-                size="md"
-                onClick={closeModal}
                 color={theme === "dark" ? "#c1d7e0" : undefined}
               />
+            </div>
+          )}
+          {topHeaderComponent}
+        </div>
+      )}
+      {(hasGoBackArrow || hasCloseIcon || headingComponent || heading) &&
+        !topHeaderComponent && (
+          <div
+            className={[
+              "base-modal__header",
+              !hasGoBackArrow &&
+                !hasCloseIcon &&
+                "base-modal__header--no-close",
+            ].join(" ")}
+          >
+            {!topHeaderComponent && (hasGoBackArrow || hasCloseIcon) && (
+              <div className="base-modal__header__left-container">
+                {hasGoBackArrow && (
+                  <Icon
+                    name="arrow-chevron-back"
+                    size="md"
+                    onClick={handleGoBack}
+                  />
+                )}
+              </div>
+            )}
+            {headingComponent || (
+              <h4
+                className={[
+                  "base-modal__header__text",
+                  theme === "dark" && "base-modal__header__text--dark",
+                ].join(" ")}
+              >
+                {heading}
+              </h4>
+            )}
+            {(hasGoBackArrow || hasCloseIcon) && (
+              <div className="base-modal__header__icon-container">
+                {hasCloseIcon && (
+                  <Icon
+                    name="close-x"
+                    size="md"
+                    onClick={closeModal}
+                    color={theme === "dark" ? "#c1d7e0" : undefined}
+                  />
+                )}
+              </div>
             )}
           </div>
         )}
-      </div>
       {text && <p className="text base-modal__text">{text}</p>}
       <div
         className={[

@@ -14,6 +14,7 @@
   flex-direction: column;
   outline: none;
   overflow: hidden;
+  position: relative;
 
   &:focus,
   &:focus-visible,
@@ -45,6 +46,12 @@
     margin-inline: -$spacing_1_6;
     margin-bottom: $spacing_2_4;
     width: calc(100% + 2 * $spacing_1_6);
+
+    &__go-back-icon {
+      position: absolute;
+      left: $spacing_1_6;
+      top: $spacing_3_6;
+    }
 
     @media screen and (min-width: $screen-md) {
       margin-inline: -$spacing_2_4;
