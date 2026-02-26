@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-import { Button } from "../../buttons/Button/Button";
+import { NewButton } from "../../buttons";
 import { Icon } from "../../icons/Icon/Icon";
 import { Box } from "../../boxes/Box/Box";
 import { Label } from "../../labels/Label/Label";
@@ -57,7 +57,12 @@ export const CardMedia = ({
   const renderLabels = () => {
     return labels.map((label, index) => {
       return (
-        <Label classes={"card-media__label"} text={label.name} key={index} />
+        <Label
+          classes={"card-media__label"}
+          text={label.name}
+          key={index}
+          paletteIndex={index}
+        />
       );
     });
   };
@@ -84,6 +89,7 @@ export const CardMedia = ({
       {...props}
       style={whiteBackgroundStyle}
       onClick={onClick}
+      liquidGlass
     >
       <div className="card-media__image-container">
         <img
@@ -131,6 +137,11 @@ export const CardMedia = ({
             {labels?.length > 0 && renderLabels()}
           </div>
         )}
+        <Grid>
+          <GridItem xs={4} md={8} lg={12} classes="card-media__title">
+            <h4 className="card-media__title__text">{title}</h4>
+          </GridItem>
+        </Grid>
         <div className="card-media__content__details">
           <div className="card-media__content__details__left">
             <div className="card-media__content__details__left__read-time-creator-like">
@@ -151,7 +162,7 @@ export const CardMedia = ({
                       <Icon
                         name={"time"}
                         size="sm"
-                        color={theme === "highContrast" ? "#ffff00" : "#66768d"}
+                        color={theme === "highContrast" ? "#ffff00" : "#ba7446"}
                       />
                       <p className={"small-text"}>
                         {readingTime} {t("min_read")}
@@ -169,11 +180,6 @@ export const CardMedia = ({
             </div>
           </div>
         </div>
-        <Grid>
-          <GridItem xs={4} md={8} lg={12} classes="card-media__title">
-            <h4 className="card-media__title__text">{title}</h4>
-          </GridItem>
-        </Grid>
         <div className={"card-media__description"}>
           <p className={" small-text"} id="description">
             {showDescription && description}
@@ -181,15 +187,13 @@ export const CardMedia = ({
         </div>
 
         <div className="card-media__bottom-container">
-          <Button
-            type={"text"}
+          <NewButton
             label={t(
               contentType === "articles" ? "read_more_button" : "view_more",
             )}
             onClick={() => {
               onClick && onClick();
             }}
-            classes="card-media__read-more-button"
           />
           {!IS_PS && (
             <Like

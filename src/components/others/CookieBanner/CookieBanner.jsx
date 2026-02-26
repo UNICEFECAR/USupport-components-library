@@ -75,7 +75,7 @@ export const CookieBanner = ({
   if (!cookieState.isBannerOpen || IS_PS) return null;
 
   return (
-    <Box className="cookie-banner">
+    <Box liquidGlass classes="cookie-banner">
       <h3>{t("cookie_banner_header")}</h3>
       <p>{text}</p>
       {isInClient && (

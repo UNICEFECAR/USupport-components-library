@@ -16,4 +16,53 @@
     margin-left: $spacing_1_2;
     cursor: pointer;
   }
+
+  // Palette variants (chip colors from design)
+  &--palette-0 {
+    background: #ffe4cc;
+    border-color: #f2b77f;
+    & .small-text {
+      color: #925522;
+    }
+  }
+
+  &--palette-1 {
+    background: #d6f3e2;
+    border-color: #95d3af;
+    & .small-text {
+      color: #2f6e4a;
+    }
+  }
+
+  &--palette-2 {
+    background: #e5ddff;
+    border-color: #b8a9f4;
+    & .small-text {
+      color: #5946a0;
+    }
+  }
+
+  &--palette-3 {
+    background: #d6edf9;
+    border-color: #97c9e6;
+    & .small-text {
+      color: #2d6382;
+    }
+  }
+
+  &--palette-4 {
+    background: #fff2c9;
+    border-color: #e8ce7c;
+    & .small-text {
+      color: #8a6b1f;
+    }
+  }
+
+  &--palette-5 {
+    background: #ffdce5;
+    border-color: #eda3b5;
+    & .small-text {
+      color: #8f3a54;
+    }
+  }
 }

@@ -5,40 +5,8 @@
   bottom: $spacing_2_0;
   width: 90%;
   z-index: 10001;
-
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.22),
-    rgba(255, 255, 255, 0.06)
-  );
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.45);
   padding: $spacing_2_0;
   border-radius: $border_radius_4_0;
-  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.45);
-
-  // Subtle inner highlight to enhance liquid glass feel
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    pointer-events: none;
-    background: radial-gradient(
-      circle at top left,
-      rgba(255, 255, 255, 0.5),
-      transparent 55%
-    );
-    opacity: 0.9;
-    mix-blend-mode: screen;
-  }
-
-  // Ensure content is above the glass overlay
-  & > * {
-    position: relative;
-    z-index: 1;
-  }
 
   @media screen and (min-width: $screen_md) {
     left: auto;

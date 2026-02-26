@@ -7,6 +7,12 @@
   text-align: left;
   position: relative;
 
+  .button--lg {
+    min-width: auto;
+    width: 100%;
+    max-width: 100%;
+  }
+
   @media screen and (min-width: $screen_lg) {
     width: calc(35.8rem - 2 * $spacing_1_6);
   }
@@ -26,10 +32,8 @@
 
       &__name-container {
         &__date-text {
-          &.text {
-            font-weight: 700;
-            word-break: break-word;
-          }
+          font-weight: $font_semi_bold;
+          word-break: break-word;
         }
 
         &__time-text {
@@ -42,7 +46,6 @@
       &__name {
         &.text {
           font-weight: 400;
-          color: #6989a4;
         }
       }
 
@@ -171,34 +174,16 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    // @include themify($themes, "background-color", "color_6a4ffb_8c90eb");
-    background-color: #cdd8e1;
-    color: $color_secondary_9749fa;
-    border-radius: 0.6rem;
+    border: 0.1rem solid #d8deea;
+    border-radius: 1.2rem;
     margin-right: $spacing_1_4;
+    height: fit-content;
+    box-shadow: $shadow_1;
 
-    & .small-text {
-      padding: $spacing_0_4 $spacing_0_6;
-      @include themifyCustom(
-        $themes,
-        "color",
-        "$color_secondary_9749fa",
-        "color_black_31"
-      );
-    }
-
-    &--free {
-      // background-color: #9749fa;
-
-      & .small-text {
-        // color: $color_white_ff;
-        // @include themifyCustom(
-        //   $themes,
-        //   "color",
-        //   "$color_primary_20809e",
-        //   "color_primary_20809e"
-        // );
-        color: #0e202f;
+    &__text {
+      &.text {
+        padding: $spacing_0_6 $spacing_1_4;
+        font-weight: 500;
       }
     }
 

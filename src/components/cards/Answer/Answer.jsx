@@ -78,8 +78,16 @@ export const Answer = ({
 
   const canRedirectToProvider = !!providerIdForRedirection;
 
+  const handleCardClick = () => {
+    handleReadMore(question);
+  };
+
+  const stopPropagation = (event) => {
+    event.stopPropagation();
+  };
+
   return (
-    <Box classes={["answer", classes]}>
+    <Box classes={["answer", classes]} liquidGlass onClick={handleCardClick}>
       {question.answerTitle ? (
         <>
           {renderIn === "client" || renderIn === "website" ? (
@@ -110,7 +118,10 @@ export const Answer = ({
                 <NewButton
                   type="text"
                   label={t("read_more")}
-                  onClick={() => handleReadMore(question)}
+                  onClick={(event) => {
+                    stopPropagation(event);
+                    handleReadMore(question);
+                  }}
                 />
                 {/* <Button
                   type="link"
@@ -137,7 +148,10 @@ export const Answer = ({
                     size="xs"
                     onClick={
                       canRedirectToProvider
-                        ? () => handleProviderClick(providerIdForRedirection)
+                        ? (event) => {
+                            stopPropagation(event);
+                            handleProviderClick(providerIdForRedirection);
+                          }
                         : undefined
                     }
                     classes="answer__answered-by-container__avatar"
@@ -150,7 +164,10 @@ export const Answer = ({
                     }`}
                     onClick={
                       canRedirectToProvider
-                        ? () => handleProviderClick(providerIdForRedirection)
+                        ? (event) => {
+                            stopPropagation(event);
+                            handleProviderClick(providerIdForRedirection);
+                          }
                         : undefined
                     }
                   >
@@ -162,20 +179,25 @@ export const Answer = ({
                     })}
                   </p>
                 </div>
-                <Like
-                  handleClick={handleLike}
-                  likes={question.likes}
-                  dislikes={question.dislikes}
-                  answerId={question.answerId}
-                  isLiked={question.isLiked}
-                  isDisliked={question.isDisliked}
-                  renderInClient={renderIn === "client"}
-                />
+                <div onClick={stopPropagation}>
+                  <Like
+                    handleClick={handleLike}
+                    likes={question.likes}
+                    dislikes={question.dislikes}
+                    answerId={question.answerId}
+                    isLiked={question.isLiked}
+                    isDisliked={question.isDisliked}
+                    renderInClient={renderIn === "client"}
+                  />
+                </div>
               </div>
               {/* Schedule consultation link at bottom */}
               <div
                 className="answer__schedule-button"
-                onClick={() => handleScheduleConsultationClick(question)}
+                onClick={(event) => {
+                  stopPropagation(event);
+                  handleScheduleConsultationClick(question);
+                }}
               >
                 <Icon
                   name="calendar"
@@ -206,15 +228,17 @@ export const Answer = ({
                     {question.question}
                   </p>
                 </div>
-                <Like
-                  handleClick={handleLike}
-                  likes={question.likes}
-                  dislikes={question.dislikes}
-                  answerId={question.answerId}
-                  isLiked={question.isLiked}
-                  isDisliked={question.isDisliked}
-                  renderInClient={renderIn === "client"}
-                />
+                <div onClick={stopPropagation}>
+                  <Like
+                    handleClick={handleLike}
+                    likes={question.likes}
+                    dislikes={question.dislikes}
+                    answerId={question.answerId}
+                    isLiked={question.isLiked}
+                    isDisliked={question.isDisliked}
+                    renderInClient={renderIn === "client"}
+                  />
+                </div>
               </div>
               <Line classes="answer__line" />
               {renderHeadingAndLabels()}
@@ -243,7 +267,10 @@ export const Answer = ({
                 <NewButton
                   type="text"
                   label={t("read_more")}
-                  onClick={() => handleReadMore(question)}
+                  onClick={(event) => {
+                    stopPropagation(event);
+                    handleReadMore(question);
+                  }}
                   // size="md"
                   // classes="answer__read-more-button"
                 />
@@ -272,7 +299,10 @@ export const Answer = ({
                   label={t("respond")}
                   size="md"
                   classes="answer__respond-button"
-                  onClick={() => handleRespond(question)}
+                  onClick={(event) => {
+                    stopPropagation(event);
+                    handleRespond(question);
+                  }}
                 />
               )}
             </>
@@ -294,17 +324,26 @@ export const Answer = ({
             label={t("read_more")}
             size="md"
             classes="answer__read-more-button"
-            onClick={() => handleReadMore(question)}
+            onClick={(event) => {
+              stopPropagation(event);
+              handleReadMore(question);
+            }}
           />
           {renderIn === "provider" && (
             <div className="answer__bottom-container">
               <Button
                 label={t("respond")}
-                onClick={() => handleRespond(question)}
+                onClick={(event) => {
+                  stopPropagation(event);
+                  handleRespond(question);
+                }}
               />
               <Button
                 label={t("archive")}
-                onClick={() => handleArchive(question)}
+                onClick={(event) => {
+                  stopPropagation(event);
+                  handleArchive(question);
+                }}
                 type="secondary"
                 size="md"
                 color="red"
@@ -360,6 +399,12 @@ Answer.propTypes = {
    * @default () => {}
    */
   handleArchive: PropTypes.func,
+
+  /**
+   * handleProviderClick function
+   * @default () => {}
+   */
+  handleProviderClick: PropTypes.func,
 
   /**
    * classes string

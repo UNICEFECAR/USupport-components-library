@@ -411,6 +411,14 @@
         text-align: left;
         @include themify($themes, "color", "color_gray_5a7184");
       }
+
+      &__close {
+        position: absolute;
+        top: $spacing_1_6;
+        right: $spacing_1_6;
+        cursor: pointer;
+        z-index: 10;
+      }
     }
   }
 
@@ -487,11 +495,10 @@
 
     @media screen and (min-width: $navbar-spread) {
       top: 8.5rem;
-      right: 10rem;
+      right: 2.5rem;
     }
 
     @media screen and (min-width: $screen-xl) {
-      right: 14rem;
     }
 
     &--rtl {
@@ -1055,7 +1062,7 @@
       align-items: center;
       cursor: pointer;
       display: flex;
-      justify-content: flex-start;
+      justify-content: center;
       z-index: 999;
       padding: $spacing_0_6 $spacing_1_2;
       border-radius: $border_radius_1_2;
@@ -1086,7 +1093,7 @@
         margin: 0;
         font-size: 1.5rem;
         font-weight: 500;
-        text-align: left;
+        text-align: center;
 
         &--selected {
           font-weight: $font_bold;

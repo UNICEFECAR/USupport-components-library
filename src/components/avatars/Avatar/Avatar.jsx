@@ -13,7 +13,14 @@ import { specialistPlaceholder } from "../../../assets";
  *
  * @return {jsx}
  */
-export const Avatar = ({ image, size, isCircle = true, classes, ...props }) => {
+export const Avatar = ({
+  image,
+  size,
+  isCircle = true,
+  hasBorder = false,
+  classes,
+  ...props
+}) => {
   return (
     <img
       src={image}
@@ -21,6 +28,7 @@ export const Avatar = ({ image, size, isCircle = true, classes, ...props }) => {
       className={[
         `avatar avatar--${size}`,
         isCircle && "avatar--circle",
+        hasBorder && "avatar--border",
         classNames(classes),
       ].join(" ")}
       {...props}

@@ -865,32 +865,6 @@ export const Navbar = ({
     }
   };
 
-  const getLanguageIconName = (languageValue) => {
-    const code = languageValue?.toLowerCase();
-
-    switch (code) {
-      case "en":
-        return "language-en";
-      case "uk":
-      case "ua":
-        return "language-ua";
-      case "kk":
-        return "language-kk";
-      case "ro":
-        return "language-ro";
-      case "ru":
-        return "language-ru";
-      case "el":
-        return "language-el";
-      case "hy":
-        return "language-hy";
-      case "tr":
-        return "language-tr";
-      default:
-        return null;
-    }
-  };
-
   const renderLanguageSelectorDesktop = () => {
     // Only render if profile is not shown (language selector is included in profile wrapper when profile is shown)
     if (width >= 1050 && !showProfile) {
@@ -1067,14 +1041,6 @@ export const Navbar = ({
               key={option.value}
               className={optionClasses}
             >
-              {type === "languages" &&
-                getLanguageIconName(option.value) && (
-                  <Icon
-                    name={getLanguageIconName(option.value)}
-                    size="md"
-                    classes="nav__dropdown-content__lang-icon"
-                  />
-                )}
               {type === "countries" && <IconFlag flagName={option.iconName} />}
               <p
                 className={`nav__dropdown-content__lang-label ${
@@ -1440,6 +1406,31 @@ export const Navbar = ({
               languagesShown ? "nav__languages__content--shown" : ""
             } ${countriesShown ? "nav__countries__content--shown" : ""}`}
           >
+            {(languagesShown || countriesShown) && (
+              <div
+                className="nav__languages__content__close"
+                onClick={() => {
+                  setLanguagesShown(false);
+                  setCountriesShown(false);
+                }}
+                role="button"
+                tabIndex="0"
+                aria-label="Close menu"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setLanguagesShown(false);
+                    setCountriesShown(false);
+                  }
+                }}
+              >
+                <Icon
+                  name="close-x"
+                  size="md"
+                  color={theme === "dark" ? "#c1d7e0" : undefined}
+                />
+              </div>
+            )}
             {width >= 1050 && (
               <h4 className="nav__languages__content__header">
                 {languagesShown ? languageLabel : countryLabel}

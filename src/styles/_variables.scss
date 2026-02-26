@@ -247,6 +247,12 @@ $themes: (
         rgba(255, 255, 255, 0) 0%,
         #ffffff 100%
       ),
+    gradient_background: linear-gradient(
+        135deg,
+        rgba(175, 133, 255, 0.25),
+        rgba(124, 172, 255, 0.28),
+        rgba(255, 167, 103, 0.25)
+      ),
     // Shadows
     shadow_1: 2px 2px 12px rgba(104, 77, 253, 0.1),
     shadow_2: 0px 2px 18px rgba(104, 77, 253, 0.2),
@@ -254,6 +260,30 @@ $themes: (
     shadow_4: 3px 4px 5px rgba(104, 77, 253, 0.06),
     overlay_66768D: rgba(102, 118, 141, 0.5),
     overlay_010101: rgba(1, 1, 1, 0.2),
+    // Liquid glass (glassmorphism) surfaces
+    glass_panel_background: linear-gradient(
+        145deg,
+        rgba(255, 255, 255, 0.44),
+        rgba(235, 243, 255, 0.3)
+      ),
+    glass_card_background: linear-gradient(
+        150deg,
+        rgba(255, 255, 255, 0.52),
+        rgba(238, 245, 255, 0.35)
+      ),
+    glass_need_box_background: linear-gradient(
+        150deg,
+        rgba(255, 255, 255, 0.5),
+        rgba(237, 245, 255, 0.34)
+      ),
+    glass_border_color: rgba(224, 233, 255, 0.72),
+    glass_shadow: 0 14px 22px rgba(95, 108, 145, 0.14),
+    glass_hover_sheen: linear-gradient(
+        112deg,
+        rgba(255, 255, 255, 0) 42%,
+        rgba(255, 255, 255, 0.28) 50%,
+        rgba(255, 255, 255, 0) 58%
+      ),
   ),
   dark: (
     color_text_main: #ededed,
@@ -391,6 +421,32 @@ $themes: (
     shadow_4: 3px 4px 5px rgba(104, 77, 253, 0.06),
     overlay_66768D: rgba(102, 118, 141, 0.5),
     overlay_010101: rgba(1, 1, 1, 0.2),
+    glass_panel_background: linear-gradient(
+        145deg,
+        rgba(24, 36, 63, 0.64),
+        rgba(18, 29, 51, 0.58)
+      ),
+    glass_card_background: linear-gradient(
+        145deg,
+        rgba(24, 36, 63, 0.64),
+        rgba(18, 29, 51, 0.58)
+      ),
+    glass_need_box_background: linear-gradient(
+        145deg,
+        rgba(24, 36, 63, 0.64),
+        rgba(18, 29, 51, 0.58)
+      ),
+    glass_border_color: rgba(137, 157, 209, 0.3),
+    glass_shadow: (
+      inset 0 1px 0 rgba(197, 212, 255, 0.18),
+      0 22px 44px rgba(9, 14, 26, 0.45),
+    ),
+    glass_hover_sheen: linear-gradient(
+        112deg,
+        rgba(255, 255, 255, 0) 42%,
+        rgba(255, 255, 255, 0.24) 50%,
+        rgba(255, 255, 255, 0) 58%
+      ),
   ),
   highContrast: (
     color_text_main: #ffff00,
@@ -528,6 +584,33 @@ $themes: (
     shadow_4: 3px 4px 5px rgba(104, 77, 253, 0.06),
     overlay_66768D: rgba(102, 118, 141, 0.5),
     overlay_010101: rgba(1, 1, 1, 0.2),
+    // Liquid glass (glassmorphism) surfaces - reuse dark mode look
+    glass_panel_background: linear-gradient(
+        145deg,
+        rgba(24, 36, 63, 0.64),
+        rgba(18, 29, 51, 0.58)
+      ),
+    glass_card_background: linear-gradient(
+        145deg,
+        rgba(24, 36, 63, 0.64),
+        rgba(18, 29, 51, 0.58)
+      ),
+    glass_need_box_background: linear-gradient(
+        145deg,
+        rgba(24, 36, 63, 0.64),
+        rgba(18, 29, 51, 0.58)
+      ),
+    glass_border_color: rgba(137, 157, 209, 0.3),
+    glass_shadow: (
+      inset 0 1px 0 rgba(197, 212, 255, 0.18),
+      0 22px 44px rgba(9, 14, 26, 0.45),
+    ),
+    glass_hover_sheen: linear-gradient(
+        112deg,
+        rgba(255, 255, 255, 0) 42%,
+        rgba(255, 255, 255, 0.85) 50%,
+        rgba(255, 255, 255, 0) 58%
+      ),
   ),
 );
 
@@ -717,6 +800,13 @@ $gradient_transparent: linear-gradient(
   180deg,
   rgba(255, 255, 255, 0) 0%,
   #ffffff 100%
+);
+
+$gradient_background: linear-gradient(
+  135deg,
+  rgba(175, 133, 255, 0.25),
+  rgba(124, 172, 255, 0.28),
+  rgba(255, 167, 103, 0.25)
 );
 
 // Shadows

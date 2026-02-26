@@ -3,7 +3,53 @@
 .answer {
   padding: $spacing_2_0 $spacing_1_6;
   border-radius: $border_radius_1_2;
-  @include themify($themes, "background-color", "color_card_background");
+  position: relative;
+  cursor: pointer;
+  isolation: isolate;
+  transition:
+    transform 240ms ease,
+    box-shadow 240ms ease;
+  @include hover-sheen(720ms, -25%, -40%, visible);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: $border_radius_1_2;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 167, 103, 0.55),
+      rgba(124, 172, 255, 0.58),
+      rgba(175, 133, 255, 0.55)
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    opacity: 0.35;
+    transition:
+      opacity 240ms ease,
+      filter 240ms ease;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow:
+      0 10px 8px rgba(44, 86, 129, 0.45),
+      0 6px 16px rgba(44, 86, 129, 0.3);
+  }
+
+  &:hover::before {
+    opacity: 0.9;
+    filter: drop-shadow(0 0 10px rgba(133, 174, 255, 0.38));
+  }
 
   &__heading-container {
     display: flex;

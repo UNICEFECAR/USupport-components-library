@@ -41,3 +41,27 @@
     min-height: calc(100vh - 42rem);
   }
 }
+
+@mixin hover-sheen(
+  $transition-duration: 720ms,
+  $inset-y: -20%,
+  $inset-x: -35%,
+  $overflow: hidden
+) {
+  position: relative;
+  overflow: $overflow;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: $inset-y $inset-x;
+    @include themify($themes, "background", "glass_hover_sheen");
+    transform: translateX(-120%);
+    transition: transform $transition-duration ease;
+    pointer-events: none;
+  }
+
+  &:hover:enabled::after {
+    transform: translateX(120%);
+  }
+}

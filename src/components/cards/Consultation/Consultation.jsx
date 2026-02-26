@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import classNames from "classnames";
 import OutsideClickHandler from "react-outside-click-handler";
 
@@ -193,12 +192,12 @@ export const Consultation = ({
       liquidGlass={liquidGlass}
     >
       <div className="consultation__content">
-        <Avatar image={imageUrl} size="sm" isCircle={false} />
+        <Avatar image={imageUrl} size="sm" isCircle hasBorder />
         <div className="consultation__content__text-container">
           <div className="consultation__content__text-container__name-container">
-            <p className="text consultation__content__text-container__name-container__date-text">
+            <h4 className="consultation__content__text-container__name-container__date-text">
               {dateText}
-            </p>
+            </h4>
             <p className="text consultation__content__text-container__name-container__time-text">
               {buttonAction === "join" ? t("active") : timeText}
             </p>
@@ -238,7 +237,7 @@ export const Consultation = ({
                     alt="ogranization"
                   />
                 ) : null}
-                <p className="small-text">
+                <p className="text provider-consultation__icon-container__price-badge__text">
                   {isBookedWithCoupon && renderIn === "client"
                     ? t("coupon")
                     : price > 0
@@ -274,6 +273,7 @@ export const Consultation = ({
             label={buttonLabel}
             type="solid"
             classes={"consultation__button-container__join-button"}
+            size="lg"
           />
         </div>
       )}
@@ -282,13 +282,13 @@ export const Consultation = ({
           <NewButton
             onClick={handleAccepConsultationClick}
             label={t("accept")}
-            size="sm"
+            size="lg"
           />
           <NewButton
             onClick={handleRejectConsultationClick}
             label={t("reject")}
             type="outline"
-            size="sm"
+            size="lg"
           />
         </div>
       )}
@@ -298,14 +298,14 @@ export const Consultation = ({
           <NewButton
             onClick={() => handleCancelRequest()}
             label={t("suggested")}
-            size="sm"
+            size="lg"
             disabled
           />
           <NewButton
             onClick={handleCancel}
             label={t("cancel")}
             type="outline"
-            size="sm"
+            size="lg"
           />
         </div>
       )}
@@ -318,7 +318,7 @@ export const Consultation = ({
           >
             <NewButton
               label={t("join")}
-              size="sm"
+              size="lg"
               type="solid"
               color={renderIn === "provider" ? "purple" : "green"}
               disabled
@@ -327,7 +327,7 @@ export const Consultation = ({
           <NewButton
             onClick={handleEdit}
             label={buttonLabel}
-            size="sm"
+            size="lg"
             type="outline"
             color={renderIn === "provider" ? "purple" : "green"}
           />
@@ -339,7 +339,7 @@ export const Consultation = ({
           <NewButton
             onClick={handleCancel}
             label={buttonLabel}
-            size="sm"
+            size="lg"
             type="outline"
           />
         </div>
@@ -352,7 +352,7 @@ export const Consultation = ({
             <NewButton
               onClick={handleSeeDetails}
               label={buttonLabel}
-              size="sm"
+              size="lg"
               type="outline"
             />
           ) : (
@@ -381,54 +381,4 @@ export const Consultation = ({
       )}
     </Card>
   );
-};
-
-Consultation.propTypes = {
-  /**
-   * Render in admin, provider or client
-   * @default "client"
-   */
-  renderIn: PropTypes.oneOf(["admin", "provider", "client"]),
-
-  /**
-   *  Is the card overview? If "true" show the "See details" button
-   */
-  overview: PropTypes.bool,
-
-  /**
-   * Is the card request? If "true" show to "Accept consultation" and "Cancel suggestion" buttons
-   */
-  suggested: PropTypes.bool,
-
-  /**
-   * OnClick function to be called when the card is clicked
-   */
-  onClick: PropTypes.func,
-
-  /**
-   * hasPriceBadge is a boolean that indicates if the price badge should be shown
-   * */
-  hasPriceBadge: PropTypes.bool,
-
-  /**
-   * Additional classes to be added to the card
-   */
-  classes: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.arrayOf(PropTypes.string),
-  ]),
-
-  /**
-   * Does the card have a menu? If "true" show the menu icon
-   * */
-  hasMenu: PropTypes.bool,
-};
-
-Consultation.defaultProps = {
-  default: "client",
-  overview: true,
-  suggested: false,
-  onClick: () => {},
-  hasMenu: false,
-  hasPriceBadge: true,
 };

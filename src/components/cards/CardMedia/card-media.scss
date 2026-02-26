@@ -8,13 +8,66 @@
   margin: auto;
   position: relative;
   cursor: pointer;
-  overflow: hidden;
+  border-radius: $border_radius_2_4;
+  isolation: isolate;
+  box-shadow: $shadow_1;
+  transition:
+    transform 240ms ease,
+    box-shadow 240ms ease;
+  @include hover-sheen(720ms, -25%, -40%, visible);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: $border_radius_2_4;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 167, 103, 0.55),
+      rgba(124, 172, 255, 0.58),
+      rgba(175, 133, 255, 0.55)
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    opacity: 0.35;
+    transition:
+      opacity 240ms ease,
+      filter 240ms ease;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow:
+      0 10px 8px rgba(44, 86, 129, 0.45),
+      0 6px 16px rgba(44, 86, 129, 0.3);
+  }
+
+  &:hover::before {
+    opacity: 0.9;
+    filter: drop-shadow(0 0 10px rgba(133, 174, 255, 0.38));
+  }
 
   &--rtl {
     direction: rtl;
   }
 
-  @include themify($themes, "background-color", "color_card_background");
+  @include themifyNormal($themes) {
+    background: themed(glass_panel_background);
+    border: 1px solid themed(glass_border_color);
+    box-shadow: themed(glass_shadow);
+  }
+
+  backdrop-filter: blur(10px) saturate(1.12);
+  -webkit-backdrop-filter: blur(10px) saturate(1.12);
 
   &--read {
     opacity: 0.75 !important;
@@ -26,6 +79,16 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    border-radius: inherit;
+  }
+
+  &__image {
+    transition: transform 260ms ease;
+    transform-origin: center center;
+  }
+
+  &:hover &__image {
+    transform: scale(1.02);
   }
 
   &__play-overlay {
@@ -180,6 +243,10 @@
           overflow: hidden;
           position: relative;
           padding-top: $spacing_1_0;
+
+          & .small-text {
+            color: #ba7446;
+          }
         }
 
         &__read-time-creator {
@@ -204,43 +271,43 @@
   }
 
   &__category {
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    flex-direction: column;
-    height: 2.2rem;
-    background-color: $color_white_ff;
-    border-radius: $border_radius_0_4;
-    margin-bottom: $spacing_0_4;
-    overflow: hidden;
-    padding: 0 $spacing_1_2 0 $spacing_1_2;
-    text-align: center;
     position: absolute;
-    top: $spacing_1_6;
-    left: $spacing_1_6;
+    top: 20px;
+    left: 24px;
     z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing_0_4 $spacing_1_0;
+    margin-bottom: 0;
+    background: rgba(209, 231, 250, 0.95);
+    border: 1px solid rgba(60, 109, 159, 0.45);
+    border-radius: 10px;
+    text-align: center;
 
     &__text {
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 1;
       display: -webkit-box;
       overflow: hidden;
-      @include themify($themes, "color", "color_66768d_3d527b");
+      color: #234567;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1;
     }
 
     .small-text {
-      font-weight: $font_bold;
-      @include themify($themes, "color", "color_66768d_3d527b");
+      font-weight: 600;
+      color: #234567;
     }
   }
 
   &__read {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: -1.5rem;
+    right: 1rem;
     background-color: $color_green_7ec680;
-    border-bottom-left-radius: 1.2rem;
-    border-top-right-radius: $border_radius_2_4;
+    border-radius: $border_radius_1_2;
     padding: $spacing_0_6 $spacing_1_6;
     text-align: center;
     z-index: 3;
@@ -301,7 +368,7 @@
       width: 100%;
       height: auto; // Preserve aspect ratio
       min-height: 15rem; // Minimum height to ensure card doesn't become too short
-      border-radius: $border_radius_1_2 $border_radius_1_2 0 0;
+      border-radius: $border_radius_2_4 $border_radius_2_4 0 0;
       object-fit: cover;
       object-position: center;
     }
@@ -309,6 +376,7 @@
     .card-media__image-container {
       width: 100%;
       min-height: 15rem; // Match the minimum height
+      border-radius: $border_radius_2_4 $border_radius_2_4 0 0;
     }
 
     &.card-media--sm {
@@ -371,20 +439,21 @@
     }
 
     .card-media__image {
-      display: block; // Changed from display: none - now always shows
+      display: block;
       width: 20rem;
-      height: auto; // Preserve aspect ratio
-      min-height: 10rem; // Minimum height
-      max-height: 12rem; // Maximum height to maintain layout
-      border-radius: $spacing_2_4;
+      height: auto;
+      min-height: 10rem;
+      max-height: 12rem;
+      border-radius: $border_radius_2_4;
       object-fit: cover;
     }
 
     .card-media__image-container {
-      display: flex; // Changed from display: none - now always shows
+      display: flex;
       width: 20rem;
       min-height: 10rem;
       max-height: 12rem;
+      border-radius: $border_radius_2_4;
     }
 
     &.card-media--sm {
@@ -407,12 +476,6 @@
         margin-bottom: $spacing_1_6;
         -webkit-line-clamp: 1;
       }
-
-      .card-media__content {
-        @media screen and (min-width: $screen-lg) {
-          // min-width: 34rem;
-        }
-      }
     }
 
     &.card-media--lg {
@@ -422,7 +485,7 @@
 
       .card-media__content {
         @media screen and (min-width: $screen-lg) {
-          padding: $spacing_3_3 $spacing_2_4 $spacing_2_4 $spacing_2_4;
+          padding: $spacing_2_4;
         }
       }
 
@@ -431,40 +494,14 @@
         height: auto;
         min-height: 20rem;
         max-height: 28.6rem;
-        border-radius: $spacing_2_2 0 0 $spacing_2_2;
+        border-radius: $border_radius_2_4 0 0 $border_radius_2_4;
       }
 
       .card-media__image-container {
         width: 76.8rem;
         min-height: 20rem;
         max-height: 28.6rem;
-      }
-
-      .card-media__title {
-        @media screen and (min-width: $screen-md) {
-          -webkit-line-clamp: 2;
-        }
-        &__text {
-          height: max-content;
-
-          @media screen and (min-width: $screen-md) {
-            height: 4.8rem;
-            -webkit-line-clamp: 2;
-            line-clamp: 2;
-            -webkit-box-orient: vertical;
-            display: -webkit-box;
-            overflow: hidden;
-          }
-
-          @media screen and (min-width: $screen-lg) {
-            height: 4.8rem;
-            -webkit-line-clamp: 2;
-            line-clamp: 2;
-            -webkit-box-orient: vertical;
-            display: -webkit-box;
-            overflow: hidden;
-          }
-        }
+        border-radius: $border_radius_2_4 0 0 $border_radius_2_4;
       }
 
       .card-media__labels {
