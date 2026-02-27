@@ -1205,15 +1205,6 @@ export const Navbar = ({
                   {t("edit_profile")}
                 </p>
               </div>
-              {width >= 1050 && (
-                <Icon
-                  classes="nav__profile__logout-icon"
-                  name="exit"
-                  size="md"
-                  color={theme !== "light" ? "#fff" : undefined}
-                  onClick={handleLogout}
-                />
-              )}
             </div>
           </div>
         )}
@@ -1272,6 +1263,33 @@ export const Navbar = ({
               )}
           </div>
         ))}
+        {/* Logout button at bottom of dropdown */}
+        {width >= 1050 && (
+          <div className="nav__profile-dropdown-footer">
+            <div
+              className="nav__profile-dropdown-item nav__profile-dropdown-item--logout"
+              onClick={handleLogout}
+              role="button"
+              tabIndex="0"
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  handleLogout();
+                }
+              }}
+            >
+              <div className="nav__profile-dropdown-item__content">
+                <Icon
+                  name="exit"
+                  size="md"
+                  classes="nav__profile-dropdown-item__icon"
+                  color={theme === "light" ? "#20809e" : "#ffffff"}
+                />
+                <p>{t("logout")}</p>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     );
   };
