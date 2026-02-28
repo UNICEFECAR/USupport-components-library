@@ -215,6 +215,7 @@
     width: 90%;
     min-width: 0;
     overflow: hidden;
+    flex: 1 1 auto;
 
     &__details {
       display: flex;
@@ -329,7 +330,7 @@
   &__description {
     height: 3.5rem;
     margin-top: $spacing_0_8;
-    margin-bottom: $spacing_1_6;
+    margin-bottom: $spacing_0_8;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -351,12 +352,17 @@
     justify-content: space-between;
     align-items: center;
     position: relative;
+    margin-top: auto;
   }
 
   &--portrait {
     flex-direction: column;
+    height: 100%;
 
     .card-media__content {
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 auto;
       padding: $spacing_1_6 $spacing_1_6 $spacing_1_6 $spacing_1_6;
 
       @media screen and (min-width: $screen-lg) {
@@ -367,15 +373,22 @@
     .card-media__image {
       width: 100%;
       height: auto; // Preserve aspect ratio
-      min-height: 15rem; // Minimum height to ensure card doesn't become too short
       border-radius: $border_radius_2_4 $border_radius_2_4 0 0;
       object-fit: cover;
       object-position: center;
     }
 
+    .card-media__title__text {
+      height: auto;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      display: -webkit-box;
+      overflow: hidden;
+    }
+
     .card-media__image-container {
       width: 100%;
-      min-height: 15rem; // Match the minimum height
       border-radius: $border_radius_2_4 $border_radius_2_4 0 0;
     }
 

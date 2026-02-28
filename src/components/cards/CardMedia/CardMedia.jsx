@@ -127,14 +127,14 @@ export const CardMedia = ({
         </div>
       )}
       <div className={"card-media__content"}>
-        {showLabels && (
+        {showLabels && labels?.length > 0 && (
           <div
             className={[
               "card-media__labels",
               type === "landscape" ? "card-media__labels--landscape" : "",
             ].join(" ")}
           >
-            {labels?.length > 0 && renderLabels()}
+            {renderLabels()}
           </div>
         )}
         <Grid>
