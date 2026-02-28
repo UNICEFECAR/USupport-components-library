@@ -277,7 +277,7 @@ $themes: (
         rgba(237, 245, 255, 0.34)
       ),
     glass_border_color: rgba(224, 233, 255, 0.72),
-    glass_shadow: 0 14px 22px rgba(95, 108, 145, 0.14),
+    glass_shadow: 0 0.6rem 1rem rgba(95, 108, 145, 0.14),
     glass_hover_sheen: linear-gradient(
         112deg,
         rgba(255, 255, 255, 0) 42%,
@@ -439,14 +439,9 @@ $themes: (
     glass_border_color: rgba(137, 157, 209, 0.3),
     glass_shadow: (
       inset 0 1px 0 rgba(197, 212, 255, 0.18),
-      0 22px 44px rgba(9, 14, 26, 0.45),
+      0 0.6rem 1rem rgba(9, 14, 26, 0.45),
     ),
-    glass_hover_sheen: linear-gradient(
-        112deg,
-        rgba(255, 255, 255, 0) 42%,
-        rgba(255, 255, 255, 0.24) 50%,
-        rgba(255, 255, 255, 0) 58%
-      ),
+    glass_hover_sheen: linear-gradient(),
   ),
   highContrast: (
     color_text_main: #ffff00,
@@ -603,14 +598,9 @@ $themes: (
     glass_border_color: rgba(137, 157, 209, 0.3),
     glass_shadow: (
       inset 0 1px 0 rgba(197, 212, 255, 0.18),
-      0 22px 44px rgba(9, 14, 26, 0.45),
+      0 0.7rem 1rem rgba(9, 14, 26, 0.45),
     ),
-    glass_hover_sheen: linear-gradient(
-        112deg,
-        rgba(255, 255, 255, 0) 42%,
-        rgba(255, 255, 255, 0.85) 50%,
-        rgba(255, 255, 255, 0) 58%
-      ),
+    glass_hover_sheen: linear-gradient(),
   ),
 );
 
