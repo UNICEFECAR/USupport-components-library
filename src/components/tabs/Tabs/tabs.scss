@@ -32,6 +32,7 @@
     transition: all 0.2s ease-in-out;
     flex-shrink: 0;
     z-index: 1;
+    margin-bottom: $spacing_1_2;
 
     &:hover:not(&--disabled) {
       background-color: rgba(255, 255, 255, 0.9);
@@ -66,6 +67,7 @@
     gap: $spacing_0_8;
     flex: 1;
     min-width: 0;
+    padding-bottom: $spacing_1_2;
     scroll-behavior: smooth;
 
     scrollbar-width: none;
@@ -81,42 +83,59 @@
       flex-shrink: 0;
       min-width: fit-content;
       max-width: 200px;
-      @include themifyCustom(
-        $themes,
-        "background-color",
-        "#CDD8E1",
-        "color_black_31"
-      );
       @include themifyCustom($themes, "color", "#6989A4", "color_gray_a6b4b8");
 
       border-radius: $border_radius_1_2;
-      border: 1px solid #cdd8e1;
-      transition: all 0.2s ease-in-out;
+      transition:
+        transform 200ms ease,
+        box-shadow 200ms ease,
+        border-color 200ms ease,
+        background 200ms ease;
+
+      // Moving sheen effect similar to CardMedia, tuned for small tabs
+      @include hover-sheen(560ms, -35%, -65%, visible);
+
+      @include themifyNormal($themes) {
+        background: themed(glass_panel_background);
+        border: 1.5px solid themed(glass_border_color);
+        box-shadow: themed(glass_shadow);
+      }
+
+      backdrop-filter: blur(10px) saturate(1.12);
+      -webkit-backdrop-filter: blur(10px) saturate(1.12);
 
       &:hover:not(&--inactive) {
-        @include themifyCustom(
-          $themes,
-          "background-color",
-          "#d8e4ed",
-          "color_blue_263238"
-        );
-        border-color: #b8c7d4;
+        transform: translateY(-1px);
+
+        @include themifyNormal($themes) {
+          background: themed(glass_card_background);
+          border-color: themed(glass_border_color);
+          box-shadow:
+            0 0 0 1px rgba(255, 255, 255, 0.9),
+            themed(glass_shadow);
+        }
+
+        &::after {
+          filter: drop-shadow(0 0 8px rgba(133, 174, 255, 0.55));
+        }
       }
 
       &--selected {
-        @include themifyCustom(
-          $themes,
-          border-color,
-          "#20809E",
-          "color_primary_20809e"
-        );
-        background-color: #eaf7f9;
-        border: 1px solid #eaf7f9;
-        color: #0e202f;
+        @include themifyCustom($themes, "color", "#0e202f", "color_text_main");
+
+        @include themifyNormal($themes) {
+          background: themed(glass_need_box_background);
+          border-color: themed(glass_border_color);
+          box-shadow:
+            0 0 0 1px rgba(255, 255, 255, 0.9),
+            themed(glass_shadow);
+        }
 
         &:hover {
-          background-color: #eaf7f9;
-          border-color: #eaf7f9;
+          @include themifyNormal($themes) {
+            background: themed(glass_need_box_background);
+            border-color: themed(glass_border_color);
+          }
         }
       }
 
