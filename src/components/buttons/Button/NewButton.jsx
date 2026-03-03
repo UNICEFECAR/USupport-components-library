@@ -46,12 +46,14 @@ export const NewButton = ({
     >
       <div className="button__content-container">
         {iconName && (
-          <Icon
-            name={iconName}
-            size="sm"
-            color={iconColor || "#ffffff"}
-            classes="button__content-container__icon"
-          />
+          <div>
+            <Icon
+              name={iconName}
+              size="sm"
+              color={iconColor || "#ffffff"}
+              classes="button__content-container__icon"
+            />
+          </div>
         )}
         {children}
         {loading ? <Loading size="sm" padding="0" margin="0" /> : label}
