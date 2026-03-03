@@ -42,6 +42,7 @@ export const ProviderOverview = ({
   providerStatus,
   earliestAvailableSlot,
   t,
+  liquidGlass,
 }) => {
   const currencySymbol = localStorage.getItem("currency_symbol");
 
@@ -122,7 +123,7 @@ export const ProviderOverview = ({
     : "";
 
   return (
-    <Card classes={["provider-overview"].join(" ")}>
+    <Card classes={["provider-overview"].join(" ")} liquidGlass={liquidGlass}>
       <div
         className="provider-overview__content"
         onClick={!hasMenu ? onClick : undefined}
@@ -289,6 +290,10 @@ ProviderOverview.propTypes = {
    * Handler for the delete conatiner
    * */
   handleDelete: PropTypes.func,
+  /**
+   * Whether to use liquid glass background
+   */
+  liquidGlass: PropTypes.bool,
 };
 
 ProviderOverview.defaultProps = {
@@ -299,4 +304,5 @@ ProviderOverview.defaultProps = {
   editLabel: "Edit",
   statusChangeLabel: "Activate",
   viewProfileLabel: "View profile",
+  liquidGlass: false,
 };
