@@ -83,6 +83,7 @@
       flex-shrink: 0;
       min-width: fit-content;
       max-width: 200px;
+      margin: 0.2rem;
       @include themifyCustom($themes, "color", "#6989A4", "color_gray_a6b4b8");
 
       border-radius: $border_radius_1_2;

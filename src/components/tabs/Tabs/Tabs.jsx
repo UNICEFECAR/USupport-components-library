@@ -114,7 +114,9 @@ export const Tabs = ({ options, handleSelect, t = () => {}, classes }) => {
   };
 
   return (
-    <div className={`tabs-wrapper ${IS_RTL ? "tabs-wrapper--rtl" : ""}`}>
+    <div
+      className={`tabs-wrapper ${IS_RTL ? "tabs-wrapper--rtl" : ""} ${classes}`}
+    >
       <div className="tabs">
         {isOverflowing && (
           <div
