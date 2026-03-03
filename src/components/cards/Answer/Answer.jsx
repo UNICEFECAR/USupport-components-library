@@ -116,7 +116,6 @@ export const Answer = ({
               {/* Read more link */}
               <div className="answer__read-more-container">
                 <NewButton
-                  type="text"
                   label={t("read_more")}
                   onClick={(event) => {
                     stopPropagation(event);
@@ -132,7 +131,7 @@ export const Answer = ({
                 /> */}
               </div>
               {/* Horizontal separator */}
-              {/* Author info and Like/Dislike buttons in horizontal row */}
+              {/* Author info row */}
               <div className="answer__author-likes-row">
                 <div
                   className={`answer__answered-by-container answer__answered-by-container--client ${
@@ -179,17 +178,6 @@ export const Answer = ({
                     })}
                   </p>
                 </div>
-                <div onClick={stopPropagation}>
-                  <Like
-                    handleClick={handleLike}
-                    likes={question.likes}
-                    dislikes={question.dislikes}
-                    answerId={question.answerId}
-                    isLiked={question.isLiked}
-                    isDisliked={question.isDisliked}
-                    renderInClient={renderIn === "client"}
-                  />
-                </div>
               </div>
               {/* Schedule consultation link at bottom */}
               <div
@@ -201,7 +189,7 @@ export const Answer = ({
               >
                 <Icon
                   name="calendar"
-                  color={theme === "highContrast" ? "#fff" : "#8A4BF3"}
+                  color={theme === "highContrast" ? "#8A4BF3" : "#8A4BF3"}
                 />
                 <p
                   className={`text answer__schedule-button__text ${
@@ -212,6 +200,22 @@ export const Answer = ({
                 >
                   {t("schedule_consultation")}
                 </p>
+                <div
+                  className="answer__likes"
+                  onClick={(event) => {
+                    stopPropagation(event);
+                  }}
+                >
+                  <Like
+                    handleClick={handleLike}
+                    likes={question.likes}
+                    dislikes={question.dislikes}
+                    answerId={question.answerId}
+                    isLiked={question.isLiked}
+                    isDisliked={question.isDisliked}
+                    renderInClient={renderIn === "client"}
+                  />
+                </div>
               </div>
             </>
           ) : (
