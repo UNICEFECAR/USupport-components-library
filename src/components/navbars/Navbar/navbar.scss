@@ -2,7 +2,8 @@
 
 .nav {
   min-width: calc(34rem - 2 * $spacing_1_6);
-  background-color: transparent;
+  // background-color: transparent;
+  @include themify($themes, "background", "color_white_ff");
   box-shadow: none;
   display: flex;
   transition: box-shadow 0.3s ease;
