@@ -90,8 +90,10 @@ export const AccessibilityController = ({ classes, t }) => {
   const canIncrease = fontSizeStep < maxSteps;
   const canDecrease = fontSizeStep > minSteps;
 
+  const isDesktop = width >= 1050;
+
   // Mobile: Toggle first, Slider below
-  if (width < 1050) {
+  if (!isDesktop) {
     return (
       <Box classes={["accessibility-controller", classes]}>
         <div className="accessibility-controller__toggle-container">
@@ -147,7 +149,7 @@ export const AccessibilityController = ({ classes, t }) => {
   }
 
   return (
-    <Box classes={["accessibility-controller", classes]}>
+    <Box classes={["accessibility-controller", classes]} liquidGlass={isDesktop}>
       <div className="accessibility-controller__toggle-container">
         <Toggle
           isToggled={theme === "highContrast"}

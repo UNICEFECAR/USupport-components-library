@@ -4,17 +4,24 @@
   width: 100%;
   padding-right: $spacing_1_6;
 
-  &.box {
-    background-color: transparent;
-    box-shadow: none;
-    margin-right: $spacing_2_4;
+  // Mobile (navbar collapsed): controller should be fully transparent
+  @media screen and (max-width: 1049px) {
+    &.box {
+      background-color: transparent;
+      box-shadow: none;
+      margin-right: $spacing_2_4;
+    }
+
+    .theme-dark &.box {
+      background-color: transparent;
+    }
   }
 
   @media screen and (min-width: $navbar-tight) {
     width: auto;
 
     &.box {
-      @include themify($themes, "background-color", "color_card");
+      // Desktop: use default box background (including dark theme)
       box-shadow: $shadow_2;
       margin-right: 0;
     }
@@ -25,6 +32,11 @@
     display: flex;
     align-items: center;
     gap: $spacing_0_6;
+    justify-content: space-between;
+
+    p {
+      white-space: nowrap;
+    }
 
     @media screen and (min-width: $navbar-tight) {
       display: none;
@@ -32,6 +44,7 @@
 
     &__toggle {
       margin-left: auto;
+      justify-content: flex-end;
     }
   }
 
@@ -53,6 +66,21 @@
 
       @media screen and (min-width: $navbar-tight) {
         display: block;
+      }
+    }
+
+    // Icon hover effects (desktop)
+    .button-only-icon {
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
+      border-radius: 999px;
+
+      &:hover:not(:disabled) {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 12px rgba(9, 14, 26, 0.32);
+        @include themify($themes, "background-color", "glass_hover_sheen");
       }
     }
   }
