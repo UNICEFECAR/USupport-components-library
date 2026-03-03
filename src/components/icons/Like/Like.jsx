@@ -41,7 +41,15 @@ export const Like = ({
         >
           <Icon
             name="like"
-            color={theme === "highContrast" ? "#ffff00" : "#20809e"}
+            color={
+              theme === "highContrast"
+                ? "#ffff00"
+                : theme === "dark"
+                ? isLiked
+                  ? "#c1eaea" // swap: icon uses container green in dark
+                  : "#20809e"
+                : "#20809e"
+            }
           />
           <div className="like__icon-container__text-container">
             <p className="small-text">{likes}</p>
@@ -62,7 +70,15 @@ export const Like = ({
         >
           <Icon
             name="dislike"
-            color={theme === "highContrast" ? "#ffff00" : "#20809e"}
+            color={
+              theme === "highContrast"
+                ? "#ffff00"
+                : theme === "dark"
+                ? isDisliked
+                  ? "#c1eaea" // swap: icon uses container green in dark
+                  : "#20809e"
+                : "#20809e"
+            }
           />
           <div className="like__icon-container__text-container">
             <p className="small-text">{dislikes}</p>

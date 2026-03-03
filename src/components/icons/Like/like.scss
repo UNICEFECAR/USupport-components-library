@@ -27,7 +27,13 @@
     }
 
     &--selected {
-      background: $color_green_c1eaea;
+      @include themifyCustom(
+        $themes,
+        "background",
+        "color_green_c1eaea",
+        // light: green bubble
+        "color_primary_20809e" // dark/highContrast: primary blue bubble
+      );
     }
 
     &__text-container {
@@ -42,8 +48,8 @@
         "color_gray_d2dcde",
         "color_card"
       );
-      width: 2.4rem;
-      height: 2.4rem;
+      width: 2rem;
+      height: 2rem;
       top: 0;
       right: 0;
       border-radius: 50%;
