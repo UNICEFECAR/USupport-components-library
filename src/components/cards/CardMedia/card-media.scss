@@ -207,7 +207,13 @@
           padding-top: $spacing_1_0;
 
           & .small-text {
-            color: #ba7446;
+            @include themifyCustom(
+              $themes,
+              "color",
+              "color_orange_article_creator",
+              "color_orange_article_creator",
+              "color_orange_article_creator"
+            );
           }
         }
 

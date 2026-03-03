@@ -114,6 +114,9 @@ $spacing_30_7: 30.7rem;
 $spacing_35_0: 35rem;
 $spacing_40_3: 40.3rem;
 
+// Article creator brand color (base)
+$color_orange_article_creator: #ba7446;
+
 $themes: (
   light: (
     color_text_main: #0e202f,
@@ -171,6 +174,8 @@ $themes: (
     color_orange_fb6514: #fb6514,
     color_orange_fddcab: #fddcab,
     color_orange_ffc4ad: #ffc4ad,
+    // Creator / meta accent for article view
+    color_orange_article_creator: $color_orange_article_creator,
 
     color_yellow_fdda0d: #fdda0d,
 
@@ -338,6 +343,7 @@ $themes: (
     color_orange_fb6514: #fb6514,
     color_orange_fddcab: #fddcab,
     color_orange_ffc4ad: #ffc4ad,
+    color_orange_article_creator: #fe8403,
 
     color_yellow_fdda0d: #fdda0d,
 
@@ -496,7 +502,8 @@ $themes: (
     color_orange_fb6514: #fb6514,
     color_orange_fddcab: #fddcab,
     color_orange_ffc4ad: #ffc4ad,
-
+    // Extra-light creator accent for high-contrast mode
+    color_orange_article_creator: #ffc18c,
     color_yellow_fdda0d: #fdda0d,
 
     color_purple_200e2f: #200e2f,

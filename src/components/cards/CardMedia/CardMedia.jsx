@@ -160,9 +160,15 @@ export const CardMedia = ({
                   {readingTime && (
                     <React.Fragment>
                       <Icon
-                        name={"time"}
+                        name="time"
                         size="sm"
-                        color={theme === "highContrast" ? "#ffff00" : "#ba7446"}
+                        color={
+                          theme === "highContrast"
+                            ? "#ffff00" // highContrast color_text_main
+                            : theme === "dark"
+                            ? "#ededed" // dark color_text_main
+                            : "#0e202f" // light color_text_main
+                        }
                       />
                       <p className={"small-text"}>
                         {readingTime} {t("min_read")}
