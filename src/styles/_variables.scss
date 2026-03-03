@@ -263,8 +263,8 @@ $themes: (
     // Liquid glass (glassmorphism) surfaces
     glass_panel_background: linear-gradient(
         145deg,
-        rgba(255, 255, 255, 0.44),
-        rgba(235, 243, 255, 0.3)
+        rgba(225, 233, 252, 0.9),
+        rgba(205, 218, 248, 0.8)
       ),
     glass_card_background: linear-gradient(
         150deg,
@@ -423,18 +423,18 @@ $themes: (
     overlay_010101: rgba(1, 1, 1, 0.2),
     glass_panel_background: linear-gradient(
         145deg,
-        rgba(24, 36, 63, 0.64),
-        rgba(18, 29, 51, 0.58)
+        rgba(30, 46, 86, 0.82),
+        rgba(19, 32, 65, 0.78)
       ),
     glass_card_background: linear-gradient(
         145deg,
-        rgba(24, 36, 63, 0.64),
-        rgba(18, 29, 51, 0.58)
+        rgba(34, 52, 96, 0.84),
+        rgba(21, 36, 74, 0.8)
       ),
     glass_need_box_background: linear-gradient(
         145deg,
-        rgba(24, 36, 63, 0.64),
-        rgba(18, 29, 51, 0.58)
+        rgba(38, 58, 105, 0.86),
+        rgba(23, 39, 79, 0.82)
       ),
     glass_border_color: rgba(137, 157, 209, 0.3),
     glass_shadow: (
@@ -582,18 +582,18 @@ $themes: (
     // Liquid glass (glassmorphism) surfaces - reuse dark mode look
     glass_panel_background: linear-gradient(
         145deg,
-        rgba(24, 36, 63, 0.64),
-        rgba(18, 29, 51, 0.58)
+        rgba(30, 46, 86, 0.82),
+        rgba(19, 32, 65, 0.78)
       ),
     glass_card_background: linear-gradient(
         145deg,
-        rgba(24, 36, 63, 0.64),
-        rgba(18, 29, 51, 0.58)
+        rgba(34, 52, 96, 0.84),
+        rgba(21, 36, 74, 0.8)
       ),
     glass_need_box_background: linear-gradient(
         145deg,
-        rgba(24, 36, 63, 0.64),
-        rgba(18, 29, 51, 0.58)
+        rgba(38, 58, 105, 0.86),
+        rgba(23, 39, 79, 0.82)
       ),
     glass_border_color: rgba(137, 157, 209, 0.3),
     glass_shadow: (
@@ -798,6 +798,19 @@ $gradient_background: linear-gradient(
   rgba(124, 172, 255, 0.28),
   rgba(255, 167, 103, 0.25)
 );
+
+$gradient_article_information:
+  radial-gradient(
+    980px 420px at 8% 8%,
+    rgba(246, 145, 99, 0.4),
+    transparent 70%
+  ),
+  radial-gradient(
+    860px 360px at 92% 20%,
+    rgba(135, 113, 245, 0.36),
+    transparent 72%
+  ),
+  linear-gradient(135deg, #7ec3f1 0%, #a0c8f3 38%, #b6b3ff 100%);
 
 // Shadows
 $shadow_1: 2px 2px 12px rgba(104, 77, 253, 0.1);

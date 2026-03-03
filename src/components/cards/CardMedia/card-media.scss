@@ -3,58 +3,10 @@
 .card-media {
   text-align: left;
   display: flex;
-  box-shadow: $shadow_1;
   width: 100%;
   margin: auto;
-  position: relative;
-  cursor: pointer;
   border-radius: $border_radius_2_4;
-  isolation: isolate;
   box-shadow: $shadow_1;
-  transition:
-    transform 240ms ease,
-    box-shadow 240ms ease;
-  @include hover-sheen(720ms, -25%, -40%, visible);
-
-  &::before {
-    content: "";
-    position: absolute;
-    inset: -1px;
-    border-radius: $border_radius_2_4;
-    padding: 1px;
-    background: linear-gradient(
-      135deg,
-      rgba(255, 167, 103, 0.55),
-      rgba(124, 172, 255, 0.58),
-      rgba(175, 133, 255, 0.55)
-    );
-    -webkit-mask:
-      linear-gradient(#000 0 0) content-box,
-      linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask:
-      linear-gradient(#000 0 0) content-box,
-      linear-gradient(#000 0 0);
-    mask-composite: exclude;
-    opacity: 0.35;
-    transition:
-      opacity 240ms ease,
-      filter 240ms ease;
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  &:hover {
-    transform: translateY(-1px);
-    box-shadow:
-      0 10px 8px rgba(44, 86, 129, 0.45),
-      0 6px 16px rgba(44, 86, 129, 0.3);
-  }
-
-  &:hover::before {
-    opacity: 0.9;
-    filter: drop-shadow(0 0 10px rgba(133, 174, 255, 0.38));
-  }
 
   &--rtl {
     direction: rtl;
@@ -65,6 +17,15 @@
     border: 1px solid themed(glass_border_color);
     box-shadow: themed(glass_shadow);
   }
+
+  // Light theme: almost solid white with ~5% transparency
+  .theme-light & {
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(224, 233, 255, 0.7);
+    box-shadow: 0 0.6rem 1rem rgba(9, 14, 26, 0.08);
+  }
+
+  @include card-hover-outline($border_radius_2_4);
 
   backdrop-filter: blur(10px) saturate(1.12);
   -webkit-backdrop-filter: blur(10px) saturate(1.12);
