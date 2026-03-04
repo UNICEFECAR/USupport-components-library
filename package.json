@@ -15,7 +15,8 @@
     "@rollup/plugin-image": "^3.0.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^14.1.0",
-    "autoprefixer": "^9.8.8",
+    "@rollup/plugin-terser": "^0.4.4",
+    "autoprefixer": "^10.4.27",
     "babel-loader": "^8.2.5",
     "postcss": "^8.4.16",
     "postcss-color-rebeccapurple": "^7.1.1",
@@ -23,11 +24,9 @@
     "react-dom": "^18.2.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-scss": "^3.0.0",
-    "rollup-plugin-svg": "^2.0.0",
-    "rollup-plugin-terser": "^7.0.2"
+    "rollup-plugin-svg": "^2.0.0"
   },
   "peerDependencies": {
-    "auto": "^10.37.6",
     "classnames": "^2.3.2",
     "joi": "^17.6.2",
     "lottie-react": "^2.3.1",
@@ -39,7 +38,6 @@
   },
   "dependencies": {
     "@react-google-maps/api": "^2.20.7",
-    "auto": "^10.37.6",
     "axios": "^1.1.2",
     "chart.js": "^4.2.1",
     "classnames": "^2.3.2",
@@ -73,6 +71,10 @@
   "overrides": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "vfile": "6.0.0"
+    "vfile": "6.0.0",
+    "serialize-javascript": "^7.0.3",
+    "react-multi-carousel": {
+      "npm": "npm:empty-npm-package@1.0.0"
+    }
   }
 }
