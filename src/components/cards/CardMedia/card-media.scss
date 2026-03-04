@@ -206,7 +206,7 @@
           position: relative;
           padding-top: $spacing_1_0;
 
-          & .small-text {
+          & .text {
             @include themifyCustom(
               $themes,
               "color",
@@ -264,7 +264,7 @@
       line-height: 1;
     }
 
-    .small-text {
+    .text {
       font-weight: 600;
       color: #234567;
     }
@@ -295,7 +295,7 @@
   }
 
   &__description {
-    height: 3.5rem;
+    height: $line_height_2_4 * 2;
     margin-top: $spacing_0_8;
     margin-bottom: $spacing_0_8;
     display: -webkit-box;
@@ -452,7 +452,7 @@
       }
 
       .card-media__description {
-        height: 1.7rem;
+        height: $line_height_2_4;
         margin-bottom: $spacing_1_6;
         -webkit-line-clamp: 1;
       }
@@ -473,14 +473,14 @@
         width: 76.8rem;
         height: auto;
         min-height: 20rem;
-        max-height: 28.6rem;
+        max-height: 29.5rem;
         border-radius: $border_radius_2_4 0 0 $border_radius_2_4;
       }
 
       .card-media__image-container {
         width: 76.8rem;
         min-height: 20rem;
-        max-height: 28.6rem;
+        max-height: 29.5rem;
         border-radius: $border_radius_2_4 0 0 $border_radius_2_4;
       }
 

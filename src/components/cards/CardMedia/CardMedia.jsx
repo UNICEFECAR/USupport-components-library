@@ -113,7 +113,7 @@ export const CardMedia = ({
       {categoryName && (
         <div className="card-media__category">
           <p
-            className={`small-text card-media__category__text ${
+            className={`text card-media__category__text ${
               theme === "highContrast" ? "card-media__category__text--hc" : ""
             }`}
           >
@@ -123,7 +123,7 @@ export const CardMedia = ({
       )}
       {isRead && (
         <div className="card-media__read">
-          <p className="small-text card-media__read__text">{t("read")}</p>
+          <p className="text card-media__read__text">{t("read")}</p>
         </div>
       )}
       <div className={"card-media__content"}>
@@ -149,7 +149,7 @@ export const CardMedia = ({
                 {creator && (
                   <p
                     className={
-                      "small-text card-media__content__details__left__creator"
+                      "text card-media__content__details__left__creator"
                     }
                     title={t("by", { creator })}
                   >
@@ -170,7 +170,7 @@ export const CardMedia = ({
                             : "#0e202f" // light color_text_main
                         }
                       />
-                      <p className={"small-text"}>
+                      <p className="text">
                         {readingTime} {t("min_read")}
                       </p>
                     </React.Fragment>
@@ -187,7 +187,7 @@ export const CardMedia = ({
           </div>
         </div>
         <div className={"card-media__description"}>
-          <p className={" small-text"} id="description">
+          <p className="text" id="description">
             {showDescription && description}
           </p>
         </div>
