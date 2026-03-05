@@ -3,6 +3,7 @@
 .markdown {
   text-align: justify;
   white-space: pre-wrap;
+  font-family: Inter;
 
   .markdown-link {
     color: $color_primary_20809e;
@@ -20,6 +21,35 @@
     &:last-child {
       margin-bottom: 0;
     }
+  }
+
+  table {
+    border-collapse: collapse;
+    border: 0.5px solid $color_blue_3d527b;
+    margin-inline: auto;
+    margin-block: $spacing_1_2;
+    font-family: Inter;
+  }
+
+  thead th {
+    background-color: transparent;
+  }
+
+  th,
+  td {
+    border-width: 0.5px;
+    border-style: solid;
+    @include themify($themes, "border-color", "color_gray_d2dcde");
+    padding: $spacing_0_8;
+    font-family: Inter;
+  }
+
+  tbody tr:nth-child(odd) td {
+    @include themify($themes, "background-color", "color_gray_ea");
+  }
+
+  .theme-dark & tbody tr:nth-child(odd) td {
+    background-color: rgba(255, 255, 255, 0.05);
   }
 
   & blockquote {
