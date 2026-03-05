@@ -221,9 +221,10 @@ async function scheduleConsultation(consultationId) {
   return response;
 }
 
-async function cancelConsultation(consultationId) {
+async function cancelConsultation(consultationId, isSuggesting = false) {
   const res = await http.put(`${API_ENDPOINT}/consultation/cancel`, {
     consultationId,
+    isSuggesting,
   });
   return res;
 }
@@ -239,12 +240,17 @@ async function rescheduleConsultation(consultationId, newConsultationId) {
 /**
  *
  * @param {string} consultationId
+ * @param {boolean} isSuggestingNewTime
  *
  * @returns {Promise}
  */
-async function suggestConsultation(consultationId) {
+async function suggestConsultation(
+  consultationId,
+  isSuggestingNewTime = false
+) {
   const res = await http.put(`${API_ENDPOINT}/consultation/suggest`, {
     consultationId,
+    isSuggestingNewTime,
   });
   return res;
 }
