@@ -18,6 +18,7 @@ export const OrganizationDetails = ({
   t,
   buttonComponent,
   handleCopyLink,
+  iconColor = "#66768D",
 }) => {
   const renderSpecialisations = React.useCallback(() => {
     if (organization?.specialisations?.length > 0) {
@@ -96,8 +97,7 @@ export const OrganizationDetails = ({
               <Icon
                 name="call"
                 size="md"
-                color="#66768D"
-                classes="organization-details__information-container-with-icon__icon"
+                color={iconColor}
               />
             </div>
             <p className="paragraph">{organization.phone}</p>
@@ -109,8 +109,7 @@ export const OrganizationDetails = ({
               <Icon
                 name="mail-admin"
                 size="md"
-                color="#66768D"
-                classes="organization-details__information-container-with-icon__icon"
+                color={iconColor}
               />
             </div>
             <p className="paragraph">{organization.email}</p>
@@ -122,8 +121,7 @@ export const OrganizationDetails = ({
               <Icon
                 name="globe"
                 size="md"
-                color="#66768D"
-                classes="organization-details__information-container-with-icon__icon"
+                color={iconColor}
               />
             </div>
             <p className="paragraph">
@@ -262,4 +260,9 @@ OrganizationDetails.propTypes = {
    * Handle copy link function
    */
   handleCopyLink: PropTypes.func,
+
+  /**
+   * Icon color in HEX format
+   */
+  iconColor: PropTypes.string,
 };

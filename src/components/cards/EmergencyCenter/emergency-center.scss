@@ -2,7 +2,26 @@
 
 .emergency-center {
   padding: $spacing_1_6;
-  width: calc(34.3rem - 2 * $spacing_1_6);
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 2 * $spacing_1_6);
+  width: 100%;
+
+  @include themifyNormal($themes) {
+    background: themed(glass_panel_background);
+    border: 1px solid themed(glass_border_color);
+    box-shadow: themed(glass_shadow);
+    border-radius: $border_radius_2_4;
+  }
+
+  .theme-light & {
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(224, 233, 255, 0.7);
+    box-shadow: 0 0.6rem 1rem rgba(9, 14, 26, 0.08);
+  }
+
+  backdrop-filter: blur(10px) saturate(1.12);
+  -webkit-backdrop-filter: blur(10px) saturate(1.12);
 
   &__image {
     width: 100%;
@@ -10,10 +29,6 @@
     border-radius: 2.4rem 2.4rem 2.4rem 2.4rem;
     object-fit: cover;
     object-position: center;
-  }
-
-  @media screen and (min-width: $screen_lg) {
-    width: calc(56rem - 2 * $spacing_1_6);
   }
 
   &__heading-text {
@@ -27,12 +42,29 @@
   &__description {
     margin-top: $spacing_0_4;
     text-align: left;
+    width: 100%;
   }
 
   &__btn-container {
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin-top: $spacing_1_6;
+    flex-direction: column;
+    align-items: stretch;
+    margin-top: auto;
+    gap: $spacing_0_8;
+
+    .button {
+      width: 100%;
+    }
+
+    @media screen and (min-width: $screen_md) {
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+      gap: 0;
+
+      .button {
+        width: auto;
+      }
+    }
   }
 }

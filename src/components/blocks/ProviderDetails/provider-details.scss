@@ -1,178 +1,255 @@
 @import "../../../styles/theme";
 
 .provider-details {
-  position: relative;
+  &__box {
+    padding: $spacing_2_0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 
-  &__grid {
-    padding-top: $spacing_2_4;
-    padding-bottom: $spacing_4_8;
-    place-items: center;
-
-    @media screen and (min-width: $screen_md) {
-      place-items: unset;
-    }
-
-    @media screen and (min-width: $screen_lg) {
-      padding-top: $spacing_4_2;
-    }
-
-    &__item__consultations-with-icon {
-      @media screen and (min-width: $screen_md) {
-        place-self: start;
-      }
-    }
-
-    &__controls {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: flex-start;
-      width: 34.3rem;
-    }
-
-    &__change-password-button,
-    &__delete-account-button {
-      padding: 0;
-      min-width: unset;
-    }
-
-    &__edit-button {
-      margin-top: $spacing_4_0;
-    }
-
-    &__change-password-button {
-      margin-top: $spacing_3_6;
-    }
-
-    &__delete-account-button {
-      margin-top: $spacing_2_2;
+    @media screen and (min-width: $screen-md) {
+      padding: $spacing_2_4;
     }
   }
 
   &__header {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    position: relative;
-    padding: $spacing_1_0 0;
+    flex-direction: column;
+    gap: $spacing_1_2;
+    padding-bottom: $spacing_1_6;
+    border-bottom: 1px solid $color_gray_ea;
+    width: 100%;
 
-    @media screen and (min-width: $screen_md) {
-      min-width: 55rem;
+    @include themifyCustom(
+      $themes,
+      "border-bottom-color",
+      "color_gray_ea",
+      "color_gray_344054"
+    );
+
+    @media screen and (min-width: $screen-md) {
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: space-between;
     }
 
-    &__provider-container {
+    &__provider-info {
       display: flex;
-      flex-direction: row;
-      align-items: center;
+      align-items: flex-start;
+      gap: $spacing_1_2;
+      min-width: 0;
 
-      &__avatar {
-        width: 6.6rem;
-        height: 6.6rem;
-      }
-
-      &__text-container {
-        margin-left: $spacing_1_8;
-        text-align: left;
-        max-width: 35rem;
+      .avatar {
+        width: 6rem;
+        height: 6rem;
+        flex-shrink: 0;
+        border-radius: $border_radius_1_2;
 
         @media screen and (min-width: $screen-md) {
-          max-width: 25rem;
-        }
-
-        @media screen and (min-width: 1100px) {
-          max-width: 45rem;
-        }
-        @media screen and (min-width: $screen-lg) {
-          max-width: 32rem;
+          width: 7.2rem;
+          height: 7.2rem;
         }
       }
     }
 
-    &__menu {
-      position: absolute;
-      right: 0;
-      top: 5rem;
+    &__provider-details {
       display: flex;
       flex-direction: column;
-      width: 16.1rem;
-      padding: $spacing_1_7;
-      z-index: 1;
+      gap: $spacing_0_2;
+      min-width: 0;
+    }
 
-      &__button {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        cursor: pointer;
+    &__provider-name {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 600;
+      text-align: left;
+      color: $color_purple_6a4ffb;
+      word-break: break-word;
 
-        &:not(:first-of-type) {
-          margin-top: $spacing_1_2;
-        }
+      @media screen and (min-width: $screen-md) {
+        font-size: 2rem;
+      }
+    }
 
-        &__text-edit {
-          margin-left: $spacing_1_2;
-          color: $color_primary_20809e;
-        }
+    &__specializations {
+      margin: 0;
+      opacity: 0.8;
+      text-align: left;
+    }
 
-        &__text-delete {
-          margin-left: $spacing_1_2;
-          color: $color_red_eb5757;
-        }
+    &__badges {
+      display: flex;
+      gap: $spacing_0_6;
+      margin-top: $spacing_0_2;
+      flex-wrap: wrap;
+    }
+
+    &__actions {
+      display: flex;
+      align-items: center;
+      gap: $spacing_1_0;
+      flex-shrink: 0;
+      margin-top: $spacing_1_2;
+
+      @media screen and (min-width: $screen-md) {
+        margin-top: 0;
       }
     }
   }
 
-  &__information-container-with-icon {
-    display: flex;
-    flex-direction: row;
+  &__badge {
+    display: inline-flex;
     align-items: center;
-    margin-top: $spacing_2_0;
-    text-align: left;
-    // width: 34.3rem;
+    justify-content: center;
+    padding: $spacing_0_2 $spacing_1_0;
+    border-radius: 9999px;
+    font-size: 1.3rem;
+    font-weight: 500;
 
-    &__icon {
-      margin-right: $spacing_1_2;
+    &--free {
+      background: rgba(3, 152, 85, 0.1);
+      border: 1px solid rgba(3, 152, 85, 0.3);
+      color: #039855;
+    }
+
+    &--price {
+      background: rgba(151, 73, 250, 0.08);
+      border: 1px solid rgba(151, 73, 250, 0.3);
+      color: $color_secondary_9749fa;
     }
   }
 
-  &__information-container {
-    text-align: left;
-    margin: 0 auto;
-    margin-top: $spacing_3_2;
-    max-width: 29.3rem;
+  &__info-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing_0_8;
+    width: 100%;
+    padding: $spacing_1_2 0;
+    border-bottom: 1px solid $color_gray_ea;
 
-    @media screen and (min-width: $screen_md) {
-      margin: unset;
-      margin-top: $spacing_3_2;
-      max-width: unset;
+    @include themifyCustom(
+      $themes,
+      "border-bottom-color",
+      "color_gray_ea",
+      "color_gray_344054"
+    );
+
+    @media screen and (min-width: $screen-md) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: $spacing_0_8 $spacing_2_4;
+    }
+  }
+
+  &__info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: $spacing_0_8;
+
+    .icon {
+      flex-shrink: 0;
+      margin-top: 0.2rem;
     }
 
-    &__heading.paragraph {
-      // color: $color_blue_3d527b;
-      @include themify($themes, "color", "color_3d527b_20809e");
-      font-weight: $font_bold;
-      margin-top: $spacing_0_8;
+    &__content {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing_0_2;
+      min-width: 0;
     }
 
-    &__text {
-      margin-top: $spacing_0_8;
+    &__label {
+      font-weight: 600;
+      line-height: 1.4;
+      text-align: left;
+
+      @include themifyCustom(
+        $themes,
+        "color",
+        "color_gray_66768d",
+        "color_text_main"
+      );
+    }
+
+    &__value {
+      font-size: 1.5rem;
+      line-height: 1.5;
       word-break: break-word;
+      text-align: left;
     }
   }
 
-  &__video-container {
+  &__section {
+    padding: $spacing_1_2 0;
+    border-bottom: 1px solid $color_gray_ea;
+    width: 100%;
     text-align: left;
-    margin-top: $spacing_1_8;
 
-    & p {
-      margin-bottom: $spacing_0_8;
+    @include themifyCustom(
+      $themes,
+      "border-bottom-color",
+      "color_gray_ea",
+      "color_gray_344054"
+    );
+
+    &:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
     }
 
-    & .video-player__box {
-      padding: 0;
+    &--description {
+      .provider-details__section__content {
+        font-size: 1.5rem;
+        line-height: 1.5;
+      }
     }
 
+    &__header {
+      display: flex;
+      align-items: center;
+      gap: $spacing_0_6;
+      margin-bottom: $spacing_0_4;
+      justify-content: flex-start;
+    }
+
+    &__title {
+      font-weight: 600;
+      line-height: 1.4;
+
+      @include themifyCustom(
+        $themes,
+        "color",
+        "color_gray_66768d",
+        "color_text_main"
+      );
+    }
+
+    &__content {
+      margin: 0;
+      font-size: 1.4rem;
+      line-height: 1.5;
+      padding-left: $spacing_2_8;
+      text-align: left;
+    }
+  }
+
+  &__video-player-wrapper {
+    margin-top: $spacing_0_4;
+  }
+
+  &__video-player {
     & .box--box-shadow-3 {
       box-shadow: none;
+    }
+  }
+
+  &__box.box--liquid-glass {
+    border-radius: $border_radius_2_4;
+
+    .theme-light & {
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid rgba(224, 233, 255, 0.7);
+      box-shadow: 0 0.6rem 1rem rgba(9, 14, 26, 0.08);
     }
   }
 }

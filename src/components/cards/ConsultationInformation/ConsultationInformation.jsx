@@ -46,6 +46,7 @@ export const ConsultationInformation = ({
       <Avatar
         image={AMAZON_S3_BUCKET + "/" + (providerImage || "default")}
         size="sm"
+        hasBorder
       />
       <div className="consultation-information__content">
         <div className="consultation-information__content__details">

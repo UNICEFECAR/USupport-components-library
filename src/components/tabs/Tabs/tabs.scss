@@ -2,7 +2,6 @@
 
 .tabs-wrapper {
   width: 100%;
-  // overflow: hidden; //NOTE: uncomment this if it breaks the layout somewhere
   position: relative;
   box-sizing: border-box;
   isolation: isolate;
@@ -92,9 +91,6 @@
         box-shadow 200ms ease,
         border-color 200ms ease,
         background 200ms ease;
-
-      // Moving sheen effect similar to CardMedia, tuned for small tabs
-      @include hover-sheen(560ms, -35%, -65%, visible);
 
       @include themifyNormal($themes) {
         background: themed(glass_panel_background);

@@ -69,15 +69,18 @@ export const SendMessage = ({
           }
         }}
       />
-      <ButtonWithIcon
-        iconName="comment-white"
-        iconSize="md"
-        iconColor="#FFFFFF"
-        onlyIcon
-        onClick={handleSend}
-        circleSize="sm"
-        classes="send-message__send-button"
-      />
+      <div>
+        <ButtonWithIcon
+          iconName="comment-white"
+          iconSize="md"
+          iconColor="#FFFFFF"
+          onlyIcon
+          onClick={handleSend}
+          circleSize="sm"
+          classes="send-message__send-button"
+          color="purple"
+        />
+      </div>
     </div>
   );
 };

@@ -167,8 +167,40 @@
   &__organization {
     padding-top: $spacing_1_2;
   }
+
+  &__status-badge {
+    margin-left: auto;
+    margin-bottom: $spacing_0_8;
+    padding: $spacing_0_4 $spacing_1_2;
+    border-radius: 9999px;
+    border: 0.1rem solid #d8deea;
+    background: rgba(243, 246, 255, 0.9);
+
+    &--upcoming {
+      background: rgba(151, 73, 250, 0.06);
+      border-color: rgba(151, 73, 250, 0.35);
+      color: #9749fa;
+    }
+
+    &--completed {
+      background: rgba(3, 152, 85, 0.06);
+      border-color: rgba(3, 152, 85, 0.35);
+      color: #039855;
+    }
+
+    &--not-conducted {
+      background: rgba(240, 68, 56, 0.06);
+      border-color: rgba(240, 68, 56, 0.35);
+      color: #f04438;
+    }
+  }
 }
 .provider-consultation__icon-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: $spacing_0_8;
+
   &__price-badge {
     display: flex;
     flex-direction: row;

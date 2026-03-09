@@ -92,6 +92,24 @@ export const Consultation = ({
   const today = new Date().getTime();
   const isFiveMinutesBefore = checkIsFiveMinutesBefore(timestamp);
 
+  // Status badge logic (for client render)
+  let statusLabel = "";
+  let statusModifier = "";
+
+  if (renderIn === "client") {
+    if (!isPast) {
+      // Reuse existing "Upcoming" label from consultations blocks
+      statusLabel = t("upcoming_tab_label");
+      statusModifier = "upcoming";
+    } else if (status === "finished") {
+      statusLabel = t("conducted");
+      statusModifier = "completed";
+    } else {
+      statusLabel = t("not_conducted");
+      statusModifier = "not-conducted";
+    }
+  }
+
   let buttonLabel, buttonAction;
   if (isFiveMinutesBefore) {
     buttonLabel = t("join");
@@ -198,10 +216,10 @@ export const Consultation = ({
             <h4 className="consultation__content__text-container__name-container__date-text">
               {dateText}
             </h4>
-            <p className="text consultation__content__text-container__name-container__time-text">
+            <p className="consultation__content__text-container__name-container__time-text">
               {buttonAction === "join" ? t("active") : timeText}
             </p>
-            <p className="text consultation__content__text-container__name">
+            <p className="consultation__content__text-container__name">
               {name}
             </p>
           </div>
@@ -214,6 +232,19 @@ export const Consultation = ({
           </p>
         ) : (
           <div className="provider-consultation__icon-container">
+            {statusLabel && (
+              <div
+                className={[
+                  "consultation__status-badge",
+                  statusModifier &&
+                    `consultation__status-badge--${statusModifier}`,
+                ]
+                  .filter(Boolean)
+                  .join(" ")}
+              >
+                <p className="small-text">{statusLabel}</p>
+              </div>
+            )}
             {hasPriceBadge && (
               <div
                 className={[
@@ -356,9 +387,10 @@ export const Consultation = ({
               type="outline"
             />
           ) : (
-            <p className="small-text">
-              {status === "finished" ? t("conducted") : t("not_conducted")}
-            </p>
+            <></>
+            // <p className="small-text">
+            //   {status === "finished" ? t("conducted") : t("not_conducted")}
+            // </p>
           )}
         </div>
       )}

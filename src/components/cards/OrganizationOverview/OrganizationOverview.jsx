@@ -24,6 +24,7 @@ export const OrganizationOverview = ({
   address,
   onClick,
   t,
+  iconColor = "#20809E",
 }) => {
   const imageURI =
     image && image !== "default" ? `${AMAZON_S3_BUCKET}/${image}` : null;
@@ -70,14 +71,14 @@ export const OrganizationOverview = ({
           {address && (
             <div className="organization-overview-card__address">
               <div>
-                <Icon name="location" size="sm" color="#20809E" />
+                <Icon name="location" size="sm" color={iconColor} />
               </div>
               <p className="small-text">{address}</p>
             </div>
           )}
         </div>
         <div>
-          <Icon name="arrow-chevron-forward" size="md" color="#20809E" />
+          <Icon name="arrow-chevron-forward" size="md" color={iconColor} />
         </div>
       </div>
     </Box>
@@ -129,6 +130,14 @@ OrganizationOverview.propTypes = {
    * Translation function
    */
   t: PropTypes.func,
+};
+
+OrganizationOverview.propTypes = {
+  ...OrganizationOverview.propTypes,
+  /**
+   * Icon color in HEX format
+   */
+  iconColor: PropTypes.string,
 };
 
 OrganizationOverview.defaultProps = {

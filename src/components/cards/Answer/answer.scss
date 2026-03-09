@@ -4,9 +4,20 @@
   display: flex;
   flex-direction: column;
   padding: $spacing_2_0 $spacing_1_6;
-  border-radius: $border_radius_1_2;
+  border-radius: $border_radius_2_4;
   height: calc(100% - $spacing_4_2);
   @include card-hover-outline($border_radius_1_2);
+
+  .theme-light & {
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(224, 233, 255, 0.7);
+    box-shadow: 0 0.6rem 1rem rgba(9, 14, 26, 0.08);
+  }
+
+  @include card-hover-outline($border_radius_2_4);
+
+  backdrop-filter: blur(10px) saturate(1.12);
+  -webkit-backdrop-filter: blur(10px) saturate(1.12);
 
   &__heading-container {
     display: flex;

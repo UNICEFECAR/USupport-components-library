@@ -3,7 +3,6 @@
 .controls {
   width: calc(34.3rem - 2 * $spacing_1_6);
   padding: 0 0 $spacing_1_6 0;
-  background-color: rgba(255, 255, 255, 0.9) !important;
 
   &__sponsored-by {
     padding: 0 $spacing_2_4 $spacing_1_6;
@@ -21,10 +20,11 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      width: 5.4rem;
-      height: 5.4rem;
+      width: 4.6rem;
+      height: 4.6rem;
       border-radius: 50%;
-      border: 0.2rem solid $color_primary_20809e;
+      border: 0.2rem solid;
+      @include themify($themes, "border-color", "color_6a4ffb_8c90eb");
       position: relative;
     }
 
@@ -34,8 +34,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 5.6rem;
-      height: 5.6rem;
+      width: 4.6rem;
+      height: 4.6rem;
       border-radius: 50%;
     }
 

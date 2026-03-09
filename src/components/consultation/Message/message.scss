@@ -1,58 +1,157 @@
 @import "../../../styles/theme";
 
 .message {
-  padding: $spacing_1_6 $spacing_2_4 0 $spacing_2_4;
-  max-width: calc(46.4rem - 2 * $spacing_2_4);
-  border-radius: $border_radius_2_4;
+  padding: $spacing_1_4 $spacing_1_6;
+  max-width: 75%;
+  border-radius: $border_radius_1_6;
   text-align: left;
   content-visibility: auto;
   display: flex;
   flex-direction: column;
   width: auto;
-
-  &--dark {
-    background-color: $color_black_37;
-  }
+  position: relative;
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
 
   @media screen and (max-width: $screen_md) {
-    max-width: 28rem;
+    max-width: 85%;
   }
 
   &__text {
-    @include themifyCustom(
-      $themes,
-      "color",
-      "color_black_37",
-      "color_black_37"
-    );
-
     white-space: pre-wrap;
     overflow-wrap: break-word;
+    line-height: 1.5;
+    font-size: 1.4rem;
   }
 
   &__date {
-    color: $color_gray_66768d;
-
-    @include themifyCustom(
-      $themes,
-      "color",
-      "color_gray_66768d",
-      "color_gray_92989b"
-    );
+    font-size: 1.1rem;
+    margin-top: $spacing_0_4;
+    opacity: 0.7;
     text-align: right;
     align-self: flex-end;
-    padding-left: 0.6rem;
-
-    &--sent {
-      text-align: right;
-    }
   }
 
   &-sent {
-    background-color: $color_green_54cfd9;
+    align-self: flex-end;
+    border-radius: $border_radius_1_6 $border_radius_1_6 $spacing_0_4
+      $border_radius_1_6;
+
+    .theme-light & {
+      background: linear-gradient(
+        135deg,
+        rgba(124, 58, 237, 0.9) 0%,
+        rgba(167, 139, 250, 0.85) 100%
+      );
+      border: 1px solid rgba(167, 139, 250, 0.5);
+      box-shadow:
+        0 0.4rem 1.2rem rgba(124, 58, 237, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    }
+
+    .theme-dark & {
+      background: linear-gradient(
+        135deg,
+        rgba(124, 58, 237, 0.8) 0%,
+        rgba(139, 92, 246, 0.65) 100%
+      );
+      border: 1px solid rgba(167, 139, 250, 0.35);
+      box-shadow:
+        0 0.4rem 1.2rem rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+
+    .message__text {
+      color: #ffffff;
+    }
+
+    .message__date {
+      color: rgba(255, 255, 255, 0.8);
+    }
   }
 
   &-received {
-    background-color: $color_green_e6f1f4;
+    align-self: flex-start;
+    border-radius: $border_radius_1_6 $border_radius_1_6 $border_radius_1_6
+      $spacing_0_4;
+
+    .theme-light & {
+      background: linear-gradient(
+        135deg,
+        rgba(245, 243, 255, 0.9) 0%,
+        rgba(237, 233, 254, 0.85) 100%
+      );
+      border: 1px solid rgba(196, 181, 253, 0.4);
+      box-shadow:
+        0 0.4rem 1.2rem rgba(124, 58, 237, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    }
+
+    .theme-dark & {
+      background: linear-gradient(
+        135deg,
+        rgba(76, 61, 102, 0.7) 0%,
+        rgba(88, 72, 117, 0.55) 100%
+      );
+      border: 1px solid rgba(139, 92, 246, 0.25);
+      box-shadow:
+        0 0.4rem 1.2rem rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+
+    .message__text {
+      .theme-light & {
+        color: $color_black_37;
+      }
+
+      .theme-dark & {
+        color: rgba(255, 255, 255, 0.92);
+      }
+    }
+
+    .message__date {
+      .theme-light & {
+        color: rgba(107, 79, 163, 0.7);
+      }
+
+      .theme-dark & {
+        color: rgba(196, 181, 253, 0.7);
+      }
+    }
+  }
+}
+
+.message-date {
+  padding: $spacing_0_6 $spacing_1_6;
+  border-radius: $border_radius_1_2;
+  width: auto;
+  margin: $spacing_1_6 auto;
+  text-align: center;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  .theme-light & {
+    background: rgba(245, 243, 255, 0.85);
+    border: 1px solid rgba(196, 181, 253, 0.35);
+  }
+
+  .theme-dark & {
+    background: rgba(76, 61, 102, 0.5);
+    border: 1px solid rgba(139, 92, 246, 0.25);
+  }
+
+  .small-text {
+    font-size: 1.2rem;
+
+    .theme-light & {
+      color: rgba(107, 79, 163, 0.8);
+    }
+
+    .theme-dark & {
+      color: rgba(196, 181, 253, 0.8);
+    }
   }
 }

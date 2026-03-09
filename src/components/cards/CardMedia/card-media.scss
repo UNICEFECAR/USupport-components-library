@@ -18,7 +18,6 @@
     box-shadow: themed(glass_shadow);
   }
 
-  // Light theme: almost solid white with ~5% transparency
   .theme-light & {
     background: rgba(255, 255, 255, 0.75);
     border: 1px solid rgba(224, 233, 255, 0.7);

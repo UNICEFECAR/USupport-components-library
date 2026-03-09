@@ -87,7 +87,7 @@ export const Answer = ({
   };
 
   return (
-    <Box classes={["answer", classes]} liquidGlass onClick={handleCardClick}>
+    <Box liquidGlass classes={["answer", classes]} onClick={handleCardClick}>
       {question.answerTitle ? (
         <>
           {renderIn === "client" || renderIn === "website" ? (

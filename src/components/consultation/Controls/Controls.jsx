@@ -85,25 +85,25 @@ export const Controls = ({
         <div className="button-container__button" onClick={handleCameraClick}>
           <Icon
             name={!isCameraOpen ? "stop-camera" : "video"}
-            size="lg"
-            color="#20809E"
+            size="md"
+            color="#6a4ffb"
           />
         </div>
         <div className="button-container__button" onClick={handleMicClick}>
           <Icon
             name={!isMicOpen ? "stop-mic" : "microphone"}
-            size="lg"
-            color="#20809E"
+            size="md"
+            color="#6a4ffb"
           />
         </div>
         <div className="button-container__button" onClick={handleChat}>
           {hasUnreadMessages && (
             <div className="button-container__unread-message" />
           )}
-          <Icon name={"comment"} size="lg" color="#20809E" />
+          <Icon name={"comment"} size="md" color="#6a4ffb" />
         </div>
         <div className="button-container__button-hangup" onClick={handleHangUp}>
-          <Icon name={"hangup"} size="lg" color="#ffffff" />
+          <Icon name={"hangup"} size="md" color="#ffffff" />
         </div>
       </div>
     );

@@ -1,44 +1,77 @@
 @import "../../../styles/theme";
 
-.message-date {
-  background-color: $color_green_f4f7fe;
-  padding: $spacing_0_8 $spacing_3_2;
-  border-radius: $border_radius_1_6;
-  width: auto;
-  margin: 0 auto;
-  margin-bottom: $spacing_1_2;
-
-  &--dark {
-    background-color: $color_black_37;
-  }
-}
-
 .system-message {
   align-items: center;
   align-self: center;
-  border-radius: $border_radius_2_4;
-  border: 0.1rem solid $color_primary_20809e;
+  border-radius: $border_radius_1_6;
   display: flex;
   flex-direction: row;
-  padding: $spacing_1_4 $spacing_1_6;
+  padding: $spacing_1_0 $spacing_1_6;
   text-align: left;
-  width: calc(36.8rem - 2 * $spacing_2_4);
+  max-width: 90%;
+  backdrop-filter: blur(10px) saturate(1.15);
+  -webkit-backdrop-filter: blur(10px) saturate(1.15);
+  margin: $spacing_0_8 0;
+
+  .theme-light & {
+    background: linear-gradient(
+      135deg,
+      rgba(32, 128, 158, 0.08) 0%,
+      rgba(84, 207, 217, 0.06) 100%
+    );
+    border: 1px solid rgba(32, 128, 158, 0.2);
+    box-shadow: 0 0.2rem 0.8rem rgba(32, 128, 158, 0.08);
+  }
+
+  .theme-dark & {
+    background: linear-gradient(
+      135deg,
+      rgba(32, 128, 158, 0.15) 0%,
+      rgba(84, 207, 217, 0.1) 100%
+    );
+    border: 1px solid rgba(84, 207, 217, 0.25);
+    box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.2);
+  }
 
   @media screen and (max-width: $screen_md) {
-    width: calc(24rem - 2 * $spacing_2_4);
+    max-width: 95%;
   }
 
   &__text-container {
-    margin-left: $spacing_1_6;
-    width: 100%;
+    margin-left: $spacing_1_2;
+    flex: 1;
 
     &__title.small-text {
-      color: $color_primary_20809e;
-      font-weight: $font_bold;
+      font-weight: 600;
+      font-size: 1.3rem;
+      line-height: 1.4;
+
+      .theme-light & {
+        color: $color_primary_20809e;
+      }
+
+      .theme-dark & {
+        color: rgba(84, 207, 217, 0.95);
+      }
     }
   }
+
   &__time {
     align-self: center;
-    padding-left: 0.6rem;
+    padding-left: $spacing_1_2;
+    font-size: 1.1rem;
+    white-space: nowrap;
+
+    .theme-light & {
+      color: $color_gray_66768d;
+    }
+
+    .theme-dark & {
+      color: rgba(255, 255, 255, 0.6);
+    }
+  }
+
+  .icon {
+    flex-shrink: 0;
   }
 }
