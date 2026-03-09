@@ -18,7 +18,7 @@ export const CardNumber = ({ number, iconName, text, ...props }) => {
       <div className="card-number__number">{number}.</div>
       <div className="card-number__content">
         <div className="card-number__icon">
-          <Icon name={iconName} />
+          <Icon name={iconName} color={"#6a4ffb"} />
         </div>
         <p className="text card-number__text">{text}</p>
       </div>

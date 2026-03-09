@@ -8,13 +8,14 @@
   height: 16rem;
   background: $gradient_secondary_0_1_opacity;
   padding-bottom: 2rem;
+  border-radius: $border_radius_1_2;
 
   &__number {
     font-size: $font_size_6_4;
     line-height: $line_height_7_7;
     font-weight: 600;
     letter-spacing: 0.02rem;
-    color: $color_secondary_9749fa;
+    color: $color_6a4ffb_8c90eb;
     margin-top: calc(-1 * $line_height_7_7 / 2);
   }
 
