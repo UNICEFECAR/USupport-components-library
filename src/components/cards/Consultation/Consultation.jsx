@@ -242,7 +242,7 @@ export const Consultation = ({
                   .filter(Boolean)
                   .join(" ")}
               >
-                <p className="small-text">{statusLabel}</p>
+                <p className="text">{statusLabel}</p>
               </div>
             )}
             {hasPriceBadge && (
