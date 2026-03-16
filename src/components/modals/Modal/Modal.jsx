@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { default as ModalPackage } from "react-modal";
@@ -7,7 +7,7 @@ import { Icon } from "../../icons/";
 import { NewButton } from "../../buttons/";
 import { Error } from "../../errors";
 import { Loading } from "../../loaders/";
-import { ThemeContext } from "../../../utils";
+import { ThemeContext, useScrollLock } from "../../../utils";
 
 import "./modal.scss";
 
@@ -50,43 +50,9 @@ export const Modal = ({
 }) => {
   const { theme } = useContext(ThemeContext);
   const hasButtons = ctaLabel || secondaryCtaLabel || thirdCtaLabel;
-  const timeoutRef = useRef(null);
 
-  // Disable body scroll when modal is open
-  useEffect(() => {
-    // Clear any pending timeout from previous effect
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-      timeoutRef.current = null;
-    }
-
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      // Restore scroll when modal closes
-      // Use setTimeout to ensure react-modal has finished its cleanup first
-      timeoutRef.current = setTimeout(() => {
-        document.body.style.overflow = "";
-        // Remove the class if react-modal didn't clean it up
-        if (document.body.classList.contains("base-modal--open")) {
-          document.body.classList.remove("base-modal--open");
-        }
-        timeoutRef.current = null;
-      }, 0);
-    }
-
-    return () => {
-      // Cleanup: clear timeout and restore scroll
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-        timeoutRef.current = null;
-      }
-      document.body.style.overflow = "";
-      if (document.body.classList.contains("base-modal--open")) {
-        document.body.classList.remove("base-modal--open");
-      }
-    };
-  }, [isOpen]);
+  // Always prevent background page scroll while any modal is open.
+  useScrollLock(isOpen);
 
   return (
     <ModalPackage
@@ -108,7 +74,6 @@ export const Modal = ({
         removeTopPadding && "base-modal--no-top-padding",
         classNames(classes),
       ].join(" ")}
-      bodyOpenClassName="base-modal--open"
       contentLabel="Base Modal"
       appElement={document.getElementById("root")}
     >
@@ -127,51 +92,44 @@ export const Modal = ({
           {topHeaderComponent}
         </div>
       )}
-      {(hasGoBackArrow || hasCloseIcon || headingComponent || heading) &&
-        !topHeaderComponent && (
-          <div
-            className={[
-              "base-modal__header",
-              !hasGoBackArrow &&
-                !hasCloseIcon &&
-                "base-modal__header--no-close",
-            ].join(" ")}
-          >
-            {!topHeaderComponent && (hasGoBackArrow || hasCloseIcon) && (
-              <div className="base-modal__header__left-container">
-                {hasGoBackArrow && (
-                  <Icon
-                    name="arrow-chevron-back"
-                    size="md"
-                    onClick={handleGoBack}
-                  />
-                )}
-              </div>
-            )}
-            {headingComponent || (
-              <h4
-                className={[
-                  "base-modal__header__text",
-                  theme === "dark" && "base-modal__header__text--dark",
-                ].join(" ")}
-              >
-                {heading}
-              </h4>
-            )}
-            {(hasGoBackArrow || hasCloseIcon) && (
-              <div className="base-modal__header__icon-container">
-                {hasCloseIcon && (
-                  <Icon
-                    name="close-x"
-                    size="md"
-                    onClick={closeModal}
-                    color={theme === "dark" ? "#c1d7e0" : undefined}
-                  />
-                )}
-              </div>
-            )}
-          </div>
-        )}
+      {(hasGoBackArrow || headingComponent || heading) && !topHeaderComponent && (
+        <div
+          className={[
+            "base-modal__header",
+            !hasGoBackArrow && "base-modal__header--no-close",
+          ].join(" ")}
+        >
+          {hasGoBackArrow && (
+            <div className="base-modal__header__left-container">
+              <Icon
+                name="arrow-chevron-back"
+                size="md"
+                onClick={handleGoBack}
+              />
+            </div>
+          )}
+          {headingComponent || (
+            <h4
+              className={[
+                "base-modal__header__text",
+                theme === "dark" && "base-modal__header__text--dark",
+              ].join(" ")}
+            >
+              {heading}
+            </h4>
+          )}
+        </div>
+      )}
+      {hasCloseIcon && !topHeaderComponent && (
+        <div className="base-modal__close-icon">
+          <Icon
+            name="close-x"
+            size="md"
+            onClick={closeModal}
+            color={theme === "dark" ? "#c1d7e0" : undefined}
+          />
+        </div>
+      )}
       {text && <p className="text base-modal__text">{text}</p>}
       <div
         className={[
@@ -183,7 +141,7 @@ export const Modal = ({
         {children}
       </div>
       {hasButtons && (
-        <div>
+        <div className="base-modal__footer-wrapper">
           <div className="base-modal__footer">
             {errorMessage ? <Error message={errorMessage} /> : null}
             {customButton}

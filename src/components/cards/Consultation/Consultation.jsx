@@ -48,8 +48,8 @@ export const Consultation = ({
   withOrganization,
   toast,
   liquidGlass = false,
+  buttonSize = "md",
 }) => {
-  const { width } = useWindowDimensions();
   const {
     consultationId,
     timestamp,
@@ -58,6 +58,7 @@ export const Consultation = ({
     price: consultationPrice,
     couponPrice: consultationCouponPrice,
     campaignId,
+    providerSpecializations,
   } = consultation;
 
   const price =
@@ -79,6 +80,29 @@ export const Consultation = ({
   const currencySymbol = localStorage.getItem("currency_symbol");
 
   const name = consultation.providerName || consultation.clientName;
+
+  const formatSpecializations = (value) => {
+    if (!value) return "";
+
+    let list;
+
+    if (Array.isArray(value)) {
+      list = value;
+    } else if (typeof value === "string") {
+      const trimmed = value.trim();
+      const withoutBraces = trimmed.replace(/^\{|\}$/g, "");
+      list = withoutBraces.split(",").map((item) => item.trim());
+    } else {
+      list = [value];
+    }
+
+    return list
+      .filter(Boolean)
+      .map((key) => t(key))
+      .join(", ");
+  };
+
+  const specializationsText = formatSpecializations(providerSpecializations);
 
   const imageUrl = AMAZON_S3_BUCKET + "/" + (image || "default");
 
@@ -125,11 +149,16 @@ export const Consultation = ({
 
   const startHour = startDate.getHours();
   const endHour = startHour + 1;
-  const timeText = startDate
+  const rawTimeText = startDate
     ? `${startHour < 10 ? `0${startHour}` : startHour}:00 - ${
         endHour < 10 ? `0${endHour}` : endHour
       }:00`
     : "";
+  const displayTimeText = buttonAction === "join" ? t("active") : rawTimeText;
+  const dateTimeText =
+    dateText && displayTimeText
+      ? `${dateText} · ${displayTimeText}`
+      : dateText || displayTimeText;
 
   const handleAccepConsultationClick = () => {
     handleAcceptConsultation(consultationId, price);
@@ -156,6 +185,16 @@ export const Consultation = ({
   };
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const hasActions =
+    (!overview && !suggested && buttonAction === "join") ||
+    (!overview && suggested && renderIn === "client") ||
+    (!overview && suggested && renderIn === "provider") ||
+    (!overview &&
+      !suggested &&
+      (buttonAction === "edit" || buttonAction === "cancel")) ||
+    (((!overview && !suggested && buttonAction === "details") || seeDetails) &&
+      ((renderIn === "client" && status === "finished") || seeDetails));
 
   const handleToggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -200,7 +239,7 @@ export const Consultation = ({
 
   return (
     <Card
-      onClick={onClick}
+      onClick={!hasMenu ? onClick : undefined}
       borderColor={buttonAction === "join" ? "purple" : undefined}
       classes={[
         "consultation",
@@ -210,19 +249,18 @@ export const Consultation = ({
       liquidGlass={liquidGlass}
     >
       <div className="consultation__content">
-        <Avatar image={imageUrl} size="sm" isCircle hasBorder />
+        <Avatar image={imageUrl} size="sm" isCircle={false} />
         <div className="consultation__content__text-container">
           <div className="consultation__content__text-container__name-container">
-            <h4 className="consultation__content__text-container__name-container__date-text">
-              {dateText}
-            </h4>
-            <p className="consultation__content__text-container__name-container__time-text">
-              {buttonAction === "join" ? t("active") : timeText}
-            </p>
-            <p className="consultation__content__text-container__name">
+            <p className="paragraph consultation__content__text-container__name">
               {name}
             </p>
           </div>
+          {specializationsText && (
+            <p className="text consultation__specializations">
+              {specializationsText}
+            </p>
+          )}
         </div>
         {overview &&
         renderIn === "provider" &&
@@ -232,27 +270,12 @@ export const Consultation = ({
           </p>
         ) : (
           <div className="provider-consultation__icon-container">
-            {statusLabel && (
-              <div
-                className={[
-                  "consultation__status-badge",
-                  statusModifier &&
-                    `consultation__status-badge--${statusModifier}`,
-                ]
-                  .filter(Boolean)
-                  .join(" ")}
-              >
-                <p className="text">{statusLabel}</p>
-              </div>
-            )}
             {hasPriceBadge && (
               <div
                 className={[
                   "provider-consultation__icon-container__price-badge",
                   !price &&
                     "provider-consultation__icon-container__price-badge--free",
-                  // buttonAction === "details" &&
-                  //   "provider-consultation__icon-container__price-badge--gray",
                 ].join(" ")}
               >
                 {isBookedWithCoupon && sponsorImage ? (
@@ -288,112 +311,127 @@ export const Consultation = ({
           </div>
         )}
       </div>
-
-      {organizationName && (
-        <div className="consultation__organization">
-          <p>{organizationName}</p>
+      {statusLabel && (
+        <div
+          className={[
+            "consultation__content__text-container__free-badge",
+            "consultation__status-badge",
+            statusModifier && `consultation__status-badge--${statusModifier}`,
+          ]
+            .filter(Boolean)
+            .join(" ")}
+        >
+          <p className="small-text">{statusLabel}</p>
         </div>
       )}
-      {!overview && !suggested && buttonAction === "join" && (
-        <div className="consultation__button-container">
-          {/* <p className="text consultation__button-container__now-text">
-            {t("active")}
-          </p> */}
-          <NewButton
-            onClick={() => handleJoin()}
-            label={buttonLabel}
-            type="solid"
-            classes={"consultation__button-container__join-button"}
-            size="lg"
-          />
-        </div>
-      )}
-      {!overview && suggested && renderIn === "client" && (
-        <div className="consultation__request-container">
-          <NewButton
-            onClick={handleAccepConsultationClick}
-            label={t("accept")}
-            size="lg"
-          />
-          <NewButton
-            onClick={handleRejectConsultationClick}
-            label={t("reject")}
-            type="outline"
-            size="lg"
-          />
-        </div>
-      )}
-
-      {!overview && suggested && renderIn === "provider" && (
-        <div className="consultation__button-container__edit">
-          <NewButton
-            onClick={() => handleCancelRequest()}
-            label={t("suggested")}
-            size="lg"
-            disabled
-          />
-          <NewButton
-            onClick={handleCancel}
-            label={t("cancel")}
-            type="outline"
-            size="lg"
-          />
-        </div>
-      )}
-
-      {!overview && !suggested && buttonAction === "edit" && (
-        <div className="consultation__button-container__edit">
-          <div
-            className="consultation__button-container__edit__join"
-            onClick={() => toast.info(t("join_button_label_tooltip"))}
-          >
-            <NewButton
-              label={t("join")}
-              size="lg"
-              type="solid"
-              color={renderIn === "provider" ? "purple" : "green"}
-              disabled
-            />
+      <div className="consultation__bottom">
+        {organizationName && (
+          <div className="consultation__organization">
+            <p className="text">{organizationName}</p>
           </div>
-          <NewButton
-            onClick={handleEdit}
-            label={buttonLabel}
-            size="lg"
-            type="outline"
-            color={renderIn === "provider" ? "purple" : "green"}
-          />
+        )}
+        <div className="consultation__earliest">
+          <div className="consultation__earliest-container__wrapper">
+            <div className="consultation__earliest-container">
+              <Icon name="calendar" size="sm" color={"#66768D"} />
+              <div className="consultation__earliest-container__text">
+                <p className="text">{dateText}</p>
+              </div>
+            </div>
+            <div className="consultation__earliest-container">
+              <Icon name="time" size="sm" color={"#66768D"} />
+              <div className="consultation__earliest-container__text">
+                <p className="text">{displayTimeText}</p>
+              </div>
+            </div>
+          </div>
         </div>
-      )}
+        {hasActions && (
+          <div className="consultation__actions">
+            {!overview && !suggested && buttonAction === "join" && (
+              <NewButton
+                onClick={() => handleJoin()}
+                label={buttonLabel}
+                type="gradient"
+                size={buttonSize}
+              />
+            )}
 
-      {!overview && !suggested && buttonAction === "cancel" && (
-        <div className="consultation__button-container">
-          <NewButton
-            onClick={handleCancel}
-            label={buttonLabel}
-            size="lg"
-            type="outline"
-          />
-        </div>
-      )}
+            {!overview && suggested && renderIn === "client" && (
+              <>
+                <NewButton
+                  onClick={handleAccepConsultationClick}
+                  label={t("accept")}
+                  size={buttonSize}
+                  type="gradient"
+                />
+                <NewButton
+                  onClick={handleRejectConsultationClick}
+                  label={t("reject")}
+                  type="outline"
+                  size={buttonSize}
+                />
+              </>
+            )}
 
-      {((!overview && !suggested && buttonAction === "details") ||
-        seeDetails) && (
-        <div className="consultation__button-container">
-          {(renderIn === "client" && status === "finished") || seeDetails ? (
-            <NewButton
-              onClick={handleSeeDetails}
-              label={buttonLabel}
-              size="lg"
-              type="outline"
-            />
-          ) : (
-            <></>
-            // <p className="small-text">
-            //   {status === "finished" ? t("conducted") : t("not_conducted")}
-            // </p>
-          )}
-        </div>
-      )}
+            {!overview && suggested && renderIn === "provider" && (
+              <>
+                <NewButton
+                  onClick={() => handleCancelRequest()}
+                  label={t("suggested")}
+                  size={buttonSize}
+                  disabled
+                />
+                <NewButton
+                  onClick={handleCancel}
+                  label={t("cancel")}
+                  type="outline"
+                  size={buttonSize}
+                />
+              </>
+            )}
+
+            {!overview && !suggested && buttonAction === "edit" && (
+              <>
+                <NewButton
+                  onClick={() => toast.info(t("join_button_label_tooltip"))}
+                  label={t("join")}
+                  size={buttonSize}
+                  type="gradient"
+                  disabled
+                />
+                <NewButton
+                  onClick={handleEdit}
+                  label={buttonLabel}
+                  size={buttonSize}
+                  type="outline"
+                />
+              </>
+            )}
+
+            {!overview && !suggested && buttonAction === "cancel" && (
+              <NewButton
+                onClick={handleCancel}
+                label={buttonLabel}
+                size={buttonSize}
+                type="outline"
+              />
+            )}
+
+            {((!overview && !suggested && buttonAction === "details") ||
+              seeDetails) &&
+              ((renderIn === "client" && status === "finished") ||
+                seeDetails) && (
+                <NewButton
+                  onClick={handleSeeDetails}
+                  label={buttonLabel}
+                  size={buttonSize}
+                  type="outline"
+                />
+              )}
+          </div>
+        )}
+      </div>
 
       {isMenuOpen && (
         <OutsideClickHandler

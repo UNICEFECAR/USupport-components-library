@@ -16,8 +16,6 @@
     display: flex;
     flex-direction: column;
     gap: $spacing_1_2;
-    padding-bottom: $spacing_1_6;
-    border-bottom: 1px solid $color_gray_ea;
     width: 100%;
 
     @include themifyCustom(
@@ -61,14 +59,12 @@
 
     &__provider-name {
       margin: 0;
-      font-size: 1.8rem;
       font-weight: 600;
       text-align: left;
       color: $color_purple_6a4ffb;
       word-break: break-word;
 
       @media screen and (min-width: $screen-md) {
-        font-size: 2rem;
       }
     }
 
@@ -87,13 +83,24 @@
 
     &__actions {
       display: flex;
-      align-items: center;
+      align-items: stretch;
       gap: $spacing_1_0;
       flex-shrink: 0;
       margin-top: $spacing_1_2;
+      width: 100%;
+
+      > * {
+        width: 100%;
+      }
 
       @media screen and (min-width: $screen-md) {
+        width: auto;
         margin-top: 0;
+        align-items: center;
+
+        > * {
+          width: auto;
+        }
       }
     }
   }
@@ -104,7 +111,6 @@
     justify-content: center;
     padding: $spacing_0_2 $spacing_1_0;
     border-radius: 9999px;
-    font-size: 1.3rem;
     font-weight: 500;
 
     &--free {
@@ -117,6 +123,19 @@
       background: rgba(151, 73, 250, 0.08);
       border: 1px solid rgba(151, 73, 250, 0.3);
       color: $color_secondary_9749fa;
+    }
+  }
+
+  &__layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing_1_6;
+    width: 100%;
+    margin-top: $spacing_1_6;
+
+    @media screen and (min-width: $screen-md) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: $spacing_2_4;
     }
   }
 
@@ -160,7 +179,7 @@
 
     &__label {
       font-weight: 600;
-      line-height: 1.4;
+
       text-align: left;
 
       @include themifyCustom(
@@ -172,8 +191,6 @@
     }
 
     &__value {
-      font-size: 1.5rem;
-      line-height: 1.5;
       word-break: break-word;
       text-align: left;
     }
@@ -192,15 +209,35 @@
       "color_gray_344054"
     );
 
-    &:last-child {
+    &--video {
+      margin-top: $spacing_1_6;
+
+      @include themifyCustom(
+        $themes,
+        "border-top-color",
+        "color_gray_ea",
+        "color_gray_344054"
+      );
+    }
+
+    &:last-child:not(.provider-details__section--specialties) {
       border-bottom: none;
       padding-bottom: 0;
     }
 
+    &--specialties {
+      border-bottom: 1px solid $color_gray_ea;
+
+      @include themifyCustom(
+        $themes,
+        "border-bottom-color",
+        "color_gray_ea",
+        "color_gray_344054"
+      );
+    }
+
     &--description {
       .provider-details__section__content {
-        font-size: 1.5rem;
-        line-height: 1.5;
       }
     }
 
@@ -214,7 +251,6 @@
 
     &__title {
       font-weight: 600;
-      line-height: 1.4;
 
       @include themifyCustom(
         $themes,
@@ -226,15 +262,13 @@
 
     &__content {
       margin: 0;
-      font-size: 1.4rem;
-      line-height: 1.5;
       padding-left: $spacing_2_8;
       text-align: left;
     }
   }
 
   &__video-player-wrapper {
-    margin-top: $spacing_0_4;
+    margin-top: $spacing_1_2;
   }
 
   &__video-player {

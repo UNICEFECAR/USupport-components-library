@@ -26,30 +26,30 @@ export const StoreButton = ({
     store === "google-play"
       ? "google-play"
       : store === "web"
-      ? "globe"
-      : "app-store";
+        ? "globe"
+        : "app-store";
 
   const label =
     store === "google-play"
       ? "Google Play"
       : store === "web"
-      ? browserLabel
-      : "App Store";
+        ? browserLabel
+        : "App Store";
 
   const handleClick = () => {
     if (store === "google-play") {
       window.open(
         "https://play.google.com/store/apps/details?id=org.unicef.ecar.usupport",
-        "_blank"
+        "_blank",
       );
     } else if (store === "app-store") {
       window.open(
         "https://apps.apple.com/kz/app/usupport/id6447319853",
-        "_blank"
+        "_blank",
       );
     } else if (store === "web") {
       window.location.href = `/client/${localStorage.getItem(
-        "language"
+        "language",
       )}/register-preview`;
       window.scrollTo(0, 0);
     }
@@ -87,7 +87,7 @@ export const StoreButton = ({
     >
       <Icon
         name={icon}
-        size="lg"
+        size="xl"
         color={getIconColor()}
         aria-hidden={theme === "highContrast" ? "true" : undefined}
       />

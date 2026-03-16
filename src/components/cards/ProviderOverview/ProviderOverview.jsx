@@ -6,6 +6,7 @@ import { Card } from "../../boxes/Card";
 import { Avatar } from "../../avatars/Avatar/Avatar";
 import { Icon } from "../../icons/Icon/Icon";
 import { StatusBadge } from "../StatusBadge";
+import { NewButton } from "../../buttons";
 
 import { getDateView, getDayOfTheWeek } from "../../../utils/date";
 
@@ -39,13 +40,12 @@ export const ProviderOverview = ({
   handleUpdateStatus,
   handleViewProfile,
   handleActivities,
+  handleBookSession,
   providerStatus,
   earliestAvailableSlot,
   t,
   liquidGlass,
 }) => {
-  const currencySymbol = localStorage.getItem("currency_symbol");
-
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isTextOverflowing, setIsTextOverflowing] = useState(false);
   const nameRef = useRef(null);
@@ -99,28 +99,28 @@ export const ProviderOverview = ({
     };
   }, [specializationsText]);
 
-  const handleIconClick = () => {
-    if (hasMenu) {
-      setIsMenuOpen(!isMenuOpen);
-    }
-  };
-
   const handleToggleStatus = () => {
     setIsMenuOpen(false);
     handleUpdateStatus();
   };
 
-  const earliestSlot = new Date(earliestAvailableSlot);
-  const dayOfWeek = t(getDayOfTheWeek(earliestSlot));
-  const dateText = `${dayOfWeek} ${getDateView(earliestSlot).slice(0, 5)}`;
+  const earliestSlot = earliestAvailableSlot
+    ? new Date(earliestAvailableSlot)
+    : null;
+  const dayOfWeek = earliestSlot && t ? t(getDayOfTheWeek(earliestSlot)) : "";
+  const dateText =
+    earliestSlot && dayOfWeek
+      ? `${dayOfWeek} ${getDateView(earliestSlot).slice(0, 5)}`
+      : "";
 
-  const startHour = earliestSlot.getHours();
-  const endHour = startHour + 1;
-  const timeText = earliestSlot
-    ? `${startHour < 10 ? `0${startHour}` : startHour}:00 - ${
-        endHour < 10 ? `0${endHour}` : endHour
-      }:00`
-    : "";
+  const startHour = earliestSlot?.getHours();
+  const endHour = startHour != null ? startHour + 1 : null;
+  const timeText =
+    startHour != null && endHour != null
+      ? `${startHour < 10 ? `0${startHour}` : startHour}:00 - ${
+          endHour < 10 ? `0${endHour}` : endHour
+        }:00`
+      : "";
 
   return (
     <Card classes={["provider-overview"].join(" ")} liquidGlass={liquidGlass}>
@@ -137,7 +137,7 @@ export const ProviderOverview = ({
           <div className="provider-overview__content__text-container__name-container">
             <p
               ref={nameRef}
-              className="text provider-overview__content__text-container__name"
+              className="provider-overview__content__text-container__name paragraph"
               title={isTextOverflowing ? displayName : undefined}
             >
               {displayName}
@@ -150,30 +150,64 @@ export const ProviderOverview = ({
           </div>
           <p
             ref={specializationsRef}
-            className="small-text provider-overview__types"
+            className="text provider-overview__types"
             title={
               isSpecializationsOverflowing ? specializationsText : undefined
             }
           >
             {specializationsText}
           </p>
-          {earliestAvailableSlot && (
-            <>
-              <p className="small-text provider-overview__content__text-container__earliest-text">
-                {t("earliest_available_slot")}
-              </p>
-              <div className="provider-overview__content__text-container__earliest-container">
-                <Icon name="calendar" size="sm" color={"#66768D"} />
-                <div className="provider-overview__content__text-container__earliest-container__text">
-                  <p className="small-text">{dateText}</p>
-                  <p className="small-text">{timeText}</p>
-                </div>
-              </div>
-            </>
-          )}
           {providerStatus && (
             <StatusBadge status={providerStatus} label={t(providerStatus)} />
           )}
+        </div>
+      </div>
+      <div className="provider-overview__bottom">
+        {earliestAvailableSlot && (
+          <div className="provider-overview__earliest">
+            <p className="text provider-overview__earliest-text">
+              {t("earliest_available_slot")}
+            </p>
+            <div className="provider-overview__earliest-container__wrapper">
+              <div className="provider-overview__earliest-container">
+                <Icon name="calendar" size="sm" color={"#66768D"} />
+                <div className="provider-overview__earliest-container__text">
+                  <p className="text">{dateText}</p>
+                </div>
+              </div>
+              <div className="provider-overview__earliest-container">
+                <Icon name="time" size="sm" color={"#66768D"} />
+                <div className="provider-overview__earliest-container__text">
+                  <p className="text">{timeText}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+        <div className="provider-overview__actions">
+          <NewButton
+            type="outline"
+            size="md"
+            label={viewProfileLabel}
+            onClick={(e) => {
+              e.stopPropagation();
+              if (handleViewProfile) {
+                handleViewProfile();
+              } else if (!hasMenu && onClick) {
+                onClick();
+              }
+            }}
+          />
+          <NewButton
+            size="md"
+            label={t ? t("book_session") : "Book session"}
+            onClick={(e) => {
+              e.stopPropagation();
+              if (handleBookSession) {
+                handleBookSession();
+              }
+            }}
+          />
         </div>
       </div>
       {isMenuOpen && (
@@ -290,6 +324,10 @@ ProviderOverview.propTypes = {
    * Handler for the delete conatiner
    * */
   handleDelete: PropTypes.func,
+  /**
+   * Handler for the book session button
+   */
+  handleBookSession: PropTypes.func,
   /**
    * Whether to use liquid glass background
    */

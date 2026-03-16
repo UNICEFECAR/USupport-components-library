@@ -6,7 +6,6 @@ import { GridItem } from "../../grids/GridItem";
 import { List } from "../../lists/List";
 import { Icon } from "../../icons/Icon";
 import { Button } from "../../buttons/Button";
-import { IconWithText } from "../../icons/IconWithText";
 import { StaticImage } from "../../images/StaticImage";
 import { ThemeContext, useWindowDimensions } from "../../../utils/";
 
@@ -29,6 +28,7 @@ export const Footer = ({
   Link,
   renderIn,
   showSocials = true,
+  t,
 }) => {
   const currentYear = new Date().getFullYear();
   const { theme } = useContext(ThemeContext);
@@ -41,7 +41,7 @@ export const Footer = ({
   }`;
   const [logoUrl, setLogoUrl] = useState(defaultLogo);
   const [selectedCountry, setSelectedCountry] = useState(
-    localStorage.getItem("country") || "KZ"
+    localStorage.getItem("country") || "KZ",
   );
 
   const handler = useCallback(() => {
@@ -54,7 +54,7 @@ export const Footer = ({
       setLogoUrl(
         `${AMAZON_S3_BUCKET}/logo-horizontal-${selectedCountry}${
           theme === "light" ? "" : "-dark"
-        }`
+        }`,
       );
     } else {
       setLogoUrl(defaultLogo);
@@ -146,8 +146,8 @@ export const Footer = ({
     theme === "light"
       ? "#3D527B"
       : theme === "highContrast"
-      ? "#ffff00"
-      : "20809E";
+        ? "#ffff00"
+        : "#20809E";
 
   return (
     <Block
@@ -155,57 +155,71 @@ export const Footer = ({
       animation={null}
       isFooter={true}
     >
-      <Grid>
+      <Grid classes="footer__grid">
         <GridItem xs={4} md={8} lg={5}>
-          <StaticImage
-            png={logoUrl}
-            webp={logoUrl}
-            imageClasses="footer__logo"
-            alt="logo"
-            tabIndex="0"
-            onClick={() => {
-              navigate(`${renderIn === "website" ? "/" : `/${renderIn}`}`);
-            }}
-          />
-          {showSocials && (
-            <div>
-              <Icon
-                classes="footer__icon"
-                name="linkedin"
-                size={"lg"}
-                onClick={() => handleContactsClick("linkedin")}
-                color={iconColor}
-              />
-              <Icon
-                classes="footer__icon"
-                name="twitter"
-                size={"lg"}
-                onClick={() => handleContactsClick("twitter")}
-                color={iconColor}
-              />
-              <Icon
-                classes="footer__icon"
-                name="facebook"
-                size={"lg"}
-                onClick={() => handleContactsClick("facebook")}
-                color={iconColor}
-              />
-            </div>
-          )}
+          <div className="footer__brand">
+            <StaticImage
+              png={logoUrl}
+              webp={logoUrl}
+              imageClasses="footer__logo"
+              alt="uSupport logo"
+              tabIndex="0"
+              onClick={() => {
+                navigate(`${renderIn === "website" ? "/" : `/${renderIn}`}`);
+              }}
+            />
+            <p className="footer__logo-text text">{t("footer_text")}</p>
+            {showSocials && (
+              <nav
+                className="footer__socials"
+                aria-label="uSupport social media links"
+              >
+                <Icon
+                  classes="footer__icon"
+                  name="linkedin"
+                  size={"lg"}
+                  onClick={() => handleContactsClick("linkedin")}
+                  color={iconColor}
+                />
+                <Icon
+                  classes="footer__icon"
+                  name="twitter"
+                  size={"lg"}
+                  onClick={() => handleContactsClick("twitter")}
+                  color={iconColor}
+                />
+                <Icon
+                  classes="footer__icon"
+                  name="facebook"
+                  size={"lg"}
+                  onClick={() => handleContactsClick("facebook")}
+                  color={iconColor}
+                />
+              </nav>
+            )}
+          </div>
         </GridItem>
         {width >= 768 && width < 1366 && <GridItem md={1} />}
         <GridItem classes="footer__list-item" xs={2} md={2} lg={2}>
+          <p className="footer__column-title">Resources</p>
           <List items={list1} />
         </GridItem>
         <GridItem classes="footer__list-item" xs={2} md={2} lg={2}>
+          <p className="footer__column-title">Support</p>
           <List items={list2} />
         </GridItem>
         <GridItem classes="footer__list-item" xs={4} md={2} lg={2}>
+          <p className="footer__column-title">Legal</p>
           <List items={list3} />
         </GridItem>
         {width >= 768 && <GridItem md={1} lg={1} />}
         <GridItem classes="footer__copy-right-item" xs={4} md={8} lg={12}>
-          <p className="small-text">©{currentYear} uSupport</p>
+          <div className="footer__separator" aria-hidden="true" />
+          <div className="footer__bottom">
+            <p className="small-text footer__copy-text">
+              ©{currentYear} uSupport
+            </p>
+          </div>
         </GridItem>
       </Grid>
     </Block>

@@ -1,19 +1,46 @@
 @import "../../../styles/variables";
 
 .baseline-assesment-box {
-  min-width: 45rem;
-  padding: $spacing_2_0 $spacing_1_6;
+  width: 100%;
+  max-width: 40rem;
+  padding: $spacing_2_4;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   position: relative;
+  gap: $spacing_1_6;
+  height: 100%;
+  margin-top: $spacing_2_4;
 
-  & .status-badge {
+  @media screen and (min-width: $screen-lg) {
+    padding: $spacing_3_2 $spacing_4_0;
+  }
+
+  &__status {
     position: absolute;
-    top: -$spacing_4_0;
-    right: $spacing_1_6;
+    top: -$spacing_2_4;
+    right: $spacing_2_4;
+    z-index: 2;
+  }
+
+  &__content {
+    margin-top: $spacing_1_6;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing_1_2;
+  }
+
+  &__meta {
+    @include themify($themes, "color", "color_667085_a0a4b1");
+    margin: 0;
   }
 
   & .button {
-    margin-top: $spacing_2_4;
+    margin-top: $spacing_1_2;
+  }
+
+  & .baseline-assessment-dashboard__box__content__part__inner-box__icon {
+    margin: 0 auto;
   }
 }

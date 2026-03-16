@@ -118,6 +118,23 @@
     }
   }
 
+  &__close-icon {
+    position: absolute;
+    top: $spacing_2_4;
+    right: $spacing_1_6;
+    width: 2.4rem;
+    height: 2.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: $z_index_2;
+
+    @media screen and (min-width: $screen-md) {
+      right: $spacing_2_4;
+    }
+  }
+
   &__text {
     margin-top: $spacing_1_6;
     white-space: pre-line;
@@ -140,6 +157,11 @@
     &--full-height {
       flex: 0.9;
     }
+  }
+
+  &__footer-wrapper {
+    width: 100%;
+    border-top: 0.1rem solid $color_gray_ea;
   }
 
   &__footer {

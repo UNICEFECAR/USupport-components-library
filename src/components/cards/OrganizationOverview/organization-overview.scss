@@ -2,76 +2,151 @@
 
 .organization-overview-card {
   position: relative;
-  align-items: flex-start;
+  align-items: stretch;
   cursor: pointer;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   text-align: left;
   min-width: calc(34.3rem - 2 * $spacing_1_6);
+  width: 100%;
   height: 100%;
+  box-sizing: border-box;
+  border-radius: $border_radius_2_4;
+  box-shadow: $shadow_1;
+  overflow: hidden;
 
-  &__avatar {
-    flex-shrink: 0;
-    margin-right: $spacing_1_6;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    z-index: -1;
+
+    @include themifyNormal($themes) {
+      background: themed(glass_panel_background);
+      border: 1px solid themed(glass_border_color);
+      box-shadow: themed(glass_shadow);
+    }
+
+    .theme-light & {
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid rgba(224, 233, 255, 0.7);
+      box-shadow: 0 0.6rem 1rem rgba(9, 14, 26, 0.08);
+    }
+
+    backdrop-filter: blur(10px) saturate(1.12);
+    -webkit-backdrop-filter: blur(10px) saturate(1.12);
+    pointer-events: none;
+
+    @supports (-webkit-backdrop-filter: blur(0)) {
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+  }
+
+  @include card-hover-outline($border_radius_2_4);
+
+  @supports (-webkit-backdrop-filter: blur(0)) {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: transform;
   }
 
   &__content {
-    align-items: center;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-left: $spacing_1_6;
+    flex-direction: column;
+    flex: 1 1 auto;
     width: 100%;
-    padding: $spacing_1_2 $spacing_1_6;
+    padding: $spacing_1_6 $spacing_1_6;
+    gap: $spacing_1_0;
+    box-sizing: border-box;
 
-    &__text-content {
-      padding-right: $spacing_1_0;
+    &__body {
       width: 100%;
       display: flex;
       flex-direction: column;
+      flex: 1;
+    }
+  }
 
-      &__name-container {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: flex-start;
-        width: 100%;
-        margin-bottom: $spacing_0_4;
+  &__top {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+  }
 
-        &__name-wrapper {
-          flex: 1;
-          min-width: 0;
-        }
+  &__icon-container {
+    flex-shrink: 0;
+    margin-right: $spacing_1_2;
 
-        &__payment-badge {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          background-color: $color_purple_dac3f6;
-          padding: $spacing_0_4 $spacing_0_8;
-          border-radius: $border_radius_1_6;
-          margin-left: $spacing_1_0;
-          flex-shrink: 0;
+    &__icon-wrapper {
+      width: 4.4rem;
+      height: 4.4rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-          & .small-text {
-            color: $color_secondary_9749fa;
-            font-weight: $font_bold;
-          }
-
-          &--free {
-            background-color: rgba(32, 128, 158, 0.3);
-
-            & .small-text {
-              color: $color_primary_20809e;
-            }
-          }
-        }
+      @include themifyNormal($themes) {
+        background: themed(glass_panel_background);
+        border: 1px solid themed(glass_border_color);
+        box-shadow: themed(glass_shadow);
       }
 
-      &__name {
-        font-size: $font_size_1_8;
-        color: $color_primary_20809e;
+      .icon {
+        filter: drop-shadow(0 0.2rem 0.4rem rgba(16, 24, 40, 0.12));
+      }
+    }
+  }
+
+  &__content__text-content {
+    padding-right: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    &__name-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      width: 100%;
+      margin-bottom: $spacing_0_4;
+
+      &__name-wrapper {
+        flex: 1;
+        min-width: 0;
+      }
+
+      &__payment-badge {
+        position: absolute;
+        top: -1.25rem;
+        right: $spacing_2_4;
+        z-index: $z_index_1;
+        display: inline-flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding: 0.2rem 0.8rem;
+        border-radius: 999rem;
+        flex-shrink: 0;
+        background: rgba(151, 107, 255, 0.18);
+        box-shadow: $shadow_1;
+
+        & .text {
+          white-space: nowrap;
+        }
+
+        &--services {
+          background: rgba(151, 107, 255, 0.18);
+        }
+      }
+    }
+
+    &__name {
+      &.paragraph {
+        color: $color_6a4ffb_8c90eb;
         font-weight: $font_bold;
         word-break: break-word;
         display: -webkit-box;
@@ -79,35 +154,68 @@
         -webkit-box-orient: vertical;
         overflow: hidden;
       }
+    }
 
-      &__unit-name {
-        color: $color_gray_66768d;
-        padding-top: $spacing_0_4;
-      }
+    &__unit-name {
+      color: $color_gray_66768d;
+      padding-top: $spacing_0_4;
     }
   }
 
   &__types {
     padding-top: $spacing_0_4;
     margin-bottom: $spacing_0_8;
-
-    & .small-text {
-      color: $color_gray_66768d;
-    }
+    word-break: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.4;
   }
 
   &__address {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
 
     & .icon {
       margin-right: $spacing_0_8;
     }
 
-    & .small-text {
-      color: $color_gray_66768d;
-      font-weight: $font_bold;
+    & .text {
+      font-weight: $font_semi_bold;
+    }
+  }
+
+  &__meta {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: $spacing_0_8;
+    padding-top: $spacing_1_0;
+    border-top: 0.1rem solid #cdd8e1;
+
+    &__info {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing_0_4;
+      flex: 1;
+    }
+
+    &__cta {
+      margin-top: auto;
+      padding-top: $spacing_1_2;
+      border-top: 0.1rem solid #cdd8e1;
+      display: flex;
+      align-items: flex-end;
+
+      .button {
+        white-space: nowrap;
+        width: 100%;
+      }
     }
   }
 }

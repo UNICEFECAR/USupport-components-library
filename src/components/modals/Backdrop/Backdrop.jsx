@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import useWindowDimensions from "../../../utils/useWindowDimensions";
 import { Modal } from "../Modal";
@@ -6,7 +6,7 @@ import { Icon } from "../../icons";
 import { NewButton } from "../../buttons";
 import { Error } from "../../errors";
 import { Loading } from "../../loaders/";
-import { ThemeContext } from "../../../utils";
+import { ThemeContext, useScrollLock } from "../../../utils";
 
 import "./backdrop.scss";
 import classNames from "classnames";
@@ -53,17 +53,8 @@ export const Backdrop = ({
 }) => {
   const { theme } = useContext(ThemeContext);
 
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [isOpen]);
+  // Keep behavior consistent with `Modal` and avoid conflicts between multiple overlays.
+  useScrollLock(isOpen);
 
   const { width } = useWindowDimensions();
   const hasButtons = ctaLabel || secondaryCtaLabel || thirdCtaLabel;
@@ -86,9 +77,13 @@ export const Backdrop = ({
           `theme-${theme}`,
           isOpen ? "backdrop__shown" : "",
           theme !== "light" ? "backdrop--dark" : "",
+          topHeaderComponent && "backdrop--has-top-header",
           classNames(classes),
         ].join(" ")}
       >
+        {topHeaderComponent && (
+          <div className="backdrop__top-header">{topHeaderComponent}</div>
+        )}
         <div
           className={[
             "backdrop__header",
@@ -156,6 +151,8 @@ export const Backdrop = ({
                     disabled={isCtaDisabled}
                     onClick={ctaHandleClick}
                     loading={isCtaLoading}
+                    isFullWidth={true}
+                    size="lg"
                   />
                 ))}
               {secondaryCtaLabel &&
@@ -168,6 +165,8 @@ export const Backdrop = ({
                     disabled={isSecondaryCtaDisabled}
                     loading={isSecondaryCtaLoading}
                     type="outline"
+                    isFullWidth={true}
+                    size="lg"
                   />
                 ))}
             </div>
@@ -177,7 +176,6 @@ export const Backdrop = ({
                 onClick={thirdCtaHandleClick}
                 classes="base-modal__footer__third-cta"
                 type="text"
-                size="sm"
                 disabled={isThirdCtaDisabled}
               />
             )}

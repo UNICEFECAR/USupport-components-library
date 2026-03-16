@@ -35,7 +35,7 @@
     &__date-item {
       display: flex;
       flex-direction: row;
-      align-items: center;
+      align-items: flex-start;
       margin-top: $spacing_0_4;
 
       &__text-container {

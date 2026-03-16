@@ -104,7 +104,8 @@
   }
 
   &:hover {
-    transform: translateY(-1px);
+    // CAUSES GLITCH IN SAFARI
+    // transform: translateY(-1px);
     box-shadow:
       0 10px 8px rgba(44, 86, 129, 0.45),
       0 6px 16px rgba(44, 86, 129, 0.3);

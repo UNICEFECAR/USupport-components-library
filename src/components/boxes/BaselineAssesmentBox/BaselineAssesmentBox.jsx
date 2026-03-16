@@ -1,6 +1,6 @@
 import React from "react";
-import PropTypes from "prop-types";
 
+import { Icon } from "../../icons";
 import { Box } from "../Box";
 import { NewButton } from "../../buttons";
 import { ProgressBar } from "../../others/ProgressBar";
@@ -26,17 +26,30 @@ export const BaselineAssesmentBox = ({
   t,
 }) => {
   return (
-    <div className="baseline-assesment-box">
-      <StatusBadge
-        label={t(status)}
-        status={status === "completed" ? "active" : "in-progress"}
-      />
-      <ProgressBar progress={progress} showPercentage />
-      <p>{t("started_at", { date: getDateView(startedAt) })}</p>
-      <p>{currentPosition}/27</p>
-      <NewButton onClick={handleViewAssessment} size="lg">
-        {status === "in_progress" ? t("continue") : t("view")}
-      </NewButton>
-    </div>
+    <Box classes="baseline-assesment-box" liquidGlass>
+      <div className="baseline-assessment-dashboard__box__content__part__inner-box__icon">
+        <Icon name="document" size="lg" color="#6a4ffb" />
+      </div>
+      <div className="baseline-assesment-box__status">
+        <StatusBadge
+          label={t(status)}
+          status={status === "completed" ? "active" : "in-progress"}
+        />
+      </div>
+      <div className="baseline-assesment-box__content">
+        <ProgressBar
+          progress={progress}
+          showPercentage
+          classes="baseline-assesment-box__progress"
+        />
+        <p className="baseline-assesment-box__meta">
+          {t("started_at", { date: getDateView(startedAt) })} ·{" "}
+          {currentPosition}/27
+        </p>
+        <NewButton onClick={handleViewAssessment} size="lg" isFullWidth>
+          {status === "in_progress" ? t("continue") : t("view")}
+        </NewButton>
+      </div>
+    </Box>
   );
 };

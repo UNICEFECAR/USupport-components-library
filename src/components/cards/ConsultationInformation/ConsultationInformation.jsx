@@ -39,18 +39,20 @@ export const ConsultationInformation = ({
       }:00`
     : "";
 
+  const dateTimeText =
+    dateText && timeText ? `${dateText} · ${timeText}` : dateText || timeText;
+
   return (
     <div
       className={["consultation-information", classNames(classes)].join(" ")}
     >
       <Avatar
         image={AMAZON_S3_BUCKET + "/" + (providerImage || "default")}
-        size="sm"
         hasBorder
       />
       <div className="consultation-information__content">
         <div className="consultation-information__content__details">
-          <p className="text consultation-information__content__details__name">
+          <p className="consultation-information__content__details__name">
             {providerName}
           </p>
           {showActivityIndicator ? (
@@ -66,10 +68,9 @@ export const ConsultationInformation = ({
           ) : null}
         </div>
         <div className="consultation-information__content__date-item">
-          <Icon name="calendar" size="sm" color={"#66768D"} />
+          <Icon name="calendar" size="md" color={"#66768D"} />
           <div className="consultation-information__content__date-item__text-container">
-            <p className="small-text">{dateText}</p>
-            <p className="small-text">{timeText}</p>
+            <p className="text">{dateTimeText}</p>
           </div>
         </div>
       </div>

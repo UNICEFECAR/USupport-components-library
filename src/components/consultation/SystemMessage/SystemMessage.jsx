@@ -15,6 +15,7 @@ import "./system-message.scss";
  */
 export const SystemMessage = ({ iconName, title, date, showDate }) => {
   const { theme } = useContext(ThemeContext);
+  const iconColor = theme === "dark" ? "#C4B5FD" : "#7C3AED";
 
   return (
     <React.Fragment>
@@ -31,8 +32,8 @@ export const SystemMessage = ({ iconName, title, date, showDate }) => {
         </div>
       )}
       <div className="system-message">
-        <div>
-          <Icon name={iconName} size="md" color="#20809E" />
+        <div className="system-message__icon">
+          <Icon name={iconName} size="sm" color={iconColor} />
         </div>
         <div className="system-message__text-container">
           <p className="small-text system-message__text-container__title">
@@ -68,4 +69,9 @@ SystemMessage.propTypes = {
    * Wheter to show the date
    * */
   showDate: PropTypes.bool,
+};
+
+SystemMessage.defaultProps = {
+  iconName: "consultation",
+  showDate: false,
 };

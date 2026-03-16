@@ -3,71 +3,77 @@
 .system-message {
   align-items: center;
   align-self: center;
-  border-radius: $border_radius_1_6;
+  border-radius: 999px;
   display: flex;
   flex-direction: row;
-  padding: $spacing_1_0 $spacing_1_6;
+  gap: $spacing_0_8;
+  padding: $spacing_0_8 $spacing_1_2;
   text-align: left;
-  max-width: 90%;
-  backdrop-filter: blur(10px) saturate(1.15);
-  -webkit-backdrop-filter: blur(10px) saturate(1.15);
-  margin: $spacing_0_8 0;
+  max-width: 80%;
+  width: fit-content;
+  backdrop-filter: blur(8px) saturate(1.2);
+  -webkit-backdrop-filter: blur(8px) saturate(1.2);
+  margin: $spacing_0_8 auto;
 
   .theme-light & {
-    background: linear-gradient(
-      135deg,
-      rgba(32, 128, 158, 0.08) 0%,
-      rgba(84, 207, 217, 0.06) 100%
-    );
-    border: 1px solid rgba(32, 128, 158, 0.2);
-    box-shadow: 0 0.2rem 0.8rem rgba(32, 128, 158, 0.08);
+    background: rgba(245, 243, 255, 0.9);
+    border: 1px solid rgba(196, 181, 253, 0.4);
+    box-shadow:
+      0 0.4rem 1.2rem rgba(124, 58, 237, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.85);
   }
 
   .theme-dark & {
-    background: linear-gradient(
-      135deg,
-      rgba(32, 128, 158, 0.15) 0%,
-      rgba(84, 207, 217, 0.1) 100%
-    );
-    border: 1px solid rgba(84, 207, 217, 0.25);
-    box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.2);
+    background: rgba(76, 61, 102, 0.55);
+    border: 1px solid rgba(139, 92, 246, 0.25);
+    box-shadow:
+      0 0.4rem 1.2rem rgba(0, 0, 0, 0.25),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
   }
 
   @media screen and (max-width: $screen_md) {
-    max-width: 95%;
+    max-width: 92%;
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
   }
 
   &__text-container {
-    margin-left: $spacing_1_2;
-    flex: 1;
+    flex: 0 1 auto;
+    min-width: 0;
 
     &__title.small-text {
       font-weight: 600;
-      font-size: 1.3rem;
+      font-size: 1.25rem;
       line-height: 1.4;
+      margin: 0;
 
       .theme-light & {
-        color: $color_primary_20809e;
+        color: rgba(107, 79, 163, 0.95);
       }
 
       .theme-dark & {
-        color: rgba(84, 207, 217, 0.95);
+        color: rgba(237, 233, 254, 0.92);
       }
     }
   }
 
   &__time {
     align-self: center;
-    padding-left: $spacing_1_2;
     font-size: 1.1rem;
     white-space: nowrap;
+    margin: 0;
 
     .theme-light & {
-      color: $color_gray_66768d;
+      color: rgba(107, 79, 163, 0.7);
     }
 
     .theme-dark & {
-      color: rgba(255, 255, 255, 0.6);
+      color: rgba(196, 181, 253, 0.75);
     }
   }
 

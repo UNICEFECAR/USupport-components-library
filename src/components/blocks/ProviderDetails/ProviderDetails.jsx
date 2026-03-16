@@ -100,7 +100,7 @@ export const ProviderDetails = ({
             </p>
             <div className="provider-details__header__badges">
               {isFree ? (
-                <span className="provider-details__badge provider-details__badge--free">
+                <span className="small-text provider-details__badge provider-details__badge--free">
                   {activeCoupon ? t("coupon") : t("free")}
                 </span>
               ) : (
@@ -121,56 +121,14 @@ export const ProviderDetails = ({
       </div>
 
       <div className="provider-details__info-grid">
-        {slotDisplay && (
-          <div className="provider-details__info-item">
-            <Icon name="calendar" color={iconColor} />
-            <div className="provider-details__info-item__content">
-              <span className="provider-details__info-item__label">
-                {t("earliest_slot_label")}
-              </span>
-              <span className="provider-details__info-item__value">
-                {slotDisplay.dateText}, {slotDisplay.timeText}
-              </span>
-            </div>
-          </div>
-        )}
-
-        {renderLanguages() && (
-          <div className="provider-details__info-item">
-            <Icon name="globe" color={iconColor} />
-            <div className="provider-details__info-item__content">
-              <span className="provider-details__info-item__label">
-                {t("languages_label")}
-              </span>
-              <span className="provider-details__info-item__value">
-                {renderLanguages()}
-              </span>
-            </div>
-          </div>
-        )}
-
-        {provider?.totalConsultations > 0 && (
-          <div className="provider-details__info-item">
-            <Icon name="consultation" color={iconColor} />
-            <div className="provider-details__info-item__content">
-              <span className="provider-details__info-item__label">
-                {t("done_consultations_label")}
-              </span>
-              <span className="provider-details__info-item__value">
-                {provider.totalConsultations} {t("consultations")}
-              </span>
-            </div>
-          </div>
-        )}
-
         {renderIn !== "client" && renderIn !== "website" && provider?.phone && (
           <div className="provider-details__info-item">
             <Icon name="call" color={iconColor} />
             <div className="provider-details__info-item__content">
-              <span className="provider-details__info-item__label">
+              <span className="provider-details__info-item__label text">
                 {t("phone_label")}
               </span>
-              <span className="provider-details__info-item__value">
+              <span className="provider-details__info-item__value text">
                 {provider.phone}
               </span>
             </div>
@@ -181,10 +139,10 @@ export const ProviderDetails = ({
           <div className="provider-details__info-item">
             <Icon name="mail-admin" color={iconColor} />
             <div className="provider-details__info-item__content">
-              <span className="provider-details__info-item__label">
+              <span className="provider-details__info-item__label text">
                 {t("email_label")}
               </span>
-              <span className="provider-details__info-item__value">
+              <span className="provider-details__info-item__value text">
                 {provider.email}
               </span>
             </div>
@@ -197,10 +155,10 @@ export const ProviderDetails = ({
             <div className="provider-details__info-item">
               <Icon name="organisation" color={iconColor} />
               <div className="provider-details__info-item__content">
-                <span className="provider-details__info-item__label">
+                <span className="provider-details__info-item__label text">
                   {t("organizations_label")}
                 </span>
-                <span className="provider-details__info-item__value">
+                <span className="provider-details__info-item__value text">
                   {provider.organizations?.map((org) => org.name).join(", ")}
                 </span>
               </div>
@@ -208,51 +166,111 @@ export const ProviderDetails = ({
           )}
       </div>
 
-      {provider?.description && (
-        <div className="provider-details__section provider-details__section--description">
-          <div className="provider-details__section__header">
-            <Icon name="document" color={iconColor} />
-            <span className="provider-details__section__title">
-              {t("description_label")}
-            </span>
+      <div className="provider-details__layout">
+        {slotDisplay && (
+          <div className="provider-details__section">
+            <div className="provider-details__section__header">
+              <Icon name="calendar" color={iconColor} />
+              <span className="provider-details__section__title text">
+                {t("earliest_slot_label")}
+              </span>
+            </div>
+            <p className="provider-details__section__content text">
+              {slotDisplay.dateText}, {slotDisplay.timeText}
+            </p>
           </div>
-          <p className="provider-details__section__content">
-            {provider.description}
-          </p>
-        </div>
-      )}
+        )}
 
-      {educationText && (
-        <div className="provider-details__section">
-          <div className="provider-details__section__header">
-            <Icon name="read-book" color={iconColor} />
-            <span className="provider-details__section__title">
-              {t("education_label")}
-            </span>
+        {provider?.totalConsultations > 0 && (
+          <div className="provider-details__section">
+            <div className="provider-details__section__header">
+              <Icon name="consultation" color={iconColor} />
+              <span className="provider-details__section__title text">
+                {t("done_consultations_label")}
+              </span>
+            </div>
+            <p className="provider-details__section__content text">
+              {provider.totalConsultations} {t("consultations")}
+            </p>
           </div>
-          <p className="provider-details__section__content">{educationText}</p>
-        </div>
-      )}
+        )}
 
-      {renderWorkWith() && (
-        <div className="provider-details__section">
-          <div className="provider-details__section__header">
-            <Icon name="community" color={iconColor} />
-            <span className="provider-details__section__title">
-              {t("work_with_label")}
-            </span>
+        {renderLanguages() && educationText && (
+          <div className="provider-details__section">
+            <div className="provider-details__section__header">
+              <Icon name="globe" color={iconColor} />
+              <span className="provider-details__section__title text">
+                {t("languages_label")}
+              </span>
+            </div>
+            <p className="provider-details__section__content text">
+              {renderLanguages()}
+            </p>
           </div>
-          <p className="provider-details__section__content">
-            {renderWorkWith()}
-          </p>
-        </div>
-      )}
+        )}
+
+        {renderLanguages() && !educationText && (
+          <div className="provider-details__section">
+            <div className="provider-details__section__header">
+              <Icon name="globe" color={iconColor} />
+              <span className="provider-details__section__title text">
+                {t("languages_label")}
+              </span>
+            </div>
+            <p className="provider-details__section__content text">
+              {renderLanguages()}
+            </p>
+          </div>
+        )}
+
+        {educationText && (
+          <div className="provider-details__section">
+            <div className="provider-details__section__header">
+              <Icon name="read-book" color={iconColor} />
+              <span className="provider-details__section__title text">
+                {t("education_label")}
+              </span>
+            </div>
+            <p className="provider-details__section__content text">
+              {educationText}
+            </p>
+          </div>
+        )}
+
+        {provider?.description && (
+          <div className="provider-details__section provider-details__section--description">
+            <div className="provider-details__section__header">
+              <Icon name="document" color={iconColor} />
+              <span className="provider-details__section__title text">
+                {t("description_label")}
+              </span>
+            </div>
+            <p className="provider-details__section__content text">
+              {provider.description}
+            </p>
+          </div>
+        )}
+
+        {renderWorkWith() && (
+          <div className="provider-details__section provider-details__section--specialties">
+            <div className="provider-details__section__header">
+              <Icon name="community" color={iconColor} />
+              <span className="provider-details__section__title text">
+                {t("work_with_label")}
+              </span>
+            </div>
+            <p className="provider-details__section__content text">
+              {renderWorkWith()}
+            </p>
+          </div>
+        )}
+      </div>
 
       {provider?.videoLink && (
-        <div className="provider-details__section">
+        <div className="provider-details__section provider-details__section--video">
           <div className="provider-details__section__header">
             <Icon name="video" color={iconColor} />
-            <span className="provider-details__section__title">
+            <span className="provider-details__section__title text">
               {t("video_label")}
             </span>
           </div>

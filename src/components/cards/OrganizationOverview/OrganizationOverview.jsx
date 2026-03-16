@@ -2,12 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import { Box } from "../../boxes/Box/Box";
-import { Avatar } from "../../avatars/Avatar/Avatar";
 import { Icon } from "../../icons/Icon/Icon";
+import { NewButton } from "../../buttons";
 
 import "./organization-overview.scss";
-
-const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
 
 /**
  * OrganizationOverview
@@ -18,67 +16,99 @@ const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
  */
 export const OrganizationOverview = ({
   name,
-  image,
-  paymentMethod,
   specialisations = [],
   address,
+  phone,
   onClick,
   t,
   iconColor = "#20809E",
 }) => {
-  const imageURI =
-    image && image !== "default" ? `${AMAZON_S3_BUCKET}/${image}` : null;
+  const formattedSpecialisations =
+    specialisations && specialisations.length > 0
+      ? specialisations.map((spec) => {
+          const name = typeof spec === "string" ? spec : spec.name;
+          return t ? t(name) : name;
+        })
+      : [];
+
+  const specialisationsText = formattedSpecialisations.join(", ");
 
   return (
     <Box onClick={onClick} shadow={2} classes="organization-overview-card">
-      {/* <Avatar image={imageURI} size="sm" /> */}
       <div className="organization-overview-card__content">
-        <div className="organization-overview-card__content__text-content">
-          <div className="organization-overview-card__content__text-content__name-container">
-            <div className="organization-overview-card__content__text-content__name-container__name-wrapper">
-              <p className="organization-overview-card__content__text-content__name">
-                {name}
-              </p>
+        <div className="organization-overview-card__top">
+          <div className="organization-overview-card__icon-container">
+            <div className="organization-overview-card__icon-container__icon-wrapper">
+              <Icon name="organization" size="md" color={iconColor} />
             </div>
-            {paymentMethod?.id && (
-              <div
-                className={[
-                  "organization-overview-card__content__text-content__name-container__payment-badge",
-                  (paymentMethod.name === "free" ||
-                    paymentMethod.id === "free") &&
-                    "organization-overview-card__content__text-content__name-container__payment-badge--free",
-                ].join(" ")}
-              >
-                <p className="small-text">
-                  {t ? t(paymentMethod.name) : paymentMethod.name}
+          </div>
+          <div className="organization-overview-card__content__text-content">
+            <div className="organization-overview-card__content__text-content__name-container">
+              <div className="organization-overview-card__content__text-content__name-container__name-wrapper">
+                <p className="organization-overview-card__content__text-content__name paragraph">
+                  {name}
                 </p>
               </div>
-            )}
+              {formattedSpecialisations.length > 0 && (
+                <div
+                  className={[
+                    "organization-overview-card__content__text-content__name-container__payment-badge",
+                    "organization-overview-card__content__text-content__name-container__payment-badge--services",
+                  ].join(" ")}
+                >
+                  <p className="small-text">
+                    {t ? t("services") : "Services"}:{" "}
+                    {formattedSpecialisations.length}
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
-          {specialisations && specialisations.length > 0 && (
-            <div className="organization-overview-card__types">
-              <p className="small-text">
-                {specialisations
-                  .map((spec) => {
-                    const specName =
-                      typeof spec === "string" ? spec : spec.name;
-                    return t ? t(specName) : specName;
-                  })
-                  .join(", ")}
-              </p>
-            </div>
-          )}
-          {address && (
-            <div className="organization-overview-card__address">
-              <div>
-                <Icon name="location" size="sm" color={iconColor} />
-              </div>
-              <p className="small-text">{address}</p>
-            </div>
-          )}
         </div>
-        <div>
-          <Icon name="arrow-chevron-forward" size="md" color={iconColor} />
+
+        <div className="organization-overview-card__content__body">
+          {specialisationsText && (
+            <p className="text organization-overview-card__types">
+              {specialisationsText}
+            </p>
+          )}
+          {(address || phone) && (
+            <div className="organization-overview-card__meta">
+              <div className="organization-overview-card__meta__info">
+                {address && (
+                  <div className="organization-overview-card__address">
+                    <div>
+                      <Icon name="location" size="md" color="#66768D" />
+                    </div>
+                    <p className="text">{address}</p>
+                  </div>
+                )}
+                {phone && (
+                  <div className="organization-overview-card__address">
+                    <div>
+                      <Icon name="phone" size="md" color="#66768D" />
+                    </div>
+                    <p className="text">{phone}</p>
+                  </div>
+                )}
+              </div>
+              <div className="organization-overview-card__meta__cta">
+                <NewButton
+                  size="sm"
+                  type="outline"
+                  isFullWidth
+                  iconName="eye"
+                  label={
+                    t ? t("view_organization_details") : "View organization"
+                  }
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onClick && onClick();
+                  }}
+                />
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </Box>
@@ -113,7 +143,7 @@ OrganizationOverview.propTypes = {
       PropTypes.shape({
         name: PropTypes.string,
       }),
-    ])
+    ]),
   ),
 
   /**
