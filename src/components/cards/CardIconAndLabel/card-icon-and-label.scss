@@ -5,11 +5,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  // background-color: $color_white_ff;
   @include themify($themes, "background-color", "color_white_ff");
-  border-radius: $border_radius_2_4;
+  border-radius: $border_radius_1_2;
   box-shadow: $shadow_2;
-  width: 25.2rem;
+  width: 100%;
   height: 20.3rem;
 
   &.size-sm {
@@ -45,12 +44,14 @@
   }
 
   &.size-lg {
-    width: 20.2rem;
+    width: 100%;
     height: 16.3rem;
+    max-width: 38rem;
 
     @media screen and (min-width: $screen-md) {
-      width: 25.2rem;
+      width: 100%;
       height: 20.3rem;
+      max-width: none;
     }
 
     & > .icon--lg {
@@ -58,9 +59,5 @@
       height: 6.8rem;
       margin-bottom: $spacing_1_2;
     }
-  }
-
-  & .label {
-    @include themify($themes, "color", "color_3d527b_white");
   }
 }
