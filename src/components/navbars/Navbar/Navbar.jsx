@@ -3,7 +3,7 @@ import OutsideClickHandler from "react-outside-click-handler";
 
 import { Icon, IconFlag } from "../../icons";
 import { List } from "../../lists";
-import { Button } from "../../buttons";
+import { NewButton } from "../../buttons";
 import { Toggle } from "../../inputs";
 import { Box } from "../../boxes";
 import { AccessibilityController } from "../../cards";
@@ -673,7 +673,7 @@ export const Navbar = ({
     });
   }
 
-  if (showCountries) {
+  if (showCountries && width < 1050) {
     items.push({
       value: (
         <div
@@ -853,12 +853,30 @@ export const Navbar = ({
               size="md"
               color={getLanguageTriggerColor()}
             />
-            {/* <Icon
-              name="arrow-chevron-down"
-              size="sm"
-              color={getLanguageTriggerColor()}
-            /> */}
           </div>
+          {showCountries && (
+            <div
+              className={[
+                "nav__country",
+                "nav__item",
+                countriesShown ? "nav__country--expanded" : "",
+              ].join(" ")}
+              role="button"
+              tabIndex="0"
+              onClick={() => {
+                toggleCountries();
+              }}
+            >
+              {selectedCountry.iconName && (
+                <IconFlag flagName={selectedCountry.iconName} />
+              )}
+              <Icon
+                name="arrow-chevron-down"
+                size="sm"
+                color={getLanguageTriggerColor()}
+              />
+            </div>
+          )}
           {profileContainer}
         </div>
       );
@@ -894,6 +912,29 @@ export const Navbar = ({
               color={getLanguageTriggerColor()}
             />
           </div>
+          {showCountries && (
+            <div
+              className={[
+                "nav__country",
+                "nav__item",
+                countriesShown ? "nav__country--expanded" : "",
+              ].join(" ")}
+              role="button"
+              tabIndex="0"
+              onClick={() => {
+                toggleCountries();
+              }}
+            >
+              {selectedCountry.iconName && (
+                <IconFlag flagName={selectedCountry.iconName} />
+              )}
+              <Icon
+                name="arrow-chevron-down"
+                size="sm"
+                color={getLanguageTriggerColor()}
+              />
+            </div>
+          )}
         </div>
       );
     }
@@ -901,10 +942,8 @@ export const Navbar = ({
   };
 
   const ctaLogin = buttonText ? (
-    <Button
-      type="primary"
+    <NewButton
       size={width < 1050 || width >= 1200 ? "sm" : "xs"}
-      color="green"
       classes="nav__login"
       onClick={() => {
         const country = localStorage.getItem("country");
@@ -918,9 +957,8 @@ export const Navbar = ({
         scrollTop();
       }}
       web={width >= 1110}
-    >
-      {buttonText}
-    </Button>
+      label={buttonText}
+    />
   ) : null;
 
   const handleNotificationIconClick = () => {
@@ -1349,9 +1387,9 @@ export const Navbar = ({
   const renderRightContainer = () => {
     return (
       <div className="nav__right-container">
-        {renderCtaDesktop()}
-        {renderProfileContainerDesktop()}
-        {renderLanguageSelectorDesktop()}
+  		{renderProfileContainerDesktop()}
+  		{renderLanguageSelectorDesktop()}
+  		{renderCtaDesktop()}
       </div>
     );
   };
