@@ -12,9 +12,15 @@ async function getActiveCountriesWithLanguages() {
   return response;
 }
 
+async function getActiveCountriesArticles() {
+  const response = await http.get(`${API_ENDPOINT}/countries/articles/active`);
+  return response;
+}
+
 const exportedFunctions = {
   getActiveCountries,
   getActiveCountriesWithLanguages,
+  getActiveCountriesArticles,
 };
 
 export default exportedFunctions;
