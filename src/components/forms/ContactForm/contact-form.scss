@@ -1,11 +1,9 @@
 @import "../../../styles/theme";
 
 .contact-form {
-  max-width: 34.3rem;
-
-  @media screen and (min-width: $screen-lg) {
-    max-width: 36.8rem;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: $spacing_2_4;
 
   &__email-input {
     padding-top: $spacing_1_6;
@@ -18,14 +16,6 @@
   &__subject,
   &__message {
     padding-top: $spacing_2_4;
-  }
-
-  &__button {
-    margin-top: $spacing_3_2;
-
-    @media screen and (min-width: $screen_lg) {
-      width: 36.8rem;
-    }
   }
 
   &__reply-time {

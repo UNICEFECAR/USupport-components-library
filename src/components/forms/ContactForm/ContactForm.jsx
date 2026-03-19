@@ -1,8 +1,8 @@
-import React, { use, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import Joi from "joi";
 import classNames from "classnames";
-import { Button } from "../../buttons/Button";
+import { NewButton } from "../../buttons/Button/NewButton";
 import { Input } from "../../inputs/Input";
 import { Textarea } from "../../inputs/Textarea";
 import { DropdownWithLabel } from "../../dropdowns/DropdownWithLabel";
@@ -56,8 +56,8 @@ export const ContactForm = ({
           IS_RO
             ? "contact_reason_3_ro"
             : IS_PL
-            ? "contact_reason_3_pl"
-            : "contact_reason_3"
+              ? "contact_reason_3_pl"
+              : "contact_reason_3",
         ),
       },
       {
@@ -166,24 +166,12 @@ export const ContactForm = ({
           handleBlur("message", newMessage.currentTarget.value);
         }}
       />
-      <Button
+      <NewButton
         label={t("send_button")}
         size="lg"
+        isFullWidth
         loading={isMutating}
-        classes="contact-form__button"
         onClick={handleSubmit}
-      />
-      {errors.submit || submitError ? (
-        <Error message={errors.submit || submitError} />
-      ) : null}
-      <p className="small-text contact-form__reply-time">{t("paragraph")}</p>
-      <Modal
-        isOpen={isSuccessModalOpen}
-        closeModal={closeSuccessModal}
-        heading={t("modal_title")}
-        text={t("modal_text")}
-        ctaLabel={t("modal_cta_label")}
-        ctaHandleClick={handleEmailSuccessCtaClick}
       />
     </div>
   );
