@@ -47,20 +47,18 @@
     .input {
       width: 100%;
       border: 0;
-      // color: $color_black_37;
-      @include themify($themes, "color", "color_input_text");
+      @include themify($themes, "color", "color_text_main");
       padding: $spacing_1_2 $spacing_1_6;
-      // background-color: $color_white_ff;
       @include themify($themes, "background-color", "color_card");
       border-radius: $border_radius_1_2;
 
       &--dark {
         background-color: $color_black_31;
-        color: $color_white_ff;
+        @include themify($themes, "color", "color_text_main");
       }
 
       &::placeholder {
-        color: $color_gray_a6b4b8;
+        @include themify($themes, "color", "color_input_placeholder");
       }
 
       &:hover,

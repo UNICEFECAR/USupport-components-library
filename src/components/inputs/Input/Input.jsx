@@ -59,8 +59,9 @@ export const Input = React.forwardRef((props, ref) => {
           type={type}
           disabled={disabled}
           className={["input text", theme !== "light" && "input--dark"].join(
-            " "
+            " ",
           )}
+          label={label}
           value={value}
           ref={ref}
           {...rest}
