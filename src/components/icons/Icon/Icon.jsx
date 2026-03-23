@@ -24,6 +24,8 @@ export const Icon = ({ name, size, color, classes, role, ...props }) => {
           .split("filter: ")[1]
           .slice(0, -1)}`,
       );
+    } else {
+      setSvgFilter(undefined);
     }
   }, [color]);
 
