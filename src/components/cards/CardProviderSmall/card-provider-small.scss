@@ -6,7 +6,6 @@
   cursor: pointer;
   flex-direction: row;
   padding: $spacing_2_4;
-  max-width: calc(100% - 2 * $spacing_2_0);
   @include themify($themes, "background-color", "color_white_ff");
 
   & > img {
