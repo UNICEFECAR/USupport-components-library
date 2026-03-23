@@ -88,7 +88,7 @@ export const OrganizationOverview = ({
                     <div>
                       <Icon name="phone" size="md" color="#66768D" />
                     </div>
-                    <p className="text">{phone}</p>
+                    <p className="text">{phone.split("\n").join(" / ")}</p>
                   </div>
                 )}
               </div>
