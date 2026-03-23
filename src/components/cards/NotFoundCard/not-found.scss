@@ -1,0 +1,225 @@
+@import "@USupport-components-library/styles";
+
+@mixin card-media-surface {
+  border-radius: $border_radius_2_4;
+  box-shadow: $shadow_1;
+
+  @include themifyNormal($themes) {
+    background: themed(glass_panel_background);
+    border: 1px solid themed(glass_border_color);
+    box-shadow: themed(glass_shadow);
+  }
+
+  .theme-light & {
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(224, 233, 255, 0.7);
+    box-shadow: 0 0.6rem 1rem rgba(9, 14, 26, 0.08);
+  }
+
+  backdrop-filter: blur(10px) saturate(1.12);
+  -webkit-backdrop-filter: blur(10px) saturate(1.12);
+}
+
+.not-found-card {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding-bottom: $spacing_3_2;
+  overflow: hidden;
+
+  &--rtl {
+    @media screen and (min-width: $screen-md) {
+      .not-found-card__card--illustrated {
+        flex-direction: row-reverse;
+      }
+    }
+
+    text-align: right;
+  }
+
+  &--radial-blue &__glow {
+    right: 10%;
+    top: 0;
+
+    @media screen and (min-width: $screen-md) {
+      right: 20%;
+    }
+  }
+
+  &--radial-purple &__glow {
+    left: 8%;
+    bottom: 0;
+
+    @media screen and (min-width: $screen-md) {
+      left: 15%;
+    }
+  }
+
+  &__card {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    @include card-media-surface;
+
+    &--simple {
+      max-width: 52rem;
+      padding: $spacing_4_0 $spacing_2_4 $spacing_4_8;
+      text-align: center;
+
+      @media screen and (min-width: $screen-md) {
+        padding: $spacing_6_0 $spacing_4_0 $spacing_6_4;
+      }
+    }
+
+    &--illustrated {
+      max-width: 96rem;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      text-align: left;
+      padding: 0;
+      overflow: hidden;
+
+      @media screen and (min-width: $screen-md) {
+        flex-direction: row;
+        align-items: center;
+        min-height: 22rem;
+      }
+    }
+  }
+
+  &__icon-wrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 7.2rem;
+    height: 7.2rem;
+    margin-bottom: $spacing_2_4;
+    border-radius: 50%;
+
+    @include themifyNormal($themes) {
+      background: themed(glass_panel_background);
+      border: 1px solid themed(glass_border_color);
+    }
+
+    .theme-light & {
+      background: rgba(209, 231, 250, 0.88);
+      border: 1px solid rgba(224, 233, 255, 0.85);
+    }
+
+    .icon {
+      opacity: 0.92;
+    }
+
+    @media screen and (min-width: $screen-md) {
+      width: 8rem;
+      height: 8rem;
+      margin-bottom: $spacing_3_2;
+    }
+  }
+
+  &__media {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing_2_4 $spacing_2_4 0;
+
+    @media screen and (min-width: $screen-md) {
+      width: 42%;
+      max-width: 38rem;
+      padding: $spacing_2_4 $spacing_1_6 $spacing_2_4 $spacing_3_2;
+    }
+  }
+
+  &__image {
+    width: 100%;
+    max-width: 28rem;
+    height: auto;
+    display: block;
+    object-fit: contain;
+
+    @media screen and (min-width: $screen-md) {
+      max-width: none;
+    }
+  }
+
+  &__body {
+    flex: 1 1 auto;
+    padding: $spacing_2_4 $spacing_2_4 $spacing_3_2;
+    min-width: 0;
+
+    @media screen and (min-width: $screen-md) {
+      padding: $spacing_3_2 $spacing_4_0 $spacing_3_2 $spacing_2_4;
+    }
+  }
+
+  &__heading {
+    margin: 0 0 $spacing_1_2;
+    font-weight: $font_semi_bold;
+    font-size: $font_size_2_0;
+    line-height: $line_height_2_8;
+
+    @include themify($themes, "color", "color_text_main");
+
+    @media screen and (min-width: $screen-lg) {
+      font-size: $font_size_2_4;
+      line-height: $line_height_3_8;
+    }
+  }
+
+  &__line {
+    margin: 0 0 $spacing_0_8;
+    font-size: $font_size_1_6;
+    line-height: $line_height_2_4;
+    font-weight: $font_medium;
+
+    @include themify($themes, "color", "color_text_main");
+    opacity: 0.88;
+
+    &:last-of-type {
+      margin-bottom: $spacing_2_0;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing_1_2;
+    margin-top: $spacing_1_6;
+
+    @media screen and (min-width: $screen-md) {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+  }
+
+  &__action-btn.button {
+    min-width: unset !important;
+    width: 100%;
+
+    @media screen and (min-width: $screen-md) {
+      width: auto;
+      min-width: 16rem !important;
+    }
+  }
+
+  &__title {
+    margin: 0;
+    font-weight: 600;
+    line-height: 1.35;
+
+    @include themify($themes, "color", "color_text_main");
+  }
+
+  &__subtitle {
+    margin: $spacing_1_6 0 0;
+    max-width: 38rem;
+    margin-inline: auto;
+    line-height: 1.5;
+
+    @include themify($themes, "color", "color_text_main");
+    opacity: 0.82;
+  }
+}
