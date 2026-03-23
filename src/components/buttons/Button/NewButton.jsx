@@ -1,10 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import classNames from "classnames";
 
 import { Loading } from "../../loaders/Loading/Loading";
 import { Icon } from "../../icons/Icon";
-
-import { ThemeContext } from "../../../utils";
 
 import "./new-button.scss";
 
@@ -29,8 +27,6 @@ export const NewButton = ({
   isFullWidth = false,
   ...props
 }) => {
-  const { theme } = useContext(ThemeContext);
-
   return (
     <button
       className={[

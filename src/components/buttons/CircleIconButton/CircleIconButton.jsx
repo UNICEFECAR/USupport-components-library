@@ -27,6 +27,9 @@ export const CircleIconButton = ({
 
   const { theme } = useContext(ThemeContext);
 
+  const trimmedLabel = typeof label === "string" ? label.trim() : "";
+  const ariaLabel = props["aria-label"] || trimmedLabel || iconName;
+
   return (
     <ButtonWithIcon
       color="red"
@@ -39,6 +42,7 @@ export const CircleIconButton = ({
       circleSize={circleSize}
       classes={classes}
       web
+      aria-label={ariaLabel}
       {...props}
     />
   );
