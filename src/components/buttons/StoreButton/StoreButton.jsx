@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import PropTypes from "prop-types";
 
 import { Icon } from "../../icons/Icon";
 import { Button } from "../Button";
@@ -60,6 +59,10 @@ export const StoreButton = ({
 
     if (theme === "highContrast") {
       classes.push("btn--store--high-contrast", "btn--high-contrast");
+    }
+
+    if (theme === "dark") {
+      classes.push("btn--store--dark");
     }
 
     return classes.join(" ");
