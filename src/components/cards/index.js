@@ -21,3 +21,4 @@ export * from "./StatusBadge";
 export * from "./MapProvider";
 export * from "./OrganizationOverview";
 export * from "./AccessibilityController";
+export * from "./NotFoundCard";
