@@ -4,7 +4,41 @@ import Carousel from "react-multi-carousel";
 import "./react-multi-carousel.scss"; // Styles needed for the react-multi-carousel library, as it cannot import them itself
 import classNames from "classnames";
 
+import { Icon } from "../../icons/Icon";
+
 import "./custom-carousel.scss";
+
+const CAROUSEL_ARROW_ICON_COLOR = "#9749FA";
+
+const CarouselArrow = ({ onClick, disabled, direction }) => {
+  const isLeft = direction === "left";
+  return (
+    <button
+      type="button"
+      className={classNames(
+        "custom-carousel__arrow",
+        isLeft ? "custom-carousel__arrow--left" : "custom-carousel__arrow--right",
+      )}
+      onClick={onClick}
+      disabled={disabled}
+      aria-label={isLeft ? "Previous slide" : "Next slide"}
+    >
+      <Icon
+        name={isLeft ? "arrow-chevron-back" : "arrow-chevron-forward"}
+        size="md"
+        color={CAROUSEL_ARROW_ICON_COLOR}
+        classes="custom-carousel__arrow-icon"
+        role="presentation"
+      />
+    </button>
+  );
+};
+
+CarouselArrow.propTypes = {
+  onClick: PropTypes.func,
+  disabled: PropTypes.bool,
+  direction: PropTypes.oneOf(["left", "right"]).isRequired,
+};
 
 const defaultBreakpointItems = {
   desktop: {
@@ -38,16 +72,19 @@ export const CustomCarousel = ({
   children,
   speed = 3000,
   autoPlay = true,
+  showArrows = true,
 }) => {
   return (
-    <div className={["custom-carousel", classNames(classes)].join(" ")}>
+    <div className={classNames("custom-carousel", classes)}>
       <Carousel
         responsive={breakpointItems ? breakpointItems : defaultBreakpointItems}
         renderDotsOutside={true}
         autoPlay={autoPlay}
         infinite={true}
         showDots={true}
-        arrows={false}
+        arrows={showArrows}
+        customLeftArrow={<CarouselArrow direction="left" />}
+        customRightArrow={<CarouselArrow direction="right" />}
         autoPlaySpeed={speed}
       >
         {children}
@@ -57,9 +94,11 @@ export const CustomCarousel = ({
 };
 
 CustomCarousel.propTypes = {
-  // Add propTypes here
+  classes: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  breakpointItems: PropTypes.object,
+  children: PropTypes.node,
+  speed: PropTypes.number,
+  autoPlay: PropTypes.bool,
+  showArrows: PropTypes.bool,
 };
 
-CustomCarousel.defaultProps = {
-  // Add defaultProps here
-};

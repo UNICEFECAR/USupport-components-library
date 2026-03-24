@@ -1,6 +1,72 @@
 @import "../../../styles/theme";
 
 .custom-carousel {
+  $arrow-size: 4.4rem;
+
+  &__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: $arrow-size;
+    min-width: $arrow-size;
+    height: $arrow-size;
+    min-height: $arrow-size;
+    padding: 0;
+    margin: 0;
+    border: 1px solid $color_gray_a6b4b8;
+    border-radius: $border_radius_4_0;
+    background-color: $color_white_ff;
+    box-shadow: 0 0.2rem 1.2rem rgba(14, 32, 47, 0.08);
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      opacity 0.2s ease;
+
+    &:hover:not(:disabled) {
+      border-color: $color_secondary_9749fa;
+      box-shadow: 0 0.4rem 1.6rem rgba(151, 73, 250, 0.18);
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color_secondary_9749fa;
+      outline-offset: 2px;
+    }
+
+    &:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    &--left {
+      left: 0;
+    }
+
+    &--right {
+      right: 0;
+    }
+  }
+
+  &__arrow-icon {
+    flex-shrink: 0;
+  }
+
+  [dir="rtl"] &__arrow--left {
+    left: auto;
+    right: 0;
+  }
+
+  [dir="rtl"] &__arrow--right {
+    right: auto;
+    left: 0;
+  }
+
   .react-multi-carousel-track {
     .react-multi-carousel-item {
       min-width: 34.8rem;
