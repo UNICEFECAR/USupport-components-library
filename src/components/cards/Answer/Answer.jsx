@@ -109,11 +109,8 @@ export const Answer = ({
                   })}
                 </div>
               )}
-              {/* Title */}
               <h4 className="answer__title">{question.answerTitle}</h4>
-              {/* Description */}
               <p className="text answer__limited-text">{question.answerText}</p>
-              {/* Read more link */}
               <div className="answer__read-more-container">
                 <NewButton
                   label={t("read_more")}
@@ -122,16 +119,7 @@ export const Answer = ({
                     handleReadMore(question);
                   }}
                 />
-                {/* <Button
-                  type="link"
-                  label={t("read_more")}
-                  size="md"
-                  classes="answer__read-more-button"
-                  onClick={() => handleReadMore(question)}
-                /> */}
               </div>
-              {/* Horizontal separator */}
-              {/* Author info row */}
               <div className="answer__author-likes-row">
                 <div
                   className={`answer__answered-by-container answer__answered-by-container--client ${
