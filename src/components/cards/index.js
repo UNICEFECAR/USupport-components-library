@@ -1,4 +1,5 @@
 export * from "./CardMedia";
+export * from "./CardMediaVideo";
 export * from "./CardIconAndLabel";
 export * from "./CardNumber";
 export * from "./CardProviderSmall";
