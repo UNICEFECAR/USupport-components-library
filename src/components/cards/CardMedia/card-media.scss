@@ -172,7 +172,7 @@
 
   &__content {
     position: relative;
-    width: 90%;
+    width: calc(100% - 2 * 1.6rem);
     min-width: 0;
     overflow: hidden;
     flex: 1 1 auto;
@@ -319,6 +319,15 @@
     align-items: center;
     position: relative;
     margin-top: auto;
+    margin-top: $spacing_0_4;
+    border-top: 0.2rem solid;
+    padding-top: $spacing_1_2;
+    @include themifyCustom(
+      $themes,
+      "border-top-color",
+      "color_gray_ea",
+      "color_gray_344054"
+    );
   }
 
   &--portrait {
@@ -422,7 +431,7 @@
       width: 20rem;
       height: auto;
       min-height: 10rem;
-      max-height: 12rem;
+      max-height: 13.2rem;
       border-radius: $border_radius_2_4;
       object-fit: cover;
     }
@@ -431,7 +440,7 @@
       display: flex;
       width: 20rem;
       min-height: 10rem;
-      max-height: 12rem;
+      max-height: 13.2rem;
       border-radius: $border_radius_2_4;
     }
 
