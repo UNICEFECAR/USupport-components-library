@@ -36,6 +36,7 @@ export const CardMediaVideo = ({
   categoryName,
   likes,
   dislikes,
+  viewCount,
   isLikedByUser,
   isDislikedByUser,
   contentType = "articles",
@@ -51,6 +52,23 @@ export const CardMediaVideo = ({
 
   const isPodcastContent =
     contentType === "podcasts" || contentType === "podcast";
+
+  const resolvedViewCount =
+    viewCount === undefined || viewCount === null
+      ? null
+      : Number(viewCount);
+
+  const shouldShowViewCount =
+    resolvedViewCount !== null && !Number.isNaN(resolvedViewCount);
+
+  // Use theme placeholder color for a lighter, subtler meta tone.
+  // Matches `color_input_placeholder` from the SCSS theme variables.
+  const viewCountColor =
+    theme === "highContrast"
+      ? "yellow"
+      : theme === "dark"
+        ? "#c1d7e0"
+        : "#66768d";
 
   const readMoreLabel = (() => {
     if (typeof t !== "function") return "Read more";
@@ -230,6 +248,16 @@ export const CardMediaVideo = ({
                 />
               </div>
             )}
+            {shouldShowViewCount && (
+              <div
+                className="card-media-video__view-count"
+                style={{ color: viewCountColor }}
+              >
+                <Icon name="view" size="md" color={viewCountColor} />
+                <p className="small-text">{resolvedViewCount}</p>
+              </div>
+            )}
+
             <div
               onClick={
                 isPodcastContent
@@ -328,6 +356,11 @@ CardMediaVideo.propTypes = {
   ]),
 
   /**
+   * Number of views for videos
+   * */
+  viewCount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+
+  /**
    * Whether the card background should be white in light theme
    * */
   isWhiteBackground: PropTypes.bool,
@@ -363,4 +396,5 @@ CardMediaVideo.defaultProps = {
   contentType: "articles",
   isWhiteBackground: false,
   handlePlay: undefined,
+  viewCount: null,
 };

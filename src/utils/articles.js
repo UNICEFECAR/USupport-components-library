@@ -74,7 +74,7 @@ const destructureVideoData = (videoData) => {
     category,
     labels: labelsData,
     vimeoThumbnailUrl,
-
+    view_count,
     aws_url,
   } = videoData.attributes;
 
@@ -144,6 +144,7 @@ const destructureVideoData = (videoData) => {
     dislikes,
     creator: null,
     awsUrl: aws_url,
+    viewCount: view_count,
   };
 };
 
@@ -239,7 +240,7 @@ const getSpotifyThumbnail = async (spotifyId) => {
   try {
     const spotifyUrl = `https://open.spotify.com/${spotifyId}`;
     const oEmbedUrl = `https://open.spotify.com/oembed?url=${encodeURIComponent(
-      spotifyUrl
+      spotifyUrl,
     )}&format=json`;
 
     const response = await fetch(oEmbedUrl);

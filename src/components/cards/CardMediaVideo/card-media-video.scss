@@ -311,6 +311,28 @@
     );
   }
 
+  &__view-count {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: $spacing_0_6;
+    white-space: nowrap;
+
+    > .icon {
+      flex-shrink: 0;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    // Slightly larger than default `.small-text` for visibility.
+    p.small-text {
+      font-size: 1.4rem;
+      line-height: $line_height_1_8;
+    }
+  }
+
   &--portrait {
     flex-direction: column;
     height: 100%;
