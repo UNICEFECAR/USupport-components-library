@@ -314,11 +314,14 @@
   &__current-language {
     text-transform: uppercase;
     font-weight: $font_bold;
-    // color: $color_primary_20809e;
-    @include themify($themes, "color", "color_primary_20809e");
+    margin: 0;
+    padding: 0 $spacing_0_6;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    font-size: 1.4rem;
 
-    & > p {
-      margin-bottom: $spacing_2_4;
+    @media screen and (min-width: $navbar-tight) {
+      padding: 0;
     }
   }
 

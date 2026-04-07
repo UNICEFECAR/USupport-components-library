@@ -126,6 +126,11 @@ export const Navbar = ({
 
   const IS_PS = localStorage.getItem("country") === "PS";
   const IS_RTL = localStorage.getItem("language") === "ar";
+  const currentLanguageCode = (
+    selectedLanguage?.value ||
+    localStorage.getItem("language") ||
+    "en"
+  ).toUpperCase();
 
   useEffect(() => {
     if (initialCountry && !hasSelectedInitialCountry) {
@@ -515,18 +520,19 @@ export const Navbar = ({
                 toggleLanguages();
               }}
             >
-              <Icon
-                classes="nav__profile__language-icon"
-                name="globe"
-                size="md"
-                color={
-                  theme === "highContrast"
-                    ? "#ffff00"
-                    : theme !== "light"
-                      ? "#fff"
-                      : "#0e202f"
-                }
-              />
+              <p
+                className="nav__current-language"
+                style={{
+                  color:
+                    theme === "highContrast"
+                      ? "#ffff00"
+                      : theme !== "light"
+                        ? "#fff"
+                        : "#0e202f",
+                }}
+              >
+                {currentLanguageCode}
+              </p>
               <Icon
                 name="arrow-chevron-down"
                 size="sm"
@@ -662,7 +668,19 @@ export const Navbar = ({
             toggleLanguages();
           }}
         >
-          <Icon classes="nav__profile__language-icon" name="globe" size="md" />
+          <p
+            className="nav__current-language"
+            style={{
+              color:
+                theme === "highContrast"
+                  ? "#ffff00"
+                  : theme !== "light"
+                    ? "#fff"
+                    : "#0e202f",
+            }}
+          >
+            {currentLanguageCode}
+          </p>
           <Icon
             name="arrow-chevron-down"
             size="sm"
@@ -847,10 +865,15 @@ export const Navbar = ({
               toggleLanguages();
             }}
           >
+            <p
+              className="nav__current-language"
+              style={{ color: getLanguageTriggerColor() }}
+            >
+              {currentLanguageCode}
+            </p>
             <Icon
-              classes="nav__profile__language-icon"
-              name="globe"
-              size="md"
+              name="arrow-chevron-down"
+              size="sm"
               color={getLanguageTriggerColor()}
             />
           </div>
@@ -900,12 +923,12 @@ export const Navbar = ({
               toggleLanguages();
             }}
           >
-            <Icon
-              classes="nav__profile__language-icon"
-              name="globe"
-              size="md"
-              color={getLanguageTriggerColor()}
-            />
+            <p
+              className="nav__current-language"
+              style={{ color: getLanguageTriggerColor() }}
+            >
+              {currentLanguageCode}
+            </p>
             <Icon
               name="arrow-chevron-down"
               size="sm"
@@ -1387,9 +1410,9 @@ export const Navbar = ({
   const renderRightContainer = () => {
     return (
       <div className="nav__right-container">
-  		{renderProfileContainerDesktop()}
-  		{renderLanguageSelectorDesktop()}
-  		{renderCtaDesktop()}
+        {renderProfileContainerDesktop()}
+        {renderLanguageSelectorDesktop()}
+        {renderCtaDesktop()}
       </div>
     );
   };
