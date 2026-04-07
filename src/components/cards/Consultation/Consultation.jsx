@@ -10,7 +10,6 @@ import {
   checkIsFiveMinutesBefore,
   getDateView,
   getDayOfTheWeek,
-  useWindowDimensions,
 } from "../../../utils";
 
 const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
@@ -50,6 +49,7 @@ export const Consultation = ({
   liquidGlass = false,
   buttonSize = "md",
 }) => {
+  const isClickable = !hasMenu && typeof onClick === "function";
   const {
     consultationId,
     timestamp,
@@ -239,10 +239,11 @@ export const Consultation = ({
 
   return (
     <Card
-      onClick={!hasMenu ? onClick : undefined}
+      onClick={isClickable ? onClick : undefined}
       borderColor={buttonAction === "join" ? "purple" : undefined}
       classes={[
         "consultation",
+        isClickable && "consultation--clickable",
         buttonAction === "join" && "consultation--purple",
         classNames(classes),
       ].join(" ")}
