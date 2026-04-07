@@ -521,7 +521,7 @@ export const Navbar = ({
               }}
             >
               <p
-                className="nav__current-language"
+                className="text nav__current-language"
                 style={{
                   color:
                     theme === "highContrast"
@@ -669,7 +669,7 @@ export const Navbar = ({
           }}
         >
           <p
-            className="nav__current-language"
+            className="text nav__current-language"
             style={{
               color:
                 theme === "highContrast"
@@ -866,7 +866,7 @@ export const Navbar = ({
             }}
           >
             <p
-              className="nav__current-language"
+              className="text nav__current-language"
               style={{ color: getLanguageTriggerColor() }}
             >
               {currentLanguageCode}
@@ -924,7 +924,7 @@ export const Navbar = ({
             }}
           >
             <p
-              className="nav__current-language"
+              className="text nav__current-language"
               style={{ color: getLanguageTriggerColor() }}
             >
               {currentLanguageCode}
