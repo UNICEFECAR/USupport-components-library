@@ -24,6 +24,14 @@
       // Desktop: use default box background (including dark theme)
       box-shadow: $shadow_2;
       margin-right: 0;
+      opacity: 0.9;
+      transition: opacity 0.2s ease;
+
+      &:hover,
+      &:focus-within,
+      &:focus-visible {
+        opacity: 1;
+      }
     }
   }
 
