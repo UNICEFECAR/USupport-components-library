@@ -49,6 +49,7 @@ function destructureArticleData(article) {
     likes: Number(article.likes) || 0,
     dislikes: Number(article.dislikes) || 0,
     pdfUrl,
+    ttsUrl: articleData.s3_tts_url,
   };
 }
 

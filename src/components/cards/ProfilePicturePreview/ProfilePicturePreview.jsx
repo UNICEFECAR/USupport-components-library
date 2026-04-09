@@ -22,17 +22,23 @@ export const ProfilePicturePreview = ({
   imageFile,
 }) => {
   const imageSrc = imageFile ? imageFile : AMAZON_S3_BUCKET + "/" + image;
+  const hasImage =
+    !!imageFile ||
+    (image && image !== "default" && image !== "default-sponsor");
+  const showDeleteButton = hasImage && typeof handleDeleteClick === "function";
   return (
     <div className="profile-picture-preview-wrapper">
       <div className="profile-picture-preview">
         <div className="profile-picture-preview__image-container">
           <div className="profile-picture-preview__image-container__delete-button">
-            <Icon
-              onClick={handleDeleteClick}
-              name="delete"
-              size="sm"
-              color="#fff"
-            />
+            {showDeleteButton && (
+              <Icon
+                onClick={handleDeleteClick}
+                name="delete"
+                size="sm"
+                color="#fff"
+              />
+            )}
           </div>
           <img src={imageSrc} alt="profile-picture" />
         </div>

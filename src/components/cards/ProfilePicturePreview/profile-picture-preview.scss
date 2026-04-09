@@ -12,6 +12,13 @@
 
   position: relative;
   margin: 0 auto;
+  & img {
+    width: 8rem;
+    height: 8rem;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+  }
 
   &__image-container {
     position: relative;
