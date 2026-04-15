@@ -9,6 +9,7 @@ export { default as logoVerticalRomaniaPng } from "./logo-vertical-ro.png";
 export { default as logoVerticalSvg } from "./logo-vertical.svg";
 export { default as logoVerticalDarkSvg } from "./logo-vertical-dark.svg";
 export { default as logoHorizontalPng } from "./logo-horizontal.png";
+export { default as logoHorizontalRo } from "./logo-horizontal-ro.png";
 export { default as logoHorizontalWebp } from "./logo-horizontal.webp";
 export { default as logoHorizontalSvg } from "./logo-horizontal.svg";
 export { default as logoSquarePng } from "./logo-square.png";
