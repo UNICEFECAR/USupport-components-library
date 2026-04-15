@@ -99,15 +99,11 @@ export const Modal = ({
             !hasGoBackArrow && "base-modal__header--no-close",
           ].join(" ")}
         >
-          {hasGoBackArrow && (
-            <div className="base-modal__header__left-container">
-              <Icon
-                name="arrow-chevron-back"
-                size="md"
-                onClick={handleGoBack}
-              />
-            </div>
-          )}
+          <div className="base-modal__header__left-container">
+            {hasGoBackArrow && (
+              <Icon name="arrow-chevron-back" size="md" onClick={handleGoBack} />
+            )}
+          </div>
           {headingComponent || (
             <h4
               className={[
@@ -118,6 +114,7 @@ export const Modal = ({
               {heading}
             </h4>
           )}
+          <div className="base-modal__header__right-spacer" />
         </div>
       )}
       {hasCloseIcon && !topHeaderComponent && (

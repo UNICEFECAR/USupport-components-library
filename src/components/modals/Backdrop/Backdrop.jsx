@@ -84,13 +84,13 @@ export const Backdrop = ({
         {topHeaderComponent && (
           <div className="backdrop__top-header">{topHeaderComponent}</div>
         )}
-        <div
-          className={[
-            "backdrop__header",
-            !hasGoBackArrow && !hasCloseIcon && "backdrop__header--no-close",
-          ].join(" ")}
-        >
-          {(hasGoBackArrow || hasCloseIcon) && (
+        {(hasGoBackArrow || hasCloseIcon || headingComponent || heading) && (
+          <div
+            className={[
+              "backdrop__header",
+              !hasGoBackArrow && !hasCloseIcon && "backdrop__header--no-close",
+            ].join(" ")}
+          >
             <div className="backdrop__header__left-container">
               {hasGoBackArrow && (
                 <Icon
@@ -100,18 +100,16 @@ export const Backdrop = ({
                 />
               )}
             </div>
-          )}
-          {headingComponent || (
-            <h4
-              className={[
-                "backdrop__header__text",
-                theme === "dark" && "backdrop__header__text--dark",
-              ].join(" ")}
-            >
-              {heading}
-            </h4>
-          )}
-          {(hasGoBackArrow || hasCloseIcon) && (
+            {headingComponent || (
+              <h4
+                className={[
+                  "backdrop__header__text",
+                  theme === "dark" && "backdrop__header__text--dark",
+                ].join(" ")}
+              >
+                {heading}
+              </h4>
+            )}
             <div className="backdrop__header__icon-container">
               {hasCloseIcon && (
                 <Icon
@@ -122,8 +120,8 @@ export const Backdrop = ({
                 />
               )}
             </div>
-          )}
-        </div>
+          </div>
+        )}
 
         {text && <p className="text backdrop__text">{text}</p>}
 

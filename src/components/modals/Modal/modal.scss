@@ -85,16 +85,18 @@
   }
 
   &__header {
-    display: flex;
+    display: grid;
+    grid-template-columns: 2.4rem 1fr 2.4rem;
     align-items: center;
-    justify-content: space-between;
     width: 100%;
 
     &--no-close {
-      justify-content: center;
+      grid-template-columns: 0 1fr 0;
     }
 
     &__text {
+      text-align: center;
+      justify-self: center;
       &--dark {
         color: $color_blue_c1d7e0;
       }
@@ -115,6 +117,11 @@
       display: flex;
       align-items: center;
       justify-content: flex-start;
+    }
+
+    &__right-spacer {
+      width: 2.4rem;
+      height: 2.4rem;
     }
   }
 

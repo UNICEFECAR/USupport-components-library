@@ -61,18 +61,21 @@
   }
 
   &__header {
-    display: flex;
+    display: grid;
+    grid-template-columns: 2.4rem 1fr 2.4rem;
     align-items: flex-start;
-    justify-content: space-between;
     width: 100%;
 
     &--no-close {
-      justify-content: center;
+      // Keep title centered even when we don't render any icons.
+      grid-template-columns: 0 1fr 0;
     }
 
     &__text {
       font-weight: $font_semi_bold;
       word-break: break-word;
+      text-align: center;
+      justify-self: center;
 
       &--dark {
         color: $color_blue_c1d7e0;
