@@ -42,7 +42,7 @@ export const AccessToken = ({
       )}
       <div className="access-token-container">
         {isLoading ? (
-          <Loading size="sm" />
+          <Loading size="sm" padding="1.6rem" />
         ) : (
           <input
             type="text"
