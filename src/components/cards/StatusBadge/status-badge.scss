@@ -5,13 +5,16 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-radius: $spacing_1_2;
-  margin-top: $spacing_0_4;
+  border-radius: 20px;
+  margin-top: 4px;
   margin-right: auto;
-  padding: $spacing_0_4 $spacing_1_2;
+  padding: 2px 12px;
+  align-self: flex-start;
 
   &__label {
     color: $color_white_ff !important;
+    font-size: 12px;
+    text-align: center;
   }
 
   &--active {
@@ -27,10 +30,15 @@
   }
 
   &--in-progress {
-    @include themify($themes, "background-color", "color_6a4ffb_8c90eb");
+    background-color: $color_green_7ec680;
 
     & p {
       color: $color_white_ff !important;
     }
   }
+}
+
+.status-badge__box {
+  padding: 16px;
+  width: fit-content;
 }

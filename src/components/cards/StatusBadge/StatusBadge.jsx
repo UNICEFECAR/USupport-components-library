@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import { Box } from "../../boxes/Box/Box";
+
 import "./status-badge.scss";
 
 /**
@@ -10,7 +12,17 @@ import "./status-badge.scss";
  *
  * @return {jsx}
  */
-export const StatusBadge = ({ label, status }) => {
+export const StatusBadge = ({ label, status, withBox }) => {
+  if (withBox) {
+    return (
+      <Box borderSize="lg" boxShadow="1" liquidGlass classes="status-badge__box">
+        <div className={`status-badge status-badge--${status}`}>
+          <p className="small-text status-badge__label">{label}</p>
+        </div>
+      </Box>
+    );
+  }
+
   return (
     <div className={`status-badge status-badge--${status}`}>
       <p className="small-text status-badge__label">{label}</p>
@@ -19,9 +31,11 @@ export const StatusBadge = ({ label, status }) => {
 };
 
 StatusBadge.propTypes = {
-  // Add propTypes here
+  label: PropTypes.string.isRequired,
+  status: PropTypes.oneOf(["active", "inactive", "in-progress"]).isRequired,
+  withBox: PropTypes.bool,
 };
 
 StatusBadge.defaultProps = {
-  // Add defaultProps here
+  withBox: true,
 };
