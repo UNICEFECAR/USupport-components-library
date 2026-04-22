@@ -149,6 +149,8 @@ export const Footer = ({
         ? "#ffff00"
         : "#20809E";
 
+  const shouldShowSocials = showSocials && selectedCountry !== "global";
+
   return (
     <Block
       classes={`footer ${IS_RTL ? "footer--rtl" : ""}`}
@@ -169,7 +171,7 @@ export const Footer = ({
               }}
             />
             <p className="footer__logo-text text">{t("footer_text")}</p>
-            {showSocials && (
+            {shouldShowSocials && (
               <nav
                 className="footer__socials"
                 aria-label="uSupport social media links"
