@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import { Icon } from "../../icons";
 import { Box } from "../Box";
@@ -21,7 +22,6 @@ export const BaselineAssesmentBox = ({
   status,
   startedAt,
   currentPosition,
-  completionPercentage,
   handleViewAssessment,
   t,
 }) => {
@@ -34,6 +34,7 @@ export const BaselineAssesmentBox = ({
         <StatusBadge
           label={t(status)}
           status={status === "completed" ? "active" : "in-progress"}
+          withBox={false}
         />
       </div>
       <div className="baseline-assesment-box__content">
@@ -52,4 +53,14 @@ export const BaselineAssesmentBox = ({
       </div>
     </Box>
   );
+};
+
+BaselineAssesmentBox.propTypes = {
+  progress: PropTypes.number.isRequired,
+  status: PropTypes.string.isRequired,
+  startedAt: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)])
+    .isRequired,
+  currentPosition: PropTypes.number.isRequired,
+  handleViewAssessment: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired,
 };
