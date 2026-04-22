@@ -78,7 +78,8 @@
     &:hover:enabled {
       background-color: rgba(104, 77, 253, 0.04);
       border-color: #684dfd;
-      box-shadow: 0 10px 24px rgba(5, 38, 63, 0.14), 0 0 0 1px rgba(104, 77, 253, 0.25);
+      box-shadow: 0 10px 24px rgba(5, 38, 63, 0.14),
+        0 0 0 1px rgba(104, 77, 253, 0.25);
       transform: translateY(-1px);
 
       .theme-dark &,
@@ -86,7 +87,8 @@
         background-color: rgba(193, 215, 224, 0.06);
         color: #d4e4ec;
         border-color: #c1d7e0;
-        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(193, 215, 224, 0.35);
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45),
+          0 0 0 1px rgba(193, 215, 224, 0.35);
       }
     }
 
@@ -94,7 +96,8 @@
       background-color: rgba(104, 77, 253, 0.08);
       color: #4b6b84;
       border-color: #684dfd;
-      box-shadow: 0 4px 12px rgba(5, 38, 63, 0.18), 0 0 0 1px rgba(104, 77, 253, 0.3);
+      box-shadow: 0 4px 12px rgba(5, 38, 63, 0.18),
+        0 0 0 1px rgba(104, 77, 253, 0.3);
       transform: translateY(0);
 
       .theme-dark &,
@@ -102,7 +105,8 @@
         background-color: rgba(193, 215, 224, 0.12);
         color: #e7f1f7;
         border-color: #c1d7e0;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(193, 215, 224, 0.45);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.55),
+          0 0 0 1px rgba(193, 215, 224, 0.45);
       }
     }
   }
@@ -118,6 +122,20 @@
 
     &:active:enabled {
       background-color: #e8e8e8;
+    }
+  }
+
+  &--red {
+    background-color: $color_red_eb5757;
+    color: $color_white_ff;
+    border: none;
+
+    &:hover:enabled {
+      background-color: $color_red_cc4c4c;
+    }
+
+    &:active:enabled {
+      background-color: $color_red_a63d3d;
     }
   }
 
