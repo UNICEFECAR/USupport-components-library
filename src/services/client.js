@@ -214,6 +214,11 @@ async function checkIsCouponAvailable(couponCode) {
   return response;
 }
 
+async function checkActiveCampaign() {
+  const response = await http.get(`${API_ENDPOINT}/check-active-campaign`);
+  return response;
+}
+
 async function unblockSlot(consultationId) {
   const response = await http.put(`${API_ENDPOINT}/consultation/unblock-slot`, {
     consultationId,
@@ -415,6 +420,7 @@ const exportedFunctions = {
   generateMoodTrackReport,
   addPlatformRating,
   checkIsCouponAvailable,
+  checkActiveCampaign,
   unblockSlot,
   addQuestion,
   getClientQuestions,
