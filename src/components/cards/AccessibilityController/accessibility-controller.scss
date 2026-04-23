@@ -15,6 +15,10 @@
     .theme-dark &.box {
       background-color: transparent;
     }
+
+    .theme-highContrast &.box {
+      background-color: transparent;
+    }
   }
 
   @media screen and (min-width: $navbar-tight) {
