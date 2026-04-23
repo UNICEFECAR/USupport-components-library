@@ -155,7 +155,7 @@
       top: 0;
       z-index: $z_index_negative;
       max-height: 16.4rem;
-      overflow: scroll;
+      // overflow: scroll;
 
       &--dark {
         background-color: $color_black_31;

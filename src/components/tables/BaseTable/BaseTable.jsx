@@ -128,7 +128,26 @@ export const BaseTable = ({
   truncateLength = 50,
   enableTooltips = true,
   maxHeightInVH = 60,
+  onScrolledToBottom,
+  scrollBottomThreshold = 100,
+  isLoadingMore = false,
 }) => {
+  const scrollableRef = useRef(null);
+
+  useEffect(() => {
+    const el = scrollableRef.current;
+    if (!el || !onScrolledToBottom) return;
+
+    const handleScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } = el;
+      if (scrollTop + clientHeight >= scrollHeight - scrollBottomThreshold) {
+        onScrolledToBottom();
+      }
+    };
+
+    el.addEventListener("scroll", handleScroll);
+    return () => el.removeEventListener("scroll", handleScroll);
+  }, [onScrolledToBottom, scrollBottomThreshold]);
   const [searchValue, setSearchValue] = useState("");
   const [sorting, setSorting] = useState();
   const [hoveredCell, setHoveredCell] = useState(null); // Track which cell is hovered
@@ -413,6 +432,7 @@ export const BaseTable = ({
         <p>{t("no_data_found")}</p>
       ) : (
         <div
+          ref={scrollableRef}
           className={`scrollable-table scrollable-table--height-${maxHeightInVH}`}
         >
           {isLoading && rowsData && rowsData.length > 0 && (
@@ -485,6 +505,11 @@ export const BaseTable = ({
             </thead>
             <tbody className="table__body">{renderItems()}</tbody>
           </table>
+          {isLoadingMore && (
+            <div className="table__container__loading-more">
+              <Loading />
+            </div>
+          )}
         </div>
       )}
     </div>
