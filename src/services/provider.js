@@ -321,6 +321,13 @@ async function getProviderByIdAsAdmin(id) {
   return res;
 }
 
+async function getProviderTranslations(providerId) {
+  const res = await http.get(
+    `${API_ENDPOINT}/translations?providerId=${providerId}`
+  );
+  return res;
+}
+
 async function updateProviderDataByIdAsAdmin(data) {
   const res = await http.put(`${API_ENDPOINT}/by-id/admin`, {
     ...data,
@@ -462,6 +469,7 @@ const exportedFunctions = {
   getConsultationsForWeek,
   getProviderById,
   getProviderByIdAsAdmin,
+  getProviderTranslations,
   getProviderData,
   getCalendarData,
   removeAvailableSlot,
