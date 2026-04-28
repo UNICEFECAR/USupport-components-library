@@ -1,0 +1,75 @@
+@import "../../../styles/theme";
+
+.action-row {
+  width: 100%;
+  position: relative;
+  border: 0;
+  background: transparent;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  cursor: pointer;
+  text-align: left;
+  gap: $spacing_1_2;
+
+  &:hover {
+    background: rgba(245, 247, 250, 0.7);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color_primary_20809e;
+    outline-offset: 2px;
+  }
+
+  &__left {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    gap: $spacing_1_2;
+    min-width: 0;
+  }
+
+  &__icon {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 2px;
+  }
+
+  &__text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  &__label {
+    margin: 0;
+  }
+
+  &__description {
+    margin: 0;
+    color: #6b7280;
+  }
+
+  &__chevron {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 6px;
+    color: #9ca3af;
+    flex-shrink: 0;
+  }
+
+  &--danger {
+    .action-row__label {
+      color: $color_red_eb5757;
+    }
+
+    .action-row__chevron {
+      color: $color_red_eb5757;
+    }
+  }
+}
