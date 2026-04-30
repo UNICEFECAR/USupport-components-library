@@ -1,33 +1,62 @@
-import React, { useState, useEffect } from "react";
+import React, { useId } from "react";
 import PropTypes from "prop-types";
-import { Color, hexToRgb, Solver } from "../utils/ColorSolver";
 
 import sprite from "../assets/sprite.svg";
 
 import "./icon.scss";
 
 /**
+ * Convert hex color to RGB values (0-1 range for SVG filter)
+ */
+const hexToRgbNormalized = (hex) => {
+  const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+  hex = hex.replace(shorthandRegex, (m, r, g, b) => r + r + g + g + b + b);
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result
+    ? {
+        r: parseInt(result[1], 16) / 255,
+        g: parseInt(result[2], 16) / 255,
+        b: parseInt(result[3], 16) / 255,
+      }
+    : null;
+};
+
+/**
  * Icon component used to render different icons from the sprite file
  */
 export const Icon = ({ name, size, color, classes, role, ...props }) => {
-  const [svgFilter, setSvgFilter] = useState();
+  const filterId = useId();
 
-  // Generate a color filter for the icon
-  useEffect(() => {
-    if (color) {
-      const rgb = hexToRgb(color);
-      const colorToSolve = new Color(rgb[0], rgb[1], rgb[2]);
-      const solver = new Solver(colorToSolve);
-      const result = solver.solve();
-      setSvgFilter(
-        `brightness(0) saturate(100%) ${result.filter
-          .split("filter: ")[1]
-          .slice(0, -1)}`,
-      );
-    } else {
-      setSvgFilter(undefined);
-    }
-  }, [color]);
+  // When color is provided, use SVG feColorMatrix for cross-browser color accuracy
+  // This avoids Safari's hue-rotate bug that causes color shifts
+  if (color) {
+    const rgb = hexToRgbNormalized(color);
+
+    return (
+      <svg
+        className={
+          `icon icon--${name} icon--${size} ${props.onClick ? "icon--clickable" : ""}` +
+          (classes ? ` ${classes}` : "")
+        }
+        role={role ? role : "none"}
+        alt={`icon-${name}`}
+        {...props}
+      >
+        <defs>
+          <filter id={filterId} colorInterpolationFilters="sRGB">
+            <feColorMatrix
+              type="matrix"
+              values={`0 0 0 0 ${rgb.r}
+                       0 0 0 0 ${rgb.g}
+                       0 0 0 0 ${rgb.b}
+                       0 0 0 1 0`}
+            />
+          </filter>
+        </defs>
+        <use href={`${sprite}#icon-${name}`} filter={`url(#${filterId})`} />
+      </svg>
+    );
+  }
 
   return (
     <svg
@@ -35,7 +64,6 @@ export const Icon = ({ name, size, color, classes, role, ...props }) => {
         `icon icon--${name} icon--${size} ${props.onClick ? "icon--clickable" : ""}` +
         (classes ? ` ${classes}` : "")
       }
-      style={{ WebkitFilter: svgFilter ? svgFilter : "" }}
       role={role ? role : "none"}
       alt={`icon-${name}`}
       {...props}
