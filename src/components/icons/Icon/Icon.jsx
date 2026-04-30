@@ -27,8 +27,6 @@ const hexToRgbNormalized = (hex) => {
 export const Icon = ({ name, size, color, classes, role, ...props }) => {
   const filterId = useId();
 
-  // When color is provided, use SVG feColorMatrix for cross-browser color accuracy
-  // This avoids Safari's hue-rotate bug that causes color shifts
   if (color) {
     const rgb = hexToRgbNormalized(color);
 
