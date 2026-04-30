@@ -58,6 +58,20 @@ const interceptError = async (error) => {
       return Promise.reject(error);
     }
 
+    // else if (error.response?.data.error.name === "NOT AUTHORIZED") {
+    //   const token = localStorage.getItem("token");
+    //   if (token) {
+    //     localStorage.removeItem("token");
+    //     localStorage.removeItem("token-expires-in");
+    //     localStorage.removeItem("refresh-token");
+    //     localStorage.removeItem("isRefreshingToken");
+
+    //     window.dispatchEvent(new Event("token-changed"));
+
+    //     return Promise.reject(error);
+    //   }
+    // }
+
     const token = localStorage.getItem("token");
     const decoded = jwtDecode(token);
     const isTokenExpired = Date.now() >= decoded.exp * 1000;
