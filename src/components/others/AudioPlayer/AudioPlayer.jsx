@@ -20,7 +20,7 @@ const formatTime = (seconds) => {
  *
  * @return {jsx}
  */
-export const AudioPlayer = ({ src, className, onEnded }) => {
+export const AudioPlayer = ({ src, className, onEnded, onPlay }) => {
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -74,6 +74,7 @@ export const AudioPlayer = ({ src, className, onEnded }) => {
     try {
       await audio.play();
       setIsPlaying(true);
+      if (onPlay) onPlay();
     } catch {
       setIsPlaying(false);
     }
@@ -161,9 +162,11 @@ AudioPlayer.propTypes = {
   src: PropTypes.string.isRequired,
   className: PropTypes.string,
   onEnded: PropTypes.func,
+  onPlay: PropTypes.func,
 };
 
 AudioPlayer.defaultProps = {
   className: "",
   onEnded: null,
+  onPlay: null,
 };
