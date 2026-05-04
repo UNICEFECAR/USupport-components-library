@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 
 import "./audio-player.scss";
 import { Icon } from "../../icons";
+import { ThemeContext } from "../../../utils";
 
 const SEEK_SECONDS = 10;
 
@@ -20,13 +21,28 @@ const formatTime = (seconds) => {
  *
  * @return {jsx}
  */
-export const AudioPlayer = ({ src, className, onEnded, onPlay }) => {
+export const AudioPlayer = ({ src, className, onEnded, onPlay, t }) => {
+  const { theme } = useContext(ThemeContext);
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
 
   const progressPercent = duration ? (currentTime / duration) * 100 : 0;
+  const minutes = duration > 0 ? Math.max(1, Math.ceil(duration / 60)) : 0;
+  const translate = (key, options = {}) => t(key, options);
+  const iconColor =
+    theme === "highContrast"
+      ? "#ffff00"
+      : theme === "dark"
+      ? "#ededed"
+      : "#0e202f";
+  const helperIconColor =
+    theme === "highContrast"
+      ? "#ffff00"
+      : theme === "dark"
+      ? "#ededed"
+      : "#9749fa";
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -109,6 +125,30 @@ export const AudioPlayer = ({ src, className, onEnded, onPlay }) => {
     <div className={`audio-player ${className}`.trim()}>
       <audio ref={audioRef} src={src} preload="metadata" />
 
+      <div className="audio-player__header">
+        <div className="audio-player__header-left">
+          <div className="audio-player__header-icon">
+            <Icon name="headphones" size="md" color={iconColor} aria-hidden />
+          </div>
+          <div className="audio-player__copy">
+            <p className="audio-player__title">
+              {translate("audio_player_title_listen_to_article")}
+            </p>
+            <p className="audio-player__subtitle">
+              {translate("audio_player_subtitle_narrated_version")}
+            </p>
+          </div>
+        </div>
+        <div className="audio-player__duration">
+          <Icon name="time" size="sm" color={iconColor} aria-hidden />
+          <span>
+            {translate("audio_player_badge_listen_time", {
+              minutes,
+            })}
+          </span>
+        </div>
+      </div>
+
       <div className="audio-player__time-row">
         <span>{formatTime(currentTime)}</span>
         <span>{formatTime(duration)}</span>
@@ -129,7 +169,9 @@ export const AudioPlayer = ({ src, className, onEnded, onPlay }) => {
         <div
           className="audio-player__control"
           onClick={() => seekBy(-SEEK_SECONDS)}
-          aria-label="Seek back 10 seconds"
+          aria-label={translate("audio_player_seek_back_label", {
+            seconds: SEEK_SECONDS,
+          })}
         >
           <Icon name="seek-back" size="lg" aria-hidden />
         </div>
@@ -137,7 +179,11 @@ export const AudioPlayer = ({ src, className, onEnded, onPlay }) => {
           type="div"
           className="audio-player__play"
           onClick={togglePlayback}
-          aria-label={isPlaying ? "Pause audio" : "Play audio"}
+          aria-label={
+            isPlaying
+              ? translate("audio_player_pause_label")
+              : translate("audio_player_play_label")
+          }
         >
           <Icon
             name={isPlaying ? "pause" : "play-gradient"}
@@ -149,10 +195,17 @@ export const AudioPlayer = ({ src, className, onEnded, onPlay }) => {
         <div
           className="audio-player__control"
           onClick={() => seekBy(SEEK_SECONDS)}
-          aria-label="Seek forward 10 seconds"
+          aria-label={translate("audio_player_seek_forward_label", {
+            seconds: SEEK_SECONDS,
+          })}
         >
           <Icon name="seek-forward" size="lg" aria-hidden />
         </div>
+      </div>
+
+      <div className="audio-player__helper">
+        <Icon name="star-full" size="sm" color={helperIconColor} aria-hidden />
+        <p>{translate("audio_player_helper_read_along")}</p>
       </div>
     </div>
   );
@@ -163,10 +216,12 @@ AudioPlayer.propTypes = {
   className: PropTypes.string,
   onEnded: PropTypes.func,
   onPlay: PropTypes.func,
+  t: PropTypes.func,
 };
 
 AudioPlayer.defaultProps = {
   className: "",
   onEnded: null,
   onPlay: null,
+  t: (key) => key,
 };

@@ -2,17 +2,101 @@
 
 .audio-player {
   border-radius: $border_radius_2_4;
-  padding: $spacing_1_6;
+  padding: $spacing_2_4;
   @include themify($themes, "background-color", "color_white_ff");
+  @include themifyCustom(
+    $themes,
+    "--audio-progress-track",
+    "color_gray_ea",
+    "color_gray_66768d"
+  );
+  @include themifyCustom(
+    $themes,
+    "--audio-thumb-border",
+    "color_white_ff",
+    "color_blue_263238"
+  );
   box-shadow: $shadow_2;
   margin-inline: auto;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: $spacing_1_2;
+    margin-bottom: $spacing_1_6;
+  }
+
+  &__header-left {
+    display: flex;
+    align-items: flex-start;
+    gap: $spacing_1_2;
+  }
+
+  &__header-icon {
+    width: 4.8rem;
+    height: 4.8rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @include themifyCustom(
+      $themes,
+      "background-color",
+      "color_green_f4f7fe",
+      "color_black_31"
+    );
+  }
+
+  &__copy {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing_0_4;
+  }
+
+  &__title {
+    font-size: $font_size_2_4;
+    line-height: $line_height_2_8;
+    font-weight: $font_semi_bold;
+    @include themify($themes, "color", "color_3d527b_white");
+    margin: 0;
+  }
+
+  &__subtitle {
+    font-size: $font_size_1_6;
+    line-height: $line_height_2_2;
+    @include themify($themes, "color", "color_66768d_c1d7e0");
+    margin: 0;
+  }
+
+  &__duration {
+    display: flex;
+    align-items: center;
+    gap: $spacing_0_4;
+    border-radius: 999px;
+    padding: $spacing_0_6 $spacing_1_2;
+    @include themifyCustom(
+      $themes,
+      "background-color",
+      "color_green_f4f7fe",
+      "color_black_31"
+    );
+    @include themify($themes, "color", "color_primary_20809e");
+    white-space: nowrap;
+
+    span {
+      font-size: $font_size_1_2;
+      line-height: $line_height_1_8;
+      font-weight: $font_medium;
+    }
+  }
 
   &__time-row {
     display: flex;
     justify-content: space-between;
-    margin-bottom: $spacing_0_8;
+    margin-bottom: $spacing_1_0;
     font-size: $font_size_1_2;
-    @include themify($themes, "color", "color_gray_66768d");
+    @include themify($themes, "color", "color_66768d_c1d7e0");
   }
 
   &__progress {
@@ -28,8 +112,8 @@
       to right,
       #7fc6c9 0%,
       #5fa8b8 var(--progress, 0%),
-      #e3e8ef var(--progress, 0%),
-      #e3e8ef 100%
+      var(--audio-progress-track) var(--progress, 0%),
+      var(--audio-progress-track) 100%
     );
   }
   &__progress::-webkit-slider-thumb {
@@ -39,7 +123,7 @@
     border-radius: 50%;
 
     background: #7fc6c9;
-    border: 2px solid #fff;
+    border: 2px solid var(--audio-thumb-border);
 
     box-shadow: 0 2px 6px rgba(95, 168, 184, 0.3);
     cursor: pointer;
@@ -57,6 +141,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: $spacing_1_6;
   }
 
   &__control,
@@ -90,5 +175,37 @@
   &__play-icon {
     width: 4.6rem;
     height: 4.6rem;
+  }
+
+  &__helper {
+    display: flex;
+    align-items: center;
+    gap: $spacing_0_6;
+    @include themify($themes, "color", "color_66768d_c1d7e0");
+
+    p {
+      margin: 0;
+      font-size: $font_size_1_6;
+      line-height: $line_height_2_2;
+    }
+  }
+
+  @media screen and (max-width: $screen-md) {
+    padding: $spacing_1_6;
+
+    &__title {
+      font-size: $font_size_2_0;
+      line-height: $line_height_2_4;
+    }
+
+    &__subtitle {
+      font-size: $font_size_1_2;
+      line-height: $line_height_1_8;
+    }
+
+    &__header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
 }

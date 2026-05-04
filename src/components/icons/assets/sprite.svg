@@ -1663,4 +1663,12 @@
     <rect x="36" y="18" width="5" height="28" rx="2.5" fill="#4F93A6"/>
   </svg>
 
+  <svg id='icon-headphones' viewBox="0 0 64 64" fill="none"
+    xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 36V31C18 23.268 24.268 17 32 17C39.732 17 46 23.268 46 31V36" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+    <rect x="13" y="34" width="10" height="16" rx="5" fill="currentColor"/>
+    <rect x="41" y="34" width="10" height="16" rx="5" fill="currentColor"/>
+    <path d="M23 42V51" stroke="currentColor" stroke-width="4" stroke-linecap="round" />
+    <path d="M41 42V51" stroke="currentColor" stroke-width="4" stroke-linecap="round" />
+  </svg>
 </svg>
