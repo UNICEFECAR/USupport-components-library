@@ -2,21 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import "./mood-track-details.scss";
-import {
-  moodTrackHappy,
-  moodTrackGood,
-  moodTrackSad,
-  moodTrackDepressed,
-  moodTrackWorried,
-} from "../../../assets";
-
-const moodImages = {
-  happy: moodTrackHappy,
-  good: moodTrackGood,
-  sad: moodTrackSad,
-  depressed: moodTrackDepressed,
-  worried: moodTrackWorried,
-};
+import { Emoticon } from "../../icons/Emoticon";
 
 /**
  * MoodTrackDetails
@@ -25,17 +11,14 @@ const moodImages = {
  *
  * @return {jsx}
  */
-export const MoodTrackDetails = ({ mood, t }) => {
+export const MoodTrackDetails = ({ mood, t, emoticonSize = "lg" }) => {
   return (
     <div className="mood-track-details">
       <div className="mood-track-details__subheading-container">
         <p className="text">{t("you_felt")}</p>
-        <img
-          src={moodImages[mood.mood]}
-          alt={mood.mood}
-          className="mood-track-details__subheading-container__emoticon"
-          style={{ width: "2.4rem", height: "2.4rem" }}
-        />
+        <span className="mood-track-details__subheading-container__emoticon">
+          <Emoticon name={`emoticon-${mood.mood}`} size={emoticonSize} />
+        </span>
         <p className="text">
           {t(mood.mood)} {t("comment_text")}
         </p>
@@ -60,4 +43,9 @@ MoodTrackDetails.propTypes = {
    * Translation function
    */
   t: PropTypes.func.isRequired,
+
+  /*
+   * Emoticon sprite size — align with MoodTrackHistory legend (narrow: sm, else lg).
+   */
+  emoticonSize: PropTypes.oneOf(["xs", "sm", "lg"]),
 };
