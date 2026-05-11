@@ -4,15 +4,12 @@
   text-align: justify;
   white-space: pre-wrap;
   font-family: Inter;
+  @include themify($themes, "color", "color_text_main");
 
   .markdown-link {
     color: $color_primary_20809e;
     text-decoration: underline;
     font-weight: $font_semi_bold;
-  }
-
-  & li {
-    // @include themify($themes, "color", "color_66768d_c1d7e0");
   }
 
   & p {
@@ -21,6 +18,47 @@
     &:last-child {
       margin-bottom: 0;
     }
+  }
+
+  & ul,
+  & ol {
+    display: block;
+    white-space: normal;
+    text-align: start;
+    list-style-position: outside;
+    padding-inline-start: 1.5em;
+    margin: 0 0 1rem;
+  }
+
+  & ul {
+    list-style-type: disc;
+  }
+
+  & ol {
+    list-style-type: decimal;
+  }
+
+  & li {
+    display: list-item;
+    white-space: normal;
+    text-align: start;
+    margin-bottom: 0.25em;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  & li > p {
+    margin-bottom: 0.5em;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  & li::marker {
+    @include themify($themes, "color", "color_text_main");
   }
 
   table {
