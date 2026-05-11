@@ -10,3 +10,4 @@ export * from "./theme-context.js";
 export * from "./replaceLanguageInUrl.js";
 export * from "./generateVisitorId.js";
 export * from "./scrollLock.js";
+export * from "./getBrandingLogoUrl.js";

@@ -1,4 +1,9 @@
-import React, { useContext } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
@@ -9,7 +14,9 @@ import { Grid } from "../../grids/Grid/Grid";
 import { GridItem } from "../../grids/GridItem/GridItem";
 import { Like } from "../../icons/Like/Like";
 import { NewButton } from "../../buttons";
-import { ThemeContext } from "../../../utils";
+import { ThemeContext, getBrandingLogoUrl } from "../../../utils";
+
+import { useEventListener } from "#hooks";
 
 import "./card-media-video.scss";
 
@@ -46,9 +53,41 @@ export const CardMediaVideo = ({
   handlePlay,
   t,
   style,
+  countryCode,
   ...props
 }) => {
   const { theme } = useContext(ThemeContext);
+
+  const readCountryFromStorage = useCallback(
+    () =>
+      typeof localStorage !== "undefined"
+        ? localStorage.getItem("country") || "KZ"
+        : "KZ",
+    [],
+  );
+
+  const [syncedCountry, setSyncedCountry] = useState(readCountryFromStorage);
+
+  const onCountryChanged = useCallback(() => {
+    setSyncedCountry(readCountryFromStorage());
+  }, [readCountryFromStorage]);
+
+  useEventListener("countryChanged", onCountryChanged);
+
+  const resolvedCountryForBranding =
+    countryCode !== undefined ? countryCode : syncedCountry;
+
+  const brandingFallbackUrl = useMemo(
+    () =>
+      getBrandingLogoUrl({
+        theme,
+        countryCode: resolvedCountryForBranding,
+      }),
+    [theme, resolvedCountryForBranding],
+  );
+
+  const displayImageSrc = image || brandingFallbackUrl;
+  const isBrandingFallback = !image;
 
   const isPodcastContent =
     contentType === "podcasts" || contentType === "podcast";
@@ -125,11 +164,18 @@ export const CardMediaVideo = ({
       onClick={onClick}
       liquidGlass
     >
-      <div className="card-media-video__image-container">
+      <div
+        className={classNames("card-media-video__image-container", {
+          "card-media-video__image-container--branding-fallback":
+            isBrandingFallback,
+        })}
+      >
         <img
-          className="card-media-video__image"
-          src={image ? image : "https://picsum.photos/343/400"}
-          alt="card-media-video"
+          className={classNames("card-media-video__image", {
+            "card-media-video__image--branding-fallback": isBrandingFallback,
+          })}
+          src={displayImageSrc}
+          alt={isBrandingFallback ? "Logo" : title || "card-media-video"}
           onClick={
             isPodcastContent
               ? (e) => {
@@ -369,6 +415,11 @@ CardMediaVideo.propTypes = {
    * Function to handle play action for videos and podcasts
    * */
   handlePlay: PropTypes.func,
+
+  /**
+   * Country code for fallback branding image (defaults to localStorage country)
+   **/
+  countryCode: PropTypes.string,
 
   /**
    * Additional classes to be added to the CardMedia component
