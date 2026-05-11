@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Block } from "../Block/Block";
 import { Grid } from "../../grids/Grid/Grid";
 import { GridItem } from "../../grids/GridItem/GridItem";
-import { Button } from "../../buttons/Button/Button";
+import { NewButton } from "../../buttons/Button/NewButton";
 import { RadialCircle } from "../../radials/RadialCircle/RadialCircle";
 
 import "./not-found.scss";
@@ -29,9 +29,10 @@ export const NotFound = ({
         <GridItem md={6} lg={6} classes="not-found__content-item">
           <h3>{headingText}</h3>
           <p className="text not-found__content-item__text">{subheadingText}</p>
-          <Button
+          <NewButton
             label={buttonText}
             size="lg"
+            isFullWidth
             onClick={handleClick ? handleClick : () => {}}
           />
         </GridItem>
