@@ -975,7 +975,7 @@ export const Navbar = ({
         } else {
           window.location.href = `/client/${localStorage.getItem(
             "language",
-          )}/register-preview`;
+          )}/dashboard`;
         }
         scrollTop();
       }}
