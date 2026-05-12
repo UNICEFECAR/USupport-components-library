@@ -90,6 +90,12 @@
     background-color: rgba(255, 255, 255, 0.05);
   }
 
+  & img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
   & blockquote {
     margin: 1.5rem 0;
     padding: 1rem 1.5rem;
