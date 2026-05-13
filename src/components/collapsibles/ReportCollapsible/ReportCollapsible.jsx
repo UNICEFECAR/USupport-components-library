@@ -120,7 +120,7 @@ export const ReportCollapsible = ({
             </div>
           );
         })}
-        {width >= 900 && headingItems.length === 3 ? (
+        {width >= 900 && headingItems.length === 3 && canCollapse ? (
           <div className="report-collapsible__grid__item report-collapsible__grid__item--xs">
             <Icon
               name="arrow-chevron-down"
