@@ -397,6 +397,14 @@ async function updateClientHasCheckedBaselineAssessment(
   return response;
 }
 
+async function createOrganizationReport(organizationId, payload) {
+  const response = await http.post(
+    `${API_ENDPOINT}/organization/${organizationId}/report`,
+    payload,
+  );
+  return response.data;
+}
+
 async function getPersonalizedOrganizations() {
   const response = await http.get(`${API_ENDPOINT}/organization/personalized`);
   return response;
@@ -442,6 +450,7 @@ const exportedFunctions = {
   getOrganizationById,
   getOrganizationSpecializations,
   sendPlatformSuggestion,
+  createOrganizationReport,
   addSOSCenterClick,
   addBaselineAssessmentAnswer,
   getLatestBaselineAssessment,
