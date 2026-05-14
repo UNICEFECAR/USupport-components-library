@@ -5,6 +5,8 @@ const API_ENDPOINT_COUNTRIES_FAQ = API_ENDPOINT + "/country/faqs";
 const API_ENDPOINT_COUNTRIES_SOS_CENTERS =
   API_ENDPOINT + "/country/sos-centers";
 const API_ENDPOINT_COUNTRIES_ARTICLES = API_ENDPOINT + "/country/articles";
+const API_ENDPOINT_COUNTRIES_PINNED_ARTICLES =
+  API_ENDPOINT + "/country/pinned-articles";
 const API_ENDPOINT_COUNTRIES_VIDEOS = API_ENDPOINT + "/country/videos";
 const API_ENDPOINT_COUNTRIES_PODCASTS = API_ENDPOINT + "/country/podcasts";
 const API_ENDPOINT_BASELINE_ASSESSMENT = API_ENDPOINT + "/baseline-assessment";
@@ -233,6 +235,35 @@ async function putArticle(id) {
  */
 async function deleteArticle(id) {
   const response = await http.delete(`${API_ENDPOINT_COUNTRIES_ARTICLES}`, {
+    data: { id: id },
+  });
+  return response;
+}
+
+/**
+ *
+ * @returns {promise} array of pinned article ids for the current country header
+ *
+ */
+async function getPinnedArticles() {
+  const response = await http.get(API_ENDPOINT_COUNTRIES_PINNED_ARTICLES);
+  return response.data;
+}
+
+/**
+ *
+ * @param {string} id locale-specific article document id (Strapi) to pin
+ *
+ */
+async function putPinnedArticle(id) {
+  const response = await http.put(API_ENDPOINT_COUNTRIES_PINNED_ARTICLES, {
+    id: id,
+  });
+  return response;
+}
+
+async function deletePinnedArticle(id) {
+  const response = await http.delete(API_ENDPOINT_COUNTRIES_PINNED_ARTICLES, {
     data: { id: id },
   });
   return response;
@@ -672,6 +703,7 @@ async function getPlayAndHealVisits() {
 const exportedFunctions = {
   createAdmin,
   deleteArticle,
+  deletePinnedArticle,
   deleteAdminById,
   deleteFAQ,
   deleteSOSCenters,
@@ -682,6 +714,7 @@ const exportedFunctions = {
   getGlobalStatistics,
   getCountryStatistics,
   getArticles,
+  getPinnedArticles,
   getData,
   getDataById,
   getFAQs,
@@ -691,6 +724,7 @@ const exportedFunctions = {
   login,
   logout,
   putArticle,
+  putPinnedArticle,
   putFAQ,
   putSOSCenters,
   putVideo,
