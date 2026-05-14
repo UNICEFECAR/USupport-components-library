@@ -5,6 +5,8 @@ const API_ENDPOINT_COUNTRIES_FAQ = API_ENDPOINT + "/country/faqs";
 const API_ENDPOINT_COUNTRIES_SOS_CENTERS =
   API_ENDPOINT + "/country/sos-centers";
 const API_ENDPOINT_COUNTRIES_ARTICLES = API_ENDPOINT + "/country/articles";
+const API_ENDPOINT_COUNTRIES_PINNED_ARTICLES =
+  API_ENDPOINT + "/country/pinned-articles";
 const API_ENDPOINT_COUNTRIES_VIDEOS = API_ENDPOINT + "/country/videos";
 const API_ENDPOINT_COUNTRIES_PODCASTS = API_ENDPOINT + "/country/podcasts";
 const API_ENDPOINT_BASELINE_ASSESSMENT = API_ENDPOINT + "/baseline-assessment";
@@ -207,6 +209,11 @@ async function deleteSOSCenters(id) {
  */
 async function getArticles() {
   const response = await http.get(`${API_ENDPOINT_COUNTRIES_ARTICLES}`);
+  return response.data;
+}
+
+async function getPinnedArticles() {
+  const response = await http.get(`${API_ENDPOINT_COUNTRIES_PINNED_ARTICLES}`);
   return response.data;
 }
 
@@ -675,6 +682,7 @@ const exportedFunctions = {
   getGlobalStatistics,
   getCountryStatistics,
   getArticles,
+  getPinnedArticles,
   getData,
   getDataById,
   getFAQs,
