@@ -5,7 +5,7 @@ import OutsideClickHandler from "react-outside-click-handler";
 import { Loading } from "../../loaders";
 import { Icon } from "../../icons/Icon";
 import { InputSearch } from "../../inputs";
-import { Button } from "../../buttons";
+import { NewButton } from "../../buttons";
 import { Label } from "../../labels";
 
 import "./base-table.scss";
@@ -358,27 +358,30 @@ export const BaseTable = ({
           )}
           <div className="table__container__search-container__buttons-container">
             {buttonLabel && (
-              <Button
+              <NewButton
                 label={buttonLabel}
-                color="purple"
-                type="secondary"
+                type="outline"
+                size="md"
                 onClick={buttonAction}
                 disabled={isButtonDisabled}
               />
             )}
             {secondaryButtonLabel && (
-              <Button
+              <NewButton
                 label={secondaryButtonLabel}
-                color="purple"
+                type="gradient"
+                size="md"
+                iconName="filter"
                 onClick={secondaryButtonAction}
                 disabled={isSecondaryButtonDisabled}
               />
             )}
           </div>
           {thirdButtonLabel && (
-            <Button
+            <NewButton
               label={thirdButtonLabel}
-              color="purple"
+              type="gradient"
+              size="md"
               onClick={thirdButtonAction}
               classes="table__container__search-container__third-button"
             />
