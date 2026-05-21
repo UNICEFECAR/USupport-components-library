@@ -12,7 +12,14 @@ import "./action-row.scss";
  *
  * @return {jsx}
  */
-export const ActionRow = ({ iconName, label, description, onClick, isDanger }) => (
+export const ActionRow = ({
+  iconName,
+  label,
+  description,
+  onClick,
+  isDanger,
+  iconSize,
+}) => (
   <button
     type="button"
     className={["action-row", isDanger ? "action-row--danger" : ""].join(" ")}
@@ -22,7 +29,7 @@ export const ActionRow = ({ iconName, label, description, onClick, isDanger }) =
       <div className="action-row__icon">
         <Icon
           name={iconName}
-          size="md"
+          size={iconSize}
           color={isDanger ? "#eb5757" : "#9749fa"}
         />
       </div>
@@ -45,10 +52,12 @@ ActionRow.propTypes = {
   description: PropTypes.string,
   onClick: PropTypes.func.isRequired,
   isDanger: PropTypes.bool,
+  iconSize: PropTypes.oneOf(["sm", "md", "lg", "xl"]),
 };
 
 ActionRow.defaultProps = {
   description: null,
   isDanger: false,
+  iconSize: "md",
 };
 
