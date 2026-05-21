@@ -4,7 +4,6 @@
   width: 100%;
   position: relative;
   box-sizing: border-box;
-  isolation: isolate;
   display: flex;
   flex-direction: row;
 }
@@ -16,7 +15,6 @@
   gap: $spacing_0_8;
   width: 100%;
   box-sizing: border-box;
-  contain: layout style;
 
   .tab-arrow {
     display: flex;
@@ -26,16 +24,33 @@
     height: 32px;
     cursor: pointer;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    transition: all 0.2s ease-in-out;
+    background-color: $color_white_ff;
+    border: 1px solid #cdd8e1;
+    box-shadow: 0 1px 3px rgba(14, 32, 47, 0.06);
+    transition:
+      background-color 0.15s ease,
+      border-color 0.15s ease;
     flex-shrink: 0;
     z-index: 1;
-    margin-bottom: $spacing_1_2;
+
+    @include themify($themes, "background-color", "color_white_ff");
+    @include themify($themes, "border-color", "color_gray_ea");
+
+    .theme-dark &,
+    .theme-highContrast & {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(193, 215, 224, 0.25);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
 
     &:hover:not(&--disabled) {
-      background-color: rgba(255, 255, 255, 0.9);
-      border-color: rgba(0, 0, 0, 0.2);
+      border-color: rgba(106, 79, 251, 0.35);
+
+      .theme-dark &,
+      .theme-highContrast & {
+        background: rgba(255, 255, 255, 0.12);
+        border-color: rgba(151, 73, 250, 0.55);
+      }
     }
 
     &--disabled {
@@ -43,8 +58,12 @@
       opacity: 0.3;
 
       &:hover {
-        background-color: rgba(255, 255, 255, 0.8);
-        border-color: rgba(0, 0, 0, 0.1);
+        border-color: #cdd8e1;
+
+        .theme-dark &,
+        .theme-highContrast & {
+          border-color: rgba(193, 215, 224, 0.25);
+        }
       }
     }
 
@@ -60,13 +79,13 @@
   .tabs-container {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
     overflow-x: auto;
     overflow-y: hidden;
     gap: $spacing_0_8;
     flex: 1;
     min-width: 0;
-    padding-bottom: $spacing_1_2;
     scroll-behavior: smooth;
 
     scrollbar-width: none;
@@ -77,72 +96,79 @@
     }
 
     .tab {
-      padding: $spacing_0_4 $spacing_2_4;
+      appearance: none;
+      margin: 0;
       cursor: pointer;
+      border: 1px solid #cdd8e1;
+      background: $color_white_ff;
+      border-radius: $border_radius_1_2;
+      padding: $spacing_0_8 $spacing_1_6;
+      font-family: inherit;
+      font-size: 1.4rem;
+      line-height: 1.25;
+      color: #0e202f;
       flex-shrink: 0;
       min-width: fit-content;
       max-width: 200px;
-      margin: 0.2rem;
-      @include themifyCustom($themes, "color", "#6989A4", "color_gray_a6b4b8");
-
-      border-radius: $border_radius_1_2;
       transition:
-        transform 200ms ease,
-        box-shadow 200ms ease,
-        border-color 200ms ease,
-        background 200ms ease;
+        background-color 0.15s ease,
+        border-color 0.15s ease,
+        color 0.15s ease,
+        box-shadow 0.15s ease;
+      box-shadow: 0 1px 3px rgba(14, 32, 47, 0.06);
 
-      @include themifyNormal($themes) {
-        background: themed(glass_panel_background);
-        border: 1.5px solid themed(glass_border_color);
-        box-shadow: themed(glass_shadow);
+      @include themify($themes, "background-color", "color_white_ff");
+      @include themify($themes, "border-color", "color_gray_ea");
+      @include themify($themes, "color", "color_3d527b_white");
+
+      .theme-dark &,
+      .theme-highContrast & {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(193, 215, 224, 0.2);
+        color: rgba(193, 215, 224, 0.85);
+        box-shadow: none;
       }
 
-      backdrop-filter: blur(10px) saturate(1.12);
-      -webkit-backdrop-filter: blur(10px) saturate(1.12);
+      &:hover:not(:disabled):not(&--inactive):not(&--selected) {
+        border-color: rgba(106, 79, 251, 0.35);
 
-      &:hover:not(&--inactive) {
-        transform: translateY(-1px);
-
-        @include themifyNormal($themes) {
-          background: themed(glass_card_background);
-          border-color: themed(glass_border_color);
-          box-shadow:
-            0 0 0 1px rgba(255, 255, 255, 0.9),
-            themed(glass_shadow);
-        }
-
-        &::after {
-          filter: drop-shadow(0 0 8px rgba(133, 174, 255, 0.55));
+        .theme-dark &,
+        .theme-highContrast & {
+          background: rgba(255, 255, 255, 0.1);
+          border-color: rgba(151, 73, 250, 0.45);
         }
       }
 
       &--selected {
-        @include themifyCustom($themes, "color", "#0e202f", "color_text_main");
+        @include themify($themes, "background-color", "color_purple_c39af9_0_5");
+        @include themify($themes, "border-color", "color_secondary_9749fa");
+        @include themify($themes, "color", "color_purple_6a4ffb");
+        font-weight: $font_semi_bold;
+        box-shadow: 0 1px 4px rgba(106, 79, 251, 0.2);
 
-        @include themifyNormal($themes) {
-          background: themed(glass_need_box_background);
-          border-color: themed(glass_border_color);
+        .theme-dark &,
+        .theme-highContrast & {
+          background: rgba($color_secondary_9749fa, 0.38);
+          border-color: $color_purple_c39af9;
+          color: $color_purple_dac3f6;
           box-shadow:
-            0 0 0 1px rgba(255, 255, 255, 0.9),
-            themed(glass_shadow);
-        }
-
-        &:hover {
-          @include themifyNormal($themes) {
-            background: themed(glass_need_box_background);
-            border-color: themed(glass_border_color);
-          }
+            0 0 0 1px rgba($color_secondary_9749fa, 0.45),
+            0 0.2rem 0.8rem rgba($color_secondary_9749fa, 0.35);
         }
       }
 
-      &--inactive {
+      &--inactive,
+      &:disabled {
         cursor: not-allowed;
-        opacity: 0.2;
+        opacity: 0.4;
 
         &:hover {
-          background-color: inherit;
-          border-color: inherit;
+          border-color: #cdd8e1;
+
+          .theme-dark &,
+          .theme-highContrast & {
+            border-color: rgba(193, 215, 224, 0.2);
+          }
         }
       }
 
@@ -150,6 +176,8 @@
         white-space: nowrap;
         margin: 0;
         font-size: inherit;
+        font-weight: inherit;
+        color: inherit;
         overflow: hidden;
         text-overflow: ellipsis;
 
@@ -170,7 +198,7 @@
 
     .tabs-container {
       .tab {
-        padding: $spacing_0_4 $spacing_1_6;
+        padding: $spacing_0_8 $spacing_1_2;
         max-width: 150px;
       }
     }
@@ -186,7 +214,6 @@
 
     .tabs-container {
       .tab {
-        padding: $spacing_0_4 $spacing_1_2;
         max-width: 120px;
       }
     }

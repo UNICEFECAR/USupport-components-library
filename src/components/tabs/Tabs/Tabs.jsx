@@ -6,7 +6,7 @@ import "./tabs.scss";
 /**
  * Tabs
  *
- * Tabs component with horizontal scroll
+ * Pill-style tabs with horizontal scroll when overflowing.
  *
  * @return {jsx}
  */
@@ -99,23 +99,29 @@ export const Tabs = ({ options, handleSelect, t = () => {}, classes }) => {
     if (!Array.isArray(options)) return null;
 
     return options.map((option, index) => (
-      <div
+      <button
+        type="button"
+        role="tab"
+        aria-selected={Boolean(option.isSelected)}
+        disabled={Boolean(option.isInactive)}
         className={[
           "tab",
           option.isSelected ? "tab--selected" : "",
           option.isInactive ? "tab--inactive" : "",
-        ].join(" ")}
-        onClick={option.isInactive ? undefined : () => handleOnSelect(index)}
-        key={index}
+        ]
+          .filter(Boolean)
+          .join(" ")}
+        onClick={() => handleOnSelect(index)}
+        key={option.value ?? index}
       >
-        <p className="paragraph">{option.label}</p>
-      </div>
+        <span className="paragraph">{option.label}</span>
+      </button>
     ));
   };
 
   return (
     <div
-      className={`tabs-wrapper ${IS_RTL ? "tabs-wrapper--rtl" : ""} ${classes}`}
+      className={`tabs-wrapper ${IS_RTL ? "tabs-wrapper--rtl" : ""} ${classes || ""}`}
     >
       <div className="tabs">
         {isOverflowing && (
@@ -134,6 +140,7 @@ export const Tabs = ({ options, handleSelect, t = () => {}, classes }) => {
           className="tabs-container"
           ref={scrollContainerRef}
           dir={IS_RTL ? "rtl" : "ltr"}
+          role="tablist"
         >
           {renderOptions()}
         </div>
