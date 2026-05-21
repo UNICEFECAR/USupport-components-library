@@ -83,6 +83,7 @@ export const Navbar = ({
   handleLogout,
   openRegistrationModal,
   renderNotificationsContent,
+  profileOverviewPath,
 }) => {
   const { theme, setTheme } = useContext(ThemeContext);
 
@@ -207,6 +208,21 @@ export const Navbar = ({
     ((renderIn === "client" || renderIn === "provider") &&
       currentUrl.endsWith("/consultation")) ||
     currentUrl.endsWith("/jitsi");
+
+  /** Matches NavLink/menu base: marketing site URLs omit the `website` segment. */
+  const localizedAppHref = (pathSuffix) =>
+    `${
+      renderIn === "website" ? "" : `/${renderIn}`
+    }/${localStorage.getItem("language")}${pathSuffix}`;
+
+  /**
+   * "Edit profile" / overview route suffix (leading slash).
+   * Default: `/profile/details` (provider SPA), `/details` (client SPA, admin, …).
+   * Pass `profileOverviewPath` only if your app differs.
+   */
+  const overviewPath =
+    profileOverviewPath ??
+    (renderIn === "provider" ? "/profile/details" : "/details");
 
   const handleNavbarLinkClick = (page) => {
     if (isTmpUser && page.url === "/consultations") {
@@ -387,11 +403,11 @@ export const Navbar = ({
       closePageDropdown();
     } else {
       // On mobile, navigate to profile details
-      const url = `/${renderIn}/${localStorage.getItem("language")}/details`;
+      const url = localizedAppHref(overviewPath);
       if (isInConsultation) {
         window.open(url, "_blank");
       } else {
-        navigate(`/${renderIn}/${localStorage.getItem("language")}/details`);
+        navigate(url);
       }
     }
   };
@@ -427,7 +443,7 @@ export const Navbar = ({
                 classes="nav__profile__logout-icon"
                 name="exit"
                 size="md"
-                onClick={handleLogout}
+                onClick={() => handleLogout?.()}
               />
             </div>
           </div>
@@ -453,6 +469,39 @@ export const Navbar = ({
         const url = `${
           renderIn === "website" ? "" : `/${renderIn}`
         }/${localStorage.getItem("language")}${page.url}`;
+
+        if (page.externalHref) {
+          items.push({
+            value: (
+              <div
+                className="nav__item"
+                role="button"
+                tabIndex="0"
+                onClick={() => {
+                  window.open(
+                    page.externalHref,
+                    "_blank",
+                    "noopener,noreferrer",
+                  );
+                }}
+              >
+                <div className="nav__item__content">
+                  {page.icon && (
+                    <Icon
+                      name={page.icon}
+                      size="md"
+                      classes="nav__item__icon"
+                      color={theme === "light" ? "#20809e" : "#ffffff"}
+                    />
+                  )}
+                  <p>{page.name}</p>
+                </div>
+              </div>
+            ),
+            onClick: scrollTop,
+          });
+          return;
+        }
 
         items.push({
           value:
@@ -553,7 +602,10 @@ export const Navbar = ({
       if (group.hasAccessibilityController) {
         hasGroupWithControls = true;
         hasGroupWithAccessibilityController = true;
-        const shouldRender = renderIn === "client" || renderIn === "website";
+        const shouldRender =
+          renderIn === "client" ||
+          renderIn === "website" ||
+          renderIn === "provider";
         if (shouldRender) {
           items.push({
             value: (
@@ -996,14 +1048,9 @@ export const Navbar = ({
       setCountriesShown(false);
       closePageDropdown();
     } else if (isInConsultation) {
-      window.open(
-        `/${renderIn}/${localStorage.getItem("language")}/notifications`,
-        "_blank",
-      );
+      window.open(localizedAppHref("/notifications"), "_blank");
     } else {
-      navigate(
-        `/${renderIn}/${localStorage.getItem("language")}/notifications`,
-      );
+      navigate(localizedAppHref("/notifications"));
     }
   };
 
@@ -1154,7 +1201,10 @@ export const Navbar = ({
   };
 
   const renderAccessibilityController = () => {
-    const shouldRender = renderIn === "client" || renderIn === "website";
+    const shouldRender =
+      renderIn === "client" ||
+      renderIn === "website" ||
+      renderIn === "provider";
 
     if (shouldRender) {
       return (
@@ -1211,12 +1261,13 @@ export const Navbar = ({
   const handleRedirect = (redirectTo) => {
     if (
       (redirectTo === "/details" ||
+        redirectTo === "/profile/details" ||
         redirectTo === "/notification-preferences") &&
       isTmpUser
     ) {
-      openRegistrationModal();
+      openRegistrationModal?.();
     } else {
-      navigate(`/${renderIn}/${localStorage.getItem("language")}${redirectTo}`);
+      navigate(localizedAppHref(redirectTo));
     }
   };
 
@@ -1261,7 +1312,7 @@ export const Navbar = ({
                 <p className="nav__profile__name">{clientName || "Guest"}</p>
                 <p
                   className="nav__profile__edit"
-                  onClick={() => handleRedirect("/details")}
+                  onClick={() => handleRedirect(overviewPath)}
                 >
                   {t("edit_profile")}
                 </p>
@@ -1283,6 +1334,50 @@ export const Navbar = ({
               const url = `${
                 renderIn === "website" ? "" : `/${renderIn}`
               }/${localStorage.getItem("language")}${page.url}`;
+
+              if (page.externalHref) {
+                return (
+                  <div
+                    key={page.externalHref || page.url}
+                    className="nav__profile-dropdown-item"
+                    role="button"
+                    tabIndex="0"
+                    onClick={() => {
+                      window.open(
+                        page.externalHref,
+                        "_blank",
+                        "noopener,noreferrer",
+                      );
+                      setProfileDropdownShown(false);
+                      scrollTop();
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        window.open(
+                          page.externalHref,
+                          "_blank",
+                          "noopener,noreferrer",
+                        );
+                        setProfileDropdownShown(false);
+                        scrollTop();
+                      }
+                    }}
+                  >
+                    <div className="nav__profile-dropdown-item__content">
+                      {page.icon && (
+                        <Icon
+                          name={page.icon}
+                          size="md"
+                          classes="nav__profile-dropdown-item__icon"
+                          color={theme === "light" ? "#20809e" : "#ffffff"}
+                        />
+                      )}
+                      <p>{page.name}</p>
+                    </div>
+                  </div>
+                );
+              }
 
               return (
                 <NavLink
@@ -1329,13 +1424,13 @@ export const Navbar = ({
           <div className="nav__profile-dropdown-footer">
             <div
               className="nav__profile-dropdown-item nav__profile-dropdown-item--logout"
-              onClick={handleLogout}
+              onClick={() => handleLogout?.()}
               role="button"
               tabIndex="0"
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault();
-                  handleLogout();
+                  handleLogout?.();
                 }
               }}
             >
