@@ -110,8 +110,8 @@ export const ProviderAvailability = ({
   const menuFirstText = consultation
     ? t("cancel")
     : !isAvailable || !hasNormalSlot
-    ? t("set_available")
-    : t("set_not_available");
+      ? t("set_available")
+      : t("set_not_available");
   const menuSecondText = consultation
     ? isPast
       ? t("consultation_details")
@@ -121,20 +121,23 @@ export const ProviderAvailability = ({
   const menuFirstIcon = consultation
     ? "close-x"
     : !isAvailable || !hasNormalSlot
-    ? "circle-actions-success"
-    : "circle-close";
+      ? "circle-actions-success"
+      : "circle-close";
   const menuSecondIcon = consultation ? "person" : "share-front";
 
   const numberOfCampaignsSetAsAvailable =
     !consultation &&
     validCampaigns?.filter((campaign) => {
       return enrolledCampaignsForSlot?.some(
-        (x) => x.campaignId === campaign.campaignId
+        (x) => x.campaignId === campaign.campaignId,
       );
     })?.length;
 
   const hasNormalSlotItem =
     !(consultation && isPast) && (countryHasNormalSlots || hasNormalSlot);
+
+  // Check if slot is in the past and has no availability
+  const isPastWithNoAvailability = isDisabled && !consultation && !isAvailable;
 
   return (
     <div
@@ -144,12 +147,15 @@ export const ProviderAvailability = ({
         isAvailable === "campaign"
           ? "provider-availability--campaign"
           : isAvailable
-          ? "provider-availability--available"
-          : "provider-availability--unavailable",
+            ? "provider-availability--available"
+            : "provider-availability--unavailable",
         consultation ? "provider-availability--booked" : "",
         isBookedWithCoupon ? "provider-availability--coupon" : "",
         isLive ? "provider-availability--live" : "",
         isDisabled ? "provider-availability--disabled" : "",
+        isPastWithNoAvailability
+          ? "provider-availability--past-no-availability"
+          : "",
         classNames(classes),
       ].join(" ")}
       onClick={() => {
@@ -246,7 +252,7 @@ export const ProviderAvailability = ({
               </span>
             </p>
           )}
-        {width >= 1200 && (
+        {width >= 1200 && !isPastWithNoAvailability && (
           <div className="provider-availability__icon-container">
             <Icon name="three-dots-vertical" color="#20809E" />
           </div>
@@ -312,13 +318,13 @@ export const ProviderAvailability = ({
                 className={classNames(
                   "provider-availability__controls__campaign",
                   hasNormalSlotItem &&
-                    "provider-availability__controls__campaign--border"
+                    "provider-availability__controls__campaign--border",
                 )}
               >
                 {validCampaigns.map((campaign) => {
                   const isCampaignAvailableInSlot =
                     enrolledCampaignsForSlot?.some(
-                      (x) => x.campaignId === campaign.campaignId
+                      (x) => x.campaignId === campaign.campaignId,
                     );
                   return (
                     <div
@@ -357,7 +363,7 @@ export const ProviderAvailability = ({
                   ((!IS_KZ_COUNTRY && validCampaigns?.length > 0) ||
                     (hasNormalSlotItem && validCampaigns?.length === 0) ||
                     (hasNormalSlot && IS_KZ_COUNTRY)) &&
-                    "provider-availability__controls__organization--border"
+                    "provider-availability__controls__organization--border",
                 )}
               >
                 {organizations.map((organization) => {

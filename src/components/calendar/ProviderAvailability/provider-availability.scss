@@ -112,7 +112,8 @@
   }
 
   &--unavailable {
-    background-color: $color_gray_ea;
+    // background-color: $color_gray_ea;
+    background-color: #f4f7fe;
 
     &--active {
       border-color: $color_secondary_9749fa;
@@ -125,7 +126,6 @@
 
   &--booked {
     background-color: $color_white_ff;
-    border-color: $color_green_c1eaea;
 
     &--active,
     &:hover,
@@ -286,7 +286,7 @@
 
   &__controls {
     align-items: center;
-    background-color: $color_white_ff;
+    @include themify($themes, "background-color", "color_white_ff");
     border-radius: $border_radius_0_8;
     border: 1px solid $color_primary_20809e;
     // bottom: -5rem;
@@ -315,6 +315,15 @@
         border-top: 1px solid $color_gray_344054;
         padding-top: 1.2rem;
         margin-top: 1.2rem;
+      }
+    }
+
+    &__organization {
+      border-radius: $border_radius_0_8;
+      padding: $spacing_1_0;
+
+      &--border {
+        padding-top: $spacing_1_2;
       }
     }
 
@@ -392,5 +401,128 @@
   &__suggested-label {
     margin: 0 auto;
     color: $color_blue_2a54bc;
+  }
+
+  &--past-no-availability {
+    background-color: $color_white_ff;
+    border-color: #f0f3f6;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 150%;
+      height: 1px;
+      background-color: rgba(0, 0, 0, 0.08);
+      transform: rotate(45deg);
+      transform-origin: top left;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    &:hover {
+      & .provider-availability__available-text {
+        visibility: hidden !important;
+      }
+
+      border-color: #f0f3f6 !important;
+      box-shadow: $shadow_1 !important;
+    }
+  }
+
+  .theme-dark &,
+  .theme-highContrast & {
+    box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.45);
+
+    & > p {
+      color: #a6b4b8;
+    }
+
+    &.provider-availability--available,
+    &.provider-availability--campaign {
+      background-color: #152a35 !important;
+      border-color: rgba(32, 128, 158, 0.55) !important;
+
+      & > p {
+        color: #c1d7e0;
+      }
+    }
+
+    &.provider-availability--unavailable {
+      background-color: #121a22 !important;
+      border-color: rgba(193, 215, 224, 0.12) !important;
+    }
+
+    &.provider-availability--booked,
+    &.provider-availability--coupon {
+      background-color: #0f1c26 !important;
+      border-color: rgba(32, 128, 158, 0.35) !important;
+    }
+
+    &.provider-availability--coupon {
+      border-color: rgba(32, 128, 158, 0.45) !important;
+    }
+
+    &.provider-availability--past-no-availability {
+      background-color: #0d151c !important;
+      border-color: rgba(193, 215, 224, 0.08) !important;
+
+      &::before {
+        background-color: rgba(255, 255, 255, 0.06);
+      }
+
+      &:hover {
+        border-color: rgba(193, 215, 224, 0.08) !important;
+        box-shadow: none !important;
+      }
+    }
+
+    .provider-availability__name,
+    .provider-availability__content__campaign-name {
+      color: #ededed;
+    }
+
+    .provider-availability__content__price {
+      &--free .provider-availability__content__price__text {
+        color: #c1d7e0;
+      }
+
+      &--paid {
+        background-color: rgba(108, 22, 217, 0.35);
+        color: #dac3f6;
+      }
+
+      &--coupon {
+        background-color: #152a35;
+
+        .provider-availability__content__price__text {
+          color: #c1d7e0;
+        }
+      }
+    }
+
+    .provider-availability__controls {
+      background-color: #0f1c26 !important;
+      border-color: rgba(32, 128, 158, 0.45);
+      box-shadow: 0 0.6rem 1.2rem rgba(0, 0, 0, 0.5);
+    }
+
+    .provider-availability__controls__single {
+      & > p {
+        color: #a6b4b8;
+      }
+
+      &--campaign > p,
+      &--organization > p {
+        color: #ededed;
+      }
+    }
+
+    .provider-availability__suggested-label {
+      color: #8c90eb;
+    }
   }
 }
