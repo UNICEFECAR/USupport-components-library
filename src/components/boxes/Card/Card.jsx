@@ -11,7 +11,14 @@ import "./card.scss";
  *
  * @return {jsx}
  */
-export const Card = ({ children, borderColor, liquidGlass, classes }) => {
+export const Card = ({
+  children,
+  borderColor,
+  liquidGlass,
+  classes,
+  onClick,
+  ...rest
+}) => {
   return (
     <div
       className={classNames(
@@ -20,6 +27,8 @@ export const Card = ({ children, borderColor, liquidGlass, classes }) => {
         { "card--liquid-glass": liquidGlass },
         classes
       )}
+      onClick={onClick}
+      {...rest}
     >
       {children}
     </div>
@@ -34,6 +43,7 @@ Card.propTypes = {
     PropTypes.string,
     PropTypes.arrayOf(PropTypes.string),
   ]),
+  onClick: PropTypes.func,
 };
 
 Card.defaultProps = {
