@@ -66,6 +66,72 @@
   }
 }
 
+@mixin content-surface {
+  border-radius: $border_radius_1_6;
+  box-sizing: border-box;
+  background: $color_white_ff;
+  border: 1px solid rgba(205, 216, 225, 0.5);
+  box-shadow: 0 4px 24px rgba(14, 32, 47, 0.08);
+
+  @include themify($themes, "background-color", "color_white_ff");
+  @include themify($themes, "border-color", "color_gray_ea");
+
+  .theme-dark &,
+  .theme-highContrast & {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(193, 215, 224, 0.2);
+    box-shadow: 0 0.6rem 1rem rgba(0, 0, 0, 0.2);
+  }
+
+  .theme-dark &.box:not(.box--liquid-glass),
+  .theme-highContrast &.box:not(.box--liquid-glass) {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(193, 215, 224, 0.2);
+    box-shadow: 0 0.6rem 1rem rgba(0, 0, 0, 0.2);
+  }
+}
+
+@mixin content-inset-surface {
+  border-radius: $border_radius_1_2;
+  border: 1px solid rgba(205, 216, 225, 0.5);
+  background: #f8fbfe;
+
+  @include themify($themes, "background-color", "color_green_f4f7fe");
+
+  .theme-dark &,
+  .theme-highContrast & {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(193, 215, 224, 0.15);
+  }
+}
+
+@mixin content-surface-sticky-bg {
+  background-color: $color_white_ff;
+
+  @include themify($themes, "background-color", "color_white_ff");
+
+  .theme-dark &,
+  .theme-highContrast & {
+    background: rgba(15, 23, 40, 0.92);
+    backdrop-filter: blur(8px);
+  }
+}
+
+@mixin content-divider-border {
+  border-color: rgba(205, 216, 225, 0.55);
+
+  .theme-dark &,
+  .theme-highContrast & {
+    border-color: rgba(193, 215, 224, 0.15);
+  }
+}
+
+@mixin content-muted-text {
+  color: $color_gray_66768d;
+
+  @include themify($themes, "color", "color_66768d_c1d7e0");
+}
+
 @mixin card-hover-outline($border-radius) {
   position: relative;
   isolation: isolate;
