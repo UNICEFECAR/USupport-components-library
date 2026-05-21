@@ -1,10 +1,9 @@
 import React from "react";
-import PropTypes from "prop-types";
-import OutsideClickHandler from "react-outside-click-handler";
-import { Box } from "../../boxes/Box/Box";
+
+import { Card } from "../../boxes/Card";
 import { Avatar } from "../../avatars/Avatar/Avatar";
 import { Icon } from "../../icons/Icon/Icon";
-import { Button } from "../../buttons/Button/Button";
+import { NewButton } from "../../buttons";
 
 import {
   getDayOfTheWeek,
@@ -19,7 +18,7 @@ import "./client-history.scss";
 /**
  * ClientHistory
  *
- * ClientHistory card used in admin-ui
+ * ClientHistory card used in provider-ui
  *
  * @return {jsx}
  */
@@ -42,12 +41,13 @@ export const ClientHistory = ({
   image,
   providerStatus,
   t,
+  liquidGlass,
 }) => {
   let startDate, endDate, dayOfWeek, dateText, startHour, endHour;
   if (timestamp) {
     startDate = new Date(timestamp);
     endDate = new Date(
-      new Date(timestamp).setHours(new Date(timestamp).getHours() + 1)
+      new Date(timestamp).setHours(new Date(timestamp).getHours() + 1),
     );
     dayOfWeek = t(getDayOfTheWeek(startDate));
     dateText = `${dayOfWeek} ${getDateView(startDate).slice(0, 5)}`;
@@ -125,69 +125,88 @@ export const ClientHistory = ({
     handleClick();
   };
 
+  const scheduleIconColor =
+    buttonAction === "join" ? "#9749fa" : "#66768D";
+
+  const primaryDisabled =
+    (providerStatus !== "active" && buttonAction === "suggest") || suggested;
+  const primaryType = suggested ? "outline" : "gradient";
+
   return (
-    <Box
+    <Card
       classes={[
         "client-history",
         buttonAction === "join" && "client-history--live",
-      ].join(" ")}
-      shadow={2}
+      ].filter(Boolean)}
+      liquidGlass={liquidGlass}
     >
-      <div className="client-history__header">
-        <div className="client-history__header__client-container">
-          <Avatar image={imageUrl} size="sm" />
-          <div className="client-history__header__client-container__text-container">
-            <p>{name}</p>
-            <p className="small-text consultation_text">
-              {`${pastConsultations} ${t("past_consultations")}`}
+      <div className="client-history__content">
+        <Avatar image={imageUrl} size="sm" isCircle={false} />
+        <div className="client-history__content__text-container">
+          <div className="client-history__content__text-container__name-container">
+            <p className="client-history__content__text-container__name paragraph">
+              {name}
             </p>
           </div>
+          <p className="text client-history__meta">
+            {`${pastConsultations} ${t("past_consultations")}`}
+          </p>
         </div>
       </div>
-      <div className="client-history__date-container">
-        <Icon
-          name="calendar"
-          size="sm"
-          color={buttonAction === "join" ? "#9749fa" : "#66768D"}
-        />
-        <div className="client-history__date-container__text-container">
+      <div className="client-history__bottom">
+        <div className="client-history__schedule">
+          <p className="text client-history__schedule-label">
+            {t("next_consultation_label")}
+          </p>
           {startDate ? (
-            <>
-              <p className="small-text">{dateText}</p>
-              <p className="small-text">{timeText}</p>
-            </>
+            <div className="client-history__slot-container__wrapper">
+              <div className="client-history__slot-container">
+                <Icon name="calendar" size="sm" color={scheduleIconColor} />
+                <div className="client-history__slot-container__text">
+                  <p className="text">{dateText}</p>
+                </div>
+              </div>
+              <div className="client-history__slot-container">
+                <Icon name="time" size="sm" color={scheduleIconColor} />
+                <div className="client-history__slot-container__text">
+                  <p className="text">{timeText}</p>
+                </div>
+              </div>
+            </div>
           ) : (
-            <p className="small-text">{t("no_scheduled")}</p>
+            <div className="client-history__slot-container__wrapper">
+              <div className="client-history__slot-container">
+                <Icon name="calendar" size="sm" color="#66768D" />
+                <div className="client-history__slot-container__text">
+                  <p className="text">{t("no_scheduled")}</p>
+                </div>
+              </div>
+            </div>
           )}
         </div>
+        <div className="client-history__actions">
+          <NewButton
+            type="outline"
+            size="sm"
+            label={t("see_profile")}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleSeeProfile();
+            }}
+          />
+          <NewButton
+            type={primaryType}
+            size="sm"
+            label={buttonLabel}
+            disabled={primaryDisabled}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleButtonClick(buttonAction);
+            }}
+          />
+        </div>
       </div>
-      <div className="client-history__button-container">
-        <Button
-          size="sm"
-          label={buttonLabel}
-          color={
-            buttonAction === "join" || buttonAction === "none"
-              ? "purple"
-              : "green"
-          }
-          onClick={() => handleButtonClick(buttonAction)}
-          type={suggested ? "secondary" : "primary"}
-          disabled={
-            (providerStatus !== "active" && buttonAction === "suggest") ||
-            suggested
-              ? true
-              : false
-          }
-        />
-        <Button
-          size="sm"
-          type="secondary"
-          onClick={() => handleSeeProfile()}
-          label={t("see_profile")}
-          color={buttonAction === "join" ? "purple" : "green"}
-        />
-      </div>
-    </Box>
+    </Card>
   );
 };
 
@@ -203,4 +222,5 @@ ClientHistory.defaultProps = {
   suggestConsultationLabel: "Suggest consultation",
   suggestedLabel: "Suggested",
   handleClick: () => {},
+  liquidGlass: false,
 };
