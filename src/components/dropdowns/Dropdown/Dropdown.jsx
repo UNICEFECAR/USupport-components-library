@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useContext, useState } from "react";
+import React, { useRef, useContext, useState } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 import PropTypes from "prop-types";
 
@@ -29,21 +29,6 @@ export const Dropdown = ({
   const { theme } = useContext(ThemeContext);
 
   const sourceRef = useRef(null);
-  const [width, setWidth] = useState(null);
-
-  useEffect(() => {
-    const updateWidth = () => {
-      if (sourceRef.current) {
-        const width = sourceRef.current.offsetWidth;
-        setWidth(width);
-      }
-    };
-
-    updateWidth();
-
-    window.addEventListener("resize", updateWidth);
-    return () => window.removeEventListener("resize", updateWidth);
-  }, [selected]);
 
   let placeholderText = placeholder || "Select";
   if (!placeholder || placeholder === "Select") {
@@ -218,7 +203,6 @@ export const Dropdown = ({
               theme !== "light" && "dropdown-content--dark",
               isSmall ? "dropdown-content--small" : "",
             ].join(" ")}
-            style={isSmall && width ? { width: `${width - 16}px` } : {}}
           >
             <ul role="menubar" className="dropdown-content__options-container">
               {renderAllOptions()}
