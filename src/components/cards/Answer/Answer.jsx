@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { Box } from "../../boxes";
 import { Label } from "../../labels";
 import { Line } from "../../separators";
-import { Button, NewButton } from "../../buttons";
+import { NewButton } from "../../buttons";
 import { Avatar } from "../../avatars";
 import { Icon, Like } from "../../icons";
 import { ThemeContext, isDateToday } from "../../../utils";
@@ -86,8 +86,14 @@ export const Answer = ({
     event.stopPropagation();
   };
 
+  const isProviderView = renderIn === "provider";
+
   return (
-    <Box liquidGlass classes={["answer", classes]} onClick={handleCardClick}>
+    <Box
+      liquidGlass
+      classes={["answer", isProviderView && "answer--provider", classes]}
+      onClick={handleCardClick}
+    >
       {question.answerTitle ? (
         <>
           {renderIn === "client" || renderIn === "website" ? (
@@ -206,6 +212,71 @@ export const Answer = ({
                 </div>
               </div>
             </>
+          ) : renderIn === "provider" ? (
+            <>
+              <div className="answer__date-container">
+                <Icon name="calendar" color="#92989B" />
+                <p className="text answer__date-container__text">
+                  {getDateText(question.questionCreatedAt)}
+                </p>
+              </div>
+              <p className="text answer__heading-container__question-text answer__limited-text">
+                {question.question}
+              </p>
+              {question.tags && question.tags.length > 0 && (
+                <div className="answer__labels-container">
+                  {question.tags.map((label, index) => {
+                    return (
+                      <Label text={label} classes="answer__label" key={index} />
+                    );
+                  })}
+                </div>
+              )}
+              <h4 className="answer__title answer__limited-text">
+                {question.answerTitle}
+              </h4>
+              <p className="text answer__limited-text">{question.answerText}</p>
+              <div className="answer__provider-footer">
+                <div className="answer__author-likes-row">
+                  <div className="answer__answered-by-container">
+                    <p className="text">{t("answer_by")}</p>
+                    <Avatar
+                      image={AMAZON_S3_BUCKET + "/" + providerInfo?.image}
+                      alt="Specialist avatar"
+                      size="xs"
+                      classes="answer__answered-by-container__avatar"
+                    />
+                    <p className="text">
+                      {providerInfo?.name} {providerInfo?.surname}
+                    </p>
+                    <p className="text answer__bottom-container__answer-date">
+                      {t("date_answered", {
+                        date: getDateText(question.answerCreatedAt),
+                      })}
+                    </p>
+                  </div>
+                  <div onClick={stopPropagation}>
+                    <Like
+                      handleClick={handleLike}
+                      likes={question.likes}
+                      dislikes={question.dislikes}
+                      answerId={question.answerId}
+                      isLiked={question.isLiked}
+                      isDisliked={question.isDisliked}
+                    />
+                  </div>
+                </div>
+                <NewButton
+                  label={t("respond")}
+                  size="md"
+                  classes="answer__respond-button"
+                  onClick={(event) => {
+                    stopPropagation(event);
+                    handleRespond(question);
+                  }}
+                />
+              </div>
+            </>
           ) : (
             <>
               <div className="answer__heading-container">
@@ -234,8 +305,7 @@ export const Answer = ({
               </div>
               <Line classes="answer__line" />
               {renderHeadingAndLabels()}
-              {renderIn === "provider" ||
-              (renderIn === "country-admin" && question.answerText) ? (
+              {question.answerText ? (
                 <>
                   <h4 className="answer__provider-heading-text answer__limited-text">
                     {question.answerTitle}
@@ -267,36 +337,23 @@ export const Answer = ({
                   // classes="answer__read-more-button"
                 />
               </div>
-              {(renderIn === "provider" || renderIn === "country-admin") && (
-                <div className="answer__answered-by-container">
-                  <p className="text">{t("answer_by")}</p>
-                  <Avatar
-                    image={AMAZON_S3_BUCKET + "/" + providerInfo.image}
-                    alt="Specialist avatar"
-                    size="xs"
-                    classes="answer__answered-by-container__avatar"
-                  />
-                  <p className="text">
-                    {providerInfo.name} {providerInfo.surname}
-                  </p>
-                  <p className="text answer__bottom-container__answer-date">
-                    {t("date_answered", {
-                      date: getDateText(question.answerCreatedAt),
-                    })}
-                  </p>
-                </div>
-              )}
-              {renderIn === "provider" && (
-                <Button
-                  label={t("respond")}
-                  size="md"
-                  classes="answer__respond-button"
-                  onClick={(event) => {
-                    stopPropagation(event);
-                    handleRespond(question);
-                  }}
+              <div className="answer__answered-by-container">
+                <p className="text">{t("answer_by")}</p>
+                <Avatar
+                  image={AMAZON_S3_BUCKET + "/" + providerInfo.image}
+                  alt="Specialist avatar"
+                  size="xs"
+                  classes="answer__answered-by-container__avatar"
                 />
-              )}
+                <p className="text">
+                  {providerInfo.name} {providerInfo.surname}
+                </p>
+                <p className="text answer__bottom-container__answer-date">
+                  {t("date_answered", {
+                    date: getDateText(question.answerCreatedAt),
+                  })}
+                </p>
+              </div>
             </>
           )}
         </>
@@ -308,38 +365,39 @@ export const Answer = ({
               {getDateText(question.questionCreatedAt)}
             </p>
           </div>
-          <p className="text answer__question-heading answer__limited-text">
+          <h4 className="answer__title answer__limited-text">
             {question.question}
-          </p>
-          <Button
-            type="link"
-            label={t("read_more")}
-            size="md"
-            classes="answer__read-more-button"
-            onClick={(event) => {
-              stopPropagation(event);
-              handleReadMore(question);
-            }}
-          />
+          </h4>
+          {!isProviderView && (
+            <div className="answer__read-more-container">
+              <NewButton
+                label={t("read_more")}
+                onClick={(event) => {
+                  stopPropagation(event);
+                  handleReadMore(question);
+                }}
+              />
+            </div>
+          )}
           {renderIn === "provider" && (
-            <div className="answer__bottom-container">
-              <Button
+            <div className="answer__bottom-container answer__provider-actions">
+              <NewButton
                 label={t("respond")}
+                size="md"
                 onClick={(event) => {
                   stopPropagation(event);
                   handleRespond(question);
                 }}
               />
-              <Button
+              <NewButton
                 label={t("archive")}
+                type="red"
+                size="md"
+                classes="answer__bottom-container__archive-button"
                 onClick={(event) => {
                   stopPropagation(event);
                   handleArchive(question);
                 }}
-                type="secondary"
-                size="md"
-                color="red"
-                classes="answer__bottom-container__archive-button"
               />
             </div>
           )}

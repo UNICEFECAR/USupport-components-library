@@ -29,6 +29,7 @@
 
     &__question-text {
       margin-top: $spacing_0_8;
+      margin-bottom: $spacing_0_8;
     }
   }
 
@@ -223,6 +224,26 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-align: left;
+  }
+
+  &--provider {
+    flex: 1;
+    height: 100%;
+    min-height: 100%;
+
+    .answer__provider-footer,
+    .answer__provider-actions {
+      margin-top: auto;
+    }
+
+    .answer__provider-footer {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .answer__respond-button {
+      margin-top: $spacing_1_2;
+    }
   }
 }
 
