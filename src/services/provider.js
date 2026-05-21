@@ -53,6 +53,19 @@ async function getAvailabilityForWeek(startDate) {
 /**
  *
  * @param {Number} startDate - start date in milliseconds in UTC
+ * @param {String} period - period (day, week, month)
+ * @returns {array} - array of timestamps is milliseconds in UTC
+ */
+async function getAvailabilityForPeriod(startDate, period) {
+  const response = await http.get(
+    `${API_ENDPOINT}/availability?startDate=${startDate}&period=${period}`
+  );
+  return response;
+}
+
+/**
+ *
+ * @param {Number} startDate - start date in milliseconds in UTC
  * @returns {array} - array of timestamps is milliseconds in UTC
  */
 async function getConsultationsForWeek(startDate) {
@@ -457,6 +470,7 @@ const exportedFunctions = {
   getAllPastConsultations,
   getAllProviders,
   getAvailabilityForWeek,
+  getAvailabilityForPeriod,
   getAvailableSlotsForSingleDay,
   getConsultationsForSingleDay,
   getConsultationsForWeek,
