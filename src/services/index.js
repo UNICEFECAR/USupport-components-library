@@ -6,6 +6,7 @@ export { default as languageSvc } from "./language.js";
 export { default as countrySvc } from "./country.js";
 export { default as clientSvc } from "./client.js";
 export { default as adminSvc } from "./admin.js";
+export { default as mfaSvc } from "./mfa.js";
 export { default as providerSvc } from "./provider.js";
 export { default as messageSvc } from "./message.js";
 export { default as notificationsSvc } from "./notifications.js";
