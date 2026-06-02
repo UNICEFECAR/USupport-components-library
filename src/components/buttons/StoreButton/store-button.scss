@@ -11,7 +11,7 @@
 
       @include themifyNormal($themes) {
         background: themed(glass_panel_background);
-        border: 1px solid themed(glass_border_color);
+        border: 0.1rem solid themed(glass_border_color);
         box-shadow: themed(glass_shadow);
       }
 
@@ -20,7 +20,7 @@
         background-color: transparent !important;
         @include themifyNormal($themes) {
           background: themed(glass_panel_background);
-          border: 1px solid themed(glass_border_color);
+          border: 0.1rem solid themed(glass_border_color);
           box-shadow: themed(glass_shadow);
         }
       }
@@ -53,6 +53,7 @@
     padding-left: $spacing_1_6;
     align-items: flex-start;
     justify-content: center;
+    width: 15rem;
 
     .download {
       font-size: $font_size_1_2;
@@ -192,7 +193,7 @@
       outline: $hc-border-primary solid 3px !important;
       outline-offset: 2px;
       box-shadow:
-        0 0 0 1px $hc-bg-primary,
+        0 0 0 0.1rem $hc-bg-primary,
         0 0 0 4px $hc-border-primary !important;
     }
 
