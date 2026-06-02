@@ -6,7 +6,6 @@ import { NewButton } from "../../buttons/Button/NewButton";
 import { Input } from "../../inputs/Input";
 import { Textarea } from "../../inputs/Textarea";
 import { DropdownWithLabel } from "../../dropdowns/DropdownWithLabel";
-import { Modal } from "../../modals/Modal";
 import { validate, validateProperty } from "../../../utils";
 import { Error } from "../../errors/Error";
 
@@ -29,13 +28,16 @@ const initialData = {
 export const ContactForm = ({
   classes,
   sendEmail,
-  navigate,
   submitError,
   isMutating,
   isSuccessModalOpen,
-  closeSuccessModal,
   t,
   country,
+  initialEmail,
+  initialReason,
+  hideHeading,
+  hideSubmitButton,
+  formRef,
 }) => {
   const IS_PL = country === "PL";
   const IS_RO = country === "RO";
@@ -75,25 +77,36 @@ export const ContactForm = ({
     ];
   }, [t, IS_PL]);
 
-  const [data, setData] = useState(initialData);
+  const [data, setData] = useState({
+    ...initialData,
+    email: initialEmail ?? initialData.email,
+    reason: initialReason ?? initialData.reason,
+  });
   const [reasons, setReasons] = useState(initialReasons);
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
+    setData((prev) => ({
+      ...prev,
+      email: initialEmail ?? prev.email,
+      reason: initialReason ?? prev.reason,
+    }));
+  }, [initialEmail, initialReason]);
+
+  useEffect(() => {
     if (isSuccessModalOpen) {
-      setData(initialData);
+      setData({
+        ...initialData,
+        email: initialEmail ?? initialData.email,
+        reason: initialReason ?? initialData.reason,
+      });
       setReasons(initialReasons);
     }
-  }, [isSuccessModalOpen]);
+  }, [isSuccessModalOpen, initialEmail, initialReason]);
 
   useEffect(() => {
     setReasons(initialReasons);
   }, [t]);
-
-  const handleEmailSuccessCtaClick = () => {
-    closeSuccessModal();
-    navigate(`/${localStorage.getItem("language")}`);
-  };
 
   const schema = Joi.object({
     email: Joi.string()
@@ -115,7 +128,7 @@ export const ContactForm = ({
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e?.preventDefault();
     if ((await validate(data, schema, setErrors)) == null) {
       const payload = {
         subjectValue: data.reason,
@@ -129,8 +142,14 @@ export const ContactForm = ({
   };
 
   return (
-    <div className={["contact-form", classNames(classes)].join(" ")}>
-      <h4 className="contact-form__heading">{t("contact_form_heading")}</h4>
+    <form
+      ref={formRef}
+      className={["contact-form", classNames(classes)].join(" ")}
+      onSubmit={handleSubmit}
+    >
+      {!hideHeading && (
+        <h4 className="contact-form__heading">{t("contact_form_heading")}</h4>
+      )}
       <Input
         label={t("email_label")}
         errorMessage={errors.email}
@@ -166,14 +185,17 @@ export const ContactForm = ({
           handleBlur("message", newMessage.currentTarget.value);
         }}
       />
-      <NewButton
-        label={t("send_button")}
-        size="lg"
-        isFullWidth
-        loading={isMutating}
-        onClick={handleSubmit}
-      />
-    </div>
+      {!hideSubmitButton && (
+        <NewButton
+          label={t("send_button")}
+          size="lg"
+          isFullWidth
+          loading={isMutating}
+          isSubmit
+        />
+      )}
+      {submitError ? <Error message={submitError} /> : null}
+    </form>
   );
 };
 
@@ -190,8 +212,30 @@ ContactForm.propTypes = {
    * Function to send email
    * */
   sendEmail: PropTypes.func.isRequired,
+  submitError: PropTypes.string,
+  isMutating: PropTypes.bool,
+  isSuccessModalOpen: PropTypes.bool,
+  t: PropTypes.func.isRequired,
+  country: PropTypes.string,
+  initialEmail: PropTypes.string,
+  initialReason: PropTypes.string,
+  hideHeading: PropTypes.bool,
+  hideSubmitButton: PropTypes.bool,
+  formRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.any }),
+  ]),
 };
 
 ContactForm.defaultProps = {
   classes: "",
+  submitError: "",
+  isMutating: false,
+  isSuccessModalOpen: false,
+  country: "",
+  initialEmail: "",
+  initialReason: null,
+  hideHeading: false,
+  hideSubmitButton: false,
+  formRef: undefined,
 };
