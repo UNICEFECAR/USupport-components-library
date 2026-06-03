@@ -35,7 +35,7 @@ export const CircleIconButton = ({
       color="red"
       iconName={iconName}
       iconSize={iconSize}
-      iconColor={theme === "highContrast" ? "#ed5657" : "#fff"}
+      iconColor="#fff"
       onlyIcon={isMobile || !label}
       label={isMobile || !label ? "" : label}
       size="md"
