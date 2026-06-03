@@ -309,6 +309,15 @@
       color: #9749fa;
     }
 
+    &--live {
+      background: $color_secondary_9749fa;
+      border-color: $color_secondary_9749fa;
+
+      .small-text {
+        color: $color_white_ff;
+      }
+    }
+
     &--completed {
       background: rgba(3, 152, 85, 0.16);
       border-color: rgba(3, 152, 85, 0.5);
