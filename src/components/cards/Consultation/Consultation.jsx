@@ -121,7 +121,10 @@ export const Consultation = ({
   let statusModifier = "";
 
   if (renderIn === "client") {
-    if (!isPast) {
+    if (isFiveMinutesBefore) {
+      statusLabel = t("live");
+      statusModifier = "live";
+    } else if (!isPast) {
       // Reuse existing "Upcoming" label from consultations blocks
       statusLabel = t("upcoming_tab_label");
       statusModifier = "upcoming";
