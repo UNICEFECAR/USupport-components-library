@@ -35,6 +35,8 @@ export const ContactForm = ({
   country,
   initialEmail,
   initialReason,
+  reasonOptions,
+  subjectLabel,
   hideHeading,
   hideSubmitButton,
   formRef,
@@ -43,6 +45,9 @@ export const ContactForm = ({
   const IS_RO = country === "RO";
 
   const initialReasons = useMemo(() => {
+    if (reasonOptions) {
+      return reasonOptions;
+    }
     return [
       {
         value: "information",
@@ -75,12 +80,15 @@ export const ContactForm = ({
           ]
         : []),
     ];
-  }, [t, IS_PL]);
+  }, [t, IS_PL, IS_RO, reasonOptions]);
+
+  const lockedReason =
+    reasonOptions?.length === 1 ? reasonOptions[0].value : null;
 
   const [data, setData] = useState({
     ...initialData,
     email: initialEmail ?? initialData.email,
-    reason: initialReason ?? initialData.reason,
+    reason: lockedReason ?? initialReason ?? initialData.reason,
   });
   const [reasons, setReasons] = useState(initialReasons);
   const [errors, setErrors] = useState({});
@@ -89,20 +97,20 @@ export const ContactForm = ({
     setData((prev) => ({
       ...prev,
       email: initialEmail ?? prev.email,
-      reason: initialReason ?? prev.reason,
+      reason: lockedReason ?? initialReason ?? prev.reason,
     }));
-  }, [initialEmail, initialReason]);
+  }, [initialEmail, initialReason, lockedReason]);
 
   useEffect(() => {
     if (isSuccessModalOpen) {
       setData({
         ...initialData,
         email: initialEmail ?? initialData.email,
-        reason: initialReason ?? initialData.reason,
+        reason: lockedReason ?? initialReason ?? initialData.reason,
       });
       setReasons(initialReasons);
     }
-  }, [isSuccessModalOpen, initialEmail, initialReason]);
+  }, [isSuccessModalOpen, initialEmail, initialReason, lockedReason, initialReasons]);
 
   useEffect(() => {
     setReasons(initialReasons);
@@ -130,11 +138,14 @@ export const ContactForm = ({
   const handleSubmit = async (e) => {
     e?.preventDefault();
     if ((await validate(data, schema, setErrors)) == null) {
+      const selectedReason = reasons.find(
+        (reason) => reason.value === data.reason,
+      );
       const payload = {
         subjectValue: data.reason,
-        subjectLabel: t("contact_form"),
+        subjectLabel: subjectLabel ?? t("contact_form"),
         email: data.email.toLowerCase(),
-        title: reasons.find((reason) => reason.value === data.reason).label,
+        title: selectedReason?.label ?? data.reason,
         text: data.message,
       };
       await sendEmail(payload);
@@ -171,6 +182,7 @@ export const ContactForm = ({
         label={t("reason_label")}
         classes="contact-form__subject"
         placeholder={t("contact_reason_placeholder")}
+        disabled={!!lockedReason}
       />
       <Textarea
         label={t("message_label")}
@@ -219,6 +231,13 @@ ContactForm.propTypes = {
   country: PropTypes.string,
   initialEmail: PropTypes.string,
   initialReason: PropTypes.string,
+  subjectLabel: PropTypes.string,
+  reasonOptions: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+    }),
+  ),
   hideHeading: PropTypes.bool,
   hideSubmitButton: PropTypes.bool,
   formRef: PropTypes.oneOfType([
@@ -235,6 +254,7 @@ ContactForm.defaultProps = {
   country: "",
   initialEmail: "",
   initialReason: null,
+  reasonOptions: undefined,
   hideHeading: false,
   hideSubmitButton: false,
   formRef: undefined,
