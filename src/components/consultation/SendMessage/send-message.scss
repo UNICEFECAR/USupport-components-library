@@ -3,17 +3,26 @@
 .send-message {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   width: 100%;
+  gap: $spacing_1_2;
+
+  &__textarea {
+    flex: 1;
+    min-width: 0;
+  }
 
   &__textarea .textarea {
     max-height: calc(4.8rem - 2 * $spacing_1_2);
     border: 0.1rem solid $color_secondary_9749fa;
+    border-radius: $border_radius_1_6;
+    width: 100%;
   }
 
   &__send-button {
-    margin-left: $spacing_1_6;
+    margin-left: 0;
+    flex-shrink: 0;
     transform: scaleX(-1);
   }
 }
