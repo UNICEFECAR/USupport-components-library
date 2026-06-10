@@ -245,6 +245,35 @@ async function deleteArticle(id) {
   return response;
 }
 
+/**
+ *
+ * @returns {promise} array of pinned article ids for the current country header
+ *
+ */
+async function getPinnedArticles() {
+  const response = await http.get(API_ENDPOINT_COUNTRIES_PINNED_ARTICLES);
+  return response.data;
+}
+
+/**
+ *
+ * @param {string} id locale-specific article document id (Strapi) to pin
+ *
+ */
+async function putPinnedArticle(id) {
+  const response = await http.put(API_ENDPOINT_COUNTRIES_PINNED_ARTICLES, {
+    id: id,
+  });
+  return response;
+}
+
+async function deletePinnedArticle(id) {
+  const response = await http.delete(API_ENDPOINT_COUNTRIES_PINNED_ARTICLES, {
+    data: { id: id },
+  });
+  return response;
+}
+
 async function getAllGlobalAdmins() {
   const response = await http.get(`${API_ENDPOINT}/all?type=global`);
   return response;
@@ -303,6 +332,13 @@ async function getProviderRatings(countryId) {
 
 async function getContactForms() {
   const response = await http.get(`${API_ENDPOINT}/statistics/contact-forms`);
+  return response;
+}
+
+async function getOrganizationReports() {
+  const response = await http.get(
+    `${API_ENDPOINT}/statistics/organization-reports`
+  );
   return response;
 }
 
@@ -672,6 +708,7 @@ async function getPlayAndHealVisits() {
 const exportedFunctions = {
   createAdmin,
   deleteArticle,
+  deletePinnedArticle,
   deleteAdminById,
   deleteFAQ,
   deleteSOSCenters,
@@ -692,6 +729,7 @@ const exportedFunctions = {
   login,
   logout,
   putArticle,
+  putPinnedArticle,
   putFAQ,
   putSOSCenters,
   putVideo,
@@ -704,6 +742,7 @@ const exportedFunctions = {
   getPlatformSuggestions,
   getClientRatings,
   getContactForms,
+  getOrganizationReports,
   getMoodTrackerReport,
   getProviderActivitiesById,
   getPlayAndHealVisits,

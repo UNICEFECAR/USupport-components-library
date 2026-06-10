@@ -2,21 +2,49 @@ import { getLanguageFromUrl } from "./replaceLanguageInUrl";
 import { createArticleSlug } from "./articles";
 
 /**
- * @description - This funciton is used to set 'isSelected' property to true for the selected items
+ * @description - Marks CMS admin rows selected when id (or localization id) overlaps CMS `localizedIds`,
+ * optionally expanding overlap using full locale clusters from meta `availableLocales`.
  *
- * @param {object} data - array of strapi content-types e.g articles, faqs, sos-centers etc.
- * @param {array} selectedIds - array containing the ids of the selected content-types in a specified localised version e.g. en, kk, ru etc.
- * @returns {object} data - array of strapi content-types e.g articles, faqs, sos-centers etc. with 'isSelected' property set to true for the selected items
+ * @param {object[]} data - Strapi REST rows (`id` + `attributes`)
+ * @param {array} selectedIds - localized id list from CMS meta for the requested locale
+ * @param {Record<string, Record<string, unknown>>} [availableLocales] - meta from computeAvailableLocales keyed by queried id → { locale → id }
+ * @returns {object[]} mutated `data` (sorted by publishedAt)
  */
-function filterAdminData(data, selectedIds) {
+function filterAdminData(data, selectedIds, availableLocales) {
+  const baseIds = Array.isArray(selectedIds)
+    ? selectedIds.map((x) => String(x).trim()).filter(Boolean)
+    : [];
+  const expandedIds = new Set(baseIds);
+
+  if (availableLocales && typeof availableLocales === "object") {
+    let grew = true;
+    while (grew) {
+      grew = false;
+      const sizeBefore = expandedIds.size;
+      for (const localeMap of Object.values(availableLocales)) {
+        if (!localeMap || typeof localeMap !== "object") continue;
+        const clusterIds = Object.values(localeMap)
+          .filter((v) => v != null && v !== "")
+          .map((v) => String(v).trim())
+          .filter(Boolean);
+        if (!clusterIds.length) continue;
+        const overlaps = clusterIds.some((cid) => expandedIds.has(cid));
+        if (overlaps) {
+          clusterIds.forEach((cid) => expandedIds.add(cid));
+        }
+      }
+      grew = expandedIds.size > sizeBefore;
+    }
+  }
+
   for (let i = 0; i < data.length; i++) {
-    let currentData = data[i];
+    const currentData = data[i];
     const currentDataId = currentData.id;
-    const isSlected = selectedIds.includes(currentDataId.toString());
+    const isSlected = expandedIds.has(String(currentDataId));
     const isAnotherLocaleSelected =
-      currentData.attributes.localizations?.data.some((localization) => {
-        return selectedIds.includes(localization.id.toString());
-      });
+      currentData.attributes.localizations?.data?.some((localization) =>
+        expandedIds.has(String(localization.id)),
+      );
     if (isSlected || isAnotherLocaleSelected) {
       currentData.isSelected = true;
     }
