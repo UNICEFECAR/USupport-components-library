@@ -3,6 +3,8 @@
 .markdown {
   text-align: justify;
   white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
   font-family: Inter;
   @include themify($themes, "color", "color_text_main");
 
@@ -10,6 +12,8 @@
     color: $color_primary_20809e;
     text-decoration: underline;
     font-weight: $font_semi_bold;
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 
   & p {
