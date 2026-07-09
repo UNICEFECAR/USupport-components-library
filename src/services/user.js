@@ -1,5 +1,6 @@
 import http from "./http";
 import jwtDecode from "jwt-decode";
+import { clearKeepMeSignedIn } from "../utils/sessionPersistence.js";
 const API_ENDPOINT = `${import.meta.env.VITE_API_ENDPOINT}/v1/user`;
 
 function getUserID() {
@@ -29,6 +30,7 @@ async function logoutRequest() {
 
 function logout() {
   logoutRequest();
+  clearKeepMeSignedIn();
   localStorage.removeItem("token");
   localStorage.removeItem("token-expires-in");
   localStorage.removeItem("refresh-token");
