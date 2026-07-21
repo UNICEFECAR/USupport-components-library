@@ -98,7 +98,11 @@ export const Footer = ({
   lists.list1.forEach((listItem) => {
     list1.push({
       value: (
-        <Link to={getLink(listItem.url)} rel="noopener noreferrer">
+        <Link
+          to={getLink(listItem.url)}
+          rel="noopener noreferrer"
+          onClick={() => listItem.onClick?.()}
+        >
           <Button
             type="text"
             size="lg"
@@ -114,7 +118,11 @@ export const Footer = ({
   lists.list2.forEach((listItem) => {
     list2.push({
       value: (
-        <Link to={getLink(listItem.url)} rel="noopener noreferrer">
+        <Link
+          to={getLink(listItem.url)}
+          rel="noopener noreferrer"
+          onClick={() => listItem.onClick?.()}
+        >
           <Button
             type="text"
             size="lg"
@@ -130,7 +138,11 @@ export const Footer = ({
   lists.list3.forEach((listItem) => {
     list3.push({
       value: (
-        <Link to={getLink(listItem.url)} rel="noopener noreferrer">
+        <Link
+          to={getLink(listItem.url)}
+          rel="noopener noreferrer"
+          onClick={() => listItem.onClick?.()}
+        >
           <Button
             type="text"
             size="lg"
