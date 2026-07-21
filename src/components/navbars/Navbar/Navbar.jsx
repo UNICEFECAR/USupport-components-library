@@ -209,6 +209,7 @@ export const Navbar = ({
     currentUrl.endsWith("/jitsi");
 
   const handleNavbarLinkClick = (page) => {
+    if (page.onClick) page.onClick();
     if (isTmpUser && page.url === "/consultations") {
       isTmpUserAction();
     }
