@@ -212,11 +212,6 @@ async function getArticles() {
   return response.data;
 }
 
-async function getPinnedArticles() {
-  const response = await http.get(`${API_ENDPOINT_COUNTRIES_PINNED_ARTICLES}`);
-  return response.data;
-}
-
 /**
  *
  * @param {string} id the id of the article to be added
