@@ -1,8 +1,11 @@
 import http from "./http";
 const API_ENDPOINT = `${import.meta.env.VITE_API_ENDPOINT}/v1/messaging`;
 
-async function getChatData(chatId) {
-  const response = await http.get(`${API_ENDPOINT}/?chatId=${chatId}`);
+async function getChatData(chatId, { limit, before } = {}) {
+  const params = new URLSearchParams({ chatId });
+  if (limit != null) params.set("limit", String(limit));
+  if (before != null) params.set("before", String(before));
+  const response = await http.get(`${API_ENDPOINT}/?${params.toString()}`);
   return response;
 }
 
