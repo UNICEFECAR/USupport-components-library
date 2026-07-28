@@ -176,7 +176,7 @@
       padding: $spacing_6_0 $spacing_0_8 $spacing_2_0 $spacing_0_8;
       top: 0;
       z-index: $z_index_negative;
-      max-height: 16.4rem;
+      max-height: 20rem;
       overflow: hidden;
 
       &--dark {
@@ -185,7 +185,7 @@
 
       &__options-container {
         transition: max-height 0.3s ease-in-out;
-        max-height: calc(16.4rem - #{$spacing_6_0} - #{$spacing_2_0});
+        max-height: calc(20rem - #{$spacing_6_0} - #{$spacing_2_0});
         overflow-x: hidden;
       }
     }
