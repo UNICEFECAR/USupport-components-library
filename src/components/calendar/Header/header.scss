@@ -15,13 +15,13 @@
     justify-content: space-between;
     align-items: center;
     padding-bottom: $spacing_2_8;
-    color: $color_black_37;
-    @include themifyCustom(
-      $themes,
-      "color",
-      "color_black_37",
-      "color_3d527b_white"
-    );
+    @include themify($themes, "color", "color_text_main");
+  }
+
+  &__month-name {
+    margin: 0;
+    font-weight: $font_semi_bold;
+    @include themify($themes, "color", "color_text_main");
   }
 
   &__week-selector {
@@ -33,12 +33,19 @@
   &__day-of-week {
     text-align: center;
     width: 4.8rem;
-    @include themifyCustom(
-      $themes,
-      "color",
-      "color_black_37",
-      "color_3d527b_white"
-    );
+    cursor: pointer;
+    border-radius: $border_radius_0_8;
+    @include themify($themes, "color", "color_text_main");
+
+    &__day-label {
+      margin: 0;
+      @include themify($themes, "color", "color_text_main");
+    }
+
+    &__date {
+      margin: 0;
+      @include themify($themes, "color", "color_66768d_c1d7e0");
+    }
 
     &:nth-of-type(6) > &__date,
     &:nth-of-type(7) > &__date {
@@ -48,22 +55,36 @@
     &--hc {
       &:nth-of-type(6) > .header__day-of-week__date,
       &:nth-of-type(7) > .header__day-of-week__date {
-        color: #ffffff;
+        color: #ffff00;
       }
     }
 
     &--current {
-      border-radius: $border_radius_0_8;
-      background-color: $color_6a4ffb_8c90eb;
+      background-color: $color_purple_6a4ffb;
       color: $color_white_ff;
 
       & p {
         color: $color_white_ff !important;
       }
+
+      &--dark {
+        background-color: #8c90eb;
+
+        & p {
+          color: #0e202f !important;
+        }
+      }
     }
   }
 
-  &__month-name--dark {
-    color: $color_white_ff;
+  .theme-highContrast & {
+    .header__day-of-week--current,
+    .header__day-of-week--current--dark {
+      background-color: #ffff00;
+
+      & p {
+        color: #000000 !important;
+      }
+    }
   }
 }

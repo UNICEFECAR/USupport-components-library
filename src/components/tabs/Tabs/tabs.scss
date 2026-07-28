@@ -36,20 +36,29 @@
     @include themify($themes, "background-color", "color_white_ff");
     @include themify($themes, "border-color", "color_gray_ea");
 
-    .theme-dark &,
-    .theme-highContrast & {
+    .theme-dark & {
       background: rgba(255, 255, 255, 0.08);
       border-color: rgba(193, 215, 224, 0.25);
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     }
 
+    .theme-highContrast & {
+      background: #000000;
+      border-color: #ffff00;
+      box-shadow: none;
+    }
+
     &:hover:not(&--disabled) {
       border-color: rgba(106, 79, 251, 0.35);
 
-      .theme-dark &,
-      .theme-highContrast & {
+      .theme-dark & {
         background: rgba(255, 255, 255, 0.12);
         border-color: rgba(151, 73, 250, 0.55);
+      }
+
+      .theme-highContrast & {
+        background: rgba(255, 255, 0, 0.12);
+        border-color: #ffff00;
       }
     }
 
@@ -60,9 +69,12 @@
       &:hover {
         border-color: #cdd8e1;
 
-        .theme-dark &,
-        .theme-highContrast & {
+        .theme-dark & {
           border-color: rgba(193, 215, 224, 0.25);
+        }
+
+        .theme-highContrast & {
+          border-color: rgba(255, 255, 0, 0.35);
         }
       }
     }
@@ -121,21 +133,31 @@
       @include themify($themes, "border-color", "color_gray_ea");
       @include themify($themes, "color", "color_3d527b_white");
 
-      .theme-dark &,
-      .theme-highContrast & {
+      .theme-dark & {
         background: rgba(255, 255, 255, 0.06);
         border-color: rgba(193, 215, 224, 0.2);
         color: rgba(193, 215, 224, 0.85);
         box-shadow: none;
       }
 
+      .theme-highContrast & {
+        background: #000000;
+        border-color: #ffff00;
+        color: #ffff00;
+        box-shadow: none;
+      }
+
       &:hover:not(:disabled):not(&--inactive):not(&--selected) {
         border-color: rgba(106, 79, 251, 0.35);
 
-        .theme-dark &,
-        .theme-highContrast & {
+        .theme-dark & {
           background: rgba(255, 255, 255, 0.1);
           border-color: rgba(151, 73, 250, 0.45);
+        }
+
+        .theme-highContrast & {
+          background: rgba(255, 255, 0, 0.12);
+          border-color: #ffff00;
         }
       }
 
@@ -146,14 +168,20 @@
         font-weight: $font_semi_bold;
         box-shadow: 0 1px 4px rgba(106, 79, 251, 0.2);
 
-        .theme-dark &,
-        .theme-highContrast & {
+        .theme-dark & {
           background: rgba($color_secondary_9749fa, 0.38);
           border-color: $color_purple_c39af9;
           color: $color_purple_dac3f6;
           box-shadow:
             0 0 0 1px rgba($color_secondary_9749fa, 0.45),
             0 0.2rem 0.8rem rgba($color_secondary_9749fa, 0.35);
+        }
+
+        .theme-highContrast & {
+          background: #ffff00;
+          border-color: #ffff00;
+          color: #000000;
+          box-shadow: none;
         }
       }
 
@@ -165,9 +193,12 @@
         &:hover {
           border-color: #cdd8e1;
 
-          .theme-dark &,
-          .theme-highContrast & {
+          .theme-dark & {
             border-color: rgba(193, 215, 224, 0.2);
+          }
+
+          .theme-highContrast & {
+            border-color: rgba(255, 255, 0, 0.35);
           }
         }
       }

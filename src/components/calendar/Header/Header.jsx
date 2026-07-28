@@ -104,6 +104,13 @@ export const Header = ({ handleDayChange, setStartDate, startDate, t }) => {
     setToday(newWeek);
   };
 
+  const iconColor =
+    theme === "highContrast"
+      ? "#ffff00"
+      : theme === "dark"
+        ? "#c1d7e0"
+        : "#373737";
+
   return (
     <div className="header">
       <div className="header__month-selector">
@@ -115,16 +122,16 @@ export const Header = ({ handleDayChange, setStartDate, startDate, t }) => {
           }}
           size="md"
           name="arrow-chevron-back"
-          color={theme === "light" ? "#373737" : "#fff"}
+          color={iconColor}
         />
-        <p className={theme !== "light" && "header__month-name--dark"}>
+        <p className="header__month-name">
           {t(months[today.getMonth()].toLowerCase())}
         </p>
         <Icon
           onClick={() => handleMonthChange(1)}
           size="md"
           name="arrow-chevron-forward"
-          color={theme === "light" ? "#373737" : "#fff"}
+          color={iconColor}
         />
       </div>
 
@@ -137,14 +144,14 @@ export const Header = ({ handleDayChange, setStartDate, startDate, t }) => {
           }}
           size="md"
           name="arrow-chevron-back"
-          color={theme === "dark" ? "#fff" : "#373737"}
+          color={iconColor}
         />
         {renderDaysOfWeek()}
         <Icon
           onClick={() => handleWeekChange(1)}
           size="md"
           name="arrow-chevron-forward"
-          color={theme === "dark" ? "#fff" : "#373737"}
+          color={iconColor}
         />
       </div>
     </div>

@@ -25,18 +25,21 @@
 
   &__date-as-string.text {
     font-weight: $font_bold;
+    @include themify($themes, "color", "color_text_main");
   }
 
   &__date-text.small-text {
     line-height: 1.44rem;
     font-weight: $font_semi_bold;
     color: $color_blue_3d527b;
+    @include themify($themes, "color", "color_input_text");
   }
 
   &__consultation-text.small-text {
     margin-top: $spacing_0_4;
     font-weight: $font_semi_bold;
     color: $color_gray_66768d;
+    @include themify($themes, "color", "color_gray_a6b4b8");
   }
 
   &:hover {
@@ -49,6 +52,7 @@
     @media screen and (min-width: $screen_md) {
       .consultation-text {
         color: $color_blue_3d527b;
+        @include themify($themes, "color", "color_input_text");
       }
     }
   }
@@ -56,6 +60,7 @@
   .consultation-text {
     color: $color_gray_66768d;
     font-size: 12px;
+    @include themify($themes, "color", "color_gray_a6b4b8");
   }
 
   &-no-consultations {
@@ -95,5 +100,69 @@
 
   .today-text {
     color: $color_primary_20809e;
+  }
+
+  .theme-dark &,
+  .theme-highContrast & {
+    background-color: #152a35;
+    border-color: rgba(32, 128, 158, 0.35);
+
+    &.single-day-no-consultations {
+      background-color: #121a22;
+      border-color: rgba(193, 215, 224, 0.12);
+    }
+
+    &.single-day-unavailable {
+      background-color: #0d151c;
+      opacity: 0.65;
+      border-color: rgba(193, 215, 224, 0.08);
+
+      &:hover,
+      &:active {
+        border-color: rgba(193, 215, 224, 0.08);
+      }
+    }
+
+    &:hover {
+      border-color: rgba(32, 128, 158, 0.8);
+    }
+
+    &:active {
+      border-color: $color_primary_20809e;
+    }
+
+    .today-text {
+      color: #54cfd9;
+    }
+  }
+
+  .theme-highContrast & {
+    border-color: rgba(255, 255, 0, 0.35);
+
+    .single-day__date-as-string,
+    .single-day__date-text,
+    .today-text {
+      color: #ffff00;
+    }
+
+    .consultation-text,
+    .single-day__consultation-text {
+      color: #ffffff;
+    }
+
+    &:hover,
+    &:active {
+      border-color: #ffff00;
+    }
+
+    &.single-day-unavailable {
+      opacity: 0.8;
+      border-color: rgba(255, 255, 0, 0.2);
+
+      &:hover,
+      &:active {
+        border-color: rgba(255, 255, 0, 0.2);
+      }
+    }
   }
 }

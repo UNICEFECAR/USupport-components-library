@@ -269,8 +269,10 @@
   }
 
   &__body {
-    & p {
+    & p,
+    & .text {
       color: $color_blue_3d527b;
+      @include themify($themes, "color", "color_text_main");
     }
 
     &__tr {
@@ -287,14 +289,13 @@
       );
     }
 
-    // Ensure odd rows are white background
     & tr:nth-child(odd) {
-      background-color: $color_white_ff;
+      @include themify($themes, "background-color", "color_white_ff");
     }
 
     // Match sticky last cell background to row background for both parities
     & tr:nth-child(odd) .table__td--sticky:last-child {
-      background-color: $color_white_ff;
+      @include themify($themes, "background-color", "color_white_ff");
     }
 
     & tr:nth-child(even) .table__td--sticky:last-child {
@@ -496,7 +497,7 @@
   }
 
   &-icon {
-    background-color: $color_white_ff;
+    @include themify($themes, "background-color", "color_white_ff");
     cursor: pointer;
     margin-top: $spacing_1_0;
     padding: $spacing_1_2;
@@ -509,7 +510,12 @@
     }
 
     &--even {
-      background-color: $color_gray_ea;
+      @include themifyCustom(
+        $themes,
+        "background-color",
+        "color_gray_ea",
+        "color_gray_344054"
+      );
     }
 
     &--open {
