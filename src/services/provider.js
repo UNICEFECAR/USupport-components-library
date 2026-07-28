@@ -141,6 +141,7 @@ async function getAllProviders({
   offset,
   filtersQueryString,
   onlyAvailable = true,
+  randomSeed,
 }) {
   let query = `${API_ENDPOINT}/all?offset=${offset}&limit=${limit}&onlyAvailable=${
     onlyAvailable ? "true" : "false"
@@ -150,6 +151,9 @@ async function getAllProviders({
   }
   if (campaignId) {
     query += `&campaignId=${campaignId}`;
+  }
+  if (randomSeed) {
+    query += `&randomSeed=${randomSeed}`;
   }
   const response = await http.get(query);
   return response;
@@ -444,8 +448,10 @@ async function getQuestions(type, languageId) {
   return res;
 }
 
-async function getQuestionTags() {
-  const res = await http.get(`${API_ENDPOINT}/my-qa/tags`);
+async function getQuestionTags(languageId) {
+  const res = await http.get(
+    `${API_ENDPOINT}/my-qa/tags?languageId=${languageId}`
+  );
   return res;
 }
 

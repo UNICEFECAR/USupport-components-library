@@ -225,6 +225,7 @@ export const Navbar = ({
     (renderIn === "provider" ? "/profile/details" : "/details");
 
   const handleNavbarLinkClick = (page) => {
+    if (page.onClick) page.onClick();
     if (isTmpUser && page.url === "/consultations") {
       isTmpUserAction();
     }

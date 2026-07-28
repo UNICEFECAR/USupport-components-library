@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useIdleTimer } from "react-idle-timer";
 import { Modal } from "../Modal";
-import { FIVE_MINUTES } from "../../../utils";
+import { FIVE_MINUTES, isKeepMeSignedIn } from "../../../utils";
 
 import { userSvc, adminSvc } from "@USupport-components-library/services";
 
@@ -47,6 +47,7 @@ export const IdleTimer = ({
   const timeoutRef = useRef();
   const handleLogout = () => {
     if (IS_DEVELOPMENT) return;
+    if (!isInAdmin && isKeepMeSignedIn()) return;
     timeoutRef.current = null;
     if (isInAdmin) {
       adminSvc.logout();

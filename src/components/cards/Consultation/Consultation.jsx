@@ -33,6 +33,7 @@ export const Consultation = ({
   handleAcceptConsultation,
   handleRejectConsultation,
   handleViewProfile,
+  handleTestDevices,
   hasPriceBadge,
   couponPrice,
   sponsorImage,
@@ -121,7 +122,10 @@ export const Consultation = ({
   let statusModifier = "";
 
   if (renderIn === "client") {
-    if (!isPast) {
+    if (isFiveMinutesBefore) {
+      statusLabel = t("live");
+      statusModifier = "live";
+    } else if (!isPast) {
       // Reuse existing "Upcoming" label from consultations blocks
       statusLabel = t("upcoming_tab_label");
       statusModifier = "upcoming";
@@ -347,6 +351,29 @@ export const Consultation = ({
             </div>
           </div>
         </div>
+        {renderIn === "client" &&
+          !overview &&
+          !suggested &&
+          buttonAction === "edit" &&
+          handleTestDevices && (
+            <div
+              className="consultation__test-devices"
+              onClick={handleTestDevices}
+            >
+              <div className="consultation__test-devices__left">
+                <Icon name="microphone" size="sm" color="#9749FA" />
+                <div className="consultation__test-devices__text">
+                  <p className="text consultation__test-devices__title">
+                    {t("test_audio_camera")}
+                  </p>
+                  <p className="small-text consultation__test-devices__description">
+                    {t("test_audio_camera_description")}
+                  </p>
+                </div>
+              </div>
+              <Icon name="arrow-chevron-forward" size="sm" color="#66768D" />
+            </div>
+          )}
         {hasActions && (
           <div className="consultation__actions">
             {!overview && !suggested && buttonAction === "join" && (
