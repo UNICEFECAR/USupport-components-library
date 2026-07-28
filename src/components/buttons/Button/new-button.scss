@@ -43,6 +43,32 @@
         #5237d5 90.04%
       );
     }
+
+    .theme-highContrast & {
+      background: #ffff00 !important;
+      color: #000000 !important;
+      border: 2px solid #ffff00 !important;
+
+      .button__content-container__icon {
+        filter: brightness(0);
+      }
+
+      &:hover:enabled {
+        background: #000000 !important;
+        color: #ffff00 !important;
+        border-color: #ffff00 !important;
+
+        .button__content-container__icon {
+          filter: none;
+        }
+      }
+
+      &:active:enabled {
+        background: #000000 !important;
+        color: #ffff00 !important;
+        border-color: #ffff00 !important;
+      }
+    }
   }
 
   &--solid {

@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 import classNames from "classnames";
 import { ButtonWithIcon } from "../../buttons/ButtonWithIcon";
 import { Icon } from "../../icons/Icon";
 import { useWindowDimensions } from "../../../utils/useWindowDimensions";
-import { checkIsFiveMinutesBefore } from "../../../utils";
+import { ThemeContext, checkIsFiveMinutesBefore } from "../../../utils";
 
 const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
 
@@ -52,6 +52,26 @@ export const ProviderAvailability = ({
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { width } = useWindowDimensions();
+  const { theme } = useContext(ThemeContext);
+  const isHighContrast = theme === "highContrast";
+  const isDarkTheme = theme === "dark" || isHighContrast;
+  const menuIconColor = isHighContrast
+    ? "#ffff00"
+    : isDarkTheme
+      ? "#c1d7e0"
+      : "#373737";
+  const dotsIconColor = isLive
+    ? "#ffffff"
+    : isHighContrast
+      ? "#ffff00"
+      : isDarkTheme
+        ? "#c1d7e0"
+        : "#20809E";
+  const organizationNameColor = isHighContrast
+    ? "#ffff00"
+    : isDarkTheme
+      ? "#c1d7e0"
+      : "#20809e";
 
   const handleAvailabilityChange = ({
     campaignId = null,
@@ -247,14 +267,14 @@ export const ProviderAvailability = ({
                     })
                   : campaignData.campaignName)}
               <br />
-              <span style={{ color: "#20809e" }}>
+              <span style={{ color: organizationNameColor }}>
                 {organizationForSlot && organizationForSlot.name}
               </span>
             </p>
           )}
         {width >= 1200 && !isPastWithNoAvailability && (
           <div className="provider-availability__icon-container">
-            <Icon name="three-dots-vertical" color="#20809E" />
+            <Icon name="three-dots-vertical" color={dotsIconColor} />
           </div>
         )}
       </>
@@ -283,7 +303,7 @@ export const ProviderAvailability = ({
                   </h4>
                 ) : (
                   <>
-                    <Icon size="md" name={menuFirstIcon} color="#373737" />
+                    <Icon size="md" name={menuFirstIcon} color={menuIconColor} />
                     <p className="small-text">{menuFirstText}</p>
                   </>
                 )}
@@ -295,7 +315,7 @@ export const ProviderAvailability = ({
                 className="provider-availability__controls__single"
                 onClick={handleMenuSecondClick}
               >
-                <Icon size="md" name={menuSecondIcon} color="#373737" />
+                <Icon size="md" name={menuSecondIcon} color={menuIconColor} />
                 <p className="small-text">{menuSecondText}</p>
               </div>
             ) : null}
@@ -349,7 +369,7 @@ export const ProviderAvailability = ({
                             ? "circle-close"
                             : "circle-actions-success"
                         }
-                        color="#373737"
+                        color={menuIconColor}
                       />
                     </div>
                   );
@@ -389,7 +409,7 @@ export const ProviderAvailability = ({
                             ? "circle-close"
                             : "circle-actions-success"
                         }
-                        color="#373737"
+                        color={menuIconColor}
                       />
                     </div>
                   );

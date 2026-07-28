@@ -546,4 +546,100 @@
       color: #8c90eb;
     }
   }
+
+  .theme-highContrast & {
+    border-color: rgba(255, 255, 0, 0.35);
+
+    & > p {
+      color: #ffff00;
+    }
+
+    &.daily-availability-slot--available,
+    &.daily-availability-slot--campaign {
+      background-color: #000000 !important;
+      border-color: #ffff00 !important;
+
+      & > p {
+        color: #ffff00;
+      }
+    }
+
+    &.daily-availability-slot--unavailable {
+      background-color: #000000 !important;
+      border-color: rgba(255, 255, 0, 0.25) !important;
+    }
+
+    &.daily-availability-slot--booked,
+    &.daily-availability-slot--coupon {
+      background-color: #000000 !important;
+      border-color: #ffff00 !important;
+    }
+
+    &.daily-availability-slot--past-no-availability {
+      background-color: #000000 !important;
+      border-color: rgba(255, 255, 0, 0.2) !important;
+
+      &::before {
+        background-color: rgba(255, 255, 0, 0.25);
+      }
+
+      &:hover {
+        border-color: rgba(255, 255, 0, 0.2) !important;
+      }
+    }
+
+    &.daily-availability-slot--live {
+      background-color: #ffff00 !important;
+      border-color: #ffff00 !important;
+
+      .daily-availability-slot__content__campaign-name,
+      .daily-availability-slot__content__price__text {
+        color: #000000 !important;
+      }
+    }
+
+    .daily-availability-slot__booked-label {
+      background-color: #000000;
+      color: #ffff00;
+      border: 1px solid #ffff00;
+    }
+
+    .daily-availability-slot__content__campaign-name,
+    .daily-availability-slot__available-text {
+      color: #ffff00 !important;
+    }
+
+    .daily-availability-slot__content__price {
+      &--free .daily-availability-slot__content__price__text,
+      &--coupon .daily-availability-slot__content__price__text {
+        color: #ffff00 !important;
+      }
+
+      &--paid {
+        background-color: rgba(255, 255, 0, 0.2);
+        color: #ffff00;
+      }
+    }
+
+    .daily-availability-slot__controls {
+      background-color: #000000 !important;
+      border-color: #ffff00;
+
+      &__single > p,
+      &__single--campaign > p,
+      &__single--organization > p {
+        color: #ffff00 !important;
+      }
+    }
+
+    .daily-availability-slot__suggested-label {
+      color: #ffff00;
+    }
+
+    &:hover,
+    &:active,
+    &.daily-availability-slot--active {
+      border-color: #ffff00 !important;
+    }
+  }
 }

@@ -62,7 +62,8 @@
       h3,
       h4 {
         color: yellow !important;
-        font-weight: $font_bold;
+        font-weight: $font_semi_bold;
+        text-shadow: none;
       }
     }
   }

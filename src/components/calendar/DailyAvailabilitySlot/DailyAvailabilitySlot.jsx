@@ -56,9 +56,20 @@ export const DailyAvailabilitySlot = ({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { width } = useWindowDimensions();
   const { theme } = useContext(ThemeContext);
-  const isDarkTheme = theme === "dark" || theme === "highContrast";
-  const menuIconColor = isDarkTheme ? "#c1d7e0" : "#373737";
-  const dotsIconColor = isLive ? "#ffffff" : isDarkTheme ? "#c1d7e0" : "#20809E";
+  const isHighContrast = theme === "highContrast";
+  const isDarkTheme = theme === "dark" || isHighContrast;
+  const menuIconColor = isHighContrast
+    ? "#ffff00"
+    : isDarkTheme
+      ? "#c1d7e0"
+      : "#373737";
+  const dotsIconColor = isLive
+    ? "#ffffff"
+    : isHighContrast
+      ? "#ffff00"
+      : isDarkTheme
+        ? "#c1d7e0"
+        : "#20809E";
 
   const handleAvailabilityChange = ({
     campaignId = null,

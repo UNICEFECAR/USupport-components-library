@@ -145,6 +145,12 @@
         border-color: #ffff00;
         color: #ffff00;
         box-shadow: none;
+
+        // Global HC text-outline fattens glyphs; tabs already have high contrast.
+        .paragraph {
+          text-shadow: none;
+          font-weight: $font_medium;
+        }
       }
 
       &:hover:not(:disabled):not(&--inactive):not(&--selected) {
@@ -182,6 +188,12 @@
           border-color: #ffff00;
           color: #000000;
           box-shadow: none;
+
+          .paragraph {
+            text-shadow: none;
+            color: #000000;
+            font-weight: $font_semi_bold;
+          }
         }
       }
 
