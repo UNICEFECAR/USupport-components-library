@@ -455,6 +455,39 @@ export const Navbar = ({
           renderIn === "website" ? "" : `/${renderIn}`
         }/${localStorage.getItem("language")}${page.url}`;
 
+        if (page.externalHref) {
+          items.push({
+            value: (
+              <div
+                className="nav__item"
+                role="button"
+                tabIndex="0"
+                onClick={() => {
+                  window.open(
+                    page.externalHref,
+                    "_blank",
+                    "noopener,noreferrer",
+                  );
+                }}
+              >
+                <div className="nav__item__content">
+                  {page.icon && (
+                    <Icon
+                      name={page.icon}
+                      size="md"
+                      classes="nav__item__icon"
+                      color={theme === "light" ? "#20809e" : "#ffffff"}
+                    />
+                  )}
+                  <p>{page.name}</p>
+                </div>
+              </div>
+            ),
+            onClick: scrollTop,
+          });
+          return;
+        }
+
         items.push({
           value:
             isTmpUser && page.url === "/consultations" ? (
@@ -1284,6 +1317,50 @@ export const Navbar = ({
               const url = `${
                 renderIn === "website" ? "" : `/${renderIn}`
               }/${localStorage.getItem("language")}${page.url}`;
+
+              if (page.externalHref) {
+                return (
+                  <div
+                    key={page.externalHref || page.url}
+                    className="nav__profile-dropdown-item"
+                    role="button"
+                    tabIndex="0"
+                    onClick={() => {
+                      window.open(
+                        page.externalHref,
+                        "_blank",
+                        "noopener,noreferrer",
+                      );
+                      setProfileDropdownShown(false);
+                      scrollTop();
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        window.open(
+                          page.externalHref,
+                          "_blank",
+                          "noopener,noreferrer",
+                        );
+                        setProfileDropdownShown(false);
+                        scrollTop();
+                      }
+                    }}
+                  >
+                    <div className="nav__profile-dropdown-item__content">
+                      {page.icon && (
+                        <Icon
+                          name={page.icon}
+                          size="md"
+                          classes="nav__profile-dropdown-item__icon"
+                          color={theme === "light" ? "#20809e" : "#ffffff"}
+                        />
+                      )}
+                      <p>{page.name}</p>
+                    </div>
+                  </div>
+                );
+              }
 
               return (
                 <NavLink
