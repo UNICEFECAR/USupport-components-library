@@ -162,7 +162,8 @@ async function getAllProviders({
 async function getProviderById(
   id,
   campaignId,
-  signal = new AbortController().signal
+  signal = new AbortController().signal,
+  country
 ) {
   const response = await http.get(
     `${API_ENDPOINT}/by-id?providerId=${id}${
@@ -170,6 +171,7 @@ async function getProviderById(
     }`,
     {
       signal: signal,
+      ...(country ? { headers: { "x-country-alpha-2": country } } : {}),
     }
   );
   return response;
@@ -392,9 +394,13 @@ async function getProviderActivities() {
   return res;
 }
 
-async function getRandomProviders(limit) {
+async function getRandomProviders(limit, country) {
+  const config = country
+    ? { headers: { "x-country-alpha-2": country } }
+    : undefined;
   const res = await http.get(
-    `${API_ENDPOINT}/random-providers?numberOfProviders=${Number(limit)}`
+    `${API_ENDPOINT}/random-providers?numberOfProviders=${Number(limit)}`,
+    config
   );
   return res;
 }

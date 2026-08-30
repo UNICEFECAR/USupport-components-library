@@ -15,8 +15,13 @@ const platforms = [
 
 // On every request add the JWT token, language and country to the headers
 axios.interceptors.request.use((config) => {
-  config.headers["x-country-alpha-2"] = localStorage.getItem("country") || "";
-  config.headers["x-language-alpha-2"] = localStorage.getItem("language") || "";
+  if (!config.headers["x-country-alpha-2"]) {
+    config.headers["x-country-alpha-2"] = localStorage.getItem("country") || "";
+  }
+  if (!config.headers["x-language-alpha-2"]) {
+    config.headers["x-language-alpha-2"] =
+      localStorage.getItem("language") || "";
+  }
 
   const requestURI = axios.getUri(config) || "VITE CMS API URL";
   const url = window.location.href;
