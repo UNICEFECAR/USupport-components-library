@@ -1,0 +1,23 @@
+@import "../../../styles/theme";
+
+.peer-support-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing_0_4;
+  padding: 0.2rem 0.8rem;
+  background-color: #e35738;
+  border-radius: 999rem;
+  width: fit-content;
+
+  & .small-text {
+    padding: 0;
+    color: $color_white_ff;
+    font-weight: $font_semi_bold;
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+
+  & .icon {
+    flex-shrink: 0;
+  }
+}

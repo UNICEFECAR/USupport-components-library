@@ -3,7 +3,12 @@ import PropTypes from "prop-types";
 import { Icon } from "../../icons";
 import { Avatar } from "../../avatars";
 import { Box } from "../../boxes";
+import { PeerSupportBadge } from "../../labels/PeerSupportBadge";
 import { getDateView, getDayOfTheWeek } from "../../../utils/";
+import {
+  getDisplaySpecializations,
+  isPeerSupportProvider,
+} from "../../../utils/peerSupport";
 import { VideoPlayer } from "../../others";
 import "./provider-details.scss";
 
@@ -33,11 +38,10 @@ export const ProviderDetails = ({
     ? `${provider.name} ${provider.patronym} ${provider.surname}`
     : `${provider?.name} ${provider?.surname}`;
 
-  const renderSpecializations = useCallback(() => {
-    if (provider) {
-      return provider.specializations.map((x) => t(x))?.join(", ");
-    }
-  }, [provider, t]);
+  const specializationsText = provider?.specializations?.length
+    ? getDisplaySpecializations(provider.specializations, t).join(", ")
+    : "";
+  const isPeerSupport = isPeerSupportProvider(provider?.specializations);
 
   const renderWorkWith = useCallback(() => {
     if (provider) {
@@ -95,9 +99,14 @@ export const ProviderDetails = ({
             <h4 className="provider-details__header__provider-name">
               {displayName}
             </h4>
-            <p className="provider-details__header__specializations text">
-              {renderSpecializations()}
-            </p>
+            {isPeerSupport && (
+              <PeerSupportBadge label={t("peer_support")} />
+            )}
+            {specializationsText && (
+              <p className="provider-details__header__specializations text">
+                {specializationsText}
+              </p>
+            )}
             <div className="provider-details__header__badges">
               {isFree ? (
                 <span className="small-text provider-details__badge provider-details__badge--free">
