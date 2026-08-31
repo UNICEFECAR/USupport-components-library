@@ -99,9 +99,7 @@ export const ProviderDetails = ({
             <h4 className="provider-details__header__provider-name">
               {displayName}
             </h4>
-            {isPeerSupport && (
-              <PeerSupportBadge label={t("peer_support")} />
-            )}
+            {isPeerSupport && <PeerSupportBadge />}
             {specializationsText && (
               <p className="provider-details__header__specializations text">
                 {specializationsText}

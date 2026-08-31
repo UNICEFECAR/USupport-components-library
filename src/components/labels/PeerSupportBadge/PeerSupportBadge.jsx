@@ -13,12 +13,19 @@ import "./peer-support-badge.scss";
  * @return {jsx}
  */
 export const PeerSupportBadge = ({ label = "U-FRIEND", classes }) => {
+  const resolvedLabel =
+    !label ||
+    label === "peer_support" ||
+    label.endsWith(".peer_support")
+      ? "U-FRIEND"
+      : label;
+
   return (
     <div
       className={["peer-support-badge", classes].filter(Boolean).join(" ")}
     >
       <Icon name="heart" size="sm" color="#FFFFFF" />
-      <p className="small-text">{label}</p>
+      <p className="small-text">{resolvedLabel}</p>
     </div>
   );
 };
