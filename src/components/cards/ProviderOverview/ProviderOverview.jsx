@@ -171,7 +171,11 @@ export const ProviderOverview = ({
           {showPeerBadge && (
             <PeerSupportBadge
               classes="provider-overview__content__text-container__peer-badge"
-              label={t ? t("peer_support") : "U-FRIEND"}
+              label={
+                t
+                  ? t("peer_support", { defaultValue: "U-FRIEND" })
+                  : "U-FRIEND"
+              }
             />
           )}
           {specializationsText && (
