@@ -6,11 +6,17 @@ import { Card } from "../../boxes/Card";
 import { Avatar } from "../../avatars/Avatar";
 import { Icon } from "../../icons/Icon";
 import { NewButton } from "../../buttons/Button";
+import { PeerSupportBadge } from "../../labels/PeerSupportBadge";
 import {
   checkIsFiveMinutesBefore,
   getDateView,
   getDayOfTheWeek,
 } from "../../../utils";
+import {
+  getDisplaySpecializations,
+  isPeerSupportProvider,
+  parseSpecializationKeys,
+} from "../../../utils/peerSupport";
 
 const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
 
@@ -82,28 +88,13 @@ export const Consultation = ({
 
   const name = consultation.providerName || consultation.clientName;
 
-  const formatSpecializations = (value) => {
-    if (!value) return "";
-
-    let list;
-
-    if (Array.isArray(value)) {
-      list = value;
-    } else if (typeof value === "string") {
-      const trimmed = value.trim();
-      const withoutBraces = trimmed.replace(/^\{|\}$/g, "");
-      list = withoutBraces.split(",").map((item) => item.trim());
-    } else {
-      list = [value];
-    }
-
-    return list
-      .filter(Boolean)
-      .map((key) => t(key))
-      .join(", ");
-  };
-
-  const specializationsText = formatSpecializations(providerSpecializations);
+  const specializationKeys = parseSpecializationKeys(providerSpecializations);
+  const showPeerBadge =
+    renderIn === "client" && isPeerSupportProvider(specializationKeys);
+  const specializationsText = getDisplaySpecializations(
+    specializationKeys,
+    t,
+  ).join(", ");
 
   const imageUrl = AMAZON_S3_BUCKET + "/" + (image || "default");
 
@@ -261,6 +252,12 @@ export const Consultation = ({
               {name}
             </p>
           </div>
+          {showPeerBadge && (
+            <PeerSupportBadge
+              classes="consultation__peer-badge"
+              label={t("peer_support")}
+            />
+          )}
           {specializationsText && (
             <p className="text consultation__specializations">
               {specializationsText}

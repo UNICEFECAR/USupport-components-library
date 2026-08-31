@@ -8,7 +8,13 @@ import { Icon } from "../../icons/Icon/Icon";
 import { StatusBadge } from "../StatusBadge";
 import { NewButton } from "../../buttons";
 
+import { PeerSupportBadge } from "../../labels/PeerSupportBadge";
 import { getDateView, getDayOfTheWeek } from "../../../utils/date";
+import {
+  getDisplaySpecializations,
+  isPeerSupportProvider,
+  resolveSpecializationKeys,
+} from "../../../utils/peerSupport";
 
 import "./provider-overview.scss";
 
@@ -27,6 +33,7 @@ export const ProviderOverview = ({
   patronym,
   surname,
   specializations,
+  specializationKeys,
   viewProfileLabel,
   freeLabel,
   price,
@@ -45,6 +52,7 @@ export const ProviderOverview = ({
   earliestAvailableSlot,
   t,
   liquidGlass,
+  isPeerSupport,
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isTextOverflowing, setIsTextOverflowing] = useState(false);
@@ -55,7 +63,19 @@ export const ProviderOverview = ({
   const displayName = patronym
     ? `${name} ${patronym} ${surname}`
     : `${name} ${surname}`;
-  const specializationsText = specializations?.join(", ") ?? "";
+  const resolvedSpecializationKeys = resolveSpecializationKeys(
+    specializationKeys,
+    specializations,
+  );
+  const showPeerBadge =
+    isPeerSupport ??
+    (resolvedSpecializationKeys
+      ? isPeerSupportProvider(resolvedSpecializationKeys)
+      : false);
+  const displaySpecializations = resolvedSpecializationKeys
+    ? getDisplaySpecializations(resolvedSpecializationKeys, t)
+    : specializations ?? [];
+  const specializationsText = displaySpecializations?.join(", ") ?? "";
 
   useEffect(() => {
     const checkOverflow = () => {
@@ -148,15 +168,23 @@ export const ProviderOverview = ({
               </div>
             )}
           </div>
-          <p
-            ref={specializationsRef}
-            className="text provider-overview__types"
-            title={
-              isSpecializationsOverflowing ? specializationsText : undefined
-            }
-          >
-            {specializationsText}
-          </p>
+          {showPeerBadge && (
+            <PeerSupportBadge
+              classes="provider-overview__content__text-container__peer-badge"
+              label={t ? t("peer_support") : "U-FRIEND"}
+            />
+          )}
+          {specializationsText && (
+            <p
+              ref={specializationsRef}
+              className="text provider-overview__types"
+              title={
+                isSpecializationsOverflowing ? specializationsText : undefined
+              }
+            >
+              {specializationsText}
+            </p>
+          )}
           {providerStatus && (
             <StatusBadge status={providerStatus} label={t(providerStatus)} />
           )}
@@ -332,6 +360,14 @@ ProviderOverview.propTypes = {
    * Whether to use liquid glass background
    */
   liquidGlass: PropTypes.bool,
+  /**
+   * Raw specialization keys from the API
+   */
+  specializationKeys: PropTypes.arrayOf(PropTypes.string),
+  /**
+   * Whether the provider is a peer support (U-FRIEND) type
+   */
+  isPeerSupport: PropTypes.bool,
 };
 
 ProviderOverview.defaultProps = {
@@ -343,4 +379,5 @@ ProviderOverview.defaultProps = {
   statusChangeLabel: "Activate",
   viewProfileLabel: "View profile",
   liquidGlass: false,
+  isPeerSupport: false,
 };

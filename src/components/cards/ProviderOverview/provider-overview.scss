@@ -105,6 +105,10 @@
           text-transform: uppercase;
         }
       }
+
+      &__peer-badge {
+        margin-top: $spacing_0_4;
+      }
     }
   }
 

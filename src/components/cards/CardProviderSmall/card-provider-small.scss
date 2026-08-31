@@ -18,6 +18,9 @@
   &__information {
     padding-left: $spacing_1_6;
     text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing_0_4;
 
     & > h4,
     & > p {

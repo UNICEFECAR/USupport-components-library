@@ -20,7 +20,7 @@ async function logoutRequest() {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      }
+      },
     );
     return response;
   } catch (e) {
@@ -145,7 +145,7 @@ async function uploadFileAsAdmin(content) {
     content,
     {
       headers: { "Content-Type": "multipart/form-data" },
-    }
+    },
   );
   return response;
 }
@@ -183,7 +183,7 @@ async function generateForgotPasswordLink(email, type) {
     {
       email,
       type,
-    }
+    },
   );
   return response;
 }
@@ -213,7 +213,7 @@ async function createProvider(data) {
 
 async function getTwilioToken(consultationId) {
   const response = await http.get(
-    `${API_ENDPOINT}/consultation/twilio-token?consultationId=${consultationId}`
+    `${API_ENDPOINT}/consultation/twilio-token?consultationId=${consultationId}`,
   );
   return response;
 }
@@ -266,14 +266,14 @@ async function validatePlatformPassword(value) {
     `${API_ENDPOINT}/validate-platform-password`,
     {
       platformPassword: value,
-    }
+    },
   );
   return response;
 }
 
 async function addPlatformAccess(platform) {
   const response = await http.get(
-    `${API_ENDPOINT}/access-platform?platform=${platform}`
+    `${API_ENDPOINT}/access-platform?platform=${platform}`,
   );
   return response;
 }
@@ -301,7 +301,7 @@ async function getRatingsForContent({
     `${API_ENDPOINT}/ratings-for-content?contentId=${contentId}&contentType=${contentType}`,
     {
       headers,
-    }
+    },
   );
   return response;
 }
@@ -316,14 +316,14 @@ async function generatePdf(payload) {
 async function addContentEngagement(payload) {
   const response = await http.post(
     `${API_ENDPOINT}/content-engagement`,
-    payload
+    payload,
   );
   return response;
 }
 
 async function removeContentEngagement({ contentId, contentType }) {
   const response = await http.delete(
-    `${API_ENDPOINT}/content-engagement?contentId=${contentId}&contentType=${contentType}`
+    `${API_ENDPOINT}/content-engagement?contentId=${contentId}&contentType=${contentType}`,
   );
   return response;
 }
@@ -343,8 +343,8 @@ async function getUserContentEngagements() {
 async function getContentEngagementsById({ ids, contentType }) {
   const response = await http.get(
     `${API_ENDPOINT}/content-engagements-by-id?ids=${ids.join(
-      ","
-    )}&contentType=${contentType}`
+      ",",
+    )}&contentType=${contentType}`,
   );
   return response;
 }
@@ -367,7 +367,7 @@ async function addCountryEvent(payload) {
  */
 async function getOrganizationKey(platform) {
   const response = await http.get(
-    `${API_ENDPOINT}/organizations-key?platform=${platform}`
+    `${API_ENDPOINT}/organizations-key?platform=${platform}`,
   );
   return response;
 }

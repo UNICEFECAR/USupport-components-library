@@ -12,3 +12,4 @@ export * from "./generateVisitorId.js";
 export * from "./scrollLock.js";
 export * from "./getBrandingLogoUrl.js";
 export * from "./sessionPersistence.js";
+export * from "./contentViewTracking.js";
