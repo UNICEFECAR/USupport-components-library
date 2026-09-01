@@ -54,6 +54,7 @@ export const isPeerSupportProvider = (specializations) =>
 
 export const getDisplaySpecializations = (specializations, t) => {
   return parseSpecializationKeys(specializations)
-    .filter((key) => key !== PEER_SUPPORT)
+    .map((key) => key.replace(/^\{|\}$/g, "").trim())
+    .filter((key) => key && key !== PEER_SUPPORT)
     .map((key) => (t ? t(key) : key));
 };
