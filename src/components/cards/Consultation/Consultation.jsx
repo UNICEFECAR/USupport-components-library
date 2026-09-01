@@ -348,10 +348,9 @@ export const Consultation = ({
             </div>
           </div>
         </div>
-        {renderIn === "client" &&
-          !overview &&
+        {!overview &&
           !suggested &&
-          buttonAction === "edit" &&
+          (buttonAction === "edit" || buttonAction === "cancel") &&
           handleTestDevices && (
             <div
               className="consultation__test-devices"
