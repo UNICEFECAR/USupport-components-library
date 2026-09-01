@@ -1,22 +1,16 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import classNames from "classnames";
 import OutsideClickHandler from "react-outside-click-handler";
-
-import { Card } from "../../boxes/Card";
+import { Box } from "../../boxes/Box";
 import { Avatar } from "../../avatars/Avatar";
 import { Icon } from "../../icons/Icon";
-import { NewButton } from "../../buttons/Button";
-import { PeerSupportBadge } from "../../labels/PeerSupportBadge";
+import { Button } from "../../buttons/Button";
 import {
   checkIsFiveMinutesBefore,
   getDateView,
   getDayOfTheWeek,
 } from "../../../utils";
-import {
-  getDisplaySpecializations,
-  isPeerSupportProvider,
-  parseSpecializationKeys,
-} from "../../../utils/peerSupport";
 
 const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
 
@@ -39,7 +33,6 @@ export const Consultation = ({
   handleAcceptConsultation,
   handleRejectConsultation,
   handleViewProfile,
-  handleTestDevices,
   hasPriceBadge,
   couponPrice,
   sponsorImage,
@@ -53,10 +46,7 @@ export const Consultation = ({
   organizationName,
   withOrganization,
   toast,
-  liquidGlass = false,
-  buttonSize = "md",
 }) => {
-  const isClickable = !hasMenu && typeof onClick === "function";
   const {
     consultationId,
     timestamp,
@@ -65,17 +55,16 @@ export const Consultation = ({
     price: consultationPrice,
     couponPrice: consultationCouponPrice,
     campaignId,
-    providerSpecializations,
   } = consultation;
 
   const price =
     campaignId && renderIn === "client"
       ? 0
       : !isNaN(couponPrice)
-        ? couponPrice
-        : !isNaN(consultationCouponPrice)
-          ? consultationCouponPrice
-          : consultationPrice;
+      ? couponPrice
+      : !isNaN(consultationCouponPrice)
+      ? consultationCouponPrice
+      : consultationPrice;
 
   const isBookedWithCoupon =
     couponPrice || consultation.couponPrice || campaignId;
@@ -88,46 +77,17 @@ export const Consultation = ({
 
   const name = consultation.providerName || consultation.clientName;
 
-  const specializationKeys = parseSpecializationKeys(providerSpecializations);
-  const showPeerBadge =
-    renderIn === "client" && isPeerSupportProvider(specializationKeys);
-  const specializationsText = getDisplaySpecializations(
-    specializationKeys,
-    t,
-  ).join(", ");
-
   const imageUrl = AMAZON_S3_BUCKET + "/" + (image || "default");
 
   const startDate = new Date(timestamp);
   const endDate = new Date(
-    new Date(timestamp).setHours(new Date(timestamp).getHours() + 1),
+    new Date(timestamp).setHours(new Date(timestamp).getHours() + 1)
   );
   const dayOfWeek = t(getDayOfTheWeek(startDate));
   const dateText = `${dayOfWeek} ${getDateView(startDate).slice(0, 5)}`;
 
   const today = new Date().getTime();
   const isFiveMinutesBefore = checkIsFiveMinutesBefore(timestamp);
-
-  // Status badge logic (for client render)
-  let statusLabel = "";
-  let statusModifier = "";
-
-  if (renderIn === "client") {
-    if (isFiveMinutesBefore) {
-      statusLabel = t("live");
-      statusModifier = "live";
-    } else if (!isPast) {
-      // Reuse existing "Upcoming" label from consultations blocks
-      statusLabel = t("upcoming_tab_label");
-      statusModifier = "upcoming";
-    } else if (status === "finished") {
-      statusLabel = t("conducted");
-      statusModifier = "completed";
-    } else {
-      statusLabel = t("not_conducted");
-      statusModifier = "not-conducted";
-    }
-  }
 
   let buttonLabel, buttonAction;
   if (isFiveMinutesBefore) {
@@ -144,16 +104,11 @@ export const Consultation = ({
 
   const startHour = startDate.getHours();
   const endHour = startHour + 1;
-  const rawTimeText = startDate
+  const timeText = startDate
     ? `${startHour < 10 ? `0${startHour}` : startHour}:00 - ${
         endHour < 10 ? `0${endHour}` : endHour
       }:00`
     : "";
-  const displayTimeText = buttonAction === "join" ? t("active") : rawTimeText;
-  const dateTimeText =
-    dateText && displayTimeText
-      ? `${dateText} · ${displayTimeText}`
-      : dateText || displayTimeText;
 
   const handleAccepConsultationClick = () => {
     handleAcceptConsultation(consultationId, price);
@@ -181,16 +136,6 @@ export const Consultation = ({
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const hasActions =
-    (!overview && !suggested && buttonAction === "join") ||
-    (!overview && suggested && renderIn === "client") ||
-    (!overview && suggested && renderIn === "provider") ||
-    (!overview &&
-      !suggested &&
-      (buttonAction === "edit" || buttonAction === "cancel")) ||
-    (((!overview && !suggested && buttonAction === "details") || seeDetails) &&
-      ((renderIn === "client" && status === "finished") || seeDetails));
-
   const handleToggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -208,7 +153,7 @@ export const Consultation = ({
               name: consultation.clientName,
               chatId: consultation.chatId,
             },
-            isPast,
+            isPast
           );
         },
       },
@@ -233,36 +178,39 @@ export const Consultation = ({
   };
 
   return (
-    <Card
-      onClick={isClickable ? onClick : undefined}
-      borderColor={buttonAction === "join" ? "purple" : undefined}
+    <Box
+      onClick={onClick}
+      shadow={2}
       classes={[
         "consultation",
-        isClickable && "consultation--clickable",
         buttonAction === "join" && "consultation--purple",
         classNames(classes),
       ].join(" ")}
-      liquidGlass={liquidGlass}
     >
       <div className="consultation__content">
-        <Avatar image={imageUrl} size="sm" isCircle={false} />
+        <Avatar image={imageUrl} size="sm" />
         <div className="consultation__content__text-container">
           <div className="consultation__content__text-container__name-container">
-            <p className="paragraph consultation__content__text-container__name">
+            <p
+              className={[
+                "text",
+                buttonAction === "join" && "text--purple",
+              ].join(" ")}
+            >
               {name}
             </p>
+            <div className="consultation__content__text-container__date-container">
+              <Icon
+                name="calendar"
+                size="sm"
+                color={buttonAction === "join" ? "#9749fa" : "#66768D"}
+              />
+              <div className="consultation__content__text-container__date-container__text">
+                <p className="small-text">{dateText}</p>
+                <p className="small-text">{timeText}</p>
+              </div>
+            </div>
           </div>
-          {showPeerBadge && (
-            <PeerSupportBadge
-              classes="consultation__peer-badge"
-              label={t("peer_support")}
-            />
-          )}
-          {specializationsText && (
-            <p className="text consultation__specializations">
-              {specializationsText}
-            </p>
-          )}
         </div>
         {overview &&
         renderIn === "provider" &&
@@ -278,6 +226,8 @@ export const Consultation = ({
                   "provider-consultation__icon-container__price-badge",
                   !price &&
                     "provider-consultation__icon-container__price-badge--free",
+                  buttonAction === "details" &&
+                    "provider-consultation__icon-container__price-badge--gray",
                 ].join(" ")}
               >
                 {isBookedWithCoupon && sponsorImage ? (
@@ -293,12 +243,12 @@ export const Consultation = ({
                     alt="ogranization"
                   />
                 ) : null}
-                <p className="text provider-consultation__icon-container__price-badge__text">
+                <p className="small-text">
                   {isBookedWithCoupon && renderIn === "client"
                     ? t("coupon")
                     : price > 0
-                      ? `${consultation.price}${currencySymbol || ""}`
-                      : t("free")}
+                    ? `${consultation.price}${currencySymbol || ""}`
+                    : t("free")}
                 </p>
               </div>
             )}
@@ -313,150 +263,114 @@ export const Consultation = ({
           </div>
         )}
       </div>
-      {statusLabel && (
-        <div
-          className={[
-            "consultation__content__text-container__free-badge",
-            "consultation__status-badge",
-            statusModifier && `consultation__status-badge--${statusModifier}`,
-          ]
-            .filter(Boolean)
-            .join(" ")}
-        >
-          <p className="small-text">{statusLabel}</p>
+
+      {organizationName && (
+        <div className="consultation__organization">
+          <p>{organizationName}</p>
         </div>
       )}
-      <div className="consultation__bottom">
-        {organizationName && (
-          <div className="consultation__organization">
-            <p className="text">{organizationName}</p>
-          </div>
-        )}
-        <div className="consultation__earliest">
-          <div className="consultation__earliest-container__wrapper">
-            <div className="consultation__earliest-container">
-              <Icon name="calendar" size="sm" color={"#66768D"} />
-              <div className="consultation__earliest-container__text">
-                <p className="text">{dateText}</p>
-              </div>
-            </div>
-            <div className="consultation__earliest-container">
-              <Icon name="time" size="sm" color={"#66768D"} />
-              <div className="consultation__earliest-container__text">
-                <p className="text">{displayTimeText}</p>
-              </div>
-            </div>
-          </div>
+      {!overview && !suggested && buttonAction === "join" && (
+        <div className="consultation__button-container">
+          <p className="text consultation__button-container__now-text">
+            {t("active")}
+          </p>
+          <Button
+            onClick={() => handleJoin()}
+            label={buttonLabel}
+            color={"purple"}
+            size="sm"
+          />
         </div>
-        {renderIn === "client" &&
-          !overview &&
-          !suggested &&
-          buttonAction === "edit" &&
-          handleTestDevices && (
-            <div
-              className="consultation__test-devices"
-              onClick={handleTestDevices}
-            >
-              <div className="consultation__test-devices__left">
-                <Icon name="microphone" size="sm" color="#9749FA" />
-                <div className="consultation__test-devices__text">
-                  <p className="text consultation__test-devices__title">
-                    {t("test_audio_camera")}
-                  </p>
-                  <p className="small-text consultation__test-devices__description">
-                    {t("test_audio_camera_description")}
-                  </p>
-                </div>
-              </div>
-              <Icon name="arrow-chevron-forward" size="sm" color="#66768D" />
-            </div>
-          )}
-        {hasActions && (
-          <div className="consultation__actions">
-            {!overview && !suggested && buttonAction === "join" && (
-              <NewButton
-                onClick={() => handleJoin()}
-                label={buttonLabel}
-                type="gradient"
-                size={buttonSize}
-              />
-            )}
+      )}
+      {!overview && suggested && renderIn === "client" && (
+        <div className="consultation__request-container">
+          <Button
+            onClick={handleAccepConsultationClick}
+            label={t("accept")}
+            size="sm"
+          />
+          <Button
+            onClick={handleRejectConsultationClick}
+            label={t("reject")}
+            type="secondary"
+            size="sm"
+          />
+        </div>
+      )}
 
-            {!overview && suggested && renderIn === "client" && (
-              <>
-                <NewButton
-                  onClick={handleAccepConsultationClick}
-                  label={t("accept")}
-                  size={buttonSize}
-                  type="gradient"
-                />
-                <NewButton
-                  onClick={handleRejectConsultationClick}
-                  label={t("reject")}
-                  type="outline"
-                  size={buttonSize}
-                />
-              </>
-            )}
+      {!overview && suggested && renderIn === "provider" && (
+        <div className="consultation__button-container__edit">
+          <Button
+            onClick={() => handleCancelRequest()}
+            label={t("suggested")}
+            type="secondary"
+            size="sm"
+            disabled
+            color="purple"
+          />
+          <Button
+            onClick={handleCancel}
+            label={t("cancel")}
+            type="secondary"
+            size="sm"
+            color="purple"
+          />
+        </div>
+      )}
 
-            {!overview && suggested && renderIn === "provider" && (
-              <>
-                <NewButton
-                  onClick={() => handleCancelRequest()}
-                  label={t("suggested")}
-                  size={buttonSize}
-                  disabled
-                />
-                <NewButton
-                  onClick={handleCancel}
-                  label={t("cancel")}
-                  type="outline"
-                  size={buttonSize}
-                />
-              </>
-            )}
-
-            {!overview && !suggested && buttonAction === "edit" && (
-              <>
-                <NewButton
-                  onClick={() => toast.info(t("join_button_label_tooltip"))}
-                  label={t("join")}
-                  size={buttonSize}
-                  type="gradient"
-                  disabled
-                />
-                <NewButton
-                  onClick={handleEdit}
-                  label={buttonLabel}
-                  size={buttonSize}
-                  type="outline"
-                />
-              </>
-            )}
-
-            {!overview && !suggested && buttonAction === "cancel" && (
-              <NewButton
-                onClick={handleCancel}
-                label={buttonLabel}
-                size={buttonSize}
-                type="outline"
-              />
-            )}
-
-            {((!overview && !suggested && buttonAction === "details") ||
-              seeDetails) &&
-              ((renderIn === "client" && status === "finished") ||
-                seeDetails) && (
-                <NewButton
-                  onClick={handleSeeDetails}
-                  label={buttonLabel}
-                  size={buttonSize}
-                  type="outline"
-                />
-              )}
+      {!overview && !suggested && buttonAction === "edit" && (
+        <div className="consultation__button-container__edit">
+          <div
+            className="consultation__button-container__edit__join"
+            onClick={() => toast.info(t("join_button_label_tooltip"))}
+          >
+            <Button
+              label={t("join")}
+              size="sm"
+              color={renderIn === "provider" ? "purple" : "green"}
+              disabled
+            />
           </div>
-        )}
-      </div>
+          <Button
+            onClick={handleEdit}
+            label={buttonLabel}
+            size="sm"
+            type="secondary"
+            color={renderIn === "provider" ? "purple" : "green"}
+          />
+        </div>
+      )}
+
+      {!overview && !suggested && buttonAction === "cancel" && (
+        <div className="consultation__button-container">
+          <Button
+            onClick={handleCancel}
+            label={buttonLabel}
+            size="sm"
+            type="secondary"
+            color={renderIn === "provider" ? "purple" : "green"}
+          />
+        </div>
+      )}
+
+      {((!overview && !suggested && buttonAction === "details") ||
+        seeDetails) && (
+        <div className="consultation__button-container">
+          {(renderIn === "client" && status === "finished") || seeDetails ? (
+            <Button
+              onClick={handleSeeDetails}
+              label={buttonLabel}
+              size="sm"
+              type="secondary"
+              color={"green"}
+            />
+          ) : (
+            <p className="small-text">
+              {status === "finished" ? t("conducted") : t("not_conducted")}
+            </p>
+          )}
+        </div>
+      )}
 
       {isMenuOpen && (
         <OutsideClickHandler
@@ -474,6 +388,56 @@ export const Consultation = ({
           </div>
         </OutsideClickHandler>
       )}
-    </Card>
+    </Box>
   );
+};
+
+Consultation.propTypes = {
+  /**
+   * Render in admin, provider or client
+   * @default "client"
+   */
+  renderIn: PropTypes.oneOf(["admin", "provider", "client"]),
+
+  /**
+   *  Is the card overview? If "true" show the "See details" button
+   */
+  overview: PropTypes.bool,
+
+  /**
+   * Is the card request? If "true" show to "Accept consultation" and "Cancel suggestion" buttons
+   */
+  suggested: PropTypes.bool,
+
+  /**
+   * OnClick function to be called when the card is clicked
+   */
+  onClick: PropTypes.func,
+
+  /**
+   * hasPriceBadge is a boolean that indicates if the price badge should be shown
+   * */
+  hasPriceBadge: PropTypes.bool,
+
+  /**
+   * Additional classes to be added to the card
+   */
+  classes: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string),
+  ]),
+
+  /**
+   * Does the card have a menu? If "true" show the menu icon
+   * */
+  hasMenu: PropTypes.bool,
+};
+
+Consultation.defaultProps = {
+  default: "client",
+  overview: true,
+  suggested: false,
+  onClick: () => {},
+  hasMenu: false,
+  hasPriceBadge: true,
 };

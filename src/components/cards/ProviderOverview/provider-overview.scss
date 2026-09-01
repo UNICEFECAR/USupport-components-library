@@ -1,39 +1,44 @@
 @import "../../../styles/theme";
 
 .provider-overview {
-  padding: $spacing_1_6;
-  align-items: center;
-  width: calc(100% - 2 * $spacing_1_6);
-  text-align: left;
   position: relative;
-  transition: border-color 0.2s ease;
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  padding: $spacing_0_8 $spacing_1_6;
+  text-align: left;
+  width: calc(34.3rem - 2 * $spacing_1_6);
+  position: relative;
+  height: 100%;
 
-  &:hover {
-    border: 0.1rem solid $color_secondary_9749fa;
+  @media screen and (min-width: $screen_lg) {
+    width: calc(36.8rem - 2 * $spacing_1_6);
   }
 
   &__content {
+    align-items: center;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    margin-left: $spacing_1_6;
     width: 100%;
-    cursor: pointer;
 
-    &__text-container {
-      padding-left: $spacing_1_6;
-      flex: 1;
+    &__text-content {
+      padding-right: $spacing_1_0;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
 
       &__name-container {
         display: flex;
         flex-direction: row;
+        justify-content: space-between;
         align-items: flex-start;
-        gap: $spacing_0_6;
         width: 100%;
-      }
 
-      &__name {
-        &.paragraph {
-          padding-top: $spacing_0_4;
-          color: $color_purple_6a4ffb;
+        & .text {
+          color: $color_primary_20809e;
           font-weight: $font_semi_bold;
           display: -webkit-box;
           -webkit-line-clamp: 2;
@@ -43,92 +48,66 @@
           text-overflow: ellipsis;
           word-break: break-word;
           line-height: 1.4;
-          width: 100%;
+          min-height: calc(1.4em * 2);
+          max-height: calc(1.4em * 2);
+        }
+
+        &__price-badge {
+          position: absolute;
+          top: -1.3rem;
+          right: 0.4rem;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          background-color: $color_purple_dac3f6;
+          padding: $spacing_0_4 $spacing_0_8;
+          border-radius: $border_radius_1_6;
+          margin-right: $spacing_1_4;
+          margin-left: $spacing_0_2;
+
+          & .small-text {
+            color: $color_secondary_9749fa;
+          }
+
+          &--free {
+            background-color: rgba(32, 128, 158, 0.3);
+
+            & .small-text {
+              color: $color_primary_20809e;
+            }
+          }
         }
       }
 
-      &__free-badge {
-        position: absolute;
-        top: -2.5rem;
-        right: $spacing_2_4;
-        z-index: $z_index_1;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0.2rem 0.8rem;
-        background: rgba(151, 107, 255, 0.25);
-        border-radius: 999rem;
-        box-shadow: $shadow_1;
-
-        & .small-text {
-          padding: 0;
-          color: #1a2340;
-          font-weight: $font_medium;
-          white-space: nowrap;
-          text-transform: uppercase;
-        }
-      }
-
-      &__peer-badge {
-        margin-top: $spacing_0_4;
-      }
-    }
-  }
-
-  &__bottom {
-    margin-top: $spacing_1_2;
-    border-top: 0.1rem solid #cdd8e1;
-    width: 100%;
-  }
-
-  &__earliest {
-    display: flex;
-    flex-direction: column;
-    gap: $spacing_0_4;
-  }
-
-  &__earliest-text {
-    padding-top: 0;
-  }
-
-  &__earliest-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-    &__wrapper {
-      @media screen and (min-width: $screen-md) {
-        display: flex;
-        align-items: center;
-        gap: $spacing_0_8;
+      &__name {
+        color: $color_primary_20809e;
+        font-weight: $font_bold;
+        word-break: break-word;
+        
       }
     }
 
-    & .icon {
-      margin-right: $spacing_0_8;
+    &__earliest-text {
+      padding-top: $spacing_0_4;
     }
 
-    & p {
-      font-weight: $font_bold;
-    }
-  }
-
-  &__actions {
-    margin-top: $spacing_1_6;
-    padding-top: $spacing_1_6;
-    border-top: 0.1rem solid #cdd8e1;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: $spacing_1_2;
-
-    & .button {
-      flex: 1;
-    }
-
-    @media screen and (min-width: $screen-lg) {
+    &__earliest-container {
+      display: flex;
       flex-direction: row;
+      align-items: center;
+
+      & .icon {
+        margin-right: $spacing_0_8;
+      }
+      & p {
+        font-weight: $font_bold;
+      }
     }
+  }
+
+  &__peer-badge {
+    margin: $spacing_0_4 0;
   }
 
   &__types {
@@ -140,62 +119,6 @@
     overflow: hidden;
     text-overflow: ellipsis;
     line-height: 1.4;
-  }
-
-  &__icon-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-    &__price-badge {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      background-color: #cdd8e1;
-      color: $color_secondary_9749fa;
-      border-radius: 0.6rem;
-      margin-right: $spacing_1_4;
-
-      & .small-text {
-        padding: $spacing_0_4 $spacing_0_6;
-        @include themifyCustom(
-          $themes,
-          "color",
-          "$color_secondary_9749fa",
-          "color_black_31"
-        );
-      }
-
-      &--free {
-        & .small-text {
-          color: #0e202f;
-        }
-      }
-    }
-  }
-
-  &__earliest {
-    margin-top: $spacing_1_2;
-    width: 100%;
-  }
-
-  &__earliest-text {
-    padding-top: $spacing_0_4;
-  }
-
-  &__earliest-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-    & .icon {
-      margin-right: $spacing_0_8;
-    }
-
-    & p {
-      font-weight: $font_bold;
-    }
   }
 
   &__menu {

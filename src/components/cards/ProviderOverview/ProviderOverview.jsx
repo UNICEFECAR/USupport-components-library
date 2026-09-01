@@ -2,18 +2,16 @@ import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import OutsideClickHandler from "react-outside-click-handler";
 
-import { Card } from "../../boxes/Card";
+import { Box } from "../../boxes/Box/Box";
 import { Avatar } from "../../avatars/Avatar/Avatar";
 import { Icon } from "../../icons/Icon/Icon";
 import { StatusBadge } from "../StatusBadge";
-import { NewButton } from "../../buttons";
-
 import { PeerSupportBadge } from "../../labels/PeerSupportBadge";
+
 import { getDateView, getDayOfTheWeek } from "../../../utils/date";
 import {
   getDisplaySpecializations,
   isPeerSupportProvider,
-  resolveSpecializationKeys,
 } from "../../../utils/peerSupport";
 
 import "./provider-overview.scss";
@@ -47,13 +45,12 @@ export const ProviderOverview = ({
   handleUpdateStatus,
   handleViewProfile,
   handleActivities,
-  handleBookSession,
   providerStatus,
   earliestAvailableSlot,
   t,
-  liquidGlass,
-  isPeerSupport,
 }) => {
+  const currencySymbol = localStorage.getItem("currency_symbol");
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isTextOverflowing, setIsTextOverflowing] = useState(false);
   const nameRef = useRef(null);
@@ -63,19 +60,12 @@ export const ProviderOverview = ({
   const displayName = patronym
     ? `${name} ${patronym} ${surname}`
     : `${name} ${surname}`;
-  const resolvedSpecializationKeys = resolveSpecializationKeys(
-    specializationKeys,
-    specializations,
+  const isPeerSupport = isPeerSupportProvider(
+    specializationKeys ?? specializations
   );
-  const showPeerBadge =
-    isPeerSupport ??
-    (resolvedSpecializationKeys
-      ? isPeerSupportProvider(resolvedSpecializationKeys)
-      : false);
-  const displaySpecializations = resolvedSpecializationKeys
-    ? getDisplaySpecializations(resolvedSpecializationKeys, t)
-    : specializations ?? [];
-  const specializationsText = displaySpecializations?.join(", ") ?? "";
+  const specializationsText = specializationKeys
+    ? getDisplaySpecializations(specializationKeys, t).join(", ")
+    : specializations?.join(", ") ?? "";
 
   useEffect(() => {
     const checkOverflow = () => {
@@ -119,64 +109,65 @@ export const ProviderOverview = ({
     };
   }, [specializationsText]);
 
+  const handleIconClick = () => {
+    if (hasMenu) {
+      setIsMenuOpen(!isMenuOpen);
+    }
+  };
+
   const handleToggleStatus = () => {
     setIsMenuOpen(false);
     handleUpdateStatus();
   };
 
-  const earliestSlot = earliestAvailableSlot
-    ? new Date(earliestAvailableSlot)
-    : null;
-  const dayOfWeek = earliestSlot && t ? t(getDayOfTheWeek(earliestSlot)) : "";
-  const dateText =
-    earliestSlot && dayOfWeek
-      ? `${dayOfWeek} ${getDateView(earliestSlot).slice(0, 5)}`
-      : "";
+  const earliestSlot = new Date(earliestAvailableSlot);
+  const dayOfWeek = t(getDayOfTheWeek(earliestSlot));
+  const dateText = `${dayOfWeek} ${getDateView(earliestSlot).slice(0, 5)}`;
 
-  const startHour = earliestSlot?.getHours();
-  const endHour = startHour != null ? startHour + 1 : null;
-  const timeText =
-    startHour != null && endHour != null
-      ? `${startHour < 10 ? `0${startHour}` : startHour}:00 - ${
-          endHour < 10 ? `0${endHour}` : endHour
-        }:00`
-      : "";
+  const startHour = earliestSlot.getHours();
+  const endHour = startHour + 1;
+  const timeText = earliestSlot
+    ? `${startHour < 10 ? `0${startHour}` : startHour}:00 - ${
+        endHour < 10 ? `0${endHour}` : endHour
+      }:00`
+    : "";
 
   return (
-    <Card classes={["provider-overview"].join(" ")} liquidGlass={liquidGlass}>
-      <div
-        className="provider-overview__content"
-        onClick={!hasMenu ? onClick : undefined}
-      >
-        <Avatar
-          image={AMAZON_S3_BUCKET + "/" + image}
-          size="sm"
-          isCircle={false}
-        />
-        <div className="provider-overview__content__text-container">
-          <div className="provider-overview__content__text-container__name-container">
-            <p
+    <Box
+      onClick={!hasMenu ? onClick : undefined}
+      shadow={2}
+      classes={["provider-overview"].join(" ")}
+    >
+      <Avatar image={AMAZON_S3_BUCKET + "/" + image} size="sm" />
+      <div className="provider-overview__content">
+        <div className="provider-overview__content__text-content">
+          <div className="provider-overview__content__text-content__name-container">
+            <p 
               ref={nameRef}
-              className="provider-overview__content__text-container__name paragraph"
+              className="text" 
               title={isTextOverflowing ? displayName : undefined}
             >
               {displayName}
             </p>
-            {!price && (
-              <div className="provider-overview__content__text-container__free-badge">
-                <p className="small-text">{freeLabel}</p>
-              </div>
-            )}
+            <div
+              className={[
+                "provider-overview__content__text-content__name-container__price-badge",
+                !price &&
+                  "provider-overview__content__text-content__name-container__price-badge--free",
+              ].join(" ")}
+            >
+              <p className="small-text">
+                {price ? `${price}${currencySymbol}` : freeLabel}
+              </p>
+            </div>
           </div>
-          {showPeerBadge && (
-            <PeerSupportBadge
-              classes="provider-overview__content__text-container__peer-badge"
-            />
+          {isPeerSupport && (
+            <PeerSupportBadge classes="provider-overview__peer-badge" />
           )}
           {specializationsText && (
             <p
               ref={specializationsRef}
-              className="text provider-overview__types"
+              className="small-text provider-overview__types"
               title={
                 isSpecializationsOverflowing ? specializationsText : undefined
               }
@@ -184,56 +175,30 @@ export const ProviderOverview = ({
               {specializationsText}
             </p>
           )}
+          {earliestAvailableSlot && (
+            <>
+              <p className="small-text provider-overview__content__earliest-text">
+                {t("earliest_available_slot")}
+              </p>
+              <div className="provider-overview__content__earliest-container">
+                <Icon name="calendar" size="sm" color={"#66768D"} />
+                <div className="provider-overview__content__earliest-container__text">
+                  <p className="small-text">{dateText}</p>
+                  <p className="small-text">{timeText}</p>
+                </div>
+              </div>
+            </>
+          )}
           {providerStatus && (
             <StatusBadge status={providerStatus} label={t(providerStatus)} />
           )}
         </div>
-      </div>
-      <div className="provider-overview__bottom">
-        {earliestAvailableSlot && (
-          <div className="provider-overview__earliest">
-            <p className="text provider-overview__earliest-text">
-              {t("earliest_available_slot")}
-            </p>
-            <div className="provider-overview__earliest-container__wrapper">
-              <div className="provider-overview__earliest-container">
-                <Icon name="calendar" size="sm" color={"#66768D"} />
-                <div className="provider-overview__earliest-container__text">
-                  <p className="text">{dateText}</p>
-                </div>
-              </div>
-              <div className="provider-overview__earliest-container">
-                <Icon name="time" size="sm" color={"#66768D"} />
-                <div className="provider-overview__earliest-container__text">
-                  <p className="text">{timeText}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-        <div className="provider-overview__actions">
-          <NewButton
-            type="outline"
+        <div>
+          <Icon
+            name={hasMenu ? "three-dots-vertical" : "arrow-chevron-forward"}
+            onClick={handleIconClick}
             size="md"
-            label={viewProfileLabel}
-            onClick={(e) => {
-              e.stopPropagation();
-              if (handleViewProfile) {
-                handleViewProfile();
-              } else if (!hasMenu && onClick) {
-                onClick();
-              }
-            }}
-          />
-          <NewButton
-            size="md"
-            label={t ? t("book_session") : "Book session"}
-            onClick={(e) => {
-              e.stopPropagation();
-              if (handleBookSession) {
-                handleBookSession();
-              }
-            }}
+            color="#20809E"
           />
         </div>
       </div>
@@ -282,7 +247,7 @@ export const ProviderOverview = ({
           </div>
         </OutsideClickHandler>
       )}
-    </Card>
+    </Box>
   );
 };
 
@@ -351,22 +316,6 @@ ProviderOverview.propTypes = {
    * Handler for the delete conatiner
    * */
   handleDelete: PropTypes.func,
-  /**
-   * Handler for the book session button
-   */
-  handleBookSession: PropTypes.func,
-  /**
-   * Whether to use liquid glass background
-   */
-  liquidGlass: PropTypes.bool,
-  /**
-   * Raw specialization keys from the API
-   */
-  specializationKeys: PropTypes.arrayOf(PropTypes.string),
-  /**
-   * Whether the provider is a peer support (U-FRIEND) type
-   */
-  isPeerSupport: PropTypes.bool,
 };
 
 ProviderOverview.defaultProps = {
@@ -377,6 +326,4 @@ ProviderOverview.defaultProps = {
   editLabel: "Edit",
   statusChangeLabel: "Activate",
   viewProfileLabel: "View profile",
-  liquidGlass: false,
-  isPeerSupport: false,
 };

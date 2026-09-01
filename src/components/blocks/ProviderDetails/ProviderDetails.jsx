@@ -1,10 +1,10 @@
 import React, { useCallback } from "react";
 import PropTypes from "prop-types";
+import { Grid, GridItem } from "../../grids";
 import { Icon } from "../../icons";
 import { Avatar } from "../../avatars";
-import { Box } from "../../boxes";
 import { PeerSupportBadge } from "../../labels/PeerSupportBadge";
-import { getDateView, getDayOfTheWeek } from "../../../utils/";
+import { getTimeFromDate, getDateView } from "../../../utils/";
 import {
   getDisplaySpecializations,
   isPeerSupportProvider,
@@ -28,284 +28,256 @@ export const ProviderDetails = ({
   hasCookies = true,
   cookieState,
   setCookieState,
-  activeCoupon,
-  classes,
-  iconColor = "#66768D",
 }) => {
   const currencySymbol = localStorage.getItem("currency_symbol");
 
-  const displayName = provider?.patronym
-    ? `${provider.name} ${provider.patronym} ${provider.surname}`
-    : `${provider?.name} ${provider?.surname}`;
+  const allOptionsToString = (option) => {
+    return provider[option]?.join(", ");
+  };
 
-  const specializationsText = provider?.specializations?.length
-    ? getDisplaySpecializations(provider.specializations, t).join(", ")
-    : "";
+  const renderSpecializations = useCallback(() => {
+    if (provider) {
+      // peer_support is surfaced via the U-FRIEND badge, not the text list
+      return getDisplaySpecializations(provider.specializations, t).join(", ");
+    }
+  }, [provider]);
+
   const isPeerSupport = isPeerSupportProvider(provider?.specializations);
 
   const renderWorkWith = useCallback(() => {
     if (provider) {
-      if (typeof provider.workWith?.[0] === "object") {
-        return provider.workWith
-          .map((x) => t(x.topic.replaceAll("-", "_")))
-          ?.join(", ");
-      }
-      return provider.workWith?.map((x) => t(x))?.join(", ");
+      return provider.workWith
+        .map((x) => t(x.topic.replaceAll("-", "_")))
+        ?.join(", ");
     }
-  }, [provider, t]);
+  }, [provider]);
 
   const renderLanguages = useCallback(() => {
     if (provider) {
-      if (typeof provider.languages?.[0] === "object") {
-        return provider.languages
-          .map((x) => {
-            return x.name === "English"
-              ? x.name
-              : `${x.name} (${x.local_name})`;
-          })
-          ?.join(", ");
-      }
-      return provider.languages?.map((x) => t(x))?.join(", ");
+      return provider.languages
+        .map((x) => {
+          return x.name === "English" ? x.name : `${x.name} (${x.local_name})`;
+        })
+        ?.map((x, i) => {
+          return (
+            <React.Fragment key={i}>
+              {x}
+              {i !== provider.languages?.length - 1 ? ", " : ""}
+              <br />
+            </React.Fragment>
+          );
+        });
     }
-  }, [provider, t]);
+  }, [provider]);
 
-  const getSlotDisplay = () => {
-    if (!provider?.earliestAvailableSlot) return null;
-    const earliestSlot = new Date(provider.earliestAvailableSlot);
-    const dayOfWeek = t(getDayOfTheWeek(earliestSlot));
-    const dateText = `${dayOfWeek} ${getDateView(earliestSlot).slice(0, 5)}`;
-    const startHour = earliestSlot.getHours();
-    const endHour = startHour + 1;
-    const timeText = `${startHour < 10 ? `0${startHour}` : startHour}:00 - ${endHour < 10 ? `0${endHour}` : endHour}:00`;
-    return { dateText, timeText };
-  };
-
-  const slotDisplay = getSlotDisplay();
-  const price = provider?.consultationPrice;
-  const isFree = !price || price === 0 || activeCoupon;
-
-  const educationText =
-    provider?.education?.length > 0 ? provider.education.join(", ") : null;
+  let earliestAvailableSlot;
+  if (provider) {
+    earliestAvailableSlot = `${getDateView(
+      provider.earliestAvailableSlot
+    )} - ${getTimeFromDate(new Date(provider.earliestAvailableSlot))}`;
+  }
 
   return (
-    <Box
-      classes={["provider-details__box", classes].filter(Boolean).join(" ")}
-      liquidGlass
-    >
-      <div className="provider-details__header">
-        <div className="provider-details__header__provider-info">
-          <Avatar image={image} size="lg" />
-          <div className="provider-details__header__provider-details">
-            <h4 className="provider-details__header__provider-name">
-              {displayName}
-            </h4>
-            {isPeerSupport && <PeerSupportBadge />}
-            {specializationsText && (
-              <p className="provider-details__header__specializations text">
-                {specializationsText}
-              </p>
-            )}
-            <div className="provider-details__header__badges">
-              {isFree ? (
-                <span className="small-text provider-details__badge provider-details__badge--free">
-                  {activeCoupon ? t("coupon") : t("free")}
-                </span>
-              ) : (
-                <span className="provider-details__badge provider-details__badge--price">
-                  {price}
-                  {currencySymbol}
-                </span>
-              )}
+    <Grid classes="provider-details__grid">
+      <GridItem md={4} lg={4}>
+        <div className="provider-details__header">
+          <div className="provider-details__header__provider-container">
+            <Avatar
+              image={image}
+              classes="provider-details__header__provider-container__avatar"
+            />
+            <div className="provider-details__header__provider-container__text-container">
+              <h4 className="provider-details__header__provider-container__text-container__name">
+                {provider.name} {provider.patronym ? provider.patronym : ""}{" "}
+                {provider.surname}
+              </h4>
+              {isPeerSupport && <PeerSupportBadge />}
+              <p className="paragraph">{renderSpecializations()}</p>
             </div>
           </div>
         </div>
 
-        {buttonComponent && (
-          <div className="provider-details__header__actions">
-            {buttonComponent}
-          </div>
-        )}
-      </div>
+        <div className="provider-details__information-container">
+          <p className="paragraph provider-details__information-container__heading">
+            {t("description_label")}
+          </p>
+          <p className="paragraph provider-details__information-container__text">
+            {provider.description}
+          </p>
+        </div>
 
-      <div className="provider-details__info-grid">
-        {renderIn !== "client" && renderIn !== "website" && provider?.phone && (
-          <div className="provider-details__info-item">
-            <Icon name="call" color={iconColor} />
-            <div className="provider-details__info-item__content">
-              <span className="provider-details__info-item__label text">
-                {t("phone_label")}
-              </span>
-              <span className="provider-details__info-item__value text">
-                {provider.phone}
-              </span>
-            </div>
-          </div>
-        )}
-
-        {renderIn !== "client" && renderIn !== "website" && provider?.email && (
-          <div className="provider-details__info-item">
-            <Icon name="mail-admin" color={iconColor} />
-            <div className="provider-details__info-item__content">
-              <span className="provider-details__info-item__label text">
-                {t("email_label")}
-              </span>
-              <span className="provider-details__info-item__value text">
-                {provider.email}
-              </span>
-            </div>
-          </div>
-        )}
-
-        {renderIn !== "client" &&
-          renderIn !== "website" &&
-          provider?.organizations?.length > 0 && (
-            <div className="provider-details__info-item">
-              <Icon name="organisation" color={iconColor} />
-              <div className="provider-details__info-item__content">
-                <span className="provider-details__info-item__label text">
-                  {t("organizations_label")}
-                </span>
-                <span className="provider-details__info-item__value text">
-                  {provider.organizations?.map((org) => org.name).join(", ")}
-                </span>
-              </div>
-            </div>
-          )}
-      </div>
-
-      <div className="provider-details__layout">
-        {slotDisplay && (
-          <div className="provider-details__section">
-            <div className="provider-details__section__header">
-              <Icon name="calendar" color={iconColor} />
-              <span className="provider-details__section__title text">
-                {t("earliest_slot_label")}
-              </span>
-            </div>
-            <p className="provider-details__section__content text">
-              {slotDisplay.dateText}, {slotDisplay.timeText}
-            </p>
-          </div>
-        )}
-
-        {provider?.totalConsultations > 0 && (
-          <div className="provider-details__section">
-            <div className="provider-details__section__header">
-              <Icon name="consultation" color={iconColor} />
-              <span className="provider-details__section__title text">
-                {t("done_consultations_label")}
-              </span>
-            </div>
-            <p className="provider-details__section__content text">
-              {provider.totalConsultations} {t("consultations")}
-            </p>
-          </div>
-        )}
-
-        {renderLanguages() && educationText && (
-          <div className="provider-details__section">
-            <div className="provider-details__section__header">
-              <Icon name="globe" color={iconColor} />
-              <span className="provider-details__section__title text">
-                {t("languages_label")}
-              </span>
-            </div>
-            <p className="provider-details__section__content text">
-              {renderLanguages()}
-            </p>
-          </div>
-        )}
-
-        {renderLanguages() && !educationText && (
-          <div className="provider-details__section">
-            <div className="provider-details__section__header">
-              <Icon name="globe" color={iconColor} />
-              <span className="provider-details__section__title text">
-                {t("languages_label")}
-              </span>
-            </div>
-            <p className="provider-details__section__content text">
-              {renderLanguages()}
-            </p>
-          </div>
-        )}
-
-        {educationText && (
-          <div className="provider-details__section">
-            <div className="provider-details__section__header">
-              <Icon name="read-book" color={iconColor} />
-              <span className="provider-details__section__title text">
-                {t("education_label")}
-              </span>
-            </div>
-            <p className="provider-details__section__content text">
-              {educationText}
-            </p>
-          </div>
-        )}
-
-        {provider?.description && (
-          <div className="provider-details__section provider-details__section--description">
-            <div className="provider-details__section__header">
-              <Icon name="document" color={iconColor} />
-              <span className="provider-details__section__title text">
-                {t("description_label")}
-              </span>
-            </div>
-            <p className="provider-details__section__content text">
-              {provider.description}
-            </p>
-          </div>
-        )}
-
-        {renderWorkWith() && (
-          <div className="provider-details__section provider-details__section--specialties">
-            <div className="provider-details__section__header">
-              <Icon name="community" color={iconColor} />
-              <span className="provider-details__section__title text">
-                {t("work_with_label")}
-              </span>
-            </div>
-            <p className="provider-details__section__content text">
-              {renderWorkWith()}
-            </p>
-          </div>
-        )}
-      </div>
-
-      {provider?.videoLink && (
-        <div className="provider-details__section provider-details__section--video">
-          <div className="provider-details__section__header">
-            <Icon name="video" color={iconColor} />
-            <span className="provider-details__section__title text">
+        {provider.videoLink && (
+          <div className="provider-details__video-container">
+            <p className="paragraph provider-details__information-container__heading">
               {t("video_label")}
-            </span>
-          </div>
-          <div className="provider-details__video-player-wrapper">
+            </p>
             <VideoPlayer
               url={provider.videoLink}
               hasCookies={hasCookies}
-              classes="provider-details__video-player"
+              classes="provider-details__video-container__video-player"
               cookieState={cookieState}
               setCookieState={setCookieState}
             />
           </div>
-        </div>
-      )}
-    </Box>
+        )}
+      </GridItem>
+
+      <GridItem md={4} lg={8}>
+        <Grid>
+          <GridItem md={4} lg={6} classes="provider-details__grid__item">
+            {renderIn !== "client" && renderIn !== "website" && (
+              <div className="provider-details__information-container-with-icon">
+                <Icon
+                  name="call"
+                  size="md"
+                  color="#66768D"
+                  classes="provider-details__information-container-with-icon__icon"
+                />
+                <p className="paragraph">{provider.phone}</p>
+              </div>
+            )}
+            {renderIn !== "client" && renderIn !== "website" && (
+              <div className="provider-details__information-container-with-icon">
+                <Icon
+                  name="mail-admin"
+                  size="md"
+                  color="#66768D"
+                  classes="provider-details__information-container-with-icon__icon"
+                />
+                <p className="paragraph">{provider.email}</p>
+              </div>
+            )}
+            <div className="provider-details__information-container-with-icon">
+              <Icon
+                name="dollar"
+                size="md"
+                color="#66768D"
+                classes="provider-details__information-container-with-icon__icon"
+              />
+              <p className="paragraph">
+                {provider.consultationPrice > 0
+                  ? `${provider.consultationPrice}${currencySymbol || "€"} ${t(
+                      "hour_consultation"
+                    )}`
+                  : t("free")}
+              </p>
+            </div>
+
+            {provider.city && (
+              <>
+                <div className="provider-details__information-container">
+                  <p className="paragraph provider-details__information-container__heading">
+                    {t("city_label")}
+                  </p>
+                  <p className="paragraph provider-details__information-container__text">
+                    {provider.city}
+                  </p>
+                </div>
+              </>
+            )}
+            {provider.street && (
+              <>
+                <div className="provider-details__information-container">
+                  <p className="paragraph provider-details__information-container__heading">
+                    {t("street_label")}
+                  </p>
+                  <p className="paragraph provider-details__information-container__text">
+                    {provider.street}
+                  </p>
+                </div>
+              </>
+            )}
+            {provider.postcode && (
+              <>
+                <div className="provider-details__information-container">
+                  <p className="paragraph provider-details__information-container__heading">
+                    {t("postcode_label")}
+                  </p>
+                  <p className="paragraph provider-details__information-container__text">
+                    {provider.postcode}
+                  </p>
+                </div>
+              </>
+            )}
+
+            <div className="provider-details__information-container">
+              <p className="paragraph provider-details__information-container__heading">
+                {t("languages_label")}
+              </p>
+              <p className="paragraph provider-details__information-container__text">
+                {renderLanguages()}
+              </p>
+            </div>
+
+            <div className="provider-details__information-container">
+              <p className="paragraph provider-details__information-container__heading">
+                {t("work_with_label")}
+              </p>
+              <p className="paragraph provider-details__information-container__text">
+                {renderWorkWith()}
+              </p>
+            </div>
+          </GridItem>
+
+          <GridItem md={4} lg={6} classes="provider-details__grid__item">
+            <div className="provider-details__information-container">
+              <p className="paragraph provider-details__information-container__heading">
+                {t("earliest_slot_label")}
+              </p>
+              <p className="paragraph provider-details__information-container__text">
+                {provider.earliestAvailableSlot
+                  ? earliestAvailableSlot
+                  : t("no_available_slot")}
+              </p>
+            </div>
+            <div className="provider-details__information-container">
+              <p className="paragraph provider-details__information-container__heading">
+                {t("education_label")}
+              </p>
+              <p className="paragraph provider-details__information-container__text">
+                {allOptionsToString("education")}
+              </p>
+            </div>
+            <div className="provider-details__information-container">
+              <p className="paragraph provider-details__information-container__heading">
+                {t("done_consultations_label")}
+              </p>
+              <p className="paragraph provider-details__information-container__text">
+                {provider.totalConsultations} {t("consultations")}
+              </p>
+            </div>
+            {renderIn !== "client" && renderIn !== "website" && (
+              <div className="provider-details__information-container">
+                <p className="paragraph provider-details__information-container__heading">
+                  {t("organizations_label")}
+                </p>
+                <p className="paragraph provider-details__information-container__text">
+                  {provider.organizations?.map((org) => org.name).join(", ")}
+                </p>
+              </div>
+            )}
+          </GridItem>
+        </Grid>
+      </GridItem>
+
+      {buttonComponent}
+    </Grid>
   );
 };
 
 ProviderDetails.propTypes = {
+  /**
+   * The provider data object
+   *  */
   provider: PropTypes.object,
+
+  /**
+   * The url of the image
+   */
   image: PropTypes.string,
-  t: PropTypes.func.isRequired,
+
+  /**
+   * The button component to be rendered at the bottom of the grid
+   */
   buttonComponent: PropTypes.element,
-  renderIn: PropTypes.string,
-  hasCookies: PropTypes.bool,
-  cookieState: PropTypes.bool,
-  setCookieState: PropTypes.func,
-  activeCoupon: PropTypes.object,
-  classes: PropTypes.string,
-  iconColor: PropTypes.string,
 };
