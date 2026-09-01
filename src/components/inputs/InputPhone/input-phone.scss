@@ -1,82 +1,176 @@
 @import "../../../styles/theme";
 
 .phone-input-wrapper {
-  width: 34.3rem;
+  width: 100%;
+  text-align: left;
+  position: relative;
+  overflow: visible;
 
-  @media screen and (min-width: $screen-lg) {
-    width: 36.8rem;
+  &.disabled {
+    opacity: 0.6;
   }
 
   > .label {
-    text-align: left;
     color: $color_blue_3d527b;
+    font-weight: $font_medium_bold;
+    @include themify($themes, "color", color_text_main);
     margin-bottom: $spacing_0_4;
+
+    &--dark {
+      color: $color_primary_20809e;
+    }
+
+    &--hc {
+      color: #ffff00;
+    }
   }
 }
 
 .input-phone-container {
-  &__input.form-control {
-    background-color: $color_white_ff;
+  &.react-tel-input {
+    display: flex;
+    align-items: center;
     width: 100%;
+    overflow: visible;
+    border-radius: $border_radius_1_2;
     box-shadow: $shadow_1;
-    border-radius: $border_radius_4_0;
-    border: 0.1rem solid transparent;
-    text-align: left;
-    padding-top: $spacing_1_3;
-    padding-bottom: $spacing_1_3;
+    border: 0.1rem solid #cdd8e1;
+    background-color: $color_white_ff;
+    @include themify($themes, "background-color", "color_card");
+    font-family: inherit;
+    font-size: inherit;
+  }
 
-    &:before,
+  &--dark.react-tel-input {
+    background-color: $color_black_31;
+  }
+
+  &__input.form-control {
+    width: 100%;
+    height: auto;
+    border: 0;
+    box-shadow: none;
+    background-color: transparent;
+    @include themify($themes, "color", "color_text_main");
+    padding: $spacing_1_2 $spacing_1_6 $spacing_1_2 5.2rem;
+    border-radius: $border_radius_1_2;
+    transition: none;
+
+    &--dark {
+      background-color: transparent;
+      @include themify($themes, "color", "color_text_main");
+    }
+
+    &::placeholder {
+      @include themify($themes, "color", "color_input_placeholder");
+    }
+
+    &:hover,
     &:focus,
-    &:focus:before,
+    &:focus-visible,
     &:active {
-      border: 0.1rem solid $color_secondary_9749fa;
+      border: 0;
       box-shadow: none;
+      outline: none;
+      background-color: transparent;
     }
   }
 
-  &__input--error.form-control {
-    border: 0.1rem solid $color_red_eb5757 !important;
+  &__button.flag-dropdown {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 4.8rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    border-radius: $border_radius_1_2 0 0 $border_radius_1_2;
+    overflow: visible;
+
+    &.open {
+      width: 100%;
+      z-index: 3;
+    }
+
+    &:hover,
+    &:focus {
+      background: transparent;
+    }
+
+    .selected-flag {
+      width: 4.8rem;
+      padding: 0 0 0 $spacing_1_2;
+      background: transparent;
+      border-radius: $border_radius_1_2 0 0 $border_radius_1_2;
+
+      &:before,
+      &:focus:before,
+      &.open:before {
+        border: none;
+        box-shadow: none;
+      }
+
+      .arrow {
+        border-top-color: $color_blue_3d527b;
+        @include themify($themes, "border-top-color", "color_text_main");
+      }
+    }
   }
 
-  &__button .selected-flag,
-  .selected-flag.open {
-    &:before,
-    &:focus,
-    &:focus:before,
-    &:active {
-      border: none;
-      box-shadow: none;
-    }
+  &.react-tel-input:hover:not(&.error),
+  &.react-tel-input:not(&.error):has(.form-control:focus) {
+    border: 0.1rem solid $color_secondary_9749fa;
+  }
+
+  &.error.react-tel-input {
+    border: 0.1rem solid $color_red_eb5757;
   }
 
   &__dropdown.country-list {
-    width: 34.3rem;
-    border-radius: 2rem;
-
-    @media screen and (min-width: $screen-lg) {
-      width: 36.8rem;
-    }
+    left: 0 !important;
+    width: 100% !important;
+    margin: $spacing_0_4 0 0 0 !important;
+    border-radius: $border_radius_1_2;
+    box-shadow: $shadow_1;
+    z-index: 4;
+    @include themify($themes, "background-color", "color_card");
 
     & li.search {
-      padding-left: 0;
+      padding: $spacing_1_0 $spacing_1_2 $spacing_0_6 !important;
+      display: flex;
+      justify-content: center;
     }
 
     .search-box {
       box-shadow: $shadow_1;
-      border-radius: $border_radius_4_0;
-      border: 0.1rem solid transparent;
-      width: 90%;
-      margin: 0 auto;
-      padding: $spacing_0_8;
-      padding-left: $spacing_1_2;
+      border-radius: $border_radius_1_2;
+      border: 0.1rem solid #cdd8e1;
+      width: 100%;
+      margin: 0 !important;
+      box-sizing: border-box;
+      padding: $spacing_0_8 $spacing_1_2;
+      @include themify($themes, "background-color", "color_card");
+      @include themify($themes, "color", "color_text_main");
 
-      &:before,
       &:focus,
-      &:focus:before,
-      &:active,
       &:hover {
         border: 0.1rem solid $color_secondary_9749fa;
+        outline: none;
+      }
+    }
+
+    .country {
+      @include themify($themes, "color", "color_text_main");
+
+      &:hover,
+      &.highlight {
+        @include themify($themes, "background-color", "color_gray_ea");
       }
     }
   }
+}
+
+.theme-highContrast .input-phone-container__input.form-control::placeholder {
+  color: yellow !important;
 }
