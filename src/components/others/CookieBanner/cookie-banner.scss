@@ -3,12 +3,14 @@
 .cookie-banner {
   position: fixed;
   bottom: $spacing_2_0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 90%;
   z-index: 10001;
   padding: $spacing_2_0;
   border-radius: $border_radius_4_0;
 
-  @media screen and (min-width: $screen_md) {
+  @media screen and (min-width: $screen-lg) {
     left: auto;
     right: $spacing_10_0;
     transform: none;
