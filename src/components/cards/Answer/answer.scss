@@ -156,6 +156,13 @@
     width: 100%;
     justify-content: space-between;
 
+    // Deactivated provider: the schedule link is gone, only the likes remain,
+    // so keep them where they were instead of letting them slide left
+    &--not-schedulable {
+      cursor: default;
+      justify-content: flex-end;
+    }
+
     &__text {
       margin-left: $spacing_0_8;
       color: #8a4bf3;
