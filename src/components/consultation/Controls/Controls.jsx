@@ -26,6 +26,7 @@ export const Controls = ({
   isRoomConnecting,
   hasUnreadMessages = true,
   isInSession,
+  connectionQuality, // "good" | "poor" | "lost", see ConsultationInformation
   isHidden = false,
   toggleControlsVisibility,
   t,
@@ -121,6 +122,7 @@ export const Controls = ({
         providerName={consultation.clientName || consultation.providerName}
         providerImage={consultation.image}
         isInSession={isInSession}
+        connectionQuality={connectionQuality}
         showActivityIndicator
         t={t}
       />

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { getDayOfTheWeek, getDateView } from "../../../utils";
+import { getDayOfTheWeek, getDateView, getTimeAsString } from "../../../utils";
 import { Avatar } from "../../avatars/Avatar/Avatar";
 import { Icon } from "../../icons/Icon/Icon";
 import classNames from "classnames";
@@ -24,6 +24,7 @@ export const ConsultationInformation = ({
   providerName,
   providerImage,
   isInSession,
+  connectionQuality = "good",
   showActivityIndicator = false,
   classes,
   t,
@@ -31,16 +32,24 @@ export const ConsultationInformation = ({
   const dayOfWeek = t(getDayOfTheWeek(startDate));
   const dateText = `${dayOfWeek} ${getDateView(startDate).slice(0, 5)}`;
 
-  const startHour = startDate.getHours();
-  const endHour = endDate.getHours();
-  const timeText = startDate
-    ? `${startHour < 10 ? `0${startHour}` : startHour}:00 - ${
-        endHour < 10 ? `0${endHour}` : endHour
-      }:00`
-    : "";
+  const timeText =
+    startDate && endDate
+      ? `${getTimeAsString(startDate)} - ${getTimeAsString(endDate)}`
+      : "";
 
   const dateTimeText =
     dateText && timeText ? `${dateText} · ${timeText}` : dateText || timeText;
+
+  // A dropped connection (on either side) means the other participant is not reachable,
+  // even if they are still listed in the session
+  const isConnected = isInSession && connectionQuality !== "lost";
+  let statusModifier = "";
+  if (isConnected) {
+    statusModifier =
+      connectionQuality === "poor"
+        ? "consultation-information__content__details__status--poor"
+        : "consultation-information__content__details__status--active";
+  }
 
   return (
     <div
@@ -57,13 +66,9 @@ export const ConsultationInformation = ({
           </p>
           {showActivityIndicator ? (
             <div
-              className={`consultation-information__content__details__status ${
-                isInSession
-                  ? "consultation-information__content__details__status--active"
-                  : ""
-              }`}
+              className={`consultation-information__content__details__status ${statusModifier}`}
             >
-              <Icon size="sm" name={isInSession ? "wifi-on" : "wifi-off"} />
+              <Icon size="sm" name={isConnected ? "wifi-on" : "wifi-off"} />
             </div>
           ) : null}
         </div>
