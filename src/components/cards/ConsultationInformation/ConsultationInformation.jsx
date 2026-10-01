@@ -11,6 +11,7 @@ import { specialistPlaceholder } from "../../../assets";
 
 const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
 
+
 /**
  * ConsultationInformation
  *
@@ -68,7 +69,18 @@ export const ConsultationInformation = ({
             <div
               className={`consultation-information__content__details__status ${statusModifier}`}
             >
-              <Icon size="sm" name={isConnected ? "wifi-on" : "wifi-off"} />
+              {/* Both icons are rendered from the start and only the inactive one is hidden: the switch to
+                  "wifi-off" happens when the connection is lost, when the sprite could not be loaded anymore */}
+              <Icon
+                size="sm"
+                name="wifi-on"
+                style={{ display: isConnected ? undefined : "none" }}
+              />
+              <Icon
+                size="sm"
+                name="wifi-off"
+                style={{ display: isConnected ? "none" : undefined }}
+              />
             </div>
           ) : null}
         </div>
