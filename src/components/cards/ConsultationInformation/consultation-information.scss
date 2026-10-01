@@ -29,6 +29,10 @@
         &--active {
           background-color: $color_green_7ec680;
         }
+
+        &--poor {
+          background-color: $color_orange_fb6514;
+        }
       }
     }
 
