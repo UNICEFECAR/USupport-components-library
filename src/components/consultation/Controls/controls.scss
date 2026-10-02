@@ -1,74 +1,271 @@
 @import "../../../styles/theme";
 
-.controls {
-  width: calc(34.3rem - 2 * $spacing_1_6);
-  padding: 0 0 $spacing_1_6 0;
+// Dark gray with a light outline, so the controls stand out both over a video
+// and over the black background shown when the other participant's camera is off
+$controls-surface: rgba(40, 44, 48, 0.88);
+$controls-surface-border: rgba(255, 255, 255, 0.12);
+// See-through buttons for the controls that are on, the ones that are off are white
+$controls-button-on: rgba(255, 255, 255, 0.16);
+$controls-button-hover: rgba(255, 255, 255, 0.26);
+$controls-text-secondary: #c9d0d6;
+$controls-button-size: 4.8rem;
+$controls-button-size-small: 4.2rem;
+// Below this width the buttons get smaller and "Leave" shows only its icon
+$controls-small-screen: $screen-sm + 25px;
 
-  &__sponsored-by {
-    padding: 0 $spacing_2_4 $spacing_1_6;
+.controls {
+  &__info {
+    display: flex;
+    align-items: center;
+    gap: $spacing_1_0;
+    // Its parent has no width, so without this the pill would shrink to its narrowest possible size
+    width: max-content;
+    max-width: calc(100vw - 2 * #{$spacing_2_0});
+    padding: $spacing_0_6 $spacing_1_2 $spacing_0_6 $spacing_0_6;
+    box-sizing: border-box;
+    background: $controls-surface;
+    border: 1px solid $controls-surface-border;
+    border-radius: $border_radius_4_0;
+  }
+
+  & &__avatar {
+    flex-shrink: 0;
+    width: $spacing_3_6;
+    min-width: $spacing_3_6;
+    max-width: $spacing_3_6;
+    height: $spacing_3_6;
+  }
+
+  &__details {
+    min-width: 0;
     text-align: left;
   }
 
-  .button-container {
+  // Doubled classes so the global text colors of the themes don't override them
+  & &__name {
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: $color_white_ff;
+    font-size: $font_size_1_6;
+    font-weight: $font_semi_bold;
+  }
+
+  & &__time {
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: $controls-text-secondary;
+  }
+
+  &__status {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 0 $spacing_1_6;
+    flex-shrink: 0;
+    align-items: center;
+    gap: $spacing_0_4;
+    padding: $spacing_0_4 $spacing_0_8;
+    border-radius: $border_radius_1_6;
 
-    &__button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      width: 4.6rem;
-      height: 4.6rem;
-      border-radius: 50%;
-      border: 0.2rem solid;
-      @include themify($themes, "border-color", "color_6a4ffb_8c90eb");
-      position: relative;
+    &--good {
+      background: $color_green_7ec680;
     }
 
-    &__button-hangup {
-      background-color: $color_red_eb5757;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 4.6rem;
-      height: 4.6rem;
-      border-radius: 50%;
+    &--poor {
+      background: $color_orange_fb6514;
     }
 
-    &__unread-message {
-      width: 15px;
-      height: 15px;
-      border-radius: 50%;
-      background-color: $color_red_ed5657;
-      position: absolute;
-      top: -3px;
-      left: 5px;
+    &--lost {
+      background: $color_red_eb5757;
     }
   }
-}
 
-.controls-minimized {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 5.4rem;
-  height: 5.4rem;
-  border-radius: 50%;
-  border: 0.2rem solid $color_primary_20809e;
-  background-color: rgba(255, 255, 255, 0.9);
-  cursor: pointer;
-  position: fixed;
-  bottom: $spacing_1_6;
-  right: $spacing_1_6;
-  z-index: 1000;
-  transition: all 0.3s ease;
+  & &__status-text {
+    color: $color_white_ff;
+    font-weight: $font_semi_bold;
+    white-space: nowrap;
+  }
 
-  &:hover {
-    background-color: rgba(255, 255, 255, 1);
-    transform: scale(1.05);
+  // Centered at the bottom of the video, which is the whole screen unless the side chat is open
+  &__dock-area {
+    position: fixed;
+    bottom: $spacing_2_4;
+    left: 0;
+    right: 0;
+    z-index: $z_index_2;
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+
+    &--side-chat {
+      right: 38rem;
+    }
+  }
+
+  &__dock {
+    display: flex;
+    align-items: center;
+    gap: $spacing_1_0;
+    padding: $spacing_0_6;
+    background: $controls-surface;
+    border: 1px solid $controls-surface-border;
+    border-radius: $border_radius_4_0;
+    pointer-events: auto;
+  }
+
+  &__button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: $controls-button-size;
+    height: $controls-button-size;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: $controls-button-on;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+
+    &:hover,
+    &--active {
+      background: $controls-button-hover;
+    }
+
+    &--off,
+    &--off:hover {
+      background: $color_white_ff;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color_white_ff;
+      outline-offset: 2px;
+    }
+  }
+
+  &__unread {
+    position: absolute;
+    top: $spacing_0_2;
+    right: $spacing_0_2;
+    width: $spacing_1_2;
+    height: $spacing_1_2;
+    border-radius: 50%;
+    background: $color_red_eb5757;
+    border: 2px solid $color_white_ff;
+    box-sizing: border-box;
+  }
+
+  &__leave {
+    display: flex;
+    align-items: center;
+    gap: $spacing_0_6;
+    height: $controls-button-size;
+    padding: 0 $spacing_2_0 0 $spacing_1_6;
+    border: none;
+    border-radius: $border_radius_2_4;
+    background: $color_red_eb5757;
+    color: $color_white_ff;
+    font-family: $font_family;
+    font-size: $font_size_1_6;
+    font-weight: $font_semi_bold;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+
+    &:hover {
+      background: $color_red_cc4c4c;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color_white_ff;
+      outline-offset: 2px;
+    }
+  }
+
+  &__settings {
+    position: relative;
+  }
+
+  @media screen and (max-width: $controls-small-screen) {
+    &__dock {
+      gap: $spacing_0_6;
+    }
+
+    &__button,
+    &__leave {
+      width: $controls-button-size-small;
+      height: $controls-button-size-small;
+    }
+
+    &__leave {
+      justify-content: center;
+      padding: 0;
+      border-radius: 50%;
+
+      span {
+        display: none;
+      }
+    }
+
+    &__settings-menu {
+      left: auto;
+      right: 0;
+      transform: none;
+      width: calc(100vw - 2 * #{$spacing_2_0});
+      max-width: $spacing_24_0;
+    }
+  }
+
+  &__settings-menu {
+    position: absolute;
+    bottom: calc(100% + #{$spacing_1_2});
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: $spacing_1_2;
+    width: $spacing_24_0;
+    padding: $spacing_1_6;
+    box-sizing: border-box;
+    background: $controls-surface;
+    border: 1px solid $controls-surface-border;
+    border-radius: $border_radius_1_6;
+    text-align: left;
+  }
+
+  &__settings-field {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing_0_4;
+
+    span {
+      color: $controls-text-secondary;
+    }
+
+    select {
+      width: 100%;
+      padding: $spacing_0_6 $spacing_0_8;
+      border: 1px solid $controls-surface-border;
+      border-radius: $border_radius_0_8;
+      background: $color_black_31;
+      color: $color_white_ff;
+      font-family: $font_family;
+      font-size: $font_size_1_2;
+    }
+  }
+
+  &__settings-background {
+    padding: $spacing_0_8;
+    border: 1px solid $controls-surface-border;
+    border-radius: $border_radius_0_8;
+    background: $controls-button-on;
+    color: $color_white_ff;
+    font-family: $font_family;
+    font-size: $font_size_1_2;
+    cursor: pointer;
+
+    &:hover {
+      background: $controls-button-hover;
+    }
   }
 }

@@ -1,28 +1,98 @@
 @import "../../../styles/theme";
 
+// Same purple as the sent message bubbles
+$send-message-accent: rgba(124, 58, 237, 1);
+$send-message-button-size: 3.8rem;
+
+// The outer element is positioned and spaced by the pages, so the field's own styles are on the inner one
 .send-message {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.send-message__field {
   display: flex;
   flex-direction: row;
   align-items: flex-end;
-  justify-content: center;
+  gap: $spacing_0_8;
   width: 100%;
-  gap: $spacing_1_2;
+  box-sizing: border-box;
+  padding: $spacing_0_4 $spacing_0_4 $spacing_0_4 $spacing_1_6;
+  border: 1px solid;
+  border-radius: $border_radius_2_4;
+  transition: border-color 0.15s ease;
 
-  &__textarea {
+  .theme-light & {
+    background: $color_white_ff;
+    border-color: $color_gray_d2dcde;
+  }
+
+  .theme-dark & {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+
+  .theme-highContrast & {
+    background: $color_black_31;
+    border-color: $color_gray_d2dcde;
+  }
+
+  &:focus-within,
+  &--has-text {
+    @include themify($themes, "border-color", "color_6a4ffb_8c90eb");
+  }
+
+  .send-message__textarea {
     flex: 1;
     min-width: 0;
+    min-height: $send-message-button-size;
+    max-height: 12rem;
+    padding: $spacing_0_7 0;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    resize: none;
+    background: transparent;
+    font-family: $font_family;
+    font-size: $font_size_1_6;
+    line-height: $line_height_2_4;
+    @include themify($themes, "color", "color_text_main");
+
+    &::placeholder {
+      color: $color_gray_92989b;
+    }
   }
 
-  &__textarea .textarea {
-    max-height: calc(4.8rem - 2 * $spacing_1_2);
-    border: 0.1rem solid $color_secondary_9749fa;
-    border-radius: $border_radius_1_6;
-    width: 100%;
-  }
-
-  &__send-button {
-    margin-left: 0;
+  .send-message__send-button {
+    display: flex;
     flex-shrink: 0;
-    transform: scaleX(-1);
+    align-items: center;
+    justify-content: center;
+    width: $send-message-button-size;
+    height: $send-message-button-size;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: $send-message-accent;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+
+    &:disabled {
+      cursor: default;
+
+      .theme-light & {
+        background: $color_gray_ea;
+      }
+
+      .theme-dark &,
+      .theme-highContrast & {
+        background: rgba(255, 255, 255, 0.1);
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color_secondary_9749fa;
+      outline-offset: 2px;
+    }
   }
 }
