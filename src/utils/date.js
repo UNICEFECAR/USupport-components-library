@@ -1,5 +1,13 @@
 const ONE_HOUR = 60 * 60 * 1000;
 const FIVE_MINUTES = 5 * 60 * 1000;
+const ONE_MINUTE = 60 * 1000;
+
+/**
+ * Length of a slot or consultation written before per-slot durations existed.
+ * Every duration-aware helper below falls back to this, so a caller that passes
+ * nothing behaves exactly as it did when everything was an hour long.
+ */
+const DEFAULT_DURATION_MINUTES = 60;
 
 /**
  * Get the day of the week from a Date object
@@ -252,16 +260,67 @@ const hours = [
 ];
 
 /**
- * Function to check if a given timestamp is in 5 minutes or less than the current time
- * and if the current time is earlier than an hour after the timestamp
+ * The list of times in a day on a given step, as "HH:MM".
  *
- * @param {number} - the timestamp in milliseconds
+ * `slotTimes(60)` reproduces the `hours` array above; `slotTimes(30)` is the
+ * 48-entry half-hour grid the provider calendar uses.
+ *
+ * @param {number} stepMinutes must divide 60
+ * @returns {string[]}
+ */
+function slotTimes(stepMinutes = 30) {
+  const times = [];
+  for (let minutes = 0; minutes < 24 * 60; minutes += stepMinutes) {
+    const h = String(Math.floor(minutes / 60)).padStart(2, "0");
+    const m = String(minutes % 60).padStart(2, "0");
+    times.push(`${h}:${m}`);
+  }
+  return times;
+}
+
+/**
+ * When does a consultation (or slot) that starts at `startMs` end?
+ *
+ * @param {number|Date|string} startMs start, in ms since epoch or anything Date-like
+ * @param {number} [durationMinutes] defaults to the legacy hour
+ * @returns {Date}
+ */
+function getConsultationEndDate(startMs, durationMinutes) {
+  const start =
+    startMs instanceof Date ? startMs.getTime() : new Date(startMs).getTime();
+  const minutes =
+    Number(durationMinutes) > 0
+      ? Number(durationMinutes)
+      : DEFAULT_DURATION_MINUTES;
+  return new Date(start + minutes * ONE_MINUTE);
+}
+
+/**
+ * Render a consultation's time range, e.g. "16:00 - 16:30".
+ *
+ * @param {number|Date|string} startMs
+ * @param {number} [durationMinutes]
+ * @returns {string}
+ */
+function getTimeRangeAsString(startMs, durationMinutes) {
+  const start = startMs instanceof Date ? startMs : new Date(startMs);
+  return `${getTimeAsString(start)} - ${getTimeAsString(
+    getConsultationEndDate(start, durationMinutes),
+  )}`;
+}
+
+/**
+ * Is a consultation joinable right now? True from five minutes before it starts
+ * until it ends.
+ *
+ * @param {number} timestamp start, in milliseconds
+ * @param {number} [durationMinutes] defaults to the legacy hour
  *
  * @returns {boolean}
  */
-function checkIsFiveMinutesBefore(timestamp) {
+function checkIsFiveMinutesBefore(timestamp, durationMinutes) {
   const currentTime = new Date().getTime();
-  const endTime = timestamp + ONE_HOUR;
+  const endTime = getConsultationEndDate(timestamp, durationMinutes).getTime();
 
   return currentTime >= timestamp - FIVE_MINUTES && currentTime <= endTime;
 }
@@ -314,24 +373,29 @@ const getFirstAndLastDayOfPastMonth = () => {
   };
 };
 
-const formatDateWithTimeRange = (date) => {
+/**
+ * "HH:MM - HH:MM DD.MM.YY" for a consultation.
+ *
+ * @param {Date} date start
+ * @param {number} [durationMinutes] defaults to the legacy hour
+ */
+const formatDateWithTimeRange = (date, durationMinutes) => {
   const padZero = (num) => (num < 10 ? `0${num}` : num);
 
-  // Get hours and minutes from the original date
   const hours = padZero(date.getHours());
   const minutes = padZero(date.getMinutes());
 
-  // Add one hour to get the end time
-  const endDate = new Date(date);
-  endDate.setHours(date.getHours() + 1);
+  // The real end, so a 30-minute consultation reads 16:00 - 16:30 and not 16:00 - 17:00.
+  const endDate = getConsultationEndDate(date, durationMinutes);
   const endHours = padZero(endDate.getHours());
+  const endMinutes = padZero(endDate.getMinutes());
 
   // Format the date as DD.MM.YY
   const day = padZero(date.getDate());
   const month = padZero(date.getMonth() + 1); // Months are 0-indexed
   const year = String(date.getFullYear()).slice(-2); // Get last two digits of the year
 
-  return `${hours}:${minutes} - ${endHours}:${minutes} ${day}.${month}.${year}`;
+  return `${hours}:${minutes} - ${endHours}:${endMinutes} ${day}.${month}.${year}`;
 };
 
 export {
@@ -353,7 +417,12 @@ export {
   checkIsFiveMinutesBefore,
   getOrdinal,
   hours,
+  slotTimes,
+  getConsultationEndDate,
+  getTimeRangeAsString,
   ONE_HOUR,
+  ONE_MINUTE,
+  DEFAULT_DURATION_MINUTES,
   FIVE_MINUTES,
   getTime,
   parseUTCDate,

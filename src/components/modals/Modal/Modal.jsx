@@ -96,7 +96,8 @@ export const Modal = ({
         <div
           className={[
             "base-modal__header",
-            !hasGoBackArrow && "base-modal__header--no-close",
+            !hasGoBackArrow && "base-modal__header--no-back",
+            !hasCloseIcon && "base-modal__header--no-close",
           ].join(" ")}
         >
           <div className="base-modal__header__left-container">

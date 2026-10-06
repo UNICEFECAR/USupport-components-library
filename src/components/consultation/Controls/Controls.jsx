@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Avatar } from "../../avatars/Avatar/Avatar";
 import { Icon } from "../../icons/Icon";
-import { ONE_HOUR, getTimeAsString } from "../../../utils";
+import { getConsultationEndDate, getTimeAsString } from "../../../utils";
 
 import "./controls.scss";
 
@@ -63,7 +63,10 @@ export const Controls = ({
   const timestamp =
     consultation.timestamp || new Date(consultation.time).getTime();
   const startDate = new Date(timestamp);
-  const endDate = new Date(timestamp + ONE_HOUR);
+  const endDate = getConsultationEndDate(
+    timestamp,
+    consultation.durationMinutes,
+  );
 
   const [now, setNow] = useState(Date.now());
   useEffect(() => {
