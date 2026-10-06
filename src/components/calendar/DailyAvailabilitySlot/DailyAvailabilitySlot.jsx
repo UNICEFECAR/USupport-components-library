@@ -3,6 +3,7 @@ import OutsideClickHandler from "react-outside-click-handler";
 import classNames from "classnames";
 import { ButtonWithIcon } from "../../buttons/ButtonWithIcon";
 import { Icon } from "../../icons/Icon";
+import { SlotDurationControl } from "../SlotDurationControl";
 import {
   ThemeContext,
   checkIsFiveMinutesBefore,
@@ -40,6 +41,10 @@ export const DailyAvailabilitySlot = ({
   isDisabled,
   t,
   countryHasNormalSlots,
+  durationMinutes,
+  canChangeDuration,
+  handleChangeDuration,
+  defaultDurationMinutes = 30,
 }) => {
   const currencySymbol = localStorage.getItem("currency_symbol");
   const isLive = consultation
@@ -54,6 +59,16 @@ export const DailyAvailabilitySlot = ({
   const isBookedWithCoupon = consultation?.campaignId;
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // On an empty cell this is the length the slot will be opened with; on an
+  // open slot it mirrors the slot's stored length.
+  const [pendingDuration, setPendingDuration] = useState(
+    durationMinutes || defaultDurationMinutes,
+  );
+  const slotIsOpen = !!(isAvailable || hasNormalSlot);
+  const effectiveDuration = slotIsOpen
+    ? durationMinutes || 60
+    : pendingDuration;
+
   const { width } = useWindowDimensions();
   const { theme } = useContext(ThemeContext);
   const isHighContrast = theme === "highContrast";
@@ -82,7 +97,10 @@ export const DailyAvailabilitySlot = ({
       if (isCampaignAvailableInSlot) {
         handleSetUnavailable({ campaignId });
       } else {
-        handleSetAvailable({ campaignId });
+        handleSetAvailable({
+          campaignId,
+          durationMinutes: effectiveDuration,
+        });
       }
     } else if (organizationId) {
       if (
@@ -91,7 +109,10 @@ export const DailyAvailabilitySlot = ({
       ) {
         handleSetUnavailable({ organizationId });
       } else {
-        handleSetAvailable({ organizationId });
+        handleSetAvailable({
+          organizationId,
+          durationMinutes: effectiveDuration,
+        });
       }
     } else if (
       ((validCampaigns?.length > 0 && isAvailable === "campaign") ||
@@ -113,7 +134,10 @@ export const DailyAvailabilitySlot = ({
     } else {
       hasNormalSlot
         ? handleSetUnavailable({ campaignId: null })
-        : handleSetAvailable({ campaignId: null });
+        : handleSetAvailable({
+            campaignId: null,
+            durationMinutes: effectiveDuration,
+          });
     }
   };
 
@@ -302,6 +326,21 @@ export const DailyAvailabilitySlot = ({
                 : ""
             }`}
           >
+            {canChangeDuration && !consultation && !isDisabled && (
+              <SlotDurationControl
+                value={effectiveDuration}
+                disabled={!!consultation}
+                onChange={(minutes) => {
+                  if (slotIsOpen) {
+                    handleChangeDuration?.(minutes);
+                  } else {
+                    setPendingDuration(minutes);
+                  }
+                }}
+                t={t}
+              />
+            )}
+
             {hasNormalSlotItem && (
               <div
                 className="daily-availability-slot__controls__single"

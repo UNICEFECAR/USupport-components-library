@@ -3,6 +3,7 @@ import OutsideClickHandler from "react-outside-click-handler";
 import classNames from "classnames";
 import { ButtonWithIcon } from "../../buttons/ButtonWithIcon";
 import { Icon } from "../../icons/Icon";
+import { SlotDurationControl } from "../SlotDurationControl";
 import { useWindowDimensions } from "../../../utils/useWindowDimensions";
 import { ThemeContext, checkIsFiveMinutesBefore } from "../../../utils";
 
@@ -37,6 +38,10 @@ export const ProviderAvailability = ({
   isDisabled,
   t,
   countryHasNormalSlots,
+  durationMinutes,
+  canChangeDuration,
+  handleChangeDuration,
+  defaultDurationMinutes = 30,
 }) => {
   const currencySymbol = localStorage.getItem("currency_symbol");
   const isLive = consultation
@@ -51,6 +56,16 @@ export const ProviderAvailability = ({
   const isBookedWithCoupon = consultation?.campaignId;
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // On an empty cell this is the length the slot will be opened with; on an
+  // open slot it mirrors the slot's stored length.
+  const [pendingDuration, setPendingDuration] = useState(
+    durationMinutes || defaultDurationMinutes,
+  );
+  const slotIsOpen = !!(isAvailable || hasNormalSlot);
+  const effectiveDuration = slotIsOpen
+    ? durationMinutes || 60
+    : pendingDuration;
+
   const { width } = useWindowDimensions();
   const { theme } = useContext(ThemeContext);
   const isHighContrast = theme === "highContrast";
@@ -84,7 +99,10 @@ export const ProviderAvailability = ({
       if (isCampaignAvailableInSlot) {
         handleSetUnavailable({ campaignId });
       } else {
-        handleSetAvailable({ campaignId });
+        handleSetAvailable({
+          campaignId,
+          durationMinutes: effectiveDuration,
+        });
       }
     } else if (organizationId) {
       if (
@@ -93,7 +111,10 @@ export const ProviderAvailability = ({
       ) {
         handleSetUnavailable({ organizationId });
       } else {
-        handleSetAvailable({ organizationId });
+        handleSetAvailable({
+          organizationId,
+          durationMinutes: effectiveDuration,
+        });
       }
     } else if (
       ((validCampaigns?.length > 0 && isAvailable === "campaign") ||
@@ -115,7 +136,10 @@ export const ProviderAvailability = ({
     } else {
       hasNormalSlot
         ? handleSetUnavailable({ campaignId: null })
-        : handleSetAvailable({ campaignId: null });
+        : handleSetAvailable({
+            campaignId: null,
+            durationMinutes: effectiveDuration,
+          });
     }
   };
 
@@ -292,6 +316,21 @@ export const ProviderAvailability = ({
                 : ""
             }`}
           >
+            {canChangeDuration && !consultation && !isDisabled && (
+              <SlotDurationControl
+                value={effectiveDuration}
+                disabled={!!consultation}
+                onChange={(minutes) => {
+                  if (slotIsOpen) {
+                    handleChangeDuration?.(minutes);
+                  } else {
+                    setPendingDuration(minutes);
+                  }
+                }}
+                t={t}
+              />
+            )}
+
             {hasNormalSlotItem && (
               <div
                 className="provider-availability__controls__single"

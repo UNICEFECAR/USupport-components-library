@@ -58,7 +58,7 @@ async function getAvailabilityForWeek(startDate) {
  */
 async function getAvailabilityForPeriod(startDate, period) {
   const response = await http.get(
-    `${API_ENDPOINT}/availability?startDate=${startDate}&period=${period}`
+    `${API_ENDPOINT}/availability?startDate=${startDate}&period=${period}`,
   );
   return response;
 }
@@ -82,14 +82,23 @@ async function getConsultationsForWeek(startDate) {
  * @param {String} campaignId - campaign id
  * @param {String} organizationId - organization id
  */
-async function addAvailableSlot(startDate, slot, campaignId, organizationId) {
+async function addAvailableSlot(
+  startDate,
+  slot,
+  campaignId,
+  organizationId,
+  durationMinutes,
+) {
   const payload = {
     startDate: startDate.toString(),
     slot: slot.toString(),
     campaignId,
     organizationId,
+    durationMinutes,
   };
   if (!campaignId) delete payload.campaignId;
+  // Omitted rather than sent as undefined, so the backend applies its own default.
+  if (!durationMinutes) delete payload.durationMinutes;
   const response = await http.put(
     `${API_ENDPOINT}/availability/single-week`,
     payload,
@@ -124,6 +133,41 @@ async function removeAvailableSlot(
       data,
     },
   );
+  return response;
+}
+
+/**
+ * Change how long an already-open availability slot is.
+ *
+ * @param {Number} startDate - week start timestamp in seconds
+ * @param {Number} slot - slot timestamp in seconds
+ * @param {Number} durationMinutes - 30 or 60
+ */
+async function updateSlotDuration(startDate, slot, durationMinutes) {
+  const response = await http.put(
+    `${API_ENDPOINT}/availability/slot-duration`,
+    {
+      startDate: startDate.toString(),
+      slot: slot.toString(),
+      durationMinutes,
+    },
+  );
+  return response;
+}
+
+/**
+ * Clear many slots at once across all pools - one request instead of one per slot.
+ *
+ * @param {Number} startDate - week start timestamp in seconds
+ * @param {Array<Number|String>} slots - slot timestamps in seconds
+ */
+async function clearAvailabilityDay(startDate, slots) {
+  const response = await http.delete(`${API_ENDPOINT}/availability/day`, {
+    data: {
+      startDate: startDate.toString(),
+      slots: slots.map((slot) => slot.toString()),
+    },
+  });
   return response;
 }
 
@@ -346,7 +390,7 @@ async function getProviderByIdAsAdmin(id) {
 
 async function getProviderTranslations(providerId) {
   const res = await http.get(
-    `${API_ENDPOINT}/translations?providerId=${providerId}`
+    `${API_ENDPOINT}/translations?providerId=${providerId}`,
   );
   return res;
 }
@@ -488,6 +532,8 @@ async function joinConsultation(payload) {
 const exportedFunctions = {
   addAvailableSlot,
   addTemplateAvailability,
+  updateSlotDuration,
+  clearAvailabilityDay,
   blockSlot,
   cancelConsultation,
   changeImage,

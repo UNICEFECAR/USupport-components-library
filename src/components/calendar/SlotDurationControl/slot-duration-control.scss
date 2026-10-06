@@ -1,0 +1,43 @@
+@import "../../../styles/theme";
+
+.slot-duration-control {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.8rem 1.2rem;
+  @include themify($themes, "border-bottom-color", "color_gray_ea");
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+
+  &__label {
+    @include themify($themes, "color", "color_gray_92989b");
+  }
+
+  &__options {
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  &__option {
+    flex: 1;
+    padding: 0.4rem 0.6rem;
+    border-radius: $border_radius_0_8;
+    border-width: 1px;
+    border-style: solid;
+    background: transparent;
+    cursor: pointer;
+    @include themify($themes, "border-color", "color_gray_ea");
+    @include themify($themes, "color", "color_black_37");
+
+    &--selected {
+      font-weight: 600;
+      @include themify($themes, "border-color", "color_blue_yellow");
+      @include themify($themes, "color", "color_blue_yellow");
+    }
+
+    &--disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+}
