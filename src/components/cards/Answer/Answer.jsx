@@ -78,7 +78,8 @@ export const Answer = ({
   const providerIdForRedirection =
     providerInfo?.providerId || providerInfo?.provider_detail_id;
 
-  const canRedirectToProvider = !!providerIdForRedirection;
+  // Deactivated providers' profiles can't be opened
+  const canRedirectToProvider = !!providerIdForRedirection && isProviderActive;
 
   const handleCardClick = () => {
     handleReadMore(question);
