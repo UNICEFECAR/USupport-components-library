@@ -11,6 +11,8 @@ import {
   checkIsFiveMinutesBefore,
   getDateView,
   getDayOfTheWeek,
+  getTimeAsString,
+  getConsultationEndDate,
 } from "../../../utils";
 import {
   getDisplaySpecializations,
@@ -99,14 +101,18 @@ export const Consultation = ({
   const imageUrl = AMAZON_S3_BUCKET + "/" + (image || "default");
 
   const startDate = new Date(timestamp);
-  const endDate = new Date(
-    new Date(timestamp).setHours(new Date(timestamp).getHours() + 1),
+  const endDate = getConsultationEndDate(
+    timestamp,
+    consultation?.durationMinutes,
   );
   const dayOfWeek = t(getDayOfTheWeek(startDate));
   const dateText = `${dayOfWeek} ${getDateView(startDate).slice(0, 5)}`;
 
   const today = new Date().getTime();
-  const isFiveMinutesBefore = checkIsFiveMinutesBefore(timestamp);
+  const isFiveMinutesBefore = checkIsFiveMinutesBefore(
+    timestamp,
+    consultation?.durationMinutes,
+  );
 
   // Status badge logic (for client render)
   let statusLabel = "";
@@ -129,8 +135,11 @@ export const Consultation = ({
     }
   }
 
+  // Only scheduled (or already finished) consultations can be joined, e.g. a pending one is still being booked
+  const isJoinable = status === "scheduled" || status === "finished";
+
   let buttonLabel, buttonAction;
-  if (isFiveMinutesBefore) {
+  if (isFiveMinutesBefore && isJoinable) {
     buttonLabel = t("join");
     buttonAction = "join";
   } else if (today > endDate) {
@@ -142,12 +151,8 @@ export const Consultation = ({
     buttonAction = renderIn === "client" ? "edit" : "cancel";
   }
 
-  const startHour = startDate.getHours();
-  const endHour = startHour + 1;
   const rawTimeText = startDate
-    ? `${startHour < 10 ? `0${startHour}` : startHour}:00 - ${
-        endHour < 10 ? `0${endHour}` : endHour
-      }:00`
+    ? `${getTimeAsString(startDate)} - ${getTimeAsString(endDate)}`
     : "";
   const displayTimeText = buttonAction === "join" ? t("active") : rawTimeText;
   const dateTimeText =

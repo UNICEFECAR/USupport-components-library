@@ -8,6 +8,7 @@ import {
   getDateView,
   getMonthName,
   getOrdinal,
+  getTimeAsString,
 } from "../../../utils";
 
 import "./consultation-big.scss";
@@ -35,7 +36,11 @@ export const ConsultationBig = ({
   const { providerName, timestamp, image, status, price } = consultation;
   const imageUrl = AMAZON_S3_BUCKET + "/" + (image || "default");
 
-  const isLive = checkIsFiveMinutesBefore(timestamp);
+  // Only scheduled (or already finished) consultations can be joined, e.g. a pending one is still being booked
+  const isJoinable = status === "scheduled" || status === "finished";
+  const isLive =
+    isJoinable &&
+    checkIsFiveMinutesBefore(timestamp, consultation?.durationMinutes);
 
   const startDate = new Date(timestamp);
 
@@ -44,8 +49,7 @@ export const ConsultationBig = ({
     getMonthName(startDate).toLowerCase()
   )}`;
 
-  const time = startDate.getHours();
-  const timeText = startDate ? `${time < 10 ? `0${time}` : time}:00` : "";
+  const timeText = startDate ? getTimeAsString(startDate) : "";
 
   return (
     <Box classes={["consultation-big", classNames(classes)].join(" ")}>

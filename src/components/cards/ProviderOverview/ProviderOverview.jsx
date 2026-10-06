@@ -9,7 +9,11 @@ import { StatusBadge } from "../StatusBadge";
 import { NewButton } from "../../buttons";
 
 import { PeerSupportBadge } from "../../labels/PeerSupportBadge";
-import { getDateView, getDayOfTheWeek } from "../../../utils/date";
+import {
+  getDateView,
+  getDayOfTheWeek,
+  getTimeRangeAsString,
+} from "../../../utils/date";
 import {
   getDisplaySpecializations,
   isPeerSupportProvider,
@@ -50,6 +54,7 @@ export const ProviderOverview = ({
   handleBookSession,
   providerStatus,
   earliestAvailableSlot,
+  earliestSlotDurationMinutes,
   t,
   liquidGlass,
   isPeerSupport,
@@ -133,14 +138,9 @@ export const ProviderOverview = ({
       ? `${dayOfWeek} ${getDateView(earliestSlot).slice(0, 5)}`
       : "";
 
-  const startHour = earliestSlot?.getHours();
-  const endHour = startHour != null ? startHour + 1 : null;
-  const timeText =
-    startHour != null && endHour != null
-      ? `${startHour < 10 ? `0${startHour}` : startHour}:00 - ${
-          endHour < 10 ? `0${endHour}` : endHour
-        }:00`
-      : "";
+  const timeText = earliestSlot
+    ? getTimeRangeAsString(earliestSlot, earliestSlotDurationMinutes)
+    : "";
 
   return (
     <Card classes={["provider-overview"].join(" ")} liquidGlass={liquidGlass}>

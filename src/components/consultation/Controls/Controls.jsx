@@ -65,7 +65,7 @@ export const Controls = ({
   const startDate = new Date(timestamp);
   const endDate = getConsultationEndDate(
     timestamp,
-    consultation.durationMinutes
+    consultation.durationMinutes,
   );
 
   const [now, setNow] = useState(Date.now());

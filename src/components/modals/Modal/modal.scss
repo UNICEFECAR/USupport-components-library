@@ -86,11 +86,22 @@
 
   &__header {
     display: grid;
+    // The close icon is absolutely positioned on top of the header, so the
+    // right column must stay reserved whenever it is rendered.
     grid-template-columns: 2.4rem 1fr 2.4rem;
+    column-gap: $spacing_0_8;
     align-items: center;
     width: 100%;
 
+    &--no-back {
+      grid-template-columns: 0 1fr 2.4rem;
+    }
+
     &--no-close {
+      grid-template-columns: 2.4rem 1fr 0;
+    }
+
+    &--no-back#{&}--no-close {
       grid-template-columns: 0 1fr 0;
     }
 

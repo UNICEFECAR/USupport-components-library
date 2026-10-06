@@ -35,6 +35,8 @@ export const Answer = ({
   const { theme } = useContext(ThemeContext);
 
   const providerInfo = question.providerData;
+  // Deactivated providers can't take bookings, so don't offer the option
+  const isProviderActive = providerInfo?.status !== "inactive";
 
   const getDateText = (dateString) => {
     const date = new Date(dateString);
@@ -76,7 +78,8 @@ export const Answer = ({
   const providerIdForRedirection =
     providerInfo?.providerId || providerInfo?.provider_detail_id;
 
-  const canRedirectToProvider = !!providerIdForRedirection;
+  // Deactivated providers' profiles can't be opened
+  const canRedirectToProvider = !!providerIdForRedirection && isProviderActive;
 
   const handleCardClick = () => {
     handleReadMore(question);
@@ -175,25 +178,34 @@ export const Answer = ({
               </div>
               {/* Schedule consultation link at bottom */}
               <div
-                className="answer__schedule-button"
+                className={`answer__schedule-button ${
+                  isProviderActive
+                    ? ""
+                    : "answer__schedule-button--not-schedulable"
+                }`}
                 onClick={(event) => {
                   stopPropagation(event);
+                  if (!isProviderActive) return;
                   handleScheduleConsultationClick(question);
                 }}
               >
-                <Icon
-                  name="calendar"
-                  color={theme === "highContrast" ? "#8A4BF3" : "#8A4BF3"}
-                />
-                <p
-                  className={`text answer__schedule-button__text ${
-                    theme === "highContrast"
-                      ? "answer__schedule-button__text--hc"
-                      : ""
-                  }`}
-                >
-                  {t("schedule_consultation")}
-                </p>
+                {isProviderActive && (
+                  <>
+                    <Icon
+                      name="calendar"
+                      color={theme === "highContrast" ? "#8A4BF3" : "#8A4BF3"}
+                    />
+                    <p
+                      className={`text answer__schedule-button__text ${
+                        theme === "highContrast"
+                          ? "answer__schedule-button__text--hc"
+                          : ""
+                      }`}
+                    >
+                      {t("schedule_consultation")}
+                    </p>
+                  </>
+                )}
                 <div
                   className="answer__likes"
                   onClick={(event) => {
