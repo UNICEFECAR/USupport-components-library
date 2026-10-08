@@ -45,7 +45,7 @@ async function deleteImageAsAdmin(providerId, image) {
  */
 async function getAvailabilityForWeek(startDate) {
   const response = await http.get(
-    `${API_ENDPOINT}/availability/single-week?startDate=${startDate}`
+    `${API_ENDPOINT}/availability/single-week?startDate=${startDate}`,
   );
   return response;
 }
@@ -57,7 +57,7 @@ async function getAvailabilityForWeek(startDate) {
  */
 async function getConsultationsForWeek(startDate) {
   const response = await http.get(
-    `${API_ENDPOINT}/consultation/single-week?startDate=${startDate}`
+    `${API_ENDPOINT}/consultation/single-week?startDate=${startDate}`,
   );
   return response;
 }
@@ -79,7 +79,7 @@ async function addAvailableSlot(startDate, slot, campaignId, organizationId) {
   if (!campaignId) delete payload.campaignId;
   const response = await http.put(
     `${API_ENDPOINT}/availability/single-week`,
-    payload
+    payload,
   );
   return response;
 }
@@ -95,7 +95,7 @@ async function removeAvailableSlot(
   startDate,
   slot,
   campaignId,
-  organizationId
+  organizationId,
 ) {
   const data = {
     startDate: startDate.toString(),
@@ -109,7 +109,7 @@ async function removeAvailableSlot(
     `${API_ENDPOINT}/availability/single-week`,
     {
       data,
-    }
+    },
   );
   return response;
 }
@@ -117,7 +117,7 @@ async function removeAvailableSlot(
 async function addTemplateAvailability(data) {
   const response = await http.put(
     `${API_ENDPOINT}/availability/template`,
-    data
+    data,
   );
   return response;
 }
@@ -150,7 +150,7 @@ async function getProviderById(
   id,
   campaignId,
   signal = new AbortController().signal,
-  country
+  country,
 ) {
   const response = await http.get(
     `${API_ENDPOINT}/by-id?providerId=${id}${
@@ -159,7 +159,7 @@ async function getProviderById(
     {
       signal: signal,
       ...(country ? { headers: { "x-country-alpha-2": country } } : {}),
-    }
+    },
   );
   return response;
 }
@@ -175,12 +175,12 @@ async function getAvailableSlotsForSingleDay(
   startDate,
   day,
   providerId,
-  campaignId
+  campaignId,
 ) {
   const response = await http.get(
     `${API_ENDPOINT}/availability/single-day?providerId=${providerId}&startDate=${startDate}&day=${day}${
       campaignId ? `&campaignId=${campaignId}` : ""
-    }`
+    }`,
   );
   return response;
 }
@@ -196,13 +196,17 @@ async function blockSlot(
   clientId,
   providerId,
   slotTimestamp,
-  rescheduleCampaignSlot
+  rescheduleCampaignSlot,
+  durationMinutes,
 ) {
   const response = await http.post(`${API_ENDPOINT}/consultation/block`, {
     bookedFrom: providerId ? "web" : null,
     clientId,
     providerId,
     rescheduleCampaignSlot,
+    // How long the client asked for. The backend re-checks that the provider's
+    // own contiguous slots cover it, so this is a request, not an instruction.
+    ...(durationMinutes ? { durationMinutes } : {}),
     time:
       typeof slotTimestamp === "object"
         ? {
@@ -252,7 +256,7 @@ async function rescheduleConsultation(consultationId, newConsultationId) {
  */
 async function suggestConsultation(
   consultationId,
-  isSuggestingNewTime = false
+  isSuggestingNewTime = false,
 ) {
   const res = await http.put(`${API_ENDPOINT}/consultation/suggest`, {
     consultationId,
@@ -268,14 +272,14 @@ async function getAllClients() {
 
 async function getAllConsultationsByClientId(clientId) {
   const res = await http.get(
-    `${API_ENDPOINT}/consultation/all/past/by-id?clientId=${clientId}`
+    `${API_ENDPOINT}/consultation/all/past/by-id?clientId=${clientId}`,
   );
   return res;
 }
 
 async function getAllUpcomingConsultations(pageNumber = 1) {
   const res = await http.get(
-    `${API_ENDPOINT}/consultation/all/upcoming?pageNo=${pageNumber}`
+    `${API_ENDPOINT}/consultation/all/upcoming?pageNo=${pageNumber}`,
   );
   return res;
 }
@@ -287,7 +291,7 @@ async function getAllPastConsultations() {
 
 async function getConsultationsForSingleDay(day) {
   const res = await http.get(
-    `${API_ENDPOINT}/consultation/single-day?date=${JSON.stringify(day)}`
+    `${API_ENDPOINT}/consultation/single-day?date=${JSON.stringify(day)}`,
   );
   return res;
 }
@@ -295,7 +299,7 @@ async function getConsultationsForSingleDay(day) {
 async function getCalendarData(startDate) {
   const startDateString = JSON.stringify(startDate);
   const res = await http.get(
-    `${API_ENDPOINT}/calendar/five-weeks?startDate=${startDateString}`
+    `${API_ENDPOINT}/calendar/five-weeks?startDate=${startDateString}`,
   );
   return res;
 }
@@ -317,7 +321,7 @@ async function rejectConsultation(consultationId) {
 
 async function getConsultationsTime(consultationId) {
   const res = await http.get(
-    `${API_ENDPOINT}/consultation/time?consultationId=${consultationId}`
+    `${API_ENDPOINT}/consultation/time?consultationId=${consultationId}`,
   );
   return res;
 }
@@ -375,7 +379,7 @@ async function getRandomProviders(limit, country) {
     : undefined;
   const res = await http.get(
     `${API_ENDPOINT}/random-providers?numberOfProviders=${Number(limit)}`,
-    config
+    config,
   );
   return res;
 }
@@ -396,7 +400,7 @@ async function removeMultipleAvailableSlots(
   startDate,
   slot,
   campaignIds,
-  organizationId
+  organizationId,
 ) {
   const data = {
     startDate: startDate.toString(),
@@ -412,7 +416,7 @@ async function removeMultipleAvailableSlots(
 
 async function getConsultationsForCampaign(campaignId) {
   const res = await http.get(
-    `${API_ENDPOINT}/campaigns/consultations?campaignId=${campaignId}`
+    `${API_ENDPOINT}/campaigns/consultations?campaignId=${campaignId}`,
   );
   return res;
 }
@@ -424,14 +428,14 @@ async function getProviderStatusById(providerId) {
 
 async function getQuestions(type, languageId) {
   const res = await http.get(
-    `${API_ENDPOINT}/my-qa/questions?type=${type}&languageId=${languageId}`
+    `${API_ENDPOINT}/my-qa/questions?type=${type}&languageId=${languageId}`,
   );
   return res;
 }
 
 async function getQuestionTags(languageId) {
   const res = await http.get(
-    `${API_ENDPOINT}/my-qa/tags?languageId=${languageId}`
+    `${API_ENDPOINT}/my-qa/tags?languageId=${languageId}`,
   );
   return res;
 }

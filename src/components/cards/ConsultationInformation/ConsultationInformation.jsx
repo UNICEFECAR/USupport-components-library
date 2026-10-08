@@ -11,7 +11,6 @@ import { specialistPlaceholder } from "../../../assets";
 
 const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
 
-
 /**
  * ConsultationInformation
  *
@@ -33,6 +32,8 @@ export const ConsultationInformation = ({
   const dayOfWeek = t(getDayOfTheWeek(startDate));
   const dateText = `${dayOfWeek} ${getDateView(startDate).slice(0, 5)}`;
 
+  // Print the real start and end. These are already real Date objects; the old
+  // code threw the minutes away and hard-coded ":00" on both ends.
   const timeText =
     startDate && endDate
       ? `${getTimeAsString(startDate)} - ${getTimeAsString(endDate)}`

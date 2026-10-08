@@ -9,6 +9,7 @@ import {
   getDateView,
   getMonthName,
   getOrdinal,
+  getTimeAsString,
 } from "../../../utils";
 
 import "./consultation-dashboard.scss";
@@ -47,7 +48,11 @@ export const ConsultationDashboard = ({
 
   const isBookedWithCoupon = couponPrice || campaignId;
 
-  const isLive = checkIsFiveMinutesBefore(timestamp);
+  // Only scheduled (or already finished) consultations can be joined, e.g. a pending one is still being booked
+  const isJoinable = status === "scheduled" || status === "finished";
+  const isLive =
+    isJoinable &&
+    checkIsFiveMinutesBefore(timestamp, consultation?.durationMinutes);
   const withOrganization = !!consultation?.organizationId;
 
   const startDate = new Date(timestamp);
@@ -56,8 +61,7 @@ export const ConsultationDashboard = ({
     getMonthName(startDate).toLowerCase()
   )}`;
 
-  const time = startDate.getHours();
-  const timeText = startDate ? `${time < 10 ? `0${time}` : time}:00` : "";
+  const timeText = startDate ? getTimeAsString(startDate) : "";
   return (
     <Box
       shadow={1}

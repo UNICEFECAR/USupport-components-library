@@ -10,6 +10,8 @@ import {
   getDayOfTheWeek,
   getDateView,
   checkIsFiveMinutesBefore,
+  getTimeAsString,
+  getConsultationEndDate,
 } from "../../../utils";
 
 const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
@@ -41,27 +43,21 @@ export const ClientHistory = ({
   suggested,
   image,
   providerStatus,
+  durationMinutes,
   t,
 }) => {
-  let startDate, endDate, dayOfWeek, dateText, startHour, endHour;
+  let startDate, endDate, dayOfWeek, dateText;
   if (timestamp) {
     startDate = new Date(timestamp);
-    endDate = new Date(
-      new Date(timestamp).setHours(new Date(timestamp).getHours() + 1)
-    );
+    endDate = getConsultationEndDate(timestamp, durationMinutes);
     dayOfWeek = t(getDayOfTheWeek(startDate));
     dateText = `${dayOfWeek} ${getDateView(startDate).slice(0, 5)}`;
-
-    startHour = startDate.getHours();
-    endHour = endDate.getHours();
   }
 
   const imageUrl = AMAZON_S3_BUCKET + "/" + (image || "default");
 
   const timeText = startDate
-    ? `${startHour < 10 ? `0${startHour}` : startHour}:00 - ${
-        endHour < 10 ? `0${endHour}` : endHour
-      }:00`
+    ? `${getTimeAsString(startDate)} - ${getTimeAsString(endDate)}`
     : "";
 
   const consultationObject = {
