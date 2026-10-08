@@ -2,7 +2,7 @@
 
 .hh-guidance-item {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: $spacing_1_6;
 
   &__icon {
