@@ -1,0 +1,59 @@
+@import "../../styles/helpers";
+
+.hh-button {
+  @include hh-reset-button;
+  @include hh-focus-ring;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing_0_6;
+  border-radius: var(--hh-radius-sm);
+  font-size: var(--hh-font-size-action);
+  font-weight: $font_semi_bold;
+  line-height: 1.4;
+  text-align: center;
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  &--primary {
+    padding: $spacing_1_2 $spacing_2_4;
+    background: var(--hh-color-primary);
+    color: var(--hh-color-on-primary);
+
+    &:hover {
+      filter: brightness(0.92);
+    }
+  }
+
+  &--soft {
+    padding: $spacing_1_0;
+    background: var(--hh-color-chip);
+    color: var(--hh-color-primary);
+
+    &:hover {
+      filter: brightness(0.96);
+    }
+  }
+
+  &--outline {
+    padding: $spacing_1_2 $spacing_2_4;
+    border: 1px solid var(--hh-color-border);
+    background: var(--hh-color-surface);
+    color: var(--hh-color-primary);
+
+    &:hover {
+      background: var(--hh-color-surface-soft);
+    }
+  }
+
+  &--text {
+    color: var(--hh-color-primary);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &--full-width {
+    width: 100%;
+  }
+}

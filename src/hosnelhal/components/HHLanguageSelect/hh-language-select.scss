@@ -1,0 +1,37 @@
+@import "../../styles/helpers";
+
+.hh-language-select {
+  position: relative;
+
+  &__trigger {
+    @include hh-reset-button;
+    @include hh-focus-ring;
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing_0_6;
+    padding: $spacing_0_8 $spacing_1_0;
+    border: 1px solid transparent;
+    border-radius: var(--hh-radius-sm);
+    font-size: var(--hh-font-size-action);
+    font-weight: $font_semi_bold;
+    color: var(--hh-color-primary);
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+
+    &:hover {
+      background: var(--hh-color-surface-soft);
+    }
+
+    .hh-language-select--open & {
+      border-color: var(--hh-color-border);
+      background: var(--hh-color-surface-soft);
+    }
+  }
+
+  &__chevron {
+    transition: transform 0.2s ease;
+
+    .hh-language-select--open & {
+      transform: rotate(180deg);
+    }
+  }
+}

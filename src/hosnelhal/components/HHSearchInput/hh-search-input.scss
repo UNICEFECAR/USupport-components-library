@@ -1,0 +1,42 @@
+@import "../../styles/helpers";
+
+.hh-search {
+  display: flex;
+  align-items: center;
+  gap: $spacing_1_2;
+  padding-inline: $spacing_1_8;
+  border: 1px solid var(--hh-color-border);
+  border-radius: var(--hh-radius-input);
+  background: var(--hh-color-surface);
+
+  &:focus-within {
+    outline: 0.3rem solid var(--hh-color-focus);
+    outline-offset: 0.2rem;
+  }
+
+  &__input {
+    flex: 1;
+    min-width: 0;
+    padding-block: $spacing_1_8;
+    border: none;
+    background: transparent;
+    font-size: var(--hh-font-size-lead);
+    color: var(--hh-color-text);
+
+    &::placeholder {
+      color: var(--hh-color-text-muted);
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__button {
+    @include hh-reset-button;
+    display: inline-flex;
+    padding: $spacing_0_6;
+    border-radius: var(--hh-radius-sm);
+    color: var(--hh-color-primary);
+  }
+}

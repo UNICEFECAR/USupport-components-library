@@ -1,0 +1,31 @@
+@import "../../styles/helpers";
+
+.hh-segmented-control {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: $spacing_0_4;
+  padding: $spacing_0_4;
+  border-radius: var(--hh-radius-md);
+  background: var(--hh-color-surface-soft);
+
+  &__option {
+    @include hh-reset-button;
+    @include hh-focus-ring;
+    padding: $spacing_0_8 $spacing_1_6;
+    border-radius: var(--hh-radius-sm);
+    font-size: var(--hh-font-size-action);
+    font-weight: $font_semi_bold;
+    color: var(--hh-color-text-muted);
+    transition: background-color 0.15s ease, color 0.15s ease;
+
+    &:hover {
+      color: var(--hh-color-primary);
+    }
+
+    &--selected {
+      background: var(--hh-color-surface);
+      color: var(--hh-color-primary);
+      box-shadow: 0 0.1rem 0.4rem rgba(37, 42, 32, 0.08);
+    }
+  }
+}

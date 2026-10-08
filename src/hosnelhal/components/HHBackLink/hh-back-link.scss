@@ -1,0 +1,21 @@
+@import "../../styles/helpers";
+
+.hh-back-link {
+  @include hh-focus-ring;
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing_0_6;
+  align-self: flex-start;
+  border-radius: var(--hh-radius-sm);
+  font-size: var(--hh-font-size-action);
+  font-weight: $font_semi_bold;
+  color: var(--hh-color-primary);
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  [dir="rtl"] &__arrow {
+    transform: scaleX(-1);
+  }
+}

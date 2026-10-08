@@ -1,0 +1,36 @@
+// Hosn El Hal (HH) helpers. Visual values (colours, fonts, radii, type scale)
+// are CSS custom properties from ./theme.scss, so the uSupport design system
+// stays untouched.
+// Only the shared variables are imported - the full styles entry would
+// re-emit global CSS in every file.
+@import "../../styles/variables";
+
+@mixin hh-tablet-up {
+  @media (min-width: $screen-md) {
+    @content;
+  }
+}
+
+@mixin hh-desktop-up {
+  @media (min-width: $navbar-spread) {
+    @content;
+  }
+}
+
+@mixin hh-focus-ring {
+  &:focus-visible {
+    outline: 0.3rem solid var(--hh-color-focus);
+    outline-offset: 0.2rem;
+  }
+}
+
+@mixin hh-reset-button {
+  appearance: none;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}

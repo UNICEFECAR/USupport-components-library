@@ -1,0 +1,35 @@
+@import "../../styles/helpers";
+
+.hh-guidance-item {
+  display: flex;
+  align-items: center;
+  gap: $spacing_1_6;
+
+  &__icon {
+    flex-shrink: 0;
+    width: 6.6rem;
+    height: 6.6rem;
+    border-radius: 50%;
+    object-fit: contain;
+
+    @include hh-tablet-up {
+      width: 8.2rem;
+      height: 8.2rem;
+    }
+  }
+
+  &__copy {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing_0_7;
+  }
+
+  &__title {
+    font-size: var(--hh-font-size-subtitle);
+    font-weight: $font_semi_bold;
+  }
+
+  &__text {
+    font-size: var(--hh-font-size-body);
+  }
+}

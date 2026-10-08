@@ -1,0 +1,65 @@
+@import "../../styles/helpers";
+
+.hh-select-field {
+  position: relative;
+
+  &__trigger {
+    @include hh-reset-button;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "label chevron"
+      "value chevron";
+    align-items: center;
+    row-gap: $spacing_0_4;
+    column-gap: $spacing_1_2;
+    width: 100%;
+    padding: $spacing_1_2;
+    border: 1px solid transparent;
+    border-radius: var(--hh-radius-md);
+    background: var(--hh-color-surface);
+    text-align: start;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+    &:hover {
+      border-color: var(--hh-color-border);
+    }
+
+    &:focus-visible {
+      outline: 0.3rem solid var(--hh-color-focus);
+      outline-offset: 0.2rem;
+    }
+
+    .hh-select-field--open & {
+      border-color: var(--hh-color-primary);
+      box-shadow: 0 0 0 0.1rem var(--hh-color-primary);
+    }
+  }
+
+  &__label {
+    grid-area: label;
+    font-size: var(--hh-font-size-caption);
+    color: var(--hh-color-text);
+  }
+
+  &__value {
+    grid-area: value;
+    overflow: hidden;
+    font-size: var(--hh-font-size-body);
+    font-weight: $font_semi_bold;
+    color: var(--hh-color-text);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__chevron {
+    grid-area: chevron;
+    align-self: end;
+    color: var(--hh-color-primary);
+    transition: transform 0.2s ease;
+
+    .hh-select-field--open & {
+      transform: rotate(180deg);
+    }
+  }
+}

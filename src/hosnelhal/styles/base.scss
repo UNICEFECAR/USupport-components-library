@@ -1,0 +1,85 @@
+@import "./helpers";
+
+// Resets inside :where() keep plain element specificity - they override the
+// global uSupport element styles but never out-rank HH component classes.
+:where(.hh, .hh *, .hh *::before, .hh *::after) {
+  box-sizing: border-box;
+}
+
+:where(.hh) :is(h1, h2, h3, h4, p, ul, ol, figure, blockquote) {
+  margin: 0;
+}
+
+:where(.hh) img {
+  max-width: 100%;
+  display: block;
+}
+
+:where(.hh) a {
+  color: inherit;
+  text-decoration: none;
+}
+
+// The global normalize adds a dotted outline to every focused link, which
+// stays after a mouse click. Keyboard focus keeps the hh-focus-ring outline.
+.hh :focus:not(:focus-visible) {
+  outline: none;
+}
+
+:where(.hh) :is(button, input, select, textarea) {
+  font-family: inherit;
+}
+
+.hh {
+  min-height: 100vh;
+  background: var(--hh-color-surface);
+  color: var(--hh-color-text);
+  font-family: var(--hh-font-family);
+  font-size: var(--hh-font-size-body);
+  line-height: 1.4;
+  text-align: start;
+
+  &[dir="rtl"] {
+    font-family: var(--hh-font-family-rtl, var(--hh-font-family));
+  }
+
+  // Page width and gutters
+  &__container {
+    width: 100%;
+    max-width: calc(var(--hh-page-max-width) + 2 * var(--hh-page-gutter));
+    margin-inline: auto;
+    padding-inline: var(--hh-page-gutter);
+  }
+
+  // Vertical rhythm between page sections
+  &__stack {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing_2_8;
+  }
+
+  &__skip-link {
+    position: absolute;
+    inset-inline-start: $spacing_1_6;
+    top: -10rem;
+    padding: $spacing_1_0 $spacing_1_6;
+    border-radius: var(--hh-radius-sm);
+    background: var(--hh-color-primary);
+    color: var(--hh-color-on-primary);
+    font-weight: $font_semi_bold;
+    z-index: $z_index_modal;
+
+    &:focus {
+      top: $spacing_1_6;
+    }
+  }
+
+  &__visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}

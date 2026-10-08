@@ -1,0 +1,48 @@
+@import "./helpers";
+
+// Hosn El Hal design tokens - from the "Content Hub Design" page in Figma.
+// Every HH component reads its colours, fonts and sizes from these.
+.hh {
+  // Colours
+  --hh-color-primary: #536622;
+  --hh-color-on-primary: #ffffff;
+  --hh-color-text: #252a20;
+  --hh-color-text-muted: #63675b;
+  --hh-color-surface: #ffffff;
+  --hh-color-surface-soft: #f5f5e9;
+  --hh-color-border: #e5e6df;
+  --hh-color-chip: #e3e6c8;
+  --hh-color-focus: #536622;
+
+  // Typography
+  --hh-font-family: "Inter", "IBM Plex Sans Arabic", sans-serif;
+  --hh-font-family-rtl: "IBM Plex Sans Arabic", "Inter", sans-serif;
+  --hh-font-size-caption: 1.2rem;
+  --hh-font-size-eyebrow: 1.3rem;
+  --hh-font-size-action: 1.4rem;
+  --hh-font-size-body: 1.5rem;
+  --hh-font-size-nav: 1.6rem;
+  --hh-font-size-lead: 1.7rem;
+  --hh-font-size-subtitle: 1.8rem;
+  --hh-font-size-card-title: 1.9rem;
+  --hh-font-size-section: 2.3rem;
+  --hh-font-size-heading: 2.8rem;
+  --hh-font-size-page: 3.2rem;
+  --hh-font-size-hero: 3.4rem;
+
+  // Shapes
+  --hh-radius-sm: 0.8rem;
+  --hh-radius-md: 0.9rem;
+  --hh-radius-input: 1.2rem;
+  --hh-radius-lg: 1.4rem;
+
+  // Layout
+  --hh-page-max-width: 134.4rem;
+  --hh-page-gutter: 2rem;
+  --hh-logo-height: 6.4rem;
+
+  @include hh-tablet-up {
+    --hh-page-gutter: 4.8rem;
+    --hh-logo-height: 8.2rem;
+  }
+}

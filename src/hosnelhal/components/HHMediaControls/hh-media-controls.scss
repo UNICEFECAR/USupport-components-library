@@ -1,0 +1,81 @@
+@import "../../styles/helpers";
+
+.hh-media-controls {
+  display: flex;
+  align-items: center;
+  gap: $spacing_1_2;
+  min-height: 6.2rem;
+  padding: $spacing_1_0 $spacing_1_6;
+  background: var(--hh-color-surface);
+  font-size: var(--hh-font-size-action);
+  color: var(--hh-color-text-muted);
+
+  &__button {
+    @include hh-reset-button;
+    @include hh-focus-ring;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 4rem;
+    height: 4rem;
+    border-radius: var(--hh-radius-sm);
+    color: var(--hh-color-primary);
+
+    &:hover {
+      background: var(--hh-color-surface-soft);
+    }
+  }
+
+  &__time {
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__seek {
+    flex: 1;
+    min-width: 6rem;
+    height: 0.6rem;
+    margin: 0;
+    appearance: none;
+    border-radius: 99rem;
+    background: linear-gradient(
+      to right,
+      var(--hh-color-primary) var(--hh-media-progress, 0%),
+      var(--hh-color-border) var(--hh-media-progress, 0%)
+    );
+    cursor: pointer;
+
+    [dir="rtl"] & {
+      transform: scaleX(-1);
+    }
+
+    &:disabled {
+      cursor: default;
+      opacity: 0.6;
+    }
+
+    &:focus-visible {
+      outline: 0.3rem solid var(--hh-color-focus);
+      outline-offset: 0.4rem;
+    }
+
+    &::-webkit-slider-thumb {
+      appearance: none;
+      width: 1.6rem;
+      height: 1.6rem;
+      border: 0.3rem solid var(--hh-color-surface);
+      border-radius: 50%;
+      background: var(--hh-color-primary);
+      box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 0.2);
+    }
+
+    &::-moz-range-thumb {
+      width: 1.2rem;
+      height: 1.2rem;
+      border: 0.3rem solid var(--hh-color-surface);
+      border-radius: 50%;
+      background: var(--hh-color-primary);
+    }
+  }
+}

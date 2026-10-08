@@ -1,0 +1,17 @@
+@import "../../styles/helpers";
+
+.hh-split-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing_2_4;
+  align-items: start;
+
+  @include hh-desktop-up {
+    grid-template-columns: minmax(0, 88fr) minmax(0, 43.2fr);
+    gap: $spacing_3_2;
+  }
+
+  &__main {
+    min-width: 0;
+  }
+}

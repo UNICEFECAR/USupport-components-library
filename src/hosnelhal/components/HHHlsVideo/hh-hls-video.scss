@@ -1,0 +1,31 @@
+@import "../../styles/helpers";
+
+.hh-hls-video {
+  display: flex;
+  flex-direction: column;
+  background: var(--hh-color-surface);
+
+  &__video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 880 / 493;
+    background: #000;
+    object-fit: contain;
+    cursor: pointer;
+  }
+
+  &__controls {
+    border-top: 1px solid var(--hh-color-border);
+  }
+
+  &:fullscreen {
+    justify-content: center;
+    background: #000;
+
+    .hh-hls-video__video {
+      flex: 1;
+      aspect-ratio: auto;
+      min-height: 0;
+    }
+  }
+}

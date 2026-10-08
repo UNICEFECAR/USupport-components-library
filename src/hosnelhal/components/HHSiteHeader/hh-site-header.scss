@@ -1,0 +1,86 @@
+@import "../../styles/helpers";
+
+.hh-site-header {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing_1_6;
+  padding-block: $spacing_2_0;
+
+  @include hh-tablet-up {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: $spacing_4_8 0;
+  }
+
+  &__logos {
+    display: flex;
+    align-items: center;
+    gap: $spacing_1_6;
+  }
+
+  // Mobile: links and language dropdown share a row; on very narrow screens
+  // the dropdown wraps onto its own row at the end
+  &__nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: $spacing_0_8;
+
+    @include hh-tablet-up {
+      flex-wrap: nowrap;
+      gap: $spacing_3_4;
+    }
+
+    .hh-language-select {
+      margin-inline-start: auto;
+
+      @include hh-tablet-up {
+        margin-inline-start: 0;
+      }
+    }
+
+    .hh-language-select__trigger {
+      gap: $spacing_0_4;
+      padding-inline: $spacing_0_4;
+
+      @include hh-tablet-up {
+        gap: $spacing_0_6;
+        padding-inline: $spacing_1_0;
+      }
+    }
+  }
+
+  &__links {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: $spacing_0_8;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    @include hh-tablet-up {
+      flex-wrap: wrap;
+      gap: $spacing_3_4;
+    }
+  }
+
+  &__link {
+    @include hh-focus-ring;
+    font-size: var(--hh-font-size-eyebrow);
+    font-weight: $font_semi_bold;
+    color: var(--hh-color-text);
+    white-space: nowrap;
+    border-radius: var(--hh-radius-sm);
+
+    @include hh-tablet-up {
+      font-size: var(--hh-font-size-nav);
+    }
+
+    &:hover,
+    &--active {
+      color: var(--hh-color-primary);
+    }
+  }
+}

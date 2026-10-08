@@ -1,0 +1,46 @@
+@import "../../styles/helpers";
+
+.hh-skeleton {
+  display: block;
+  background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.6) 50%,
+      transparent 100%
+    )
+    var(--hh-color-surface-soft) no-repeat;
+  background-size: 50% 100%;
+  animation: hh-skeleton-shimmer 1.4s ease-in-out infinite;
+
+  &--sm {
+    border-radius: var(--hh-radius-sm);
+  }
+
+  &--lg {
+    border-radius: var(--hh-radius-lg);
+  }
+
+  [dir="rtl"] & {
+    animation-direction: reverse;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+.hh-skeleton-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+@keyframes hh-skeleton-shimmer {
+  from {
+    background-position: -50% 0;
+  }
+
+  to {
+    background-position: 150% 0;
+  }
+}

@@ -1,0 +1,32 @@
+@import "../../styles/helpers";
+
+.hh-download-panel {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing_1_2;
+  padding: $spacing_2_4;
+  border-radius: var(--hh-radius-lg);
+  background: var(--hh-color-surface-soft);
+
+  &__title {
+    font-size: var(--hh-font-size-section);
+    font-weight: $font_semi_bold;
+  }
+
+  &__text {
+    font-size: var(--hh-font-size-lead);
+    color: var(--hh-color-text-muted);
+  }
+
+  &__options {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing_1_0;
+    margin-top: $spacing_0_4;
+  }
+
+  &__note {
+    font-size: var(--hh-font-size-eyebrow);
+    color: var(--hh-color-text-muted);
+  }
+}

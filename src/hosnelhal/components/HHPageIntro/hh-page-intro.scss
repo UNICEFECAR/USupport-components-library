@@ -1,0 +1,58 @@
+@import "../../styles/helpers";
+
+.hh-page-intro {
+  &__copy {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing_1_0;
+    max-width: 76rem;
+  }
+
+  &__eyebrow {
+    font-size: var(--hh-font-size-eyebrow);
+    font-weight: $font_bold;
+    color: var(--hh-color-primary);
+  }
+
+  &__title {
+    font-weight: $font_semi_bold;
+    line-height: 1.3;
+  }
+
+  &__lead {
+    font-size: var(--hh-font-size-lead);
+    line-height: 1.5;
+    color: var(--hh-color-text-muted);
+  }
+
+  &--hero {
+    padding: $spacing_2_8;
+    border-radius: var(--hh-radius-lg);
+    background: var(--hh-color-surface-soft);
+
+    .hh-page-intro__title {
+      font-size: var(--hh-font-size-section);
+      color: var(--hh-color-text);
+
+      @include hh-tablet-up {
+        font-size: var(--hh-font-size-hero);
+      }
+    }
+  }
+
+  &--page {
+    .hh-page-intro__copy {
+      max-width: 110rem;
+    }
+
+    .hh-page-intro__title {
+      font-size: var(--hh-font-size-section);
+      line-height: 1.45;
+      color: var(--hh-color-primary);
+
+      @include hh-tablet-up {
+        font-size: var(--hh-font-size-page);
+      }
+    }
+  }
+}

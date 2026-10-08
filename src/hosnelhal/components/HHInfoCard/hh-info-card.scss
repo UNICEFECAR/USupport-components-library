@@ -1,0 +1,23 @@
+@import "../../styles/helpers";
+
+.hh-info-card {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing_1_0;
+  height: 100%;
+  padding: $spacing_2_4;
+  border: 1px solid var(--hh-color-border);
+  border-radius: var(--hh-radius-lg);
+  background: var(--hh-color-surface);
+
+  &__title {
+    font-size: var(--hh-font-size-subtitle);
+    font-weight: $font_semi_bold;
+  }
+
+  &__text {
+    font-size: var(--hh-font-size-body);
+    line-height: 1.5;
+    color: var(--hh-color-text-muted);
+  }
+}
