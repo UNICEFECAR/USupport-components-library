@@ -712,17 +712,26 @@ async function getHosnAssets({
     "pagination[limit]": limit,
   };
 
+  // Search and length are each an $or, so they are combined with $and
+  let group = 0;
   if (search) {
-    params["filters[$or][0][title][$containsi]"] = search;
-    params["filters[$or][1][description][$containsi]"] = search;
+    params[`filters[$and][${group}][$or][0][title][$containsi]`] = search;
+    params[`filters[$and][${group}][$or][1][description][$containsi]`] = search;
+    group += 1;
   }
   if (format) params["filters[format][$eq]"] = format;
   if (pillar) params["filters[pillar][key][$eq]"] = pillar;
-  if (minDuration !== undefined) {
-    params["filters[duration_minutes][$gte]"] = minDuration;
-  }
-  if (maxDuration !== undefined) {
-    params["filters[duration_minutes][$lt]"] = maxDuration;
+
+  // The length filter is in minutes, the length is stored in seconds on the
+  // video or audio. Cards show the rounded minutes, so the boundaries move
+  // half a minute down - a 4:52 asset shows "5 min" and is not "Under 5 min".
+  if (minDuration !== undefined || maxDuration !== undefined) {
+    const toSeconds = (minutes) => (minutes - 0.5) * 60;
+    ["video", "audio"].forEach((media, index) => {
+      const key = `filters[$and][${group}][$or][${index}][${media}][duration_seconds]`;
+      if (minDuration !== undefined) params[`${key}[$gte]`] = toSeconds(minDuration);
+      if (maxDuration !== undefined) params[`${key}[$lt]`] = toSeconds(maxDuration);
+    });
   }
 
   return http.get(hosnAssetsEndpoint, { params });
