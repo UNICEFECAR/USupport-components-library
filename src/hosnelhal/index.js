@@ -8,6 +8,7 @@ export * from "./components/HHAudioPlayer";
 export * from "./components/HHBackLink";
 export * from "./components/HHButton";
 export * from "./components/HHCardGrid";
+export * from "./components/HHCookieBanner";
 export * from "./components/HHDownloadPanel";
 export * from "./components/HHGuidanceItem";
 export * from "./components/HHIcon";
