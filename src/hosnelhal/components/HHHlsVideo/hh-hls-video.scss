@@ -8,9 +8,11 @@
   &__video {
     display: block;
     width: 100%;
-    aspect-ratio: 880 / 493;
-    background: #000;
-    object-fit: contain;
+    // Follow the media's own ratio once known (the poster's while it shows);
+    // 880 / 493 only reserves the space before it loads. Cover trims the
+    // pixel or two a video and its poster differ by instead of showing bars.
+    aspect-ratio: auto 880 / 493;
+    object-fit: cover;
     cursor: pointer;
   }
 
@@ -25,6 +27,8 @@
     .hh-hls-video__video {
       flex: 1;
       aspect-ratio: auto;
+      background: #000;
+      object-fit: contain;
       min-height: 0;
     }
   }

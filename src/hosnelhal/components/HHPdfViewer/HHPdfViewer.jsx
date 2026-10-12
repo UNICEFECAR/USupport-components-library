@@ -17,7 +17,7 @@ const MAX_ZOOM = 2;
  * HHPdfViewer
  *
  * Renders a PDF page by page in the browser with page navigation, zoom,
- * print and download
+ * print and - when a download label is given - download
  *
  * @return {jsx}
  */
@@ -108,9 +108,11 @@ export const HHPdfViewer = ({
           <HHButton variant="text" href={url} target="_blank" rel="noopener noreferrer">
             {labels.print}
           </HHButton>
-          <HHButton variant="text" href={url} download onClick={onDownload}>
-            {labels.download}
-          </HHButton>
+          {labels.download && (
+            <HHButton variant="text" href={url} download onClick={onDownload}>
+              {labels.download}
+            </HHButton>
+          )}
         </div>
       </div>
 
@@ -145,7 +147,7 @@ HHPdfViewer.propTypes = {
     zoomIn: PropTypes.string.isRequired,
     zoomOut: PropTypes.string.isRequired,
     print: PropTypes.node.isRequired,
-    download: PropTypes.node.isRequired,
+    download: PropTypes.node,
   }).isRequired,
   onDownload: PropTypes.func,
   /** Page width at 100% zoom, in pixels (narrower screens fit the page) */

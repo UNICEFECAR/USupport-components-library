@@ -12,6 +12,11 @@
     height: calc(var(--hh-logo-height) * 0.7);
   }
 
+  // For artwork without built-in padding, e.g. the UNICEF wordmark
+  &--sm {
+    height: calc(var(--hh-logo-height) * 0.53);
+  }
+
   &__link {
     @include hh-focus-ring;
     display: inline-flex;

@@ -39,7 +39,7 @@ export const HHLogo = ({ src, alt, size = "lg", to, href, className }) => {
 HHLogo.propTypes = {
   src: PropTypes.string.isRequired,
   alt: PropTypes.string.isRequired,
-  size: PropTypes.oneOf(["lg", "md"]),
+  size: PropTypes.oneOf(["lg", "md", "sm"]),
   to: PropTypes.string,
   href: PropTypes.string,
   className: PropTypes.string,
