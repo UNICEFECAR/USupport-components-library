@@ -12,18 +12,19 @@
     padding: $spacing_0_8 $spacing_1_0;
     border: 1px solid transparent;
     border-radius: var(--hh-radius-sm);
+    background: var(--hh-color-chip);
     font-size: var(--hh-font-size-action);
     font-weight: $font_semi_bold;
     color: var(--hh-color-primary);
-    transition: background-color 0.15s ease, border-color 0.15s ease;
+    transition: background-color 0.15s ease, border-color 0.15s ease, filter 0.15s ease;
 
-    &:hover {
-      background: var(--hh-color-surface-soft);
+    &:hover,
+    .hh-language-select--open & {
+      filter: brightness(0.96);
     }
 
     .hh-language-select--open & {
       border-color: var(--hh-color-border);
-      background: var(--hh-color-surface-soft);
     }
   }
 

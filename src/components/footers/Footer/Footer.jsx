@@ -94,65 +94,37 @@ export const Footer = ({
     }/${localStorage.getItem("language")}${url}`;
   };
 
-  let list1 = [];
-  lists.list1.forEach((listItem) => {
-    list1.push({
-      value: (
-        <Link
-          to={getLink(listItem.url)}
-          rel="noopener noreferrer"
-          onClick={() => listItem.onClick?.()}
-        >
-          <Button
-            type="text"
-            size="lg"
-            label={listItem.name}
-            classes="footer__link-button"
-          />
-        </Link>
-      ),
-    });
-  });
+  const renderFooterItem = (listItem) => {
+    const label = (
+      <Button
+        type="text"
+        size="lg"
+        label={listItem.name}
+        classes="footer__link-button"
+        onClick={listItem.url ? undefined : () => listItem.onClick?.()}
+      />
+    );
 
-  let list2 = [];
-  lists.list2.forEach((listItem) => {
-    list2.push({
-      value: (
-        <Link
-          to={getLink(listItem.url)}
-          rel="noopener noreferrer"
-          onClick={() => listItem.onClick?.()}
-        >
-          <Button
-            type="text"
-            size="lg"
-            label={listItem.name}
-            classes="footer__link-button"
-          />
-        </Link>
-      ),
-    });
-  });
+    if (!listItem.url) {
+      return { value: label };
+    }
 
-  let list3 = [];
-  lists.list3.forEach((listItem) => {
-    list3.push({
+    return {
       value: (
         <Link
           to={getLink(listItem.url)}
           rel="noopener noreferrer"
           onClick={() => listItem.onClick?.()}
         >
-          <Button
-            type="text"
-            size="lg"
-            label={listItem.name}
-            classes="footer__link-button"
-          />
+          {label}
         </Link>
       ),
-    });
-  });
+    };
+  };
+
+  const list1 = lists.list1.map(renderFooterItem);
+  const list2 = lists.list2.map(renderFooterItem);
+  const list3 = lists.list3.map(renderFooterItem);
 
   const iconColor =
     theme === "light"

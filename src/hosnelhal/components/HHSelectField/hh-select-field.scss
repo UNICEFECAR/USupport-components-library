@@ -17,7 +17,7 @@
     padding: $spacing_1_2;
     border: 1px solid transparent;
     border-radius: var(--hh-radius-md);
-    background: var(--hh-color-surface);
+    background: var(--hh-color-page);
     text-align: start;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
 
@@ -39,7 +39,7 @@
   &__label {
     grid-area: label;
     font-size: var(--hh-font-size-caption);
-    color: var(--hh-color-text);
+    color: var(--hh-color-primary);
   }
 
   &__value {

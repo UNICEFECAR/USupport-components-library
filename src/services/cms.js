@@ -680,7 +680,6 @@ const HOSN_ASSET_POPULATE = {
   "populate[file_mobile]": "*",
   "populate[tags]": "*",
   "populate[pillar]": "*",
-  "populate[how_to_use]": "*",
 };
 
 /**

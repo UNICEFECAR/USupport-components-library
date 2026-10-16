@@ -34,3 +34,27 @@
   color: inherit;
   cursor: pointer;
 }
+
+// Paint a band across the viewport while the content stays in the page column.
+@mixin hh-band($color) {
+  position: relative;
+  background: $color;
+
+  &::before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 100cqi;
+    transform: translateX(-50%);
+    background: $color;
+    pointer-events: none;
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+}

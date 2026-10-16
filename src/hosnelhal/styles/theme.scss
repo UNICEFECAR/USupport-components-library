@@ -3,16 +3,33 @@
 // Hosn El Hal design tokens - from the "Content Hub Design" page in Figma.
 // Every HH component reads its colours, fonts and sizes from these.
 .hh {
-  // Colours
+  // Colours — Content Hub Design, updated schema
   --hh-color-primary: #536622;
+  --hh-color-accent: #7a8a4f;
   --hh-color-on-primary: #ffffff;
   --hh-color-text: #252a20;
+  --hh-color-text-nav: #3d3d2a;
   --hh-color-text-muted: #63675b;
-  --hh-color-surface: #ffffff;
-  --hh-color-surface-soft: #f5f5e9;
+  --hh-color-text-subtle: #7a7f60;
+  --hh-color-surface: #fafaf2;
+  --hh-color-surface-soft: #f1eedb;
+  --hh-color-page: #f7f4e8;
+  --hh-color-nav: #eef0dc;
   --hh-color-border: #e5e6df;
-  --hh-color-chip: #e3e6c8;
+  --hh-color-chip: #d6d9b8;
   --hh-color-focus: #536622;
+  --hh-color-hero: #6f7a3a;
+  --hh-color-hero-eyebrow: #c8d48a;
+  --hh-color-hero-text: #d8deb8;
+  --hh-color-on-hero: #ffffff;
+  --hh-color-sand-text: #f0d9c8;
+
+  // Pillar pastels (Resources category bands)
+  --hh-color-pillar-psychoeducation: #e2ebd6;
+  --hh-color-pillar-self-awareness: #f4ddd0;
+  --hh-color-pillar-realistic-self-care: #f3ecc6;
+  --hh-color-pillar-peer-support: #d6e5f0;
+  --hh-color-pillar-reconnecting-with-purpose: #e3d8eb;
 
   // Typography
   --hh-font-family: "Inter", "IBM Plex Sans Arabic", sans-serif;

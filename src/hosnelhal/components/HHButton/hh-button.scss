@@ -26,8 +26,8 @@
 
   &--soft {
     padding: $spacing_1_0;
-    background: var(--hh-color-chip);
-    color: var(--hh-color-primary);
+    background: var(--hh-color-accent);
+    color: var(--hh-color-on-primary);
 
     &:hover {
       filter: brightness(0.96);

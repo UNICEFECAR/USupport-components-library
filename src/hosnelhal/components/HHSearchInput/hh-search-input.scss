@@ -7,7 +7,7 @@
   padding-inline: $spacing_1_8;
   border: 1px solid var(--hh-color-border);
   border-radius: var(--hh-radius-input);
-  background: var(--hh-color-surface);
+  background: var(--hh-color-page);
 
   &:focus-within {
     outline: 0.3rem solid var(--hh-color-focus);
@@ -24,7 +24,7 @@
     color: var(--hh-color-text);
 
     &::placeholder {
-      color: var(--hh-color-text-muted);
+      color: var(--hh-color-text-subtle);
     }
 
     &:focus {

@@ -26,10 +26,20 @@ export const HHSiteFooter = ({ logoStart, logoEnd, text, links, linksLabel }) =>
         <nav aria-label={linksLabel}>
           <ul className="hh-site-footer__links">
             {links.map((link) => (
-              <li key={link.to}>
-                <HHLink to={link.to} className="hh-site-footer__link">
-                  {link.label}
-                </HHLink>
+              <li key={link.to || link.label}>
+                {link.onClick ? (
+                  <button
+                    type="button"
+                    className="hh-site-footer__link"
+                    onClick={link.onClick}
+                  >
+                    {link.label}
+                  </button>
+                ) : (
+                  <HHLink to={link.to} className="hh-site-footer__link">
+                    {link.label}
+                  </HHLink>
+                )}
               </li>
             ))}
           </ul>
@@ -44,7 +54,11 @@ HHSiteFooter.propTypes = {
   logoEnd: PropTypes.object,
   text: PropTypes.string,
   links: PropTypes.arrayOf(
-    PropTypes.shape({ to: PropTypes.string, label: PropTypes.string })
+    PropTypes.shape({
+      to: PropTypes.string,
+      label: PropTypes.string,
+      onClick: PropTypes.func,
+    })
   ),
   linksLabel: PropTypes.string,
 };

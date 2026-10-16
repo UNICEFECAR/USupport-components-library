@@ -3,12 +3,28 @@
 .hh-info-card {
   display: flex;
   flex-direction: column;
-  gap: $spacing_1_0;
+  align-items: flex-start;
+  gap: $spacing_1_2;
   height: 100%;
+
+  &__marker {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.6rem;
+    height: 3.6rem;
+    border-radius: 50%;
+    background: var(--hh-color-primary);
+    color: var(--hh-color-on-primary);
+    font-size: var(--hh-font-size-subtitle);
+    font-weight: $font_semi_bold;
+    line-height: 1;
+  }
 
   &__title {
     font-size: var(--hh-font-size-subtitle);
     font-weight: $font_semi_bold;
+    color: var(--hh-color-text);
   }
 
   &__text {

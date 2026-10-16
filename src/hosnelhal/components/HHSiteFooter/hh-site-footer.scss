@@ -1,6 +1,7 @@
 @import "../../styles/helpers";
 
 .hh-site-footer {
+  @include hh-band(var(--hh-color-surface-soft));
   display: flex;
   flex-direction: column;
   gap: $spacing_1_6;
@@ -37,8 +38,13 @@
   &__link {
     @include hh-focus-ring;
     font-size: var(--hh-font-size-caption);
+    font-family: inherit;
     color: var(--hh-color-text-muted);
     border-radius: var(--hh-radius-sm);
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
 
     &:hover {
       color: var(--hh-color-primary);

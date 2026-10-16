@@ -36,14 +36,36 @@
     color: var(--hh-color-text-muted);
   }
 
-  &--hero {
+  &--hero,
+  &--page {
+    position: relative;
+    overflow: hidden;
     padding: $spacing_2_8;
-    border-radius: var(--hh-radius-lg);
-    background: var(--hh-color-surface-soft);
+    border-radius: 2rem;
+    background: var(--hh-color-hero);
 
+    > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hh-page-intro__eyebrow {
+      color: var(--hh-color-hero-eyebrow);
+    }
+
+    .hh-page-intro__title,
+    .hh-page-intro__subtitle {
+      color: var(--hh-color-on-hero);
+    }
+
+    .hh-page-intro__lead {
+      color: var(--hh-color-hero-text);
+    }
+  }
+
+  &--hero {
     .hh-page-intro__title {
       font-size: var(--hh-font-size-section);
-      color: var(--hh-color-primary);
 
       @include hh-tablet-up {
         font-size: var(--hh-font-size-hero);
@@ -59,7 +81,6 @@
     .hh-page-intro__title {
       font-size: var(--hh-font-size-section);
       line-height: 1.45;
-      color: var(--hh-color-primary);
 
       @include hh-tablet-up {
         font-size: var(--hh-font-size-page);

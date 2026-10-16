@@ -31,8 +31,11 @@
 }
 
 .hh {
+  // Bands measure against this box. 100vw includes the scrollbar and was
+  // making those bands wider than the page.
+  container-type: inline-size;
   min-height: 100vh;
-  background: var(--hh-color-surface);
+  background: var(--hh-color-page);
   color: var(--hh-color-text);
   font-family: var(--hh-font-family);
   font-size: var(--hh-font-size-body);

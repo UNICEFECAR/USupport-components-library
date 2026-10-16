@@ -12,9 +12,12 @@ import "./hh-info-card.scss";
  *
  * @return {jsx}
  */
-export const HHInfoCard = ({ as: Tag = "h3", variant = "soft", title, children }) => {
+export const HHInfoCard = ({ as: Tag = "h3", variant = "soft", marker, title, children }) => {
   return (
     <HHPanel as="div" variant={variant} className="hh-info-card">
+      {marker != null && marker !== "" && (
+        <span className="hh-info-card__marker">{marker}</span>
+      )}
       <Tag className="hh-info-card__title">{title}</Tag>
       <div className="hh-info-card__text">{children}</div>
     </HHPanel>
@@ -24,6 +27,7 @@ export const HHInfoCard = ({ as: Tag = "h3", variant = "soft", title, children }
 HHInfoCard.propTypes = {
   as: PropTypes.elementType,
   variant: PropTypes.oneOf(["soft", "bordered"]),
+  marker: PropTypes.node,
   title: PropTypes.node.isRequired,
   children: PropTypes.node,
 };
