@@ -76,6 +76,7 @@ const countriesMap = {
   ro: "romania",
   am: "armenia",
   ps: "playandheal",
+  xh: "hosnelhal",
   cy: "cyprus",
 };
 

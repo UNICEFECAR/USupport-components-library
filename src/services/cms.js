@@ -15,6 +15,8 @@ const videosEndpoint = CMS_API_URL + "/videos";
 const podcastsEndpoint = CMS_API_URL + "/podcasts";
 const assessmentResultEndpoint = CMS_API_URL + "/assessment-results";
 const moodTrackerEndpoint = CMS_API_URL + "/mood-tracker-recomendations";
+const hosnAssetsEndpoint = CMS_API_URL + "/hosn-assets";
+const hosnPillarsEndpoint = CMS_API_URL + "/hosn-pillars";
 
 /**
  * generate a querry string from an object
@@ -646,6 +648,38 @@ async function getMoodTrackerRecommendations(moodType, locale) {
   return { data };
 }
 
+const HOSN_ASSET_POPULATE = {
+  "populate[cover_image]": "*",
+  "populate[pillar]": "*",
+};
+
+/**
+ * Hosn El Hal assets for country-admin read-only lists / stats joins
+ * @param {object} queryObj
+ * @param {string} [queryObj.locale="all"]
+ * @param {number} [queryObj.limit=200]
+ */
+async function getHosnAssets({ locale = "all", limit = 200 } = {}) {
+  return http.get(hosnAssetsEndpoint, {
+    params: {
+      locale,
+      ...HOSN_ASSET_POPULATE,
+      "sort[0]": "id:asc",
+      "pagination[limit]": limit,
+    },
+  });
+}
+
+async function getHosnPillars(locale = "en") {
+  return http.get(hosnPillarsEndpoint, {
+    params: {
+      locale,
+      "sort[0]": "order:asc",
+      "pagination[limit]": 100,
+    },
+  });
+}
+
 export default {
   getArticles,
   getArticleById,
@@ -680,4 +714,6 @@ export default {
   getRecommendedArticlesForCategory,
   getAssessmentResult,
   getMoodTrackerRecommendations,
+  getHosnAssets,
+  getHosnPillars,
 };

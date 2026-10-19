@@ -707,6 +707,13 @@ async function getHosnElHalVisits() {
   return response;
 }
 
+async function getHosnElHalEngagements() {
+  const response = await http.get(
+    `${API_ENDPOINT}/statistics/hosnelhal-engagements`
+  );
+  return response;
+}
+
 const exportedFunctions = {
   createAdmin,
   deleteArticle,
@@ -749,6 +756,7 @@ const exportedFunctions = {
   getProviderActivitiesById,
   getPlayAndHealVisits,
   getHosnElHalVisits,
+  getHosnElHalEngagements,
   getAllSponsorsData,
   getSponsorDataById,
   addSponsor,
