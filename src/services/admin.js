@@ -700,6 +700,13 @@ async function getPlayAndHealVisits() {
   return response;
 }
 
+async function getHosnElHalVisits() {
+  const response = await http.get(
+    `${API_ENDPOINT}/statistics/hosnelhal-visits`
+  );
+  return response;
+}
+
 const exportedFunctions = {
   createAdmin,
   deleteArticle,
@@ -741,6 +748,7 @@ const exportedFunctions = {
   getMoodTrackerReport,
   getProviderActivitiesById,
   getPlayAndHealVisits,
+  getHosnElHalVisits,
   getAllSponsorsData,
   getSponsorDataById,
   addSponsor,
