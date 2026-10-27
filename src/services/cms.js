@@ -657,17 +657,33 @@ const HOSN_ASSET_POPULATE = {
  * Hosn El Hal assets for country-admin read-only lists / stats joins
  * @param {object} queryObj
  * @param {string} [queryObj.locale="all"]
+ * @param {string} [queryObj.search]
+ * @param {string} [queryObj.format]
+ * @param {string} [queryObj.pillar]
  * @param {number} [queryObj.limit=200]
  */
-async function getHosnAssets({ locale = "all", limit = 200 } = {}) {
-  return http.get(hosnAssetsEndpoint, {
-    params: {
-      locale,
-      ...HOSN_ASSET_POPULATE,
-      "sort[0]": "id:asc",
-      "pagination[limit]": limit,
-    },
-  });
+async function getHosnAssets({
+  locale = "all",
+  search,
+  format,
+  pillar,
+  limit = 200,
+} = {}) {
+  const params = {
+    locale,
+    ...HOSN_ASSET_POPULATE,
+    "sort[0]": "id:asc",
+    "pagination[limit]": limit,
+  };
+
+  if (search) {
+    params["filters[$or][0][title][$containsi]"] = search;
+    params["filters[$or][1][description][$containsi]"] = search;
+  }
+  if (format) params["filters[format][$eq]"] = format;
+  if (pillar) params["filters[pillar][key][$eq]"] = pillar;
+
+  return http.get(hosnAssetsEndpoint, { params });
 }
 
 async function getHosnPillars(locale = "en") {

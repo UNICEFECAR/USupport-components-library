@@ -693,23 +693,26 @@ async function getBaselineAssessmentAnalysis(params = {}) {
   return response;
 }
 
-async function getPlayAndHealVisits() {
+async function getPlayAndHealVisits({ startDate, endDate } = {}) {
   const response = await http.get(
-    `${API_ENDPOINT}/statistics/playandheal-visits`
+    `${API_ENDPOINT}/statistics/playandheal-visits`,
+    { params: { startDate, endDate } }
   );
   return response;
 }
 
-async function getHosnElHalVisits() {
+async function getHosnElHalVisits({ startDate, endDate } = {}) {
   const response = await http.get(
-    `${API_ENDPOINT}/statistics/hosnelhal-visits`
+    `${API_ENDPOINT}/statistics/hosnelhal-visits`,
+    { params: { startDate, endDate } }
   );
   return response;
 }
 
-async function getHosnElHalEngagements() {
+async function getHosnElHalEngagements({ startDate, endDate } = {}) {
   const response = await http.get(
-    `${API_ENDPOINT}/statistics/hosnelhal-engagements`
+    `${API_ENDPOINT}/statistics/hosnelhal-engagements`,
+    { params: { startDate, endDate } }
   );
   return response;
 }
