@@ -714,7 +714,18 @@ async function getHosnElHalEngagements() {
   return response;
 }
 
+async function getConsultationProblemReports(filters) {
+  return http.get(`${API_ENDPOINT}/consultation-problem-reports`, {
+    params: filters,
+  });
+}
+async function getConsultationProblemReport(id) {
+  return http.get(`${API_ENDPOINT}/consultation-problem-reports/${id}`);
+}
+
 const exportedFunctions = {
+  getConsultationProblemReports,
+  getConsultationProblemReport,
   createAdmin,
   deleteArticle,
   deletePinnedArticle,
