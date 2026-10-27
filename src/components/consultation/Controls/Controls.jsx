@@ -4,6 +4,8 @@ import { Icon } from "../../icons/Icon";
 import { getConsultationEndDate, getTimeAsString } from "../../../utils";
 
 import "./controls.scss";
+import { useTranslation } from "react-i18next";
+import { ReportProblem } from "../ReportProblem/ReportProblem";
 
 const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
 
@@ -11,9 +13,21 @@ const TIME_LEFT_REFRESH_INTERVAL = 30000;
 
 // The device lists of the settings menu, with the Jitsi API method that switches each of them
 const DEVICE_KINDS = [
-  { kind: "videoInput", labelKey: "controls_camera", setter: "setVideoInputDevice" },
-  { kind: "audioInput", labelKey: "controls_microphone", setter: "setAudioInputDevice" },
-  { kind: "audioOutput", labelKey: "controls_speaker", setter: "setAudioOutputDevice" },
+  {
+    kind: "videoInput",
+    labelKey: "controls_camera",
+    setter: "setVideoInputDevice",
+  },
+  {
+    kind: "audioInput",
+    labelKey: "controls_microphone",
+    setter: "setAudioInputDevice",
+  },
+  {
+    kind: "audioOutput",
+    labelKey: "controls_speaker",
+    setter: "setAudioOutputDevice",
+  },
 ];
 
 /**
@@ -21,7 +35,8 @@ const DEVICE_KINDS = [
  * anything else is spelled out
  */
 const getCallStatus = (isInSession, connectionQuality) => {
-  if (!isInSession) return { modifier: "lost", labelKey: "call_status_waiting" };
+  if (!isInSession)
+    return { modifier: "lost", labelKey: "call_status_waiting" };
   if (connectionQuality === "lost") {
     return { modifier: "lost", labelKey: "call_status_disconnected" };
   }
@@ -58,14 +73,19 @@ export const Controls = ({
   getJitsiApi,
   // The side chat covers the right part of the screen, so the buttons are centered on the rest
   isSideChatOpen = false,
+  connectionState = "unknown",
+  cameraError = null,
+  microphoneError = null,
   t,
 }) => {
+  const { t: reportT } = useTranslation("consultationReport");
+  const [isReportOpen, setIsReportOpen] = useState(false);
   const timestamp =
     consultation.timestamp || new Date(consultation.time).getTime();
   const startDate = new Date(timestamp);
   const endDate = getConsultationEndDate(
     timestamp,
-    consultation.durationMinutes,
+    consultation.durationMinutes
   );
 
   const [now, setNow] = useState(Date.now());
@@ -82,7 +102,9 @@ export const Controls = ({
     now >= startDate.getTime() && now < endDate.getTime()
       ? Math.ceil((endDate.getTime() - now) / (60 * 1000))
       : null;
-  const timeRange = `${getTimeAsString(startDate)} - ${getTimeAsString(endDate)}`;
+  const timeRange = `${getTimeAsString(startDate)} - ${getTimeAsString(
+    endDate
+  )}`;
   const timeText =
     minutesLeft !== null
       ? `${timeRange} · ${t("minutes_left", { minutes: minutesLeft })}`
@@ -172,6 +194,32 @@ export const Controls = ({
 
   return (
     <div className="controls">
+      {isReportOpen && (
+        <ReportProblem
+          isOpen
+          onClose={() => setIsReportOpen(false)}
+          consultationId={
+            consultation.consultationId || consultation.consultation_id
+          }
+          getCallContext={() => ({
+            clientPresent: renderIn === "client" ? null : isInSession ?? null,
+            providerPresent:
+              renderIn === "provider" ? null : isInSession ?? null,
+            connectionState,
+            connectionQuality,
+            cameraOn: !!isCameraOn,
+            microphoneOn: !!isMicrophoneOn,
+            cameraDevice:
+              currentDevices?.videoInput?.label?.slice(0, 100) || null,
+            microphoneDevice:
+              currentDevices?.audioInput?.label?.slice(0, 100) || null,
+            speakerDevice:
+              currentDevices?.audioOutput?.label?.slice(0, 100) || null,
+            cameraError,
+            microphoneError,
+          })}
+        />
+      )}
       <div className="controls__info">
         <Avatar
           image={`${AMAZON_S3_BUCKET}/${consultation.image || "default"}`}
@@ -316,6 +364,31 @@ export const Controls = ({
               )}
             </div>
           )}
+          <button
+            type="button"
+            className="controls__button"
+            aria-label={reportT("title")}
+            title={reportT("title")}
+            onClick={() => {
+              setIsSettingsOpen(false);
+              setIsReportOpen(true);
+            }}
+          >
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#ffffff"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d="M5 21V4m0 0c4-4 10 4 14 0v10c-4 4-10-4-14 0" />
+            </svg>
+          </button>
           <button
             type="button"
             className="controls__leave"

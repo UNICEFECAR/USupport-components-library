@@ -460,7 +460,12 @@ async function joinConsultation(payload) {
   return response;
 }
 
+async function submitProblemReport(payload) {
+  return http.post(`${API_ENDPOINT}/consultation/problem-reports`, payload);
+}
+
 const exportedFunctions = {
+  submitProblemReport,
   addAvailableSlot,
   addTemplateAvailability,
   blockSlot,
