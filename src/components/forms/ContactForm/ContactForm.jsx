@@ -157,6 +157,7 @@ export const ContactForm = ({
       ref={formRef}
       className={["contact-form", classNames(classes)].join(" ")}
       onSubmit={handleSubmit}
+      data-clarity-mask="true"
     >
       {!hideHeading && (
         <h4 className="contact-form__heading">{t("contact_form_heading")}</h4>

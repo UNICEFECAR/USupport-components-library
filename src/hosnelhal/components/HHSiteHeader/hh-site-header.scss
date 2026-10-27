@@ -1,0 +1,101 @@
+@import "../../styles/helpers";
+
+.hh-site-header {
+  @include hh-band(var(--hh-color-surface-soft));
+  // Stays in the flow, so the gap under the bar does not change, and pins
+  // to the viewport once the page scrolls.
+  position: sticky;
+  top: 0;
+  z-index: $z_index_navbar;
+  // The band is painted by ::before, so the line has to sit on that box to
+  // run the full width of the bar.
+  &::before {
+    border-bottom: 1px solid var(--hh-color-border);
+  }
+  // Shorter than the shared logo size, so the bar isn't driven by the artwork.
+  --hh-logo-height: 5.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing_1_2;
+  padding-block: $spacing_1_2;
+
+  @include hh-tablet-up {
+    --hh-logo-height: 6.4rem;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__logos {
+    display: flex;
+    align-items: center;
+    gap: $spacing_1_6;
+  }
+
+  // Mobile: links and language dropdown share a row; on very narrow screens
+  // the dropdown wraps onto its own row at the end
+  &__nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: $spacing_0_8;
+
+    background: var(--hh-color-nav);
+
+    @include hh-tablet-up {
+      flex-wrap: nowrap;
+      gap: $spacing_3_4;
+    }
+
+    .hh-language-select {
+      margin-inline-start: auto;
+
+      @include hh-tablet-up {
+        margin-inline-start: 0;
+      }
+    }
+
+    .hh-language-select__trigger {
+      gap: $spacing_0_4;
+      padding-inline: $spacing_0_4;
+
+      @include hh-tablet-up {
+        gap: $spacing_0_6;
+        padding-inline: $spacing_1_0;
+      }
+    }
+  }
+
+  &__links {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: $spacing_0_8;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    @include hh-tablet-up {
+      flex-wrap: wrap;
+      gap: $spacing_3_4;
+    }
+  }
+
+  &__link {
+    @include hh-focus-ring;
+    font-size: var(--hh-font-size-eyebrow);
+    font-weight: $font_semi_bold;
+    color: var(--hh-color-text-nav);
+    white-space: nowrap;
+    border-radius: var(--hh-radius-sm);
+
+    @include hh-tablet-up {
+      font-size: var(--hh-font-size-nav);
+    }
+
+    &:hover,
+    &--active {
+      color: var(--hh-color-primary);
+    }
+  }
+}

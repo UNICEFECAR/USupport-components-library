@@ -1,0 +1,60 @@
+@import "../../styles/helpers";
+
+.hh-pdf-viewer {
+  &__toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: $spacing_1_2 $spacing_2_4;
+    padding: $spacing_1_2 $spacing_1_8;
+    border-bottom: 1px solid var(--hh-color-border);
+    font-size: var(--hh-font-size-action);
+    color: var(--hh-color-text-muted);
+  }
+
+  &__group {
+    display: flex;
+    align-items: center;
+    gap: $spacing_1_2;
+  }
+
+  &__control {
+    @include hh-reset-button;
+    @include hh-focus-ring;
+    min-width: 3.2rem;
+    min-height: 3.2rem;
+    border-radius: var(--hh-radius-sm);
+    font-size: var(--hh-font-size-subtitle);
+    color: var(--hh-color-primary);
+
+    &:hover:not(:disabled) {
+      background: var(--hh-color-surface-soft);
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+  }
+
+  &__preview {
+    display: flex;
+    justify-content: center;
+    min-height: 40rem;
+    max-height: 80vh;
+    overflow: auto;
+    padding: $spacing_2_8;
+    background: var(--hh-color-surface-soft);
+
+    canvas {
+      max-width: none;
+      box-shadow: 0 0.2rem 1.2rem rgba(0, 0, 0, 0.08);
+    }
+  }
+
+  &__status {
+    padding: $spacing_4_0;
+    color: var(--hh-color-text-muted);
+  }
+}

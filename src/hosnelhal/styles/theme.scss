@@ -1,0 +1,66 @@
+@import "./helpers";
+
+// Hosn El Hal design tokens - from the "Content Hub Design" page in Figma.
+// Every HH component reads its colours, fonts and sizes from these.
+.hh {
+  // Colours — Content Hub Design, updated schema
+  --hh-color-primary: #536622;
+  --hh-color-accent: #7a8a4f;
+  --hh-color-on-primary: #ffffff;
+  --hh-color-text: #252a20;
+  --hh-color-text-nav: #3d3d2a;
+  --hh-color-text-muted: #63675b;
+  --hh-color-text-subtle: #7a7f60;
+  --hh-color-surface: #fafaf2;
+  --hh-color-surface-soft: #f1eedb;
+  --hh-color-page: #f7f4e8;
+  --hh-color-nav: #eef0dc;
+  --hh-color-border: #e5e6df;
+  --hh-color-chip: #d6d9b8;
+  --hh-color-focus: #536622;
+  --hh-color-hero: #6f7a3a;
+  --hh-color-hero-eyebrow: #c8d48a;
+  --hh-color-hero-text: #d8deb8;
+  --hh-color-on-hero: #ffffff;
+  --hh-color-sand-text: #f0d9c8;
+
+  // Pillar pastels (Resources category bands)
+  --hh-color-pillar-psychoeducation: #e2ebd6;
+  --hh-color-pillar-self-awareness: #f4ddd0;
+  --hh-color-pillar-realistic-self-care: #f3ecc6;
+  --hh-color-pillar-peer-support: #d6e5f0;
+  --hh-color-pillar-reconnecting-with-purpose: #e3d8eb;
+
+  // Typography
+  --hh-font-family: "Inter", "IBM Plex Sans Arabic", sans-serif;
+  --hh-font-family-rtl: "IBM Plex Sans Arabic", "Inter", sans-serif;
+  --hh-font-size-caption: 1.2rem;
+  --hh-font-size-eyebrow: 1.3rem;
+  --hh-font-size-action: 1.4rem;
+  --hh-font-size-body: 1.5rem;
+  --hh-font-size-nav: 1.6rem;
+  --hh-font-size-lead: 1.7rem;
+  --hh-font-size-subtitle: 1.8rem;
+  --hh-font-size-card-title: 1.9rem;
+  --hh-font-size-section: 2.3rem;
+  --hh-font-size-subheading: 2.6rem;
+  --hh-font-size-heading: 2.8rem;
+  --hh-font-size-page: 3.2rem;
+  --hh-font-size-hero: 3.4rem;
+
+  // Shapes
+  --hh-radius-sm: 0.8rem;
+  --hh-radius-md: 0.9rem;
+  --hh-radius-input: 1.2rem;
+  --hh-radius-lg: 1.4rem;
+
+  // Layout
+  --hh-page-max-width: 134.4rem;
+  --hh-page-gutter: 2rem;
+  --hh-logo-height: 6.4rem;
+
+  @include hh-tablet-up {
+    --hh-page-gutter: 4.8rem;
+    --hh-logo-height: 8.2rem;
+  }
+}

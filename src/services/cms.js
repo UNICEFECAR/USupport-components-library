@@ -15,6 +15,15 @@ const videosEndpoint = CMS_API_URL + "/videos";
 const podcastsEndpoint = CMS_API_URL + "/podcasts";
 const assessmentResultEndpoint = CMS_API_URL + "/assessment-results";
 const moodTrackerEndpoint = CMS_API_URL + "/mood-tracker-recomendations";
+const hosnAssetsEndpoint = CMS_API_URL + "/hosn-assets";
+const hosnPillarsEndpoint = CMS_API_URL + "/hosn-pillars";
+
+// Program scoped pages (one entry per program and locale, see cms/src/api/utils/program-scoped.js)
+const programPageEndpoints = {
+  "privacy-policy": policiesEndpoint,
+  "terms-of-use": termsOfUseEndpoint,
+  "cookie-policy": cookiePolicyEndpoint,
+};
 
 /**
  * generate a querry string from an object
@@ -646,7 +655,134 @@ async function getMoodTrackerRecommendations(moodType, locale) {
   return { data };
 }
 
+//--------------------- Programs ---------------------//;
+/**
+ * send request to get a legal page of a program (e.g. Hosn El Hal)
+ * @param {string} page - "privacy-policy" | "terms-of-use" | "cookie-policy"
+ * @param {string} locale - the locale for which to retrieve the page
+ * @param {string} program - the program e.g "hosnelhal"
+ * @param {string} platform - "website" | "client" | "provider"
+ * @returns {object} the page content
+ */
+async function getProgramPolicy(page, locale, program, platform = "website") {
+  return http.get(`${programPageEndpoints[page]}/find`, {
+    params: { locale, program, platform },
+  });
+}
+
+//--------------------- Hosn El Hal ---------------------//;
+const HOSN_ASSET_POPULATE = {
+  "populate[cover_image]": "*",
+  "populate[video]": "*",
+  "populate[audio]": "*",
+  "populate[file_web]": "*",
+  "populate[file_print]": "*",
+  "populate[file_mobile]": "*",
+  "populate[tags]": "*",
+  "populate[pillar]": "*",
+};
+
+/**
+ * send request to get Hosn El Hal assets
+ * @param {object} queryObj
+ * @param {string} queryObj.locale - the locale, "all" for every language
+ * @param {string} queryObj.search - substring to match in the title or description
+ * @param {string} queryObj.format - "video" | "audio" | "visual" | "worksheet"
+ * @param {string} queryObj.pillar - key of a hosn-pillar
+ * @param {number} queryObj.minDuration - minimum duration in minutes (inclusive)
+ * @param {number} queryObj.maxDuration - maximum duration in minutes (exclusive)
+ * @param {number} queryObj.limit - the number of assets to return
+ * @returns {object} the assets data
+ */
+async function getHosnAssets({
+  locale,
+  search,
+  format,
+  pillar,
+  minDuration,
+  maxDuration,
+  limit = 100,
+}) {
+  const params = {
+    locale,
+    ...HOSN_ASSET_POPULATE,
+    // In the order the assets were added
+    "sort[0]": "id:asc",
+    "pagination[limit]": limit,
+  };
+
+  // Search and length are each an $or, so they are combined with $and
+  let group = 0;
+  if (search) {
+    params[`filters[$and][${group}][$or][0][title][$containsi]`] = search;
+    params[`filters[$and][${group}][$or][1][description][$containsi]`] = search;
+    group += 1;
+  }
+  if (format) params["filters[format][$eq]"] = format;
+  if (pillar) params["filters[pillar][key][$eq]"] = pillar;
+
+  // The length filter is in minutes, the length is stored in seconds on the
+  // video or audio. Cards show the rounded minutes, so the boundaries move
+  // half a minute down - a 4:52 asset shows "5 min" and is not "Under 5 min".
+  if (minDuration !== undefined || maxDuration !== undefined) {
+    const toSeconds = (minutes) => (minutes - 0.5) * 60;
+    ["video", "audio"].forEach((media, index) => {
+      const key = `filters[$and][${group}][$or][${index}][${media}][duration_seconds]`;
+      if (minDuration !== undefined) params[`${key}[$gte]`] = toSeconds(minDuration);
+      if (maxDuration !== undefined) params[`${key}[$lt]`] = toSeconds(maxDuration);
+    });
+  }
+
+  return http.get(hosnAssetsEndpoint, { params });
+}
+
+/**
+ * send request to get a Hosn El Hal asset
+ * @param {number} id - the id of the asset
+ * @returns {object} the asset data
+ */
+async function getHosnAssetById(id) {
+  return http.get(`${hosnAssetsEndpoint}/${id}`, {
+    params: HOSN_ASSET_POPULATE,
+  });
+}
+
+/**
+ * send request to get the ids of all localizations of an asset
+ * @param {number} id - the id of the asset
+ * @returns {object} e.g {"en": 12, "ar": 17}
+ */
+async function getHosnAssetLocales(id) {
+  return http.get(`${hosnAssetsEndpoint}/available-locales/${id}`);
+}
+
+/**
+ * send request to get the Hosn El Hal pillars (the topics of the assets)
+ * @param {string} locale - the locale for which to retrieve the pillars
+ * @returns {object} the pillars data, in pillar order
+ */
+async function getHosnPillars(locale) {
+  return http.get(hosnPillarsEndpoint, {
+    params: { locale, "sort[0]": "order:asc", "pagination[limit]": 100 },
+  });
+}
+
+async function addHosnAssetViewCount(id) {
+  return http.put(`${hosnAssetsEndpoint}/addViewCount/${id}`);
+}
+
+async function addHosnAssetDownloadCount(id) {
+  return http.put(`${hosnAssetsEndpoint}/addDownloadCount/${id}`);
+}
+
 export default {
+  getProgramPolicy,
+  getHosnAssets,
+  getHosnAssetById,
+  getHosnAssetLocales,
+  getHosnPillars,
+  addHosnAssetViewCount,
+  addHosnAssetDownloadCount,
   getArticles,
   getArticleById,
   getArticleLocales,

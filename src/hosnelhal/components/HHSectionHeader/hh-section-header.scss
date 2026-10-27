@@ -1,0 +1,26 @@
+@import "../../styles/helpers";
+
+.hh-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing_1_6;
+
+  &__title {
+    font-size: var(--hh-font-size-section);
+    font-weight: $font_semi_bold;
+  }
+
+  &__action {
+    @include hh-focus-ring;
+    flex-shrink: 0;
+    font-size: var(--hh-font-size-body);
+    font-weight: $font_semi_bold;
+    color: var(--hh-color-primary);
+    border-radius: var(--hh-radius-sm);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

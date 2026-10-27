@@ -1,0 +1,19 @@
+@import "../../styles/helpers";
+
+.hh-panel {
+  border-radius: var(--hh-radius-lg);
+  padding: $spacing_1_8;
+
+  @include hh-tablet-up {
+    padding: $spacing_2_4;
+  }
+
+  &--soft {
+    background: var(--hh-color-surface-soft);
+  }
+
+  &--bordered {
+    background: var(--hh-color-surface);
+    border: 1px solid var(--hh-color-border);
+  }
+}

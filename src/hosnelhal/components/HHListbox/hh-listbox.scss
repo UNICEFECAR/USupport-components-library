@@ -1,0 +1,74 @@
+@import "../../styles/helpers";
+
+.hh-listbox {
+  position: absolute;
+  top: calc(100% + #{$spacing_0_6});
+  z-index: $z_index_backdrop;
+  max-height: 28rem;
+  overflow-y: auto;
+  margin: 0;
+  padding: $spacing_0_6;
+  list-style: none;
+  border: 1px solid var(--hh-color-border);
+  border-radius: var(--hh-radius-md);
+  background: var(--hh-color-surface);
+  box-shadow: 0 1.2rem 3.2rem rgba(37, 42, 32, 0.12),
+    0 0.2rem 0.6rem rgba(37, 42, 32, 0.06);
+  animation: hh-listbox-in 0.14s ease-out;
+
+  &[hidden] {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+
+  &--stretch {
+    inset-inline: 0;
+  }
+
+  &--end {
+    inset-inline-end: 0;
+    min-width: 16rem;
+  }
+
+  &__option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $spacing_1_2;
+    padding: $spacing_1_0 $spacing_1_2;
+    border-radius: var(--hh-radius-sm);
+    font-size: var(--hh-font-size-body);
+    font-weight: $font_regular;
+    color: var(--hh-color-text);
+    white-space: nowrap;
+    cursor: pointer;
+
+    &--active {
+      background: var(--hh-color-surface-soft);
+    }
+
+    &--selected {
+      font-weight: $font_semi_bold;
+      color: var(--hh-color-primary);
+    }
+  }
+
+  &__check {
+    flex-shrink: 0;
+  }
+}
+
+@keyframes hh-listbox-in {
+  from {
+    opacity: 0;
+    transform: translateY(-0.4rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

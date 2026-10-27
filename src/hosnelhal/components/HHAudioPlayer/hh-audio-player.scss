@@ -1,0 +1,47 @@
+@import "../../styles/helpers";
+
+.hh-audio-player {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing_2_4;
+  padding: $spacing_2_8;
+
+  @include hh-tablet-up {
+    flex-direction: row;
+    align-items: center;
+    gap: $spacing_4_0;
+  }
+
+  &__cover {
+    width: 100%;
+    max-width: 25rem;
+    aspect-ratio: 25 / 22;
+    border-radius: var(--hh-radius-lg);
+    object-fit: cover;
+  }
+
+  &__playback {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $spacing_2_0;
+    min-width: 0;
+  }
+
+  &__title {
+    font-size: var(--hh-font-size-heading);
+    font-weight: $font_semi_bold;
+    line-height: 1.4;
+  }
+
+  &__play {
+    min-width: 17rem;
+  }
+
+  &__controls {
+    width: 100%;
+    min-height: 0;
+    padding: 0;
+  }
+}

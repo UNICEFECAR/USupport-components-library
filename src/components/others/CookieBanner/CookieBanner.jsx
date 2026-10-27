@@ -20,7 +20,6 @@ export const CookieBanner = ({
   cookieState,
   setCookieState,
 }) => {
-  const IS_PS = localStorage.getItem("country") === "PS";
   const [acceptAllCookies, setAcceptAllCookies] = useState(true);
   const [acceptOnlyNecessaryCookies, setAcceptOnlyNecessaryCookies] =
     useState(false);
@@ -65,6 +64,7 @@ export const CookieBanner = ({
     localStorage.setItem("hasHandledCookies", 1);
     setCookieState({
       ...cookieState,
+      hasAcceptedCookies: false,
       hasAcceptedAllCookies: false,
       hasAcceptedNecessaryCookies: false,
       hasHandledCookies: true,
@@ -72,7 +72,7 @@ export const CookieBanner = ({
     });
   };
 
-  if (!cookieState.isBannerOpen || IS_PS) return null;
+  if (!cookieState.isBannerOpen) return null;
 
   return (
     <Box liquidGlass classes="cookie-banner">
