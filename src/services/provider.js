@@ -530,7 +530,8 @@ async function joinConsultation(payload) {
 }
 
 async function submitProblemReport(payload) {
-  return http.post(`${API_ENDPOINT}/consultation/problem-reports`, payload);
+  const response = await http.post(`${API_ENDPOINT}/consultation/problem-reports`, payload);
+  return response;
 }
 
 const exportedFunctions = {

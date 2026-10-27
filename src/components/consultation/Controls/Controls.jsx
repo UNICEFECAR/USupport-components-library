@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
+import PropTypes from "prop-types";
 import { Avatar } from "../../avatars/Avatar/Avatar";
 import { Icon } from "../../icons/Icon";
 import { getConsultationEndDate, getTimeAsString } from "../../../utils";
 
 import "./controls.scss";
-import { useTranslation } from "react-i18next";
-import { ReportProblem } from "../ReportProblem/ReportProblem";
 
 const AMAZON_S3_BUCKET = `${import.meta.env.VITE_AMAZON_S3_BUCKET}`;
 
@@ -73,26 +72,22 @@ export const Controls = ({
   getJitsiApi,
   // The side chat covers the right part of the screen, so the buttons are centered on the rest
   isSideChatOpen = false,
-  connectionState = "unknown",
-  cameraError = null,
-  microphoneError = null,
+  onReportProblem,
   t,
 }) => {
-  const { t: reportT } = useTranslation("consultationReport");
-  const [isReportOpen, setIsReportOpen] = useState(false);
   const timestamp =
     consultation.timestamp || new Date(consultation.time).getTime();
   const startDate = new Date(timestamp);
   const endDate = getConsultationEndDate(
     timestamp,
-    consultation.durationMinutes
+    consultation.durationMinutes,
   );
 
   const [now, setNow] = useState(Date.now());
   useEffect(() => {
     const interval = setInterval(
       () => setNow(Date.now()),
-      TIME_LEFT_REFRESH_INTERVAL
+      TIME_LEFT_REFRESH_INTERVAL,
     );
     return () => clearInterval(interval);
   }, []);
@@ -103,7 +98,7 @@ export const Controls = ({
       ? Math.ceil((endDate.getTime() - now) / (60 * 1000))
       : null;
   const timeRange = `${getTimeAsString(startDate)} - ${getTimeAsString(
-    endDate
+    endDate,
   )}`;
   const timeText =
     minutesLeft !== null
@@ -116,7 +111,7 @@ export const Controls = ({
     if (isRoomConnecting) return;
     handleSendMessage(
       `${renderIn}_microphone_${isMicrophoneOn ? "off" : "on"}`,
-      "system"
+      "system",
     );
     toggleMicrophone();
   };
@@ -125,7 +120,7 @@ export const Controls = ({
     if (isRoomConnecting) return;
     handleSendMessage(
       `${renderIn}_camera_${isCameraOn ? "off" : "on"}`,
-      "system"
+      "system",
     );
     toggleCamera();
   };
@@ -194,32 +189,6 @@ export const Controls = ({
 
   return (
     <div className="controls">
-      {isReportOpen && (
-        <ReportProblem
-          isOpen
-          onClose={() => setIsReportOpen(false)}
-          consultationId={
-            consultation.consultationId || consultation.consultation_id
-          }
-          getCallContext={() => ({
-            clientPresent: renderIn === "client" ? null : isInSession ?? null,
-            providerPresent:
-              renderIn === "provider" ? null : isInSession ?? null,
-            connectionState,
-            connectionQuality,
-            cameraOn: !!isCameraOn,
-            microphoneOn: !!isMicrophoneOn,
-            cameraDevice:
-              currentDevices?.videoInput?.label?.slice(0, 100) || null,
-            microphoneDevice:
-              currentDevices?.audioInput?.label?.slice(0, 100) || null,
-            speakerDevice:
-              currentDevices?.audioOutput?.label?.slice(0, 100) || null,
-            cameraError,
-            microphoneError,
-          })}
-        />
-      )}
       <div className="controls__info">
         <Avatar
           image={`${AMAZON_S3_BUCKET}/${consultation.image || "default"}`}
@@ -351,7 +320,7 @@ export const Controls = ({
                           ))}
                         </select>
                       </label>
-                    ) : null
+                    ) : null,
                   )}
                   <button
                     type="button"
@@ -364,31 +333,20 @@ export const Controls = ({
               )}
             </div>
           )}
-          <button
-            type="button"
-            className="controls__button"
-            aria-label={reportT("title")}
-            title={reportT("title")}
-            onClick={() => {
-              setIsSettingsOpen(false);
-              setIsReportOpen(true);
-            }}
-          >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#ffffff"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-              focusable="false"
+          {onReportProblem && (
+            <button
+              type="button"
+              className="controls__button"
+              aria-label={t("controls_report_problem")}
+              title={t("controls_report_problem")}
+              onClick={() => {
+                setIsSettingsOpen(false);
+                onReportProblem();
+              }}
             >
-              <path d="M5 21V4m0 0c4-4 10 4 14 0v10c-4 4-10-4-14 0" />
-            </svg>
-          </button>
+              <Icon name="flag" size="md" color="#ffffff" />
+            </button>
+          )}
           <button
             type="button"
             className="controls__leave"
@@ -411,4 +369,33 @@ Controls.propTypes = {
 Controls.defaultProps = {
   // Add defaultProps here
   leaveConsultation: () => {},
+};
+
+Controls.propTypes = {
+  consultation: PropTypes.shape({
+    timestamp: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    time: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    durationMinutes: PropTypes.number,
+    image: PropTypes.string,
+    clientName: PropTypes.string,
+    providerName: PropTypes.string,
+    sponsorName: PropTypes.string,
+  }).isRequired,
+  toggleCamera: PropTypes.func,
+  toggleMicrophone: PropTypes.func,
+  toggleChat: PropTypes.func,
+  leaveConsultation: PropTypes.func,
+  handleSendMessage: PropTypes.func,
+  isCameraOn: PropTypes.bool,
+  isMicrophoneOn: PropTypes.bool,
+  renderIn: PropTypes.oneOf(["client", "provider"]),
+  isRoomConnecting: PropTypes.bool,
+  hasUnreadMessages: PropTypes.bool,
+  isInSession: PropTypes.bool,
+  connectionQuality: PropTypes.oneOf(["good", "poor", "lost"]),
+  isHidden: PropTypes.bool,
+  getJitsiApi: PropTypes.func,
+  isSideChatOpen: PropTypes.bool,
+  onReportProblem: PropTypes.func,
+  t: PropTypes.func.isRequired,
 };
