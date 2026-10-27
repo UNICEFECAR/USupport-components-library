@@ -14,6 +14,7 @@ export * from "./AccessToken";
 export * from "./ProfilePicturePreview";
 export * from "./ClientHistory";
 export * from "./SecurityCheckReport";
+export * from "./ReportDetailCard";
 export * from "./CardPartner";
 export * from "./MoodTrackDetails";
 export * from "./Answer";

@@ -1,0 +1,34 @@
+@import "../../../styles/theme";
+
+.report-detail-card {
+  margin: $spacing_1_6 0;
+  padding: $spacing_2_4;
+  text-align: left;
+
+  &__title {
+    margin: 0 0 $spacing_2_0;
+  }
+
+  &__fields {
+    row-gap: $spacing_1_6;
+  }
+
+  &__field {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  &__identifier {
+    direction: ltr;
+    unicode-bidi: isolate;
+    word-break: break-all;
+  }
+
+  &__body {
+    margin-top: $spacing_1_6;
+  }
+
+  &__note {
+    margin-top: $spacing_1_6;
+  }
+}

@@ -64,15 +64,17 @@ export const ReportCollapsible = ({
   componentId = "",
   children,
   canCollapse = true,
+  defaultOpen = false,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(defaultOpen || !canCollapse);
   const { width } = useWindowDimensions();
   const [isContentMenuOpen, setIsContentMenuOpen] = useState(false);
+  const showContent = !canCollapse || isOpen;
 
   return (
     <Box
       classes={`report-collapsible ${
-        isOpen ? "report-collapsible--open" : ""
+        showContent ? "report-collapsible--open" : ""
       } ${!canCollapse ? "report-collapsible--no-pointer" : ""}`}
       boxShadow={2}
       borderSize="sm"
@@ -140,26 +142,34 @@ export const ReportCollapsible = ({
           </div>
         ) : null}
       </Grid>
-      {isOpen && (
+      {showContent && (contentHeading || contentText || children) && (
         <Grid classes="report-collapsible__content-grid">
-          <GridItem md={8} lg={12}>
-            <div className="report-collapsible__content-heading-container">
-              <h4 className="report-collapsible__content-grid__heading">
-                {contentHeading}
-              </h4>
-              {contentMenuOptions && (
-                <Icon
-                  name="three-dots-vertical"
-                  color={"#20809E"}
-                  onClick={() => setIsContentMenuOpen(!isContentMenuOpen)}
-                  classes="report-collapsible__content-heading-container__three-dots"
-                />
-              )}
-            </div>
-          </GridItem>
-          <GridItem md={8} lg={12}>
-            <p className="text">{contentText}</p>
-          </GridItem>
+          {(contentHeading || contentMenuOptions) && (
+            <GridItem md={8} lg={12}>
+              <div className="report-collapsible__content-heading-container">
+                {contentHeading ? (
+                  <h4 className="report-collapsible__content-grid__heading">
+                    {contentHeading}
+                  </h4>
+                ) : (
+                  <span />
+                )}
+                {contentMenuOptions && (
+                  <Icon
+                    name="three-dots-vertical"
+                    color={"#20809E"}
+                    onClick={() => setIsContentMenuOpen(!isContentMenuOpen)}
+                    classes="report-collapsible__content-heading-container__three-dots"
+                  />
+                )}
+              </div>
+            </GridItem>
+          )}
+          {contentText ? (
+            <GridItem md={8} lg={12}>
+              <p className="text">{contentText}</p>
+            </GridItem>
+          ) : null}
           {children && (
             <GridItem md={8} lg={12}>
               {children}
@@ -194,13 +204,12 @@ ReportCollapsible.propTypes = {
   /**
    * The heading of the collapsible part of the component
    */
-  contentHeading: PropTypes.oneOfType([PropTypes.string, PropTypes.node])
-    .isRequired,
+  contentHeading: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
 
   /**
    * Content displayed in the collapsible part of the component
    */
-  contentText: PropTypes.string.isRequired,
+  contentText: PropTypes.string,
 
   /**
    * Optional menu options for the content section
@@ -227,4 +236,9 @@ ReportCollapsible.propTypes = {
    * Whether the collapsible can be toggled open/closed
    */
   canCollapse: PropTypes.bool,
+
+  /**
+   * Whether the collapsible content is open by default
+   */
+  defaultOpen: PropTypes.bool,
 };
