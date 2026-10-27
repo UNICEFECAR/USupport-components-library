@@ -715,12 +715,14 @@ async function getHosnElHalEngagements() {
 }
 
 async function getConsultationProblemReports(filters) {
-  return http.get(`${API_ENDPOINT}/consultation-problem-reports`, {
+  const response = await http.get(`${API_ENDPOINT}/consultation-problem-reports`, {
     params: filters,
   });
+  return response;
 }
-async function getConsultationProblemReport(id) {
-  return http.get(`${API_ENDPOINT}/consultation-problem-reports/${id}`);
+async function getConsultationProblemReport(reportId) {
+  const response = await http.get(`${API_ENDPOINT}/consultation-problem-reports/${reportId}`);
+  return response;
 }
 
 const exportedFunctions = {
