@@ -717,6 +717,14 @@ async function getHosnElHalEngagements({ startDate, endDate } = {}) {
   return response;
 }
 
+async function getHosnElHalFeedback({ startDate, endDate } = {}) {
+  const response = await http.get(
+    `${API_ENDPOINT}/statistics/hosnelhal-feedback`,
+    { params: { startDate, endDate } }
+  );
+  return response;
+}
+
 async function getConsultationProblemReports(filters) {
   const response = await http.get(`${API_ENDPOINT}/statistics/consultation-problem-reports`, {
     params: filters,
@@ -773,6 +781,7 @@ const exportedFunctions = {
   getPlayAndHealVisits,
   getHosnElHalVisits,
   getHosnElHalEngagements,
+  getHosnElHalFeedback,
   getAllSponsorsData,
   getSponsorDataById,
   addSponsor,
