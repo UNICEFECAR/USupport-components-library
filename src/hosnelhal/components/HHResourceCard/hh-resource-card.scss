@@ -8,23 +8,57 @@
   border: 1px solid var(--hh-color-border);
   border-radius: var(--hh-radius-lg);
   background: var(--hh-color-surface);
+  box-shadow: 0 0.2rem 1.2rem rgba(37, 42, 32, 0.05);
 
   &__media {
     position: relative;
-    display: block;
     aspect-ratio: 318 / 224;
     overflow: hidden;
     background: var(--hh-color-surface-soft);
+  }
 
-    // Out of the flow so tall covers (PDF pages) can't stretch the box;
-    // cropped from the top, where their title is
-    img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: top;
+  // Out of the flow so tall covers (PDF pages) can't stretch the box;
+  // cropped from the top, where their title is
+  &__image img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  // Format and length sit on the bottom of the image
+  &__meta {
+    position: absolute;
+    inset-inline: $spacing_1_0;
+    bottom: $spacing_1_0;
+    display: flex;
+    justify-content: space-between;
+    gap: $spacing_0_8;
+    pointer-events: none;
+  }
+
+  &__chip {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing_0_4;
+    padding: $spacing_0_4 $spacing_1_0;
+    border-radius: 999px;
+    background: var(--hh-color-surface);
+    font-size: var(--hh-font-size-caption);
+    font-weight: $font_semi_bold;
+    line-height: 1.4;
+    color: var(--hh-color-text);
+    box-shadow: 0 0.1rem 0.4rem rgba(37, 42, 32, 0.12);
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    color: var(--hh-color-text-muted);
+
+    &--video {
+      color: var(--hh-color-video);
     }
   }
 
@@ -34,19 +68,6 @@
     flex-direction: column;
     gap: $spacing_1_2;
     padding: $spacing_1_8;
-  }
-
-  &__meta {
-    display: flex;
-    justify-content: space-between;
-    gap: $spacing_0_8;
-    font-size: var(--hh-font-size-caption);
-    color: var(--hh-color-text-subtle);
-  }
-
-  &__label {
-    font-weight: $font_semi_bold;
-    color: var(--hh-color-primary);
   }
 
   &__title {
@@ -77,5 +98,9 @@
     justify-content: space-between;
     gap: $spacing_1_2;
     margin-top: $spacing_0_4;
+  }
+
+  &__open.hh-button--text {
+    color: var(--hh-color-warm-link);
   }
 }

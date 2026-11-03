@@ -339,6 +339,14 @@
     width: 98%;
   }
 
+  &--full-description &__description {
+    height: auto;
+    display: block;
+    -webkit-line-clamp: unset;
+    -webkit-box-orient: unset;
+    overflow: visible;
+  }
+
   &__read-more-button {
     &.btn--text.btn--green {
       color: #6989a4;
@@ -543,6 +551,11 @@
         margin-bottom: $spacing_1_6;
         -webkit-line-clamp: 1;
       }
+
+      &.card-media--full-description .card-media__description {
+        height: auto;
+        -webkit-line-clamp: unset;
+      }
     }
 
     &.card-media--lg {
@@ -615,6 +628,11 @@
         margin-bottom: $spacing_2_4;
         display: -webkit-box;
         -webkit-line-clamp: 3;
+      }
+
+      &.card-media--full-description .card-media__description {
+        display: block;
+        -webkit-line-clamp: unset;
       }
     }
   }

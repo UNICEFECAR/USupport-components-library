@@ -37,6 +37,7 @@ export const HHSiteFooter = ({
   links,
   linksLabel,
   action,
+  secondaryAction,
   copyright,
 }) => {
   return (
@@ -97,6 +98,16 @@ export const HHSiteFooter = ({
               >
                 {action.label}
               </HHButton>
+              {secondaryAction && (
+                <HHButton
+                  variant="outline"
+                  className="hh-site-footer__cta"
+                  onClick={secondaryAction.onClick}
+                  {...secondaryAction.buttonProps}
+                >
+                  {secondaryAction.label}
+                </HHButton>
+              )}
             </div>
           )}
         </div>
@@ -126,6 +137,12 @@ HHSiteFooter.propTypes = {
     label: PropTypes.node.isRequired,
     title: PropTypes.node,
     description: PropTypes.node,
+  }),
+  /** Button under the action, e.g. to open the feedback card */
+  secondaryAction: PropTypes.shape({
+    label: PropTypes.node.isRequired,
+    onClick: PropTypes.func.isRequired,
+    buttonProps: PropTypes.object,
   }),
   copyright: PropTypes.string,
 };

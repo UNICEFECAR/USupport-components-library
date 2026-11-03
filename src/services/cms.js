@@ -691,6 +691,7 @@ const HOSN_ASSET_POPULATE = {
  * @param {string} queryObj.pillar - key of a hosn-pillar
  * @param {number} queryObj.minDuration - minimum duration in minutes (inclusive)
  * @param {number} queryObj.maxDuration - maximum duration in minutes (exclusive)
+ * @param {number[]} queryObj.ids - only these assets (returned in id order)
  * @param {number} queryObj.limit - the number of assets to return
  * @returns {object} the assets data
  */
@@ -701,6 +702,7 @@ async function getHosnAssets({
   pillar,
   minDuration,
   maxDuration,
+  ids,
   limit = 100,
 }) {
   const params = {
@@ -720,6 +722,9 @@ async function getHosnAssets({
   }
   if (format) params["filters[format][$eq]"] = format;
   if (pillar) params["filters[pillar][key][$eq]"] = pillar;
+  ids?.forEach((id, index) => {
+    params[`filters[id][$in][${index}]`] = id;
+  });
 
   // The length filter is in minutes, the length is stored in seconds on the
   // video or audio. Cards show the rounded minutes, so the boundaries move
