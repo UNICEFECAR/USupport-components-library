@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Modal } from "../../modals/Modal";
 import { VideoPlayer } from "../VideoPlayer";
@@ -8,24 +9,26 @@ import { useGetTutorial } from "./useGetTutorial";
 import "./tutorial-video.scss";
 
 /**
- * CMS-backed tutorial help. Only tutorialKey and language are required.
+ * CMS-backed tutorial help. The host supplies its QueryClient explicitly.
  * Labels live in blocks.tutorial-video, with a generic label for new keys.
  * Remount the content when its identity changes so an open video cannot
  * carry over to another tutorial, platform, or language.
  */
-export const TutorialVideo = ({ tutorialKey, language, platform = "client", ...props }) => {
+export const TutorialVideo = ({ tutorialKey, language, queryClient, platform = "client", ...props }) => {
   // Follow the apps' country-based feature gates. Keep this outside the
   // content component so other countries do not mount the CMS query at all.
   if (localStorage.getItem("country") !== "AM") return null;
 
   return (
-    <TutorialVideoContent
-      key={JSON.stringify([platform, tutorialKey, language])}
-      tutorialKey={tutorialKey}
-      language={language}
-      platform={platform}
-      {...props}
-    />
+    <QueryClientProvider client={queryClient}>
+      <TutorialVideoContent
+        key={JSON.stringify([platform, tutorialKey, language])}
+        tutorialKey={tutorialKey}
+        language={language}
+        platform={platform}
+        {...props}
+      />
+    </QueryClientProvider>
   );
 };
 
@@ -105,5 +108,8 @@ const tutorialVideoPropTypes = {
   onClose: PropTypes.func,
 };
 
-TutorialVideo.propTypes = tutorialVideoPropTypes;
+TutorialVideo.propTypes = {
+  ...tutorialVideoPropTypes,
+  queryClient: PropTypes.object.isRequired,
+};
 TutorialVideoContent.propTypes = tutorialVideoPropTypes;
