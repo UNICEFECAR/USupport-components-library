@@ -198,12 +198,15 @@ async function blockSlot(
   slotTimestamp,
   rescheduleCampaignSlot,
   durationMinutes,
+  rescheduledConsultationId,
 ) {
   const response = await http.post(`${API_ENDPOINT}/consultation/block`, {
     bookedFrom: providerId ? "web" : null,
     clientId,
     providerId,
     rescheduleCampaignSlot,
+    // The consultation being moved, so it does not block its own new time.
+    ...(rescheduledConsultationId ? { rescheduledConsultationId } : {}),
     // How long the client asked for. The backend re-checks that the provider's
     // own contiguous slots cover it, so this is a request, not an instruction.
     ...(durationMinutes ? { durationMinutes } : {}),
