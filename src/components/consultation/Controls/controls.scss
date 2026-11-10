@@ -269,3 +269,20 @@ $controls-small-screen: $screen-sm + 25px;
     }
   }
 }
+
+.controls__dock-area:has(.controls__tutorial-help:not(:empty)) {
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+}
+.controls__tutorial-help {
+  pointer-events: auto;
+  padding-inline: 1.6rem;
+  max-width: 100%;
+  .tutorial-video__trigger {
+    color: #e2d9ff;
+    text-align: center;
+  }
+}
+
+.controls__tutorial-help:empty { display: none; }

@@ -15,6 +15,7 @@ const videosEndpoint = CMS_API_URL + "/videos";
 const podcastsEndpoint = CMS_API_URL + "/podcasts";
 const assessmentResultEndpoint = CMS_API_URL + "/assessment-results";
 const moodTrackerEndpoint = CMS_API_URL + "/mood-tracker-recomendations";
+const tutorialsEndpoint = CMS_API_URL + "/tutorials";
 const hosnAssetsEndpoint = CMS_API_URL + "/hosn-assets";
 const hosnPillarsEndpoint = CMS_API_URL + "/hosn-pillars";
 
@@ -655,6 +656,14 @@ async function getMoodTrackerRecommendations(moodType, locale) {
   return { data };
 }
 
+/** Get a published tutorial for an exact platform, key and locale match. */
+async function getTutorial(key, locale, platform = "client") {
+  const { data } = await http.get(`${tutorialsEndpoint}/find`, {
+    params: { platform, key, locale },
+  });
+  return data;
+}
+
 //--------------------- Programs ---------------------//;
 /**
  * send request to get a legal page of a program (e.g. Hosn El Hal)
@@ -781,6 +790,7 @@ async function addHosnAssetDownloadCount(id) {
 }
 
 export default {
+  getTutorial,
   getProgramPolicy,
   getHosnAssets,
   getHosnAssetById,

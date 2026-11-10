@@ -1,0 +1,44 @@
+@import "../../../../styles";
+
+.tutorial-video {
+  &__trigger {
+    display: flex;
+    width: fit-content;
+    margin: 0;
+    align-items: center;
+    gap: 0.6rem;
+    min-height: 3.6rem;
+    padding: 0.6rem 0;
+    border: 0;
+    background: transparent;
+    font-family: inherit;
+    font-size: 1.3rem;
+    text-align: start;
+    cursor: pointer;
+    text-underline-offset: 0.4rem;
+    @include themify($themes, "color", "color_66768d_c1d7e0");
+
+    svg {
+      width: 1.5rem;
+      height: 1.5rem;
+      flex-shrink: 0;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.5;
+    }
+
+    &:hover,
+    &:focus-visible {
+      text-decoration: underline;
+      @include themify($themes, "color", "color_6a4ffb_8c90eb");
+    }
+
+    @media (pointer: coarse) {
+      min-height: 4.4rem;
+    }
+  }
+
+  &__modal {
+    max-width: 80rem;
+  }
+}

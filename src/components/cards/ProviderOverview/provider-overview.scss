@@ -160,7 +160,9 @@
     gap: $spacing_1_2;
 
     & .button {
-      flex: 1;
+      flex: 1 1 0;
+      // .button--md's 16.8rem minimum puts two buttons wider than the card.
+      min-width: 0;
     }
 
     @media screen and (min-width: $screen-lg) {

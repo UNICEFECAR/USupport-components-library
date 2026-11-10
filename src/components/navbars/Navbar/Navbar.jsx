@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState, useEffect, useContext, useRef } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 
@@ -84,6 +85,7 @@ export const Navbar = ({
   openRegistrationModal,
   renderNotificationsContent,
   profileOverviewPath,
+  accessibilityHelp,
 }) => {
   const { theme, setTheme } = useContext(ThemeContext);
 
@@ -611,6 +613,7 @@ export const Navbar = ({
           items.push({
             value: (
               <AccessibilityController
+                helpContent={accessibilityHelp}
                 classes={`nav__accessibility-controller ${
                   IS_RTL ? "nav__accessibility-controller--rtl" : ""
                 } nav__accessibility-controller--mobile`}
@@ -1210,6 +1213,7 @@ export const Navbar = ({
     if (shouldRender) {
       return (
         <AccessibilityController
+          helpContent={accessibilityHelp}
           classes={`nav__accessibility-controller ${
             IS_RTL ? "nav__accessibility-controller--rtl" : ""
           }`}
@@ -1719,3 +1723,5 @@ export const Navbar = ({
     </>
   );
 };
+
+Navbar.propTypes = { accessibilityHelp: PropTypes.node };
