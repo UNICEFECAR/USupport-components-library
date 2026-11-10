@@ -329,6 +329,13 @@
 
     @media screen and (min-width: $screen-lg) {
       flex-direction: row;
+      flex-wrap: wrap;
+
+      & > *,
+      & .button {
+        flex: 1 1 16.8rem;
+        max-width: 100%;
+      }
     }
 
     &__join-tooltip {
