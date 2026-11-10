@@ -9,14 +9,18 @@ import { useGetTutorial } from "./useGetTutorial";
 import "./tutorial-video.scss";
 
 /**
- * CMS-backed tutorial help. The host supplies its QueryClient explicitly.
+ * CMS-backed tutorial help. The host supplies its QueryClient and i18n instance.
  * Labels live in blocks.tutorial-video, with a generic label for new keys.
  * Remount the content when its identity changes so an open video cannot
  * carry over to another tutorial, platform, or language.
  */
-export const TutorialVideo = ({ tutorialKey, language, queryClient, platform = "client", ...props }) => {
-  // Follow the apps' country-based feature gates. Keep this outside the
-  // content component so other countries do not mount the CMS query at all.
+export const TutorialVideo = ({
+  tutorialKey,
+  language,
+  queryClient,
+  platform = "client",
+  ...props
+}) => {
   if (localStorage.getItem("country") !== "AM") return null;
 
   return (
@@ -32,25 +36,36 @@ export const TutorialVideo = ({ tutorialKey, language, queryClient, platform = "
   );
 };
 
-const TutorialVideoContent = ({ tutorialKey, language, platform, label, classes = "", onClose }) => {
-  const { t } = useTranslation("blocks", { keyPrefix: "tutorial-video" });
-  const buttonLabel = label || t(tutorialKey, {
-    lng: language,
-    defaultValue: t("label", { lng: language }),
-  });
+const TutorialVideoContent = ({
+  tutorialKey,
+  language,
+  platform,
+  i18n,
+  label,
+  classes = "",
+  onClose,
+}) => {
+  const { t } = useTranslation("blocks", { i18n, keyPrefix: "tutorial-video" });
+  const buttonLabel =
+    label ||
+    t(tutorialKey, {
+      lng: language,
+      defaultValue: t("label", { lng: language }),
+    });
   const closeLabel = t("close", { lng: language });
   const [isOpen, setIsOpen] = useState(false);
   const closeModal = () => {
     setIsOpen(false);
     onClose?.();
   };
-  const { data: tutorial, isError, isLoading } = useGetTutorial(
-    tutorialKey,
-    language,
-    platform
-  );
+  const {
+    data: tutorial,
+    isError,
+    isLoading,
+  } = useGetTutorial(tutorialKey, language, platform);
   const video = tutorial?.video;
-  const isPlayable = video?.hls_url && (!video.status || video.status === "ready");
+  const isPlayable =
+    video?.hls_url && (!video.status || video.status === "ready");
 
   if (
     isLoading ||
@@ -67,7 +82,9 @@ const TutorialVideoContent = ({ tutorialKey, language, platform, label, classes 
     <>
       <button
         type="button"
-        className={["tutorial-video__trigger", classes].filter(Boolean).join(" ")}
+        className={["tutorial-video__trigger", classes]
+          .filter(Boolean)
+          .join(" ")}
         aria-haspopup="dialog"
         onClick={() => setIsOpen(true)}
       >
@@ -102,6 +119,7 @@ const TutorialVideoContent = ({ tutorialKey, language, platform, label, classes 
 const tutorialVideoPropTypes = {
   tutorialKey: PropTypes.string.isRequired,
   language: PropTypes.string.isRequired,
+  i18n: PropTypes.object.isRequired,
   platform: PropTypes.oneOf(["client", "provider", "website"]),
   label: PropTypes.string,
   classes: PropTypes.string,
