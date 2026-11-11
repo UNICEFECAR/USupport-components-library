@@ -701,6 +701,13 @@ async function getPlayAndHealVisits({ startDate, endDate } = {}) {
   return response;
 }
 
+async function getPlayAndHealWaitlist() {
+  const response = await http.get(
+    `${API_ENDPOINT}/statistics/playandheal-waitlist`
+  );
+  return response;
+}
+
 async function getHosnElHalVisits({ startDate, endDate } = {}) {
   const response = await http.get(
     `${API_ENDPOINT}/statistics/hosnelhal-visits`,
@@ -779,6 +786,7 @@ const exportedFunctions = {
   getMoodTrackerReport,
   getProviderActivitiesById,
   getPlayAndHealVisits,
+  getPlayAndHealWaitlist,
   getHosnElHalVisits,
   getHosnElHalEngagements,
   getHosnElHalFeedback,
