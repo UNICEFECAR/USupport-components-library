@@ -339,8 +339,15 @@
     width: 98%;
   }
 
+  &--full-description &__content {
+    display: flex;
+    flex-direction: column;
+  }
+
   &--full-description &__description {
     height: auto;
+    flex-grow: 1;
+    flex-shrink: 0;
     display: block;
     -webkit-line-clamp: unset;
     -webkit-box-orient: unset;
