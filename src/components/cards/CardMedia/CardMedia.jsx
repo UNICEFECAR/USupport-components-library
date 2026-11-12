@@ -114,7 +114,6 @@ export const CardMedia = ({
       contentType === "podcast");
 
   const IS_PS = localStorage.getItem("country") === "PS";
-  const IS_PL = localStorage.getItem("country") === "PL";
   const IS_RTL = localStorage.getItem("language") === "ar";
 
   return (
@@ -124,7 +123,7 @@ export const CardMedia = ({
           isRead ? " card-media--read" : ""
         }`,
         IS_RTL ? " card-media--rtl" : "",
-        IS_PL ? " card-media--full-description" : "",
+        " card-media--full-description",
         classNames(classes),
       ].join("")}
       {...props}
