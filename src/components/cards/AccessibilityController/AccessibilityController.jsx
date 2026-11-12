@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useEffect, useContext, useState } from "react";
 
 import { ButtonOnlyIcon } from "../../buttons";
@@ -15,7 +16,7 @@ import "./accessibility-controller.scss";
  *
  * @return {jsx}
  */
-export const AccessibilityController = ({ classes, t }) => {
+export const AccessibilityController = ({ classes, t, helpContent }) => {
   const { theme, setTheme } = useContext(ThemeContext);
   const [fontSizeStep, setFontSizeStep] = useState(0);
   const { width } = useWindowDimensions();
@@ -96,6 +97,7 @@ export const AccessibilityController = ({ classes, t }) => {
   if (!isDesktop) {
     return (
       <Box classes={["accessibility-controller", classes]}>
+        {helpContent && <div className="accessibility-controller__help">{helpContent}</div>}
         <div className="accessibility-controller__toggle-container">
           <Icon
             name="accessibility"
@@ -150,6 +152,7 @@ export const AccessibilityController = ({ classes, t }) => {
 
   return (
     <Box classes={["accessibility-controller", classes]} liquidGlass={isDesktop}>
+        {helpContent && <div className="accessibility-controller__help">{helpContent}</div>}
       <div className="accessibility-controller__toggle-container">
         <Toggle
           isToggled={theme === "highContrast"}
@@ -193,3 +196,5 @@ export const AccessibilityController = ({ classes, t }) => {
     </Box>
   );
 };
+
+AccessibilityController.propTypes = { helpContent: PropTypes.node };

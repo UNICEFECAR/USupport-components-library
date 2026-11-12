@@ -103,3 +103,16 @@
     padding-top: $spacing_2_4;
   }
 }
+
+.accessibility-controller__help {
+  margin-bottom: 0.8rem;
+  @media screen and (min-width: 1050px) {
+    position: absolute;
+    bottom: calc(100% + 0.8rem);
+    right: 0;
+    width: max-content;
+    max-width: min(90vw, 38rem);
+  }
+}
+
+.accessibility-controller__help:empty { display: none; }

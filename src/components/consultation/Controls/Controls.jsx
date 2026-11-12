@@ -73,6 +73,7 @@ export const Controls = ({
   // The side chat covers the right part of the screen, so the buttons are centered on the rest
   isSideChatOpen = false,
   onReportProblem,
+  tutorialHelp,
   t,
 }) => {
   const timestamp =
@@ -357,6 +358,7 @@ export const Controls = ({
             <span>{t("controls_leave")}</span>
           </button>
         </div>
+        {tutorialHelp && <div className="controls__tutorial-help">{tutorialHelp}</div>}
       </div>
     </div>
   );
@@ -397,5 +399,6 @@ Controls.propTypes = {
   getJitsiApi: PropTypes.func,
   isSideChatOpen: PropTypes.bool,
   onReportProblem: PropTypes.func,
+  tutorialHelp: PropTypes.node,
   t: PropTypes.func.isRequired,
 };
