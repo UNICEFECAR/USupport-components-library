@@ -1,18 +1,22 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+
 import { Modal } from "../../modals/Modal";
 import { VideoPlayer } from "../VideoPlayer";
+
 import { useGetTutorial } from "./useGetTutorial";
 
 import "./tutorial-video.scss";
 
 /**
- * CMS-backed tutorial help. The host supplies its QueryClient and i18n instance.
- * Labels live in blocks.tutorial-video, with a generic label for new keys.
- * Remount the content when its identity changes so an open video cannot
- * carry over to another tutorial, platform, or language.
+ * TutorialVideo
+ *
+ * Shows a help button when a playable CMS tutorial is available.
+ *
+ * @return {jsx}
  */
 export const TutorialVideo = ({
   tutorialKey,
@@ -82,9 +86,7 @@ const TutorialVideoContent = ({
     <>
       <button
         type="button"
-        className={["tutorial-video__trigger", classes]
-          .filter(Boolean)
-          .join(" ")}
+        className={classNames("tutorial-video__trigger", classes)}
         aria-haspopup="dialog"
         onClick={() => setIsOpen(true)}
       >
@@ -99,7 +101,6 @@ const TutorialVideoContent = ({
           isOpen
           closeModal={closeModal}
           heading={buttonLabel}
-          classes="tutorial-video__modal"
           ctaLabel={closeLabel}
           ctaHandleClick={closeModal}
         >
