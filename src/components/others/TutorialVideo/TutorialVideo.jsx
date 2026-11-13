@@ -22,10 +22,11 @@ export const TutorialVideo = ({
   tutorialKey,
   language,
   queryClient,
+  isEnabled,
   platform = "client",
   ...props
 }) => {
-  if (localStorage.getItem("country") !== "AM") return null;
+  if (!isEnabled) return null;
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -129,6 +130,7 @@ const tutorialVideoPropTypes = {
 
 TutorialVideo.propTypes = {
   ...tutorialVideoPropTypes,
+  isEnabled: PropTypes.bool.isRequired,
   queryClient: PropTypes.object.isRequired,
 };
 TutorialVideoContent.propTypes = tutorialVideoPropTypes;
