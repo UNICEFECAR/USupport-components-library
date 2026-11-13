@@ -8,8 +8,8 @@ async function getClientData() {
 }
 
 async function updateClientHasSeenInitialGuide() {
-  const { data } = await http.patch(`${API_ENDPOINT}/initial-guide-seen`);
-  return data;
+  const response = await http.patch(`${API_ENDPOINT}/initial-guide-seen`);
+  return response;
 }
 
 async function getClientDataById(id) {
