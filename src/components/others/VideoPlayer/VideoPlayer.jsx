@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import propTypes from "prop-types";
 
 import ReactHlsPlayer from "react-hls-player";
@@ -7,6 +7,11 @@ import { Button } from "../../buttons/Button";
 import { Box } from "../../boxes/Box";
 
 import "./video-player.scss";
+
+const HLS_CONFIG = {
+  startLevel: -1,
+  capLevelOnFPSDrop: true,
+};
 
 /**
  * VideoPlayer
@@ -27,6 +32,7 @@ export const VideoPlayer = ({
   autoplay = false,
   hasCookies = true,
 }) => {
+  const playerRef = useRef(null);
   const IS_PS = localStorage.getItem("country") === "PS";
   // Check if user has accepted cookies required for video playback
   const DISPLAY_VIDEO =
@@ -120,15 +126,13 @@ export const VideoPlayer = ({
       return (
         <div className="video-player__box">
           <ReactHlsPlayer
+            playerRef={playerRef}
             src={url}
             autoPlay={true}
             controls={true}
             width="100%"
             height="auto"
-            hlsConfig={{
-              startLevel: -1,
-              capLevelOnFPSDrop: true,
-            }}
+            hlsConfig={HLS_CONFIG}
           />
         </div>
       );
