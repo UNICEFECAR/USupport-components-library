@@ -7,7 +7,7 @@ async function getClientData() {
   return response;
 }
 
-async function claimInitialGuide() {
+async function updateClientHasSeenInitialGuide() {
   const { data } = await http.patch(`${API_ENDPOINT}/initial-guide-seen`);
   return data;
 }
@@ -425,7 +425,7 @@ async function getOrganizationSpecializations() {
 const exportedFunctions = {
   addMoodTrack,
   getClientData,
-  claimInitialGuide,
+  updateClientHasSeenInitialGuide,
   getClientDataById,
   updateClientData,
   deleteClientProfile,
